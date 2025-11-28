@@ -3,45 +3,11 @@ import { Footer } from "@/components/Footer";
 import { DirectionalLink } from "@/components/DirectionalLink";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { usePageTheme } from "@/hooks/usePageTheme";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-
-const faqs = [
-  {
-    question: "How far in advance should we book?",
-    answer:
-      "For peak wedding season (June-September), I recommend booking 12-18 months in advance. For off-season dates, 6-9 months is typically sufficient. However, I occasionally have last-minute availability.",
-  },
-  {
-    question: "Can you learn a specific song for our ceremony?",
-    answer:
-      "Absolutely. I maintain an extensive repertoire and am happy to learn new pieces with sufficient notice (typically 4-6 weeks). Custom arrangements are available as an add-on service.",
-  },
-  {
-    question: "What happens if there's a technical issue?",
-    answer:
-      "I bring complete backup equipment to every event: backup keyboard, backup amplification, backup power. In 200+ ceremonies, I've never had an unrecoverable failure. Your music continues uninterrupted.",
-  },
-  {
-    question: "Do you coordinate with our officiant and wedding planner?",
-    answer:
-      "Yes. I typically connect with your officiant and coordinator 2-3 weeks before the ceremony to align on timing, cues, and any special requirements. Clear communication ensures seamless execution.",
-  },
-  {
-    question: "What's your attire?",
-    answer:
-      "I dress to complement your ceremony aesthetic—typically formal black attire (suit or tuxedo). If you have specific attire requests to match your wedding theme, I'm happy to accommodate.",
-  },
-  {
-    question: "What if it rains at our outdoor ceremony?",
-    answer:
-      "All my equipment is weather-protected and I bring covers for unexpected conditions. However, I recommend having a covered backup location for instrument safety and optimal sound quality.",
-  },
-];
+import { Button } from "@/components/ui/button";
+import { FAQChips } from "@/components/FAQChips";
+import { FAQTopTen } from "@/components/FAQTopTen";
+import { FAQPolicyDownload } from "@/components/FAQPolicyDownload";
+import { FAQTrustStack } from "@/components/FAQTrustStack";
 
 export default function FAQ() {
   usePageTheme();
@@ -50,6 +16,7 @@ export default function FAQ() {
     <div className="min-h-screen">
       <Navigation />
       
+      {/* Section 1 — Hero */}
       <section className="section-padding bg-background grain">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto animate-fade-in">
@@ -59,37 +26,54 @@ export default function FAQ() {
             ]} />
 
             <div className="text-center mb-16">
-              <div className="overline mb-2">FAQ</div>
-              <h1 className="mx-auto">Frequently Asked Questions</h1>
+              <div className="overline mb-2">Risk Elimination</div>
+              <h1 className="mx-auto">Clear Answers, Zero Guesswork</h1>
               <div className="chapter-rule mx-auto" />
               <p className="lead mx-auto text-muted-foreground mt-6">
-                Everything you need to know about ceremony piano services.
+                I architect ceremony audio the way engineers ship aircraft: documented, redundant, and verified. 
+                Here's how your risks disappear.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
 
-            <Accordion type="single" collapsible className="space-y-4">
-              {faqs.map((faq, index) => (
-                <AccordionItem
-                  key={index}
-                  value={`item-${index}`}
-                  className="bg-card border border-border rounded-lg px-6"
-                >
-                  <AccordionTrigger className="text-left font-semibold">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+      {/* Section 2 — Micro Q&A Chips */}
+      <FAQChips />
 
-            <div className="mt-16 text-center">
-              <p className="text-muted-foreground mb-4">Still have questions?</p>
-              <DirectionalLink to="/contact">
-                Get in touch
-              </DirectionalLink>
+      {/* Section 3 — Top 10 Ceremony Fears */}
+      <FAQTopTen />
+
+      {/* Section 4 — Policy Download */}
+      <FAQPolicyDownload />
+
+      {/* Section 5 — Psychological Trust Stack */}
+      <FAQTrustStack />
+
+      {/* Section 6 — Final CTA */}
+      <section className="section-padding bg-primary/5">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="mb-4">Every objection becomes a planning advantage.</h2>
+            <p className="lead text-muted-foreground mb-8">
+              Where others cross fingers, I print plans. Get clarity now—before the stress hits.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+              <Button size="lg" asChild>
+                <DirectionalLink to="/contact">
+                  Hold my date & get my ceremony-audio plan
+                </DirectionalLink>
+              </Button>
+              <Button variant="outline" size="lg" asChild>
+                <DirectionalLink to="/proof">
+                  Download a sample plan (SPL + cue sheet)
+                </DirectionalLink>
+              </Button>
             </div>
+            <p className="text-xs text-muted-foreground max-w-2xl mx-auto">
+              Buttons use clear, first-person labels. Download links include file type and size. 
+              All images include alt text describing function (not decoration).
+            </p>
           </div>
         </div>
       </section>
