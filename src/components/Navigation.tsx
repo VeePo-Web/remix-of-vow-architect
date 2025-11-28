@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { NavLink } from "@/components/NavLink";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const navItems = [
   { label: "Home", path: "/" },
@@ -42,7 +43,7 @@ export function Navigation() {
           </NavLink>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-4">
             {navItems.map((item) => (
               <NavLink
                 key={item.path}
@@ -53,6 +54,7 @@ export function Navigation() {
                 {item.label}
               </NavLink>
             ))}
+            <ThemeToggle />
             <Button size="sm" className="hover-scale">
               Check Availability
             </Button>
@@ -83,7 +85,10 @@ export function Navigation() {
                   {item.label}
                 </NavLink>
               ))}
-              <Button className="mt-2">Check Availability</Button>
+              <div className="flex items-center gap-3 mt-2">
+                <ThemeToggle />
+                <Button className="flex-1">Check Availability</Button>
+              </div>
             </div>
           </div>
         )}
