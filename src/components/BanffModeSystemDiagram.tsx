@@ -21,7 +21,7 @@ const systemParts = [
 
 export function BanffModeSystemDiagram() {
   return (
-    <section className="section-padding bg-muted/30">
+    <section className="section--surface section-padding">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto space-y-12">
           <div className="text-center">

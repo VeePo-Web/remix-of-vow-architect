@@ -16,7 +16,7 @@ const outcomes = [
 
 export function PainOutcomeFlip() {
   return (
-    <section className="py-24 px-4 bg-muted/30">
+    <section className="section--default py-24 px-4">
       <div className="container mx-auto max-w-6xl">
         <h2 className="h2 text-center mb-16 mx-auto">
           Why outdoor ceremonies fail—& how yours won't.

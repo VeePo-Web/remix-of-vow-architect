@@ -40,7 +40,7 @@ interface BanffVenueTableProps {
 
 export function BanffVenueTable({ id }: BanffVenueTableProps) {
   return (
-    <section id={id} className="section-padding bg-background">
+    <section id={id} className="section--surface section-padding">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto space-y-8">
           <div className="text-center">

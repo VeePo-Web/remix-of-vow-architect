@@ -61,7 +61,7 @@ const topTenFAQs = [
 
 export function FAQTopTen() {
   return (
-    <section className="section-padding bg-background grain">
+    <section className="section--default section-padding grain">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-center mb-12">Your concerns, solved before you ask.</h2>

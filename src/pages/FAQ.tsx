@@ -51,26 +51,26 @@ export default function FAQ() {
       <FAQTrustStack />
 
       {/* Section 6 — Final CTA */}
-      <section className="section-padding bg-primary/5">
+      <section className="section--dark section-padding">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="mb-4">Every objection becomes a planning advantage.</h2>
-            <p className="lead text-muted-foreground mb-8">
+            <h2 className="mb-4 text-ink-inverse">Every objection becomes a planning advantage.</h2>
+            <p className="lead text-ink-inverse/70 mb-8">
               Where others cross fingers, I print plans. Get clarity now—before the stress hits.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <Button size="lg" asChild>
+              <Button size="lg" variant="primary-dark" asChild>
                 <DirectionalLink to="/contact">
                   Hold my date & get my ceremony-audio plan
                 </DirectionalLink>
               </Button>
-              <Button variant="outline" size="lg" asChild>
+              <Button variant="ghost-dark" size="lg" asChild>
                 <DirectionalLink to="/proof">
                   Download a sample plan (SPL + cue sheet)
                 </DirectionalLink>
               </Button>
             </div>
-            <p className="text-xs text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-xs text-ink-inverse/70 max-w-2xl mx-auto">
               Buttons use clear, first-person labels. Download links include file type and size. 
               All images include alt text describing function (not decoration).
             </p>

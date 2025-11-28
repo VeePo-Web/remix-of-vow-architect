@@ -36,7 +36,7 @@ export function ResourcesLeadMagnet() {
 
   if (submitted) {
     return (
-      <div className="bg-card border border-border rounded-lg p-12 text-center animate-fade-in">
+      <div className="bg-surface border border-lines rounded-lg p-12 text-center animate-fade-in">
         <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-6">
           <CheckCircle2 className="w-8 h-8 text-accent" />
         </div>
@@ -56,7 +56,7 @@ export function ResourcesLeadMagnet() {
   return (
     <div className="grid lg:grid-cols-3 gap-8 items-start">
       <div className="lg:col-span-2">
-        <div className="bg-card border border-border rounded-lg p-8">
+        <div className="bg-surface border border-lines rounded-lg p-8">
           <h2 className="text-2xl font-semibold mb-3">Discover if your venue is audio-compliant</h2>
           <p className="text-muted-foreground mb-6">
             I'll send a sample SPL log and a one-page checklist you can use immediately.

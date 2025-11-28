@@ -72,7 +72,7 @@ export default function About() {
       </section>
 
       {/* Section 2: Origin Story */}
-      <section className="section-padding bg-muted/30">
+      <section className="section--surface section-padding">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto space-y-6">
             <h2 className="h2 text-center mx-auto">
@@ -84,7 +84,7 @@ export default function About() {
       </section>
 
       {/* Section 3: Evolution Timeline */}
-      <section className="section-padding bg-background grain">
+      <section className="section--default section-padding grain">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto space-y-8">
             <h2 className="h2 text-center mx-auto">
@@ -96,7 +96,7 @@ export default function About() {
       </section>
 
       {/* Section 4: Credentials & Approvals */}
-      <section className="section-padding bg-muted/30">
+      <section className="section--surface section-padding">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto space-y-8">
             <h2 className="h2 text-center mx-auto">
@@ -108,7 +108,7 @@ export default function About() {
       </section>
 
       {/* Section 5: Testimonials */}
-      <section className="section-padding bg-background grain">
+      <section className="section--accent-soft section-padding">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto space-y-8">
             <div className="text-center space-y-3">
@@ -143,7 +143,7 @@ export default function About() {
       </section>
 
       {/* Section 6: Ethos Values */}
-      <section className="section-padding bg-muted/30">
+      <section className="section--surface section-padding">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto space-y-8">
             <h2 className="h2 text-center mx-auto">
@@ -155,22 +155,22 @@ export default function About() {
       </section>
 
       {/* Section 7: Final CTA */}
-      <section className="section-padding bg-primary/5">
+      <section className="section--dark section-padding">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h2 className="h2 mx-auto">
+            <h2 className="h2 mx-auto text-ink-inverse">
               Want to see what my ceremony plan looks like?
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="outline" className="gap-2">
+              <Button size="lg" variant="ghost-dark" className="gap-2">
                 <FileDown size={18} />
                 Download a real SPL log + cue-sheet plan
               </Button>
-              <Button size="lg">
+              <Button size="lg" variant="primary-dark">
                 Hold my date & receive my custom plan in 24h
               </Button>
             </div>
-            <p className="caption text-muted-foreground">
+            <p className="caption text-ink-inverse/70">
               No pitches. Just clarity, professionalism, and relief.
             </p>
           </div>
