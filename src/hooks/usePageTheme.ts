@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useTheme } from "next-themes";
 
 const lifeThemeRoutes = ["/pricing", "/gallery", "/contact"];
-const deathThemeRoutes = ["/", "/about", "/blog", "/proof", "/faq", "/banff-mode", "/resources"];
+const deathThemeRoutes = ["/", "/about", "/blog", "/proof", "/faq", "/banff-mode", "/resources", "/privacy-policy", "/terms", "/cookie-policy", "/accessibility", "/email-preferences", "/unsubscribe-confirmed", "/sitemap", "/legal"];
 
 export function usePageTheme() {
   const location = useLocation();

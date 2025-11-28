@@ -7,20 +7,20 @@ export function Footer() {
       <div className="container mx-auto py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="col-span-1 md:col-span-2">
-            <h3 className="text-2xl font-bold mb-4">Parker Allard</h3>
+            <h3 className="text-2xl font-bold mb-4">Parker Wedding Piano</h3>
             <p className="text-muted-foreground mb-6 max-w-md">
               Ceremony piano, engineered for vows. Impeccable sound. Immaculate timing.
             </p>
             <div className="flex gap-4">
               <a
-                href="mailto:hello@parkerallard.com"
+                href="mailto:ParJorFraGaw@gmail.com"
                 className="text-muted-foreground hover:text-primary transition-colors p-3 -m-3 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
                 aria-label="Email"
               >
                 <Mail size={20} />
               </a>
               <a
-                href="tel:+1234567890"
+                href="tel:+14038308930"
                 className="text-muted-foreground hover:text-primary transition-colors p-3 -m-3 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
                 aria-label="Phone"
               >
@@ -104,18 +104,18 @@ export function Footer() {
               <li>Calgary Region</li>
               <li>
                 <a
-                  href="mailto:hello@parkerallard.com"
+                  href="mailto:ParJorFraGaw@gmail.com"
                   className="hover:text-primary transition-colors"
                 >
-                  hello@parkerallard.com
+                  ParJorFraGaw@gmail.com
                 </a>
               </li>
               <li>
                 <a
-                  href="tel:+1234567890"
+                  href="tel:+14038308930"
                   className="hover:text-primary transition-colors"
                 >
-                  (123) 456-7890
+                  +1-403-830-8930
                 </a>
               </li>
             </ul>
@@ -124,15 +124,21 @@ export function Footer() {
 
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Parker Allard. All rights reserved.
+            © {new Date().getFullYear()} Parker Wedding Piano. All rights reserved.
           </p>
-          <div className="flex gap-6 text-sm">
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-              Terms of Service
-            </a>
+          <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm">
+            <NavLink to="/privacy-policy" className="text-muted-foreground hover:text-primary transition-colors">
+              Privacy
+            </NavLink>
+            <NavLink to="/terms" className="text-muted-foreground hover:text-primary transition-colors">
+              Terms
+            </NavLink>
+            <NavLink to="/cookie-policy" className="text-muted-foreground hover:text-primary transition-colors">
+              Cookies
+            </NavLink>
+            <NavLink to="/accessibility" className="text-muted-foreground hover:text-primary transition-colors">
+              Accessibility
+            </NavLink>
           </div>
         </div>
       </div>
