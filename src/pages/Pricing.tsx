@@ -4,12 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { InclusionBlock } from "@/components/InclusionBlock";
 import { ComparisonTable } from "@/components/ComparisonTable";
-import { BanffModeBadge } from "@/components/BanffModeBadge";
-import { AvailabilityBadge } from "@/components/AvailabilityBadge";
+import { PricingJumpNav } from "@/components/PricingJumpNav";
+import { PricingAddOns } from "@/components/PricingAddOns";
+import { PricingTestimonials } from "@/components/PricingTestimonials";
+import { PricingFAQ } from "@/components/PricingFAQ";
+import { PricingSampleDownload } from "@/components/PricingSampleDownload";
 import { MostSelectedPill } from "@/components/MostSelectedPill";
 import { StarBar } from "@/components/StarBar";
-import { MicroTestimonial } from "@/components/MicroTestimonial";
-import { ValuePromiseBadge } from "@/components/ValuePromiseBadge";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Check } from "lucide-react";
 import { usePageTheme } from "@/hooks/usePageTheme";
@@ -21,6 +22,9 @@ export default function Pricing() {
     <div className="min-h-screen">
       <Navigation />
       
+      {/* Section 1: Jump Navigation */}
+      <PricingJumpNav />
+
       <section className="section-padding bg-background grain">
         <div className="container mx-auto px-4">
           <Breadcrumbs items={[
@@ -30,134 +34,126 @@ export default function Pricing() {
 
           <div className="text-center mb-12 animate-fade-in">
             <div className="overline mb-2">Assured Ceremony Audio™</div>
-            <div className="flex items-center justify-center gap-3 mb-2">
-              <h1 className="mx-auto">Packages</h1>
-              <BanffModeBadge />
-            </div>
+            <h1 className="mb-4">Pricing & Packages</h1>
             <div className="chapter-rule mx-auto" />
-            <p className="lead mx-auto text-muted-foreground mt-6">
-              Transparent pricing for ceremony perfection. No hidden fees. No surprises.
+            <p className="lead mx-auto text-muted-foreground mt-6 max-w-3xl">
+              I frame cost as clarity insurance—not entertainment—so your decision is fast, confident, and risk-free.
             </p>
-            <div className="mt-4">
-              <ValuePromiseBadge />
+          </div>
+
+          {/* Section 2: What Every Package Includes */}
+          <InclusionBlock />
+
+          {/* Section 3: Transparent Pricing Tiers */}
+          <div id="packages" className="max-w-6xl mx-auto mb-16 scroll-mt-24">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold mb-3">
+                Choose your coverage tier
+              </h2>
+              <p className="text-muted-foreground">
+                Every option includes full audio coverage—only your event length changes.
+              </p>
             </div>
-          </div>
 
-          <div className="mt-6 mb-4">
-            <InclusionBlock />
-          </div>
-
-          <div className="max-w-6xl mx-auto mb-24">
-            {/* 3-Tier Pricing Grid */}
             <div className="grid md:grid-cols-3 gap-6">
-              {/* Ceremony Package */}
+              {/* Ceremony Only — $650 */}
               <Card className="relative p-6 card-keyline bg-card border-border card-lift">
-                <AvailabilityBadge status="available" />
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-3 h-3 rounded-full bg-green-500" />
+                  <h3 className="text-2xl font-bold">Ceremony Only</h3>
+                </div>
                 
-                <div className="mb-4">
-                  <h3 className="text-2xl font-bold mb-2">Ceremony</h3>
-                  <div className="text-4xl font-bold text-primary mb-2">$650</div>
-                  <p className="text-sm text-muted-foreground">
-                    Essential ceremony coverage with professional sound.
-                  </p>
-                </div>
-
-                <ul className="space-y-2 mb-6 text-sm">
-                  {[
-                    "45 minutes of performance",
-                    "Pre-ceremony music (20 min)",
-                    "Processional & recessional",
-                    "Professional PA system",
-                    "Consultation & song selection",
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <Check size={16} className="text-accent mt-0.5 flex-shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="mb-3">
-                  <StarBar rating={5} />
-                </div>
-
-                <Button className="w-full hover-scale">Book Now</Button>
-
-                <div className="mt-6">
-                  <MicroTestimonial
-                    quote="Parker made our ceremony perfect—no stress, just music."
-                    author="Emma & James"
-                    venue="Fairmont Banff Springs"
-                  />
-                </div>
-              </Card>
-
-              {/* Ceremony + Cocktails Package */}
-              <Card className="relative p-6 card-keyline bg-card border-border card-lift">
-                <MostSelectedPill />
-                <AvailabilityBadge status="available" />
-                
-                <div className="mb-4">
-                  <h3 className="text-2xl font-bold mb-2">Ceremony + Cocktails</h3>
-                  <div className="text-4xl font-bold text-primary mb-2">$1,100</div>
-                  <p className="text-sm text-muted-foreground">
-                    Complete coverage with elegant cocktail hour music.
-                  </p>
-                </div>
-
-                <ul className="space-y-2 mb-6 text-sm">
-                  {[
-                    "Everything in Ceremony",
-                    "60 min cocktail hour",
-                    "Seamless transitions",
-                    "Extended sound coverage",
-                    "Dual setup coordination",
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <Check size={16} className="text-accent mt-0.5 flex-shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="mb-3">
-                  <StarBar rating={5} />
-                </div>
-
-                <Button className="w-full hover-scale">Book Now</Button>
-
-                <p className="text-xs italic text-muted-foreground mt-3">
-                  Upgradeable to Full Day until 2 weeks prior—no penalty.
+                <div className="text-4xl font-bold text-primary mb-2 price-numeral">$650</div>
+                <p className="text-sm text-muted-foreground mb-6">
+                  Best for 30–45 minute ceremonies. Includes everything above.
                 </p>
 
-                <div className="mt-6">
-                  <MicroTestimonial
-                    quote="The cocktail hour flowed beautifully—guests loved it."
-                    author="Sarah & Michael"
-                    venue="Lake Louise"
-                  />
+                <ul className="space-y-2 mb-6 text-sm">
+                  {[
+                    "All ceremony-proof clarity features",
+                    "Professional sound coverage",
+                    "Officiant + vow microphones",
+                    "Silent battery power system",
+                    "SPL log documentation",
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-2">
+                      <Check size={16} className="text-accent mt-0.5 flex-shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mb-4">
+                  <StarBar rating={5} />
+                </div>
+
+                <Button className="w-full hover-scale mb-3">Hold my date</Button>
+
+                <div className="space-y-2 text-xs text-muted-foreground">
+                  <p className="font-medium">Booking: 50% deposit; balance due 14 days before the event.</p>
+                  <p className="italic">Bonus: Your personalized PDF plan (mic / power / SPL notes) delivered within 24 hours of inquiry.</p>
                 </div>
               </Card>
 
-              {/* Full Experience Package */}
-              <Card className="relative p-6 card-keyline bg-card border-border card-lift">
-                <AvailabilityBadge status="hold" />
+              {/* Ceremony + Prelude/Cocktails — $750 */}
+              <Card className="relative p-6 card-keyline bg-card border-primary/20 border-2 card-lift">
+                <MostSelectedPill />
                 
-                <div className="mb-4">
-                  <h3 className="text-2xl font-bold mb-2">Full Experience</h3>
-                  <div className="text-4xl font-bold text-primary mb-2">$1,450</div>
-                  <p className="text-sm text-muted-foreground">
-                    Complete day coverage from ceremony through dinner.
-                  </p>
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-3 h-3 rounded-full bg-blue-500" />
+                  <h3 className="text-2xl font-bold">Ceremony + Prelude/Cocktails</h3>
                 </div>
+                
+                <div className="text-4xl font-bold text-primary mb-2 price-numeral">$750</div>
+                <p className="text-sm text-muted-foreground mb-6">
+                  Adds 30–60 minutes of pre-ceremony ambiance or cocktail piano. Great for longer guest mingling or two-location setups.
+                </p>
+
+                <ul className="space-y-2 mb-6 text-sm">
+                  {[
+                    "Everything in Ceremony Only",
+                    "Pre-ceremony guest arrival music",
+                    "Cocktail hour piano (30–60 min)",
+                    "Seamless transitions",
+                    "Extended sound coverage",
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-2">
+                      <Check size={16} className="text-accent mt-0.5 flex-shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mb-4">
+                  <StarBar rating={5} />
+                </div>
+
+                <Button className="w-full hover-scale mb-3">Hold my date</Button>
+
+                <p className="text-xs text-muted-foreground italic">
+                  Guarantee: Upgradeable to Full Day until 2 weeks prior—no penalty.
+                </p>
+              </Card>
+
+              {/* Full Day — $1,200 */}
+              <Card className="relative p-6 card-keyline bg-card border-border card-lift">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-3 h-3 rounded-full bg-purple-500" />
+                  <h3 className="text-2xl font-bold">Full Day</h3>
+                </div>
+                
+                <div className="text-4xl font-bold text-primary mb-2 price-numeral">$1,200</div>
+                <p className="text-sm text-muted-foreground mb-6">
+                  From guest arrival to dinner fade-out at conversational volume.
+                </p>
 
                 <ul className="space-y-2 mb-6 text-sm">
                   {[
                     "Everything in Ceremony + Cocktails",
                     "Dinner background music",
-                    "Special moments soundtrack",
-                    "Full-day coordination",
-                    "Priority booking status",
+                    "Conversational volume mixing",
+                    "All-in-one venue optimization",
+                    "Extra 1-hour transition buffer for moves",
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-2">
                       <Check size={16} className="text-accent mt-0.5 flex-shrink-0" />
@@ -166,69 +162,58 @@ export default function Pricing() {
                   ))}
                 </ul>
 
-                <div className="mb-3">
+                <div className="mb-4">
                   <StarBar rating={5} />
                 </div>
 
-                <Button className="w-full hover-scale">Book Now</Button>
+                <Button className="w-full hover-scale mb-3">Hold my date</Button>
 
-                <div className="mt-6">
-                  <MicroTestimonial
-                    quote="Worth every penny—seamless from start to finish."
-                    author="Rachel & David"
-                    venue="Canmore"
-                  />
-                </div>
+                <p className="text-xs text-muted-foreground italic">
+                  Designed for all-in-one venues; includes an extra 1-hour transition buffer for moves.
+                </p>
               </Card>
             </div>
 
-            {/* Add-ons */}
-            <div className="mt-16">
-              <h3 className="text-2xl font-bold mb-8 text-center">Enhance Your Experience</h3>
-              <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-                <Card className="p-6 bg-card border-border">
-                  <h4 className="font-bold mb-2">Custom Arrangement</h4>
-                  <div className="text-2xl font-bold text-primary mb-3">+$200</div>
-                  <p className="text-sm text-muted-foreground">
-                    Professional arrangement of your special song, delivered 2 weeks before event.
-                  </p>
-                </Card>
-                <Card className="p-6 bg-card border-border">
-                  <h4 className="font-bold mb-2">Additional Hour</h4>
-                  <div className="text-2xl font-bold text-primary mb-3">+$300</div>
-                  <p className="text-sm text-muted-foreground">
-                    Extend coverage for dinner or special moments beyond standard packages.
-                  </p>
-                </Card>
-              </div>
-              <div className="text-center text-xs text-muted-foreground mt-6">
-                You'll never see a surprise fee. Ever.
-              </div>
-            </div>
+            <p className="text-center text-xs text-muted-foreground mt-6">
+              Amounts shown before GST. Written payment acknowledgements within two business days.
+            </p>
           </div>
 
-          {/* Comparison Section */}
-          <div className="max-w-4xl mx-auto mt-8 space-y-8">
-            <div className="text-center">
-              <h3 className="text-2xl font-bold mb-2">Why Choose a Ceremony Specialist?</h3>
-              <p className="text-muted-foreground">
-                Compare the risks and see why couples trust Parker for their vows.
-              </p>
+          {/* Section 4: Add-ons */}
+          <PricingAddOns />
+
+          {/* Section 5: Compare Vendors */}
+          <div id="compare" className="max-w-5xl mx-auto mt-16 mb-16 scroll-mt-24">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold mb-3">
+                Compare me to the alternatives
+              </h2>
             </div>
             
-            <Card className="p-6 bg-card border-border">
+            <Card className="p-6 bg-card border-border card-keyline">
               <ComparisonTable />
             </Card>
           </div>
 
-          {/* Final CTA */}
-          <div className="max-w-2xl mx-auto text-center mt-16 space-y-6">
-            <h3 className="text-2xl font-bold">Ready to Secure Your Date?</h3>
+          {/* Section 6: Testimonials */}
+          <PricingTestimonials />
+
+          {/* Section 7: FAQs */}
+          <PricingFAQ />
+
+          {/* Section 8: Download */}
+          <PricingSampleDownload />
+
+          {/* Section 9: Final CTA */}
+          <div className="max-w-2xl mx-auto text-center mt-16 mb-8 space-y-6">
+            <h2 className="text-3xl md:text-4xl font-bold">
+              Your venue, your date, your plan—confirmed in 24 hours.
+            </h2>
             <p className="text-muted-foreground">
-              Limited availability for 2025 and 2026 wedding seasons.
+              Includes SPL summary, mic/power notes, and upgrade options.
             </p>
             <Button size="lg" className="hover-scale">
-              Check Availability
+              Hold my date & get my ceremony-audio plan
             </Button>
           </div>
         </div>
