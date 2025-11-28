@@ -85,11 +85,11 @@ export default function Contact() {
 
             <div className="text-center mb-12">
               <div className="overline mb-2">Clear, Fast, Certain</div>
-              <h1 className="mx-auto">
+              <h1 className="h1 mx-auto">
                 Hold your wedding date & get your ceremony-audio plan in 24h
               </h1>
               <div className="chapter-rule mx-auto" />
-              <p className="lead mx-auto text-muted-foreground mt-6">
+              <p className="p-lead mx-auto text-muted-foreground mt-6">
                 Fill out this short form and I'll send your personalized SPL overview,
                 setup plan, and cue-integration sheet within one business day.
               </p>
@@ -106,7 +106,7 @@ export default function Contact() {
                 <div className="grid lg:grid-cols-3 gap-8 mb-12">
                   {/* Form - 2/3 width */}
                   <Card className="lg:col-span-2 p-8 bg-card border-border card-keyline">
-                    <h2 className="text-xl font-semibold mb-6">
+                    <h2 className="h4 mb-6">
                       Let's secure your date
                     </h2>
 

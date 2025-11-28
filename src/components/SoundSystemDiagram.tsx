@@ -24,7 +24,7 @@ export function SoundSystemDiagram() {
   return (
     <section className="py-24 px-4">
       <div className="container mx-auto max-w-6xl">
-        <p className="lead text-center mb-16">
+        <p className="p-lead text-center mb-16 mx-auto text-muted-foreground">
           Ceremony sound isn't guesswork. I prove it with a simple, three-part system.
         </p>
 
@@ -32,8 +32,8 @@ export function SoundSystemDiagram() {
           {systemCards.map((card, index) => (
             <Card key={index} className="p-8 hover-scale">
               <card.icon size={32} className="text-primary mb-6" />
-              <h3 className="text-xl font-bold mb-4">{card.title}</h3>
-              <p className="text-muted-foreground">{card.description}</p>
+              <h3 className="h4 mb-4">{card.title}</h3>
+              <p className="p-body text-muted-foreground">{card.description}</p>
             </Card>
           ))}
         </div>

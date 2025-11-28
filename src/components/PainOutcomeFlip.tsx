@@ -18,7 +18,7 @@ export function PainOutcomeFlip() {
   return (
     <section className="py-24 px-4 bg-muted/30">
       <div className="container mx-auto max-w-6xl">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
+        <h2 className="h2 text-center mb-16 mx-auto">
           Why outdoor ceremonies fail—& how yours won't.
         </h2>
 
@@ -29,7 +29,7 @@ export function PainOutcomeFlip() {
               {pains.map((pain, index) => (
                 <div key={index} className="flex items-start gap-3 animate-fade-in" style={{ animationDelay: `${index * 60}ms` }}>
                   <X size={20} className="text-destructive shrink-0 mt-0.5" />
-                  <p className="text-sm leading-relaxed">{pain}</p>
+                  <p className="p-body">{pain}</p>
                 </div>
               ))}
             </div>
@@ -41,7 +41,7 @@ export function PainOutcomeFlip() {
               {outcomes.map((outcome, index) => (
                 <div key={index} className="flex items-start gap-3 animate-fade-in" style={{ animationDelay: `${index * 60}ms` }}>
                   <Check size={20} className="text-accent shrink-0 mt-0.5" />
-                  <p className="text-sm leading-relaxed">{outcome}</p>
+                  <p className="p-body">{outcome}</p>
                 </div>
               ))}
             </div>

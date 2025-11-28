@@ -70,6 +70,35 @@ All colors MUST be HSL.
     --easing-std: cubic-bezier(0.22, 0.61, 0.36, 1);
     
     --gradient-coal-night: linear-gradient(180deg, hsl(var(--rich-black)) 0%, hsl(var(--deep-graphite)) 100%);
+
+    /* Fitzgerald Typography Scale */
+    --font-display: "Cormorant Garamond", "DM Serif Display", "Times New Roman", serif;
+    --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    
+    --fs-xs: 0.75rem;       /* 12px – micro/meta labels */
+    --fs-sm: 0.875rem;      /* 14px – small text, captions */
+    --fs-base: 1rem;        /* 16px – default body */
+    --fs-lg: 1.125rem;      /* 18px – lead paragraphs */
+    --fs-h4: 1.375rem;      /* 22px – small heading */
+    --fs-h3: 1.75rem;       /* 28px – section sub-heading */
+    --fs-h2: 2.5rem;        /* 40px – main section heading */
+    --fs-h1: 4rem;          /* 64px – page/hero heading */
+    --fs-button: 0.9375rem; /* 15px – button labels */
+    
+    /* Fitzgerald Spacing Scale (4/8-based) */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-7: 40px;
+    --space-8: 56px;
+    --space-9: 80px;
+    --space-10: 120px;
+    
+    /* Ink Colors for Text */
+    --color-ink-soft: hsl(var(--muted-foreground));
   }
 
   .light,
@@ -99,6 +128,23 @@ All colors MUST be HSL.
     --input: 220 13% 85%;
     --keyline: 240 9% 4% / 0.25;
   }
+
+  /* Responsive Typography Scale */
+  @media (max-width: 767px) {
+    :root {
+      --fs-h1: 2.75rem;  /* 44px on mobile */
+      --fs-h2: 2rem;     /* 32px on mobile */
+      --fs-h3: 1.5rem;   /* 24px on mobile */
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    :root {
+      --fs-h1: 3.25rem;  /* 52px on tablet */
+      --fs-h2: 2.25rem;  /* 36px on tablet */
+      --fs-h3: 1.625rem; /* 26px on tablet */
+    }
+  }
 }
 
 @layer base {
@@ -112,40 +158,90 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
     font-feature-settings: "kern", "liga", "calt";
     text-rendering: optimizeLegibility;
   }
   
-  /* Typography Scale */
-  h1 {
-    @apply text-[clamp(2.75rem,5.2vw,5.25rem)] leading-[1.06] tracking-normal font-extrabold;
-    max-width: 12ch;
+  /* Fitzgerald Typography Scale - Headings (Display Serif) */
+  h1, .h1 {
+    font-family: var(--font-display);
+    font-size: var(--fs-h1);
+    line-height: 1.05;
+    font-weight: 600;
+    max-width: 14ch;
+    letter-spacing: -0.02em;
   }
   
-  @media (min-width: 1024px) {
-    h1 {
-      letter-spacing: -0.4px;
-    }
+  h2, .h2 {
+    font-family: var(--font-display);
+    font-size: var(--fs-h2);
+    line-height: 1.1;
+    font-weight: 500;
+    max-width: 22ch;
+    letter-spacing: -0.01em;
   }
   
-  h2 {
-    @apply text-[clamp(2.125rem,3.6vw,3.5rem)] leading-[1.1] tracking-[-0.2px] font-bold;
-    max-width: 20ch;
+  h3, .h3 {
+    font-family: var(--font-display);
+    font-size: var(--fs-h3);
+    line-height: 1.2;
+    font-weight: 500;
   }
   
-  h3 {
-    @apply text-[clamp(1.625rem,2.6vw,2.5rem)] leading-[1.18] font-bold;
+  h4, .h4 {
+    font-family: var(--font-display);
+    font-size: var(--fs-h4);
+    line-height: 1.25;
+    font-weight: 500;
+  }
+
+  /* Body Text Styles (Sans) */
+  .p-lead, .lead {
+    font-family: var(--font-sans);
+    font-size: var(--fs-lg);
+    line-height: 1.7;
+    max-width: 55ch;
   }
   
-  h4 {
-    @apply text-[1.375rem] leading-[1.25] font-semibold;
+  .p-body, p {
+    font-family: var(--font-sans);
+    font-size: var(--fs-base);
+    line-height: 1.6;
+    max-width: 66ch;
   }
   
-  .lead {
-    @apply text-[clamp(1.125rem,1.4vw,1.375rem)] leading-[1.55];
-    max-width: 48ch;
+  .p-small {
+    font-family: var(--font-sans);
+    font-size: var(--fs-sm);
+    line-height: 1.5;
+  }
+
+  /* Label/Meta Styles (The Luxury Signature) */
+  .label {
+    font-family: var(--font-sans);
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--color-ink-soft);
   }
   
+  .meta {
+    font-family: var(--font-sans);
+    font-size: var(--fs-sm);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .overline {
+    font-family: var(--font-sans);
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: hsl(var(--primary));
+  }
+
   .body-large {
     @apply text-[clamp(1rem,1.2vw,1.125rem)] leading-[1.7];
   }
@@ -154,16 +250,12 @@ All colors MUST be HSL.
     @apply text-[0.8125rem] leading-[1.5] tracking-[0.2px];
   }
   
-  .overline {
-    @apply text-[0.75rem] uppercase tracking-[0.06em] text-muted-foreground;
-  }
-  
-  /* Line Length Constraints */
-  p:not(.lead):not(.caption) {
-    max-width: 66ch;
-  }
-  
+  /* Testimonial Quote Styling */
   .testimonial-quote {
+    font-family: var(--font-display);
+    font-size: var(--fs-lg);
+    line-height: 1.7;
+    font-style: italic;
     max-width: 52ch;
   }
   
@@ -184,8 +276,149 @@ All colors MUST be HSL.
   }
 }
 
-/* Film Grain Texture */
+/* Fitzgerald Text Hierarchy Patterns */
+@layer components {
+  /* Section Intro Stack */
+  .section-intro {
+    max-width: 720px;
+  }
+  
+  .section-intro > * + * {
+    margin-top: var(--space-3); /* 12px */
+  }
+  
+  .section-intro + * {
+    margin-top: var(--space-6); /* 32px */
+  }
+
+  /* Card Text Stack */
+  .card {
+    padding: var(--space-6); /* 32px */
+  }
+  
+  .card > * + * {
+    margin-top: var(--space-2); /* 8px */
+  }
+  
+  .card-meta {
+    font-family: var(--font-sans);
+    font-size: var(--fs-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+  
+  .card-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-h4);
+    line-height: 1.25;
+  }
+  
+  .card-body {
+    font-family: var(--font-sans);
+    font-size: var(--fs-base);
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+  }
+
+  /* FAQ Stack */
+  .faq-item {
+    padding: var(--space-5) 0; /* 24px */
+    border-bottom: 1px solid hsl(var(--border));
+  }
+  
+  .faq-item__question {
+    font-family: var(--font-display);
+    font-size: var(--fs-h4);
+    line-height: 1.25;
+    text-align: left;
+  }
+  
+  .faq-item__answer {
+    margin-top: var(--space-3); /* 12px */
+    max-width: 720px;
+  }
+  
+  .faq-item__answer p {
+    font-family: var(--font-sans);
+    font-size: var(--fs-base);
+    line-height: 1.6;
+  }
+
+  /* Main Block Pattern */
+  .main-block {
+    max-width: 900px;
+  }
+  
+  .main-block__intro > * + * {
+    margin-top: var(--space-3); /* 12px */
+  }
+  
+  .main-block__body {
+    margin-top: var(--space-6); /* 32px */
+  }
+  
+  .main-block__body > * + * {
+    margin-top: var(--space-3); /* 12px */
+  }
+  
+  @media (min-width: 1024px) {
+    .main-block--two-column {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
+      gap: 48px;
+    }
+  }
+}
+
+/* Fitzgerald Spacing System */
 @layer utilities {
+  /* Section Spacing */
+  .section {
+    padding: var(--space-8) 0; /* 56px */
+  }
+  
+  .section--hero {
+    padding: var(--space-10) 0; /* 120px */
+  }
+  
+  .section--tight {
+    padding: var(--space-7) 0; /* 40px */
+  }
+  
+  @media (max-width: 768px) {
+    .section {
+      padding: var(--space-7) 0; /* 40px on mobile */
+    }
+    
+    .section--hero {
+      padding: var(--space-9) 0; /* 80px on mobile */
+    }
+  }
+
+  /* Heading + Body Spacing Rules */
+  .h1 + .p-lead,
+  .h1 + .p-body {
+    margin-top: var(--space-4); /* 16px */
+  }
+  
+  .h2 + .p-lead,
+  .h2 + .p-body,
+  .h3 + .p-lead,
+  .h3 + .p-body {
+    margin-top: var(--space-3); /* 12px */
+  }
+  
+  .p-lead + .p-body,
+  .p-body + .p-body {
+    margin-top: var(--space-3); /* 12px */
+  }
+  
+  .block + .block {
+    margin-top: var(--space-7); /* 40px */
+  }
+
+  /* Film Grain Texture */
   .grain {
     position: relative;
   }
@@ -284,26 +517,6 @@ All colors MUST be HSL.
   .story-link:hover::after {
     transform: scaleX(1);
     transform-origin: left;
-  }
-  
-  /* Section Padding - Fantasy.co spec: 120px/96px/72px */
-  .section-padding {
-    padding-top: 4.5rem; /* 72px mobile */
-    padding-bottom: 4.5rem;
-  }
-  
-  @media (min-width: 768px) {
-    .section-padding {
-      padding-top: 6rem; /* 96px tablet */
-      padding-bottom: 6rem;
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .section-padding {
-      padding-top: 7.5rem; /* 120px desktop */
-      padding-bottom: 7.5rem;
-    }
   }
 
   /* Link underline grow animation */

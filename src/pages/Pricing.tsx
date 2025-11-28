@@ -34,9 +34,9 @@ export default function Pricing() {
 
           <div className="text-center mb-12 animate-fade-in">
             <div className="overline mb-2">Assured Ceremony Audio™</div>
-            <h1 className="mb-4">Pricing & Packages</h1>
+            <h1 className="h1 mx-auto mb-4">Pricing & Packages</h1>
             <div className="chapter-rule mx-auto" />
-            <p className="lead mx-auto text-muted-foreground mt-6 max-w-3xl">
+            <p className="p-lead mx-auto text-muted-foreground mt-6 max-w-3xl">
               I frame cost as clarity insurance—not entertainment—so your decision is fast, confident, and risk-free.
             </p>
           </div>
@@ -47,10 +47,10 @@ export default function Pricing() {
           {/* Section 3: Transparent Pricing Tiers */}
           <div id="packages" className="max-w-6xl mx-auto mb-16 scroll-mt-24">
             <div className="text-center mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold mb-3">
+              <h2 className="h2 mb-3 mx-auto">
                 Choose your coverage tier
               </h2>
-              <p className="text-muted-foreground">
+              <p className="p-body text-muted-foreground">
                 Every option includes full audio coverage—only your event length changes.
               </p>
             </div>
@@ -60,11 +60,11 @@ export default function Pricing() {
               <Card className="relative p-6 card-keyline bg-card border-border card-lift">
                 <div className="flex items-center gap-2 mb-4">
                   <div className="w-3 h-3 rounded-full bg-green-500" />
-                  <h3 className="text-2xl font-bold">Ceremony Only</h3>
+                  <h3 className="h3">Ceremony Only</h3>
                 </div>
                 
-                <div className="text-4xl font-bold text-primary mb-2 price-numeral">$650</div>
-                <p className="text-sm text-muted-foreground mb-6">
+                <div className="text-4xl font-bold text-primary mb-2 price-numeral font-display">$650</div>
+                <p className="p-body text-muted-foreground mb-6">
                   Best for 30–45 minute ceremonies. Includes everything above.
                 </p>
 
@@ -101,11 +101,11 @@ export default function Pricing() {
                 
                 <div className="flex items-center gap-2 mb-4">
                   <div className="w-3 h-3 rounded-full bg-blue-500" />
-                  <h3 className="text-2xl font-bold">Ceremony + Prelude/Cocktails</h3>
+                  <h3 className="h3">Ceremony + Prelude/Cocktails</h3>
                 </div>
                 
-                <div className="text-4xl font-bold text-primary mb-2 price-numeral">$750</div>
-                <p className="text-sm text-muted-foreground mb-6">
+                <div className="text-4xl font-bold text-primary mb-2 price-numeral font-display">$750</div>
+                <p className="p-body text-muted-foreground mb-6">
                   Adds 30–60 minutes of pre-ceremony ambiance or cocktail piano. Great for longer guest mingling or two-location setups.
                 </p>
 
@@ -139,11 +139,11 @@ export default function Pricing() {
               <Card className="relative p-6 card-keyline bg-card border-border card-lift">
                 <div className="flex items-center gap-2 mb-4">
                   <div className="w-3 h-3 rounded-full bg-purple-500" />
-                  <h3 className="text-2xl font-bold">Full Day</h3>
+                  <h3 className="h3">Full Day</h3>
                 </div>
                 
-                <div className="text-4xl font-bold text-primary mb-2 price-numeral">$1,200</div>
-                <p className="text-sm text-muted-foreground mb-6">
+                <div className="text-4xl font-bold text-primary mb-2 price-numeral font-display">$1,200</div>
+                <p className="p-body text-muted-foreground mb-6">
                   From guest arrival to dinner fade-out at conversational volume.
                 </p>
 
@@ -185,7 +185,7 @@ export default function Pricing() {
           {/* Section 5: Compare Vendors */}
           <div id="compare" className="max-w-5xl mx-auto mt-16 mb-16 scroll-mt-24">
             <div className="text-center mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold mb-3">
+              <h2 className="h2 mb-3 mx-auto">
                 Compare me to the alternatives
               </h2>
             </div>
@@ -206,10 +206,10 @@ export default function Pricing() {
 
           {/* Section 9: Final CTA */}
           <div className="max-w-2xl mx-auto text-center mt-16 mb-8 space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold">
+            <h2 className="h2 mx-auto">
               Your venue, your date, your plan—confirmed in 24 hours.
             </h2>
-            <p className="text-muted-foreground">
+            <p className="p-body text-muted-foreground">
               Includes SPL summary, mic/power notes, and upgrade options.
             </p>
             <Button size="lg" className="hover-scale">

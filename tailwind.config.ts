@@ -22,7 +22,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Plus Jakarta Sans", "Inter", "system-ui", "-apple-system", "sans-serif"],
+        display: ['"Cormorant Garamond"', '"DM Serif Display"', '"Times New Roman"', 'serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -96,6 +97,16 @@ export default {
         "18": "4.5rem",
         "88": "22rem",
         "120": "30rem",
+        'fitz-1': '4px',
+        'fitz-2': '8px',
+        'fitz-3': '12px',
+        'fitz-4': '16px',
+        'fitz-5': '24px',
+        'fitz-6': '32px',
+        'fitz-7': '40px',
+        'fitz-8': '56px',
+        'fitz-9': '80px',
+        'fitz-10': '120px',
       },
       boxShadow: {
         'fantasy-card': '0 6px 30px rgba(0, 0, 0, 0.35)',

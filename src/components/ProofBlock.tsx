@@ -12,7 +12,7 @@ export function ProofBlock() {
   return (
     <section className="py-24 px-4 bg-muted/30">
       <div className="container mx-auto max-w-6xl">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
+        <h2 className="h2 text-center mb-16 mx-auto">
           Proof beats promises.
         </h2>
 
@@ -20,11 +20,11 @@ export function ProofBlock() {
         <div className="grid md:grid-cols-3 gap-6 mb-12 stagger-fade">
           {splReadings.map((reading, index) => (
             <Card key={index} className="p-8">
-              <h3 className="text-lg font-bold mb-3">{reading.phase}</h3>
-              <p className="text-2xl font-bold text-primary price-numeral mb-2">
+              <h3 className="h4 mb-3">{reading.phase}</h3>
+              <p className="text-2xl font-bold text-primary price-numeral mb-2 font-display">
                 {reading.reading}
               </p>
-              <p className="text-sm text-muted-foreground">
+              <p className="p-small text-muted-foreground">
                 {reading.location} {reading.note}
               </p>
             </Card>
@@ -47,8 +47,8 @@ export function ProofBlock() {
           <div className="flex items-start gap-4">
             <ShieldCheck size={28} className="text-accent shrink-0" />
             <div>
-              <h3 className="text-xl font-bold mb-3">Power & Clarity Guarantee</h3>
-              <p className="leading-relaxed">
+              <h3 className="h4 mb-3">Power & Clarity Guarantee</h3>
+              <p className="p-body">
                 If power or mic fails and all backups do too, I <strong>auto-trigger a proportional refund</strong>. That's the Power & Clarity Guarantee.
               </p>
             </div>

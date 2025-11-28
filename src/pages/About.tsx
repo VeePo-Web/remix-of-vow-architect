@@ -50,9 +50,9 @@ export default function About() {
             
             <div className="text-center space-y-4">
               <div className="overline">Ceremony Sound Director</div>
-              <h1>Meet Parker — Your Ceremony Sound Director</h1>
+              <h1 className="h1 mx-auto">Meet Parker — Your Ceremony Sound Director</h1>
               <div className="chapter-rule mx-auto" />
-              <p className="lead max-w-3xl mx-auto">
+              <p className="p-lead max-w-3xl mx-auto text-muted-foreground">
                 I design ceremony audio like a mission-critical system: written plan, 
                 measured clarity, triple backups, calm delivery.
               </p>
@@ -75,7 +75,7 @@ export default function About() {
       <section className="section-padding bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold text-center">
+            <h2 className="h2 text-center mx-auto">
               The vows that sparked the system
             </h2>
             <AboutOriginStory />
@@ -87,7 +87,7 @@ export default function About() {
       <section className="section-padding bg-background grain">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto space-y-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-center">
+            <h2 className="h2 text-center mx-auto">
               A 7-Year evolution in ceremony audio
             </h2>
             <AboutEvolutionTimeline />
@@ -99,7 +99,7 @@ export default function About() {
       <section className="section-padding bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto space-y-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-center">
+            <h2 className="h2 text-center mx-auto">
               Venue-approved. Legally covered. Technically certified.
             </h2>
             <AboutCredentials />
@@ -112,10 +112,10 @@ export default function About() {
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto space-y-8">
             <div className="text-center space-y-3">
-              <h2 className="text-3xl md:text-4xl font-bold">
+              <h2 className="h2 mx-auto">
                 What Couples Actually Say
               </h2>
-              <p className="text-xl text-muted-foreground italic">
+              <p className="p-lead text-muted-foreground italic">
                 What stood out wasn't the music—it was the precision.
               </p>
             </div>
@@ -128,10 +128,10 @@ export default function About() {
                       alt={testimonial.author}
                       fallback={testimonial.initials}
                     />
-                    <p className="text-sm italic text-foreground leading-relaxed">
+                    <p className="testimonial-quote text-foreground">
                       "{testimonial.quote}"
                     </p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="meta">
                       {testimonial.author} • {testimonial.venue}
                     </p>
                   </div>
@@ -146,7 +146,7 @@ export default function About() {
       <section className="section-padding bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto space-y-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-center">
+            <h2 className="h2 text-center mx-auto">
               What I stand for
             </h2>
             <AboutEthos />
@@ -158,7 +158,7 @@ export default function About() {
       <section className="section-padding bg-primary/5">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold">
+            <h2 className="h2 mx-auto">
               Want to see what my ceremony plan looks like?
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

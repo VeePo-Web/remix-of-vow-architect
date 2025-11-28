@@ -11,15 +11,15 @@ export function PricingPreview() {
   return (
     <section className="py-24 px-4 bg-muted/30">
       <div className="container mx-auto max-w-6xl">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
+        <h2 className="h2 text-center mb-4 mx-auto">
           Three quick picks
         </h2>
 
         <div className="grid md:grid-cols-3 gap-6 mb-8 stagger-fade">
           {packages.map((pkg, index) => (
             <Card key={index} className="p-8 text-center hover-scale">
-              <h3 className="text-xl font-bold mb-4">{pkg.name}</h3>
-              <p className="text-4xl font-bold price-numeral mb-2">
+              <h3 className="h4 mb-4">{pkg.name}</h3>
+              <p className="text-4xl font-bold price-numeral mb-2 font-display">
                 ${pkg.price}
               </p>
             </Card>
