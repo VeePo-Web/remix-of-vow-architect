@@ -31,6 +31,11 @@ All colors MUST be HSL.
     --error-bg: 0 84% 13%;
     --info: 217 91% 60%;
     --info-bg: 217 91% 13%;
+
+    /* Transitions (Mood System) */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-default: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
     
     /* Semantic Tokens - Death Theme (Default) */
     --background: var(--rich-black);
@@ -62,6 +67,20 @@ All colors MUST be HSL.
     --ring: var(--vow-yellow);
     
     --radius: 0.75rem;
+
+    /* Surface Variants (Mood System) */
+    --surface-elevated: var(--deep-graphite);
+    --surface-accent-soft: 45 100% 76% / 0.08;
+    --surface-dark-band: var(--rich-black);
+
+    /* Ink Variants (Mood System) */
+    --ink-primary: var(--absolute-white);
+    --ink-soft: var(--mist-grey);
+    --ink-inverse: var(--rich-black);
+
+    /* Lines/Borders (Mood System) */
+    --lines: var(--slate-smoke);
+    --lines-soft: var(--deep-graphite);
     
     /* Custom Design Tokens */
     --keyline: 45 100% 76% / 0.35;
@@ -127,6 +146,20 @@ All colors MUST be HSL.
     --border: 220 13% 85%;
     --input: 220 13% 85%;
     --keyline: 240 9% 4% / 0.25;
+
+    /* Surface Variants (Mood System - Life Theme) */
+    --surface-elevated: var(--absolute-white);
+    --surface-accent-soft: 45 100% 76% / 0.12;
+    --surface-dark-band: var(--rich-black);
+
+    /* Ink Variants (Mood System - Life Theme) */
+    --ink-primary: var(--rich-black);
+    --ink-soft: 216 10% 35%;
+    --ink-inverse: var(--absolute-white);
+
+    /* Lines/Borders (Mood System - Life Theme) */
+    --lines: 220 13% 85%;
+    --lines-soft: 210 17% 90%;
   }
 
   /* Responsive Typography Scale */
@@ -240,6 +273,53 @@ All colors MUST be HSL.
     text-transform: uppercase;
     letter-spacing: 0.22em;
     color: hsl(var(--primary));
+  }
+
+  /* Text Links (Mood System) */
+  .text-link {
+    position: relative;
+    display: inline-block;
+    font-size: var(--fs-base);
+    transition: color var(--transition-fast);
+  }
+
+  .text-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 1px;
+    background-color: currentColor;
+    transition: width var(--transition-fast);
+  }
+
+  .text-link:hover::after {
+    width: 100%;
+  }
+
+  /* Emphasis (Mood System) */
+  .emphasis {
+    font-family: var(--font-display);
+    font-style: italic;
+  }
+
+  .strong-soft {
+    font-weight: 500;
+    color: hsl(var(--ink-primary));
+  }
+
+  /* Text Block Utilities (Mood System) */
+  .text-block {
+    max-width: 720px;
+  }
+
+  .text-block--narrow {
+    max-width: 640px;
+  }
+
+  .text-block--wide {
+    max-width: 900px;
   }
 
   .body-large {
@@ -466,6 +546,142 @@ All colors MUST be HSL.
     height: 2px;
     background: hsl(var(--vow-yellow));
     margin: 0.75rem 0 1.5rem 0;
+  }
+
+  .chapter-rule--center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Dividers (Mood System) */
+  .divider {
+    height: 1px;
+    border: none;
+    background-color: hsl(var(--lines));
+    margin: var(--space-6) 0;
+  }
+
+  .divider--accent {
+    background-color: hsl(var(--primary) / 0.3);
+  }
+
+  /* Section Background Patterns (Mood System) */
+  .section--default {
+    background-color: hsl(var(--background));
+  }
+
+  .section--surface {
+    background-color: hsl(var(--card));
+  }
+
+  .section--accent-soft {
+    background-color: hsl(var(--surface-accent-soft));
+  }
+
+  .section--dark {
+    background-color: hsl(var(--surface-dark-band));
+    color: hsl(var(--ink-inverse));
+  }
+
+  .section--gradient {
+    background: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--surface-elevated)) 100%);
+  }
+
+  /* Tags (Mood System) */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 999px;
+    border: 1px solid hsl(var(--lines));
+    font-family: var(--font-sans);
+    font-size: var(--fs-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: hsl(var(--ink-soft));
+    transition: all var(--transition-fast);
+  }
+
+  .tag--filled {
+    background-color: hsl(var(--muted));
+    border-color: hsl(var(--muted));
+    color: hsl(var(--ink-primary));
+  }
+
+  .tag--accent {
+    background-color: hsl(var(--primary));
+    border-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+
+  .tag--success {
+    background-color: hsl(var(--accent));
+    border-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
+
+  /* Card Surface (Mood System) */
+  .card-surface {
+    background-color: hsl(var(--card));
+    border-radius: 18px;
+    border: 1px solid hsl(var(--lines));
+    padding: var(--space-6);
+    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.04);
+    transition:
+      transform var(--transition-default),
+      box-shadow var(--transition-default);
+  }
+
+  .card-surface:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 44px rgba(0, 0, 0, 0.06);
+  }
+
+  .card-surface--featured {
+    border-color: hsl(var(--primary) / 0.4);
+    box-shadow: 0 0 0 1px hsl(var(--primary) / 0.2), 0 18px 38px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Image Frame (Mood System) */
+  .image-frame {
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+    height: 0;
+    padding-bottom: 130%;
+  }
+
+  .image-frame--square {
+    padding-bottom: 100%;
+  }
+
+  .image-frame--landscape {
+    padding-bottom: 66.67%;
+  }
+
+  .image-frame--portrait {
+    padding-bottom: 150%;
+  }
+
+  .image-frame img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .image-frame:hover img {
+    transform: scale(1.015);
+  }
+
+  .image-frame--overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
+    pointer-events: none;
   }
   
   /* Hover Scale */

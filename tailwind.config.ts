@@ -31,6 +31,14 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        'surface-elevated': 'hsl(var(--surface-elevated))',
+        'surface-accent-soft': 'hsl(var(--surface-accent-soft))',
+        'surface-dark-band': 'hsl(var(--surface-dark-band))',
+        'ink-primary': 'hsl(var(--ink-primary))',
+        'ink-soft': 'hsl(var(--ink-soft))',
+        'ink-inverse': 'hsl(var(--ink-inverse))',
+        'lines': 'hsl(var(--lines))',
+        'lines-soft': 'hsl(var(--lines-soft))',
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -107,6 +115,14 @@ export default {
         'fitz-8': '56px',
         'fitz-9': '80px',
         'fitz-10': '120px',
+      },
+      transitionDuration: {
+        'fast': '150ms',
+        'default': '250ms',
+        'slow': '400ms',
+      },
+      transitionTimingFunction: {
+        'mood': 'cubic-bezier(0.4, 0, 0.2, 1)',
       },
       boxShadow: {
         'fantasy-card': '0 6px 30px rgba(0, 0, 0, 0.35)',
