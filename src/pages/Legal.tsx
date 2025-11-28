@@ -1,0 +1,99 @@
+import { Navigation } from "@/components/Navigation";
+import { Footer } from "@/components/Footer";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Shield, FileText, Cookie, Eye } from "lucide-react";
+import { usePageTheme } from "@/hooks/usePageTheme";
+import { Link } from "react-router-dom";
+
+export default function Legal() {
+  usePageTheme();
+
+  const policies = [
+    {
+      icon: <Shield className="w-8 h-8 text-primary" />,
+      title: "Privacy Policy",
+      description: "How I collect, use, and protect your information.",
+      link: "/privacy-policy",
+    },
+    {
+      icon: <FileText className="w-8 h-8 text-primary" />,
+      title: "Terms & Conditions",
+      description: "How bookings and website use work, in plain English.",
+      link: "/terms",
+    },
+    {
+      icon: <Cookie className="w-8 h-8 text-primary" />,
+      title: "Cookie Policy",
+      description: "What cookies I use and how to manage them.",
+      link: "/cookie-policy",
+    },
+    {
+      icon: <Eye className="w-8 h-8 text-primary" />,
+      title: "Accessibility Statement",
+      description: "How I make this site usable for everyone.",
+      link: "/accessibility",
+    },
+  ];
+
+  return (
+    <div className="min-h-screen flex flex-col bg-background">
+      <Navigation />
+      
+      <main className="flex-1">
+        <div className="container mx-auto px-4 py-8 md:py-12">
+          <Breadcrumbs
+            items={[
+              { label: "Home", path: "/" },
+              { label: "Legal", path: "/legal" },
+            ]}
+          />
+          
+          <div className="max-w-4xl mx-auto mt-8">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Legal & Policies</h1>
+            <p className="text-lg text-muted-foreground mb-12">
+              All the policies in one place.
+            </p>
+
+            <div className="grid md:grid-cols-2 gap-6 mb-12">
+              {policies.map((policy, index) => (
+                <Link key={index} to={policy.link}>
+                  <Card className="h-full hover:border-primary/50 transition-all duration-300 cursor-pointer">
+                    <CardHeader>
+                      <div className="mb-4">{policy.icon}</div>
+                      <CardTitle>{policy.title}</CardTitle>
+                      <CardDescription>{policy.description}</CardDescription>
+                    </CardHeader>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+
+            <Card className="bg-muted/30">
+              <CardHeader>
+                <CardTitle>Need something else?</CardTitle>
+                <CardDescription>
+                  Like a certificate of insurance for your venue or planner?
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  Email{" "}
+                  <a
+                    href="mailto:ParJorFraGaw@gmail.com"
+                    className="text-primary hover:text-primary/80 transition-colors"
+                  >
+                    ParJorFraGaw@gmail.com
+                  </a>
+                  —I'll send what your venue or planner needs.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
