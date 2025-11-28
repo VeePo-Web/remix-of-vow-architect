@@ -8,7 +8,7 @@ export default function BanffMode() {
     <div className="min-h-screen">
       <Navigation />
       
-      <section className="pt-32 pb-24 bg-background">
+      <section className="section-padding bg-background grain">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto space-y-16 animate-fade-in">
             <div className="text-center">

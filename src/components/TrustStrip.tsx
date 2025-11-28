@@ -8,7 +8,7 @@ const trustItems = [
 
 export function TrustStrip() {
   return (
-    <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8 text-muted-foreground">
+    <div className="flex flex-wrap items-center justify-center gap-6 text-muted-foreground">
       {trustItems.map((item, index) => (
         <div key={index} className="flex items-center gap-2">
           <item.icon size={16} className="text-accent" />

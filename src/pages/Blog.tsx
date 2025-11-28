@@ -53,18 +53,14 @@ export default function Blog() {
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      <main className="pt-24 pb-32">
+      <main className="section-padding grain">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="mb-16 animate-fade-in">
-              <p className="text-xs uppercase tracking-widest text-muted-foreground mb-4">
-                Blog & Guides
-              </p>
-              <h1 className="text-5xl md:text-7xl font-bold mb-4">
-                Ceremony Music Insights
-              </h1>
-              <div className="w-12 h-0.5 bg-primary mb-6"></div>
-              <p className="text-lg md:text-xl text-muted-foreground max-w-3xl">
+            <div className="mb-16 animate-fade-in text-center">
+              <div className="overline mb-2">Blog & Guides</div>
+              <h1 className="mx-auto">Ceremony Music Insights</h1>
+              <div className="chapter-rule mx-auto" />
+              <p className="lead mx-auto text-muted-foreground mt-6">
                 Expert guidance on ceremony music planning, song selection, and creating unforgettable moments.
               </p>
             </div>

@@ -117,7 +117,7 @@ export default function Index() {
       </section>
 
       {/* Packages Section */}
-      <section className="py-24 bg-card">
+      <section className="section-padding bg-card">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <div className="overline mb-2">Investment</div>
@@ -165,7 +165,7 @@ export default function Index() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-24 bg-background">
+      <section className="section-padding bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <div className="overline mb-2">Testimonials</div>
@@ -200,7 +200,7 @@ export default function Index() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-card">
+      <section className="section-padding bg-card">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-2xl mx-auto space-y-6">
             <h2>Ready to Secure Your Date?</h2>

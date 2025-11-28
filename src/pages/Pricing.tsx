@@ -9,7 +9,7 @@ export default function Pricing() {
     <div className="min-h-screen">
       <Navigation />
       
-      <section className="pt-32 pb-24 bg-background">
+      <section className="section-padding bg-background grain">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-fade-in">
             <div className="overline mb-2">Investment</div>
