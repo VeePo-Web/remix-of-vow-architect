@@ -1,6 +1,7 @@
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { DirectionalLink } from "@/components/DirectionalLink";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import {
   Accordion,
@@ -52,6 +53,11 @@ export default function FAQ() {
       <section className="section-padding bg-background grain">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto animate-fade-in">
+            <Breadcrumbs items={[
+              { label: "Home", path: "/" },
+              { label: "FAQ / Risk Elimination" }
+            ]} />
+
             <div className="text-center mb-16">
               <div className="overline mb-2">FAQ</div>
               <h1 className="mx-auto">Frequently Asked Questions</h1>

@@ -3,6 +3,7 @@ import { NavLink } from "@/components/NavLink";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useTheme } from "next-themes";
 
 const navItems = [
   { label: "Home", path: "/" },
@@ -19,6 +20,7 @@ const navItems = [
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,14 +30,16 @@ export function Navigation() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const getScrolledBackground = () => {
+    if (!isScrolled) return "bg-transparent";
+    if (theme === "life") {
+      return "bg-[rgba(242,243,245,0.92)] backdrop-blur-md shadow-lg";
+    }
+    return "bg-[rgba(10,10,12,0.82)] backdrop-blur-md shadow-lg";
+  };
+
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 h-16 transition-all duration-240 ${
-        isScrolled
-          ? "bg-[rgba(10,10,12,0.82)] backdrop-blur-md shadow-lg"
-          : "bg-transparent"
-      }`}
-    >
+    <nav className={`fixed top-0 left-0 right-0 z-50 h-16 transition-all duration-240 ${getScrolledBackground()}`}>
       <div className="container mx-auto">
         <div className="flex items-center justify-between h-16">
           <NavLink to="/" className="text-xl font-bold">

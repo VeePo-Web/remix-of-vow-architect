@@ -277,12 +277,27 @@ All colors MUST be HSL.
 
   /* Link underline grow animation */
   .link-underline-grow {
-    @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-center after:transition-transform after:duration-160 hover:after:scale-x-100;
+    @apply relative inline-block;
+  }
+  
+  .link-underline-grow::after {
+    @apply content-[''] absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 transition-transform duration-[160ms];
+    transform-origin: center;
+    transition-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  
+  .link-underline-grow:hover::after {
+    @apply scale-x-100;
   }
 
   /* Card hover with lift effect */
   .card-lift {
-    @apply transition-all duration-160 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.4)];
+    transition: all 160ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  
+  .card-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
   }
 
   @media (prefers-reduced-motion: reduce) {

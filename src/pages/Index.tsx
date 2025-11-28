@@ -7,6 +7,7 @@ import { AvailabilityBadge } from "@/components/AvailabilityBadge";
 import { MostSelectedPill } from "@/components/MostSelectedPill";
 import { StarBar } from "@/components/StarBar";
 import { MicroTestimonial } from "@/components/MicroTestimonial";
+import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Check, Star, Play } from "lucide-react";
 import heroImage from "@/assets/hero-piano.jpg";
 import { usePageTheme } from "@/hooks/usePageTheme";
@@ -266,6 +267,7 @@ export default function Index() {
         </div>
       </section>
 
+      <MobileStickyBar />
       <Footer />
     </div>
   );
