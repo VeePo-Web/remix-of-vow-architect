@@ -4,187 +4,397 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
-import { FormStepper } from "@/components/FormStepper";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { ContactReassuranceCards } from "@/components/ContactReassuranceCards";
+import { ContactSLATimeline } from "@/components/ContactSLATimeline";
+import { ContactTestimonials } from "@/components/ContactTestimonials";
+import { ContactFormSuccess } from "@/components/ContactFormSuccess";
 import { ValuePromiseBadge } from "@/components/ValuePromiseBadge";
-import { DirectionalLink } from "@/components/DirectionalLink";
-import { FormSuccess } from "@/components/FormSuccess";
-import { Mail, Phone, MapPin, FileText } from "lucide-react";
+import { Upload } from "lucide-react";
 import { useState } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+
+const contactFormSchema = z.object({
+  name: z.string().min(2, "Please add your name"),
+  email: z.string().email("Please add your email so I can send your plan"),
+  phone: z.string().optional(),
+  eventDate: z.string().min(1, "Pick a date—even an estimate helps me map power and timing"),
+  venue: z.string().min(2, "Venue name or city helps me tailor SPL and seating notes"),
+  ceremonyTime: z.string().min(1, "Ceremony time helps align music and mics"),
+  guestCount: z.string().min(1, "Guest count helps tune audibility"),
+  vibe: z.enum(["elegant", "modern", "indie", "surprise"], {
+    required_error: "Please select a ceremony vibe",
+  }),
+  plannerEmail: z.union([z.string().email(), z.literal("")]).optional(),
+  additionalNotes: z.string().optional(),
+});
+
+type ContactFormData = z.infer<typeof contactFormSchema>;
 
 export default function Contact() {
   usePageTheme();
-  const [step, setStep] = useState<1 | 2>(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [fileName, setFileName] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    watch,
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactFormSchema),
+  });
+
+  const vibeValue = watch("vibe");
+
+  const onSubmit = (data: ContactFormData) => {
+    console.log("Form submitted:", data);
     setIsSubmitted(true);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setFileName(file.name);
+    }
   };
 
   return (
     <div className="min-h-screen">
       <Navigation />
-      
+
+      {/* Section 1: Hero */}
       <section className="section-padding bg-background grain">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto animate-fade-in">
-            <div className="text-center mb-16">
-              <div className="overline mb-2">Contact</div>
-              <h1 className="mx-auto">Hold Your Date</h1>
+            <Breadcrumbs
+              items={[{ label: "Home", path: "/" }, { label: "Hold Your Date" }]}
+            />
+
+            <div className="text-center mb-12">
+              <div className="overline mb-2">Clear, Fast, Certain</div>
+              <h1 className="mx-auto">
+                Hold your wedding date & get your ceremony-audio plan in 24h
+              </h1>
               <div className="chapter-rule mx-auto" />
               <p className="lead mx-auto text-muted-foreground mt-6">
-                Share your vision and we'll bring it to life.
+                Fill out this short form and I'll send your personalized SPL overview,
+                setup plan, and cue-integration sheet within one business day.
               </p>
+              <p className="caption mt-4">No sales call. No pressure. Just clarity.</p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8 mb-12">
-              <Card className="p-6 text-center bg-card border-border">
-                <Mail className="mx-auto mb-3 text-primary" size={24} />
-                <h4 className="font-semibold mb-2">Email</h4>
-                <a
-                  href="mailto:hello@parkerallard.com"
-                  className="text-sm text-muted-foreground hover:text-primary"
-                >
-                  hello@parkerallard.com
-                </a>
+            {isSubmitted ? (
+              <Card className="p-8 bg-card border-border card-keyline">
+                <ContactFormSuccess />
               </Card>
-              
-              <Card className="p-6 text-center bg-card border-border">
-                <Phone className="mx-auto mb-3 text-primary" size={24} />
-                <h4 className="font-semibold mb-2">Phone</h4>
-                <a
-                  href="tel:+1234567890"
-                  className="text-sm text-muted-foreground hover:text-primary"
-                >
-                  (123) 456-7890
-                </a>
-              </Card>
-              
-              <Card className="p-6 text-center bg-card border-border">
-                <MapPin className="mx-auto mb-3 text-primary" size={24} />
-                <h4 className="font-semibold mb-2">Location</h4>
-                <p className="text-sm text-muted-foreground">
-                  Banff & Calgary Region
-                </p>
-              </Card>
-            </div>
+            ) : (
+              <>
+                {/* Section 2: Form + Reassurance Cards */}
+                <div className="grid lg:grid-cols-3 gap-8 mb-12">
+                  {/* Form - 2/3 width */}
+                  <Card className="lg:col-span-2 p-8 bg-card border-border card-keyline">
+                    <h2 className="text-xl font-semibold mb-6">
+                      Let's secure your date
+                    </h2>
 
-            <Card className="p-8 bg-card border-border card-keyline">
-              {isSubmitted ? (
-                <FormSuccess />
-              ) : (
-                <>
-                  <FormStepper currentStep={step} />
-
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    {step === 1 ? (
-                      <>
-                        <div className="grid md:grid-cols-2 gap-6">
-                          <div>
-                            <label className="block text-sm font-medium mb-2">Wedding Date</label>
-                            <Input type="date" required />
-                          </div>
-                          <div>
-                            <label className="block text-sm font-medium mb-2">Venue</label>
-                            <Input placeholder="Venue Name or TBD" required />
-                          </div>
-                        </div>
-
-                        <div className="grid md:grid-cols-2 gap-6">
-                          <div>
-                            <label className="block text-sm font-medium mb-2">City/Town</label>
-                            <Input placeholder="Banff, Canmore, etc." required />
-                          </div>
-                          <div>
-                            <label className="block text-sm font-medium mb-2">Guest Count</label>
-                            <Input type="number" placeholder="Approx. number" />
-                          </div>
-                        </div>
-
-                        <Button
-                          type="button"
-                          size="lg"
-                          className="w-full hover-scale"
-                          onClick={() => setStep(2)}
-                        >
-                          Continue to Step 2
-                        </Button>
-                      </>
-                    ) : (
-                      <>
-                        <div className="grid md:grid-cols-2 gap-6">
-                          <div>
-                            <label className="block text-sm font-medium mb-2">Your Name</label>
-                            <Input placeholder="First and Last Name" required />
-                          </div>
-                          <div>
-                            <label className="block text-sm font-medium mb-2">Email</label>
-                            <Input type="email" placeholder="your@email.com" required />
-                          </div>
-                        </div>
-
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                      {/* Name & Email */}
+                      <div className="grid md:grid-cols-2 gap-6">
                         <div>
-                          <label className="block text-sm font-medium mb-2">Phone (Optional)</label>
-                          <Input type="tel" placeholder="(123) 456-7890" />
-                        </div>
-
-                        <div>
-                          <label className="block text-sm font-medium mb-2">
-                            Tell me about your ceremony vision
-                          </label>
-                          <Textarea
-                            placeholder="Song requests, tone preferences, special moments..."
-                            rows={6}
+                          <Label htmlFor="name">First & last name</Label>
+                          <Input
+                            id="name"
+                            {...register("name")}
+                            className="mt-2"
                           />
+                          {errors.name && (
+                            <p className="text-xs text-destructive mt-1">
+                              {errors.name.message}
+                            </p>
+                          )}
                         </div>
+                        <div>
+                          <Label htmlFor="email">Email address</Label>
+                          <Input
+                            id="email"
+                            type="email"
+                            {...register("email")}
+                            className="mt-2"
+                          />
+                          <p className="text-xs text-muted-foreground mt-1">
+                            I send your plan here.
+                          </p>
+                          {errors.email && (
+                            <p className="text-xs text-destructive mt-1">
+                              {errors.email.message}
+                            </p>
+                          )}
+                        </div>
+                      </div>
 
-                        <p className="text-xs text-muted-foreground">
-                          We respond within one business day. No spam.
+                      {/* Phone */}
+                      <div>
+                        <Label htmlFor="phone">Phone (Optional)</Label>
+                        <Input
+                          id="phone"
+                          type="tel"
+                          {...register("phone")}
+                          className="mt-2"
+                        />
+                        <p className="text-xs text-muted-foreground mt-1">
+                          For quick clarifications only.
                         </p>
+                      </div>
 
-                        <div className="flex items-center gap-3">
-                          <Button
-                            type="button"
-                            variant="outline"
-                            size="lg"
-                            onClick={() => setStep(1)}
-                          >
-                            Back
-                          </Button>
-                          <div className="flex-1 space-y-2">
-                            <div className="flex items-center gap-2">
-                              <Button type="submit" size="lg" className="flex-1 hover-scale">
-                                Check availability
-                              </Button>
-                              <ValuePromiseBadge />
-                            </div>
+                      {/* Event Date & Venue */}
+                      <div className="grid md:grid-cols-2 gap-6">
+                        <div>
+                          <Label htmlFor="eventDate">Event date</Label>
+                          <Input
+                            id="eventDate"
+                            type="date"
+                            {...register("eventDate")}
+                            className="mt-2"
+                          />
+                          <p className="text-xs text-muted-foreground mt-1">
+                            Use your best estimate if TBD.
+                          </p>
+                          {errors.eventDate && (
+                            <p className="text-xs text-destructive mt-1">
+                              {errors.eventDate.message}
+                            </p>
+                          )}
+                        </div>
+                        <div>
+                          <Label htmlFor="venue">Venue name + location</Label>
+                          <Input
+                            id="venue"
+                            {...register("venue")}
+                            placeholder="Silvertip Resort, Canmore"
+                            className="mt-2"
+                          />
+                          {errors.venue && (
+                            <p className="text-xs text-destructive mt-1">
+                              {errors.venue.message}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Ceremony Time & Guest Count */}
+                      <div className="grid md:grid-cols-2 gap-6">
+                        <div>
+                          <Label htmlFor="ceremonyTime">Ceremony start time</Label>
+                          <Input
+                            id="ceremonyTime"
+                            type="time"
+                            {...register("ceremonyTime")}
+                            className="mt-2"
+                          />
+                          <p className="text-xs text-muted-foreground mt-1">
+                            I align music + mics to this.
+                          </p>
+                          {errors.ceremonyTime && (
+                            <p className="text-xs text-destructive mt-1">
+                              {errors.ceremonyTime.message}
+                            </p>
+                          )}
+                        </div>
+                        <div>
+                          <Label htmlFor="guestCount">Guest count (approx.)</Label>
+                          <Input
+                            id="guestCount"
+                            type="number"
+                            {...register("guestCount")}
+                            placeholder="100"
+                            className="mt-2"
+                          />
+                          <p className="text-xs text-muted-foreground mt-1">
+                            Helps tune audibility and seating arc.
+                          </p>
+                          {errors.guestCount && (
+                            <p className="text-xs text-destructive mt-1">
+                              {errors.guestCount.message}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Vibe Selector */}
+                      <div>
+                        <Label>Ceremony vibe</Label>
+                        <RadioGroup
+                          value={vibeValue}
+                          onValueChange={(value) =>
+                            setValue("vibe", value as any, { shouldValidate: true })
+                          }
+                          className="grid sm:grid-cols-2 gap-3 mt-3"
+                        >
+                          <div className="flex items-center space-x-2 border border-border rounded-lg p-3 hover:border-primary transition-colors cursor-pointer">
+                            <RadioGroupItem value="elegant" id="elegant" />
+                            <Label htmlFor="elegant" className="cursor-pointer flex-1">
+                              <span className="font-semibold block">
+                                🎹 Elegant / Classical
+                              </span>
+                              <span className="text-xs text-muted-foreground">
+                                Timeless ceremony favorites
+                              </span>
+                            </Label>
                           </div>
-                        </div>
+                          <div className="flex items-center space-x-2 border border-border rounded-lg p-3 hover:border-primary transition-colors cursor-pointer">
+                            <RadioGroupItem value="modern" id="modern" />
+                            <Label htmlFor="modern" className="cursor-pointer flex-1">
+                              <span className="font-semibold block">
+                                💕 Modern Love Songs
+                              </span>
+                              <span className="text-xs text-muted-foreground">
+                                Contemporary acoustic arrangements
+                              </span>
+                            </Label>
+                          </div>
+                          <div className="flex items-center space-x-2 border border-border rounded-lg p-3 hover:border-primary transition-colors cursor-pointer">
+                            <RadioGroupItem value="indie" id="indie" />
+                            <Label htmlFor="indie" className="cursor-pointer flex-1">
+                              <span className="font-semibold block">
+                                🎸 Indie / Minimal
+                              </span>
+                              <span className="text-xs text-muted-foreground">
+                                Understated, curated selections
+                              </span>
+                            </Label>
+                          </div>
+                          <div className="flex items-center space-x-2 border border-border rounded-lg p-3 hover:border-primary transition-colors cursor-pointer">
+                            <RadioGroupItem value="surprise" id="surprise" />
+                            <Label htmlFor="surprise" className="cursor-pointer flex-1">
+                              <span className="font-semibold block">
+                                ✨ Surprise Me
+                              </span>
+                              <span className="text-xs text-muted-foreground">
+                                I'll craft the perfect vibe for your venue
+                              </span>
+                            </Label>
+                          </div>
+                        </RadioGroup>
+                        {errors.vibe && (
+                          <p className="text-xs text-destructive mt-1">
+                            {errors.vibe.message}
+                          </p>
+                        )}
+                      </div>
 
-                        <div className="space-y-2 mt-2">
-                          <DirectionalLink to="/faq">
-                            Questions? View our FAQ
-                          </DirectionalLink>
-                          <a
-                            href="/insurance-cert.pdf"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors"
-                          >
-                            <FileText size={12} />
-                            View insurance certificate
-                          </a>
+                      {/* Planner Email */}
+                      <div>
+                        <Label htmlFor="plannerEmail">
+                          Add your planner (Optional)
+                        </Label>
+                        <Input
+                          id="plannerEmail"
+                          type="email"
+                          {...register("plannerEmail")}
+                          placeholder="planner@email.com"
+                          className="mt-2"
+                        />
+                        <p className="text-xs text-muted-foreground mt-1">
+                          I'll CC them on the plan.
+                        </p>
+                      </div>
+
+                      {/* File Upload */}
+                      <div>
+                        <Label htmlFor="fileUpload">
+                          Cue sheet or song request upload
+                        </Label>
+                        <div className="mt-2 border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary transition-colors cursor-pointer">
+                          <Upload className="mx-auto mb-2 text-muted-foreground" size={24} />
+                          <input
+                            id="fileUpload"
+                            type="file"
+                            accept=".pdf,.docx,.jpg,.jpeg,.png,.mp3"
+                            onChange={handleFileChange}
+                            className="hidden"
+                          />
+                          <label htmlFor="fileUpload" className="cursor-pointer">
+                            {fileName ? (
+                              <p className="text-sm font-medium">{fileName}</p>
+                            ) : (
+                              <>
+                                <p className="text-sm font-medium">
+                                  Click to upload or drag and drop
+                                </p>
+                                <p className="text-xs text-muted-foreground mt-1">
+                                  PDF, DOCX, JPG, MP3
+                                </p>
+                              </>
+                            )}
+                          </label>
                         </div>
-                      </>
-                    )}
-                  </form>
-                </>
-              )}
-            </Card>
+                      </div>
+
+                      {/* Additional Notes */}
+                      <div>
+                        <Label htmlFor="additionalNotes">
+                          Tell me about your ceremony vision (Optional)
+                        </Label>
+                        <Textarea
+                          id="additionalNotes"
+                          {...register("additionalNotes")}
+                          placeholder="Song requests, tone preferences, special moments..."
+                          rows={4}
+                          className="mt-2"
+                        />
+                      </div>
+
+                      {/* Submit Button */}
+                      <div className="space-y-3">
+                        <div className="flex items-center gap-2">
+                          <Button
+                            type="submit"
+                            size="lg"
+                            className="flex-1 hover-scale"
+                          >
+                            Get my ceremony-audio plan
+                          </Button>
+                          <ValuePromiseBadge />
+                        </div>
+                        <p className="text-xs text-muted-foreground text-center">
+                          You'll receive a custom SPL map, timeline support, and a
+                          clarity checklist. I only use your info to build your plan.
+                        </p>
+                      </div>
+                    </form>
+                  </Card>
+
+                  {/* Reassurance Cards - 1/3 width */}
+                  <div className="lg:col-span-1">
+                    <ContactReassuranceCards />
+                  </div>
+                </div>
+
+                {/* Section 4: Testimonials */}
+                <div className="mb-12">
+                  <ContactTestimonials />
+                </div>
+              </>
+            )}
           </div>
         </div>
       </section>
+
+      {/* Section 3: SLA Timeline */}
+      {!isSubmitted && (
+        <section className="section-padding bg-muted/30">
+          <div className="container mx-auto px-4">
+            <ContactSLATimeline />
+          </div>
+        </section>
+      )}
 
       <Footer />
     </div>
