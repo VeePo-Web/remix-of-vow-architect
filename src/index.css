@@ -105,6 +105,10 @@ All colors MUST be HSL.
   * {
     @apply border-border;
   }
+  
+  html {
+    transition: background-color 300ms ease, color 300ms ease;
+  }
 
   body {
     @apply bg-background text-foreground antialiased;
