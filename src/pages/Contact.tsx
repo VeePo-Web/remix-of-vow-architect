@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { FormStepper } from "@/components/FormStepper";
 import { ValuePromiseBadge } from "@/components/ValuePromiseBadge";
 import { DirectionalLink } from "@/components/DirectionalLink";
+import { FormSuccess } from "@/components/FormSuccess";
 import { Mail, Phone, MapPin, FileText } from "lucide-react";
 import { useState } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
@@ -14,6 +15,12 @@ import { usePageTheme } from "@/hooks/usePageTheme";
 export default function Contact() {
   usePageTheme();
   const [step, setStep] = useState<1 | 2>(1);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+  };
 
   return (
     <div className="min-h-screen">
@@ -64,98 +71,116 @@ export default function Contact() {
             </div>
 
             <Card className="p-8 bg-card border-border card-keyline">
-              <FormStepper currentStep={step} />
+              {isSubmitted ? (
+                <FormSuccess />
+              ) : (
+                <>
+                  <FormStepper currentStep={step} />
 
-              <form className="space-y-6">
-                {step === 1 ? (
-                  <>
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Wedding Date</label>
-                        <Input type="date" required />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Venue</label>
-                        <Input placeholder="Venue Name or TBD" required />
-                      </div>
-                    </div>
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    {step === 1 ? (
+                      <>
+                        <div className="grid md:grid-cols-2 gap-6">
+                          <div>
+                            <label className="block text-sm font-medium mb-2">Wedding Date</label>
+                            <Input type="date" required />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium mb-2">Venue</label>
+                            <Input placeholder="Venue Name or TBD" required />
+                          </div>
+                        </div>
 
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">City/Town</label>
-                        <Input placeholder="Banff, Canmore, etc." required />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Guest Count</label>
-                        <Input type="number" placeholder="Approx. number" />
-                      </div>
-                    </div>
+                        <div className="grid md:grid-cols-2 gap-6">
+                          <div>
+                            <label className="block text-sm font-medium mb-2">City/Town</label>
+                            <Input placeholder="Banff, Canmore, etc." required />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium mb-2">Guest Count</label>
+                            <Input type="number" placeholder="Approx. number" />
+                          </div>
+                        </div>
 
-                    <Button
-                      type="button"
-                      size="lg"
-                      className="w-full hover-scale"
-                      onClick={() => setStep(2)}
-                    >
-                      Continue to Step 2
-                    </Button>
-                  </>
-                ) : (
-                  <>
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Your Name</label>
-                        <Input placeholder="First and Last Name" required />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Email</label>
-                        <Input type="email" placeholder="your@email.com" required />
-                      </div>
-                    </div>
+                        <Button
+                          type="button"
+                          size="lg"
+                          className="w-full hover-scale"
+                          onClick={() => setStep(2)}
+                        >
+                          Continue to Step 2
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                        <div className="grid md:grid-cols-2 gap-6">
+                          <div>
+                            <label className="block text-sm font-medium mb-2">Your Name</label>
+                            <Input placeholder="First and Last Name" required />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium mb-2">Email</label>
+                            <Input type="email" placeholder="your@email.com" required />
+                          </div>
+                        </div>
 
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Phone (Optional)</label>
-                      <Input type="tel" placeholder="(123) 456-7890" />
-                    </div>
+                        <div>
+                          <label className="block text-sm font-medium mb-2">Phone (Optional)</label>
+                          <Input type="tel" placeholder="(123) 456-7890" />
+                        </div>
 
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        Tell me about your ceremony vision
-                      </label>
-                      <Textarea
-                        placeholder="Song requests, tone preferences, special moments..."
-                        rows={6}
-                      />
-                    </div>
+                        <div>
+                          <label className="block text-sm font-medium mb-2">
+                            Tell me about your ceremony vision
+                          </label>
+                          <Textarea
+                            placeholder="Song requests, tone preferences, special moments..."
+                            rows={6}
+                          />
+                        </div>
 
-                    <div className="flex items-center gap-3">
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="lg"
-                        onClick={() => setStep(1)}
-                      >
-                        Back
-                      </Button>
-                      <Button size="lg" className="flex-1 hover-scale">
-                        Submit Request
-                      </Button>
-                    </div>
+                        <p className="text-xs text-muted-foreground">
+                          We respond within one business day. No spam.
+                        </p>
 
-                    <div className="flex items-center justify-between">
-                      <ValuePromiseBadge />
-                      <p className="text-xs text-muted-foreground flex items-center gap-2">
-                        <FileText size={14} />
-                        We respond within one business day. No spam.
-                      </p>
-                    </div>
+                        <div className="flex items-center gap-3">
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="lg"
+                            onClick={() => setStep(1)}
+                          >
+                            Back
+                          </Button>
+                          <div className="flex-1 space-y-2">
+                            <div className="flex items-center gap-2">
+                              <Button type="submit" size="lg" className="flex-1 hover-scale">
+                                Submit Request
+                              </Button>
+                              <ValuePromiseBadge />
+                            </div>
+                          </div>
+                        </div>
 
-                    <DirectionalLink to="/faq" className="text-xs block text-center mt-2">
-                      View refund policy & FAQs
-                    </DirectionalLink>
-                  </>
-                )}
-              </form>
+                        <div className="space-y-2 mt-2">
+                          <DirectionalLink to="/faq">
+                            Questions? View our FAQ
+                          </DirectionalLink>
+                          <a
+                            href="/insurance-cert.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors"
+                          >
+                            <FileText size={12} />
+                            View insurance certificate
+                          </a>
+                        </div>
+                      </>
+                    )}
+                  </form>
+                </>
+              )}
             </Card>
           </div>
         </div>
