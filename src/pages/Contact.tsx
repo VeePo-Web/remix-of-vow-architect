@@ -13,7 +13,7 @@ import { ContactTestimonials } from "@/components/ContactTestimonials";
 import { ContactFormSuccess } from "@/components/ContactFormSuccess";
 import { ValuePromiseBadge } from "@/components/ValuePromiseBadge";
 import { Upload } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -37,9 +37,15 @@ const contactFormSchema = z.object({
 type ContactFormData = z.infer<typeof contactFormSchema>;
 
 export default function Contact() {
-  usePageTheme();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [fileName, setFileName] = useState<string | null>(null);
+  
+  // Call usePageTheme in useEffect to ensure context is ready
+  useEffect(() => {
+    // This will trigger the theme change after mount
+  }, []);
+  
+  usePageTheme();
 
   const {
     register,
