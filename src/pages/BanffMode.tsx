@@ -2,8 +2,11 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Shield, Zap, Mountain } from "lucide-react";
+import { usePageTheme } from "@/hooks/usePageTheme";
 
 export default function BanffMode() {
+  usePageTheme();
+
   return (
     <div className="min-h-screen">
       <Navigation />

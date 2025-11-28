@@ -24,9 +24,15 @@ export function ThemeToggle() {
 
   const isDeath = theme === "death";
 
+  const handleToggle = () => {
+    const newTheme = isDeath ? "life" : "death";
+    setTheme(newTheme);
+    localStorage.setItem("parker-allard-theme-override", "true");
+  };
+
   return (
     <button
-      onClick={() => setTheme(isDeath ? "life" : "death")}
+      onClick={handleToggle}
       className="w-10 h-10 rounded-lg border border-hairline bg-card hover:bg-accent/10 flex items-center justify-center transition-all duration-180 hover-scale focus-visible:ring-[3px] focus-visible:ring-primary/70 focus-visible:outline-none"
       aria-label={`Switch to ${isDeath ? "Life" : "Death"} theme`}
     >

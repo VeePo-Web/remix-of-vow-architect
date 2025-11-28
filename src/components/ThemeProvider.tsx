@@ -1,5 +1,6 @@
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 interface ThemeProviderProps {
   children: ReactNode;

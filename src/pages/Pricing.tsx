@@ -2,9 +2,15 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { InclusionBlock } from "@/components/InclusionBlock";
+import { ComparisonTable } from "@/components/ComparisonTable";
+import { BanffModeBadge } from "@/components/BanffModeBadge";
 import { Check } from "lucide-react";
+import { usePageTheme } from "@/hooks/usePageTheme";
 
 export default function Pricing() {
+  usePageTheme();
+
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -12,13 +18,18 @@ export default function Pricing() {
       <section className="section-padding bg-background grain">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 animate-fade-in">
-            <div className="overline mb-2">Investment</div>
-            <h1 className="mx-auto">Pricing & Packages</h1>
+            <div className="overline mb-2">Assured Ceremony Audio™</div>
+            <div className="flex items-center justify-center gap-3 mb-2">
+              <h1 className="mx-auto">Pricing & Packages</h1>
+              <BanffModeBadge />
+            </div>
             <div className="chapter-rule mx-auto" />
             <p className="lead mx-auto text-muted-foreground mt-6">
               Transparent pricing for ceremony perfection. No hidden fees. No surprises.
             </p>
           </div>
+
+          <InclusionBlock />
 
           <div className="max-w-4xl mx-auto space-y-24">
             {/* Ceremony Package */}
@@ -74,6 +85,35 @@ export default function Pricing() {
                 </Card>
               </div>
             </div>
+
+            <div className="mt-12 text-center text-xs text-muted-foreground">
+              You'll never see a surprise fee. Ever.
+            </div>
+          </div>
+
+          {/* Comparison Section */}
+          <div className="max-w-4xl mx-auto mt-16 space-y-8">
+            <div className="text-center">
+              <h3 className="text-2xl font-bold mb-2">Why Choose a Ceremony Specialist?</h3>
+              <p className="text-muted-foreground">
+                Compare the risks and see why couples trust Parker for their vows.
+              </p>
+            </div>
+            
+            <Card className="p-6 bg-card border-border">
+              <ComparisonTable />
+            </Card>
+          </div>
+
+          {/* Final CTA */}
+          <div className="max-w-2xl mx-auto text-center mt-16 space-y-6">
+            <h3 className="text-2xl font-bold">Ready to Secure Your Date?</h3>
+            <p className="text-muted-foreground">
+              Limited availability for 2025 and 2026 wedding seasons.
+            </p>
+            <Button size="lg" className="hover-scale">
+              Check Availability
+            </Button>
           </div>
         </div>
       </section>

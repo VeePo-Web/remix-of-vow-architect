@@ -3,14 +3,20 @@ import { Card } from "@/components/ui/card";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { TrustStrip } from "@/components/TrustStrip";
+import { AvailabilityBadge } from "@/components/AvailabilityBadge";
+import { MostSelectedPill } from "@/components/MostSelectedPill";
+import { StarBar } from "@/components/StarBar";
+import { MicroTestimonial } from "@/components/MicroTestimonial";
 import { Check, Star, Play } from "lucide-react";
 import heroImage from "@/assets/hero-piano.jpg";
+import { usePageTheme } from "@/hooks/usePageTheme";
 
 const packages = [
   {
     name: "Ceremony",
     duration: "45 minutes",
     price: "Starting at $650",
+    status: "available" as const,
     features: [
       "Pre-ceremony music (20 min)",
       "Processional & recessional",
@@ -18,23 +24,36 @@ const packages = [
       "Professional sound system",
       "Consultation & song selection",
     ],
+    testimonial: {
+      quote: "Every note was perfect, every transition seamless.",
+      author: "Sarah & Michael",
+      venue: "Fairmont Banff Springs",
+    },
   },
   {
-    name: "Cocktail Hour",
-    duration: "60 minutes",
-    price: "Starting at $450",
+    name: "Ceremony + Cocktail",
+    duration: "2 hours",
+    price: "Starting at $1,100",
+    status: "available" as const,
+    mostSelected: true,
     features: [
+      "Complete ceremony coverage",
+      "60 min cocktail hour",
       "Background ambiance",
       "Jazz & contemporary standards",
-      "Volume-balanced for conversation",
-      "Seamless transitions",
-      "Custom requests welcome",
+      "Seamless day-of coordination",
     ],
+    testimonial: {
+      quote: "Professional, prepared, and absolutely stunning.",
+      author: "Jennifer & David",
+      venue: "Lake Louise",
+    },
   },
   {
     name: "Full Experience",
     duration: "3 hours",
     price: "Starting at $1,450",
+    status: "hold" as const,
     features: [
       "Ceremony + Cocktail + Dinner",
       "Continuous music coverage",
@@ -42,6 +61,11 @@ const packages = [
       "Priority booking",
       "Rehearsal attendance",
     ],
+    testimonial: {
+      quote: "Parker understood our vision and brought it to life.",
+      author: "Emily & James",
+      venue: "Canmore Opera House",
+    },
   },
 ];
 
@@ -70,6 +94,8 @@ const testimonials = [
 ];
 
 export default function Index() {
+  usePageTheme();
+
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -108,6 +134,9 @@ export default function Index() {
                 Listen
               </Button>
             </div>
+            <p className="text-xs text-muted-foreground mt-3">
+              No obligation. 2-minute form.
+            </p>
 
             <div className="pt-8">
               <TrustStrip />
@@ -129,8 +158,11 @@ export default function Index() {
             {packages.map((pkg, index) => (
               <Card
                 key={index}
-                className="p-6 card-keyline hover-scale transition-all duration-180 bg-card border-border"
+                className="relative p-6 card-keyline transition-all duration-160 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.4)] bg-card border-border"
               >
+                <AvailabilityBadge status={pkg.status} />
+                {pkg.mostSelected && <MostSelectedPill />}
+                
                 <div className="space-y-4">
                   <div>
                     <h3 className="text-2xl font-bold mb-1">{pkg.name}</h3>
@@ -138,6 +170,8 @@ export default function Index() {
                   </div>
                   
                   <div className="chapter-rule" />
+                  
+                  <StarBar className="mb-3" />
                   
                   <div className="text-2xl font-bold text-primary">{pkg.price}</div>
                   
@@ -153,13 +187,25 @@ export default function Index() {
                   <Button variant="outline" className="w-full mt-4">
                     Learn More
                   </Button>
+
+                  <MicroTestimonial
+                    quote={pkg.testimonial.quote}
+                    author={pkg.testimonial.author}
+                    venue={pkg.testimonial.venue}
+                  />
+                  
+                  {index === 1 && (
+                    <p className="text-xs italic text-muted-foreground mt-4">
+                      Upgradeable to Full Day until 2 weeks prior—no penalty.
+                    </p>
+                  )}
                 </div>
               </Card>
             ))}
           </div>
 
           <p className="text-center text-sm text-muted-foreground mt-8">
-            No obligation. 2-minute availability check.
+            Dates fill quickly—check yours now.
           </p>
         </div>
       </section>
