@@ -117,7 +117,7 @@ export default function Index() {
         <div className="container mx-auto relative z-10 text-center px-4 pt-20 pb-16">
           <div className="space-y-6 max-w-4xl mx-auto animate-fade-in">
             <h1 className="mx-auto">
-              <span className="block">'Til' Death;</span>
+              <span className="block">'Til Death;</span>
               <span className="block vow-underline">Unto Life</span>
             </h1>
             
@@ -128,7 +128,7 @@ export default function Index() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
               <Button size="lg" className="hover-scale">
-                Check Availability
+                Check availability
               </Button>
               <Button size="lg" variant="outline" className="hover-scale group">
                 <Play size={16} className="mr-2 group-hover:scale-110 transition-transform" />
@@ -150,8 +150,8 @@ export default function Index() {
       <section className="section-padding bg-card">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <div className="overline mb-2">Investment</div>
-            <h2>Packages & Services</h2>
+            <div className="overline mb-2">Assured Ceremony Audio™</div>
+            <h2>Packages</h2>
             <div className="chapter-rule mx-auto" />
           </div>
 

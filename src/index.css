@@ -118,8 +118,14 @@ All colors MUST be HSL.
   
   /* Typography Scale */
   h1 {
-    @apply text-[clamp(2.75rem,5.2vw,5.25rem)] leading-[1.06] tracking-[-0.4px] font-extrabold;
+    @apply text-[clamp(2.75rem,5.2vw,5.25rem)] leading-[1.06] tracking-normal font-extrabold;
     max-width: 12ch;
+  }
+  
+  @media (min-width: 1024px) {
+    h1 {
+      letter-spacing: -0.4px;
+    }
   }
   
   h2 {
@@ -137,7 +143,7 @@ All colors MUST be HSL.
   
   .lead {
     @apply text-[clamp(1.125rem,1.4vw,1.375rem)] leading-[1.55];
-    max-width: 60ch;
+    max-width: 48ch;
   }
   
   .body-large {
@@ -150,6 +156,31 @@ All colors MUST be HSL.
   
   .overline {
     @apply text-[0.75rem] uppercase tracking-[0.06em] text-muted-foreground;
+  }
+  
+  /* Line Length Constraints */
+  p:not(.lead):not(.caption) {
+    max-width: 66ch;
+  }
+  
+  .testimonial-quote {
+    max-width: 52ch;
+  }
+  
+  /* Font Feature Settings */
+  .price-numeral {
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+  
+  .prose-numeral {
+    font-variant-numeric: proportional-nums;
+  }
+  
+  /* Hanging Punctuation */
+  blockquote,
+  .pull-quote {
+    hanging-punctuation: first last;
+    text-indent: -0.4em;
   }
 }
 
@@ -300,11 +331,23 @@ All colors MUST be HSL.
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
   }
 
+  /* Stagger Animation Utility */
+  .stagger-fade > * {
+    animation: fade-in 220ms ease-out both;
+  }
+  
+  .stagger-fade > *:nth-child(1) { animation-delay: 0ms; }
+  .stagger-fade > *:nth-child(2) { animation-delay: 60ms; }
+  .stagger-fade > *:nth-child(3) { animation-delay: 120ms; }
+  .stagger-fade > *:nth-child(4) { animation-delay: 180ms; }
+  .stagger-fade > *:nth-child(5) { animation-delay: 240ms; }
+  .stagger-fade > *:nth-child(6) { animation-delay: 300ms; }
+
   @media (prefers-reduced-motion: reduce) {
     * {
-      animation-duration: 0.01ms !important;
+      animation-duration: 120ms !important;
       animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
+      transition-duration: 120ms !important;
     }
     
     .hover-scale:hover {
@@ -313,6 +356,11 @@ All colors MUST be HSL.
     
     .card-lift:hover {
       transform: none;
+    }
+    
+    .vow-underline::after {
+      animation: none;
+      transform: scaleX(1);
     }
   }
 }

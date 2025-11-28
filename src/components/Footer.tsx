@@ -14,28 +14,28 @@ export function Footer() {
             <div className="flex gap-4">
               <a
                 href="mailto:hello@parkerallard.com"
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="text-muted-foreground hover:text-primary transition-colors p-3 -m-3 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
                 aria-label="Email"
               >
                 <Mail size={20} />
               </a>
               <a
                 href="tel:+1234567890"
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="text-muted-foreground hover:text-primary transition-colors p-3 -m-3 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
                 aria-label="Phone"
               >
                 <Phone size={20} />
               </a>
               <a
                 href="https://instagram.com"
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="text-muted-foreground hover:text-primary transition-colors p-3 -m-3 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
                 aria-label="Instagram"
               >
                 <Instagram size={20} />
               </a>
               <a
                 href="https://youtube.com"
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="text-muted-foreground hover:text-primary transition-colors p-3 -m-3 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
                 aria-label="YouTube"
               >
                 <Youtube size={20} />

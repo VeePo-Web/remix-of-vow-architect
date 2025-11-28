@@ -5,11 +5,11 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium transition-all duration-180 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-white/70 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium transition-all duration-180 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/70 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground shadow-[0_8px_24px_rgba(255,224,138,0.18)] hover:scale-[1.04] hover:shadow-[0_12px_32px_rgba(255,224,138,0.24)] active:translate-y-px",
+        default: "bg-primary text-primary-foreground shadow-[0_8px_24px_rgba(255,224,138,0.18)] hover:bg-[hsl(45,100%,70%)] hover:scale-[1.04] hover:shadow-[0_12px_32px_rgba(255,224,138,0.24)] active:translate-y-px",
         destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90 hover:scale-[1.04] active:translate-y-px",
         outline: "border-[1.5px] border-primary text-primary bg-transparent hover:bg-primary hover:text-primary-foreground hover:scale-[1.04] active:translate-y-px",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:scale-[1.04] active:translate-y-px",
