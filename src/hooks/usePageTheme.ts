@@ -7,7 +7,14 @@ const deathThemeRoutes = ["/", "/about", "/blog", "/proof", "/faq", "/banff-mode
 
 export function usePageTheme() {
   const location = useLocation();
-  const { theme, setTheme } = useTheme();
+  const themeContext = useTheme();
+  
+  // Guard against undefined context
+  if (!themeContext || !themeContext.setTheme) {
+    return;
+  }
+  
+  const { theme, setTheme } = themeContext;
 
   useEffect(() => {
     const userOverride = localStorage.getItem("parker-allard-theme-override");
