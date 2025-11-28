@@ -11,6 +11,8 @@ const navItems = [
   { label: "About", path: "/about" },
   { label: "FAQ", path: "/faq" },
   { label: "Contact", path: "/contact" },
+  { label: "Blog", path: "/blog" },
+  { label: "Resources", path: "/resources" },
 ];
 
 export function Navigation() {

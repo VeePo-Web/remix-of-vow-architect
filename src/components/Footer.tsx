@@ -78,6 +78,22 @@ export function Footer() {
                   FAQ
                 </NavLink>
               </li>
+              <li>
+                <NavLink
+                  to="/blog"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Blog / Guides
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/resources"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Resources / Downloads
+                </NavLink>
+              </li>
             </ul>
           </div>
 
