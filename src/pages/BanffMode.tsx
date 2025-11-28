@@ -28,9 +28,9 @@ export default function BanffMode() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
             <div className="overline">Assured Ceremony Audio™</div>
-            <h1 className="mx-auto">Banff Mode™ — Compliant by Design.</h1>
+            <h1 className="h1 mx-auto">Banff Mode™ — Compliant by Design.</h1>
             <div className="chapter-rule mx-auto" />
-            <p className="lead mx-auto text-muted-foreground">
+            <p className="p-lead mx-auto text-muted-foreground">
               For ceremony venues that prohibit amplification, generators, or power access—without sacrificing audibility or elegance.
             </p>
             <Button size="lg" onClick={scrollToVenues} className="mt-6">
@@ -44,16 +44,16 @@ export default function BanffMode() {
       <section className="section-padding bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
+            <h2 className="h2 text-center mb-8 mx-auto">
               Why Banff sound rules stop most vendors
             </h2>
             <div className="chapter-rule mx-auto" />
             
             <Card className="p-8 bg-destructive/5 border-destructive/20">
-              <p className="text-lg text-foreground mb-4">
+              <p className="p-lead text-foreground mb-4">
                 Banff and many Parks Canada sites ban electronic amplification. That means no microphones, no speakers, no generators—and most DJ/band setups simply don't fit. Even when power is technically possible, generator sound and permitting create a second layer of stress that breaks the natural silence.
               </p>
-              <p className="text-muted-foreground">
+              <p className="p-body text-muted-foreground">
                 What couples feel here: anxiety about guests hearing vows, confusion about what's legal, and pressure to compromise on experience. I remove that pressure by designing the ceremony around acoustic clarity from the start.
               </p>
             </Card>
@@ -80,7 +80,7 @@ export default function BanffMode() {
       <section className="section-padding bg-background grain">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center space-y-8">
-            <h2 className="text-3xl md:text-4xl font-bold">
+            <h2 className="h2 mx-auto">
               Planning a Banff ceremony?
             </h2>
             <div className="chapter-rule mx-auto" />

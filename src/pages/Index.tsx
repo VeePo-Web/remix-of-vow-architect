@@ -34,18 +34,18 @@ export default function Index() {
         <div className="container relative z-10 mx-auto max-w-6xl text-center">
           <div className="space-y-8 animate-fade-in">
             {/* Overline */}
-            <p className="text-sm font-semibold tracking-wide text-primary uppercase">
+            <p className="overline">
               Assured Ceremony Audio™
             </p>
 
             {/* Headline */}
-            <h1 className="text-[clamp(2.75rem,5.2vw,5.25rem)] leading-[1.06] font-extrabold">
+            <h1 className="h1">
               <span className="block">Every vow heard.</span>
               <span className="block">Beautifully.</span>
             </h1>
 
             {/* Sub-headline */}
-            <p className="lead max-w-4xl mx-auto">
+            <p className="p-lead max-w-4xl mx-auto text-muted-foreground">
               I'm your ceremony sound director—with live piano: officiant/vow mic, quiet battery power (no generator), and SPL-aware mixing tuned for Calgary, Cochrane, Canmore, and Banff.
             </p>
 
@@ -96,7 +96,7 @@ export default function Index() {
       {/* SECTION 9 — Final Push + Soft Conversion */}
       <section className="py-24 px-4 bg-muted/30">
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-8">
+          <h2 className="h2 mx-auto mb-8">
             Your vows deserve to be heard—legally and beautifully.
           </h2>
 

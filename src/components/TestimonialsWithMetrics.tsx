@@ -38,16 +38,16 @@ export function TestimonialsWithMetrics() {
                   fallback={testimonial.initials}
                 />
                 <div>
-                  <p className="font-bold">{testimonial.author}</p>
-                  <p className="text-sm text-muted-foreground">{testimonial.venue}</p>
+                  <p className="font-bold font-sans">{testimonial.author}</p>
+                  <p className="p-small text-muted-foreground">{testimonial.venue}</p>
                 </div>
               </div>
               
-              <blockquote className="text-lg font-medium mb-4 italic">
+              <blockquote className="testimonial-quote mb-4">
                 "{testimonial.quote}"
               </blockquote>
               
-              <p className="text-xs text-muted-foreground italic">
+              <p className="p-small text-muted-foreground italic">
                 {testimonial.metric}
               </p>
             </Card>
