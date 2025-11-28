@@ -1,274 +1,131 @@
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
-import { TrustStrip } from "@/components/TrustStrip";
-import { AvailabilityBadge } from "@/components/AvailabilityBadge";
-import { MostSelectedPill } from "@/components/MostSelectedPill";
-import { StarBar } from "@/components/StarBar";
-import { MicroTestimonial } from "@/components/MicroTestimonial";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
-import { Check, Star, Play } from "lucide-react";
-import heroImage from "@/assets/hero-piano.jpg";
+import { HeroTrustBadges } from "@/components/HeroTrustBadges";
+import { SoundSystemDiagram } from "@/components/SoundSystemDiagram";
+import { PainOutcomeFlip } from "@/components/PainOutcomeFlip";
+import { SoundDirectorSection } from "@/components/SoundDirectorSection";
+import { PricingPreview } from "@/components/PricingPreview";
+import { BanffModeTile } from "@/components/BanffModeTile";
+import { ProofBlock } from "@/components/ProofBlock";
+import { TestimonialsWithMetrics } from "@/components/TestimonialsWithMetrics";
 import { usePageTheme } from "@/hooks/usePageTheme";
-
-const packages = [
-  {
-    name: "Ceremony",
-    duration: "45 minutes",
-    price: "Starting at $650",
-    status: "available" as const,
-    features: [
-      "Pre-ceremony music (20 min)",
-      "Processional & recessional",
-      "Unity ceremony music",
-      "Professional sound system",
-      "Consultation & song selection",
-    ],
-    testimonial: {
-      quote: "Every note was perfect, every transition seamless.",
-      author: "Sarah & Michael",
-      venue: "Fairmont Banff Springs",
-    },
-  },
-  {
-    name: "Ceremony + Cocktail",
-    duration: "2 hours",
-    price: "Starting at $1,100",
-    status: "available" as const,
-    mostSelected: true,
-    features: [
-      "Complete ceremony coverage",
-      "60 min cocktail hour",
-      "Background ambiance",
-      "Jazz & contemporary standards",
-      "Seamless day-of coordination",
-    ],
-    testimonial: {
-      quote: "Professional, prepared, and absolutely stunning.",
-      author: "Jennifer & David",
-      venue: "Lake Louise",
-    },
-  },
-  {
-    name: "Full Experience",
-    duration: "3 hours",
-    price: "Starting at $1,450",
-    status: "hold" as const,
-    features: [
-      "Ceremony + Cocktail + Dinner",
-      "Continuous music coverage",
-      "Custom arrangement (1 song)",
-      "Priority booking",
-      "Rehearsal attendance",
-    ],
-    testimonial: {
-      quote: "Parker understood our vision and brought it to life.",
-      author: "Emily & James",
-      venue: "Canmore Opera House",
-    },
-  },
-];
-
-const testimonials = [
-  {
-    quote:
-      "Parker's playing elevated our ceremony beyond words. Every note was perfect, every transition seamless. Our guests still talk about it.",
-    author: "Sarah & Michael",
-    venue: "Fairmont Banff Springs",
-    rating: 5,
-  },
-  {
-    quote:
-      "Professional, prepared, and absolutely stunning. The backup equipment gave us peace of mind, the music gave us chills.",
-    author: "Jennifer & David",
-    venue: "Lake Louise",
-    rating: 5,
-  },
-  {
-    quote:
-      "We couldn't have asked for better. Parker understood our vision and brought it to life with such grace and skill.",
-    author: "Emily & James",
-    venue: "Canmore Opera House",
-    rating: 5,
-  },
-];
+import heroImage from "@/assets/hero-piano.jpg";
+import { Download } from "lucide-react";
 
 export default function Index() {
   usePageTheme();
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <Navigation />
-
-      {/* Hero Section */}
-      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden grain">
+      
+      {/* SECTION 1 — Hero: The 5-Second Validation */}
+      <section className="relative min-h-[90vh] flex items-center justify-center px-4 py-32">
         <div
-          className="absolute inset-0 z-0"
+          className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `linear-gradient(180deg, hsl(var(--rich-black)) 0%, hsl(var(--deep-graphite)) 100%), url(${heroImage})`,
-            backgroundBlendMode: "multiply",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            opacity: 0.6,
+            backgroundImage: `linear-gradient(rgba(10, 10, 12, 0.7), rgba(10, 10, 12, 0.85)), url(${heroImage})`,
           }}
+          aria-hidden="true"
         />
-        
-        <div className="container mx-auto relative z-10 text-center px-4 pt-20 pb-16">
-          <div className="space-y-6 max-w-4xl mx-auto animate-fade-in">
-            <h1 className="mx-auto">
-              <span className="block">'Til Death;</span>
-              <span className="block vow-underline">Unto Life</span>
+
+        <div className="container relative z-10 mx-auto max-w-6xl text-center">
+          <div className="space-y-8 animate-fade-in">
+            {/* Overline */}
+            <p className="text-sm font-semibold tracking-wide text-primary uppercase">
+              Assured Ceremony Audio™
+            </p>
+
+            {/* Headline */}
+            <h1 className="text-[clamp(2.75rem,5.2vw,5.25rem)] leading-[1.06] font-extrabold">
+              <span className="block">Every vow heard.</span>
+              <span className="block">Beautifully.</span>
             </h1>
-            
-            <p className="lead mx-auto text-muted-foreground">
-              Ceremony piano, engineered for vows. Impeccable sound. Immaculate timing.
-              A stress-proof audio plan for your most sacred moment.
+
+            {/* Sub-headline */}
+            <p className="lead max-w-4xl mx-auto">
+              I'm your ceremony sound director—with live piano: officiant/vow mic, quiet battery power (no generator), and SPL-aware mixing tuned for Calgary, Cochrane, Canmore, and Banff.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
-              <Button size="lg" className="hover-scale">
-                Check availability
+            {/* Primary CTA */}
+            <div className="flex flex-col items-center gap-3 pt-8">
+              <Button size="lg" asChild>
+                <a href="/contact">Hold my date & get my ceremony-audio plan</a>
               </Button>
-              <Button size="lg" variant="outline" className="hover-scale group">
-                <Play size={16} className="mr-2 group-hover:scale-110 transition-transform" />
-                Listen
-              </Button>
+              <p className="text-sm text-muted-foreground max-w-md">
+                Delivered in 24 hours with venue-specific mic, power, and SPL notes.
+              </p>
             </div>
-            <p className="text-xs text-muted-foreground mt-3">
-              No obligation. 2-minute form.
-            </p>
 
-            <div className="pt-8">
-              <TrustStrip />
-            </div>
+            {/* Micro-assurance */}
+            <p className="text-sm text-muted-foreground max-w-2xl mx-auto pt-4">
+              Measured, guaranteed, and documented—so you never wonder if guests can hear your vows.
+            </p>
+          </div>
+
+          {/* Trust Badges */}
+          <div className="mt-16">
+            <HeroTrustBadges />
           </div>
         </div>
       </section>
 
-      {/* Packages Section */}
-      <section className="section-padding bg-card">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <div className="overline mb-2">Assured Ceremony Audio™</div>
-            <h2>Packages</h2>
-            <div className="chapter-rule mx-auto" />
+      {/* SECTION 2 — Ceremony Sound System Diagram */}
+      <SoundSystemDiagram />
+
+      {/* SECTION 3 — Pain Stack & Outcome Flip */}
+      <PainOutcomeFlip />
+
+      {/* SECTION 4 — The Sound Director Category */}
+      <SoundDirectorSection />
+
+      {/* SECTION 5 — Pricing Preview */}
+      <PricingPreview />
+
+      {/* SECTION 6 — Banff Mode™ Highlight Tile */}
+      <BanffModeTile />
+
+      {/* SECTION 7 — Proof Block */}
+      <ProofBlock />
+
+      {/* SECTION 8 — Testimonials with Metrics */}
+      <TestimonialsWithMetrics />
+
+      {/* SECTION 9 — Final Push + Soft Conversion */}
+      <section className="py-24 px-4 bg-muted/30">
+        <div className="container mx-auto max-w-4xl text-center">
+          <h2 className="text-4xl md:text-5xl font-bold mb-8">
+            Your vows deserve to be heard—legally and beautifully.
+          </h2>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+            <Button size="lg" asChild>
+              <a href="/contact">Hold my date & get my ceremony-audio plan</a>
+            </Button>
+            <Button variant="outline" size="lg" className="gap-2" asChild>
+              <a href="/resources">
+                <Download size={20} />
+                Download a sample plan
+              </a>
+            </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {packages.map((pkg, index) => (
-              <Card
-                key={index}
-                className="relative p-6 card-keyline transition-all duration-160 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.4)] bg-card border-border"
-              >
-                <AvailabilityBadge status={pkg.status} />
-                {pkg.mostSelected && <MostSelectedPill />}
-                
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="text-2xl font-bold mb-1">{pkg.name}</h3>
-                    <p className="text-sm text-muted-foreground">{pkg.duration}</p>
-                  </div>
-                  
-                  <div className="chapter-rule" />
-                  
-                  <StarBar className="mb-3" />
-                  
-                  <div className="text-2xl font-bold text-primary">{pkg.price}</div>
-                  
-                  <ul className="space-y-3">
-                    {pkg.features.map((feature, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm">
-                        <Check size={16} className="text-accent mt-0.5 flex-shrink-0" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  
-                  <Button variant="outline" className="w-full mt-4">
-                    Learn More
-                  </Button>
-
-                  <MicroTestimonial
-                    quote={pkg.testimonial.quote}
-                    author={pkg.testimonial.author}
-                    venue={pkg.testimonial.venue}
-                  />
-                  
-                  {index === 1 && (
-                    <p className="text-xs italic text-muted-foreground mt-4">
-                      Upgradeable to Full Day until 2 weeks prior—no penalty.
-                    </p>
-                  )}
-                </div>
-              </Card>
-            ))}
-          </div>
-
-          <p className="text-center text-sm text-muted-foreground mt-8">
-            Dates fill quickly—check yours now.
+          <p className="text-sm text-muted-foreground">
+            Includes SPL log, mic setup, and run-of-show.
           </p>
-        </div>
-      </section>
 
-      {/* Testimonials Section */}
-      <section className="section-padding bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <div className="overline mb-2">Testimonials</div>
-            <h2>What Couples Say</h2>
-            <div className="chapter-rule mx-auto" />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {testimonials.map((testimonial, index) => (
-              <Card
-                key={index}
-                className="p-6 card-keyline bg-card border-border"
-              >
-                <div className="space-y-4">
-                  <div className="flex gap-1">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} size={16} className="fill-primary text-primary" />
-                    ))}
-                  </div>
-                  
-                  <p className="body-large italic">&ldquo;{testimonial.quote}&rdquo;</p>
-                  
-                  <div className="pt-4 border-t border-border">
-                    <p className="font-semibold">{testimonial.author}</p>
-                    <p className="text-sm text-muted-foreground">{testimonial.venue}</p>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="section-padding bg-card">
-        <div className="container mx-auto px-4 text-center">
-          <div className="max-w-2xl mx-auto space-y-6">
-            <h2>Ready to Secure Your Date?</h2>
-            <p className="lead mx-auto text-muted-foreground">
-              Limited availability for 2025 and 2026 wedding seasons.
-              Check dates now or reach out with questions.
+          <div className="mt-12 pt-8 border-t border-border/50">
+            <p className="text-sm font-semibold">
+              Response within <span className="text-primary">24 hours</span>. Always.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
-              <Button size="lg" className="hover-scale">
-                Hold Your Date
-              </Button>
-              <Button size="lg" variant="outline" className="hover-scale">
-                Contact Parker
-              </Button>
-            </div>
           </div>
         </div>
       </section>
 
-      <MobileStickyBar />
       <Footer />
+      <MobileStickyBar />
     </div>
   );
 }

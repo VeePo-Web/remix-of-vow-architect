@@ -1,0 +1,26 @@
+import { Check, Mic, Battery, Activity, Mountain, ShieldCheck } from "lucide-react";
+
+const badges = [
+  { icon: Mic, label: "Officiant/vow mic included" },
+  { icon: Battery, label: "Silent battery (no generators)" },
+  { icon: Activity, label: "SPL log with 3 readings" },
+  { icon: Mountain, label: "Banff Mode™ compliant" },
+  { icon: ShieldCheck, label: "Insurance: $2M professional + $2M general liability + $25k equipment" },
+];
+
+export function HeroTrustBadges() {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 max-w-6xl mx-auto">
+      {badges.map((badge, index) => (
+        <div
+          key={index}
+          className="flex items-start gap-3 p-4 rounded-lg bg-card/50 border border-border/50 backdrop-blur-sm animate-fade-in"
+          style={{ animationDelay: `${index * 60}ms` }}
+        >
+          <Check size={16} className="text-accent shrink-0 mt-0.5" />
+          <span className="text-sm font-medium leading-tight">{badge.label}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
