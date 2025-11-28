@@ -2,6 +2,7 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Calendar, Clock } from "lucide-react";
+import { usePageTheme } from "@/hooks/usePageTheme";
 
 const blogPosts = [
   {
@@ -49,6 +50,8 @@ const blogPosts = [
 ];
 
 export default function Blog() {
+  usePageTheme();
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />

@@ -3,6 +3,7 @@ import { Footer } from "@/components/Footer";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FileText, Download, CheckSquare, FileCheck, ClipboardList, Music } from "lucide-react";
+import { usePageTheme } from "@/hooks/usePageTheme";
 
 const resources = [
   {
@@ -50,6 +51,8 @@ const resources = [
 ];
 
 export default function Resources() {
+  usePageTheme();
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />

@@ -1,8 +1,11 @@
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Card } from "@/components/ui/card";
+import { usePageTheme } from "@/hooks/usePageTheme";
 
 export default function About() {
+  usePageTheme();
+
   return (
     <div className="min-h-screen">
       <Navigation />

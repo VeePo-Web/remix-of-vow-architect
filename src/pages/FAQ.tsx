@@ -1,5 +1,7 @@
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { DirectionalLink } from "@/components/DirectionalLink";
+import { usePageTheme } from "@/hooks/usePageTheme";
 import {
   Accordion,
   AccordionContent,
@@ -41,6 +43,8 @@ const faqs = [
 ];
 
 export default function FAQ() {
+  usePageTheme();
+
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -76,12 +80,9 @@ export default function FAQ() {
 
             <div className="mt-16 text-center">
               <p className="text-muted-foreground mb-4">Still have questions?</p>
-              <a
-                href="/contact"
-                className="text-primary hover:underline font-semibold"
-              >
-                Get in touch →
-              </a>
+              <DirectionalLink to="/contact">
+                Get in touch
+              </DirectionalLink>
             </div>
           </div>
         </div>

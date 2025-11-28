@@ -1,9 +1,13 @@
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Card } from "@/components/ui/card";
-import { Star, Award, TrendingUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Star, Award } from "lucide-react";
+import { usePageTheme } from "@/hooks/usePageTheme";
 
 export default function Proof() {
+  usePageTheme();
+
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -100,6 +104,12 @@ export default function Proof() {
                   </p>
                   <p className="text-sm text-muted-foreground">— Jennifer & David K., Lake Louise</p>
                 </Card>
+
+                <div className="text-center pt-6">
+                  <Button variant="outline" size="lg" className="hover-scale">
+                    Book a Call
+                  </Button>
+                </div>
               </div>
             </div>
           </div>

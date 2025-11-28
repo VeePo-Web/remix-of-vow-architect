@@ -107,7 +107,7 @@ All colors MUST be HSL.
   }
   
   html {
-    transition: background-color 300ms ease, color 300ms ease;
+    transition: background-color 260ms ease, color 260ms ease;
   }
 
   body {
@@ -272,6 +272,32 @@ All colors MUST be HSL.
     .section-padding {
       padding-top: 7.5rem; /* 120px desktop */
       padding-bottom: 7.5rem;
+    }
+  }
+
+  /* Link underline grow animation */
+  .link-underline-grow {
+    @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-center after:transition-transform after:duration-160 hover:after:scale-x-100;
+  }
+
+  /* Card hover with lift effect */
+  .card-lift {
+    @apply transition-all duration-160 hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(0,0,0,0.4)];
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    
+    .hover-scale:hover {
+      transform: none;
+    }
+    
+    .card-lift:hover {
+      transform: none;
     }
   }
 }
