@@ -155,7 +155,7 @@ export default function Contact() {
                           <div className="flex-1 space-y-2">
                             <div className="flex items-center gap-2">
                               <Button type="submit" size="lg" className="flex-1 hover-scale">
-                                Submit Request
+                                Check availability
                               </Button>
                               <ValuePromiseBadge />
                             </div>

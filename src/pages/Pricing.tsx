@@ -31,7 +31,7 @@ export default function Pricing() {
           <div className="text-center mb-12 animate-fade-in">
             <div className="overline mb-2">Assured Ceremony Audio™</div>
             <div className="flex items-center justify-center gap-3 mb-2">
-              <h1 className="mx-auto">Pricing & Packages</h1>
+              <h1 className="mx-auto">Packages</h1>
               <BanffModeBadge />
             </div>
             <div className="chapter-rule mx-auto" />

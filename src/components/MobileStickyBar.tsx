@@ -7,7 +7,7 @@ export function MobileStickyBar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsVisible(window.scrollY > 400);
+      setIsVisible(window.scrollY > 420);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
