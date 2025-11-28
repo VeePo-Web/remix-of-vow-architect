@@ -1,0 +1,67 @@
+import { Download, ShieldCheck } from "lucide-react";
+import { Card } from "./ui/card";
+import { Button } from "./ui/button";
+
+const splReadings = [
+  { phase: "Prelude baseline", reading: "60–65 dBA", location: "at aisle midpoint", note: "(timestamp)" },
+  { phase: "Vows", reading: "intelligibility confirmed", location: "level tucked under local limits", note: "(timestamp)" },
+  { phase: "Recessional", reading: "dynamic peak logged", location: "", note: "(timestamp)" },
+];
+
+export function ProofBlock() {
+  return (
+    <section className="py-24 px-4 bg-muted/30">
+      <div className="container mx-auto max-w-6xl">
+        <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
+          Proof beats promises.
+        </h2>
+
+        {/* SPL Readings Carousel */}
+        <div className="grid md:grid-cols-3 gap-6 mb-12 stagger-fade">
+          {splReadings.map((reading, index) => (
+            <Card key={index} className="p-8">
+              <h3 className="text-lg font-bold mb-3">{reading.phase}</h3>
+              <p className="text-2xl font-bold text-primary price-numeral mb-2">
+                {reading.reading}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                {reading.location} {reading.note}
+              </p>
+            </Card>
+          ))}
+        </div>
+
+        {/* Download Sample Report */}
+        <div className="text-center mb-12">
+          <Button variant="outline" size="lg" className="gap-2">
+            <Download size={20} />
+            Sample Post-Ceremony Report (PDF)
+          </Button>
+          <p className="text-sm text-muted-foreground mt-3">
+            includes SPL log, notes, and next-day follow-up.
+          </p>
+        </div>
+
+        {/* Guarantee Box */}
+        <Card className="p-8 bg-accent/5 border-accent/30 border-2 mb-8">
+          <div className="flex items-start gap-4">
+            <ShieldCheck size={28} className="text-accent shrink-0" />
+            <div>
+              <h3 className="text-xl font-bold mb-3">Power & Clarity Guarantee</h3>
+              <p className="leading-relaxed">
+                If power or mic fails and all backups do too, I <strong>auto-trigger a proportional refund</strong>. That's the Power & Clarity Guarantee.
+              </p>
+            </div>
+          </div>
+        </Card>
+
+        {/* Coverage List */}
+        <div className="text-center">
+          <p className="text-sm text-muted-foreground">
+            $2M professional liability • $2M general liability • $25k equipment coverage. Documents available on request.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
