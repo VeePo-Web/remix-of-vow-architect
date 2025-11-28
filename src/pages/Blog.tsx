@@ -42,7 +42,7 @@ export default function Blog() {
         </div>
 
         {/* Section 2: Featured Content Cards (Hero Trio) */}
-        <div className="bg-muted/30 py-16 mt-16">
+        <div className="section--surface py-16 mt-16">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <BlogFeaturedTrio />
@@ -73,7 +73,7 @@ export default function Blog() {
         </div>
 
         {/* Section 4: Article Structure */}
-        <div className="bg-muted/30">
+        <div className="section--surface">
           <BlogArticleStructure />
         </div>
 

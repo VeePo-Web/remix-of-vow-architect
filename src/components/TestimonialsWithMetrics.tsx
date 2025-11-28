@@ -27,7 +27,7 @@ const testimonials = [
 
 export function TestimonialsWithMetrics() {
   return (
-    <section className="py-24 px-4">
+    <section className="section--accent-soft py-24 px-4">
       <div className="container mx-auto max-w-6xl">
         <div className="grid md:grid-cols-3 gap-8 stagger-fade">
           {testimonials.map((testimonial, index) => (

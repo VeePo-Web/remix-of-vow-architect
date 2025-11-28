@@ -71,21 +71,21 @@ export default function Proof() {
       <DownloadablePlans />
 
       {/* Section 8 - Final CTA */}
-      <section className="section-padding bg-primary/5">
+      <section className="section--dark section-padding">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl font-bold">
+            <h2 className="text-3xl font-bold text-ink-inverse">
               I don't just say it—I log it, show it, and guarantee it.
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="hover-scale">
+              <Button size="lg" variant="primary-dark" className="hover-scale">
                 Hold my date & receive my ceremony-audio plan
               </Button>
-              <Button variant="outline" size="lg" className="hover-scale">
+              <Button variant="ghost-dark" size="lg" className="hover-scale">
                 Download a full SPL report & timeline sample →
               </Button>
             </div>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-ink-inverse/70">
               Response in 24 hours. Your trust starts with proof.
             </p>
           </div>
@@ -93,7 +93,7 @@ export default function Proof() {
       </section>
 
       {/* Footer Microcopy */}
-      <section className="py-8 bg-muted/30">
+      <section className="section--surface py-8">
         <div className="container mx-auto px-4">
           <p className="text-xs text-muted-foreground max-w-3xl mx-auto text-center">
             I design within typical venue policies and Parks Canada guidelines. Where no amplification is permitted, 

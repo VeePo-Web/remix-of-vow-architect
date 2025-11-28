@@ -94,17 +94,17 @@ export default function Index() {
       <TestimonialsWithMetrics />
 
       {/* SECTION 9 — Final Push + Soft Conversion */}
-      <section className="py-24 px-4 bg-muted/30">
+      <section className="section--dark py-24 px-4">
         <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="h2 mx-auto mb-8">
+          <h2 className="h2 mx-auto mb-8 text-ink-inverse">
             Your vows deserve to be heard—legally and beautifully.
           </h2>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-            <Button size="lg" asChild>
+            <Button size="lg" variant="primary-dark" asChild>
               <a href="/contact">Hold my date & get my ceremony-audio plan</a>
             </Button>
-            <Button variant="outline" size="lg" className="gap-2" asChild>
+            <Button variant="ghost-dark" size="lg" className="gap-2" asChild>
               <a href="/resources">
                 <Download size={20} />
                 Download a sample plan
@@ -112,12 +112,12 @@ export default function Index() {
             </Button>
           </div>
 
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-ink-inverse/70">
             Includes SPL log, mic setup, and run-of-show.
           </p>
 
-          <div className="mt-12 pt-8 border-t border-border/50">
-            <p className="text-sm font-semibold">
+          <div className="mt-12 pt-8 border-t border-lines">
+            <p className="text-sm font-semibold text-ink-inverse">
               Response within <span className="text-primary">24 hours</span>. Always.
             </p>
           </div>

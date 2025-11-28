@@ -11,7 +11,7 @@ const policyItems = [
 
 export function FAQPolicyDownload() {
   return (
-    <section className="section-padding bg-muted/30">
+    <section className="section--surface section-padding">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-center mb-2">Total transparency — my full booking terms.</h2>

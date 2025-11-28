@@ -41,7 +41,7 @@ export default function BanffMode() {
       </section>
 
       {/* SECTION 2 — The Problem */}
-      <section className="section-padding bg-muted/30">
+      <section className="section--accent-soft section-padding">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto space-y-6">
             <h2 className="h2 text-center mb-8 mx-auto">
@@ -77,31 +77,31 @@ export default function BanffMode() {
       <BanffFAQ />
 
       {/* SECTION 8 — Final CTA */}
-      <section className="section-padding bg-background grain">
+      <section className="section--dark section-padding">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center space-y-8">
-            <h2 className="h2 mx-auto">
+            <h2 className="h2 mx-auto text-ink-inverse">
               Planning a Banff ceremony?
             </h2>
             <div className="chapter-rule mx-auto" />
             
             <div className="space-y-4">
-              <Button size="lg" asChild>
+              <Button size="lg" variant="primary-dark" asChild>
                 <Link to="/contact">
                   Hold my date & get my Banff Mode plan
                 </Link>
               </Button>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-ink-inverse/70">
                 Turnaround: 24 hours with a seating arc sketch and run-of-show.
               </p>
             </div>
 
-            <div className="pt-8 border-t border-border mt-12">
-              <Button variant="outline" size="lg" className="gap-2">
+            <div className="pt-8 border-t border-lines mt-12">
+              <Button variant="ghost-dark" size="lg" className="gap-2">
                 <Download size={16} />
                 Banff Venue Sound Compliance Chart
               </Button>
-              <p className="text-sm text-muted-foreground mt-3">
+              <p className="text-sm text-ink-inverse/70 mt-3">
                 A one-page reference with seating tips, cue timing, and weather switch guidance—great to share with your officiant.
               </p>
             </div>
@@ -110,7 +110,7 @@ export default function BanffMode() {
       </section>
 
       {/* SECTION 9 — Accessibility Footer */}
-      <section className="py-8 bg-muted/30 border-t border-border">
+      <section className="section--surface py-8 border-t border-lines">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <p className="text-sm text-muted-foreground text-center">

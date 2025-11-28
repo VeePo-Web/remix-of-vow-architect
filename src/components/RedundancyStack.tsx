@@ -30,7 +30,7 @@ const failoverTiers = [
 
 export function RedundancyStack() {
   return (
-    <section className="section-padding bg-background">
+    <section className="section--default section-padding">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold mb-4 text-center">Backup on Backup on Backup.</h2>

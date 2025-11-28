@@ -2,7 +2,7 @@ import { Shield, FileCheck, Database } from "lucide-react";
 
 export function BlogTrustFooter() {
   return (
-    <div className="py-12 px-4 border-t border-border/40">
+    <div className="section--accent-soft py-12 px-4 border-t border-lines">
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Mini Bio */}
         <div className="text-center max-w-2xl mx-auto space-y-4">

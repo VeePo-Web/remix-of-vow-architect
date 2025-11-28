@@ -4,7 +4,7 @@ import { Card } from "./ui/card";
 
 export function BanffModeTile() {
   return (
-    <section className="py-24 px-4">
+    <section className="section--default py-24 px-4">
       <div className="container mx-auto max-w-4xl">
         <Card className="p-12 bg-gradient-to-br from-accent/5 to-accent/10 border-accent/20">
           <div className="flex items-start gap-4 mb-6">

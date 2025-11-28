@@ -23,7 +23,7 @@ const insuranceItems = [
 
 export function InsuranceDocuments() {
   return (
-    <section className="section-padding bg-muted/30">
+    <section className="section--surface section-padding">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold mb-12 text-center">Fully Insured. Fully Transparent.</h2>

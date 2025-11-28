@@ -24,7 +24,7 @@ const testimonials = [
 
 export function BanffTestimonials() {
   return (
-    <section className="section-padding bg-muted/30">
+    <section className="section--accent-soft section-padding">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto space-y-8">
           <div className="text-center">

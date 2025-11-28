@@ -23,7 +23,7 @@ const faqs = [
 
 export function BanffFAQ() {
   return (
-    <section className="section-padding bg-background">
+    <section className="section--default section-padding">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto space-y-8">
           <div className="text-center">

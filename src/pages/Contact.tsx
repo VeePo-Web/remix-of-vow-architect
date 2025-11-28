@@ -395,7 +395,7 @@ export default function Contact() {
 
       {/* Section 3: SLA Timeline */}
       {!isSubmitted && (
-        <section className="section-padding bg-muted/30">
+        <section className="section--surface section-padding">
           <div className="container mx-auto px-4">
             <ContactSLATimeline />
           </div>

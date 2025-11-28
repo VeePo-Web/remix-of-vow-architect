@@ -22,7 +22,7 @@ const systemCards = [
 
 export function SoundSystemDiagram() {
   return (
-    <section className="py-24 px-4">
+    <section className="section--surface py-24 px-4">
       <div className="container mx-auto max-w-6xl">
         <p className="p-lead text-center mb-16 mx-auto text-muted-foreground">
           Ceremony sound isn't guesswork. I prove it with a simple, three-part system.

@@ -35,7 +35,7 @@ export function FAQChips() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="section-padding bg-muted/30">
+    <section className="section--surface section-padding">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-center mb-2">Got a ceremony-audio question?</h2>
