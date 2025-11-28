@@ -11,7 +11,7 @@ export default function Contact() {
     <div className="min-h-screen">
       <Navigation />
       
-      <section className="pt-32 pb-24 bg-background">
+      <section className="section-padding bg-background grain">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto animate-fade-in">
             <div className="text-center mb-16">

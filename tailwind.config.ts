@@ -97,6 +97,11 @@ export default {
         "88": "22rem",
         "120": "30rem",
       },
+      boxShadow: {
+        'fantasy-card': '0 6px 30px rgba(0, 0, 0, 0.35)',
+        'fantasy-cta': '0 8px 24px rgba(255, 224, 138, 0.18)',
+        'fantasy-cta-hover': '0 12px 32px rgba(255, 224, 138, 0.24)',
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
