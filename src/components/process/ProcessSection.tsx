@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { ProcessThread } from './ProcessThread';
 import { ProcessMovement } from './ProcessMovement';
 import { GradientDawnBackground } from './GradientDawnBackground';
 import { AmbientGlowField } from './AmbientGlowField';
+import { EchoRings } from './EchoRings';
 import { useProcessScroll } from '@/hooks/useProcessScroll';
 
 interface Movement {
@@ -97,6 +98,13 @@ export function ProcessSection() {
     }
   }, [scrollState.phase]);
 
+  // Calculate active rings based on scroll phase
+  // Phase 2: 1 ring, Phase 3: 2 rings, etc.
+  const activeRings = useMemo(() => {
+    if (scrollState.phase < 2) return 0;
+    return Math.min(scrollState.phase - 1, 5);
+  }, [scrollState.phase]);
+
   const handleMovementEnterView = useCallback((movementIndex: number) => {
     setActiveStep((prev) => Math.max(prev, movementIndex + 1));
     if (movementIndex === 3) {
@@ -121,6 +129,14 @@ export function ProcessSection() {
 
       {/* Layer 1: Ambient Glow Field (breathing golden presence) */}
       <AmbientGlowField
+        cssVars={scrollState.cssVars}
+        isActive={scrollState.isActive}
+        progress={scrollState.progress}
+      />
+
+      {/* Layer 2: Echo Rings (sound made visible) */}
+      <EchoRings
+        activeRings={activeRings}
         cssVars={scrollState.cssVars}
         isActive={scrollState.isActive}
         progress={scrollState.progress}
