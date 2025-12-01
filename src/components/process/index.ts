@@ -6,3 +6,4 @@ export { AmbientGlowField } from './AmbientGlowField';
 export { EchoRings } from './EchoRings';
 export { WeavingThread } from './WeavingThread';
 export { FlameSystem } from './FlameSystem';
+export { ProcessDebugOverlay } from './ProcessDebugOverlay';

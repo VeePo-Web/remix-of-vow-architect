@@ -14,6 +14,8 @@ interface MovementData {
 interface ProcessMovementProps {
   movement: MovementData;
   index: number;
+  /** Whether this movement is synced with active flame fragment */
+  isHighlighted?: boolean;
   onEnterView: () => void;
 }
 
@@ -21,6 +23,8 @@ interface ProcessMovementProps {
  * ProcessMovement — Individual Step Card
  * 
  * Phase 5 Enhancement: 6-phase reveal system
+ * Phase 7 Enhancement: Flame sync indicator
+ * 
  * Each element reveals with sacred timing stagger:
  * - Phase 1: Header (numeral + name) — T+0ms
  * - Phase 2: Action verb — T+200ms
@@ -32,6 +36,7 @@ interface ProcessMovementProps {
 export function ProcessMovement({
   movement,
   index,
+  isHighlighted = false,
   onEnterView,
 }: ProcessMovementProps) {
   const movementRef = useRef<HTMLDivElement>(null);
@@ -102,11 +107,17 @@ export function ProcessMovement({
       ref={movementRef}
       className={cn(
         'process-movement',
-        hasTriggered && 'is-triggered'
+        hasTriggered && 'is-triggered',
+        isHighlighted && 'is-flame-synced'
       )}
       style={{ '--movement-index': index } as React.CSSProperties}
       data-reveal-phase={revealPhase}
     >
+      {/* Flame sync indicator */}
+      {isHighlighted && (
+        <div className="process-movement__flame-indicator" aria-hidden="true" />
+      )}
+
       {/* Phase 1: Movement Header */}
       <div className={cn(
         'process-movement__header',
