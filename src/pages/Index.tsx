@@ -11,69 +11,87 @@ import { BanffModeTile } from "@/components/BanffModeTile";
 import { ProofBlock } from "@/components/ProofBlock";
 import { TestimonialsWithMetrics } from "@/components/TestimonialsWithMetrics";
 import { usePageTheme } from "@/hooks/usePageTheme";
+import { useVigilSequence } from "@/hooks/useVigilSequence";
 import { useHeroReveal } from "@/hooks/useHeroReveal";
+import { TaglineCovenant } from "@/components/TaglineCovenant";
+import { ChapterRule } from "@/components/ChapterRule";
+import { ScrollCue } from "@/components/ScrollCue";
+import { VigilGlow } from "@/components/VigilGlow";
 import heroImage from "@/assets/hero-piano.jpg";
 import { Download } from "lucide-react";
-import { RevealOnScroll } from "@/components/animation";
 import { cn } from "@/lib/utils";
 
 export default function Index() {
   usePageTheme();
   
-  // Instant hero animations on page load
-  const overlineVisible = useHeroReveal({ delay: 0 });
-  const line1Visible = useHeroReveal({ delay: 150 });
-  const line2Visible = useHeroReveal({ delay: 300 });
-  const leadVisible = useHeroReveal({ delay: 450 });
-  const ctaVisible = useHeroReveal({ delay: 600 });
-  const microVisible = useHeroReveal({ delay: 750 });
-  const trustVisible = useHeroReveal({ delay: 850 });
+  // Vigil + Held Breath Orchestration
+  const { isRevealing, isComplete } = useVigilSequence();
+  const contentVisible = isRevealing || isComplete;
+  
+  // Cascading reveal timing (after 800ms stillness)
+  const line1Visible = useHeroReveal({ delay: 1600 });
+  const line2Visible = useHeroReveal({ delay: 1800 });
+  const leadVisible = useHeroReveal({ delay: 2000 });
+  const ctaVisible = useHeroReveal({ delay: 2200 });
+  const trustVisible = useHeroReveal({ delay: 2500 });
 
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
       
-      {/* SECTION 1 — Hero: The 5-Second Validation */}
-      <section className="relative min-h-[90vh] flex items-center justify-center px-4 py-32">
+      {/* SECTION 1 — Hero: Vigil + Held Breath */}
+      <section className="vigil-hero relative min-h-[95vh] flex items-center justify-center px-4 py-32">
+        {/* Layer 1: Vigil Void (Cold Blue-Black) */}
+        <div
+          className="absolute inset-0 bg-[hsl(var(--vigil-void))]"
+          aria-hidden="true"
+        />
+
+        {/* Layer 2: Hero Image with Gradient */}
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `linear-gradient(rgba(10, 10, 12, 0.7), rgba(10, 10, 12, 0.85)), url(${heroImage})`,
+            backgroundImage: `linear-gradient(rgba(10, 10, 12, 0.72), rgba(10, 10, 12, 0.88)), url(${heroImage})`,
           }}
           aria-hidden="true"
         />
 
+        {/* Layer 3: Vigil Glow (Radial Vow-Yellow) */}
+        <VigilGlow isGlowing={contentVisible} isPulsing={isComplete} />
+
+        {/* Layer 4: Film Grain (2% opacity) */}
+        <div className="absolute inset-0 grain opacity-20" aria-hidden="true" />
+
+        {/* Layer 5: Content */}
         <div className="container relative z-10 mx-auto max-w-6xl text-center">
           <div className="space-y-8">
-            {/* Overline - Instant animation on load */}
-            <p 
-              className={cn(
-                "overline reveal reveal--blur reveal--slow",
-                overlineVisible && "is-visible"
-              )}
-            >
-              Assured Ceremony Audio™
-            </p>
+            {/* Sacred Tagline */}
+            <TaglineCovenant isVisible={contentVisible} />
 
-            {/* Headline - Cascading blur reveal */}
-            <h1 className="h1">
+            {/* Chapter Rule Divider */}
+            <ChapterRule isVisible={contentVisible} />
+
+            {/* Headline - Two Lines with Sacred Period */}
+            <h1 className="vigil-headline">
               <span 
                 className={cn(
                   "block reveal reveal--blur reveal--slow",
                   line1Visible && "is-visible"
                 )}
-                style={{ "--animation-delay": "150ms" } as React.CSSProperties}
+                style={{ "--animation-delay": "1600ms" } as React.CSSProperties}
               >
-                Every vow heard.
+                Every vow heard
+                <span className="vigil-period">.</span>
               </span>
               <span 
                 className={cn(
                   "block reveal reveal--blur reveal--slow",
                   line2Visible && "is-visible"
                 )}
-                style={{ "--animation-delay": "300ms" } as React.CSSProperties}
+                style={{ "--animation-delay": "1800ms" } as React.CSSProperties}
               >
-                Beautifully.
+                Beautifully
+                <span className="vigil-period">.</span>
               </span>
             </h1>
 
@@ -83,20 +101,24 @@ export default function Index() {
                 "p-lead max-w-4xl mx-auto text-muted-foreground reveal reveal--up",
                 leadVisible && "is-visible"
               )}
-              style={{ "--animation-delay": "450ms" } as React.CSSProperties}
+              style={{ "--animation-delay": "2000ms" } as React.CSSProperties}
             >
               I'm your ceremony sound director—with live piano: officiant/vow mic, quiet battery power (no generator), and SPL-aware mixing tuned for Calgary, Cochrane, Canmore, and Banff.
             </p>
 
-            {/* Primary CTA */}
+            {/* Primary CTA with Commitment Pulse */}
             <div 
               className={cn(
                 "flex flex-col items-center gap-3 pt-8 reveal reveal--scale",
                 ctaVisible && "is-visible"
               )}
-              style={{ "--animation-delay": "600ms" } as React.CSSProperties}
+              style={{ "--animation-delay": "2200ms" } as React.CSSProperties}
             >
-              <Button size="lg" asChild>
+              <Button 
+                size="lg" 
+                className={cn(isComplete && "cta-commitment")} 
+                asChild
+              >
                 <a href="/contact">Hold my date & get my ceremony-audio plan</a>
               </Button>
               <p className="text-sm text-muted-foreground max-w-md">
@@ -107,10 +129,10 @@ export default function Index() {
             {/* Micro-assurance */}
             <p 
               className={cn(
-                "text-sm text-muted-foreground max-w-2xl mx-auto pt-4 reveal reveal--up",
-                microVisible && "is-visible"
+                "text-sm text-muted-foreground max-w-2xl mx-auto pt-4 opacity-0 transition-opacity duration-500",
+                isComplete && "opacity-100"
               )}
-              style={{ "--animation-delay": "750ms" } as React.CSSProperties}
+              style={{ transitionDelay: "2400ms" }}
             >
               Measured, guaranteed, and documented—so you never wonder if guests can hear your vows.
             </p>
@@ -122,33 +144,52 @@ export default function Index() {
               "mt-16 reveal reveal--up",
               trustVisible && "is-visible"
             )}
-            style={{ "--animation-delay": "850ms" } as React.CSSProperties}
+            style={{ "--animation-delay": "2500ms" } as React.CSSProperties}
           >
             <HeroTrustBadges />
+          </div>
+
+          {/* Scroll Cue */}
+          <div className="absolute bottom-12 left-1/2 -translate-x-1/2">
+            <ScrollCue isVisible={isComplete} />
           </div>
         </div>
       </section>
 
-      {/* SECTION 2 — Ceremony Sound System Diagram */}
-      <SoundSystemDiagram />
+      {/* SECTION 2 — Ceremony Sound System Diagram (Exhale - Surface) */}
+      <div className="section--surface">
+        <SoundSystemDiagram />
+      </div>
 
-      {/* SECTION 3 — Pain Stack & Outcome Flip */}
-      <PainOutcomeFlip />
+      {/* SECTION 3 — Pain Stack & Outcome Flip (Inhale - Dark) */}
+      <div className="section--dark">
+        <PainOutcomeFlip />
+      </div>
 
-      {/* SECTION 4 — The Sound Director Category */}
-      <SoundDirectorSection />
+      {/* SECTION 4 — The Sound Director Category (Exhale - Surface) */}
+      <div className="section--surface">
+        <SoundDirectorSection />
+      </div>
 
-      {/* SECTION 5 — Pricing Preview */}
-      <PricingPreview />
+      {/* SECTION 5 — Pricing Preview (Inhale - Dark) */}
+      <div className="section--dark">
+        <PricingPreview />
+      </div>
 
-      {/* SECTION 6 — Banff Mode™ Highlight Tile */}
-      <BanffModeTile />
+      {/* SECTION 6 — Banff Mode™ Highlight Tile (Exhale - Accent Soft Green) */}
+      <div className="section--accent-soft">
+        <BanffModeTile />
+      </div>
 
-      {/* SECTION 7 — Proof Block */}
-      <ProofBlock />
+      {/* SECTION 7 — Proof Block (Inhale - Dark) */}
+      <div className="section--dark">
+        <ProofBlock />
+      </div>
 
-      {/* SECTION 8 — Testimonials with Metrics */}
-      <TestimonialsWithMetrics />
+      {/* SECTION 8 — Testimonials with Metrics (Exhale - Accent Soft Warm) */}
+      <div className="section--surface">
+        <TestimonialsWithMetrics />
+      </div>
 
       {/* SECTION 9 — Final Push + Soft Conversion */}
       <section className="section--dark py-24 px-4">
