@@ -98,6 +98,7 @@ export function useProcessOrchestrator(
 
   /**
    * Map drifting progress to movement index (0-3)
+   * Aligned with FlameSystem's activeDriftFragment thresholds
    */
   const getHighlightedMovement = useCallback((progress: number, phase: FlamePhase): number => {
     if (phase !== 'drifting') return -1;
@@ -107,8 +108,11 @@ export function useProcessOrchestrator(
     const driftRange = driftEnd - driftStart;
     const driftProgress = (progress - driftStart) / driftRange;
     
-    // Divide into 4 equal segments for 4 movements
-    return Math.min(3, Math.floor(driftProgress * 4));
+    // Match FlameSystem thresholds exactly (0.255, 0.51, 0.765)
+    if (driftProgress < 0.255) return 0;
+    if (driftProgress < 0.51) return 1;
+    if (driftProgress < 0.765) return 2;
+    return 3;
   }, []);
 
   /**
@@ -180,6 +184,12 @@ export function useProcessOrchestrator(
     };
     
     setState(newState);
+    
+    // Performance monitoring - warn if frame exceeds 12ms budget
+    const frameTime = performance.now() - now;
+    if (frameTime > 12 && debug) {
+      console.warn('[Orchestrator] Frame budget exceeded:', frameTime.toFixed(2), 'ms');
+    }
     
     if (debug) {
       console.log('[Orchestrator]', {

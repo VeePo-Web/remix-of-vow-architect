@@ -2414,13 +2414,14 @@ All colors MUST be HSL.
     transition-delay: 0ms;
   }
 
+  /* Fix 6: Proper stagger delays for closing elements */
   .process-closing.is-visible .process-closing__promise {
     opacity: 1;
     transform: translateY(0);
-    transition-delay: 0ms;
+    transition-delay: 200ms; /* T+200ms */
   }
 
-  /* Assurance — T+300ms */
+  /* Assurance — T+450ms */
   .process-closing__assurance {
     font-family: var(--font-serif);
     font-size: clamp(20px, 3.5vw, 28px);
@@ -2438,7 +2439,7 @@ All colors MUST be HSL.
   .process-closing.is-visible .process-closing__assurance {
     opacity: 1;
     transform: translateY(0);
-    transition-delay: 300ms;
+    transition-delay: 450ms; /* T+450ms */
   }
 
   /* Exhale emphasis in assurance */
@@ -2450,10 +2451,10 @@ All colors MUST be HSL.
 
   .process-closing.is-visible .process-closing__assurance .exhale-emphasis {
     opacity: 1;
-    transition-delay: 500ms;
+    transition-delay: 650ms; /* T+450ms + 200ms */
   }
 
-  /* CTA — T+600ms with multi-layer glow structure */
+  /* CTA — T+700ms with multi-layer glow structure */
   .process-closing__cta {
     position: relative;
     display: inline-flex;
@@ -2486,7 +2487,7 @@ All colors MUST be HSL.
   .process-closing.is-visible .process-closing__cta {
     opacity: 1;
     transform: translateY(0);
-    transition-delay: 600ms;
+    transition-delay: 700ms; /* T+700ms */
   }
 
   /* CTA text layer */
