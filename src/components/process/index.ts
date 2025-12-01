@@ -4,6 +4,7 @@ export { GradientDawnBackground } from './GradientDawnBackground';
 export { AmbientGlowField } from './AmbientGlowField';
 export { HeldBreath } from './HeldBreath';
 export { HeldBreathPath } from './HeldBreathPath';
+export { ResonanceRing } from './ResonanceRing';
 export { CardConnector } from './CardConnector';
 export { ProcessDebugOverlay } from './ProcessDebugOverlay';
 export { MovementImage } from './MovementImage';
