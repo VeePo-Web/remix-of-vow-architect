@@ -3554,4 +3554,628 @@ All colors MUST be HSL.
       max-width: 360px;
     }
   }
+
+  /* ═══════════════════════════════════════════════════════════════
+     COMPOSER'S JOURNAL — Warm Paper Aesthetic
+     The Held Breath redesign with photography, letterpress cards,
+     and handwritten annotations
+     ═══════════════════════════════════════════════════════════════ */
+
+  /* -------------------------------------------
+     GRADIENT DAWN — Journal Paper Variant
+     ------------------------------------------- */
+
+  .gradient-dawn--journal .gradient-dawn__base {
+    background: linear-gradient(
+      180deg,
+      hsl(25 20% 8%) 0%,
+      hsl(20 25% 12%) 30%,
+      hsl(30 20% 10%) 70%,
+      hsl(20 15% 6%) 100%
+    );
+  }
+
+  .gradient-dawn--journal .gradient-dawn__paper {
+    position: absolute;
+    inset: 0;
+    background: 
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        hsl(40 30% 96% / 0.01) 2px,
+        hsl(40 30% 96% / 0.01) 4px
+      );
+    opacity: 0.5;
+  }
+
+  .gradient-dawn--journal .gradient-dawn__candlelight {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(
+      ellipse 100% 100% at 50% 50%,
+      hsl(35 80% 55% / 0.08) 0%,
+      hsl(35 70% 50% / 0.03) 40%,
+      transparent 70%
+    );
+    pointer-events: none;
+    animation: candlelight-flicker 8s ease-in-out infinite;
+  }
+
+  .gradient-dawn--journal .gradient-dawn__candlelight--tl {
+    top: -100px;
+    left: -100px;
+    animation-delay: 0s;
+  }
+
+  .gradient-dawn--journal .gradient-dawn__candlelight--tr {
+    top: -100px;
+    right: -100px;
+    animation-delay: 2s;
+  }
+
+  .gradient-dawn--journal .gradient-dawn__candlelight--bl {
+    bottom: 20%;
+    left: -100px;
+    animation-delay: 4s;
+  }
+
+  .gradient-dawn--journal .gradient-dawn__candlelight--br {
+    bottom: 20%;
+    right: -100px;
+    animation-delay: 6s;
+  }
+
+  @keyframes candlelight-flicker {
+    0%, 100% {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+  }
+
+  .gradient-dawn--journal .gradient-dawn__vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 80% 60% at 50% 50%,
+      transparent 0%,
+      hsl(20 20% 5% / 0.4) 100%
+    );
+    pointer-events: none;
+  }
+
+  /* -------------------------------------------
+     MOVEMENT IMAGE — Parallax Photography
+     ------------------------------------------- */
+
+  .movement-image {
+    position: absolute;
+    width: 55%;
+    height: 100%;
+    min-height: 320px;
+    overflow: hidden;
+    border-radius: 4px;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: 
+      opacity 800ms var(--ease-covenant),
+      transform 800ms var(--ease-covenant);
+  }
+
+  .movement-image--left {
+    left: 0;
+  }
+
+  .movement-image--right {
+    right: 0;
+  }
+
+  .movement-image.is-revealed {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .movement-image.is-loaded .movement-image__photo {
+    opacity: 1;
+  }
+
+  .movement-image__frame {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .movement-image__photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.7) contrast(1.05);
+    opacity: 0;
+    transition: opacity 600ms ease;
+    animation: ken-burns-drift 12s ease-in-out infinite alternate;
+  }
+
+  @keyframes ken-burns-drift {
+    0% {
+      transform: scale(1) translate(0, 0);
+    }
+    100% {
+      transform: scale(1.05) translate(-1%, -1%);
+    }
+  }
+
+  .movement-image__vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 80% 80% at 50% 50%,
+      transparent 30%,
+      hsl(25 30% 8% / 0.6) 100%
+    );
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .movement-image__glow {
+    position: absolute;
+    bottom: -20%;
+    left: 50%;
+    width: 80%;
+    height: 60%;
+    transform: translateX(-50%);
+    background: radial-gradient(
+      ellipse 100% 100% at 50% 100%,
+      hsl(var(--vow-yellow) / 0.1) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 600ms ease 400ms;
+  }
+
+  .movement-image.is-highlighted .movement-image__glow {
+    opacity: 1;
+  }
+
+  .movement-image__thread-anchor {
+    position: absolute;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    background: hsl(var(--vow-yellow));
+    border-radius: 50%;
+    z-index: 4;
+    opacity: 0;
+    transform: scale(0);
+    transition: 
+      opacity 300ms ease,
+      transform 300ms var(--ease-spring);
+  }
+
+  .movement-image--left .movement-image__thread-anchor {
+    right: -4px;
+  }
+
+  .movement-image--right .movement-image__thread-anchor {
+    left: -4px;
+  }
+
+  .movement-image.is-highlighted .movement-image__thread-anchor {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* -------------------------------------------
+     LETTERPRESS CARD — Tactile Paper Cards
+     ------------------------------------------- */
+
+  .letterpress-card {
+    position: relative;
+    background: hsl(40 30% 96%);
+    padding: var(--space-6) var(--space-5);
+    border-radius: 2px;
+    max-width: 400px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 
+      opacity 600ms var(--ease-covenant),
+      transform 600ms var(--ease-covenant);
+    z-index: 5;
+  }
+
+  .letterpress-card.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .letterpress-card__texture {
+    position: absolute;
+    inset: 0;
+    background: 
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  .letterpress-card__rule {
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      hsl(var(--vow-yellow) / 0.6) 20%,
+      hsl(var(--vow-yellow) / 0.6) 80%,
+      transparent 100%
+    );
+    opacity: 0;
+    transform: scaleY(0);
+    transition: 
+      opacity 400ms ease,
+      transform 400ms var(--ease-covenant);
+    transition-delay: 200ms;
+  }
+
+  .letterpress-card--left .letterpress-card__rule {
+    left: 0;
+    transform-origin: top;
+  }
+
+  .letterpress-card--right .letterpress-card__rule {
+    right: 0;
+    transform-origin: bottom;
+  }
+
+  .letterpress-card.is-revealed .letterpress-card__rule {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+
+  .letterpress-card__numeral {
+    position: absolute;
+    top: var(--space-4);
+    font-family: var(--font-display);
+    font-size: 72px;
+    font-weight: 300;
+    color: hsl(35 20% 80% / 0.15);
+    line-height: 1;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .letterpress-card--left .letterpress-card__numeral {
+    right: var(--space-4);
+  }
+
+  .letterpress-card--right .letterpress-card__numeral {
+    left: var(--space-4);
+  }
+
+  .letterpress-card__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .letterpress-card__shadow {
+    position: absolute;
+    inset: 0;
+    box-shadow: 
+      0 4px 20px hsl(25 30% 10% / 0.15),
+      0 1px 3px hsl(25 30% 10% / 0.1);
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* Card content typography overrides for cream background */
+  .letterpress-card .process-movement__header {
+    color: hsl(25 20% 15%);
+  }
+
+  .letterpress-card .process-movement__name {
+    color: hsl(25 15% 30%);
+    font-size: var(--fs-xs);
+  }
+
+  .letterpress-card .process-movement__action {
+    color: hsl(35 70% 40%);
+  }
+
+  .letterpress-card .process-movement__quote {
+    color: hsl(25 20% 20%);
+  }
+
+  .letterpress-card .process-movement__details {
+    color: hsl(25 15% 35%);
+  }
+
+  .letterpress-card .process-movement__assumption {
+    color: hsl(25 10% 45%);
+  }
+
+  .letterpress-card .process-movement__outcome {
+    color: hsl(25 20% 25%);
+  }
+
+  .letterpress-card .process-movement__arrow {
+    color: hsl(35 70% 45%);
+  }
+
+  /* -------------------------------------------
+     HANDWRITTEN NOTE — Margin Annotations
+     ------------------------------------------- */
+
+  .handwritten-note {
+    position: absolute;
+    font-family: 'Caveat', cursive;
+    font-size: 18px;
+    color: hsl(35 60% 55%);
+    opacity: 0;
+    transform: rotate(-3deg);
+    transition: opacity 600ms ease;
+    z-index: 10;
+    white-space: nowrap;
+  }
+
+  .handwritten-note.is-animating {
+    opacity: 1;
+  }
+
+  .handwritten-note--top-left {
+    top: var(--space-4);
+    left: var(--space-4);
+  }
+
+  .handwritten-note--top-right {
+    top: var(--space-4);
+    right: var(--space-4);
+  }
+
+  .handwritten-note--bottom-left {
+    bottom: var(--space-4);
+    left: var(--space-4);
+  }
+
+  .handwritten-note--bottom-right {
+    bottom: var(--space-4);
+    right: var(--space-4);
+  }
+
+  .handwritten-note__text {
+    display: block;
+  }
+
+  .handwritten-note__underline {
+    width: 100%;
+    height: 8px;
+    margin-top: 2px;
+  }
+
+  .handwritten-note__stroke {
+    stroke: hsl(var(--vow-yellow) / 0.5);
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    transition: stroke-dashoffset 800ms ease;
+  }
+
+  .handwritten-note.is-animating .handwritten-note__stroke {
+    stroke-dashoffset: 0;
+  }
+
+  /* -------------------------------------------
+     PROCESS MOVEMENT — Journal Layout
+     ------------------------------------------- */
+
+  .process-movement--journal {
+    position: relative;
+    display: grid;
+    grid-template-columns: 55% 1fr;
+    gap: var(--space-6);
+    align-items: center;
+    min-height: 400px;
+    padding: var(--space-6) 0;
+  }
+
+  .process-movement--journal.process-movement--left {
+    grid-template-columns: 55% 1fr;
+  }
+
+  .process-movement--journal.process-movement--right {
+    grid-template-columns: 1fr 55%;
+  }
+
+  .process-movement--journal.process-movement--right .movement-image {
+    order: 2;
+  }
+
+  .process-movement--journal.process-movement--right .letterpress-card {
+    order: 1;
+  }
+
+  .process-movement--journal .movement-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+  }
+
+  .process-movement--journal .letterpress-card {
+    margin: 0;
+  }
+
+  .process-movement--journal.process-movement--left .letterpress-card {
+    margin-left: auto;
+  }
+
+  .process-movement--journal.process-movement--right .letterpress-card {
+    margin-right: auto;
+  }
+
+  /* Hide bar-line in journal mode */
+  .process-movement--journal .process-movement__bar-line {
+    display: none;
+  }
+
+  /* Hide numeral in header (shown in card watermark) */
+  .process-movement--journal .process-movement__numeral {
+    display: none;
+  }
+
+  /* -------------------------------------------
+     PROCESS CLOSING — Ceremony Background
+     ------------------------------------------- */
+
+  .process-closing--journal {
+    position: relative;
+    overflow: hidden;
+    padding: var(--space-10) var(--space-6);
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .process-closing__backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .process-closing__backdrop-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.6) brightness(0.7);
+  }
+
+  .process-closing__backdrop-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      hsl(25 30% 8% / 0.9) 0%,
+      hsl(25 25% 10% / 0.6) 50%,
+      hsl(25 20% 12% / 0.4) 100%
+    );
+  }
+
+  .process-closing--journal .process-closing__content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  /* -------------------------------------------
+     RESPONSIVE — Journal Layout
+     ------------------------------------------- */
+
+  @media (max-width: 1023px) {
+    .process-movement--journal {
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+      min-height: auto;
+    }
+
+    .process-movement--journal.process-movement--left,
+    .process-movement--journal.process-movement--right {
+      grid-template-columns: 1fr;
+    }
+
+    .process-movement--journal .movement-image {
+      width: 100%;
+      min-height: 240px;
+      order: 1;
+    }
+
+    .process-movement--journal.process-movement--right .movement-image {
+      order: 1;
+    }
+
+    .process-movement--journal .letterpress-card {
+      order: 2;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .process-movement--journal.process-movement--right .letterpress-card {
+      order: 2;
+    }
+
+    .handwritten-note {
+      font-size: 16px;
+    }
+
+    .letterpress-card__numeral {
+      font-size: 56px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .process-movement--journal {
+      padding: var(--space-4) 0;
+    }
+
+    .process-movement--journal .movement-image {
+      min-height: 200px;
+      border-radius: 2px;
+    }
+
+    .letterpress-card {
+      padding: var(--space-5) var(--space-4);
+    }
+
+    .letterpress-card__numeral {
+      font-size: 48px;
+    }
+
+    .process-closing--journal {
+      min-height: 400px;
+      padding: var(--space-8) var(--space-4);
+    }
+
+    .handwritten-note {
+      display: none;
+    }
+  }
+
+  /* -------------------------------------------
+     REDUCED MOTION — Journal
+     ------------------------------------------- */
+
+  @media (prefers-reduced-motion: reduce) {
+    .movement-image__photo {
+      animation: none;
+    }
+
+    .gradient-dawn--journal .gradient-dawn__candlelight {
+      animation: none;
+      opacity: 0.8;
+    }
+
+    .movement-image,
+    .letterpress-card {
+      transition-duration: 200ms;
+    }
+
+    .ken-burns-drift {
+      animation: none;
+    }
+  }
 }

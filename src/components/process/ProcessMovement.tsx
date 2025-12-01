@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { CardConnector } from './CardConnector';
+import { MovementImage } from './MovementImage';
+import { LetterpressCard } from './LetterpressCard';
+import { HandwrittenNote } from './HandwrittenNote';
 import type { LineState } from '@/hooks/usePathMorph';
 
 interface MovementData {
@@ -11,6 +14,7 @@ interface MovementData {
   details: string;
   assumption: string;
   outcome: string;
+  annotation?: string;
 }
 
 interface ProcessMovementProps {
@@ -96,7 +100,7 @@ export function ProcessMovement({
     <div
       ref={movementRef}
       className={cn(
-        'process-movement',
+        'process-movement process-movement--journal',
         `process-movement--${side}`,
         hasTriggered && 'is-triggered',
         isHighlighted && 'is-conductor-synced',
@@ -105,6 +109,25 @@ export function ProcessMovement({
       style={{ '--movement-index': index } as React.CSSProperties}
       data-reveal-phase={revealPhase}
     >
+      {/* Movement Image with parallax */}
+      <MovementImage
+        numeral={movement.numeral}
+        alt={`${movement.name} - ${movement.quote}`}
+        isRevealed={hasTriggered}
+        isHighlighted={isHighlighted}
+        side={side}
+      />
+
+      {/* Handwritten annotation over image */}
+      {movement.annotation && (
+        <HandwrittenNote
+          text={movement.annotation}
+          isRevealed={hasTriggered}
+          position={side === 'left' ? 'top-right' : 'top-left'}
+          delay={400}
+        />
+      )}
+
       {/* Golden connector thread from line to card */}
       <CardConnector
         side={side}
@@ -114,58 +137,62 @@ export function ProcessMovement({
         className="process-movement__connector"
       />
 
-      {/* Bar-line accent — like a measure line in sheet music */}
-      <div className="process-movement__bar-line" aria-hidden="true" />
-
-      {/* Phase 1: Movement Header */}
-      <div className={cn(
-        'process-movement__header',
-        revealPhase >= 1 && 'is-visible'
-      )}>
-        <span className="process-movement__numeral">{movement.numeral}</span>
-        <span className="process-movement__name">{movement.name}</span>
-      </div>
-      
-      {/* Phase 2: Action Verb — Only yellow element */}
-      <span className={cn(
-        'process-movement__action',
-        revealPhase >= 2 && 'is-visible'
-      )}>
-        {movement.action}
-      </span>
-      
-      {/* Phase 3: Quote — Cormorant italic */}
-      <p className={cn(
-        'process-movement__quote',
-        revealPhase >= 3 && 'is-visible'
-      )}>
-        "{movement.quote}"
-      </p>
-      
-      {/* Phase 4: Details — Supporting text */}
-      <p className={cn(
-        'process-movement__details',
-        revealPhase >= 4 && 'is-visible'
-      )}>
-        {movement.details}
-      </p>
-      
-      {/* Phase 5: Assumption — No yellow, muted */}
-      <p className={cn(
-        'process-movement__assumption',
-        revealPhase >= 5 && 'is-visible'
-      )}>
-        {movement.assumption}
-      </p>
-      
-      {/* Phase 6: Outcome — Golden arrow only */}
-      <p className={cn(
-        'process-movement__outcome',
-        revealPhase >= 6 && 'is-visible'
-      )}>
-        <span className="process-movement__arrow">→</span>
-        <span className="process-movement__outcome-text">{movement.outcome}</span>
-      </p>
+      {/* Letterpress Card wrapping content */}
+      <LetterpressCard
+        numeral={movement.numeral}
+        isRevealed={hasTriggered}
+        isHighlighted={isHighlighted}
+        side={side}
+      >
+        {/* Phase 1: Movement Header */}
+        <div className={cn(
+          'process-movement__header',
+          revealPhase >= 1 && 'is-visible'
+        )}>
+          <span className="process-movement__name">{movement.name}</span>
+        </div>
+        
+        {/* Phase 2: Action Verb — Only yellow element */}
+        <span className={cn(
+          'process-movement__action',
+          revealPhase >= 2 && 'is-visible'
+        )}>
+          {movement.action}
+        </span>
+        
+        {/* Phase 3: Quote — Cormorant italic */}
+        <p className={cn(
+          'process-movement__quote',
+          revealPhase >= 3 && 'is-visible'
+        )}>
+          "{movement.quote}"
+        </p>
+        
+        {/* Phase 4: Details — Supporting text */}
+        <p className={cn(
+          'process-movement__details',
+          revealPhase >= 4 && 'is-visible'
+        )}>
+          {movement.details}
+        </p>
+        
+        {/* Phase 5: Assumption — No yellow, muted */}
+        <p className={cn(
+          'process-movement__assumption',
+          revealPhase >= 5 && 'is-visible'
+        )}>
+          {movement.assumption}
+        </p>
+        
+        {/* Phase 6: Outcome — Golden arrow only */}
+        <p className={cn(
+          'process-movement__outcome',
+          revealPhase >= 6 && 'is-visible'
+        )}>
+          <span className="process-movement__arrow">→</span>
+          <span className="process-movement__outcome-text">{movement.outcome}</span>
+        </p>
+      </LetterpressCard>
     </div>
   );
 }
