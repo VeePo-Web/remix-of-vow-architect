@@ -6,6 +6,8 @@ import { ProcessMovement } from './ProcessMovement';
 import { GradientDawnBackground } from './GradientDawnBackground';
 import { AmbientGlowField } from './AmbientGlowField';
 import { EchoRings } from './EchoRings';
+import { WeavingThread } from './WeavingThread';
+import { FlameSystem } from './FlameSystem';
 import { useProcessScroll } from '@/hooks/useProcessScroll';
 
 interface Movement {
@@ -142,7 +144,24 @@ export function ProcessSection() {
         progress={scrollState.progress}
       />
 
-      {/* Golden Thread (Desktop) */}
+      {/* Layer 3: Weaving Thread (curved path with anchors) */}
+      <WeavingThread
+        activeStep={activeStep}
+        progress={scrollState.progress}
+        cssVars={scrollState.cssVars}
+        isActive={scrollState.isActive}
+        className="process-section__weaving-thread"
+      />
+
+      {/* Layer 4: Flame System (spark → fragments → unified) */}
+      <FlameSystem
+        progress={scrollState.progress}
+        cssVars={scrollState.cssVars}
+        isActive={scrollState.isActive}
+        className="process-section__flame-system"
+      />
+
+      {/* Golden Thread (Desktop - legacy fallback) */}
       <ProcessThread 
         activeStep={activeStep} 
         className="process-section__thread" 

@@ -2293,6 +2293,430 @@ All colors MUST be HSL.
     }
   }
 
+  /* ═══════════════════════════════════════
+     WEAVING THREAD — "The Path That Breathes"
+     ═══════════════════════════════════════ */
+
+  .weaving-thread {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100px;
+    height: 100%;
+    transform: translateX(-50%);
+    z-index: 3;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 800ms var(--ease-sacred);
+  }
+
+  .weaving-thread.is-active {
+    opacity: 1;
+  }
+
+  .weaving-thread__svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .weaving-thread__path-bg {
+    opacity: 0.4;
+  }
+
+  .weaving-thread__path {
+    transition: stroke-dashoffset 100ms linear;
+    animation: thread-breathe 6s ease-in-out infinite;
+  }
+
+  @keyframes thread-breathe {
+    0%, 100% {
+      opacity: 0.7;
+      filter: brightness(1);
+    }
+    50% {
+      opacity: 1;
+      filter: brightness(1.2);
+    }
+  }
+
+  .weaving-thread__origin {
+    opacity: 0.6;
+    animation: origin-breathe 4s ease-in-out infinite;
+  }
+
+  @keyframes origin-breathe {
+    0%, 100% {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+  }
+
+  .weaving-thread__anchor {
+    opacity: 0.3;
+    transform-origin: center;
+    transition: all 400ms var(--ease-sacred);
+  }
+
+  .weaving-thread__anchor.is-ignited {
+    opacity: 1;
+    animation: anchor-ignite 500ms var(--ease-sacred) forwards,
+               anchor-pulse 3s ease-in-out 500ms infinite;
+  }
+
+  @keyframes anchor-ignite {
+    0% {
+      transform: scale(0.5);
+      opacity: 0.3;
+    }
+    50% {
+      transform: scale(1.5);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes anchor-pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.9;
+    }
+    50% {
+      transform: scale(1.15);
+      opacity: 1;
+    }
+  }
+
+  .weaving-thread__anchor-ring {
+    opacity: 0;
+    transform-origin: center;
+  }
+
+  .weaving-thread__anchor-ring.is-active {
+    animation: anchor-ring-pulse 2s ease-out infinite;
+  }
+
+  @keyframes anchor-ring-pulse {
+    0% {
+      transform: scale(0.8);
+      opacity: 0.6;
+      stroke-width: 1;
+    }
+    100% {
+      transform: scale(2);
+      opacity: 0;
+      stroke-width: 0.2;
+    }
+  }
+
+  .weaving-thread__terminus {
+    opacity: 0;
+    transform-origin: center;
+    transition: all 600ms var(--ease-sacred);
+  }
+
+  .weaving-thread__terminus.is-complete {
+    opacity: 1;
+    animation: terminus-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes terminus-pulse {
+    0%, 100% {
+      transform: scale(1);
+      filter: brightness(1);
+    }
+    50% {
+      transform: scale(1.3);
+      filter: brightness(1.4);
+    }
+  }
+
+  /* ═══════════════════════════════════════
+     FLAME SYSTEM — "From Spark to Symphony"
+     ═══════════════════════════════════════ */
+
+  .flame-system {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 300px;
+    height: 100%;
+    transform: translateX(-50%);
+    z-index: 4;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 600ms var(--ease-sacred);
+  }
+
+  .flame-system.is-active {
+    opacity: 1;
+  }
+
+  /* Base flame styles */
+  .flame-system__flame {
+    width: 16px;
+    height: 24px;
+    background: radial-gradient(
+      ellipse 50% 80% at 50% 90%,
+      hsl(var(--vow-yellow)) 0%,
+      hsl(var(--vow-yellow) / 0.8) 30%,
+      hsl(45 100% 70% / 0.4) 60%,
+      transparent 100%
+    );
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    filter: blur(1px);
+    transform-origin: center bottom;
+  }
+
+  /* Origin flame (single, above intro) */
+  .flame-system__origin {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 800ms var(--ease-sacred);
+  }
+
+  .flame-system__origin.is-visible {
+    opacity: 1;
+  }
+
+  .flame-system__flame--origin {
+    width: 20px;
+    height: 32px;
+    animation: flame-breathe-origin 3s ease-in-out infinite;
+  }
+
+  @keyframes flame-breathe-origin {
+    0%, 100% {
+      transform: scaleY(1) scaleX(1);
+      filter: blur(1px) brightness(1);
+    }
+    25% {
+      transform: scaleY(1.1) scaleX(0.95);
+    }
+    50% {
+      transform: scaleY(0.95) scaleX(1.05);
+      filter: blur(1.5px) brightness(1.2);
+    }
+    75% {
+      transform: scaleY(1.05) scaleX(0.98);
+    }
+  }
+
+  /* Particle burst */
+  .flame-system__particles {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    width: 0;
+    height: 0;
+  }
+
+  .flame-system__particle {
+    position: absolute;
+    width: var(--particle-size, 3px);
+    height: var(--particle-size, 3px);
+    background: hsl(var(--vow-yellow));
+    border-radius: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+  }
+
+  .flame-system__particles.is-bursting .flame-system__particle {
+    animation: particle-burst 600ms var(--ease-sacred) forwards;
+    animation-delay: var(--particle-delay, 0ms);
+  }
+
+  @keyframes particle-burst {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, -50%) rotate(var(--particle-angle)) translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -50%) rotate(var(--particle-angle)) translateY(calc(var(--particle-distance) * -1));
+    }
+  }
+
+  /* Fragment flames */
+  .flame-system__fragments {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    width: 0;
+    height: 0;
+  }
+
+  .flame-system__fragment {
+    position: absolute;
+    transform-origin: center;
+    opacity: 0;
+    transition: transform 400ms var(--ease-sacred), opacity 400ms var(--ease-sacred);
+  }
+
+  .flame-system__fragment.is-visible {
+    opacity: 1;
+  }
+
+  .flame-system__flame--fragment {
+    width: 12px;
+    height: 18px;
+    animation: flame-breathe-fragment 2.5s ease-in-out infinite;
+  }
+
+  @keyframes flame-breathe-fragment {
+    0%, 100% {
+      transform: scaleY(1) scaleX(1) rotate(-3deg);
+      filter: blur(0.5px);
+    }
+    50% {
+      transform: scaleY(1.1) scaleX(0.9) rotate(3deg);
+      filter: blur(1px) brightness(1.1);
+    }
+  }
+
+  /* Unified flame (above CTA) */
+  .flame-system__unified {
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 600ms var(--ease-sacred);
+  }
+
+  .flame-system__unified.is-visible {
+    opacity: 1;
+  }
+
+  .flame-system__flame--unified {
+    width: 28px;
+    height: 44px;
+    animation: flame-breathe-unified 4s ease-in-out infinite;
+    filter: blur(1px) brightness(1.2);
+  }
+
+  @keyframes flame-breathe-unified {
+    0%, 100% {
+      transform: scaleY(1) scaleX(1);
+      filter: blur(1px) brightness(1.2);
+    }
+    30% {
+      transform: scaleY(1.15) scaleX(0.92);
+    }
+    50% {
+      transform: scaleY(0.95) scaleX(1.08);
+      filter: blur(1.5px) brightness(1.4);
+    }
+    70% {
+      transform: scaleY(1.08) scaleX(0.96);
+    }
+  }
+
+  /* Unification burst */
+  .flame-system__burst {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    transform: translate(-50%, -50%) scale(0);
+    background: radial-gradient(
+      circle,
+      hsl(var(--vow-yellow) / 0.6) 0%,
+      hsl(var(--vow-yellow) / 0.2) 40%,
+      transparent 70%
+    );
+    border-radius: 50%;
+    opacity: 0;
+  }
+
+  .flame-system__unified.is-visible .flame-system__burst {
+    animation: unification-burst 1200ms var(--ease-sacred) forwards;
+  }
+
+  @keyframes unification-burst {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 1;
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(2);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(3);
+      opacity: 0;
+    }
+  }
+
+  /* Mobile adjustments for Weaving Thread */
+  @media (max-width: 767px) {
+    .weaving-thread {
+      display: none;
+    }
+  }
+
+  /* Mobile adjustments for Flame System */
+  @media (max-width: 767px) {
+    .flame-system {
+      width: 200px;
+    }
+
+    .flame-system__flame--origin {
+      width: 16px;
+      height: 26px;
+    }
+
+    .flame-system__flame--unified {
+      width: 22px;
+      height: 36px;
+    }
+  }
+
+  /* ═══════════════════════════════════════
+     REDUCED MOTION — Weaving Thread & Flame
+     ═══════════════════════════════════════ */
+
+  @media (prefers-reduced-motion: reduce) {
+    .weaving-thread__path {
+      animation: none;
+      stroke-dashoffset: 0 !important;
+    }
+
+    .weaving-thread__origin,
+    .weaving-thread__anchor,
+    .weaving-thread__anchor-ring,
+    .weaving-thread__terminus {
+      animation: none;
+    }
+
+    .weaving-thread__anchor.is-ignited {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .flame-system__flame {
+      animation: none;
+    }
+
+    .flame-system__particles.is-bursting .flame-system__particle {
+      animation: none;
+    }
+
+    .flame-system__burst {
+      animation: none;
+    }
+  }
+
   /* ========================================
      LEGACY PREPARATION STYLES (for backwards compatibility)
      ======================================== */
