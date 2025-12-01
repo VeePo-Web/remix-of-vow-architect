@@ -118,6 +118,31 @@ All colors MUST be HSL.
     
     /* Ink Colors for Text */
     --color-ink-soft: hsl(var(--muted-foreground));
+
+    /* ========================================
+       FANTASY-GRADE ANIMATION TOKENS
+       ======================================== */
+    
+    /* Animation Timing (Fantasy-grade easing curves) */
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    --ease-in-out-circ: cubic-bezier(0.85, 0, 0.15, 1);
+    
+    /* Animation Durations */
+    --duration-fast: 400ms;
+    --duration-default: 600ms;
+    --duration-slow: 900ms;
+    --duration-stagger: 80ms;
+    
+    /* Animation Distances */
+    --reveal-distance-y: 24px;
+    --reveal-distance-x: 30px;
+    --reveal-scale: 0.96;
+    --reveal-blur: 8px;
+    
+    /* Intersection Thresholds */
+    --reveal-threshold: 0.15;
+    --reveal-margin: -60px;
   }
 
   .light,
@@ -772,6 +797,172 @@ All colors MUST be HSL.
   .stagger-fade > *:nth-child(5) { animation-delay: 240ms; }
   .stagger-fade > *:nth-child(6) { animation-delay: 300ms; }
 
+  /* ========================================
+     FANTASY-GRADE KEYFRAMES
+     ======================================== */
+
+  /* Base Fade Up (the workhorse) */
+  @keyframes reveal-up {
+    from {
+      opacity: 0;
+      transform: translateY(var(--reveal-distance-y));
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Fade with Scale (for cards, images) */
+  @keyframes reveal-scale {
+    from {
+      opacity: 0;
+      transform: scale(var(--reveal-scale)) translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  /* Slide from Left (for complementary content) */
+  @keyframes reveal-left {
+    from {
+      opacity: 0;
+      transform: translateX(calc(var(--reveal-distance-x) * -1));
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* Slide from Right (for complementary content) */
+  @keyframes reveal-right {
+    from {
+      opacity: 0;
+      transform: translateX(var(--reveal-distance-x));
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* Fade with Blur (for hero/premium elements) */
+  @keyframes reveal-blur {
+    from {
+      opacity: 0;
+      filter: blur(var(--reveal-blur));
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+  }
+
+  /* Chapter Rule Grow (for section dividers) */
+  @keyframes chapter-rule-grow {
+    from {
+      transform: scaleX(0);
+      opacity: 0;
+    }
+    to {
+      transform: scaleX(1);
+      opacity: 1;
+    }
+  }
+
+  /* Soft Float (for ambient motion) */
+  @keyframes soft-float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  /* ========================================
+     REVEAL ANIMATION CLASSES
+     ======================================== */
+
+  /* Base reveal state (hidden by default) */
+  .reveal {
+    opacity: 0;
+    will-change: opacity, transform;
+  }
+
+  /* Triggered state */
+  .reveal.is-visible {
+    animation-fill-mode: both;
+    animation-timing-function: var(--ease-out-expo);
+  }
+
+  /* Animation Variants */
+  .reveal--up.is-visible {
+    animation: reveal-up var(--duration-default) var(--ease-out-expo);
+  }
+
+  .reveal--scale.is-visible {
+    animation: reveal-scale var(--duration-default) var(--ease-out-expo);
+  }
+
+  .reveal--left.is-visible {
+    animation: reveal-left var(--duration-default) var(--ease-out-expo);
+  }
+
+  .reveal--right.is-visible {
+    animation: reveal-right var(--duration-default) var(--ease-out-expo);
+  }
+
+  .reveal--blur.is-visible {
+    animation: reveal-blur var(--duration-slow) var(--ease-out-expo);
+  }
+
+  /* Duration Modifiers */
+  .reveal--fast.is-visible {
+    animation-duration: var(--duration-fast);
+  }
+
+  .reveal--slow.is-visible {
+    animation-duration: var(--duration-slow);
+  }
+
+  /* ========================================
+     STAGGER SYSTEM (Fantasy Orchestration)
+     ======================================== */
+
+  .stagger-reveal > .reveal {
+    --stagger-index: 0;
+    animation-delay: calc(var(--stagger-index) * var(--duration-stagger));
+  }
+
+  /* Auto-assign stagger indices */
+  .stagger-reveal > .reveal:nth-child(1) { --stagger-index: 0; }
+  .stagger-reveal > .reveal:nth-child(2) { --stagger-index: 1; }
+  .stagger-reveal > .reveal:nth-child(3) { --stagger-index: 2; }
+  .stagger-reveal > .reveal:nth-child(4) { --stagger-index: 3; }
+  .stagger-reveal > .reveal:nth-child(5) { --stagger-index: 4; }
+  .stagger-reveal > .reveal:nth-child(6) { --stagger-index: 5; }
+  .stagger-reveal > .reveal:nth-child(7) { --stagger-index: 6; }
+  .stagger-reveal > .reveal:nth-child(8) { --stagger-index: 7; }
+  .stagger-reveal > .reveal:nth-child(9) { --stagger-index: 8; }
+  .stagger-reveal > .reveal:nth-child(10) { --stagger-index: 9; }
+  .stagger-reveal > .reveal:nth-child(11) { --stagger-index: 10; }
+  .stagger-reveal > .reveal:nth-child(12) { --stagger-index: 11; }
+
+  /* Ambient Motion */
+  .ambient-float {
+    animation: soft-float 6s ease-in-out infinite;
+  }
+
+  .ambient-float--delayed {
+    animation-delay: 2s;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     * {
       animation-duration: 120ms !important;
@@ -790,6 +981,21 @@ All colors MUST be HSL.
     .vow-underline::after {
       animation: none;
       transform: scaleX(1);
+    }
+
+    /* Animation System Overrides */
+    .reveal {
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+    }
+    
+    .reveal.is-visible {
+      animation: none !important;
+    }
+    
+    .ambient-float {
+      animation: none !important;
     }
   }
 }

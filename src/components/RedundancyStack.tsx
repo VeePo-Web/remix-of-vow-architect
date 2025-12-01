@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Mic, Zap, Piano, Speaker, ArrowDown } from "lucide-react";
+import { StaggerChildren } from "@/components/animation";
 
 const failoverTiers = [
   {
@@ -35,9 +36,9 @@ export function RedundancyStack() {
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold mb-4 text-center">Backup on Backup on Backup.</h2>
           
-          <div className="space-y-4 mb-8">
+          <StaggerChildren staggerDelay={100} as="div" className="space-y-4 mb-8">
             {failoverTiers.map((tier, i) => (
-              <div key={i} className="animate-fade-in" style={{ animationDelay: `${i * 100}ms` }}>
+              <div key={i}>
                 <Card 
                   className={`p-6 bg-card border-border ${
                     tier.highlight ? 'ring-2 ring-primary/30' : 'opacity-90'
@@ -63,7 +64,7 @@ export function RedundancyStack() {
                 )}
               </div>
             ))}
-          </div>
+          </StaggerChildren>
 
           <Card className="p-6 bg-primary/5 border-primary/20 text-center">
             <p className="text-foreground font-medium">

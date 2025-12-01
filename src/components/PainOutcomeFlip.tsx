@@ -1,4 +1,5 @@
 import { X, Check } from "lucide-react";
+import { StaggerChildren } from "@/components/animation";
 
 const pains = [
   "Wind muffles words → vows get missed.",
@@ -25,26 +26,26 @@ export function PainOutcomeFlip() {
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           {/* Pain Column */}
           <div className="p-8 rounded-lg bg-destructive/5 border border-destructive/20">
-            <div className="space-y-6">
+            <StaggerChildren staggerDelay={80} as="div" className="space-y-6">
               {pains.map((pain, index) => (
-                <div key={index} className="flex items-start gap-3 animate-fade-in" style={{ animationDelay: `${index * 60}ms` }}>
+                <div key={index} className="flex items-start gap-3">
                   <X size={20} className="text-destructive shrink-0 mt-0.5" />
                   <p className="p-body">{pain}</p>
                 </div>
               ))}
-            </div>
+            </StaggerChildren>
           </div>
 
           {/* Outcome Column */}
           <div className="p-8 rounded-lg bg-accent/5 border border-accent/20">
-            <div className="space-y-6">
+            <StaggerChildren staggerDelay={80} as="div" className="space-y-6">
               {outcomes.map((outcome, index) => (
-                <div key={index} className="flex items-start gap-3 animate-fade-in" style={{ animationDelay: `${index * 60}ms` }}>
+                <div key={index} className="flex items-start gap-3">
                   <Check size={20} className="text-accent shrink-0 mt-0.5" />
                   <p className="p-body">{outcome}</p>
                 </div>
               ))}
-            </div>
+            </StaggerChildren>
           </div>
         </div>
 
