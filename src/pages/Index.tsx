@@ -3,13 +3,14 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { HeroTrustBadges } from "@/components/HeroTrustBadges";
-import { SoundSystemDiagram } from "@/components/SoundSystemDiagram";
-import { PainOutcomeFlip } from "@/components/PainOutcomeFlip";
-import { SoundDirectorSection } from "@/components/SoundDirectorSection";
-import { PricingPreview } from "@/components/PricingPreview";
-import { BanffModeTile } from "@/components/BanffModeTile";
-import { ProofBlock } from "@/components/ProofBlock";
-import { TestimonialsWithMetrics } from "@/components/TestimonialsWithMetrics";
+import { ThreeVows } from "@/components/ThreeVows";
+import { TheTransformation } from "@/components/TheTransformation";
+import { TheWitness } from "@/components/TheWitness";
+import { ThreePaths } from "@/components/ThreePaths";
+import { TheSacredGround } from "@/components/TheSacredGround";
+import { TheRecord } from "@/components/TheRecord";
+import { TheWitnesses } from "@/components/TheWitnesses";
+import { CrossOver } from "@/components/CrossOver";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { useVigilSequence } from "@/hooks/useVigilSequence";
 import { useHeroReveal } from "@/hooks/useHeroReveal";
@@ -18,7 +19,6 @@ import { ChapterRule } from "@/components/ChapterRule";
 import { ScrollCue } from "@/components/ScrollCue";
 import { VigilGlow } from "@/components/VigilGlow";
 import heroImage from "@/assets/hero-piano.jpg";
-import { Download } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function Index() {
@@ -156,71 +156,29 @@ export default function Index() {
         </div>
       </section>
 
-      {/* SECTION 2 — Ceremony Sound System Diagram (Exhale - Surface) */}
-      <div className="section--surface">
-        <SoundSystemDiagram />
-      </div>
+      {/* SECTION 2 — The Three Vows (Exhale - Surface) */}
+      <ThreeVows />
 
-      {/* SECTION 3 — Pain Stack & Outcome Flip (Inhale - Dark) */}
-      <div className="section--dark">
-        <PainOutcomeFlip />
-      </div>
+      {/* SECTION 3 — The Transformation (Full-Width Split) */}
+      <TheTransformation />
 
-      {/* SECTION 4 — The Sound Director Category (Exhale - Surface) */}
-      <div className="section--surface">
-        <SoundDirectorSection />
-      </div>
+      {/* SECTION 4 — The Witness (Exhale - Surface) */}
+      <TheWitness />
 
-      {/* SECTION 5 — Pricing Preview (Inhale - Dark) */}
-      <div className="section--dark">
-        <PricingPreview />
-      </div>
+      {/* SECTION 5 — Three Paths (Inhale - Dark) */}
+      <ThreePaths />
 
-      {/* SECTION 6 — Banff Mode™ Highlight Tile (Exhale - Accent Soft Green) */}
-      <div className="section--accent-soft">
-        <BanffModeTile />
-      </div>
+      {/* SECTION 6 — The Sacred Ground (Exhale - Accent Soft Green) */}
+      <TheSacredGround />
 
-      {/* SECTION 7 — Proof Block (Inhale - Dark) */}
-      <div className="section--dark">
-        <ProofBlock />
-      </div>
+      {/* SECTION 7 — The Record (Inhale - Dark) */}
+      <TheRecord />
 
-      {/* SECTION 8 — Testimonials with Metrics (Exhale - Accent Soft Warm) */}
-      <div className="section--surface">
-        <TestimonialsWithMetrics />
-      </div>
+      {/* SECTION 8 — The Witnesses (Exhale - Surface) */}
+      <TheWitnesses />
 
-      {/* SECTION 9 — Final Push + Soft Conversion */}
-      <section className="section--dark py-24 px-4">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="h2 mx-auto mb-8 text-ink-inverse">
-            Your vows deserve to be heard—legally and beautifully.
-          </h2>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-            <Button size="lg" variant="primary-dark" asChild>
-              <a href="/contact">Hold my date & get my ceremony-audio plan</a>
-            </Button>
-            <Button variant="ghost-dark" size="lg" className="gap-2" asChild>
-              <a href="/resources">
-                <Download size={20} />
-                Download a sample plan
-              </a>
-            </Button>
-          </div>
-
-          <p className="text-sm text-ink-inverse/70">
-            Includes SPL log, mic setup, and run-of-show.
-          </p>
-
-          <div className="mt-12 pt-8 border-t border-lines">
-            <p className="text-sm font-semibold text-ink-inverse">
-              Response within <span className="text-primary">24 hours</span>. Always.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* SECTION 9 — Cross Over (Final CTA) */}
+      <CrossOver />
 
       <Footer />
       <MobileStickyBar />
