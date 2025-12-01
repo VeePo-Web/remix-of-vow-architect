@@ -1555,10 +1555,10 @@ All colors MUST be HSL.
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: var(--space-6);
-    max-width: 480px;
+    gap: var(--space-8);
+    max-width: 560px;
     width: 100%;
-    padding-left: var(--space-8);
+    padding-left: var(--space-9);
   }
 
   .preparation-thread {
@@ -1575,7 +1575,7 @@ All colors MUST be HSL.
     );
     transform-origin: top;
     transform: scaleY(0);
-    transition: transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition: transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
 
   .preparation-stepper.is-visible .preparation-thread {
@@ -1589,8 +1589,8 @@ All colors MUST be HSL.
     gap: var(--space-5);
     opacity: 0;
     transform: translateX(-10px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    transition-delay: calc(0.2s + (var(--step-index) * 0.12s));
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition-delay: calc(0.3s + (var(--step-index) * 0.15s));
   }
 
   .preparation-stepper.is-visible .preparation-step {
@@ -1600,7 +1600,7 @@ All colors MUST be HSL.
 
   .preparation-node {
     position: absolute;
-    left: calc(-1 * var(--space-8) + 8px);
+    left: calc(-1 * var(--space-9) + 8px);
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -1622,33 +1622,76 @@ All colors MUST be HSL.
   .preparation-content {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: var(--space-3);
   }
 
+  /* Movement name - subtle label */
+  .preparation-name {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-foreground) / 0.5);
+    font-weight: 400;
+  }
+
+  /* Action verb - vow-yellow accent */
   .preparation-action {
     font-family: var(--font-sans);
-    font-size: var(--fs-xs);
-    letter-spacing: 0.12em;
+    font-size: var(--fs-sm);
+    letter-spacing: 0.15em;
     text-transform: uppercase;
     color: hsl(var(--vow-yellow));
     font-weight: 500;
+    margin-top: -4px;
   }
 
-  .preparation-question {
+  /* Opening quote - italicized serif */
+  .preparation-quote {
     font-family: var(--font-serif);
-    font-size: clamp(17px, 2.2vw, 22px);
-    color: hsl(var(--foreground));
-    line-height: 1.35;
-    margin: 0;
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-style: italic;
+    font-weight: 400;
+    color: hsl(var(--foreground) / 0.9);
+    line-height: 1.4;
+    margin: var(--space-2) 0 0;
   }
 
-  .preparation-reason {
+  /* Supporting details - body text */
+  .preparation-details {
     font-family: var(--font-sans);
-    font-size: var(--fs-small);
+    font-size: var(--fs-base);
     color: hsl(var(--muted-foreground) / 0.7);
-    line-height: 1.5;
+    line-height: 1.7;
     margin: 0;
-    font-style: italic;
+    max-width: 480px;
+  }
+
+  /* Assumption statement - vow-yellow highlight */
+  .preparation-assumption {
+    font-family: var(--font-sans);
+    font-size: var(--fs-sm);
+    color: hsl(var(--vow-yellow));
+    line-height: 1.5;
+    margin: var(--space-2) 0 0;
+    font-weight: 500;
+  }
+
+  /* Arrow outcome */
+  .preparation-outcome {
+    font-family: var(--font-sans);
+    font-size: var(--fs-sm);
+    color: hsl(var(--foreground) / 0.8);
+    line-height: 1.5;
+    margin: var(--space-1) 0 0;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .preparation-arrow {
+    color: hsl(var(--vow-yellow));
+    font-weight: 500;
   }
 
   /* Closing Block */
@@ -1658,7 +1701,11 @@ All colors MUST be HSL.
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.6s ease, transform 0.6s ease;
-    transition-delay: 0.8s;
+    transition-delay: 1s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
   }
 
   .preparation-closing.is-visible {
@@ -1671,7 +1718,7 @@ All colors MUST be HSL.
     font-size: clamp(18px, 2.8vw, 26px);
     color: hsl(var(--foreground));
     line-height: 1.4;
-    margin-bottom: var(--space-2);
+    margin: 0;
   }
 
   .preparation-assurance {
@@ -1682,6 +1729,29 @@ All colors MUST be HSL.
     margin: 0;
   }
 
+  .preparation-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-4) var(--space-6);
+    margin-top: var(--space-4);
+    font-family: var(--font-sans);
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: hsl(var(--rich-black));
+    background: hsl(var(--vow-yellow));
+    border: none;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 180ms var(--easing-std);
+  }
+
+  .preparation-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px hsl(var(--vow-yellow) / 0.25);
+  }
+
   /* Mobile Adjustments */
   @media (max-width: 767px) {
     .preparation-section {
@@ -1690,8 +1760,8 @@ All colors MUST be HSL.
     }
     
     .preparation-stepper {
-      padding-left: var(--space-7);
-      gap: var(--space-5);
+      padding-left: var(--space-8);
+      gap: var(--space-7);
     }
     
     .preparation-thread {
@@ -1699,9 +1769,13 @@ All colors MUST be HSL.
     }
     
     .preparation-node {
-      left: calc(-1 * var(--space-7) + 4px);
+      left: calc(-1 * var(--space-8) + 4px);
       width: 22px;
       height: 22px;
+    }
+
+    .preparation-details {
+      font-size: var(--fs-sm);
     }
   }
 
