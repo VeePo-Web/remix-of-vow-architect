@@ -1,4 +1,3 @@
 export { ProcessSection, default } from './ProcessSection';
-export { ProcessStaff } from './ProcessStaff';
-export { ProcessStep } from './ProcessStep';
-export { ProcessAnnotation, ProcessAnnotationSVG } from './ProcessAnnotation';
+export { ProcessThread } from './ProcessThread';
+export { ProcessMovement } from './ProcessMovement';
