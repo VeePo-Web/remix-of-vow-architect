@@ -1323,6 +1323,50 @@ All colors MUST be HSL.
     }
   }
 
+  /* THE EXHALE — Golden Thread (The Pivot) */
+  .exhale-thread {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      hsl(var(--vow-yellow) / 0.6) 20%,
+      hsl(var(--vow-yellow)) 50%,
+      hsl(var(--vow-yellow) / 0.6) 80%,
+      transparent 100%
+    );
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 900ms var(--ease-exhale);
+  }
+
+  .exhale-thread--visible {
+    transform: scaleX(1);
+  }
+
+  /* THE EXHALE — Emphasis Word Underline */
+  .exhale-emphasis {
+    position: relative;
+    display: inline-block;
+  }
+
+  .exhale-emphasis::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: hsl(var(--vow-yellow));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 450ms var(--ease-sacred);
+    transition-delay: 400ms;
+  }
+
+  .exhale-emphasis--visible::after {
+    transform: scaleX(1);
+  }
+
   /* Vibrating String Animation - Piano wire resonance */
   @keyframes vibrate-string {
     0%, 100% {
