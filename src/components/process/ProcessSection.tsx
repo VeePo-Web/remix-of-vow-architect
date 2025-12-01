@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { ProcessStaff } from './ProcessStaff';
-import { ProcessStep } from './ProcessStep';
+import { ProcessThread } from './ProcessThread';
+import { ProcessMovement } from './ProcessMovement';
 
-interface Step {
+interface Movement {
   numeral: string;
   name: string;
   action: string;
@@ -12,10 +12,9 @@ interface Step {
   details: string;
   assumption: string;
   outcome: string;
-  annotations?: { text: string; position: 'left' | 'right' }[];
 }
 
-const steps: Step[] = [
+const movements: Movement[] = [
   {
     numeral: 'I',
     name: 'THE LISTENING',
@@ -24,9 +23,6 @@ const steps: Step[] = [
     details: 'What song was playing when you knew? What tempo matches the way your heart beats when you think about walking toward them?',
     assumption: "I don't assume I know. I ask.",
     outcome: 'We begin with a conversation.',
-    annotations: [
-      { text: 'What song was playing when you knew?', position: 'right' },
-    ],
   },
   {
     numeral: 'II',
@@ -45,10 +41,6 @@ const steps: Step[] = [
     details: "Not to impress you. To ask you: 'Am I heading the right direction?' If something feels off, we course-correct. Your feedback isn't inconvenient. It's essential.",
     assumption: "I don't assume I got it right. I check.",
     outcome: 'We iterate until it sounds exactly like you imagined.',
-    annotations: [
-      { text: 'Too fast?', position: 'left' },
-      { text: 'Softer here?', position: 'right' },
-    ],
   },
   {
     numeral: 'IV',
@@ -62,10 +54,11 @@ const steps: Step[] = [
 ];
 
 /**
- * ProcessSection — "Sheet Music That Writes Itself"
+ * ProcessSection — "Composition in the Dark"
  * 
- * A Fantasy.co-grade scroll experience where the musical staff
- * progressively fills with notes as users journey through each movement.
+ * Fantasy.co-grade scroll experience with rich black background,
+ * golden thread notation system, and sacred timing animations.
+ * Matches the visual language of Hero and Exhale sections.
  */
 export function ProcessSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -103,10 +96,10 @@ export function ProcessSection() {
     return () => observer.disconnect();
   }, []);
 
-  const handleStepEnterView = useCallback((stepIndex: number) => {
-    setActiveStep((prev) => Math.max(prev, stepIndex + 1));
-    if (stepIndex === 3) {
-      setTimeout(() => setClosingVisible(true), 600);
+  const handleMovementEnterView = useCallback((movementIndex: number) => {
+    setActiveStep((prev) => Math.max(prev, movementIndex + 1));
+    if (movementIndex === 3) {
+      setTimeout(() => setClosingVisible(true), 800);
     }
   }, []);
 
@@ -117,34 +110,48 @@ export function ProcessSection() {
       className="process-section"
       aria-label="My preparation process"
     >
-      {/* Paper Texture Overlay */}
-      <div className="process-section__texture" aria-hidden="true" />
+      {/* Layer 0: Depth gradient background */}
+      <div className="process-section__gradient" />
 
-      {/* SVG Staff Spine (Desktop) */}
-      <ProcessStaff activeStep={activeStep} className="process-section__staff" />
+      {/* Layer 1: Ambient glow */}
+      <div 
+        className={cn(
+          'process-section__glow',
+          introVisible && 'is-visible'
+        )}
+      />
+
+      {/* Golden Thread (Desktop) */}
+      <ProcessThread 
+        activeStep={activeStep} 
+        className="process-section__thread" 
+      />
 
       {/* Intro Block */}
       <div className={cn('process-intro', introVisible && 'is-visible')}>
+        {/* Golden Anchor Dot */}
+        <div className="process-intro__anchor" aria-hidden="true" />
+        
         <span className="process-intro__label">The Process</span>
         <h2 className="process-intro__headline">
           Excellence on the big day doesn't happen on the big day.
         </h2>
-        <p className="process-intro__highlight">It happens now.</p>
+        <p className="process-intro__highlight">
+          <span className="exhale-emphasis exhale-emphasis--visible">It happens now.</span>
+        </p>
         <p className="process-intro__bridge">
           This is my process for ensuring it happens every time.
         </p>
       </div>
 
-      {/* Steps Grid */}
-      <div className="process-steps">
-        {steps.map((step, index) => (
-          <ProcessStep
-            key={step.numeral}
-            step={step}
+      {/* Movements */}
+      <div className="process-movements">
+        {movements.map((movement, index) => (
+          <ProcessMovement
+            key={movement.numeral}
+            movement={movement}
             index={index}
-            isActive={activeStep > index}
-            position={index % 2 === 0 ? 'left' : 'right'}
-            onEnterView={() => handleStepEnterView(index)}
+            onEnterView={() => handleMovementEnterView(index)}
           />
         ))}
       </div>
@@ -154,11 +161,23 @@ export function ProcessSection() {
         <p className="process-closing__promise">
           Because there's one chance to get this right.
         </p>
-        <p className="process-closing__assurance">And it will be right.</p>
+        <p className="process-closing__assurance">
+          <span className="exhale-emphasis exhale-emphasis--visible">And it will be right.</span>
+        </p>
         <Link to="/contact" className="process-closing__cta">
           Begin the conversation
         </Link>
       </div>
+
+      {/* Screen reader narrative */}
+      <span className="sr-only">
+        This section describes my four-movement process for creating your ceremony music:
+        First, The Listening, where I learn your story through conversation.
+        Second, The Crafting, where I compose custom arrangements from our discussion.
+        Third, The Refining, where we iterate on drafts until the music sounds exactly right.
+        Fourth, The Completing, where we collaboratively fill in the remaining music for your ceremony.
+        Excellence on the big day happens through careful preparation now.
+      </span>
     </section>
   );
 }
