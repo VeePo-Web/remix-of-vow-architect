@@ -158,6 +158,36 @@ All colors MUST be HSL.
     --vigil-void: 240 12% 3%;
     --vigil-glow-opacity: 0.04;
     --vigil-warmth: 45 100% 76% / 0.15;
+    
+    /* ========================================
+       FANTASY.CO CINEMATIC TOKENS
+       ======================================== */
+    
+    /* Cinematic Spacing */
+    --section-padding-cinematic: 120px;
+    --section-padding-standard: 80px;
+    --section-padding-tight: 56px;
+    
+    /* Max-Width System */
+    --max-width-narrow: 680px;
+    --max-width-standard: 960px;
+    --max-width-wide: 1200px;
+    
+    /* 3-Element Rhythm */
+    --grid-gap-trinity: 48px;
+    
+    /* Sacred Typography */
+    --heading-quote: "Cormorant Garamond", serif;
+    --weight-quote: 300;
+    --size-quote: clamp(28px, 4vw, 48px);
+    
+    /* Documentary/Archival */
+    --font-mono: "JetBrains Mono", "Courier New", monospace;
+    --size-timestamp: 12px;
+    
+    /* Temperature Shifts */
+    --temp-cold: 220 15% 8%;
+    --temp-warm: 45 35% 94%;
   }
 
   .light,
@@ -625,6 +655,28 @@ All colors MUST be HSL.
 
   .section--gradient {
     background: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--surface-elevated)) 100%);
+  }
+  
+  /* Cinematic Section Padding */
+  .section-padding-cinematic {
+    @apply py-[120px];
+  }
+  
+  .section-padding-standard {
+    @apply py-20;
+  }
+  
+  .section-padding-tight {
+    @apply py-14;
+  }
+  
+  @media (max-width: 768px) {
+    .section-padding-cinematic {
+      @apply py-16;
+    }
+    .section-padding-standard {
+      @apply py-12;
+    }
   }
 
   /* Tags (Mood System) */
