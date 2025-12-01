@@ -1486,6 +1486,151 @@ All colors MUST be HSL.
     transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  /* ========================================
+     THE FOUR MOVEMENTS — Musical Score Section
+     ======================================== */
+
+  .movements-section {
+    position: relative;
+    min-height: 100vh;
+  }
+
+  /* Waveform texture background */
+  .movements-waveform {
+    position: absolute;
+    inset: 0;
+    opacity: 0.02;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 20'%3E%3Cpath d='M0 10 Q25 5 50 10 T100 10 T150 10 T200 10' fill='none' stroke='%23FFE08A' stroke-width='0.5'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px 20px;
+    animation: waveform-drift 30s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes waveform-drift {
+    from { background-position: 0 0; }
+    to { background-position: 200px 0; }
+  }
+
+  /* Staff lines (sheet music aesthetic) */
+  .movements-staff {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .movements-staff-line {
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    height: 1px;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      hsl(var(--vow-yellow) / 0.15) 20%, 
+      hsl(var(--vow-yellow) / 0.15) 80%, 
+      transparent 100%
+    );
+    transition: opacity 0.7s var(--ease-sacred);
+  }
+
+  /* Movement blocks */
+  .movement-block {
+    position: relative;
+  }
+
+  .movement-block--left .movement-content {
+    text-align: right;
+  }
+
+  .movement-block--right .movement-content {
+    text-align: left;
+  }
+
+  /* Roman numeral watermarks */
+  .movement-numeral {
+    line-height: 1;
+    color: hsl(var(--foreground));
+  }
+
+  /* Golden notes */
+  .movement-note {
+    transform-origin: center;
+  }
+
+  /* Golden underline accent */
+  .movements-underline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
+    height: 2px;
+    background: linear-gradient(90deg, 
+      transparent, 
+      hsl(var(--vow-yellow) / 0.4), 
+      transparent
+    );
+    border-radius: 1px;
+  }
+
+  .movements-underline--gold {
+    background: linear-gradient(90deg, 
+      transparent, 
+      hsl(var(--vow-yellow) / 0.6), 
+      transparent
+    );
+    box-shadow: 0 0 12px hsl(var(--vow-yellow) / 0.3);
+  }
+
+  /* Pulse animation for closing dot */
+  .movements-pulse {
+    animation: movements-heartbeat 4s var(--ease-sacred) infinite;
+  }
+
+  @keyframes movements-heartbeat {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.5;
+    }
+    50% {
+      transform: scale(1.15);
+      opacity: 0.8;
+    }
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 767px) {
+    .movements-staff-line {
+      left: 2%;
+      right: 2%;
+    }
+
+    .movement-numeral {
+      font-size: 80px !important;
+    }
+
+    .movement-block--left .movement-content,
+    .movement-block--right .movement-content {
+      text-align: center;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .movement-note {
+      position: relative !important;
+      left: auto !important;
+      right: auto !important;
+      margin: 0 auto 1.5rem auto;
+    }
+
+    .movement-block--left .movement-content p:last-child,
+    .movement-block--right .movement-content p:last-child {
+      justify-content: center !important;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     * {
       animation-duration: 120ms !important;
