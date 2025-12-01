@@ -8,7 +8,8 @@ import { AmbientGlowField } from './AmbientGlowField';
 import { EchoRings } from './EchoRings';
 import { WeavingThread } from './WeavingThread';
 import { FlameSystem } from './FlameSystem';
-import { useProcessScroll } from '@/hooks/useProcessScroll';
+import { ProcessDebugOverlay } from './ProcessDebugOverlay';
+import { useProcessOrchestrator } from '@/hooks/useProcessOrchestrator';
 
 interface Movement {
   numeral: string;
@@ -62,11 +63,8 @@ const movements: Movement[] = [
 /**
  * ProcessSection — "From Void to Voice"
  * 
- * Fantasy.co-grade scroll experience with:
- * - Gradient Dawn: Background transitions from void-black to warm dawn
- * - Ambient Glow Field: Dual-layer breathing golden presence
- * - Scroll-linked color temperature and glow intensity
- * - Sacred timing animations matching Hero/Exhale
+ * Phase 7: Unified orchestration with cross-layer synchronization.
+ * Uses useProcessOrchestrator for single-source-of-truth timing.
  */
 export function ProcessSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -74,38 +72,40 @@ export function ProcessSection() {
   const [activeStep, setActiveStep] = useState(0);
   const [closingVisible, setClosingVisible] = useState(false);
 
-  // Master scroll orchestrator
-  const scrollState = useProcessScroll(sectionRef);
+  // Master orchestrator — unified timing system
+  const orchestrator = useProcessOrchestrator(sectionRef, {
+    debug: process.env.NODE_ENV === 'development',
+  });
 
   // Intro reveal based on scroll activation
   useEffect(() => {
-    if (scrollState.isActive && scrollState.progress > 0.05) {
+    if (orchestrator.isActive && orchestrator.progress > 0.05) {
       setIntroVisible(true);
     }
-  }, [scrollState.isActive, scrollState.progress]);
+  }, [orchestrator.isActive, orchestrator.progress]);
 
-  // Map scroll phases to movement visibility
+  // Map phases to movement visibility
   useEffect(() => {
-    // Phase 0-1: Intro only
-    // Phase 2: Movement I
-    // Phase 3: Movement II
-    // Phase 4: Movement III
-    // Phase 5: Movement IV
-    // Phase 6-7: Closing
-    if (scrollState.phase >= 2) {
-      setActiveStep(Math.min(scrollState.phase - 1, 4));
-    }
-    if (scrollState.phase >= 6) {
+    // Use highlightedMovement from orchestrator during drifting
+    if (orchestrator.phase === 'drifting' && orchestrator.highlightedMovement >= 0) {
+      setActiveStep(orchestrator.highlightedMovement + 1);
+    } else if (orchestrator.phase === 'converging' || orchestrator.phase === 'covenant') {
+      setActiveStep(4);
       setClosingVisible(true);
     }
-  }, [scrollState.phase]);
+  }, [orchestrator.phase, orchestrator.highlightedMovement]);
 
-  // Calculate active rings based on scroll phase
-  // Phase 2: 1 ring, Phase 3: 2 rings, etc.
+  // Calculate active rings based on phase
   const activeRings = useMemo(() => {
-    if (scrollState.phase < 2) return 0;
-    return Math.min(scrollState.phase - 1, 5);
-  }, [scrollState.phase]);
+    const phaseRingMap: Record<string, number> = {
+      vigil: 0,
+      awakening: 1,
+      drifting: Math.min(3, orchestrator.highlightedMovement + 2),
+      converging: 4,
+      covenant: 5,
+    };
+    return phaseRingMap[orchestrator.phase] || 0;
+  }, [orchestrator.phase, orchestrator.highlightedMovement]);
 
   const handleMovementEnterView = useCallback((movementIndex: number) => {
     setActiveStep((prev) => Math.max(prev, movementIndex + 1));
@@ -114,50 +114,74 @@ export function ProcessSection() {
     }
   }, []);
 
+  // Legacy scroll state adapter for child components
+  const scrollState = useMemo(() => ({
+    progress: orchestrator.progress,
+    phase: ['vigil', 'awakening'].includes(orchestrator.phase) ? 1 :
+           orchestrator.phase === 'drifting' ? orchestrator.highlightedMovement + 2 :
+           orchestrator.phase === 'converging' ? 6 : 7,
+    isActive: orchestrator.isActive,
+    glowIntensity: orchestrator.glowIntensity,
+    temperature: orchestrator.temperature,
+    cssVars: orchestrator.cssVars,
+  }), [orchestrator]);
+
   return (
     <section
       ref={sectionRef}
       id="process"
       className="process-section"
       aria-label="My preparation process"
-      data-scroll-phase={scrollState.phase}
-      data-scroll-progress={scrollState.progress.toFixed(2)}
+      data-phase={orchestrator.phase}
+      data-scroll-progress={orchestrator.progress.toFixed(2)}
+      style={orchestrator.cssVars as React.CSSProperties}
     >
+      {/* Debug Overlay (dev only) */}
+      <ProcessDebugOverlay
+        progress={orchestrator.progress}
+        phase={orchestrator.phase}
+        phaseProgress={orchestrator.phaseProgress}
+        velocity={orchestrator.velocity}
+        direction={orchestrator.direction}
+        highlightedMovement={orchestrator.highlightedMovement}
+        isActive={orchestrator.isActive}
+      />
+
       {/* Layer 0: Gradient Dawn Background (void → warm dawn) */}
       <GradientDawnBackground
-        cssVars={scrollState.cssVars}
-        isActive={scrollState.isActive}
+        cssVars={orchestrator.cssVars}
+        isActive={orchestrator.isActive}
       />
 
       {/* Layer 1: Ambient Glow Field (breathing golden presence) */}
       <AmbientGlowField
-        cssVars={scrollState.cssVars}
-        isActive={scrollState.isActive}
-        progress={scrollState.progress}
+        cssVars={orchestrator.cssVars}
+        isActive={orchestrator.isActive}
+        progress={orchestrator.progress}
       />
 
       {/* Layer 2: Echo Rings (sound made visible) */}
       <EchoRings
         activeRings={activeRings}
-        cssVars={scrollState.cssVars}
-        isActive={scrollState.isActive}
-        progress={scrollState.progress}
+        cssVars={orchestrator.cssVars}
+        isActive={orchestrator.isActive}
+        progress={orchestrator.progress}
       />
 
       {/* Layer 3: Weaving Thread (curved path with anchors) */}
       <WeavingThread
         activeStep={activeStep}
-        progress={scrollState.progress}
-        cssVars={scrollState.cssVars}
-        isActive={scrollState.isActive}
+        progress={orchestrator.progress}
+        cssVars={orchestrator.cssVars}
+        isActive={orchestrator.isActive}
         className="process-section__weaving-thread"
       />
 
       {/* Layer 4: Flame System (spark → fragments → unified) */}
       <FlameSystem
-        progress={scrollState.progress}
-        cssVars={scrollState.cssVars}
-        isActive={scrollState.isActive}
+        progress={orchestrator.progress}
+        cssVars={orchestrator.cssVars}
+        isActive={orchestrator.isActive}
         className="process-section__flame-system"
       />
 
@@ -191,13 +215,14 @@ export function ProcessSection() {
         </p>
       </div>
 
-      {/* Movements */}
+      {/* Movements with flame sync */}
       <div className="process-movements">
         {movements.map((movement, index) => (
           <ProcessMovement
             key={movement.numeral}
             movement={movement}
             index={index}
+            isHighlighted={orchestrator.highlightedMovement === index}
             onEnterView={() => handleMovementEnterView(index)}
           />
         ))}
@@ -206,7 +231,7 @@ export function ProcessSection() {
       {/* Closing Block — Phase 5: Flame-aligned with covenant CTA */}
       <div 
         className={cn('process-closing', closingVisible && 'is-visible')}
-        data-flame-state={scrollState.progress > 0.88 ? 'covenant' : 'converging'}
+        data-flame-state={orchestrator.phase}
       >
         {/* Flame alignment spacer */}
         <div className="process-closing__flame-spacer" aria-hidden="true" />
