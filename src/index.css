@@ -1926,36 +1926,96 @@ All colors MUST be HSL.
   }
 
   /* ═══════════════════════════════════════
-     MOVEMENTS (Centered, intimate layout)
+     THE SCORE — 3-Column Grid Layout
+     Thread weaves between alternating cards
      ═══════════════════════════════════════ */
 
-  .process-movements {
+  .process-score {
     position: relative;
     z-index: 10;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 80px;
-    max-width: 600px;
     width: 100%;
+    max-width: 1000px;
     padding: var(--space-9) 0;
   }
 
+  .process-score__thread {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+
+  .process-score__movements {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+  }
+
   /* ═══════════════════════════════════════
-     MOVEMENT — Phase 5: 6-Phase Reveal System
-     Each element reveals with sacred stagger:
-     header→action→quote→details→assumption→outcome
+     MOVEMENT — "The Measure"
+     Alternating left/right with bar-line accent
      ═══════════════════════════════════════ */
 
   .process-movement {
     position: relative;
-    text-align: center;
-    max-width: 560px;
+    max-width: 420px;
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: var(--space-3);
+    padding: var(--space-5);
+  }
+
+  /* Left side cards */
+  .process-movement--left {
+    margin-right: auto;
+    margin-left: 0;
+    text-align: left;
+    align-items: flex-start;
+    padding-left: var(--space-6);
+  }
+
+  /* Right side cards */
+  .process-movement--right {
+    margin-left: auto;
+    margin-right: 0;
+    text-align: right;
+    align-items: flex-end;
+    padding-right: var(--space-6);
+  }
+
+  /* Bar-line accent — like a measure line in sheet music */
+  .process-movement__bar-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      hsl(var(--vow-yellow) / 0.3) 20%,
+      hsl(var(--vow-yellow) / 0.3) 80%,
+      transparent 100%
+    );
+    opacity: 0;
+    transition: opacity 600ms var(--ease-sacred);
+  }
+
+  .process-movement--left .process-movement__bar-line {
+    left: 0;
+  }
+
+  .process-movement--right .process-movement__bar-line {
+    right: 0;
+  }
+
+  .process-movement.is-triggered .process-movement__bar-line {
+    opacity: 1;
   }
 
   /* Base transition for all staggered elements */
@@ -1973,54 +2033,77 @@ All colors MUST be HSL.
       text-shadow 400ms var(--ease-sacred);
   }
 
+  /* Slide-in from respective sides */
+  .process-movement--left .process-movement__header,
+  .process-movement--left .process-movement__action,
+  .process-movement--left .process-movement__quote,
+  .process-movement--left .process-movement__details,
+  .process-movement--left .process-movement__assumption,
+  .process-movement--left .process-movement__outcome {
+    transform: translateX(-20px) translateY(8px);
+  }
+
+  .process-movement--right .process-movement__header,
+  .process-movement--right .process-movement__action,
+  .process-movement--right .process-movement__quote,
+  .process-movement--right .process-movement__details,
+  .process-movement--right .process-movement__assumption,
+  .process-movement--right .process-movement__outcome {
+    transform: translateX(20px) translateY(8px);
+  }
+
   /* Phase 1: Header visible */
   .process-movement__header.is-visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0) translateY(0);
   }
 
   /* Phase 2: Action visible */
   .process-movement__action.is-visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0) translateY(0);
     text-shadow: 0 0 20px hsl(var(--vow-yellow) / 0.4);
   }
 
   /* Phase 3: Quote visible */
   .process-movement__quote.is-visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0) translateY(0);
   }
 
   /* Phase 4: Details visible */
   .process-movement__details.is-visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0) translateY(0);
   }
 
   /* Phase 5: Assumption visible */
   .process-movement__assumption.is-visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0) translateY(0);
   }
 
   /* Phase 6: Outcome visible */
   .process-movement__outcome.is-visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0) translateY(0);
   }
 
   /* Movement Header */
   .process-movement__header {
     display: flex;
     align-items: baseline;
-    justify-content: center;
     gap: var(--space-3);
     margin-bottom: var(--space-2);
   }
 
+  /* Reverse order for right-side cards */
+  .process-movement--right .process-movement__header {
+    flex-direction: row-reverse;
+  }
+
   .process-movement__numeral {
-    font-family: var(--font-serif);
+    font-family: var(--font-display);
     font-size: 14px;
     color: hsl(var(--foreground) / 0.5);
     font-weight: 500;
@@ -2053,14 +2136,14 @@ All colors MUST be HSL.
 
   /* Quote — Cormorant italic */
   .process-movement__quote {
-    font-family: var(--font-serif);
+    font-family: var(--font-display);
     font-size: clamp(18px, 2.8vw, 22px);
     font-style: italic;
     font-weight: 400;
     color: hsl(var(--foreground) / 0.85);
     line-height: 1.45;
     margin: var(--space-2) 0 0;
-    max-width: 24ch;
+    max-width: 28ch;
   }
 
   /* Details — Supporting text */
@@ -2070,7 +2153,7 @@ All colors MUST be HSL.
     color: hsl(var(--foreground) / 0.55);
     line-height: 1.7;
     margin: 0;
-    max-width: 42ch;
+    max-width: 38ch;
   }
 
   /* Assumption — NO yellow, muted */
@@ -2092,8 +2175,12 @@ All colors MUST be HSL.
     margin: var(--space-1) 0 0;
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: var(--space-2);
+  }
+
+  /* Reverse arrow position for right-side cards */
+  .process-movement--right .process-movement__outcome {
+    flex-direction: row-reverse;
   }
 
   .process-movement__arrow {
@@ -2101,16 +2188,28 @@ All colors MUST be HSL.
     font-weight: 500;
     display: inline-block;
     opacity: 0;
-    transform: translateX(-8px);
     transition: 
       opacity 400ms var(--ease-sacred),
       transform 400ms var(--ease-sacred);
+  }
+
+  /* Arrow slides in from respective side */
+  .process-movement--left .process-movement__arrow {
+    transform: translateX(-8px);
+  }
+
+  .process-movement--right .process-movement__arrow {
+    transform: translateX(8px) scaleX(-1);
   }
 
   .process-movement__outcome.is-visible .process-movement__arrow {
     opacity: 1;
     transform: translateX(0);
     transition-delay: 200ms;
+  }
+
+  .process-movement--right .process-movement__outcome.is-visible .process-movement__arrow {
+    transform: translateX(0) scaleX(-1);
   }
 
   .process-movement__outcome-text {
@@ -2353,7 +2452,7 @@ All colors MUST be HSL.
   }
 
   /* ═══════════════════════════════════════
-     MOBILE ADJUSTMENTS
+     MOBILE ADJUSTMENTS — "The Score"
      ═══════════════════════════════════════ */
 
   @media (max-width: 767px) {
@@ -2363,17 +2462,92 @@ All colors MUST be HSL.
       min-height: auto;
     }
 
-    .process-movements {
-      gap: 64px;
+    /* Hide thread on mobile, show diamond separators instead */
+    .process-score__thread {
+      display: none;
+    }
+
+    .process-score {
       padding: var(--space-8) 0;
+    }
+
+    .process-score__movements {
+      gap: 48px;
+    }
+
+    /* Center all cards on mobile */
+    .process-movement--left,
+    .process-movement--right {
+      margin: 0 auto;
+      text-align: center;
+      align-items: center;
+      padding-left: var(--space-5);
+      padding-right: var(--space-5);
+    }
+
+    /* Hide bar-line on mobile */
+    .process-movement__bar-line {
+      display: none;
+    }
+
+    /* Center header on mobile */
+    .process-movement--right .process-movement__header {
+      flex-direction: row;
+    }
+
+    /* Center outcome on mobile */
+    .process-movement--right .process-movement__outcome {
+      flex-direction: row;
+    }
+
+    .process-movement--right .process-movement__arrow {
+      transform: none;
+    }
+
+    .process-movement--right .process-movement__outcome.is-visible .process-movement__arrow {
+      transform: none;
+    }
+
+    /* Reset slide-in animations to center */
+    .process-movement--left .process-movement__header,
+    .process-movement--left .process-movement__action,
+    .process-movement--left .process-movement__quote,
+    .process-movement--left .process-movement__details,
+    .process-movement--left .process-movement__assumption,
+    .process-movement--left .process-movement__outcome,
+    .process-movement--right .process-movement__header,
+    .process-movement--right .process-movement__action,
+    .process-movement--right .process-movement__quote,
+    .process-movement--right .process-movement__details,
+    .process-movement--right .process-movement__assumption,
+    .process-movement--right .process-movement__outcome {
+      transform: translateY(12px);
     }
 
     .process-movement__quote {
       font-size: 17px;
+      max-width: 100%;
     }
 
     .process-movement__details {
       font-size: var(--fs-sm);
+      max-width: 100%;
+    }
+
+    /* Diamond separator between movements on mobile */
+    .process-movement::after {
+      content: '';
+      position: absolute;
+      bottom: -28px;
+      left: 50%;
+      width: 6px;
+      height: 6px;
+      background: hsl(var(--vow-yellow) / 0.3);
+      transform: translateX(-50%) rotate(45deg);
+    }
+
+    .process-movement:last-child::after {
+      display: none;
     }
 
     .process-closing {
@@ -2398,7 +2572,7 @@ All colors MUST be HSL.
       transform: none;
     }
 
-    /* Phase 5: Immediate visibility for staggered elements */
+    /* Immediate visibility for staggered elements */
     .process-intro.is-visible .process-intro__anchor,
     .process-intro.is-visible .process-intro__label,
     .process-intro.is-visible .process-intro__headline,
@@ -2410,7 +2584,11 @@ All colors MUST be HSL.
       transition-delay: 0ms;
     }
 
-    /* Phase 5: Movement elements immediately visible */
+    /* Movement elements immediately visible */
+    .process-movement__bar-line {
+      opacity: 1;
+    }
+
     .process-movement__header.is-visible,
     .process-movement__action.is-visible,
     .process-movement__quote.is-visible,
@@ -2429,7 +2607,7 @@ All colors MUST be HSL.
       transition-delay: 0ms;
     }
 
-    /* Phase 5: Closing elements immediately visible */
+    /* Closing elements immediately visible */
     .process-closing.is-visible .process-closing__flame-spacer,
     .process-closing.is-visible .process-closing__promise,
     .process-closing.is-visible .process-closing__assurance,
@@ -2450,38 +2628,23 @@ All colors MUST be HSL.
       opacity: 0.3;
     }
 
-    .process-thread__line {
-      stroke-dashoffset: 0;
-      transition: none;
-    }
-
-    .process-thread__dot {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-      transition: none;
-    }
-
-    .process-thread__dot.is-ignited {
-      animation: none;
-    }
-
     .process-intro__anchor {
       animation: none;
     }
   }
 
   /* ═══════════════════════════════════════
-     WEAVING THREAD — "The Path That Breathes"
+     WEAVING THREAD — "The Score"
+     Thread weaves between alternating cards
      ═══════════════════════════════════════ */
 
   .weaving-thread {
     position: absolute;
     top: 0;
-    left: 50%;
-    width: 100px;
+    left: 0;
+    width: 100%;
     height: 100%;
-    transform: translateX(-50%);
-    z-index: 3;
+    z-index: 1;
     pointer-events: none;
     opacity: 0;
     transition: opacity 800ms var(--ease-sacred);
@@ -2497,32 +2660,25 @@ All colors MUST be HSL.
   }
 
   .weaving-thread__path-bg {
-    opacity: 0.5;
+    opacity: 0.6;
   }
 
   .weaving-thread__path {
-    transition: stroke-dashoffset 80ms linear;
+    transition: stroke-dashoffset 60ms linear;
   }
 
-  /* Static step markers — no animation */
+  /* Diamond step markers — like quarter rests */
   .weaving-thread__step-marker {
-    opacity: 0.4;
+    opacity: 0.5;
     transition: opacity 400ms var(--ease-sacred);
   }
 
-  /* Scroll-synced dot — follows the curve */
+  /* Scroll-synced dot — the note head */
   .weaving-thread__scroll-dot {
-    transition: cx 60ms linear, cy 60ms linear;
+    transition: cx 50ms linear, cy 50ms linear;
   }
 
-  /* Mobile: Hide thread */
-  @media (max-width: 767px) {
-    .weaving-thread {
-      display: none;
-    }
-  }
-
-  /* Reduced motion */
+  /* Reduced motion for thread */
   @media (prefers-reduced-motion: reduce) {
     .weaving-thread__path {
       stroke-dashoffset: 0 !important;
@@ -2533,7 +2689,6 @@ All colors MUST be HSL.
       transition: none;
     }
   }
-  /* Flame System removed in UX cleanup — simplified to golden thread only */
 
   /* ========================================
      LEGACY PREPARATION STYLES (for backwards compatibility)

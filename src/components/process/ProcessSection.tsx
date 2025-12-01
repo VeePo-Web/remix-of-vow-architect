@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { ProcessMovement } from './ProcessMovement';
@@ -58,10 +58,10 @@ const movements: Movement[] = [
 ];
 
 /**
- * ProcessSection — "The Golden Thread"
+ * ProcessSection — "The Score"
  * 
- * UX Cleanup: Distilled to essence. One thread, one dot, one journey.
- * Fantasy.co-grade simplicity with scroll-synced golden thread.
+ * Fantasy.co-grade design: 3-column grid with alternating left/right cards.
+ * Thread weaves between cards like a musical score being written.
  */
 export function ProcessSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -130,13 +130,6 @@ export function ProcessSection() {
         progress={orchestrator.progress}
       />
 
-      {/* Layer 2: Golden Thread (scroll-synced dot follows curve) */}
-      <WeavingThread
-        progress={orchestrator.progress}
-        isActive={orchestrator.isActive}
-        className="process-section__weaving-thread"
-      />
-
       {/* Intro Block */}
       <div className={cn('process-intro', introVisible && 'is-visible')}>
         <div className="process-intro__anchor" aria-hidden="true" />
@@ -152,17 +145,28 @@ export function ProcessSection() {
         </p>
       </div>
 
-      {/* Movements */}
-      <div className="process-movements">
-        {movements.map((movement, index) => (
-          <ProcessMovement
-            key={movement.numeral}
-            movement={movement}
-            index={index}
-            isHighlighted={orchestrator.highlightedMovement === index}
-            onEnterView={() => handleMovementEnterView(index)}
-          />
-        ))}
+      {/* The Score: 3-Column Grid with Weaving Thread */}
+      <div className="process-score">
+        {/* Center channel: Weaving Thread */}
+        <WeavingThread
+          progress={orchestrator.progress}
+          isActive={orchestrator.isActive}
+          className="process-score__thread"
+        />
+
+        {/* Movements: Alternating left/right */}
+        <div className="process-score__movements">
+          {movements.map((movement, index) => (
+            <ProcessMovement
+              key={movement.numeral}
+              movement={movement}
+              index={index}
+              side={index % 2 === 0 ? 'left' : 'right'}
+              isHighlighted={orchestrator.highlightedMovement === index}
+              onEnterView={() => handleMovementEnterView(index)}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Closing Block */}

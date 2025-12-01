@@ -14,18 +14,20 @@ interface MovementData {
 interface ProcessMovementProps {
   movement: MovementData;
   index: number;
+  /** Which side of the score this movement appears on */
+  side: 'left' | 'right';
   /** Whether this movement is synced with active flame fragment */
   isHighlighted?: boolean;
   onEnterView: () => void;
 }
 
 /**
- * ProcessMovement — Individual Step Card
+ * ProcessMovement — "The Measure"
  * 
- * Phase 5 Enhancement: 6-phase reveal system
- * Phase 7 Enhancement: Flame sync indicator
+ * Fantasy.co-grade design: Each movement is a measure in the score.
+ * Cards alternate left/right with bar-line accent and aligned text.
  * 
- * Each element reveals with sacred timing stagger:
+ * 6-phase reveal system with sacred timing stagger:
  * - Phase 1: Header (numeral + name) — T+0ms
  * - Phase 2: Action verb — T+200ms
  * - Phase 3: Quote — T+350ms
@@ -36,6 +38,7 @@ interface ProcessMovementProps {
 export function ProcessMovement({
   movement,
   index,
+  side,
   isHighlighted = false,
   onEnterView,
 }: ProcessMovementProps) {
@@ -107,16 +110,15 @@ export function ProcessMovement({
       ref={movementRef}
       className={cn(
         'process-movement',
+        `process-movement--${side}`,
         hasTriggered && 'is-triggered',
         isHighlighted && 'is-flame-synced'
       )}
       style={{ '--movement-index': index } as React.CSSProperties}
       data-reveal-phase={revealPhase}
     >
-      {/* Flame sync indicator */}
-      {isHighlighted && (
-        <div className="process-movement__flame-indicator" aria-hidden="true" />
-      )}
+      {/* Bar-line accent — like a measure line in sheet music */}
+      <div className="process-movement__bar-line" aria-hidden="true" />
 
       {/* Phase 1: Movement Header */}
       <div className={cn(

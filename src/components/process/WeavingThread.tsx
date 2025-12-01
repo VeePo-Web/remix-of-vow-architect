@@ -12,14 +12,15 @@ interface DotPosition {
   y: number;
 }
 
-// Step marker positions along the path (0-1)
-const STEP_MARKERS = [0.2, 0.4, 0.6, 0.8];
+// Step marker positions along the path (0-1) — aligned with card positions
+const STEP_MARKERS = [0.15, 0.38, 0.62, 0.85];
 
 /**
- * WeavingThread — "The Golden Thread"
+ * WeavingThread — "The Score"
  * 
- * Fantasy.co-grade simplicity: One curved path, one scroll-synced dot.
- * Nothing competes. Nothing overwhelms. Just the journey.
+ * Fantasy.co-grade design: Thread weaves between alternating cards
+ * like a musical score being composed. Single scroll-synced dot follows the path.
+ * Diamond step markers at each movement position.
  */
 export function WeavingThread({
   progress,
@@ -30,15 +31,19 @@ export function WeavingThread({
   const [pathLength, setPathLength] = useState(950);
   const [dotPosition, setDotPosition] = useState<DotPosition>({ x: 50, y: 0 });
 
-  // Curved path that weaves through content
+  // Alternating weave path: left → right → left → right
+  // x=15 (left cards) to x=85 (right cards)
   const weavingPath = useMemo(() => {
     return `
       M 50 0
-      C 50 80, 30 120, 50 180
-      C 70 240, 30 300, 50 360
-      C 70 420, 30 480, 50 540
-      C 70 600, 30 660, 50 720
-      C 70 780, 50 840, 50 900
+      C 50 40, 15 60, 15 120
+      C 15 180, 50 200, 50 240
+      C 50 280, 85 300, 85 360
+      C 85 420, 50 440, 50 480
+      C 50 520, 15 540, 15 600
+      C 15 660, 50 680, 50 720
+      C 50 760, 85 780, 85 840
+      C 85 900, 50 920, 50 960
     `;
   }, []);
 
@@ -62,7 +67,7 @@ export function WeavingThread({
       setDotPosition({ x: point.x, y: point.y });
     } catch {
       // Fallback if getPointAtLength fails
-      setDotPosition({ x: 50, y: normalized * 900 });
+      setDotPosition({ x: 50, y: normalized * 960 });
     }
   }, [progress, pathLength]);
 
@@ -79,14 +84,22 @@ export function WeavingThread({
 
   // Calculate step marker positions
   const stepMarkerPositions = useMemo(() => {
-    if (!pathRef.current) return STEP_MARKERS.map((_, i) => ({ x: 50, y: 180 + i * 180 }));
+    if (!pathRef.current) {
+      // Fallback positions matching the weave pattern
+      return [
+        { x: 15, y: 120 },   // Left
+        { x: 85, y: 360 },   // Right
+        { x: 15, y: 600 },   // Left
+        { x: 85, y: 840 },   // Right
+      ];
+    }
     
     return STEP_MARKERS.map(t => {
       try {
         const point = pathRef.current!.getPointAtLength(pathLength * t);
         return { x: point.x, y: point.y };
       } catch {
-        return { x: 50, y: t * 900 };
+        return { x: 50, y: t * 960 };
       }
     });
   }, [pathLength]);
@@ -102,23 +115,23 @@ export function WeavingThread({
     >
       <svg
         className="weaving-thread__svg"
-        viewBox="0 0 100 900"
+        viewBox="0 0 100 960"
         preserveAspectRatio="xMidYMid slice"
         fill="none"
       >
         {/* Glow filter for dot */}
         <defs>
           <filter id="dotGlow" x="-100%" y="-100%" width="300%" height="300%">
-            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feGaussianBlur stdDeviation="2" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
           <linearGradient id="threadGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0.2" />
-            <stop offset="50%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0.6" />
-            <stop offset="100%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0.2" />
+            <stop offset="0%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0.15" />
+            <stop offset="50%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0.15" />
           </linearGradient>
         </defs>
 
@@ -126,7 +139,7 @@ export function WeavingThread({
         <path
           className="weaving-thread__path-bg"
           d={weavingPath}
-          stroke="hsl(var(--vow-yellow) / 0.08)"
+          stroke="hsl(var(--vow-yellow) / 0.06)"
           strokeWidth="1"
           strokeLinecap="round"
         />
@@ -137,7 +150,7 @@ export function WeavingThread({
           className="weaving-thread__path"
           d={weavingPath}
           stroke="url(#threadGradient)"
-          strokeWidth="1.5"
+          strokeWidth="1"
           strokeLinecap="round"
           style={{
             strokeDasharray: pathLength,
@@ -145,24 +158,26 @@ export function WeavingThread({
           }}
         />
 
-        {/* Static step markers */}
+        {/* Diamond step markers — like quarter rests */}
         {stepMarkerPositions.map((pos, index) => (
-          <circle
+          <rect
             key={index}
             className="weaving-thread__step-marker"
-            cx={pos.x}
-            cy={pos.y}
-            r="3"
+            x={pos.x - 3}
+            y={pos.y - 3}
+            width="6"
+            height="6"
+            transform={`rotate(45 ${pos.x} ${pos.y})`}
             fill="hsl(var(--vow-yellow) / 0.25)"
           />
         ))}
 
-        {/* Scroll-synced dot */}
+        {/* Scroll-synced dot — the note head */}
         <circle
           className="weaving-thread__scroll-dot"
           cx={dotPosition.x}
           cy={dotPosition.y}
-          r="5"
+          r="4"
           fill="hsl(var(--vow-yellow))"
           filter="url(#dotGlow)"
         />
