@@ -3,88 +3,52 @@ import { cn } from "@/lib/utils";
 
 interface Movement {
   numeral: string;
-  title: string;
-  headline: string;
-  body: string;
-  assumption: string;
-  note: string;
+  question: string;
+  promise: string;
 }
 
 const movements: Movement[] = [
   {
     numeral: "I",
-    title: "THE LISTENING",
-    headline: "It begins with your story.",
-    body: "Before I play a single note, we talk. Not about playlists—about the song that was playing when you knew. The tempo that matches your heartbeat. The feeling you want your guests to carry home.",
-    assumption: "I don't assume what moves you.",
-    note: "You share. I listen.",
+    question: "What song was playing when you knew?",
+    promise: "I don't assume what moves you. I ask.",
   },
   {
     numeral: "II",
-    title: "THE CRAFTING",
-    headline: "Your walk-down, composed.",
-    body: "I disappear into your vision. Note by note, measure by measure, I piece together a custom arrangement for your aisle—not a cover, not a preset. A composition that sounds like your love story.",
-    assumption: "I don't assume what it should sound like.",
-    note: "I create. You imagine.",
+    question: "Your aisle music—composed. Not selected.",
+    promise: "I don't assume what it should sound like. I create.",
   },
   {
     numeral: "III",
-    title: "THE REFINING",
-    headline: "A first draft, honest and raw.",
-    body: "I send you an unpolished recording. 'Am I heading the right direction?' If something feels off, we course-correct. Your feedback isn't inconvenient—it's essential. We iterate until it sounds exactly right.",
-    assumption: "I don't assume I got it right the first time.",
-    note: "You guide. I adjust.",
+    question: "A first draft. Is this the direction?",
+    promise: "I don't assume I got it right. I refine.",
   },
   {
     numeral: "IV",
-    title: "THE COMPLETING",
-    headline: "Together, we fill the air.",
-    body: "Now you brainstorm—prelude, procession, cocktails, dinner. Or if you'd rather, I'll suggest. Either way, we decide together. Communication all the way through, so no one is ever left wondering.",
-    assumption: "I don't assume what you want.",
-    note: "We complete. Together.",
+    question: "You curate. Or I suggest. Either way—together.",
+    promise: "I don't assume what you want. I collaborate.",
   },
 ];
 
-// Custom SVG note shapes for each movement
-const NoteShapes = {
-  whole: (
-    <ellipse cx="12" cy="12" rx="8" ry="6" fill="none" stroke="currentColor" strokeWidth="2" />
-  ),
-  half: (
-    <>
-      <ellipse cx="12" cy="18" rx="7" ry="5" fill="none" stroke="currentColor" strokeWidth="2" />
-      <line x1="19" y1="18" x2="19" y2="4" stroke="currentColor" strokeWidth="2" />
-    </>
-  ),
-  quarter: (
-    <>
-      <ellipse cx="12" cy="18" rx="7" ry="5" fill="currentColor" />
-      <line x1="19" y1="18" x2="19" y2="4" stroke="currentColor" strokeWidth="2" />
-    </>
-  ),
-  eighth: (
-    <>
-      <ellipse cx="10" cy="20" rx="6" ry="4" fill="currentColor" />
-      <line x1="16" y1="20" x2="16" y2="6" stroke="currentColor" strokeWidth="2" />
-      <path d="M16 6 Q 22 8, 20 14" fill="none" stroke="currentColor" strokeWidth="2" />
-    </>
-  ),
-};
-
 export function TheFourMovements() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [activeMovement, setActiveMovement] = useState(-1);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
     // Check for reduced motion
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
     if (prefersReducedMotion) {
-      setActiveMovement(3);
-      setScrollProgress(1);
+      setActiveIndex(3);
+      setProgress(1);
+      setIsVisible(true);
       return;
     }
 
@@ -92,15 +56,23 @@ export function TheFourMovements() {
       const rect = section.getBoundingClientRect();
       const sectionHeight = section.offsetHeight;
       const viewportHeight = window.innerHeight;
-      
-      // Calculate how far we've scrolled through the section
-      const scrolled = -rect.top + viewportHeight * 0.5;
-      const progress = Math.max(0, Math.min(1, scrolled / sectionHeight));
-      setScrollProgress(progress);
-      
-      // Determine active movement based on scroll position
-      const movementIndex = Math.floor(progress * 4);
-      setActiveMovement(Math.min(movementIndex, 3));
+
+      // Check if section is in view
+      const sectionTop = rect.top;
+      const sectionBottom = rect.bottom;
+      const inView = sectionTop < viewportHeight * 0.8 && sectionBottom > 0;
+      setIsVisible(inView);
+
+      // Calculate progress through the section (0 to 1)
+      const scrollStart = viewportHeight * 0.3;
+      const scrollEnd = sectionHeight - viewportHeight * 0.5;
+      const scrolled = -rect.top + scrollStart;
+      const normalizedProgress = Math.max(0, Math.min(1, scrolled / scrollEnd));
+      setProgress(normalizedProgress);
+
+      // Determine active movement (0-3)
+      const movementIndex = Math.floor(normalizedProgress * 4);
+      setActiveIndex(Math.min(movementIndex, 3));
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -112,185 +84,175 @@ export function TheFourMovements() {
   return (
     <section
       ref={sectionRef}
-      className="movements-section relative bg-background overflow-hidden"
+      className="score-section relative bg-background"
       aria-label="How your ceremony music is created"
     >
-      {/* Waveform texture background */}
-      <div className="movements-waveform" aria-hidden="true" />
-
-      {/* Staff lines (5 lines like sheet music) */}
-      <div className="movements-staff" aria-hidden="true">
-        {[...Array(5)].map((_, i) => (
-          <div
-            key={i}
-            className="movements-staff-line"
-            style={{
-              top: `${20 + i * 15}%`,
-              opacity: scrollProgress > 0.1 ? 0.08 : 0.03,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Opening Anchor */}
-      <div className="movements-anchor py-32 md:py-40 text-center relative z-10">
-        <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-8">
-          How Your Music Is Made
+      {/* Opening */}
+      <div className="score-opening min-h-[50vh] flex flex-col items-center justify-center text-center px-6 py-24 md:py-32">
+        <p className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground mb-6">
+          The Process
         </p>
-        
-        <h2 className="font-display text-[clamp(24px,4vw,42px)] font-light leading-tight max-w-[18ch] mx-auto mb-6 px-4">
-          There are no second chances
-          <br />
-          <span className="relative inline-block">
-            for a first
-            <span className="movements-underline" />
-          </span>{" "}
+        <h2 className="font-display text-[clamp(28px,5vw,48px)] font-light leading-[1.15] max-w-[16ch] mb-8">
+          There are no second chances for a first{" "}
           <span className="text-primary">moment.</span>
         </h2>
-        
-        <p className="text-lg text-muted-foreground max-w-md mx-auto px-4">
+        <p className="text-lg text-muted-foreground">
           So I don't assume. I ask.
         </p>
       </div>
 
-      {/* Four Movements */}
-      <div className="movements-container max-w-5xl mx-auto px-4 md:px-8">
+      {/* Movement Cards - Stacked vertically */}
+      <div className="score-cards relative">
         {movements.map((movement, index) => {
-          const isActive = index <= activeMovement;
-          const isCurrent = index === activeMovement;
-          const noteType = ["whole", "half", "quarter", "eighth"][index] as keyof typeof NoteShapes;
+          const isActive = index <= activeIndex;
+          const isCurrent = index === activeIndex;
 
           return (
-            <article
+            <div
               key={index}
               className={cn(
-                "movement-block relative min-h-[70vh] md:min-h-[60vh] flex items-center py-20 md:py-24",
-                index % 2 === 0 ? "movement-block--left" : "movement-block--right",
-                isActive && "is-active",
-                isCurrent && "is-current"
+                "score-card min-h-[80vh] md:min-h-[70vh] flex items-center justify-center px-6 py-16 md:py-24 transition-opacity duration-700",
+                isActive ? "opacity-100" : "opacity-30"
               )}
-              aria-label={`Movement ${movement.numeral}: ${movement.title}`}
             >
-              {/* Large Roman Numeral Watermark */}
-              <div
-                className={cn(
-                  "movement-numeral absolute text-[120px] md:text-[180px] font-display font-light select-none pointer-events-none transition-opacity duration-700",
-                  index % 2 === 0 ? "right-0 md:right-8" : "left-0 md:left-8"
-                )}
-                style={{ opacity: isActive ? 0.06 : 0.02 }}
-                aria-hidden="true"
-              >
-                {movement.numeral}
-              </div>
-
-              {/* Golden Note */}
-              <div
-                className={cn(
-                  "movement-note absolute w-10 h-10 text-primary transition-all duration-500",
-                  index % 2 === 0 ? "left-4 md:left-0" : "right-4 md:right-0",
-                  isActive ? "opacity-100 scale-100" : "opacity-0 scale-75"
-                )}
-                style={{
-                  filter: isCurrent ? "drop-shadow(0 0 12px hsl(var(--vow-yellow) / 0.5))" : "none",
-                }}
-                aria-hidden="true"
-              >
-                <svg viewBox="0 0 24 24" className="w-full h-full">
-                  {NoteShapes[noteType]}
-                </svg>
-              </div>
-
-              {/* Content */}
-              <div
-                className={cn(
-                  "movement-content relative z-10 max-w-lg transition-all duration-700",
-                  index % 2 === 0 ? "ml-auto text-right pr-4 md:pr-16" : "mr-auto text-left pl-4 md:pl-16",
-                  isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-                )}
-              >
-                {/* Movement Title */}
-                <p className="text-xs uppercase tracking-[0.28em] text-muted-foreground mb-4">
-                  {movement.title}
-                </p>
-
-                {/* Headline */}
-                <h3 className="font-display text-[clamp(22px,3.5vw,32px)] font-light leading-snug mb-6">
-                  {movement.headline}
-                </h3>
-
-                {/* Body */}
-                <p className="text-base md:text-lg leading-relaxed text-muted-foreground mb-6">
-                  {movement.body}
-                </p>
-
-                {/* No Assumptions Statement */}
-                <p
-                  className={cn(
-                    "text-sm font-medium text-primary mb-4 transition-all duration-500 delay-200",
-                    isActive ? "opacity-100" : "opacity-0"
-                  )}
-                >
-                  {movement.assumption}
-                </p>
-
-                {/* Collaborative Note */}
-                <p
-                  className={cn(
-                    "text-sm italic text-muted-foreground/70 flex items-center gap-2 transition-all duration-500 delay-300",
-                    index % 2 === 0 ? "justify-end" : "justify-start",
-                    isActive ? "opacity-100" : "opacity-0"
-                  )}
-                >
-                  <span
-                    className="w-1.5 h-1.5 rounded-full bg-primary/60"
-                    aria-hidden="true"
-                  />
-                  {movement.note}
-                </p>
-              </div>
-
-              {/* Connecting Thread to Next Movement */}
-              {index < movements.length - 1 && (
+              <div className="score-card-inner relative w-full max-w-2xl mx-auto text-center">
+                {/* Large Roman Numeral Background */}
                 <div
                   className={cn(
-                    "movement-thread absolute left-1/2 -translate-x-1/2 bottom-0 w-px transition-all duration-700",
-                    isActive ? "h-20 opacity-40" : "h-0 opacity-0"
+                    "absolute inset-0 flex items-center justify-center pointer-events-none select-none transition-all duration-700"
                   )}
-                  style={{
-                    background: `linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.4), transparent)`,
-                  }}
                   aria-hidden="true"
-                />
-              )}
-            </article>
+                >
+                  <span
+                    className="font-display text-[140px] md:text-[220px] lg:text-[280px] font-light leading-none transition-opacity duration-500"
+                    style={{
+                      opacity: isCurrent ? 0.05 : 0.02,
+                      color: "hsl(var(--foreground))",
+                    }}
+                  >
+                    {movement.numeral}
+                  </span>
+                </div>
+
+                {/* Content */}
+                <div
+                  className={cn(
+                    "relative z-10 transition-all duration-500",
+                    isActive
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-8"
+                  )}
+                >
+                  {/* Question */}
+                  <h3 className="font-display text-[clamp(22px,4vw,38px)] font-light leading-[1.2] mb-8 md:mb-10 max-w-[18ch] mx-auto">
+                    {movement.question}
+                  </h3>
+
+                  {/* Golden Promise */}
+                  <div className="score-promise inline-flex items-center gap-3">
+                    <span
+                      className={cn(
+                        "w-2 h-2 rounded-full bg-primary flex-shrink-0 transition-all duration-500",
+                        isCurrent ? "scale-125" : "scale-100"
+                      )}
+                      style={{
+                        boxShadow: isCurrent
+                          ? "0 0 16px hsl(var(--vow-yellow) / 0.6)"
+                          : "0 0 8px hsl(var(--vow-yellow) / 0.3)",
+                      }}
+                      aria-hidden="true"
+                    />
+                    <span className="text-primary font-medium text-base md:text-lg">
+                      {movement.promise}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
           );
         })}
       </div>
 
-      {/* Closing Anchor */}
-      <div className="movements-closing py-32 md:py-40 text-center relative z-10">
-        {/* Terminal Golden Dot */}
+      {/* Progress Indicator - Fixed at bottom */}
+      <div
+        className={cn(
+          "score-progress fixed bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-40 transition-all duration-500",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        )}
+      >
+        <div className="flex items-center gap-3 md:gap-4 px-5 md:px-6 py-2.5 md:py-3 rounded-full bg-background/90 backdrop-blur-md border border-border/30 shadow-lg">
+          {movements.map((movement, index) => (
+            <div key={index} className="flex items-center gap-3 md:gap-4">
+              {/* Node */}
+              <div
+                className={cn(
+                  "relative flex items-center justify-center w-6 h-6 transition-all duration-300"
+                )}
+              >
+                <span
+                  className={cn(
+                    "text-xs font-display transition-colors duration-300",
+                    activeIndex >= index
+                      ? "text-primary"
+                      : "text-muted-foreground/50"
+                  )}
+                >
+                  {movement.numeral}
+                </span>
+                {activeIndex === index && (
+                  <span
+                    className="absolute inset-0 rounded-full"
+                    style={{
+                      background: "hsl(var(--vow-yellow) / 0.2)",
+                      animation: "score-pulse 2s ease-in-out infinite",
+                    }}
+                  />
+                )}
+              </div>
+
+              {/* Connector Line */}
+              {index < movements.length - 1 && (
+                <div className="w-6 md:w-8 h-px relative overflow-hidden">
+                  <div className="absolute inset-0 bg-muted-foreground/20" />
+                  <div
+                    className="absolute inset-y-0 left-0 bg-primary transition-all duration-500 ease-out"
+                    style={{
+                      width: activeIndex > index ? "100%" : "0%",
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Closing */}
+      <div className="score-closing min-h-[40vh] flex flex-col items-center justify-center text-center px-6 py-20 md:py-28 relative">
+        {/* Connecting thread from last card */}
         <div
-          className="w-3 h-3 rounded-full bg-primary/50 mx-auto mb-12 movements-pulse"
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-16 md:h-20"
           style={{
-            boxShadow: "0 0 20px hsl(var(--vow-yellow) / 0.3)",
+            background:
+              "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.4), transparent)",
           }}
           aria-hidden="true"
         />
 
-        <p className="text-base md:text-lg text-muted-foreground max-w-md mx-auto mb-6 px-4">
-          Every note intentional. Every decision yours.
-        </p>
+        {/* Terminal dot */}
+        <div
+          className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-primary/70 mb-8 md:mb-10"
+          style={{
+            boxShadow: "0 0 20px hsl(var(--vow-yellow) / 0.5)",
+          }}
+          aria-hidden="true"
+        />
 
-        <p className="font-display text-[clamp(22px,3.5vw,36px)] font-light leading-tight max-w-[24ch] mx-auto px-4">
-          Because there's{" "}
-          <span className="relative inline-block">
-            one chance
-            <span className="movements-underline movements-underline--gold" />
-          </span>{" "}
-          to get this right.
-          <br />
-          <span className="text-primary">And it will be right.</span>
+        <p className="font-display text-[clamp(22px,4vw,38px)] font-light leading-[1.2] max-w-[20ch]">
+          Because there's one chance to get this right.
+        </p>
+        <p className="font-display text-[clamp(22px,4vw,38px)] font-light leading-[1.2] text-primary mt-2">
+          And it will be right.
         </p>
       </div>
     </section>
