@@ -7,10 +7,10 @@ export function MinimalScrollCue() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Show after tagline animation completes
+    // Show after covenant complete
     const showTimer = setTimeout(() => {
       setIsVisible(true);
-    }, 2000);
+    }, 7800);
 
     const handleScroll = () => {
       if (window.scrollY > 100) {

@@ -1,6 +1,8 @@
 import { MinimalHeader } from "@/components/MinimalHeader";
 import { HeroTagline } from "@/components/HeroTagline";
 import { MinimalScrollCue } from "@/components/MinimalScrollCue";
+import { VigilFlame } from "@/components/VigilFlame";
+import { VigilReveal } from "@/components/VigilReveal";
 import { Footer } from "@/components/Footer";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { HeroTrustBadges } from "@/components/HeroTrustBadges";
@@ -14,53 +16,76 @@ import { TheRecord } from "@/components/TheRecord";
 import { TheWitnesses } from "@/components/TheWitnesses";
 import { CrossOver } from "@/components/CrossOver";
 import { usePageTheme } from "@/hooks/usePageTheme";
+import { useVigilSequence } from "@/hooks/useVigilSequence";
 import heroImage from "@/assets/hero-piano.jpg";
 
 export default function Index() {
   usePageTheme();
+  const vigilPhase = useVigilSequence();
 
   return (
     <div className="min-h-screen flex flex-col">
       <MinimalHeader />
       
-      {/* SECTION 1 — Hero: Ultra-Minimal Fantasy.co Style */}
+      {/* SECTION 1 — Hero: Ultra-Minimal Fantasy.co Style with Vigil Sequence */}
       <section className="vigil-hero relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Layer 1: Vigil Void (Cold Blue-Black) */}
+        {/* Layer 1: True Void (Pure Black) */}
         <div
-          className="absolute inset-0 bg-[hsl(var(--vigil-void))]"
+          className="absolute inset-0 bg-black"
           aria-hidden="true"
         />
 
-        {/* Layer 2: Hero Image with Gradient + Ken Burns */}
-        <div
-          className="absolute inset-0 bg-cover bg-center animate-ken-burns"
-          style={{
-            backgroundImage: `linear-gradient(rgba(10, 10, 12, 0.72), rgba(10, 10, 12, 0.88)), url(${heroImage})`,
-            filter: "brightness(0.65) contrast(1.1) saturate(0.85)"
-          }}
-          aria-hidden="true"
-        />
+        {/* Layer 2: Hero Image with Gradient + Ken Burns (Vigil Reveal Wrapper) */}
+        <VigilReveal 
+          isRevealing={vigilPhase.isKindling} 
+          isComplete={vigilPhase.isRevealing || vigilPhase.isComplete}
+        >
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `linear-gradient(rgba(10, 10, 12, 0.72), rgba(10, 10, 12, 0.88)), url(${heroImage})`,
+              filter: "brightness(0.65) contrast(1.1) saturate(0.85)",
+              animation: vigilPhase.isRevealing || vigilPhase.isComplete ? "ken-burns 40s var(--ease-sacred) infinite" : undefined,
+            }}
+            aria-hidden="true"
+          />
+        </VigilReveal>
 
-        {/* Layer 3: Vignette */}
+        {/* Layer 3: Vignette (Fades in during Revelation) */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 ${
+            vigilPhase.isRevealing || vigilPhase.isComplete ? "opacity-100" : "opacity-0"
+          }`}
           style={{
             background: "radial-gradient(circle at center, transparent 0%, rgba(10, 10, 12, 0.6) 100%)",
           }}
           aria-hidden="true"
         />
 
-        {/* Layer 4: Fog Overlay */}
+        {/* Layer 4: Fog Overlay (Fades in during Revelation) */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 ${
+            vigilPhase.isRevealing || vigilPhase.isComplete ? "opacity-100" : "opacity-0"
+          }`}
           style={{
             background: "radial-gradient(circle at 50% 30%, rgba(255, 224, 138, 0.03) 0%, transparent 50%)",
           }}
           aria-hidden="true"
         />
 
-        {/* Layer 5: Film Grain */}
-        <div className="absolute inset-0 grain opacity-20" aria-hidden="true" />
+        {/* Layer 5: Film Grain (Fades in during Revelation) */}
+        <div 
+          className={`absolute inset-0 grain transition-opacity duration-1000 ${
+            vigilPhase.isRevealing || vigilPhase.isComplete ? "opacity-20" : "opacity-0"
+          }`}
+          aria-hidden="true" 
+        />
+
+        {/* Vigil Flame (Centered, breathes during Stillness, dissolves during Revelation) */}
+        <VigilFlame 
+          isVisible={vigilPhase.isStillness || vigilPhase.isKindling}
+          isDissolving={vigilPhase.isRevealing}
+        />
 
         {/* Only Three Elements: Tagline (bottom-left) + Scroll Cue (bottom-right) */}
         <HeroTagline />

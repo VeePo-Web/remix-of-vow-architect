@@ -10,7 +10,7 @@ export function HeroTagline() {
           <span 
             className="block opacity-0 animate-fade-in"
             style={{ 
-              animationDelay: "1200ms",
+              animationDelay: "6200ms",
               animationFillMode: "forwards"
             }}
           >
@@ -30,7 +30,7 @@ export function HeroTagline() {
           <span 
             className="block opacity-0 animate-fade-in"
             style={{ 
-              animationDelay: "1400ms",
+              animationDelay: "6600ms",
               animationFillMode: "forwards"
             }}
           >
@@ -47,13 +47,13 @@ export function HeroTagline() {
           </span>
         </h1>
 
-        {/* Golden Divider */}
+        {/* Golden Divider - Draw Animation */}
         <div 
-          className="h-[1px] w-12 opacity-0 animate-fade-in"
+          className="h-[1px] w-12 opacity-0"
           style={{ 
             background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.8), transparent)",
-            animationDelay: "1600ms",
-            animationFillMode: "forwards"
+            transformOrigin: "left",
+            animation: "draw-line 600ms var(--ease-sacred) 7000ms forwards",
           }}
         />
       </div>
@@ -62,7 +62,7 @@ export function HeroTagline() {
       <p 
         className="text-sm font-sans text-muted-foreground uppercase tracking-[0.22em] opacity-0 animate-fade-in"
         style={{ 
-          animationDelay: "1800ms",
+          animationDelay: "7400ms",
           animationFillMode: "forwards"
         }}
       >

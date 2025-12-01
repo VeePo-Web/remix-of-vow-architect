@@ -1131,6 +1131,42 @@ All colors MUST be HSL.
     }
   }
 
+  /* Flame Animations */
+  @keyframes flame-breathe {
+    0%, 100% {
+      transform: scale(0.95);
+      opacity: 0.9;
+    }
+    50% {
+      transform: scale(1.08);
+      opacity: 1;
+    }
+  }
+
+  /* Kindle Reveal Animation */
+  @keyframes kindle-reveal {
+    0% {
+      mask-image: radial-gradient(circle at center, black 0%, transparent 0%);
+      -webkit-mask-image: radial-gradient(circle at center, black 0%, transparent 0%);
+    }
+    100% {
+      mask-image: radial-gradient(circle at center, black 100%, transparent 100%);
+      -webkit-mask-image: radial-gradient(circle at center, black 100%, transparent 100%);
+    }
+  }
+
+  /* Golden Line Draw Animation */
+  @keyframes draw-line {
+    0% {
+      transform: scaleX(0);
+      opacity: 0;
+    }
+    100% {
+      transform: scaleX(1);
+      opacity: 1;
+    }
+  }
+
   /* Chapter Rule Grow Vigil — Golden Rule Reveal */
   @keyframes chapter-rule-grow-vigil {
     from {
