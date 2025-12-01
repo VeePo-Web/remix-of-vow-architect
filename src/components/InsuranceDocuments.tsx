@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { TestimonialAvatar } from "@/components/TestimonialAvatar";
 import { Shield, FileCheck, Package } from "lucide-react";
+import { StaggerChildren } from "@/components/animation";
 
 const insuranceItems = [
   {
@@ -28,7 +29,7 @@ export function InsuranceDocuments() {
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold mb-12 text-center">Fully Insured. Fully Transparent.</h2>
           
-          <div className="grid md:grid-cols-3 gap-6 mb-8 stagger-fade">
+          <StaggerChildren staggerDelay={80} className="grid md:grid-cols-3 gap-6 mb-8">
             {insuranceItems.map((item, i) => (
               <Card key={i} className="p-6 bg-card border-border text-center">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
@@ -38,7 +39,7 @@ export function InsuranceDocuments() {
                 <p className="text-sm text-muted-foreground">{item.description}</p>
               </Card>
             ))}
-          </div>
+          </StaggerChildren>
 
           <div className="text-center mb-8">
             <Button variant="outline" size="lg" className="hover-scale">

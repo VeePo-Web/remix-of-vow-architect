@@ -901,25 +901,45 @@ All colors MUST be HSL.
     animation-timing-function: var(--ease-out-expo);
   }
 
-  /* Animation Variants */
+  /* Animation Variants with explicit fill-mode and delay support */
   .reveal--up.is-visible {
-    animation: reveal-up var(--duration-default) var(--ease-out-expo);
+    animation-name: reveal-up;
+    animation-duration: var(--duration-default);
+    animation-timing-function: var(--ease-out-expo);
+    animation-fill-mode: both;
+    animation-delay: var(--animation-delay, 0ms);
   }
 
   .reveal--scale.is-visible {
-    animation: reveal-scale var(--duration-default) var(--ease-out-expo);
+    animation-name: reveal-scale;
+    animation-duration: var(--duration-default);
+    animation-timing-function: var(--ease-out-expo);
+    animation-fill-mode: both;
+    animation-delay: var(--animation-delay, 0ms);
   }
 
   .reveal--left.is-visible {
-    animation: reveal-left var(--duration-default) var(--ease-out-expo);
+    animation-name: reveal-left;
+    animation-duration: var(--duration-default);
+    animation-timing-function: var(--ease-out-expo);
+    animation-fill-mode: both;
+    animation-delay: var(--animation-delay, 0ms);
   }
 
   .reveal--right.is-visible {
-    animation: reveal-right var(--duration-default) var(--ease-out-expo);
+    animation-name: reveal-right;
+    animation-duration: var(--duration-default);
+    animation-timing-function: var(--ease-out-expo);
+    animation-fill-mode: both;
+    animation-delay: var(--animation-delay, 0ms);
   }
 
   .reveal--blur.is-visible {
-    animation: reveal-blur var(--duration-slow) var(--ease-out-expo);
+    animation-name: reveal-blur;
+    animation-duration: var(--duration-slow);
+    animation-timing-function: var(--ease-out-expo);
+    animation-fill-mode: both;
+    animation-delay: var(--animation-delay, 0ms);
   }
 
   /* Duration Modifiers */
@@ -929,6 +949,13 @@ All colors MUST be HSL.
 
   .reveal--slow.is-visible {
     animation-duration: var(--duration-slow);
+  }
+  
+  /* No-JS Fallback: Show content if JS fails or hasn't loaded */
+  html:not(.js-loaded) .reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
   }
 
   /* ========================================

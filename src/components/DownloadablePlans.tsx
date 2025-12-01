@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FileText, Download } from "lucide-react";
 import { Link } from "react-router-dom";
+import { StaggerChildren } from "@/components/animation";
 
 const samplePlans = [
   {
@@ -28,7 +29,7 @@ export function DownloadablePlans() {
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold mb-4 text-center">You Don't Get a Musician—You Get a Plan.</h2>
           
-          <div className="grid md:grid-cols-3 gap-6 mb-8 stagger-fade">
+          <StaggerChildren staggerDelay={80} className="grid md:grid-cols-3 gap-6 mb-8">
             {samplePlans.map((plan, i) => (
               <Card key={i} className="p-6 bg-card border-border hover-scale group cursor-pointer">
                 <div className="aspect-[3/4] bg-muted rounded-md flex flex-col items-center justify-center mb-4 group-hover:bg-muted/70 transition-colors">
@@ -40,7 +41,7 @@ export function DownloadablePlans() {
                 <p className="text-xs text-muted-foreground">{plan.description}</p>
               </Card>
             ))}
-          </div>
+          </StaggerChildren>
 
           <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
             <Link to="/contact">

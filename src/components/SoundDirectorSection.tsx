@@ -1,5 +1,6 @@
 import { Piano, Mic, Battery, Clock, FileCheck, Activity } from "lucide-react";
 import { SetupTimeline } from "./SetupTimeline";
+import { StaggerChildren } from "@/components/animation";
 
 const kitItems = [
   { icon: Piano, label: "88-key digital grand + venue-piano fallback" },
@@ -24,7 +25,7 @@ export function SoundDirectorSection() {
 
         <h3 className="h3 text-center mb-8">My standard kit</h3>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-20 stagger-fade">
+        <StaggerChildren staggerDelay={80} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
           {kitItems.map((item, index) => (
             <div
               key={index}
@@ -34,7 +35,7 @@ export function SoundDirectorSection() {
               <span className="p-body font-medium">{item.label}</span>
             </div>
           ))}
-        </div>
+        </StaggerChildren>
 
         <SetupTimeline />
       </div>

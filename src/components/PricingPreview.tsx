@@ -1,5 +1,6 @@
 import { Card } from "./ui/card";
 import { DirectionalLink } from "./DirectionalLink";
+import { StaggerChildren } from "@/components/animation";
 
 const packages = [
   { name: "Ceremony Only", price: 650 },
@@ -15,7 +16,7 @@ export function PricingPreview() {
           Three quick picks
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-6 mb-8 stagger-fade">
+        <StaggerChildren staggerDelay={80} className="grid md:grid-cols-3 gap-6 mb-8">
           {packages.map((pkg, index) => (
             <Card key={index} className="p-8 text-center hover-scale">
               <h3 className="h4 mb-4">{pkg.name}</h3>
@@ -24,7 +25,7 @@ export function PricingPreview() {
               </p>
             </Card>
           ))}
-        </div>
+        </StaggerChildren>
 
         <p className="text-center text-sm text-muted-foreground mb-8 italic">
           Includes mic, power, SPL, backups, and bylaw-aware mixing.
