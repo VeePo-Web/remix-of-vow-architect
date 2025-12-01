@@ -166,6 +166,7 @@ All colors MUST be HSL.
     /* Sacred easing functions */
     --ease-sacred: cubic-bezier(0.22, 0.61, 0.36, 1);
     --ease-exhale: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-covenant: cubic-bezier(0.33, 0.85, 0.4, 1);
     --ease-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
     
     /* Temperature shifts */
@@ -1294,7 +1295,17 @@ All colors MUST be HSL.
     @apply text-accent hover:text-accent/80;
   }
 
-  /* THE EXHALE — Golden Anchor Dot */
+  /* ========================================
+     THE EXHALE — Fantasy.co Quality Standards
+     Swedish Principles: Lagom, Funktionalism, Light & Shadow
+     ======================================== */
+
+  /* Section Background Depth */
+  .exhale-section {
+    background: hsl(var(--rich-black));
+  }
+
+  /* Golden Anchor Dot — Heartbeat of the section */
   .exhale-anchor {
     width: 8px;
     height: 8px;
@@ -1303,27 +1314,114 @@ All colors MUST be HSL.
     box-shadow: 
       0 0 12px hsl(var(--vow-yellow) / 0.6),
       0 0 24px hsl(var(--vow-yellow) / 0.3);
-    animation: exhale-pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation: 
+      exhale-pulse 4.2s cubic-bezier(0.4, 0, 0.6, 1) infinite,
+      exhale-float 6s ease-in-out infinite;
   }
 
+  /* Organic 4-step pulse — mimics heartbeat rhythm */
   @keyframes exhale-pulse {
-    0%, 100% {
+    0% {
       transform: scale(1);
-      opacity: 0.9;
+      opacity: 0.85;
       box-shadow: 
-        0 0 12px hsl(var(--vow-yellow) / 0.6),
-        0 0 24px hsl(var(--vow-yellow) / 0.3);
+        0 0 10px hsl(var(--vow-yellow) / 0.5),
+        0 0 20px hsl(var(--vow-yellow) / 0.25);
+    }
+    25% {
+      transform: scale(1.08);
+      opacity: 0.95;
+      box-shadow: 
+        0 0 14px hsl(var(--vow-yellow) / 0.6),
+        0 0 28px hsl(var(--vow-yellow) / 0.35);
     }
     50% {
-      transform: scale(1.15);
+      transform: scale(1.18);
       opacity: 1;
       box-shadow: 
-        0 0 16px hsl(var(--vow-yellow) / 0.7),
-        0 0 32px hsl(var(--vow-yellow) / 0.4);
+        0 0 18px hsl(var(--vow-yellow) / 0.7),
+        0 0 36px hsl(var(--vow-yellow) / 0.4);
+    }
+    75% {
+      transform: scale(1.05);
+      opacity: 0.92;
+      box-shadow: 
+        0 0 12px hsl(var(--vow-yellow) / 0.55),
+        0 0 24px hsl(var(--vow-yellow) / 0.3);
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0.85;
+      box-shadow: 
+        0 0 10px hsl(var(--vow-yellow) / 0.5),
+        0 0 20px hsl(var(--vow-yellow) / 0.25);
     }
   }
 
-  /* THE EXHALE — Golden Thread (The Pivot) */
+  /* Ambient float — subtle vertical breathing */
+  @keyframes exhale-float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+  }
+
+  /* Golden Thread SVG Container */
+  .exhale-thread-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .exhale-thread-svg {
+    width: 100%;
+    height: 6px;
+    overflow: visible;
+  }
+
+  /* SVG Path — organic curve with stroke-dashoffset draw */
+  .exhale-thread-path {
+    stroke-dasharray: 210;
+    stroke-dashoffset: 210;
+    transition: stroke-dashoffset 1200ms var(--ease-covenant);
+  }
+
+  .exhale-thread-svg--visible .exhale-thread-path {
+    stroke-dashoffset: 0;
+  }
+
+  /* Emphasis Word Underline — sacred reveal */
+  .exhale-emphasis {
+    position: relative;
+    display: inline-block;
+  }
+
+  .exhale-emphasis::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      hsl(var(--vow-yellow) / 0.7) 0%,
+      hsl(var(--vow-yellow)) 50%,
+      hsl(var(--vow-yellow) / 0.7) 100%
+    );
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 550ms var(--ease-covenant);
+    transition-delay: 600ms;
+  }
+
+  .exhale-emphasis--visible::after {
+    transform: scaleX(1);
+  }
+
+  /* Legacy thread class (backwards compatibility) */
   .exhale-thread {
     height: 1px;
     background: linear-gradient(
@@ -1340,30 +1438,6 @@ All colors MUST be HSL.
   }
 
   .exhale-thread--visible {
-    transform: scaleX(1);
-  }
-
-  /* THE EXHALE — Emphasis Word Underline */
-  .exhale-emphasis {
-    position: relative;
-    display: inline-block;
-  }
-
-  .exhale-emphasis::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: hsl(var(--vow-yellow));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 450ms var(--ease-sacred);
-    transition-delay: 400ms;
-  }
-
-  .exhale-emphasis--visible::after {
     transform: scaleX(1);
   }
 
