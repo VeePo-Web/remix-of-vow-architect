@@ -159,6 +159,19 @@ All colors MUST be HSL.
     --vigil-glow-opacity: 0.04;
     --vigil-warmth: 45 100% 76% / 0.15;
     
+    /* Ultra-minimal spacing */
+    --space-edge: 32px;
+    --space-edge-mobile: 24px;
+    
+    /* Sacred easing functions */
+    --ease-sacred: cubic-bezier(0.22, 0.61, 0.36, 1);
+    --ease-exhale: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    /* Temperature shifts */
+    --temp-cold: 222 20% 6%;
+    --temp-warm: 40 70% 92%;
+    
     /* ========================================
        FANTASY.CO CINEMATIC TOKENS
        ======================================== */
@@ -1111,12 +1124,10 @@ All colors MUST be HSL.
   /* Breathe Scroll — Scroll Indicator (4s loop) */
   @keyframes breathe-scroll {
     0%, 100% {
-      opacity: 0.4;
       transform: translateY(0);
     }
     50% {
-      opacity: 1;
-      transform: translateY(8px);
+      transform: translateY(-4px);
     }
   }
 
@@ -1148,7 +1159,7 @@ All colors MUST be HSL.
     }
   }
 
-  /* Ken Burns Effect — Subtle 3% Zoom over 10s */
+  /* Ken Burns Effect — Ultra-Slow Cinematic Zoom (40s) */
   @keyframes ken-burns {
     0% {
       transform: scale(1);
@@ -1159,7 +1170,7 @@ All colors MUST be HSL.
   }
 
   .animate-ken-burns {
-    animation: ken-burns 10s ease-in-out infinite alternate;
+    animation: ken-burns 40s var(--ease-sacred) infinite alternate;
   }
 
   /* Slow Pulse for Glow Effects */
@@ -1235,7 +1246,16 @@ All colors MUST be HSL.
 
   /* CTA Commitment Pulse */
   .cta-commitment {
-    animation: commitment-pulse 3s ease-in-out infinite;
+    animation: commitment-pulse 2.4s var(--ease-sacred) infinite;
+  }
+  
+  /* Navigation Links */
+  .nav-link {
+    @apply text-sm font-sans text-muted-foreground hover:text-accent transition-colors duration-300;
+  }
+  
+  .nav-link--cta {
+    @apply text-accent hover:text-accent/80;
   }
 
   @media (prefers-reduced-motion: reduce) {
