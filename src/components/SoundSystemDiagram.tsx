@@ -1,6 +1,7 @@
 import { Mic, Battery, Activity } from "lucide-react";
 import { DirectionalLink } from "./DirectionalLink";
 import { Card } from "./ui/card";
+import { StaggerChildren } from "@/components/animation";
 
 const systemCards = [
   {
@@ -28,7 +29,7 @@ export function SoundSystemDiagram() {
           Ceremony sound isn't guesswork. I prove it with a simple, three-part system.
         </p>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-12 stagger-fade">
+        <StaggerChildren staggerDelay={100} className="grid md:grid-cols-3 gap-8 mb-12">
           {systemCards.map((card, index) => (
             <Card key={index} className="p-8 hover-scale">
               <card.icon size={32} className="text-primary mb-6" />
@@ -36,7 +37,7 @@ export function SoundSystemDiagram() {
               <p className="p-body text-muted-foreground">{card.description}</p>
             </Card>
           ))}
-        </div>
+        </StaggerChildren>
 
         <div className="flex flex-col items-center gap-6">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 text-accent rounded-lg text-sm font-semibold border border-accent/20">

@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Activity } from "lucide-react";
 import { TestimonialAvatar } from "@/components/TestimonialAvatar";
+import { StaggerChildren } from "@/components/animation";
 
 const splReadings = [
   {
@@ -33,7 +34,7 @@ export function SPLTriptych() {
             I measure and log sound pressure levels at three critical moments—Prelude, Vows, and Recessional—so you (and your venue) can verify both audibility and policy compliance. These logs are especially valuable for Parks Canada and other strict-sound venues.
           </p>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-8 stagger-fade">
+          <StaggerChildren staggerDelay={120} className="grid md:grid-cols-3 gap-6 mb-8">
             {splReadings.map((reading, i) => (
               <Card key={i} className="p-6 bg-card border-border">
                 <div className="flex items-center gap-3 mb-4">
@@ -51,7 +52,7 @@ export function SPLTriptych() {
                 </div>
               </Card>
             ))}
-          </div>
+          </StaggerChildren>
 
           <p className="text-sm text-muted-foreground text-center max-w-2xl mx-auto mb-8">
             Logged with a professional dBA meter, timestamped and archived in your ceremony-audio plan. (Actual values adapt to venue, wind, and guest count.)

@@ -13,6 +13,7 @@ import { TestimonialsWithMetrics } from "@/components/TestimonialsWithMetrics";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import heroImage from "@/assets/hero-piano.jpg";
 import { Download } from "lucide-react";
+import { RevealOnScroll } from "@/components/animation";
 
 export default function Index() {
   usePageTheme();
@@ -32,43 +33,57 @@ export default function Index() {
         />
 
         <div className="container relative z-10 mx-auto max-w-6xl text-center">
-          <div className="space-y-8 animate-fade-in">
+          <div className="space-y-8">
             {/* Overline */}
-            <p className="overline">
-              Assured Ceremony Audio™
-            </p>
+            <RevealOnScroll variant="blur" speed="slow" delay={0}>
+              <p className="overline">
+                Assured Ceremony Audio™
+              </p>
+            </RevealOnScroll>
 
             {/* Headline */}
             <h1 className="h1">
-              <span className="block">Every vow heard.</span>
-              <span className="block">Beautifully.</span>
+              <RevealOnScroll variant="blur" speed="slow" delay={150}>
+                <span className="block">Every vow heard.</span>
+              </RevealOnScroll>
+              <RevealOnScroll variant="blur" speed="slow" delay={300}>
+                <span className="block">Beautifully.</span>
+              </RevealOnScroll>
             </h1>
 
             {/* Sub-headline */}
-            <p className="p-lead max-w-4xl mx-auto text-muted-foreground">
-              I'm your ceremony sound director—with live piano: officiant/vow mic, quiet battery power (no generator), and SPL-aware mixing tuned for Calgary, Cochrane, Canmore, and Banff.
-            </p>
+            <RevealOnScroll variant="up" delay={450}>
+              <p className="p-lead max-w-4xl mx-auto text-muted-foreground">
+                I'm your ceremony sound director—with live piano: officiant/vow mic, quiet battery power (no generator), and SPL-aware mixing tuned for Calgary, Cochrane, Canmore, and Banff.
+              </p>
+            </RevealOnScroll>
 
             {/* Primary CTA */}
-            <div className="flex flex-col items-center gap-3 pt-8">
-              <Button size="lg" asChild>
-                <a href="/contact">Hold my date & get my ceremony-audio plan</a>
-              </Button>
-              <p className="text-sm text-muted-foreground max-w-md">
-                Delivered in 24 hours with venue-specific mic, power, and SPL notes.
-              </p>
-            </div>
+            <RevealOnScroll variant="scale" delay={600}>
+              <div className="flex flex-col items-center gap-3 pt-8">
+                <Button size="lg" asChild>
+                  <a href="/contact">Hold my date & get my ceremony-audio plan</a>
+                </Button>
+                <p className="text-sm text-muted-foreground max-w-md">
+                  Delivered in 24 hours with venue-specific mic, power, and SPL notes.
+                </p>
+              </div>
+            </RevealOnScroll>
 
             {/* Micro-assurance */}
-            <p className="text-sm text-muted-foreground max-w-2xl mx-auto pt-4">
-              Measured, guaranteed, and documented—so you never wonder if guests can hear your vows.
-            </p>
+            <RevealOnScroll variant="up" delay={750}>
+              <p className="text-sm text-muted-foreground max-w-2xl mx-auto pt-4">
+                Measured, guaranteed, and documented—so you never wonder if guests can hear your vows.
+              </p>
+            </RevealOnScroll>
           </div>
 
           {/* Trust Badges */}
-          <div className="mt-16">
-            <HeroTrustBadges />
-          </div>
+          <RevealOnScroll variant="up" delay={850}>
+            <div className="mt-16">
+              <HeroTrustBadges />
+            </div>
+          </RevealOnScroll>
         </div>
       </section>
 

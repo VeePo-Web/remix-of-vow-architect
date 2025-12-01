@@ -14,8 +14,7 @@ export function HeroTrustBadges() {
       {badges.map((badge, index) => (
         <div
           key={index}
-          className="flex items-start gap-3 p-4 rounded-lg bg-card/50 border border-border/50 backdrop-blur-sm animate-fade-in"
-          style={{ animationDelay: `${index * 60}ms` }}
+          className="flex items-start gap-3 p-4 rounded-lg bg-card/50 border border-border/50 backdrop-blur-sm"
         >
           <Check size={16} className="text-accent shrink-0 mt-0.5" />
           <span className="text-sm font-medium leading-tight">{badge.label}</span>

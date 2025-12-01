@@ -1,5 +1,6 @@
 import { Card } from "./ui/card";
 import { TestimonialAvatar } from "./TestimonialAvatar";
+import { StaggerChildren } from "@/components/animation";
 
 const testimonials = [
   {
@@ -29,7 +30,7 @@ export function TestimonialsWithMetrics() {
   return (
     <section className="section--accent-soft py-24 px-4">
       <div className="container mx-auto max-w-6xl">
-        <div className="grid md:grid-cols-3 gap-8 stagger-fade">
+        <StaggerChildren staggerDelay={120} className="grid md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
             <Card key={index} className="p-8 hover-scale">
               <div className="flex items-center gap-4 mb-6">
@@ -52,7 +53,7 @@ export function TestimonialsWithMetrics() {
               </p>
             </Card>
           ))}
-        </div>
+        </StaggerChildren>
       </div>
     </section>
   );
