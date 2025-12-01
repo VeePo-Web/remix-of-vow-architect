@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { ProcessThread } from './ProcessThread';
 import { ProcessMovement } from './ProcessMovement';
+import { GradientDawnBackground } from './GradientDawnBackground';
+import { AmbientGlowField } from './AmbientGlowField';
+import { useProcessScroll } from '@/hooks/useProcessScroll';
 
 interface Movement {
   numeral: string;
@@ -54,11 +57,13 @@ const movements: Movement[] = [
 ];
 
 /**
- * ProcessSection — "Composition in the Dark"
+ * ProcessSection — "From Void to Voice"
  * 
- * Fantasy.co-grade scroll experience with rich black background,
- * golden thread notation system, and sacred timing animations.
- * Matches the visual language of Hero and Exhale sections.
+ * Fantasy.co-grade scroll experience with:
+ * - Gradient Dawn: Background transitions from void-black to warm dawn
+ * - Ambient Glow Field: Dual-layer breathing golden presence
+ * - Scroll-linked color temperature and glow intensity
+ * - Sacred timing animations matching Hero/Exhale
  */
 export function ProcessSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -66,35 +71,31 @@ export function ProcessSection() {
   const [activeStep, setActiveStep] = useState(0);
   const [closingVisible, setClosingVisible] = useState(false);
 
-  // Intro reveal
+  // Master scroll orchestrator
+  const scrollState = useProcessScroll(sectionRef);
+
+  // Intro reveal based on scroll activation
   useEffect(() => {
-    const element = sectionRef.current;
-    if (!element) return;
-
-    const prefersReducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
-
-    if (prefersReducedMotion) {
+    if (scrollState.isActive && scrollState.progress > 0.05) {
       setIntroVisible(true);
-      setActiveStep(4);
-      setClosingVisible(true);
-      return;
     }
+  }, [scrollState.isActive, scrollState.progress]);
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIntroVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, []);
+  // Map scroll phases to movement visibility
+  useEffect(() => {
+    // Phase 0-1: Intro only
+    // Phase 2: Movement I
+    // Phase 3: Movement II
+    // Phase 4: Movement III
+    // Phase 5: Movement IV
+    // Phase 6-7: Closing
+    if (scrollState.phase >= 2) {
+      setActiveStep(Math.min(scrollState.phase - 1, 4));
+    }
+    if (scrollState.phase >= 6) {
+      setClosingVisible(true);
+    }
+  }, [scrollState.phase]);
 
   const handleMovementEnterView = useCallback((movementIndex: number) => {
     setActiveStep((prev) => Math.max(prev, movementIndex + 1));
@@ -109,16 +110,20 @@ export function ProcessSection() {
       id="process"
       className="process-section"
       aria-label="My preparation process"
+      data-scroll-phase={scrollState.phase}
+      data-scroll-progress={scrollState.progress.toFixed(2)}
     >
-      {/* Layer 0: Depth gradient background */}
-      <div className="process-section__gradient" />
+      {/* Layer 0: Gradient Dawn Background (void → warm dawn) */}
+      <GradientDawnBackground
+        cssVars={scrollState.cssVars}
+        isActive={scrollState.isActive}
+      />
 
-      {/* Layer 1: Ambient glow */}
-      <div 
-        className={cn(
-          'process-section__glow',
-          introVisible && 'is-visible'
-        )}
+      {/* Layer 1: Ambient Glow Field (breathing golden presence) */}
+      <AmbientGlowField
+        cssVars={scrollState.cssVars}
+        isActive={scrollState.isActive}
+        progress={scrollState.progress}
       />
 
       {/* Golden Thread (Desktop) */}

@@ -1487,9 +1487,11 @@ All colors MUST be HSL.
   }
 
   /* ========================================
-     PROCESS SECTION — "Composition in the Dark"
-     Fantasy.co-grade scroll experience matching Hero/Exhale
-     Rich black background, golden thread, sacred timing
+     PROCESS SECTION — "From Void to Voice"
+     Fantasy.co-grade scroll experience with:
+     - Gradient Dawn: void-black → warm dawn
+     - Ambient Glow: dual-layer breathing golden presence
+     - Scroll-linked color temperature transitions
      ======================================== */
 
   .process-section {
@@ -1501,37 +1503,194 @@ All colors MUST be HSL.
     align-items: center;
     gap: var(--space-9);
     overflow: hidden;
+    /* CSS custom properties set by useProcessScroll */
+    --process-bg-h: 240;
+    --process-bg-s: 12%;
+    --process-bg-l: 3%;
+    --process-glow-opacity: 0;
+    --process-bloom-opacity: 0;
+    --process-bloom-size: 30%;
+    --process-temperature: 0;
+    --process-progress: 0;
+    --process-intensity: 0;
   }
 
-  /* Layer 0: Depth gradient background (matching Exhale) */
-  .process-section__gradient {
+  /* ═══════════════════════════════════════
+     GRADIENT DAWN BACKGROUND
+     Three-layer system for void → dawn transition
+     ═══════════════════════════════════════ */
+
+  .gradient-dawn {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, 
-      hsl(var(--rich-black)) 0%, 
-      hsl(var(--ebon-charcoal)) 35%,
-      hsl(var(--rich-black)) 65%,
-      hsl(var(--ebon-charcoal)) 100%
-    );
     pointer-events: none;
+    z-index: 0;
   }
 
-  /* Layer 1: Ambient vow-yellow glow */
-  .process-section__glow {
+  /* Layer 0: Base depth gradient (consumes CSS variables) */
+  .gradient-dawn__base {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      hsl(var(--process-bg-h) var(--process-bg-s) var(--process-bg-l)) 0%,
+      hsl(var(--process-bg-h) calc(var(--process-bg-s) * 0.8) calc(var(--process-bg-l) * 1.5)) 35%,
+      hsl(var(--process-bg-h) var(--process-bg-s) var(--process-bg-l)) 65%,
+      hsl(var(--process-bg-h) calc(var(--process-bg-s) * 0.9) calc(var(--process-bg-l) * 1.2)) 100%
+    );
+    transition: background 1800ms var(--ease-covenant);
+  }
+
+  /* Layer 1: Warmth bloom (scroll-linked radial) */
+  .gradient-dawn__warmth {
     position: absolute;
     inset: 0;
     background: radial-gradient(
-      ellipse 50% 40% at 50% 45%, 
-      hsl(var(--vow-yellow) / 0.03) 0%, 
+      ellipse var(--process-bloom-size) calc(var(--process-bloom-size) * 0.7) at 50% 50%,
+      hsl(35 40% 15% / var(--process-glow-opacity)) 0%,
+      hsl(35 30% 10% / calc(var(--process-glow-opacity) * 0.5)) 40%,
       transparent 70%
     );
-    opacity: 0;
-    transition: opacity 1200ms var(--ease-sacred);
-    pointer-events: none;
+    opacity: 1;
+    transition: background 1200ms var(--ease-sacred);
   }
 
-  .process-section__glow.is-visible {
+  /* Layer 2: Edge veil for atmospheric framing */
+  .gradient-dawn__veil {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 100% 80% at 50% 50%,
+      transparent 30%,
+      hsl(240 15% 2% / 0.4) 100%
+    );
+    opacity: calc(1 - var(--process-temperature) * 0.3);
+    transition: opacity 1200ms var(--ease-sacred);
+  }
+
+  /* Layer 3: Film grain texture */
+  .gradient-dawn__grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.015;
+    mix-blend-mode: overlay;
+    animation: grain-shift 8s steps(10) infinite;
+  }
+
+  @keyframes grain-shift {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-2%, -2%); }
+    20% { transform: translate(1%, 3%); }
+    30% { transform: translate(-3%, 1%); }
+    40% { transform: translate(3%, -1%); }
+    50% { transform: translate(-1%, 2%); }
+    60% { transform: translate(2%, -3%); }
+    70% { transform: translate(-2%, 3%); }
+    80% { transform: translate(1%, -2%); }
+    90% { transform: translate(3%, 1%); }
+  }
+
+  /* ═══════════════════════════════════════
+     AMBIENT GLOW FIELD
+     Dual-layer breathing golden presence
+     ═══════════════════════════════════════ */
+
+  .ambient-glow-field {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 1200ms var(--ease-sacred);
+  }
+
+  .ambient-glow-field.is-active {
     opacity: 1;
+  }
+
+  /* Core glow: Inner ellipse, 8s breathing */
+  .ambient-glow-field__core {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 35% 30% at 50% 45%,
+      hsl(var(--vow-yellow) / calc(var(--process-glow-opacity) * 0.8)) 0%,
+      hsl(var(--vow-yellow) / calc(var(--process-glow-opacity) * 0.3)) 40%,
+      transparent 70%
+    );
+    animation: glow-breathe-core 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes glow-breathe-core {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.08);
+      opacity: 0.85;
+    }
+  }
+
+  /* Bloom glow: Outer ellipse, 12s breathing (phase offset) */
+  .ambient-glow-field__bloom {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse var(--process-bloom-size) calc(var(--process-bloom-size) * 0.6) at 50% 48%,
+      hsl(var(--vow-yellow) / calc(var(--process-bloom-opacity) * 0.6)) 0%,
+      hsl(39 80% 55% / calc(var(--process-bloom-opacity) * 0.2)) 50%,
+      transparent 80%
+    );
+    animation: glow-breathe-bloom 12s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation-delay: -4s; /* Phase offset from core */
+  }
+
+  @keyframes glow-breathe-bloom {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.12);
+      opacity: 0.75;
+    }
+  }
+
+  /* Pulse ring: Expanding circle, appears mid-scroll */
+  .ambient-glow-field__pulse {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 1px solid hsl(var(--vow-yellow) / 0.15);
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0;
+    transition: opacity 800ms var(--ease-sacred);
+  }
+
+  .ambient-glow-field__pulse.is-visible {
+    opacity: 1;
+    animation: pulse-expand 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse-expand {
+    0% {
+      transform: translate(-50%, -50%) scale(0.5);
+      opacity: 0.4;
+      border-width: 1px;
+    }
+    50% {
+      opacity: 0.15;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(3);
+      opacity: 0;
+      border-width: 0.5px;
+    }
   }
 
   /* ═══════════════════════════════════════
