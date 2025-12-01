@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
+import { getLineState, getLineStateProgress, type LineState } from './usePathMorph';
 
 /**
  * Phase boundaries aligned with FlameSystem states
@@ -34,6 +35,10 @@ interface OrchestratorState {
   temperature: number;
   /** CSS variables object for inline application */
   cssVars: Record<string, string>;
+  /** Current line state for HeldBreath component */
+  lineState: LineState;
+  /** Progress within current line state (0-1) */
+  lineStateProgress: number;
 }
 
 interface UseProcessOrchestratorOptions {
@@ -66,7 +71,9 @@ export function useProcessOrchestrator(
     highlightedMovement: -1,
     glowIntensity: 0,
     temperature: 0,
-    cssVars: generateCSSVars(0, 'vigil', 0, 0, 0),
+    cssVars: generateCSSVars(0, 'vigil', 0, 0, 0, 'silent', 0),
+    lineState: 'silent',
+    lineStateProgress: 0,
   });
   
   const rafRef = useRef<number | null>(null);
@@ -168,6 +175,10 @@ export function useProcessOrchestrator(
     // Exponential temperature
     const temperature = Math.pow(progress, 1.5);
     
+    // Line state for HeldBreath
+    const lineState = getLineState(progress);
+    const lineStateProgress = getLineStateProgress(progress);
+    
     lastProgressRef.current = progress;
     
     const newState: OrchestratorState = {
@@ -180,7 +191,9 @@ export function useProcessOrchestrator(
       highlightedMovement,
       glowIntensity,
       temperature,
-      cssVars: generateCSSVars(progress, phase, phaseProgress, glowIntensity, temperature),
+      cssVars: generateCSSVars(progress, phase, phaseProgress, glowIntensity, temperature, lineState, lineStateProgress),
+      lineState,
+      lineStateProgress,
     };
     
     setState(newState);
@@ -225,7 +238,9 @@ export function useProcessOrchestrator(
         highlightedMovement: -1,
         glowIntensity: 0,
         temperature: 1,
-        cssVars: generateCSSVars(1, 'covenant', 1, 0, 1),
+        cssVars: generateCSSVars(1, 'covenant', 1, 0, 1, 'keys', 1),
+        lineState: 'keys',
+        lineStateProgress: 1,
       });
       return;
     }
@@ -289,7 +304,9 @@ function generateCSSVars(
   phase: FlamePhase,
   phaseProgress: number,
   glowIntensity: number,
-  temperature: number
+  temperature: number,
+  lineState: LineState,
+  lineStateProgress: number
 ): Record<string, string> {
   // Background color interpolation: void-black → dawn-warmth
   const bgH = lerp(240, 35, temperature);
@@ -306,6 +323,9 @@ function generateCSSVars(
                            phase === 'converging' ? 0.9 : 
                            phase === 'covenant' ? 1.0 : 0.7;
   
+  // Line state index for CSS
+  const lineStateIndex = ['silent', 'pulse', 'wave', 'refined', 'keys'].indexOf(lineState);
+  
   return {
     '--process-bg-h': `${bgH}`,
     '--process-bg-s': `${bgS}%`,
@@ -318,6 +338,9 @@ function generateCSSVars(
     '--process-intensity': `${glowIntensity}`,
     '--process-phase-progress': `${phaseProgress}`,
     '--process-timing-multiplier': `${timingMultiplier}`,
+    '--line-state': lineState,
+    '--line-state-index': `${lineStateIndex}`,
+    '--line-state-progress': `${lineStateProgress}`,
   };
 }
 

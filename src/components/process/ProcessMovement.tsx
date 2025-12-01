@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
+import { CardConnector } from './CardConnector';
+import type { LineState } from '@/hooks/usePathMorph';
 
 interface MovementData {
   numeral: string;
@@ -19,6 +21,8 @@ interface ProcessMovementProps {
   /** Whether this movement is synced with conductor's dot arrival */
   isHighlighted?: boolean;
   onEnterView?: () => void;
+  /** Current line state from orchestrator */
+  lineState?: LineState;
 }
 
 /**
@@ -44,6 +48,7 @@ export function ProcessMovement({
   side,
   isHighlighted = false,
   onEnterView,
+  lineState,
 }: ProcessMovementProps) {
   const movementRef = useRef<HTMLDivElement>(null);
   const [hasTriggered, setHasTriggered] = useState(false);
@@ -94,11 +99,21 @@ export function ProcessMovement({
         'process-movement',
         `process-movement--${side}`,
         hasTriggered && 'is-triggered',
-        isHighlighted && 'is-conductor-synced'
+        isHighlighted && 'is-conductor-synced',
+        lineState && `line-state--${lineState}`
       )}
       style={{ '--movement-index': index } as React.CSSProperties}
       data-reveal-phase={revealPhase}
     >
+      {/* Golden connector thread from line to card */}
+      <CardConnector
+        side={side}
+        isRevealed={hasTriggered}
+        isHighlighted={isHighlighted}
+        index={index}
+        className="process-movement__connector"
+      />
+
       {/* Bar-line accent — like a measure line in sheet music */}
       <div className="process-movement__bar-line" aria-hidden="true" />
 

@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { ProcessMovement } from './ProcessMovement';
 import { GradientDawnBackground } from './GradientDawnBackground';
 import { AmbientGlowField } from './AmbientGlowField';
-import { WeavingThread } from './WeavingThread';
+import { HeldBreath } from './HeldBreath';
 import { ProcessDebugOverlay } from './ProcessDebugOverlay';
 import { useProcessOrchestrator } from '@/hooks/useProcessOrchestrator';
 
@@ -148,17 +148,18 @@ export function ProcessSection() {
         </h3>
       </div>
 
-      {/* The Score: 3-Column Grid with Weaving Thread */}
+      {/* The Score: Held Breath Line with Movement Cards */}
       <div className="process-score">
-        {/* Center channel: Weaving Thread (full-width, conductor-connected) */}
-        <WeavingThread
-          progress={orchestrator.progress}
-          isActive={orchestrator.isActive}
-          highlightedMovement={orchestrator.highlightedMovement}
-          className="process-score__thread"
-        />
+        {/* The Held Breath — Transforming Line (sticky during scroll) */}
+        <div className="process-score__line-wrapper">
+          <HeldBreath
+            progress={orchestrator.progress}
+            isActive={orchestrator.isActive}
+            className="process-score__held-breath"
+          />
+        </div>
 
-        {/* Movements: Alternating left/right */}
+        {/* Movements: Alternating left/right with connectors */}
         <div className="process-score__movements">
           {movements.map((movement, index) => (
             <ProcessMovement
@@ -168,6 +169,7 @@ export function ProcessSection() {
               side={index % 2 === 0 ? 'left' : 'right'}
               isHighlighted={orchestrator.highlightedMovement === index}
               onEnterView={() => handleMovementEnterView(index)}
+              lineState={orchestrator.lineState}
             />
           ))}
         </div>
