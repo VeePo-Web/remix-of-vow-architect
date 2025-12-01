@@ -143,6 +143,9 @@ export function ProcessSection() {
         <p className="process-intro__bridge">
           This is my process for ensuring it happens every time.
         </p>
+        <h3 className="process-intro__statement">
+          Because there are no second chances for <span className="exhale-emphasis">First Moments</span>
+        </h3>
       </div>
 
       {/* The Score: 3-Column Grid with Weaving Thread */}
