@@ -2,5 +2,7 @@ export { ProcessSection, default } from './ProcessSection';
 export { ProcessMovement } from './ProcessMovement';
 export { GradientDawnBackground } from './GradientDawnBackground';
 export { AmbientGlowField } from './AmbientGlowField';
-export { WeavingThread } from './WeavingThread';
+export { HeldBreath } from './HeldBreath';
+export { HeldBreathPath } from './HeldBreathPath';
+export { CardConnector } from './CardConnector';
 export { ProcessDebugOverlay } from './ProcessDebugOverlay';
