@@ -163,6 +163,7 @@ export function ProcessSection() {
           <HeldBreath
             progress={orchestrator.progress}
             isActive={orchestrator.isActive}
+            highlightedMovement={orchestrator.highlightedMovement}
             className="process-score__held-breath"
           />
         </div>
