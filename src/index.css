@@ -2474,47 +2474,69 @@ All colors MUST be HSL.
     transform-origin: center bottom;
   }
 
-  /* Origin flame (single, above intro) */
+  /* ═══════════════════════════════════════
+     VIGIL FLAME — Sacred Pause (0-20%)
+     Extended breathing, honoring the held breath
+     ═══════════════════════════════════════ */
+  
   .flame-system__origin {
     position: absolute;
-    top: 8%;
+    top: 6%;
     left: 50%;
     transform: translateX(-50%);
     opacity: 0;
-    transition: opacity 800ms var(--ease-sacred);
+    transition: opacity 900ms var(--ease-sacred);
   }
 
   .flame-system__origin.is-visible {
     opacity: 1;
   }
 
-  .flame-system__flame--origin {
-    width: 20px;
-    height: 32px;
-    animation: flame-breathe-origin 3s ease-in-out infinite;
+  /* Crossfade during awakening */
+  .flame-system__origin.is-fading {
+    opacity: 0;
+    transition: opacity 600ms var(--ease-sacred);
   }
 
-  @keyframes flame-breathe-origin {
+  .flame-system__flame--vigil {
+    width: 22px;
+    height: 36px;
+    animation: flame-breathe-vigil 4s ease-in-out infinite;
+  }
+
+  /* Sacred 4s vigil breathing — slow, reverent, held breath */
+  @keyframes flame-breathe-vigil {
     0%, 100% {
       transform: scaleY(1) scaleX(1);
       filter: blur(1px) brightness(1);
     }
-    25% {
-      transform: scaleY(1.1) scaleX(0.95);
+    15% {
+      transform: scaleY(1.08) scaleX(0.96);
+    }
+    35% {
+      transform: scaleY(1.15) scaleX(0.92);
+      filter: blur(1.2px) brightness(1.15);
     }
     50% {
-      transform: scaleY(0.95) scaleX(1.05);
-      filter: blur(1.5px) brightness(1.2);
+      transform: scaleY(0.92) scaleX(1.06);
+      filter: blur(1.5px) brightness(1.25);
     }
-    75% {
-      transform: scaleY(1.05) scaleX(0.98);
+    65% {
+      transform: scaleY(1.1) scaleX(0.94);
+    }
+    85% {
+      transform: scaleY(1.04) scaleX(0.98);
+      filter: blur(1px) brightness(1.1);
     }
   }
 
-  /* Particle burst */
+  /* ═══════════════════════════════════════
+     PARTICLE BURST — Awakening (20-28%)
+     ═══════════════════════════════════════ */
+  
   .flame-system__particles {
     position: absolute;
-    top: 8%;
+    top: 6%;
     left: 50%;
     width: 0;
     height: 0;
@@ -2531,7 +2553,7 @@ All colors MUST be HSL.
   }
 
   .flame-system__particles.is-bursting .flame-system__particle {
-    animation: particle-burst 600ms var(--ease-sacred) forwards;
+    animation: particle-burst 700ms var(--ease-sacred) forwards;
     animation-delay: var(--particle-delay, 0ms);
   }
 
@@ -2539,17 +2561,26 @@ All colors MUST be HSL.
     0% {
       opacity: 1;
       transform: translate(-50%, -50%) rotate(var(--particle-angle)) translateY(0);
+      filter: brightness(1.5);
+    }
+    60% {
+      opacity: 0.8;
     }
     100% {
       opacity: 0;
       transform: translate(-50%, -50%) rotate(var(--particle-angle)) translateY(calc(var(--particle-distance) * -1));
+      filter: brightness(0.5);
     }
   }
 
-  /* Fragment flames */
+  /* ═══════════════════════════════════════
+     FRAGMENT FLAMES — Drifting (28-75%)
+     Per-movement intensity with active glow
+     ═══════════════════════════════════════ */
+  
   .flame-system__fragments {
     position: absolute;
-    top: 8%;
+    top: 6%;
     left: 50%;
     width: 0;
     height: 0;
@@ -2559,80 +2590,164 @@ All colors MUST be HSL.
     position: absolute;
     transform-origin: center;
     opacity: 0;
-    transition: transform 400ms var(--ease-sacred), opacity 400ms var(--ease-sacred);
+    transition: 
+      transform 350ms var(--ease-sacred), 
+      opacity 350ms var(--ease-sacred),
+      filter 400ms var(--ease-sacred);
   }
 
   .flame-system__fragment.is-visible {
     opacity: 1;
   }
 
+  /* Active fragment gets enhanced glow during drift */
+  .flame-system__fragment.is-active .flame-system__flame--fragment {
+    filter: blur(0.5px) brightness(1.4) drop-shadow(0 0 8px hsl(var(--vow-yellow) / 0.6));
+    animation: flame-breathe-fragment-active 2s ease-in-out infinite;
+  }
+
   .flame-system__flame--fragment {
-    width: 12px;
-    height: 18px;
-    animation: flame-breathe-fragment 2.5s ease-in-out infinite;
+    width: 14px;
+    height: 22px;
+    animation: flame-breathe-fragment 2.8s ease-in-out infinite;
+    transition: filter 400ms var(--ease-sacred);
   }
 
   @keyframes flame-breathe-fragment {
     0%, 100% {
-      transform: scaleY(1) scaleX(1) rotate(-3deg);
+      transform: scaleY(1) scaleX(1) rotate(-2deg);
       filter: blur(0.5px);
     }
+    35% {
+      transform: scaleY(1.12) scaleX(0.88) rotate(2deg);
+    }
     50% {
-      transform: scaleY(1.1) scaleX(0.9) rotate(3deg);
-      filter: blur(1px) brightness(1.1);
+      transform: scaleY(0.94) scaleX(1.08) rotate(0deg);
+      filter: blur(1px) brightness(1.15);
+    }
+    65% {
+      transform: scaleY(1.06) scaleX(0.94) rotate(-1deg);
     }
   }
 
-  /* Unified flame (above CTA) */
+  /* Active fragment breathing — more intense */
+  @keyframes flame-breathe-fragment-active {
+    0%, 100% {
+      transform: scaleY(1) scaleX(1) rotate(-3deg);
+      filter: blur(0.5px) brightness(1.3) drop-shadow(0 0 6px hsl(var(--vow-yellow) / 0.5));
+    }
+    30% {
+      transform: scaleY(1.18) scaleX(0.85) rotate(3deg);
+    }
+    50% {
+      transform: scaleY(0.9) scaleX(1.12) rotate(0deg);
+      filter: blur(1px) brightness(1.5) drop-shadow(0 0 12px hsl(var(--vow-yellow) / 0.7));
+    }
+    70% {
+      transform: scaleY(1.1) scaleX(0.92) rotate(-2deg);
+    }
+  }
+
+  /* ═══════════════════════════════════════
+     COVENANT FLAME — Unified (88-100%)
+     Brilliant, radiant, above CTA
+     ═══════════════════════════════════════ */
+  
   .flame-system__unified {
     position: absolute;
-    bottom: 15%;
+    bottom: 12%;
     left: 50%;
     transform: translateX(-50%);
     opacity: 0;
-    transition: opacity 600ms var(--ease-sacred);
+    transition: opacity 800ms var(--ease-sacred);
   }
 
   .flame-system__unified.is-visible {
     opacity: 1;
   }
 
-  .flame-system__flame--unified {
-    width: 28px;
-    height: 44px;
-    animation: flame-breathe-unified 4s ease-in-out infinite;
-    filter: blur(1px) brightness(1.2);
+  .flame-system__flame--covenant {
+    width: 32px;
+    height: 52px;
+    animation: flame-breathe-covenant 3s ease-in-out infinite;
+    filter: blur(1px) brightness(1.35);
   }
 
-  @keyframes flame-breathe-unified {
+  /* Triumphant 3s covenant breathing */
+  @keyframes flame-breathe-covenant {
     0%, 100% {
       transform: scaleY(1) scaleX(1);
-      filter: blur(1px) brightness(1.2);
+      filter: blur(1px) brightness(1.35);
     }
-    30% {
-      transform: scaleY(1.15) scaleX(0.92);
+    20% {
+      transform: scaleY(1.12) scaleX(0.9);
     }
-    50% {
-      transform: scaleY(0.95) scaleX(1.08);
-      filter: blur(1.5px) brightness(1.4);
+    40% {
+      transform: scaleY(1.2) scaleX(0.85);
+      filter: blur(1.2px) brightness(1.5);
+    }
+    55% {
+      transform: scaleY(0.92) scaleX(1.1);
+      filter: blur(1.5px) brightness(1.6);
     }
     70% {
-      transform: scaleY(1.08) scaleX(0.96);
+      transform: scaleY(1.1) scaleX(0.94);
+    }
+    85% {
+      transform: scaleY(1.05) scaleX(0.97);
+      filter: blur(1px) brightness(1.4);
     }
   }
 
-  /* Unification burst */
+  /* Radiance halo around covenant flame */
+  .flame-system__radiance {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80px;
+    height: 80px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+      circle,
+      hsl(var(--vow-yellow) / 0.25) 0%,
+      hsl(var(--vow-yellow) / 0.1) 35%,
+      hsl(var(--vow-yellow) / 0.03) 60%,
+      transparent 80%
+    );
+    border-radius: 50%;
+    opacity: 0;
+    animation: flame-radiance 4s ease-in-out infinite;
+  }
+
+  .flame-system__unified.is-visible .flame-system__radiance {
+    opacity: 1;
+    transition: opacity 600ms var(--ease-sacred) 400ms;
+  }
+
+  @keyframes flame-radiance {
+    0%, 100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.15);
+      opacity: 1;
+    }
+  }
+
+  /* Unification burst on covenant reveal */
   .flame-system__burst {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     transform: translate(-50%, -50%) scale(0);
     background: radial-gradient(
       circle,
-      hsl(var(--vow-yellow) / 0.6) 0%,
-      hsl(var(--vow-yellow) / 0.2) 40%,
+      hsl(var(--vow-yellow) / 0.7) 0%,
+      hsl(var(--vow-yellow) / 0.3) 30%,
+      hsl(var(--vow-yellow) / 0.1) 50%,
       transparent 70%
     );
     border-radius: 50%;
@@ -2640,7 +2755,7 @@ All colors MUST be HSL.
   }
 
   .flame-system__unified.is-visible .flame-system__burst {
-    animation: unification-burst 1200ms var(--ease-sacred) forwards;
+    animation: unification-burst 1400ms var(--ease-sacred) forwards;
   }
 
   @keyframes unification-burst {
@@ -2648,37 +2763,51 @@ All colors MUST be HSL.
       transform: translate(-50%, -50%) scale(0);
       opacity: 1;
     }
-    50% {
-      transform: translate(-50%, -50%) scale(2);
-      opacity: 0.8;
+    30% {
+      transform: translate(-50%, -50%) scale(1.8);
+      opacity: 0.9;
+    }
+    60% {
+      transform: translate(-50%, -50%) scale(2.8);
+      opacity: 0.5;
     }
     100% {
-      transform: translate(-50%, -50%) scale(3);
+      transform: translate(-50%, -50%) scale(4);
       opacity: 0;
     }
   }
 
-  /* Mobile adjustments for Weaving Thread */
+  /* ═══════════════════════════════════════
+     MOBILE ADJUSTMENTS
+     ═══════════════════════════════════════ */
+  
   @media (max-width: 767px) {
     .weaving-thread {
       display: none;
     }
-  }
 
-  /* Mobile adjustments for Flame System */
-  @media (max-width: 767px) {
     .flame-system {
       width: 200px;
     }
 
-    .flame-system__flame--origin {
-      width: 16px;
-      height: 26px;
+    .flame-system__flame--vigil {
+      width: 18px;
+      height: 28px;
     }
 
-    .flame-system__flame--unified {
-      width: 22px;
-      height: 36px;
+    .flame-system__flame--fragment {
+      width: 10px;
+      height: 16px;
+    }
+
+    .flame-system__flame--covenant {
+      width: 24px;
+      height: 40px;
+    }
+
+    .flame-system__radiance {
+      width: 60px;
+      height: 60px;
     }
   }
 
@@ -2704,8 +2833,16 @@ All colors MUST be HSL.
       transform: scale(1);
     }
 
-    .flame-system__flame {
+    .flame-system__flame--vigil,
+    .flame-system__flame--fragment,
+    .flame-system__flame--covenant,
+    .flame-system__radiance {
       animation: none;
+    }
+
+    .flame-system__fragment.is-active .flame-system__flame--fragment {
+      animation: none;
+      filter: blur(0.5px) brightness(1.2);
     }
 
     .flame-system__particles.is-bursting .flame-system__particle {
