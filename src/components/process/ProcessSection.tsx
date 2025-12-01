@@ -147,10 +147,11 @@ export function ProcessSection() {
 
       {/* The Score: 3-Column Grid with Weaving Thread */}
       <div className="process-score">
-        {/* Center channel: Weaving Thread */}
+        {/* Center channel: Weaving Thread (full-width, conductor-connected) */}
         <WeavingThread
           progress={orchestrator.progress}
           isActive={orchestrator.isActive}
+          highlightedMovement={orchestrator.highlightedMovement}
           className="process-score__thread"
         />
 
