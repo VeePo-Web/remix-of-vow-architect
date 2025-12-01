@@ -1,5 +1,8 @@
 import { cn } from '@/lib/utils';
 import { ReactNode } from 'react';
+import { useCardPhysics } from '@/hooks/useCardPhysics';
+import { EmbossedNumeral } from './EmbossedNumeral';
+import { GoldRuleShimmer } from './GoldRuleShimmer';
 
 interface LetterpressCardProps {
   numeral: string;
@@ -7,16 +10,20 @@ interface LetterpressCardProps {
   isRevealed?: boolean;
   isHighlighted?: boolean;
   side: 'left' | 'right';
+  scrollVelocity?: number;
+  scrollDirection?: 'up' | 'down' | 'idle';
+  progress?: number;
   className?: string;
 }
 
 /**
- * LetterpressCard — Tactile Card Wrapper
+ * LetterpressCard — Tactile Card Wrapper with Material Physics
  * 
- * Creates the composer's journal aesthetic:
+ * Creates the composer's journal aesthetic with:
+ * - 3D perspective tilt responding to scroll
+ * - Light-catching embossed numerals
+ * - Shimmer effect on gold rule
  * - Cream paper texture background
- * - Single gold rule border (evolved bar-line)
- * - Embossed numeral styling
  * - Soft shadow for physical depth
  */
 export function LetterpressCard({
@@ -25,8 +32,21 @@ export function LetterpressCard({
   isRevealed = false,
   isHighlighted = false,
   side,
+  scrollVelocity = 0,
+  scrollDirection = 'idle',
+  progress = 0,
   className,
 }: LetterpressCardProps) {
+  // Card physics for tilt, light, shimmer, and bloom
+  const physics = useCardPhysics({
+    scrollVelocity,
+    scrollDirection,
+    progress,
+    isHighlighted,
+    isRevealed,
+    side,
+  });
+
   return (
     <div
       className={cn(
@@ -36,25 +56,51 @@ export function LetterpressCard({
         isHighlighted && 'is-highlighted',
         className
       )}
+      style={{
+        ...physics.cssVars,
+        transform: `perspective(1000px) rotateX(${physics.tiltX}deg) rotateY(${physics.tiltY}deg)`,
+      } as React.CSSProperties}
     >
       {/* Paper texture layer */}
       <div className="letterpress-card__texture" aria-hidden="true" />
       
-      {/* Gold rule border accent */}
-      <div className="letterpress-card__rule" aria-hidden="true" />
+      {/* Gold rule shimmer (replaces static rule) */}
+      <GoldRuleShimmer
+        side={side}
+        shimmerPosition={physics.shimmerPosition}
+        shimmerActive={physics.shimmerActive}
+        isHighlighted={isHighlighted}
+        className="letterpress-card__rule"
+      />
       
-      {/* Embossed numeral watermark */}
-      <span className="letterpress-card__numeral" aria-hidden="true">
-        {numeral}
-      </span>
+      {/* Embossed numeral with light-catching effect */}
+      <EmbossedNumeral
+        numeral={numeral}
+        lightX={physics.lightX}
+        lightY={physics.lightY}
+        isHighlighted={isHighlighted}
+        className="letterpress-card__numeral"
+      />
       
-      {/* Card content */}
-      <div className="letterpress-card__content">
+      {/* Card content with bloom progress */}
+      <div 
+        className="letterpress-card__content"
+        style={{
+          '--bloom-progress': physics.bloomProgress,
+        } as React.CSSProperties}
+      >
         {children}
       </div>
       
-      {/* Soft shadow layer */}
-      <div className="letterpress-card__shadow" aria-hidden="true" />
+      {/* Soft shadow layer - deepens with tilt */}
+      <div 
+        className="letterpress-card__shadow" 
+        aria-hidden="true"
+        style={{
+          transform: `translateY(${4 + Math.abs(physics.tiltX) * 2}px)`,
+          opacity: 0.12 + Math.abs(physics.tiltX) * 0.03,
+        }}
+      />
     </div>
   );
 }

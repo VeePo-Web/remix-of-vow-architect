@@ -4,6 +4,7 @@ import { CardConnector } from './CardConnector';
 import { MovementImage } from './MovementImage';
 import { LetterpressCard } from './LetterpressCard';
 import { HandwrittenNote } from './HandwrittenNote';
+import { InkBloomText } from './InkBloomText';
 import type { LineState } from '@/hooks/usePathMorph';
 
 interface MovementData {
@@ -27,6 +28,12 @@ interface ProcessMovementProps {
   onEnterView?: () => void;
   /** Current line state from orchestrator */
   lineState?: LineState;
+  /** Scroll velocity for physics */
+  scrollVelocity?: number;
+  /** Scroll direction for physics */
+  scrollDirection?: 'up' | 'down' | 'idle';
+  /** Overall progress for light tracking */
+  progress?: number;
 }
 
 /**
@@ -53,10 +60,14 @@ export function ProcessMovement({
   isHighlighted = false,
   onEnterView,
   lineState,
+  scrollVelocity = 0,
+  scrollDirection = 'idle',
+  progress = 0,
 }: ProcessMovementProps) {
   const movementRef = useRef<HTMLDivElement>(null);
   const [hasTriggered, setHasTriggered] = useState(false);
   const [revealPhase, setRevealPhase] = useState(0);
+  const [bloomProgress, setBloomProgress] = useState(0);
   const prevHighlightedRef = useRef(false);
 
   // Conductor-connected reveal: triggered by isHighlighted from orchestrator
@@ -79,6 +90,7 @@ export function ProcessMovement({
 
     if (prefersReducedMotion) {
       setRevealPhase(6);
+      setBloomProgress(1);
       return;
     }
 
@@ -92,6 +104,17 @@ export function ProcessMovement({
       }, delay);
       timers.push(timer);
     });
+
+    // Bloom animation over 600ms
+    let startTime: number;
+    const animateBloom = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / 600, 1);
+      setBloomProgress(progress);
+      if (progress < 1) requestAnimationFrame(animateBloom);
+    };
+    requestAnimationFrame(animateBloom);
 
     return () => timers.forEach(clearTimeout);
   }, [hasTriggered]);
@@ -143,55 +166,97 @@ export function ProcessMovement({
         isRevealed={hasTriggered}
         isHighlighted={isHighlighted}
         side={side}
+        scrollVelocity={scrollVelocity}
+        scrollDirection={scrollDirection}
+        progress={progress}
       >
         {/* Phase 1: Movement Header */}
         <div className={cn(
           'process-movement__header',
           revealPhase >= 1 && 'is-visible'
         )}>
-          <span className="process-movement__name">{movement.name}</span>
+          <InkBloomText 
+            variant="muted" 
+            isRevealed={revealPhase >= 1}
+            bloomProgress={bloomProgress}
+            delay={0}
+          >
+            <span className="process-movement__name">{movement.name}</span>
+          </InkBloomText>
         </div>
         
-        {/* Phase 2: Action Verb — Only yellow element */}
-        <span className={cn(
-          'process-movement__action',
-          revealPhase >= 2 && 'is-visible'
-        )}>
+        {/* Phase 2: Action Verb — Only yellow element with dramatic bloom */}
+        <InkBloomText
+          variant="action"
+          isRevealed={revealPhase >= 2}
+          bloomProgress={Math.max(0, (bloomProgress - 0.15) / 0.85)}
+          delay={150}
+          className={cn(
+            'process-movement__action',
+            revealPhase >= 2 && 'is-visible'
+          )}
+        >
           {movement.action}
-        </span>
+        </InkBloomText>
         
         {/* Phase 3: Quote — Cormorant italic */}
-        <p className={cn(
-          'process-movement__quote',
-          revealPhase >= 3 && 'is-visible'
-        )}>
-          "{movement.quote}"
-        </p>
+        <InkBloomText
+          variant="quote"
+          isRevealed={revealPhase >= 3}
+          bloomProgress={Math.max(0, (bloomProgress - 0.25) / 0.75)}
+          delay={280}
+          className={cn(
+            'process-movement__quote',
+            revealPhase >= 3 && 'is-visible'
+          )}
+        >
+          <p>"{movement.quote}"</p>
+        </InkBloomText>
         
         {/* Phase 4: Details — Supporting text */}
-        <p className={cn(
-          'process-movement__details',
-          revealPhase >= 4 && 'is-visible'
-        )}>
-          {movement.details}
-        </p>
+        <InkBloomText
+          variant="default"
+          isRevealed={revealPhase >= 4}
+          bloomProgress={Math.max(0, (bloomProgress - 0.4) / 0.6)}
+          delay={400}
+          className={cn(
+            'process-movement__details',
+            revealPhase >= 4 && 'is-visible'
+          )}
+        >
+          <p>{movement.details}</p>
+        </InkBloomText>
         
         {/* Phase 5: Assumption — No yellow, muted */}
-        <p className={cn(
-          'process-movement__assumption',
-          revealPhase >= 5 && 'is-visible'
-        )}>
-          {movement.assumption}
-        </p>
+        <InkBloomText
+          variant="muted"
+          isRevealed={revealPhase >= 5}
+          bloomProgress={Math.max(0, (bloomProgress - 0.55) / 0.45)}
+          delay={520}
+          className={cn(
+            'process-movement__assumption',
+            revealPhase >= 5 && 'is-visible'
+          )}
+        >
+          <p>{movement.assumption}</p>
+        </InkBloomText>
         
         {/* Phase 6: Outcome — Golden arrow only */}
-        <p className={cn(
-          'process-movement__outcome',
-          revealPhase >= 6 && 'is-visible'
-        )}>
-          <span className="process-movement__arrow">→</span>
-          <span className="process-movement__outcome-text">{movement.outcome}</span>
-        </p>
+        <InkBloomText
+          variant="default"
+          isRevealed={revealPhase >= 6}
+          bloomProgress={Math.max(0, (bloomProgress - 0.7) / 0.3)}
+          delay={640}
+          className={cn(
+            'process-movement__outcome',
+            revealPhase >= 6 && 'is-visible'
+          )}
+        >
+          <p>
+            <span className="process-movement__arrow">→</span>
+            <span className="process-movement__outcome-text">{movement.outcome}</span>
+          </p>
+        </InkBloomText>
       </LetterpressCard>
     </div>
   );

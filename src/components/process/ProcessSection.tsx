@@ -179,6 +179,9 @@ export function ProcessSection() {
               isHighlighted={orchestrator.highlightedMovement === index}
               onEnterView={() => handleMovementEnterView(index)}
               lineState={orchestrator.lineState}
+              scrollVelocity={orchestrator.velocity}
+              scrollDirection={orchestrator.direction}
+              progress={orchestrator.progress}
             />
           ))}
         </div>
