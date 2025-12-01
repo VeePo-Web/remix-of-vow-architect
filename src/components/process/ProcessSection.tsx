@@ -1,13 +1,10 @@
 import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { ProcessThread } from './ProcessThread';
 import { ProcessMovement } from './ProcessMovement';
 import { GradientDawnBackground } from './GradientDawnBackground';
 import { AmbientGlowField } from './AmbientGlowField';
-import { EchoRings } from './EchoRings';
 import { WeavingThread } from './WeavingThread';
-import { FlameSystem } from './FlameSystem';
 import { ProcessDebugOverlay } from './ProcessDebugOverlay';
 import { useProcessOrchestrator } from '@/hooks/useProcessOrchestrator';
 
@@ -61,10 +58,10 @@ const movements: Movement[] = [
 ];
 
 /**
- * ProcessSection — "From Void to Voice"
+ * ProcessSection — "The Golden Thread"
  * 
- * Phase 7: Unified orchestration with cross-layer synchronization.
- * Uses useProcessOrchestrator for single-source-of-truth timing.
+ * UX Cleanup: Distilled to essence. One thread, one dot, one journey.
+ * Fantasy.co-grade simplicity with scroll-synced golden thread.
  */
 export function ProcessSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -77,16 +74,15 @@ export function ProcessSection() {
     debug: process.env.NODE_ENV === 'development',
   });
 
-  // Intro reveal based on scroll activation (Fix 3: increased threshold to 12%)
+  // Intro reveal based on scroll activation
   useEffect(() => {
     if (orchestrator.isActive && orchestrator.progress > 0.12) {
       setIntroVisible(true);
     }
   }, [orchestrator.isActive, orchestrator.progress]);
 
-  // Map phases to movement visibility (Fix 5: single source of truth for closing)
+  // Map phases to movement visibility
   useEffect(() => {
-    // Use highlightedMovement from orchestrator during drifting
     if (orchestrator.phase === 'drifting' && orchestrator.highlightedMovement >= 0) {
       setActiveStep(orchestrator.highlightedMovement + 1);
     } else if (orchestrator.phase === 'converging' || orchestrator.phase === 'covenant') {
@@ -95,35 +91,10 @@ export function ProcessSection() {
     }
   }, [orchestrator.phase, orchestrator.highlightedMovement]);
 
-  // Calculate active rings based on phase (Fix 2: allow up to 4 rings during drifting)
-  const activeRings = useMemo(() => {
-    const phaseRingMap: Record<string, number> = {
-      vigil: 0,
-      awakening: 1,
-      drifting: Math.min(4, orchestrator.highlightedMovement + 2), // Allow 4 rings
-      converging: 4,
-      covenant: 5,
-    };
-    return phaseRingMap[orchestrator.phase] || 0;
-  }, [orchestrator.phase, orchestrator.highlightedMovement]);
-
-  // Movement enter view handler (Fix 5: removed race condition setTimeout)
+  // Movement enter view handler
   const handleMovementEnterView = useCallback((movementIndex: number) => {
     setActiveStep((prev) => Math.max(prev, movementIndex + 1));
-    // Closing visibility now solely controlled by orchestrator phase
   }, []);
-
-  // Legacy scroll state adapter for child components
-  const scrollState = useMemo(() => ({
-    progress: orchestrator.progress,
-    phase: ['vigil', 'awakening'].includes(orchestrator.phase) ? 1 :
-           orchestrator.phase === 'drifting' ? orchestrator.highlightedMovement + 2 :
-           orchestrator.phase === 'converging' ? 6 : 7,
-    isActive: orchestrator.isActive,
-    glowIntensity: orchestrator.glowIntensity,
-    temperature: orchestrator.temperature,
-    cssVars: orchestrator.cssVars,
-  }), [orchestrator]);
 
   return (
     <section
@@ -159,62 +130,29 @@ export function ProcessSection() {
         progress={orchestrator.progress}
       />
 
-      {/* Layer 2: Echo Rings (sound made visible) */}
-      <EchoRings
-        activeRings={activeRings}
-        cssVars={orchestrator.cssVars}
-        isActive={orchestrator.isActive}
-        progress={orchestrator.progress}
-      />
-
-      {/* Layer 3: Weaving Thread (curved path with anchors) */}
+      {/* Layer 2: Golden Thread (scroll-synced dot follows curve) */}
       <WeavingThread
-        activeStep={activeStep}
         progress={orchestrator.progress}
-        cssVars={orchestrator.cssVars}
         isActive={orchestrator.isActive}
         className="process-section__weaving-thread"
       />
 
-      {/* Layer 4: Flame System (spark → fragments → unified) */}
-      <FlameSystem
-        progress={orchestrator.progress}
-        cssVars={orchestrator.cssVars}
-        isActive={orchestrator.isActive}
-        className="process-section__flame-system"
-      />
-
-      {/* Golden Thread (Desktop - legacy fallback) */}
-      <ProcessThread 
-        activeStep={activeStep} 
-        className="process-section__thread" 
-      />
-
-      {/* Intro Block — Phase 5: Per-element stagger */}
+      {/* Intro Block */}
       <div className={cn('process-intro', introVisible && 'is-visible')}>
-        {/* Golden Anchor Dot — T+200ms */}
         <div className="process-intro__anchor" aria-hidden="true" />
-        
-        {/* Label — T+400ms */}
         <span className="process-intro__label">The Process</span>
-        
-        {/* Headline — T+600ms */}
         <h2 className="process-intro__headline">
           Excellence on the big day doesn't happen on the big day.
         </h2>
-        
-        {/* Highlight — T+900ms */}
         <p className="process-intro__highlight">
           <span className="exhale-emphasis">It happens now.</span>
         </p>
-        
-        {/* Bridge — T+1200ms */}
         <p className="process-intro__bridge">
           This is my process for ensuring it happens every time.
         </p>
       </div>
 
-      {/* Movements with flame sync */}
+      {/* Movements */}
       <div className="process-movements">
         {movements.map((movement, index) => (
           <ProcessMovement
@@ -227,28 +165,19 @@ export function ProcessSection() {
         ))}
       </div>
 
-      {/* Closing Block — Phase 5: Flame-aligned with covenant CTA */}
+      {/* Closing Block */}
       <div 
         className={cn('process-closing', closingVisible && 'is-visible')}
         data-flame-state={orchestrator.phase}
       >
-        {/* Flame alignment spacer */}
         <div className="process-closing__flame-spacer" aria-hidden="true" />
-        
-        {/* Radiance glow behind CTA */}
         <div className="process-closing__radiance" aria-hidden="true" />
-        
-        {/* Promise — T+0ms */}
         <p className="process-closing__promise">
           Because there's one chance to get this right.
         </p>
-        
-        {/* Assurance — T+300ms */}
         <p className="process-closing__assurance">
           <span className="exhale-emphasis">And it will be right.</span>
         </p>
-        
-        {/* CTA — T+600ms with glow layers */}
         <Link to="/contact" className="process-closing__cta">
           <span className="process-closing__cta-text">Begin the conversation</span>
           <span className="process-closing__cta-glow" aria-hidden="true" />

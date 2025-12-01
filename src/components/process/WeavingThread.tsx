@@ -1,34 +1,36 @@
-import { useMemo } from 'react';
+import { useMemo, useRef, useEffect, useState, useCallback } from 'react';
 import { cn } from '@/lib/utils';
 
 interface WeavingThreadProps {
-  activeStep: number;
   progress: number;
-  cssVars: Record<string, string>;
   isActive: boolean;
   className?: string;
 }
 
-interface AnchorNode {
+interface DotPosition {
   x: number;
   y: number;
-  delay: number;
 }
 
+// Step marker positions along the path (0-1)
+const STEP_MARKERS = [0.2, 0.4, 0.6, 0.8];
+
 /**
- * WeavingThread — "The Path That Breathes"
+ * WeavingThread — "The Golden Thread"
  * 
- * A curved SVG path that weaves through the Process section,
- * drawing itself with scroll and pulsing at anchor nodes.
+ * Fantasy.co-grade simplicity: One curved path, one scroll-synced dot.
+ * Nothing competes. Nothing overwhelms. Just the journey.
  */
 export function WeavingThread({
-  activeStep,
   progress,
-  cssVars,
   isActive,
   className,
 }: WeavingThreadProps) {
-  // Curved path that weaves around content (desktop layout)
+  const pathRef = useRef<SVGPathElement>(null);
+  const [pathLength, setPathLength] = useState(950);
+  const [dotPosition, setDotPosition] = useState<DotPosition>({ x: 50, y: 0 });
+
+  // Curved path that weaves through content
   const weavingPath = useMemo(() => {
     return `
       M 50 0
@@ -40,21 +42,54 @@ export function WeavingThread({
     `;
   }, []);
 
-  // Anchor nodes positioned along the path
-  const anchorNodes: AnchorNode[] = useMemo(() => [
-    { x: 50, y: 180, delay: 0 },
-    { x: 50, y: 360, delay: 200 },
-    { x: 50, y: 540, delay: 400 },
-    { x: 50, y: 720, delay: 600 },
-  ], []);
+  // Get path length on mount
+  useEffect(() => {
+    if (pathRef.current) {
+      setPathLength(pathRef.current.getTotalLength());
+    }
+  }, []);
+
+  // Calculate dot position using getPointAtLength
+  const updateDotPosition = useCallback(() => {
+    if (!pathRef.current) return;
+    
+    // Map progress 0.1-0.85 to path 0-100%
+    const normalized = Math.max(0, Math.min(1, (progress - 0.1) / 0.75));
+    const targetLength = pathLength * normalized;
+    
+    try {
+      const point = pathRef.current.getPointAtLength(targetLength);
+      setDotPosition({ x: point.x, y: point.y });
+    } catch {
+      // Fallback if getPointAtLength fails
+      setDotPosition({ x: 50, y: normalized * 900 });
+    }
+  }, [progress, pathLength]);
+
+  // Update dot position on progress change
+  useEffect(() => {
+    updateDotPosition();
+  }, [updateDotPosition]);
 
   // Calculate stroke dashoffset based on scroll progress
-  const pathLength = 950;
   const drawProgress = useMemo(() => {
-    // Map progress 0.1-0.8 to draw 0-100%
-    const normalized = Math.max(0, Math.min(1, (progress - 0.1) / 0.7));
+    const normalized = Math.max(0, Math.min(1, (progress - 0.1) / 0.75));
     return pathLength * (1 - normalized);
-  }, [progress]);
+  }, [progress, pathLength]);
+
+  // Calculate step marker positions
+  const stepMarkerPositions = useMemo(() => {
+    if (!pathRef.current) return STEP_MARKERS.map((_, i) => ({ x: 50, y: 180 + i * 180 }));
+    
+    return STEP_MARKERS.map(t => {
+      try {
+        const point = pathRef.current!.getPointAtLength(pathLength * t);
+        return { x: point.x, y: point.y };
+      } catch {
+        return { x: 50, y: t * 900 };
+      }
+    });
+  }, [pathLength]);
 
   return (
     <div
@@ -63,7 +98,6 @@ export function WeavingThread({
         isActive && 'is-active',
         className
       )}
-      style={cssVars as React.CSSProperties}
       aria-hidden="true"
     >
       <svg
@@ -72,27 +106,19 @@ export function WeavingThread({
         preserveAspectRatio="xMidYMid slice"
         fill="none"
       >
-        {/* Glow filters */}
+        {/* Glow filter for dot */}
         <defs>
-          <filter id="threadGlow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="2" result="blur" />
+          <filter id="dotGlow" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur stdDeviation="3" result="blur" />
             <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-          <filter id="anchorGlow" x="-100%" y="-100%" width="300%" height="300%">
-            <feGaussianBlur stdDeviation="4" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
           <linearGradient id="threadGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0.3" />
-            <stop offset="50%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0.3" />
+            <stop offset="0%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0.2" />
+            <stop offset="50%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0.2" />
           </linearGradient>
         </defs>
 
@@ -107,74 +133,42 @@ export function WeavingThread({
 
         {/* Main animated path */}
         <path
+          ref={pathRef}
           className="weaving-thread__path"
           d={weavingPath}
           stroke="url(#threadGradient)"
           strokeWidth="1.5"
           strokeLinecap="round"
-          filter="url(#threadGlow)"
           style={{
             strokeDasharray: pathLength,
             strokeDashoffset: drawProgress,
           }}
         />
 
-        {/* Origin point */}
-        <circle
-          className="weaving-thread__origin"
-          cx="50"
-          cy="0"
-          r="3"
-          fill="hsl(var(--vow-yellow))"
-          filter="url(#anchorGlow)"
-        />
-
-        {/* Anchor nodes */}
-        {anchorNodes.map((node, index) => (
-          <g key={index} className="weaving-thread__anchor-group">
-            {/* Pulse ring */}
-            <circle
-              className={cn(
-                'weaving-thread__anchor-ring',
-                activeStep > index && 'is-active'
-              )}
-              cx={node.x}
-              cy={node.y}
-              r="8"
-              fill="none"
-              stroke="hsl(var(--vow-yellow))"
-              strokeWidth="0.5"
-              style={{ animationDelay: `${node.delay}ms` }}
-            />
-            {/* Core dot */}
-            <circle
-              className={cn(
-                'weaving-thread__anchor',
-                activeStep > index && 'is-ignited'
-              )}
-              cx={node.x}
-              cy={node.y}
-              r="4"
-              fill="hsl(var(--vow-yellow))"
-              filter="url(#anchorGlow)"
-              style={{ animationDelay: `${node.delay}ms` }}
-            />
-          </g>
+        {/* Static step markers */}
+        {stepMarkerPositions.map((pos, index) => (
+          <circle
+            key={index}
+            className="weaving-thread__step-marker"
+            cx={pos.x}
+            cy={pos.y}
+            r="3"
+            fill="hsl(var(--vow-yellow) / 0.25)"
+          />
         ))}
 
-        {/* Terminus point */}
+        {/* Scroll-synced dot */}
         <circle
-          className={cn(
-            'weaving-thread__terminus',
-            activeStep >= 4 && 'is-complete'
-          )}
-          cx="50"
-          cy="900"
+          className="weaving-thread__scroll-dot"
+          cx={dotPosition.x}
+          cy={dotPosition.y}
           r="5"
           fill="hsl(var(--vow-yellow))"
-          filter="url(#anchorGlow)"
+          filter="url(#dotGlow)"
         />
       </svg>
     </div>
   );
 }
+
+export default WeavingThread;
