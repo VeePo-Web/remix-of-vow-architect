@@ -1323,6 +1323,51 @@ All colors MUST be HSL.
     }
   }
 
+  /* Vibrating String Animation - Piano wire resonance */
+  @keyframes vibrate-string {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    10% {
+      transform: translateY(-2px);
+    }
+    20% {
+      transform: translateY(1.5px);
+    }
+    30% {
+      transform: translateY(-1px);
+    }
+    40% {
+      transform: translateY(0.8px);
+    }
+    50% {
+      transform: translateY(-0.5px);
+    }
+    60% {
+      transform: translateY(0.3px);
+    }
+    70% {
+      transform: translateY(-0.2px);
+    }
+    80% {
+      transform: translateY(0.1px);
+    }
+  }
+
+  .vibrating-string {
+    animation: vibrate-string 2s ease-out infinite;
+  }
+
+  /* Signature draw animation */
+  .signature-hidden {
+    stroke-dashoffset: 300;
+  }
+
+  .signature-drawn {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     * {
       animation-duration: 120ms !important;
