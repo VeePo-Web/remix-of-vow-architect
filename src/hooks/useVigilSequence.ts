@@ -2,23 +2,23 @@ import { useEffect, useState } from 'react';
 
 interface VigilPhase {
   isStillness: boolean;
-  isGlowing: boolean;
+  isKindling: boolean;
   isRevealing: boolean;
   isComplete: boolean;
 }
 
 /**
  * Vigil + Held Breath Orchestration Hook
- * Manages the sacred 0–2.5s arrival sequence:
- * - 0–800ms: Complete stillness (void)
- * - 800–1400ms: Ambient glow awakening
- * - 1400–2500ms: Content revelation cascade
- * - 2500ms+: Complete
+ * Manages the sacred 0–8s arrival sequence:
+ * - 0–1500ms: Complete stillness (void + flame breathe)
+ * - 1500–3500ms: Kindling (flame expands, reveals image)
+ * - 3500–5500ms: Revelation (full image, Ken Burns starts)
+ * - 5500ms+: Covenant (UI elements stagger in)
  */
 export function useVigilSequence(): VigilPhase {
   const [phase, setPhase] = useState<VigilPhase>({
     isStillness: true,
-    isGlowing: false,
+    isKindling: false,
     isRevealing: false,
     isComplete: false,
   });
@@ -33,47 +33,47 @@ export function useVigilSequence(): VigilPhase {
       // Skip to complete immediately
       setPhase({
         isStillness: false,
-        isGlowing: false,
+        isKindling: false,
         isRevealing: false,
         isComplete: true,
       });
       return;
     }
 
-    // Phase 1: Stillness (0–800ms)
+    // Act I: Stillness (0–1500ms)
     const stillnessTimer = setTimeout(() => {
       setPhase({
         isStillness: false,
-        isGlowing: true,
+        isKindling: true,
         isRevealing: false,
         isComplete: false,
       });
-    }, 800);
+    }, 1500);
 
-    // Phase 2: Glowing (800–1400ms)
-    const glowingTimer = setTimeout(() => {
+    // Act II: Kindling (1500–3500ms)
+    const kindlingTimer = setTimeout(() => {
       setPhase({
         isStillness: false,
-        isGlowing: true,
+        isKindling: false,
         isRevealing: true,
         isComplete: false,
       });
-    }, 1400);
+    }, 3500);
 
-    // Phase 3: Complete (2500ms+)
-    const completeTimer = setTimeout(() => {
+    // Act III: Revelation (3500–5500ms)
+    const revealingTimer = setTimeout(() => {
       setPhase({
         isStillness: false,
-        isGlowing: false,
+        isKindling: false,
         isRevealing: false,
         isComplete: true,
       });
-    }, 2500);
+    }, 5500);
 
     return () => {
       clearTimeout(stillnessTimer);
-      clearTimeout(glowingTimer);
-      clearTimeout(completeTimer);
+      clearTimeout(kindlingTimer);
+      clearTimeout(revealingTimer);
     };
   }, []);
 

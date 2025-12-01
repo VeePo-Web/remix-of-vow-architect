@@ -33,7 +33,7 @@ export function MinimalHeader() {
             href="/"
             className="font-display text-lg tracking-wide text-foreground opacity-0 animate-fade-in hover:text-accent transition-colors duration-300"
             style={{ 
-              animationDelay: "800ms",
+              animationDelay: "5500ms",
               animationFillMode: "forwards"
             }}
           >
@@ -57,7 +57,7 @@ export function MinimalHeader() {
             onClick={() => setIsMenuOpen(true)}
             className="flex items-center gap-2 opacity-0 animate-fade-in group"
             style={{ 
-              animationDelay: "1000ms",
+              animationDelay: "5700ms",
               animationFillMode: "forwards"
             }}
             aria-label="Open menu"
