@@ -2439,6 +2439,7 @@ All colors MUST be HSL.
 
   /* ═══════════════════════════════════════
      FLAME SYSTEM — "From Spark to Symphony"
+     World-class, Fantasy.co-grade implementation
      ═══════════════════════════════════════ */
 
   .flame-system {
@@ -2458,25 +2459,237 @@ All colors MUST be HSL.
     opacity: 1;
   }
 
-  /* Base flame styles */
-  .flame-system__flame {
-    width: 16px;
-    height: 24px;
-    background: radial-gradient(
-      ellipse 50% 80% at 50% 90%,
-      hsl(var(--vow-yellow)) 0%,
-      hsl(var(--vow-yellow) / 0.8) 30%,
-      hsl(45 100% 70% / 0.4) 60%,
-      transparent 100%
-    );
+  /* ═══════════════════════════════════════
+     MULTI-LAYER FLAME RENDERING
+     Core/Middle/Outer for depth and realism
+     ═══════════════════════════════════════ */
+  
+  .flame-system__flame-layers {
+    position: relative;
+    width: 22px;
+    height: 36px;
+  }
+
+  .flame-system__layer {
+    position: absolute;
+    inset: 0;
     border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-    filter: blur(1px);
     transform-origin: center bottom;
   }
 
+  /* Core layer - brightest, smallest */
+  .flame-system__layer--core {
+    width: 40%;
+    height: 50%;
+    left: 30%;
+    bottom: 10%;
+    background: radial-gradient(
+      ellipse 60% 80% at 50% 85%,
+      hsl(50 100% 95%) 0%,
+      hsl(45 100% 85%) 40%,
+      hsl(40 100% 70% / 0.8) 70%,
+      transparent 100%
+    );
+    filter: blur(0.5px);
+    z-index: 3;
+    animation: flame-core-flicker 1.8s ease-in-out infinite;
+  }
+
+  /* Middle layer - warm glow */
+  .flame-system__layer--middle {
+    width: 70%;
+    height: 75%;
+    left: 15%;
+    bottom: 5%;
+    background: radial-gradient(
+      ellipse 55% 75% at 50% 88%,
+      hsl(45 100% 72%) 0%,
+      hsl(40 100% 60% / 0.7) 50%,
+      hsl(35 100% 50% / 0.3) 80%,
+      transparent 100%
+    );
+    filter: blur(1px);
+    z-index: 2;
+    animation: flame-middle-breathe 2.4s ease-in-out infinite;
+  }
+
+  /* Outer layer - ambient halo */
+  .flame-system__layer--outer {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      ellipse 50% 70% at 50% 90%,
+      hsl(var(--vow-yellow) / 0.6) 0%,
+      hsl(var(--vow-yellow) / 0.3) 40%,
+      hsl(var(--vow-yellow) / 0.1) 70%,
+      transparent 100%
+    );
+    filter: blur(2px);
+    z-index: 1;
+    animation: flame-outer-sway 3.2s ease-in-out infinite;
+  }
+
+  @keyframes flame-core-flicker {
+    0%, 100% {
+      transform: scaleY(1) scaleX(1) translateY(0);
+      opacity: 1;
+    }
+    25% {
+      transform: scaleY(1.08) scaleX(0.94) translateY(-1px);
+    }
+    50% {
+      transform: scaleY(0.92) scaleX(1.06) translateY(0);
+      opacity: 0.95;
+    }
+    75% {
+      transform: scaleY(1.05) scaleX(0.97) translateY(-0.5px);
+    }
+  }
+
+  @keyframes flame-middle-breathe {
+    0%, 100% {
+      transform: scaleY(1) scaleX(1);
+      filter: blur(1px) brightness(1);
+    }
+    30% {
+      transform: scaleY(1.1) scaleX(0.92);
+    }
+    50% {
+      transform: scaleY(0.94) scaleX(1.08);
+      filter: blur(1.2px) brightness(1.15);
+    }
+    70% {
+      transform: scaleY(1.06) scaleX(0.95);
+    }
+  }
+
+  @keyframes flame-outer-sway {
+    0%, 100% {
+      transform: scaleY(1) scaleX(1) rotate(0deg);
+      filter: blur(2px);
+    }
+    25% {
+      transform: scaleY(1.08) scaleX(0.94) rotate(-2deg);
+    }
+    50% {
+      transform: scaleY(0.96) scaleX(1.05) rotate(0deg);
+      filter: blur(2.5px) brightness(1.1);
+    }
+    75% {
+      transform: scaleY(1.04) scaleX(0.97) rotate(2deg);
+    }
+  }
+
   /* ═══════════════════════════════════════
-     VIGIL FLAME — Sacred Pause (0-20%)
-     Extended breathing, honoring the held breath
+     HEAT SHIMMER EFFECT
+     Subtle atmospheric distortion
+     ═══════════════════════════════════════ */
+  
+  .flame-system__shimmer {
+    position: absolute;
+    top: 3%;
+    left: 50%;
+    width: 80px;
+    height: 120px;
+    transform: translateX(-50%);
+    opacity: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 100% 100% at 50% 100%,
+      hsl(var(--vow-yellow) / 0.03) 0%,
+      transparent 70%
+    );
+    mask-image: linear-gradient(to top, black 0%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to top, black 0%, transparent 100%);
+    animation: shimmer-distort 4s ease-in-out infinite;
+    transition: opacity 800ms var(--ease-sacred);
+  }
+
+  .flame-system__shimmer.is-visible {
+    opacity: 1;
+  }
+
+  .flame-system--covenant .flame-system__shimmer {
+    top: auto;
+    bottom: 8%;
+    height: 160px;
+  }
+
+  @keyframes shimmer-distort {
+    0%, 100% {
+      transform: translateX(-50%) scaleX(1);
+    }
+    25% {
+      transform: translateX(-48%) scaleX(1.05);
+    }
+    50% {
+      transform: translateX(-52%) scaleX(0.95);
+    }
+    75% {
+      transform: translateX(-50%) scaleX(1.02);
+    }
+  }
+
+  /* ═══════════════════════════════════════
+     AMBIENT EMBER FIELD
+     Floating particles for atmospheric depth
+     ═══════════════════════════════════════ */
+  
+  .flame-system__embers {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    transition: opacity 1200ms var(--ease-sacred);
+  }
+
+  .flame-system__embers.is-visible {
+    opacity: 1;
+  }
+
+  .flame-system__ember {
+    position: absolute;
+    width: var(--ember-size, 3px);
+    height: var(--ember-size, 3px);
+    left: var(--ember-x, 0);
+    background: radial-gradient(
+      circle,
+      hsl(45 100% 80%) 0%,
+      hsl(var(--vow-yellow) / 0.6) 50%,
+      transparent 100%
+    );
+    border-radius: 50%;
+    animation: ember-rise var(--ember-duration, 20s) ease-in-out infinite;
+    animation-delay: var(--ember-delay, 0s);
+    opacity: 0;
+  }
+
+  @keyframes ember-rise {
+    0% {
+      transform: translateY(400px) translateX(0) scale(0.5);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.8;
+    }
+    50% {
+      transform: translateY(200px) translateX(20px) scale(1);
+      opacity: 0.6;
+    }
+    90% {
+      opacity: 0.3;
+    }
+    100% {
+      transform: translateY(-50px) translateX(-10px) scale(0.3);
+      opacity: 0;
+    }
+  }
+
+  /* ═══════════════════════════════════════
+     ORIGIN FLAME — Sacred Vigil (0-20%)
+     Multi-layer with ambient glow
      ═══════════════════════════════════════ */
   
   .flame-system__origin {
@@ -2492,46 +2705,118 @@ All colors MUST be HSL.
     opacity: 1;
   }
 
-  /* Crossfade during awakening */
   .flame-system__origin.is-fading {
     opacity: 0;
     transition: opacity 600ms var(--ease-sacred);
   }
 
-  .flame-system__flame--vigil {
-    width: 22px;
-    height: 36px;
-    animation: flame-breathe-vigil 4s ease-in-out infinite;
+  .flame-system__origin .flame-system__flame-layers {
+    width: 26px;
+    height: 42px;
   }
 
-  /* Sacred 4s vigil breathing — slow, reverent, held breath */
-  @keyframes flame-breathe-vigil {
+  .flame-system__origin .flame-system__layer--core {
+    animation: flame-core-vigil 4s ease-in-out infinite;
+  }
+
+  .flame-system__origin .flame-system__layer--middle {
+    animation: flame-middle-vigil 4s ease-in-out infinite;
+  }
+
+  .flame-system__origin .flame-system__layer--outer {
+    animation: flame-outer-vigil 4s ease-in-out infinite;
+  }
+
+  /* Sacred 4s vigil breathing — slow, reverent */
+  @keyframes flame-core-vigil {
+    0%, 100% {
+      transform: scaleY(1) scaleX(1);
+    }
+    20% {
+      transform: scaleY(1.1) scaleX(0.94);
+    }
+    40% {
+      transform: scaleY(1.18) scaleX(0.88);
+    }
+    60% {
+      transform: scaleY(0.9) scaleX(1.1);
+    }
+    80% {
+      transform: scaleY(1.05) scaleX(0.96);
+    }
+  }
+
+  @keyframes flame-middle-vigil {
     0%, 100% {
       transform: scaleY(1) scaleX(1);
       filter: blur(1px) brightness(1);
     }
     15% {
-      transform: scaleY(1.08) scaleX(0.96);
+      transform: scaleY(1.08) scaleX(0.95);
     }
     35% {
-      transform: scaleY(1.15) scaleX(0.92);
-      filter: blur(1.2px) brightness(1.15);
+      transform: scaleY(1.15) scaleX(0.9);
+      filter: blur(1.2px) brightness(1.12);
+    }
+    55% {
+      transform: scaleY(0.92) scaleX(1.08);
+    }
+    75% {
+      transform: scaleY(1.06) scaleX(0.94);
+      filter: blur(1px) brightness(1.05);
+    }
+  }
+
+  @keyframes flame-outer-vigil {
+    0%, 100% {
+      transform: scaleY(1) scaleX(1) rotate(0deg);
+      filter: blur(2px);
+    }
+    25% {
+      transform: scaleY(1.12) scaleX(0.92) rotate(-1deg);
     }
     50% {
-      transform: scaleY(0.92) scaleX(1.06);
-      filter: blur(1.5px) brightness(1.25);
+      transform: scaleY(0.95) scaleX(1.06) rotate(1deg);
+      filter: blur(2.5px) brightness(1.15);
     }
-    65% {
-      transform: scaleY(1.1) scaleX(0.94);
+    75% {
+      transform: scaleY(1.08) scaleX(0.95) rotate(0deg);
     }
-    85% {
-      transform: scaleY(1.04) scaleX(0.98);
-      filter: blur(1px) brightness(1.1);
+  }
+
+  /* Ambient glow behind origin flame */
+  .flame-system__ambient-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 80px;
+    transform: translate(-50%, -40%);
+    background: radial-gradient(
+      ellipse 100% 100% at 50% 60%,
+      hsl(var(--vow-yellow) / 0.15) 0%,
+      hsl(var(--vow-yellow) / 0.05) 50%,
+      transparent 100%
+    );
+    filter: blur(8px);
+    animation: ambient-glow-pulse 4s ease-in-out infinite;
+    z-index: -1;
+  }
+
+  @keyframes ambient-glow-pulse {
+    0%, 100% {
+      transform: translate(-50%, -40%) scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: translate(-50%, -40%) scale(1.15);
+      opacity: 1;
     }
   }
 
   /* ═══════════════════════════════════════
      PARTICLE BURST — Awakening (20-28%)
+     Enhanced cascade effect
      ═══════════════════════════════════════ */
   
   .flame-system__particles {
@@ -2546,36 +2831,88 @@ All colors MUST be HSL.
     position: absolute;
     width: var(--particle-size, 3px);
     height: var(--particle-size, 3px);
-    background: hsl(var(--vow-yellow));
+    background: radial-gradient(
+      circle,
+      hsl(50 100% 90%) 0%,
+      hsl(var(--vow-yellow)) 50%,
+      transparent 100%
+    );
     border-radius: 50%;
     opacity: 0;
     transform: translate(-50%, -50%);
   }
 
   .flame-system__particles.is-bursting .flame-system__particle {
-    animation: particle-burst 700ms var(--ease-sacred) forwards;
+    animation: particle-burst 800ms var(--ease-sacred) forwards;
     animation-delay: var(--particle-delay, 0ms);
   }
 
   @keyframes particle-burst {
     0% {
       opacity: 1;
-      transform: translate(-50%, -50%) rotate(var(--particle-angle)) translateY(0);
-      filter: brightness(1.5);
+      transform: translate(-50%, -50%) rotate(var(--particle-angle)) translateY(0) scale(1);
+      filter: brightness(1.8);
     }
-    60% {
-      opacity: 0.8;
+    40% {
+      opacity: 0.9;
+      filter: brightness(1.4);
     }
     100% {
       opacity: 0;
-      transform: translate(-50%, -50%) rotate(var(--particle-angle)) translateY(calc(var(--particle-distance) * -1));
+      transform: translate(-50%, -50%) rotate(var(--particle-angle)) translateY(calc(var(--particle-distance) * -1)) scale(0.3);
       filter: brightness(0.5);
     }
   }
 
   /* ═══════════════════════════════════════
+     DRIFT TRAILS — Ephemeral Afterimages
+     Glowing path during drifting state
+     ═══════════════════════════════════════ */
+  
+  .flame-system__trails {
+    position: absolute;
+    top: 6%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    z-index: 1;
+  }
+
+  .flame-system__trail {
+    position: absolute;
+  }
+
+  .flame-system__trail-point {
+    position: absolute;
+    width: 8px;
+    height: 12px;
+    transform: translate(
+      calc(var(--trail-x, 0) * 1px - 50%),
+      calc(var(--trail-y, 0) * 1px - 50%)
+    ) scale(var(--trail-scale, 0.5));
+    background: radial-gradient(
+      ellipse 50% 70% at 50% 80%,
+      hsl(var(--vow-yellow) / calc(var(--trail-opacity, 0.3))) 0%,
+      hsl(var(--vow-yellow) / calc(var(--trail-opacity, 0.3) * 0.5)) 50%,
+      transparent 100%
+    );
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    filter: blur(2px);
+    animation: trail-fade 600ms ease-out forwards;
+  }
+
+  @keyframes trail-fade {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  /* ═══════════════════════════════════════
      FRAGMENT FLAMES — Drifting (28-75%)
-     Per-movement intensity with active glow
+     Personality system with distinct temps
      ═══════════════════════════════════════ */
   
   .flame-system__fragments {
@@ -2600,57 +2937,141 @@ All colors MUST be HSL.
     opacity: 1;
   }
 
-  /* Active fragment gets enhanced glow during drift */
-  .flame-system__fragment.is-active .flame-system__flame--fragment {
-    filter: blur(0.5px) brightness(1.4) drop-shadow(0 0 8px hsl(var(--vow-yellow) / 0.6));
-    animation: flame-breathe-fragment-active 2s ease-in-out infinite;
+  .flame-system__fragment .flame-system__flame-layers--fragment {
+    width: 16px;
+    height: 26px;
   }
 
-  .flame-system__flame--fragment {
-    width: 14px;
-    height: 22px;
-    animation: flame-breathe-fragment 2.8s ease-in-out infinite;
-    transition: filter 400ms var(--ease-sacred);
+  .flame-system__fragment .flame-system__layer--core {
+    animation: flame-core-flicker var(--breath-cycle, 2.8s) ease-in-out infinite;
   }
 
-  @keyframes flame-breathe-fragment {
+  .flame-system__fragment .flame-system__layer--middle {
+    animation: flame-middle-breathe var(--breath-cycle, 2.8s) ease-in-out infinite;
+  }
+
+  .flame-system__fragment .flame-system__layer--outer {
+    animation: flame-outer-sway var(--breath-cycle, 2.8s) ease-in-out infinite;
+  }
+
+  /* Fragment personality color temperatures */
+  .flame-system__fragment[data-color-temp="warm"] .flame-system__layer--core {
+    background: radial-gradient(
+      ellipse 60% 80% at 50% 85%,
+      hsl(55 100% 95%) 0%,
+      hsl(50 100% 80%) 40%,
+      hsl(45 100% 65% / 0.8) 70%,
+      transparent 100%
+    );
+  }
+
+  .flame-system__fragment[data-color-temp="warm"] .flame-system__layer--middle {
+    background: radial-gradient(
+      ellipse 55% 75% at 50% 88%,
+      hsl(48 100% 72%) 0%,
+      hsl(42 100% 58% / 0.7) 50%,
+      hsl(38 100% 48% / 0.3) 80%,
+      transparent 100%
+    );
+  }
+
+  .flame-system__fragment[data-color-temp="golden"] .flame-system__layer--core {
+    background: radial-gradient(
+      ellipse 60% 80% at 50% 85%,
+      hsl(48 100% 96%) 0%,
+      hsl(45 100% 82%) 40%,
+      hsl(42 100% 68% / 0.8) 70%,
+      transparent 100%
+    );
+  }
+
+  .flame-system__fragment[data-color-temp="golden"] .flame-system__layer--middle {
+    background: radial-gradient(
+      ellipse 55% 75% at 50% 88%,
+      hsl(45 100% 74%) 0%,
+      hsl(40 100% 62% / 0.75) 50%,
+      hsl(36 100% 52% / 0.35) 80%,
+      transparent 100%
+    );
+  }
+
+  .flame-system__fragment[data-color-temp="neutral"] .flame-system__layer--core {
+    background: radial-gradient(
+      ellipse 60% 80% at 50% 85%,
+      hsl(50 90% 94%) 0%,
+      hsl(46 95% 78%) 40%,
+      hsl(42 90% 64% / 0.8) 70%,
+      transparent 100%
+    );
+  }
+
+  .flame-system__fragment[data-color-temp="cool"] .flame-system__layer--core {
+    background: radial-gradient(
+      ellipse 60% 80% at 50% 85%,
+      hsl(52 85% 92%) 0%,
+      hsl(48 90% 76%) 40%,
+      hsl(44 85% 62% / 0.8) 70%,
+      transparent 100%
+    );
+  }
+
+  .flame-system__fragment[data-color-temp="cool"] .flame-system__layer--middle {
+    background: radial-gradient(
+      ellipse 55% 75% at 50% 88%,
+      hsl(46 90% 70%) 0%,
+      hsl(42 85% 58% / 0.65) 50%,
+      hsl(38 80% 48% / 0.28) 80%,
+      transparent 100%
+    );
+  }
+
+  /* Active fragment enhanced glow */
+  .flame-system__fragment.is-active .flame-system__layer--core {
+    filter: blur(0.3px) brightness(1.4);
+  }
+
+  .flame-system__fragment.is-active .flame-system__layer--middle {
+    filter: blur(0.8px) brightness(1.3);
+  }
+
+  .flame-system__fragment.is-active .flame-system__layer--outer {
+    filter: blur(2.5px) brightness(1.2);
+    box-shadow: 0 0 20px hsl(var(--vow-yellow) / 0.4);
+  }
+
+  /* ═══════════════════════════════════════
+     CONVERGENCE THREADS — Golden Connections
+     SVG lines during converging state
+     ═══════════════════════════════════════ */
+  
+  .flame-system__convergence-threads {
+    position: absolute;
+    top: 6%;
+    left: 50%;
+    width: 300px;
+    height: 600px;
+    transform: translateX(-50%);
+    overflow: visible;
+    z-index: 2;
+  }
+
+  .flame-system__thread {
+    stroke-linecap: round;
+    animation: thread-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes thread-pulse {
     0%, 100% {
-      transform: scaleY(1) scaleX(1) rotate(-2deg);
-      filter: blur(0.5px);
-    }
-    35% {
-      transform: scaleY(1.12) scaleX(0.88) rotate(2deg);
+      stroke-opacity: 0.4;
     }
     50% {
-      transform: scaleY(0.94) scaleX(1.08) rotate(0deg);
-      filter: blur(1px) brightness(1.15);
-    }
-    65% {
-      transform: scaleY(1.06) scaleX(0.94) rotate(-1deg);
-    }
-  }
-
-  /* Active fragment breathing — more intense */
-  @keyframes flame-breathe-fragment-active {
-    0%, 100% {
-      transform: scaleY(1) scaleX(1) rotate(-3deg);
-      filter: blur(0.5px) brightness(1.3) drop-shadow(0 0 6px hsl(var(--vow-yellow) / 0.5));
-    }
-    30% {
-      transform: scaleY(1.18) scaleX(0.85) rotate(3deg);
-    }
-    50% {
-      transform: scaleY(0.9) scaleX(1.12) rotate(0deg);
-      filter: blur(1px) brightness(1.5) drop-shadow(0 0 12px hsl(var(--vow-yellow) / 0.7));
-    }
-    70% {
-      transform: scaleY(1.1) scaleX(0.92) rotate(-2deg);
+      stroke-opacity: 0.8;
     }
   }
 
   /* ═══════════════════════════════════════
      COVENANT FLAME — Unified (88-100%)
-     Brilliant, radiant, above CTA
+     Brilliant aurora burst with multi-layer
      ═══════════════════════════════════════ */
   
   .flame-system__unified {
@@ -2666,36 +3087,181 @@ All colors MUST be HSL.
     opacity: 1;
   }
 
-  .flame-system__flame--covenant {
-    width: 32px;
-    height: 52px;
-    animation: flame-breathe-covenant 3s ease-in-out infinite;
-    filter: blur(1px) brightness(1.35);
+  .flame-system__unified .flame-system__flame-layers--covenant {
+    width: 36px;
+    height: 58px;
+    position: relative;
+    z-index: 3;
   }
 
-  /* Triumphant 3s covenant breathing */
-  @keyframes flame-breathe-covenant {
+  .flame-system__unified .flame-system__layer--core {
+    animation: flame-core-covenant 3s ease-in-out infinite;
+    filter: blur(0.5px) brightness(1.3);
+  }
+
+  .flame-system__unified .flame-system__layer--middle {
+    animation: flame-middle-covenant 3s ease-in-out infinite;
+    filter: blur(1px) brightness(1.25);
+  }
+
+  .flame-system__unified .flame-system__layer--outer {
+    animation: flame-outer-covenant 3s ease-in-out infinite;
+    filter: blur(2px) brightness(1.2);
+  }
+
+  @keyframes flame-core-covenant {
     0%, 100% {
       transform: scaleY(1) scaleX(1);
-      filter: blur(1px) brightness(1.35);
     }
     20% {
-      transform: scaleY(1.12) scaleX(0.9);
+      transform: scaleY(1.12) scaleX(0.92);
     }
     40% {
-      transform: scaleY(1.2) scaleX(0.85);
-      filter: blur(1.2px) brightness(1.5);
+      transform: scaleY(1.2) scaleX(0.88);
     }
-    55% {
+    60% {
+      transform: scaleY(0.94) scaleX(1.08);
+    }
+    80% {
+      transform: scaleY(1.08) scaleX(0.95);
+    }
+  }
+
+  @keyframes flame-middle-covenant {
+    0%, 100% {
+      transform: scaleY(1) scaleX(1);
+      filter: blur(1px) brightness(1.25);
+    }
+    25% {
+      transform: scaleY(1.15) scaleX(0.9);
+    }
+    50% {
       transform: scaleY(0.92) scaleX(1.1);
-      filter: blur(1.5px) brightness(1.6);
+      filter: blur(1.3px) brightness(1.4);
     }
-    70% {
+    75% {
       transform: scaleY(1.1) scaleX(0.94);
     }
-    85% {
-      transform: scaleY(1.05) scaleX(0.97);
-      filter: blur(1px) brightness(1.4);
+  }
+
+  @keyframes flame-outer-covenant {
+    0%, 100% {
+      transform: scaleY(1) scaleX(1) rotate(0deg);
+      filter: blur(2px) brightness(1.2);
+    }
+    30% {
+      transform: scaleY(1.18) scaleX(0.88) rotate(-2deg);
+    }
+    50% {
+      transform: scaleY(0.9) scaleX(1.12) rotate(0deg);
+      filter: blur(2.5px) brightness(1.5);
+    }
+    70% {
+      transform: scaleY(1.12) scaleX(0.92) rotate(2deg);
+    }
+  }
+
+  /* Aurora burst rings */
+  .flame-system__aurora {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    z-index: 1;
+  }
+
+  .flame-system__aurora-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    transform: translate(-50%, -50%) scale(0);
+    border: 1px solid hsl(var(--vow-yellow) / 0.4);
+    border-radius: 50%;
+    animation: aurora-expand 3s ease-out infinite;
+    animation-delay: var(--aurora-delay, 0ms);
+  }
+
+  .flame-system__unified.is-visible .flame-system__aurora-ring {
+    animation-play-state: running;
+  }
+
+  @keyframes aurora-expand {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0.8;
+      border-width: 2px;
+    }
+    50% {
+      opacity: 0.4;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(var(--aurora-scale, 3));
+      opacity: 0;
+      border-width: 0.5px;
+    }
+  }
+
+  /* Radiance glow behind covenant flame */
+  .flame-system__radiance {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 120px;
+    transform: translate(-50%, -40%);
+    background: radial-gradient(
+      ellipse 100% 100% at 50% 60%,
+      hsl(var(--vow-yellow) / 0.25) 0%,
+      hsl(var(--vow-yellow) / 0.1) 40%,
+      hsl(var(--vow-yellow) / 0.03) 70%,
+      transparent 100%
+    );
+    filter: blur(12px);
+    animation: radiance-pulse 3s ease-in-out infinite;
+    z-index: 0;
+  }
+
+  @keyframes radiance-pulse {
+    0%, 100% {
+      transform: translate(-50%, -40%) scale(1);
+      opacity: 0.9;
+    }
+    50% {
+      transform: translate(-50%, -40%) scale(1.2);
+      opacity: 1;
+    }
+  }
+
+  /* ═══════════════════════════════════════
+     REDUCED MOTION — Accessibility
+     ═══════════════════════════════════════ */
+  
+  @media (prefers-reduced-motion: reduce) {
+    .flame-system__layer,
+    .flame-system__particle,
+    .flame-system__ember,
+    .flame-system__trail-point,
+    .flame-system__aurora-ring,
+    .flame-system__radiance,
+    .flame-system__ambient-glow,
+    .flame-system__shimmer {
+      animation: none !important;
+    }
+
+    .flame-system__fragment,
+    .flame-system__origin,
+    .flame-system__unified {
+      transition: opacity 300ms ease-out !important;
+    }
+
+    .flame-system__embers,
+    .flame-system__trails,
+    .flame-system__shimmer {
+      display: none;
     }
   }
 
