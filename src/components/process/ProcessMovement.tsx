@@ -16,9 +16,9 @@ interface ProcessMovementProps {
   index: number;
   /** Which side of the score this movement appears on */
   side: 'left' | 'right';
-  /** Whether this movement is synced with active flame fragment */
+  /** Whether this movement is synced with conductor's dot arrival */
   isHighlighted?: boolean;
-  onEnterView: () => void;
+  onEnterView?: () => void;
 }
 
 /**
@@ -27,13 +27,16 @@ interface ProcessMovementProps {
  * Fantasy.co-grade design: Each movement is a measure in the score.
  * Cards alternate left/right with bar-line accent and aligned text.
  * 
+ * CONDUCTOR-CONNECTED: Reveals are driven by orchestrator's highlightedMovement,
+ * NOT by local IntersectionObserver. This creates perfect sync with the dot.
+ * 
  * 6-phase reveal system with sacred timing stagger:
  * - Phase 1: Header (numeral + name) — T+0ms
- * - Phase 2: Action verb — T+200ms
- * - Phase 3: Quote — T+350ms
- * - Phase 4: Details — T+500ms
- * - Phase 5: Assumption — T+650ms
- * - Phase 6: Outcome — T+800ms
+ * - Phase 2: Action verb — T+150ms
+ * - Phase 3: Quote — T+280ms
+ * - Phase 4: Details — T+400ms
+ * - Phase 5: Assumption — T+520ms
+ * - Phase 6: Outcome — T+640ms
  */
 export function ProcessMovement({
   movement,
@@ -45,40 +48,19 @@ export function ProcessMovement({
   const movementRef = useRef<HTMLDivElement>(null);
   const [hasTriggered, setHasTriggered] = useState(false);
   const [revealPhase, setRevealPhase] = useState(0);
+  const prevHighlightedRef = useRef(false);
 
-  // IntersectionObserver for trigger
+  // Conductor-connected reveal: triggered by isHighlighted from orchestrator
   useEffect(() => {
-    const element = movementRef.current;
-    if (!element) return;
-
-    const prefersReducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
-
-    if (prefersReducedMotion) {
+    // Detect rising edge: false → true
+    if (isHighlighted && !prevHighlightedRef.current && !hasTriggered) {
       setHasTriggered(true);
-      setRevealPhase(6);
-      onEnterView();
-      return;
+      onEnterView?.();
     }
+    prevHighlightedRef.current = isHighlighted;
+  }, [isHighlighted, hasTriggered, onEnterView]);
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.30) {
-          if (!hasTriggered) {
-            setHasTriggered(true);
-            onEnterView();
-          }
-        }
-      },
-      { threshold: 0.30 }
-    );
-
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, [hasTriggered, onEnterView]);
-
-  // Staggered reveal phases
+  // Staggered reveal phases — tighter timing for conductor sync
   useEffect(() => {
     if (!hasTriggered) return;
 
@@ -91,8 +73,8 @@ export function ProcessMovement({
       return;
     }
 
-    // Phase timings in ms
-    const timings = [0, 200, 350, 500, 650, 800];
+    // Tighter phase timings for snappier reveals
+    const timings = [0, 150, 280, 400, 520, 640];
     const timers: NodeJS.Timeout[] = [];
 
     timings.forEach((delay, phase) => {
@@ -112,7 +94,7 @@ export function ProcessMovement({
         'process-movement',
         `process-movement--${side}`,
         hasTriggered && 'is-triggered',
-        isHighlighted && 'is-flame-synced'
+        isHighlighted && 'is-conductor-synced'
       )}
       style={{ '--movement-index': index } as React.CSSProperties}
       data-reveal-phase={revealPhase}
