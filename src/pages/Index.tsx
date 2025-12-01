@@ -6,7 +6,7 @@ import { VigilReveal } from "@/components/VigilReveal";
 import { Footer } from "@/components/Footer";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { TheExhale } from "@/components/TheExhale";
-import { ThreeVows } from "@/components/ThreeVows";
+import { TheFourMovements } from "@/components/TheFourMovements";
 import { VowMoment } from "@/components/VowMoment";
 import { TheTransformation } from "@/components/TheTransformation";
 import { TheWitness } from "@/components/TheWitness";
@@ -95,8 +95,8 @@ export default function Index() {
       {/* THE EXHALE — Sacred Pause (Emotional Recognition) */}
       <TheExhale />
 
-      {/* SECTION 2 — The Three Vows (Exhale - Surface) */}
-      <ThreeVows />
+      {/* SECTION 2 — The Four Movements (How Your Music Is Made) */}
+      <TheFourMovements />
 
       {/* SECTION 2.5 — VOW MOMENT (Altar Interstitial) */}
       <VowMoment />
