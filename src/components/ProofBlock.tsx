@@ -1,6 +1,7 @@
 import { Download, ShieldCheck } from "lucide-react";
 import { Card } from "./ui/card";
 import { Button } from "./ui/button";
+import { StaggerChildren } from "@/components/animation";
 
 const splReadings = [
   { phase: "Prelude baseline", reading: "60–65 dBA", location: "at aisle midpoint", note: "(timestamp)" },
@@ -17,7 +18,7 @@ export function ProofBlock() {
         </h2>
 
         {/* SPL Readings Carousel */}
-        <div className="grid md:grid-cols-3 gap-6 mb-12 stagger-fade">
+        <StaggerChildren staggerDelay={80} className="grid md:grid-cols-3 gap-6 mb-12">
           {splReadings.map((reading, index) => (
             <Card key={index} className="p-8">
               <h3 className="h4 mb-3">{reading.phase}</h3>
@@ -29,7 +30,7 @@ export function ProofBlock() {
               </p>
             </Card>
           ))}
-        </div>
+        </StaggerChildren>
 
         {/* Download Sample Report */}
         <div className="text-center mb-12">

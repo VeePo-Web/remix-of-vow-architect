@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { TestimonialAvatar } from "@/components/TestimonialAvatar";
+import { StaggerChildren } from "@/components/animation";
 
 const testimonials = [
   {
@@ -34,7 +35,7 @@ export function BanffTestimonials() {
             <div className="chapter-rule mx-auto" />
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 stagger-fade">
+          <StaggerChildren staggerDelay={80} className="grid md:grid-cols-3 gap-6">
             {testimonials.map((testimonial, index) => (
               <Card key={index} className="p-6 bg-card border-border card-keyline hover-scale">
                 <div className="flex items-center gap-4 mb-4">
@@ -53,7 +54,7 @@ export function BanffTestimonials() {
                 </blockquote>
               </Card>
             ))}
-          </div>
+          </StaggerChildren>
         </div>
       </div>
     </section>

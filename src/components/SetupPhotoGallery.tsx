@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { TestimonialAvatar } from "@/components/TestimonialAvatar";
 import { Mic, Zap, Users } from "lucide-react";
+import { StaggerChildren } from "@/components/animation";
 
 const setupImages = [
   {
@@ -32,7 +33,7 @@ export function SetupPhotoGallery() {
           <h2 className="text-3xl font-bold mb-12 text-center">Engineered Elegance in Action</h2>
           
           <TooltipProvider>
-            <div className="grid md:grid-cols-3 gap-6 mb-8 stagger-fade">
+            <StaggerChildren staggerDelay={80} className="grid md:grid-cols-3 gap-6 mb-8">
               {setupImages.map((item, i) => (
                 <Tooltip key={i}>
                   <TooltipTrigger asChild>
@@ -53,7 +54,7 @@ export function SetupPhotoGallery() {
                   </TooltipContent>
                 </Tooltip>
               ))}
-            </div>
+            </StaggerChildren>
           </TooltipProvider>
 
           <Card className="p-6 bg-card/50 border-primary/20">

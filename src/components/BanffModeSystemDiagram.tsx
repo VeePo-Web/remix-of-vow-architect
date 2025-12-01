@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Music, Users, FileText } from "lucide-react";
+import { StaggerChildren } from "@/components/animation";
 
 const systemParts = [
   {
@@ -34,7 +35,7 @@ export function BanffModeSystemDiagram() {
             <div className="chapter-rule mx-auto mt-6" />
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 stagger-fade">
+          <StaggerChildren staggerDelay={80} className="grid md:grid-cols-3 gap-6">
             {systemParts.map((part, index) => {
               const Icon = part.icon;
               return (
@@ -45,7 +46,7 @@ export function BanffModeSystemDiagram() {
                 </Card>
               );
             })}
-          </div>
+          </StaggerChildren>
 
           <Card className="p-6 bg-accent/10 border-accent/20 text-center">
             <blockquote className="text-lg font-medium italic">
