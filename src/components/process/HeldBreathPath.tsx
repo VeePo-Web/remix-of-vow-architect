@@ -3,6 +3,9 @@ import { cn } from '@/lib/utils';
 import type { LineState } from '@/hooks/usePathMorph';
 import type { BreathProperties } from '@/hooks/useBreathCycle';
 import type { StrikeState } from '@/hooks/useStrikeAnimation';
+import type { KeyState } from '@/hooks/useKeyDepression';
+import { KeyOverlay } from './KeyOverlay';
+import { ChordRadiance } from './ChordRadiance';
 
 interface HeldBreathPathProps {
   path: string;
@@ -12,6 +15,12 @@ interface HeldBreathPathProps {
   height: number;
   breathProps: BreathProperties;
   strikeState: StrikeState;
+  /** Individual key states for piano key depression */
+  keyStates?: KeyState[];
+  /** Width of each key for overlay positioning */
+  keyWidth?: number;
+  /** Whether full chord is active (Movement IV) */
+  isFullChord?: boolean;
   className?: string;
 }
 
@@ -33,6 +42,9 @@ export const HeldBreathPath = memo(function HeldBreathPath({
   height,
   breathProps,
   strikeState,
+  keyStates,
+  keyWidth = 0,
+  isFullChord = false,
   className,
 }: HeldBreathPathProps) {
   // Calculate glow intensity based on state AND breath
@@ -230,6 +242,32 @@ export const HeldBreathPath = memo(function HeldBreathPath({
             />
           ))}
         </g>
+      )}
+
+      {/* Piano Key Overlays (Phase 2) */}
+      {lineState === 'keys' && keyStates && keyWidth > 0 && (
+        <g className="held-breath-path__keys-layer">
+          {keyStates.map((keyState, index) => (
+            <KeyOverlay
+              key={`key-${index}`}
+              keyState={keyState}
+              x={index * keyWidth}
+              y={height / 2 - 24}
+              width={keyWidth}
+              height={24}
+            />
+          ))}
+        </g>
+      )}
+
+      {/* Chord Radiance (Movement IV full chord) */}
+      {lineState === 'keys' && (
+        <ChordRadiance
+          isActive={isFullChord}
+          width={width}
+          height={height}
+          intensity={1.2}
+        />
       )}
     </svg>
   );
