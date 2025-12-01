@@ -1555,17 +1555,17 @@ All colors MUST be HSL.
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: var(--space-8);
-    max-width: 600px;
+    gap: var(--space-6);
+    max-width: 480px;
     width: 100%;
-    padding-left: var(--space-9);
+    padding-left: var(--space-8);
   }
 
   .preparation-thread {
     position: absolute;
     left: 19px;
-    top: 16px;
-    bottom: 16px;
+    top: 12px;
+    bottom: 12px;
     width: 2px;
     background: linear-gradient(
       to bottom,
@@ -1575,14 +1575,14 @@ All colors MUST be HSL.
     );
     transform-origin: top;
     transform: scaleY(0);
-    transition: transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition: transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
 
   .preparation-stepper.is-visible .preparation-thread {
     transform: scaleY(1);
   }
 
-  .preparation-movement {
+  .preparation-step {
     position: relative;
     display: flex;
     align-items: flex-start;
@@ -1590,17 +1590,17 @@ All colors MUST be HSL.
     opacity: 0;
     transform: translateX(-10px);
     transition: opacity 0.5s ease, transform 0.5s ease;
-    transition-delay: calc(0.3s + (var(--step-index) * 0.15s));
+    transition-delay: calc(0.2s + (var(--step-index) * 0.12s));
   }
 
-  .preparation-stepper.is-visible .preparation-movement {
+  .preparation-stepper.is-visible .preparation-step {
     opacity: 1;
     transform: translateX(0);
   }
 
   .preparation-node {
     position: absolute;
-    left: calc(-1 * var(--space-9) + 8px);
+    left: calc(-1 * var(--space-8) + 8px);
     width: 24px;
     height: 24px;
     border-radius: 50%;
@@ -1622,106 +1622,64 @@ All colors MUST be HSL.
   .preparation-content {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
+    gap: 2px;
   }
 
-  /* Movement Header */
-  .movement-header {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+  .preparation-action {
+    font-family: var(--font-sans);
+    font-size: var(--fs-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: hsl(var(--vow-yellow));
+    font-weight: 500;
+  }
+
+  .preparation-question {
+    font-family: var(--font-serif);
+    font-size: clamp(17px, 2.2vw, 22px);
+    color: hsl(var(--foreground));
+    line-height: 1.35;
+    margin: 0;
+  }
+
+  .preparation-reason {
+    font-family: var(--font-sans);
+    font-size: var(--fs-small);
+    color: hsl(var(--muted-foreground) / 0.7);
+    line-height: 1.5;
+    margin: 0;
+    font-style: italic;
+  }
+
+  /* Closing Block */
+  .preparation-closing {
+    text-align: center;
+    max-width: 520px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition-delay: 0.8s;
+  }
+
+  .preparation-closing.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .preparation-promise {
+    font-family: var(--font-serif);
+    font-size: clamp(18px, 2.8vw, 26px);
+    color: hsl(var(--foreground));
+    line-height: 1.4;
     margin-bottom: var(--space-2);
   }
 
-  .movement-action {
-    font-family: var(--font-sans);
-    font-size: var(--fs-xs);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: hsl(var(--vow-yellow));
-    font-weight: 600;
-  }
-
-  .movement-name {
-    font-family: var(--font-sans);
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: hsl(var(--muted-foreground) / 0.6);
-    font-weight: 500;
-  }
-
-  /* Movement Quote */
-  .movement-quote {
+  .preparation-assurance {
     font-family: var(--font-serif);
-    font-size: clamp(20px, 2.5vw, 26px);
-    font-style: italic;
-    color: hsl(var(--foreground));
+    font-size: clamp(18px, 2.8vw, 26px);
+    color: hsl(var(--vow-yellow));
     line-height: 1.4;
     margin: 0;
-    padding: 0;
-    border: none;
-  }
-
-  /* Movement Supporting Lines */
-  .movement-lines {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .movement-lines p {
-    font-family: var(--font-sans);
-    font-size: var(--fs-base);
-    color: hsl(var(--muted-foreground));
-    line-height: 1.7;
-    margin: 0;
-  }
-
-  /* Movement No-Assume Statement */
-  .movement-noassume {
-    font-family: var(--font-sans);
-    font-size: var(--fs-sm);
-    color: hsl(var(--vow-yellow));
-    font-weight: 500;
-    margin-top: var(--space-2);
-  }
-
-  /* Movement Outcome */
-  .movement-outcome {
-    font-family: var(--font-sans);
-    font-size: var(--fs-sm);
-    color: hsl(var(--muted-foreground) / 0.8);
-    line-height: 1.5;
-    margin: 0;
-  }
-
-  .outcome-arrow {
-    color: hsl(var(--vow-yellow));
-    margin-right: 4px;
-  }
-
-  /* Closing Block - with CTA */
-  .preparation-cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: var(--space-6);
-    padding: var(--space-4) var(--space-7);
-    background: transparent;
-    border: 1px solid hsl(var(--vow-yellow) / 0.5);
-    color: hsl(var(--vow-yellow));
-    font-family: var(--font-sans);
-    font-size: var(--fs-sm);
-    letter-spacing: 0.08em;
-    text-decoration: none;
-    transition: all 0.18s var(--easing-std);
-  }
-
-  .preparation-cta:hover {
-    background: hsl(var(--vow-yellow));
-    color: hsl(var(--rich-black));
-    border-color: hsl(var(--vow-yellow));
   }
 
   /* Mobile Adjustments */
@@ -1732,8 +1690,8 @@ All colors MUST be HSL.
     }
     
     .preparation-stepper {
-      padding-left: var(--space-8);
-      gap: var(--space-7);
+      padding-left: var(--space-7);
+      gap: var(--space-5);
     }
     
     .preparation-thread {
@@ -1741,17 +1699,9 @@ All colors MUST be HSL.
     }
     
     .preparation-node {
-      left: calc(-1 * var(--space-8) + 4px);
+      left: calc(-1 * var(--space-7) + 4px);
       width: 22px;
       height: 22px;
-    }
-
-    .movement-quote {
-      font-size: 18px;
-    }
-
-    .movement-lines p {
-      font-size: var(--fs-sm);
     }
   }
 

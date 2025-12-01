@@ -1,68 +1,36 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 
-interface Movement {
+interface Step {
   numeral: string;
   action: string;
-  name: string;
-  openingQuote: string;
-  supportingLines: string[];
-  noAssume: string;
-  outcome: string;
+  question: string;
+  reason: string;
 }
 
-const movements: Movement[] = [
+const steps: Step[] = [
   {
     numeral: 'I',
     action: 'I ask',
-    name: 'THE LISTENING',
-    openingQuote: 'Before I play a single note, I learn your story.',
-    supportingLines: [
-      'What song was playing when you knew?',
-      'What tempo matches the way your heart beats when you think about walking toward them?',
-    ],
-    noAssume: 'I don\'t assume I know. I ask.',
-    outcome: 'We begin with a conversation.',
+    question: 'What song was playing when you knew?',
+    reason: 'Because I don\'t assume what moves you.',
   },
   {
     numeral: 'II',
     action: 'I create',
-    name: 'THE CRAFTING',
-    openingQuote: 'Then I disappear into your vision.',
-    supportingLines: [
-      'Note by note. Measure by measure.',
-      'Your walk-down song—not selected from a list, but composed from our conversation.',
-    ],
-    noAssume: 'I don\'t assume a cover will capture it. I create.',
-    outcome: 'Custom arrangement. Your love story, translated.',
+    question: 'Your aisle music—composed. Not selected.',
+    reason: 'Because I don\'t assume what it should sound like.',
   },
   {
     numeral: 'III',
     action: 'I refine',
-    name: 'THE REFINING',
-    openingQuote: 'I send you a first draft—raw, unpolished, honest.',
-    supportingLines: [
-      'Not to impress you. To ask you:',
-      '"Am I heading the right direction?"',
-      'If something feels off, we course-correct.',
-      'Your feedback isn\'t inconvenient. It\'s essential.',
-    ],
-    noAssume: 'I don\'t assume I got it right. I check.',
-    outcome: 'We iterate until it sounds exactly like you imagined.',
+    question: 'A first draft. Is this the direction?',
+    reason: 'Because I don\'t assume I got it right.',
   },
   {
     numeral: 'IV',
-    action: 'We complete',
-    name: 'THE COMPLETING',
-    openingQuote: 'Now we fill the rest of the air together.',
-    supportingLines: [
-      'Prelude. Procession. Cocktails. Dinner.',
-      'You brainstorm, or I suggest—either way, we decide together.',
-      'Communication all the way through.',
-      'No one left wondering. No silence where there should be sound.',
-    ],
-    noAssume: 'I don\'t assume you know what you want. I guide and ask.',
-    outcome: 'Every note intentional. Every decision yours.',
+    action: 'I complete',
+    question: 'You curate. Or I suggest. Either way—together.',
+    reason: 'Because I don\'t assume what you want.',
   },
 ];
 
@@ -85,7 +53,7 @@ export function TheFourMovements() {
           observer.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.15 }
     );
 
     if (sectionRef.current) {
@@ -117,32 +85,19 @@ export function TheFourMovements() {
       <div className={`preparation-stepper ${isVisible ? 'is-visible' : ''}`}>
         <div className="preparation-thread" aria-hidden="true" />
         
-        {movements.map((movement, index) => (
+        {steps.map((step, index) => (
           <div 
-            key={movement.numeral}
-            className="preparation-movement"
+            key={step.numeral}
+            className="preparation-step"
             style={{ '--step-index': index } as React.CSSProperties}
           >
             <div className="preparation-node" aria-hidden="true">
-              <span className="preparation-numeral">{movement.numeral}</span>
+              <span className="preparation-numeral">{step.numeral}</span>
             </div>
             <div className="preparation-content">
-              <div className="movement-header">
-                <span className="movement-action">{movement.action}</span>
-                <span className="movement-name">{movement.name}</span>
-              </div>
-              <blockquote className="movement-quote">
-                "{movement.openingQuote}"
-              </blockquote>
-              <div className="movement-lines">
-                {movement.supportingLines.map((line, i) => (
-                  <p key={i}>{line}</p>
-                ))}
-              </div>
-              <p className="movement-noassume">{movement.noAssume}</p>
-              <p className="movement-outcome">
-                <span className="outcome-arrow">→</span> {movement.outcome}
-              </p>
+              <span className="preparation-action">{step.action}</span>
+              <p className="preparation-question">{step.question}</p>
+              <p className="preparation-reason">{step.reason}</p>
             </div>
           </div>
         ))}
@@ -151,12 +106,9 @@ export function TheFourMovements() {
       {/* Closing Block */}
       <div className={`preparation-closing ${isVisible ? 'is-visible' : ''}`}>
         <p className="preparation-promise">
-          Because there's one chance to get this right.
+          Because there are no second chances for a first moment.
         </p>
-        <p className="preparation-assurance">And it will be right.</p>
-        <Link to="/contact" className="preparation-cta">
-          Begin the conversation
-        </Link>
+        <p className="preparation-assurance">And yours will be right.</p>
       </div>
     </section>
   );
