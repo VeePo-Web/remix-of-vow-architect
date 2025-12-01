@@ -167,18 +167,25 @@ export function ProcessSection() {
         className="process-section__thread" 
       />
 
-      {/* Intro Block */}
+      {/* Intro Block — Phase 5: Per-element stagger */}
       <div className={cn('process-intro', introVisible && 'is-visible')}>
-        {/* Golden Anchor Dot */}
+        {/* Golden Anchor Dot — T+200ms */}
         <div className="process-intro__anchor" aria-hidden="true" />
         
+        {/* Label — T+400ms */}
         <span className="process-intro__label">The Process</span>
+        
+        {/* Headline — T+600ms */}
         <h2 className="process-intro__headline">
           Excellence on the big day doesn't happen on the big day.
         </h2>
+        
+        {/* Highlight — T+900ms */}
         <p className="process-intro__highlight">
-          <span className="exhale-emphasis exhale-emphasis--visible">It happens now.</span>
+          <span className="exhale-emphasis">It happens now.</span>
         </p>
+        
+        {/* Bridge — T+1200ms */}
         <p className="process-intro__bridge">
           This is my process for ensuring it happens every time.
         </p>
@@ -196,16 +203,31 @@ export function ProcessSection() {
         ))}
       </div>
 
-      {/* Closing Block */}
-      <div className={cn('process-closing', closingVisible && 'is-visible')}>
+      {/* Closing Block — Phase 5: Flame-aligned with covenant CTA */}
+      <div 
+        className={cn('process-closing', closingVisible && 'is-visible')}
+        data-flame-state={scrollState.progress > 0.88 ? 'covenant' : 'converging'}
+      >
+        {/* Flame alignment spacer */}
+        <div className="process-closing__flame-spacer" aria-hidden="true" />
+        
+        {/* Radiance glow behind CTA */}
+        <div className="process-closing__radiance" aria-hidden="true" />
+        
+        {/* Promise — T+0ms */}
         <p className="process-closing__promise">
           Because there's one chance to get this right.
         </p>
+        
+        {/* Assurance — T+300ms */}
         <p className="process-closing__assurance">
-          <span className="exhale-emphasis exhale-emphasis--visible">And it will be right.</span>
+          <span className="exhale-emphasis">And it will be right.</span>
         </p>
+        
+        {/* CTA — T+600ms with glow layers */}
         <Link to="/contact" className="process-closing__cta">
-          Begin the conversation
+          <span className="process-closing__cta-text">Begin the conversation</span>
+          <span className="process-closing__cta-glow" aria-hidden="true" />
         </Link>
       </div>
 

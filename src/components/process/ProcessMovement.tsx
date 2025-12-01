@@ -20,8 +20,14 @@ interface ProcessMovementProps {
 /**
  * ProcessMovement — Individual Step Card
  * 
- * Centered layout with sacred timing animations.
- * Typography matched to The Exhale section.
+ * Phase 5 Enhancement: 6-phase reveal system
+ * Each element reveals with sacred timing stagger:
+ * - Phase 1: Header (numeral + name) — T+0ms
+ * - Phase 2: Action verb — T+200ms
+ * - Phase 3: Quote — T+350ms
+ * - Phase 4: Details — T+500ms
+ * - Phase 5: Assumption — T+650ms
+ * - Phase 6: Outcome — T+800ms
  */
 export function ProcessMovement({
   movement,
@@ -30,7 +36,9 @@ export function ProcessMovement({
 }: ProcessMovementProps) {
   const movementRef = useRef<HTMLDivElement>(null);
   const [hasTriggered, setHasTriggered] = useState(false);
+  const [revealPhase, setRevealPhase] = useState(0);
 
+  // IntersectionObserver for trigger
   useEffect(() => {
     const element = movementRef.current;
     if (!element) return;
@@ -41,57 +49,112 @@ export function ProcessMovement({
 
     if (prefersReducedMotion) {
       setHasTriggered(true);
+      setRevealPhase(6);
       onEnterView();
       return;
     }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.35) {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.30) {
           if (!hasTriggered) {
             setHasTriggered(true);
             onEnterView();
           }
         }
       },
-      { threshold: 0.35 }
+      { threshold: 0.30 }
     );
 
     observer.observe(element);
     return () => observer.disconnect();
   }, [hasTriggered, onEnterView]);
 
+  // Staggered reveal phases
+  useEffect(() => {
+    if (!hasTriggered) return;
+
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    if (prefersReducedMotion) {
+      setRevealPhase(6);
+      return;
+    }
+
+    // Phase timings in ms
+    const timings = [0, 200, 350, 500, 650, 800];
+    const timers: NodeJS.Timeout[] = [];
+
+    timings.forEach((delay, phase) => {
+      const timer = setTimeout(() => {
+        setRevealPhase(phase + 1);
+      }, delay);
+      timers.push(timer);
+    });
+
+    return () => timers.forEach(clearTimeout);
+  }, [hasTriggered]);
+
   return (
     <div
       ref={movementRef}
       className={cn(
         'process-movement',
-        hasTriggered && 'is-visible'
+        hasTriggered && 'is-triggered'
       )}
       style={{ '--movement-index': index } as React.CSSProperties}
+      data-reveal-phase={revealPhase}
     >
-      {/* Movement Header */}
-      <div className="process-movement__header">
+      {/* Phase 1: Movement Header */}
+      <div className={cn(
+        'process-movement__header',
+        revealPhase >= 1 && 'is-visible'
+      )}>
         <span className="process-movement__numeral">{movement.numeral}</span>
         <span className="process-movement__name">{movement.name}</span>
       </div>
       
-      {/* Action Verb — Only yellow element */}
-      <span className="process-movement__action">{movement.action}</span>
+      {/* Phase 2: Action Verb — Only yellow element */}
+      <span className={cn(
+        'process-movement__action',
+        revealPhase >= 2 && 'is-visible'
+      )}>
+        {movement.action}
+      </span>
       
-      {/* Quote — Cormorant italic */}
-      <p className="process-movement__quote">"{movement.quote}"</p>
+      {/* Phase 3: Quote — Cormorant italic */}
+      <p className={cn(
+        'process-movement__quote',
+        revealPhase >= 3 && 'is-visible'
+      )}>
+        "{movement.quote}"
+      </p>
       
-      {/* Details — Supporting text */}
-      <p className="process-movement__details">{movement.details}</p>
+      {/* Phase 4: Details — Supporting text */}
+      <p className={cn(
+        'process-movement__details',
+        revealPhase >= 4 && 'is-visible'
+      )}>
+        {movement.details}
+      </p>
       
-      {/* Assumption — No yellow, muted */}
-      <p className="process-movement__assumption">{movement.assumption}</p>
+      {/* Phase 5: Assumption — No yellow, muted */}
+      <p className={cn(
+        'process-movement__assumption',
+        revealPhase >= 5 && 'is-visible'
+      )}>
+        {movement.assumption}
+      </p>
       
-      {/* Outcome — Golden arrow only */}
-      <p className="process-movement__outcome">
+      {/* Phase 6: Outcome — Golden arrow only */}
+      <p className={cn(
+        'process-movement__outcome',
+        revealPhase >= 6 && 'is-visible'
+      )}>
         <span className="process-movement__arrow">→</span>
-        {movement.outcome}
+        <span className="process-movement__outcome-text">{movement.outcome}</span>
       </p>
     </div>
   );
