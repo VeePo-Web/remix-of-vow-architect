@@ -1694,6 +1694,192 @@ All colors MUST be HSL.
   }
 
   /* ═══════════════════════════════════════
+     ECHO RINGS — "Sound Made Visible"
+     Layer 2: SVG concentric circles
+     ═══════════════════════════════════════ */
+
+  .echo-rings {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 1200ms var(--ease-sacred);
+  }
+
+  .echo-rings.is-active {
+    opacity: 1;
+  }
+
+  .echo-rings__svg {
+    position: absolute;
+    width: min(100vw, 800px);
+    height: min(100vw, 800px);
+    max-width: 100%;
+    max-height: 100%;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Origin center point */
+  .echo-rings__origin {
+    fill: hsl(var(--vow-yellow) / 0);
+    transition: fill 600ms var(--ease-sacred);
+  }
+
+  .echo-rings__origin.is-ignited {
+    fill: hsl(var(--vow-yellow) / 0.8);
+    animation: origin-pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes origin-pulse {
+    0%, 100% {
+      fill: hsl(var(--vow-yellow) / 0.8);
+      r: 4;
+    }
+    50% {
+      fill: hsl(var(--vow-yellow) / 0.5);
+      r: 5;
+    }
+  }
+
+  /* Ring base styles */
+  .echo-rings__ring {
+    stroke: hsl(var(--vow-yellow) / 0);
+    transform-origin: center center;
+    transition: 
+      stroke-dashoffset var(--ring-draw-duration, 1400ms) var(--ease-covenant),
+      stroke var(--ring-draw-duration, 1400ms) var(--ease-sacred);
+    transition-delay: var(--ring-delay, 0ms);
+  }
+
+  /* Active ring — visible stroke, draw animation */
+  .echo-rings__ring.is-active {
+    stroke: hsl(var(--vow-yellow) / calc(0.25 * var(--process-intensity, 0.5)));
+  }
+
+  /* Currently drawing ring — glow pulse on completion */
+  .echo-rings__ring.is-drawing {
+    stroke: hsl(var(--vow-yellow) / calc(0.4 * var(--process-intensity, 0.5)));
+    animation: ring-draw-pulse 1s var(--ease-sacred) forwards;
+    animation-delay: var(--ring-draw-duration, 1400ms);
+  }
+
+  @keyframes ring-draw-pulse {
+    0% {
+      stroke: hsl(var(--vow-yellow) / 0.5);
+      filter: drop-shadow(0 0 8px hsl(var(--vow-yellow) / 0.4));
+    }
+    100% {
+      stroke: hsl(var(--vow-yellow) / 0.25);
+      filter: drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.2));
+    }
+  }
+
+  /* Breathing animation for completed rings */
+  .echo-rings__ring.is-active:not(.is-drawing) {
+    animation: ring-breathe var(--ring-breath-cycle, 8s) cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes ring-breathe {
+    0%, 100% {
+      transform: scale(1);
+      stroke-opacity: 1;
+    }
+    50% {
+      transform: scale(1.015);
+      stroke-opacity: 0.7;
+    }
+  }
+
+  /* Interference overlay for additive blending */
+  .echo-rings__interference {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    width: min(70vw, 500px);
+    height: min(70vw, 500px);
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(
+      ellipse at center,
+      hsl(var(--vow-yellow) / calc(0.03 * var(--interference-intensity, 0))) 0%,
+      transparent 70%
+    );
+    mix-blend-mode: screen;
+    opacity: 0;
+    transition: opacity 1600ms var(--ease-sacred);
+    animation: ring-interference 10s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .echo-rings__interference.is-visible {
+    opacity: 1;
+  }
+
+  @keyframes ring-interference {
+    0%, 100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.05);
+      opacity: 1;
+    }
+  }
+
+  /* Ring-specific breath cycle offsets */
+  .echo-rings__ring--1 { --ring-breath-cycle: 6s; }
+  .echo-rings__ring--2 { --ring-breath-cycle: 8s; animation-delay: 1s; }
+  .echo-rings__ring--3 { --ring-breath-cycle: 10s; animation-delay: 2s; }
+  .echo-rings__ring--4 { --ring-breath-cycle: 12s; animation-delay: 3s; }
+  .echo-rings__ring--5 { --ring-breath-cycle: 14s; animation-delay: 4s; }
+
+  /* Mobile: Hide 5th ring, reduce size */
+  @media (max-width: 767px) {
+    .echo-rings__svg {
+      width: min(90vw, 500px);
+      height: min(90vw, 500px);
+      top: 30%;
+    }
+
+    .echo-rings__ring--5 {
+      display: none;
+    }
+
+    .echo-rings__interference {
+      width: min(80vw, 350px);
+      height: min(80vw, 350px);
+    }
+  }
+
+  /* Reduced motion: No animations, instant visibility */
+  @media (prefers-reduced-motion: reduce) {
+    .echo-rings__origin.is-ignited {
+      animation: none;
+    }
+
+    .echo-rings__ring.is-active {
+      stroke: hsl(var(--vow-yellow) / 0.2);
+      stroke-dashoffset: 0;
+      transition: none;
+      animation: none;
+    }
+
+    .echo-rings__ring.is-drawing {
+      animation: none;
+    }
+
+    .echo-rings__interference {
+      animation: none;
+      opacity: 0.6;
+    }
+  }
+
+  /* ═══════════════════════════════════════
      GOLDEN THREAD SYSTEM
      ═══════════════════════════════════════ */
 
