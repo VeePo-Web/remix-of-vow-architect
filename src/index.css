@@ -4871,4 +4871,371 @@ All colors MUST be HSL.
       border-width: 2px;
     }
   }
+
+  /* =============================================
+     PHASE 2: PIANO KEY DEPRESSION SYSTEM
+     ============================================= */
+
+  /* -------------------------------------------
+     KEY OVERLAY — Base Styles
+     ------------------------------------------- */
+
+  .key-overlay {
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+
+  .key-overlay__shadow {
+    transition: 
+      opacity var(--ease-key-settle) 200ms,
+      transform var(--ease-key-settle) 200ms;
+  }
+
+  .key-overlay__body {
+    transition: transform var(--ease-key-spring) 80ms;
+    transform-origin: center bottom;
+  }
+
+  .key-overlay__highlight {
+    transition: opacity 120ms ease-out;
+  }
+
+  .key-overlay__felt {
+    transition: opacity 150ms ease-out;
+  }
+
+  .key-overlay__glow-halo {
+    transition: opacity var(--ease-key-settle) 200ms;
+    pointer-events: none;
+  }
+
+  /* -------------------------------------------
+     KEY PHASE STATES
+     ------------------------------------------- */
+
+  /* Press phase — aggressive attack */
+  .key-overlay--press .key-overlay__body {
+    animation: key-press-down 80ms var(--ease-key-attack) forwards;
+  }
+
+  /* Impact phase — brief bottom impact */
+  .key-overlay--impact .key-overlay__body {
+    animation: key-impact-bounce 40ms var(--ease-key-impact) forwards;
+  }
+
+  .key-overlay--impact .key-overlay__glow-halo {
+    animation: key-impact-glow 300ms var(--ease-key-impact) forwards;
+  }
+
+  /* Sustain phase — held position with shimmer */
+  .key-overlay--sustain .key-overlay__body {
+    animation: key-sustain-hold 400ms var(--ease-key-settle) forwards;
+  }
+
+  .key-overlay--sustain .key-overlay__highlight {
+    animation: key-sustain-shimmer 800ms ease-in-out infinite;
+  }
+
+  /* Release phase — spring return */
+  .key-overlay--release .key-overlay__body {
+    animation: key-release-up 280ms var(--ease-key-release) forwards;
+  }
+
+  .key-overlay--release .key-overlay__glow-halo {
+    animation: key-release-afterglow 280ms ease-out forwards;
+  }
+
+  /* -------------------------------------------
+     KEY EASING CURVES (Spring Physics)
+     ------------------------------------------- */
+
+  :root {
+    /* Attack: Aggressive, quick press (like real piano key) */
+    --ease-key-attack: cubic-bezier(0.12, 0, 0.39, 0);
+    
+    /* Impact: Sharp bottom with micro-bounce */
+    --ease-key-impact: cubic-bezier(0.34, 1.56, 0.64, 1);
+    
+    /* Settle: Gentle settling at sustain level */
+    --ease-key-settle: cubic-bezier(0.33, 1, 0.68, 1);
+    
+    /* Release: Spring return with slight overshoot */
+    --ease-key-release: cubic-bezier(0.68, -0.15, 0.265, 1.15);
+    
+    /* Spring: Bouncy, musical feel */
+    --ease-key-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  /* -------------------------------------------
+     KEY ANIMATION KEYFRAMES
+     ------------------------------------------- */
+
+  /* Press down — aggressive attack to bottom */
+  @keyframes key-press-down {
+    0% {
+      transform: perspective(100px) rotateX(0deg) translateY(0);
+    }
+    100% {
+      transform: perspective(100px) rotateX(3deg) translateY(12px);
+    }
+  }
+
+  /* Impact bounce — micro-bounce at bottom */
+  @keyframes key-impact-bounce {
+    0% {
+      transform: perspective(100px) rotateX(3deg) translateY(12px);
+    }
+    50% {
+      transform: perspective(100px) rotateX(4deg) translateY(14px);
+    }
+    100% {
+      transform: perspective(100px) rotateX(2.5deg) translateY(11px);
+    }
+  }
+
+  /* Impact glow — flash on impact */
+  @keyframes key-impact-glow {
+    0% {
+      opacity: 0.3;
+      filter: blur(4px);
+    }
+    30% {
+      opacity: 1;
+      filter: blur(8px);
+    }
+    100% {
+      opacity: 0.5;
+      filter: blur(6px);
+    }
+  }
+
+  /* Sustain hold — slight settle from impact */
+  @keyframes key-sustain-hold {
+    0% {
+      transform: perspective(100px) rotateX(2.5deg) translateY(11px);
+    }
+    100% {
+      transform: perspective(100px) rotateX(2deg) translateY(10px);
+    }
+  }
+
+  /* Sustain shimmer — breathing highlight */
+  @keyframes key-sustain-shimmer {
+    0%, 100% {
+      opacity: 0.4;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+
+  /* Release up — spring return */
+  @keyframes key-release-up {
+    0% {
+      transform: perspective(100px) rotateX(2deg) translateY(10px);
+    }
+    60% {
+      transform: perspective(100px) rotateX(-0.5deg) translateY(-1px);
+    }
+    100% {
+      transform: perspective(100px) rotateX(0deg) translateY(0);
+    }
+  }
+
+  /* Release afterglow — fading radiance */
+  @keyframes key-release-afterglow {
+    0% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  /* Impact ripple — expanding ring on strike */
+  @keyframes key-impact-ripple {
+    0% {
+      transform: scale(0.3);
+      opacity: 0.8;
+      stroke-width: 3px;
+    }
+    100% {
+      transform: scale(1.5);
+      opacity: 0;
+      stroke-width: 1px;
+    }
+  }
+
+  /* -------------------------------------------
+     CHORD RADIANCE — Movement IV Full Chord
+     ------------------------------------------- */
+
+  .chord-radiance {
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+
+  /* Flash phase — initial burst */
+  @keyframes chord-flash {
+    0% {
+      opacity: 0.8;
+      transform: scaleY(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scaleY(1.5);
+    }
+  }
+
+  /* Particle rise — golden motes ascending */
+  @keyframes chord-particle-rise {
+    0% {
+      transform: translateY(0) scale(1);
+      opacity: 0.7;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-30px) scale(0.5);
+      opacity: 0;
+    }
+  }
+
+  /* Bloom expansion */
+  .chord-radiance__bloom {
+    transition: 
+      rx 300ms var(--ease-out-expo),
+      ry 300ms var(--ease-out-expo),
+      opacity 200ms ease-out;
+  }
+
+  /* Phase-specific chord radiance styles */
+  .chord-radiance--flash .chord-radiance__bloom {
+    animation: chord-bloom-flash 100ms ease-out;
+  }
+
+  .chord-radiance--bloom .chord-radiance__bloom {
+    animation: chord-bloom-expand 400ms var(--ease-out-expo);
+  }
+
+  @keyframes chord-bloom-flash {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    100% {
+      opacity: 0.8;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes chord-bloom-expand {
+    0% {
+      opacity: 0.8;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0.6;
+      transform: scale(1.2);
+    }
+  }
+
+  /* -------------------------------------------
+     KEY LAYER — Container Styles
+     ------------------------------------------- */
+
+  .held-breath-path__keys-layer {
+    pointer-events: none;
+  }
+
+  /* -------------------------------------------
+     MOBILE OPTIMIZATIONS — Piano Keys
+     ------------------------------------------- */
+
+  @media (max-width: 767px) {
+    /* Reduced depression depth on mobile */
+    @keyframes key-press-down {
+      0% {
+        transform: perspective(100px) rotateX(0deg) translateY(0);
+      }
+      100% {
+        transform: perspective(100px) rotateX(2deg) translateY(8px);
+      }
+    }
+
+    /* Faster chord stagger */
+    .chord-radiance__particle {
+      animation-duration: 500ms;
+    }
+
+    /* Simplified shadows */
+    .key-overlay__shadow {
+      filter: blur(4px);
+    }
+
+    /* Hide afterglow on mobile */
+    .key-overlay__afterglow {
+      display: none;
+    }
+  }
+
+  /* -------------------------------------------
+     REDUCED MOTION — Piano Keys
+     ------------------------------------------- */
+
+  @media (prefers-reduced-motion: reduce) {
+    .key-overlay,
+    .key-overlay__body,
+    .key-overlay__shadow,
+    .key-overlay__highlight,
+    .key-overlay__glow-halo {
+      animation: none !important;
+      transition: opacity 200ms ease !important;
+    }
+
+    /* Instant state changes */
+    .key-overlay--press .key-overlay__body,
+    .key-overlay--impact .key-overlay__body,
+    .key-overlay--sustain .key-overlay__body {
+      transform: perspective(100px) rotateX(0deg) translateY(8px);
+    }
+
+    .key-overlay--release .key-overlay__body {
+      transform: perspective(100px) rotateX(0deg) translateY(0);
+    }
+
+    /* No shimmer */
+    .key-overlay__sustain-shimmer {
+      display: none;
+    }
+
+    /* Simplified chord radiance */
+    .chord-radiance,
+    .chord-radiance__bloom,
+    .chord-radiance__particle {
+      animation: none !important;
+      transition: opacity 200ms ease;
+    }
+
+    .chord-radiance__particle {
+      display: none;
+    }
+  }
+
+  /* -------------------------------------------
+     HIGH CONTRAST — Piano Keys
+     ------------------------------------------- */
+
+  @media (prefers-contrast: high) {
+    .key-overlay__body {
+      stroke: hsl(var(--foreground));
+      stroke-width: 1px;
+    }
+
+    .key-overlay__felt {
+      opacity: 0.9;
+    }
+  }
 }
+

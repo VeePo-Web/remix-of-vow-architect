@@ -5,6 +5,8 @@ export { AmbientGlowField } from './AmbientGlowField';
 export { HeldBreath } from './HeldBreath';
 export { HeldBreathPath } from './HeldBreathPath';
 export { ResonanceRing } from './ResonanceRing';
+export { KeyOverlay } from './KeyOverlay';
+export { ChordRadiance } from './ChordRadiance';
 export { CardConnector } from './CardConnector';
 export { ProcessDebugOverlay } from './ProcessDebugOverlay';
 export { MovementImage } from './MovementImage';

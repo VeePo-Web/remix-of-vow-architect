@@ -1,6 +1,8 @@
 import { useMemo, useCallback } from 'react';
 import { interpolate } from 'flubber';
 
+import type { KeyState } from './useKeyDepression';
+
 /**
  * Line states representing emotional progression
  */
@@ -96,28 +98,39 @@ const pathGenerators = {
     return points.join(' ');
   },
 
-  // Keys: Piano key pattern emerges
-  keys: (width: number, height: number, stateProgress: number): string => {
+  // Keys: Piano key pattern emerges (can accept keyStates for depression)
+  keys: (width: number, height: number, stateProgress: number, keyStates?: KeyState[]): string => {
     const y = height / 2;
     const keyCount = 7;
     const keyWidth = width / keyCount;
-    const keyHeight = 16 + stateProgress * 8;
+    const baseKeyHeight = 16 + stateProgress * 8;
     const points: string[] = [`M 0 ${y}`];
     
     for (let i = 0; i < keyCount; i++) {
       const xStart = i * keyWidth;
-      const xMid = xStart + keyWidth / 2;
       const xEnd = (i + 1) * keyWidth;
       
-      // Alternate between white and black key heights
-      const isBlackKey = [1, 2, 4, 5, 6].includes(i % 7) && i < keyCount - 1;
-      const thisKeyHeight = isBlackKey ? keyHeight * 0.6 : keyHeight;
+      // Get individual key state if available
+      const keyState = keyStates?.[i];
+      const keyDepression = keyState?.displacement ?? 0;
       
-      // Each key is a rectangle-like bump
+      // Alternate between white and black key heights
+      const isBlackKey = [1, 2, 4, 5].includes(i);
+      const thisKeyHeight = isBlackKey ? baseKeyHeight * 0.6 : baseKeyHeight;
+      
+      // Apply depression to key height (depressed keys are shorter)
+      const effectiveHeight = thisKeyHeight * stateProgress * (1 - keyDepression * 0.3);
+      
+      // Add rounded corners for more realistic key tops
+      const cornerRadius = 2;
+      
+      // Each key with bezier curves for rounded tops
       points.push(
         `L ${xStart + 2} ${y}`,
-        `L ${xStart + 2} ${y - thisKeyHeight * stateProgress}`,
-        `L ${xEnd - 2} ${y - thisKeyHeight * stateProgress}`,
+        `L ${xStart + 2} ${y - effectiveHeight + cornerRadius}`,
+        `Q ${xStart + 2} ${y - effectiveHeight} ${xStart + 2 + cornerRadius} ${y - effectiveHeight}`,
+        `L ${xEnd - 2 - cornerRadius} ${y - effectiveHeight}`,
+        `Q ${xEnd - 2} ${y - effectiveHeight} ${xEnd - 2} ${y - effectiveHeight + cornerRadius}`,
         `L ${xEnd - 2} ${y}`
       );
     }
@@ -127,10 +140,24 @@ const pathGenerators = {
   },
 };
 
+/**
+ * Generate keys path with individual key states for depression animation
+ */
+export function generateKeysPathWithStates(
+  width: number, 
+  height: number, 
+  stateProgress: number, 
+  keyStates: KeyState[]
+): string {
+  return pathGenerators.keys(width, height, stateProgress, keyStates);
+}
+
 interface UsePathMorphOptions {
   width: number;
   height: number;
   progress: number;
+  /** Optional key states for piano key depression animation */
+  keyStates?: KeyState[];
 }
 
 interface PathMorphResult {
@@ -139,6 +166,8 @@ interface PathMorphResult {
   lineStateProgress: number;
   nextState: LineState | null;
   interpolatedPath: string;
+  /** Width of each key (for overlay positioning) */
+  keyWidth: number;
 }
 
 /**
@@ -146,10 +175,14 @@ interface PathMorphResult {
  * 
  * Uses flubber for smooth path interpolation between states.
  * Returns current path, state info, and interpolated path for rendering.
+ * Now supports individual key depression states for piano key animation.
  */
-export function usePathMorph({ width, height, progress }: UsePathMorphOptions): PathMorphResult {
+export function usePathMorph({ width, height, progress, keyStates }: UsePathMorphOptions): PathMorphResult {
   const lineState = useMemo(() => getLineState(progress), [progress]);
   const lineStateProgress = useMemo(() => getLineStateProgress(progress), [progress]);
+  
+  // Calculate key width for overlay positioning
+  const keyWidth = useMemo(() => width / 7, [width]);
   
   // Determine next state for interpolation
   const nextState = useMemo((): LineState | null => {
@@ -161,8 +194,12 @@ export function usePathMorph({ width, height, progress }: UsePathMorphOptions): 
   // Generate paths for current and next state
   const currentPath = useMemo(() => {
     const generator = pathGenerators[lineState];
+    // Pass keyStates only for 'keys' state
+    if (lineState === 'keys' && keyStates) {
+      return generator(width, height, lineStateProgress, keyStates);
+    }
     return generator(width, height, lineStateProgress);
-  }, [width, height, lineState, lineStateProgress]);
+  }, [width, height, lineState, lineStateProgress, keyStates]);
 
   const nextPath = useMemo(() => {
     if (!nextState) return null;
@@ -192,6 +229,7 @@ export function usePathMorph({ width, height, progress }: UsePathMorphOptions): 
     lineStateProgress,
     nextState,
     interpolatedPath,
+    keyWidth,
   };
 }
 

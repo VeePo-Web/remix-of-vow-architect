@@ -4,6 +4,7 @@ import { usePathMorph, type LineState } from '@/hooks/usePathMorph';
 import { useLineDimensions } from '@/hooks/useLineDimensions';
 import { useBreathCycle } from '@/hooks/useBreathCycle';
 import { useStrikeAnimation, STRIKE_POSITIONS } from '@/hooks/useStrikeAnimation';
+import { useKeyDepression } from '@/hooks/useKeyDepression';
 import { HeldBreathPath } from './HeldBreathPath';
 import { ResonanceRing } from './ResonanceRing';
 
@@ -12,6 +13,8 @@ interface HeldBreathProps {
   isActive: boolean;
   /** Currently highlighted movement (0-3) for strike triggering */
   highlightedMovement?: number;
+  /** Scroll velocity for velocity-sensitive key depression */
+  scrollVelocity?: number;
   className?: string;
 }
 
@@ -38,6 +41,7 @@ export const HeldBreath = memo(function HeldBreath({
   progress,
   isActive,
   highlightedMovement,
+  scrollVelocity = 0,
   className,
 }: HeldBreathProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -45,10 +49,19 @@ export const HeldBreath = memo(function HeldBreath({
   const [activeRings, setActiveRings] = useState<ActiveRing[]>([]);
   const lastHighlightedRef = useRef<number | undefined>(undefined);
   
-  const { interpolatedPath, lineState, lineStateProgress, nextState } = usePathMorph({
+  // Get line state first (needed for key depression)
+  const { interpolatedPath, lineState, lineStateProgress, nextState, keyWidth } = usePathMorph({
     width: dimensions.width,
     height: dimensions.height,
     progress,
+  });
+
+  // Key depression system (Phase 2) - depends on lineState
+  const { keyStates, hasActiveKeys, isFullChord } = useKeyDepression({
+    highlightedMovement,
+    scrollVelocity,
+    isActive,
+    lineState,
   });
 
   // Breath cycle system
@@ -143,6 +156,8 @@ export const HeldBreath = memo(function HeldBreath({
       data-next-state={nextState}
       data-breath-stage={breathProps.stage}
       data-strike-phase={strikeState.phase}
+      data-has-active-keys={hasActiveKeys}
+      data-is-full-chord={isFullChord}
       aria-hidden="true"
     >
       {/* Ambient glow layer - now breath-responsive */}
@@ -182,6 +197,9 @@ export const HeldBreath = memo(function HeldBreath({
           height={dimensions.height}
           breathProps={breathProps}
           strikeState={strikeState}
+          keyStates={lineState === 'keys' ? keyStates : undefined}
+          keyWidth={keyWidth}
+          isFullChord={isFullChord}
         />
       </div>
 
