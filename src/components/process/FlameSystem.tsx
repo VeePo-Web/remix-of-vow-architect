@@ -8,7 +8,15 @@ interface FlameSystemProps {
   className?: string;
 }
 
-type FlameState = 'origin' | 'fragmenting' | 'drifting' | 'converging' | 'unified';
+/**
+ * Narrative-driven flame states aligned with brand's Death→Life journey
+ * - vigil: Sacred pause, held breath (honoring the moment before)
+ * - awakening: First engagement, spark of inspiration
+ * - drifting: Exploration through four movements
+ * - converging: Crystallization, coming together
+ * - covenant: Resolution, unified promise sealed
+ */
+type FlameState = 'vigil' | 'awakening' | 'drifting' | 'converging' | 'covenant';
 
 interface FragmentConfig {
   id: number;
@@ -16,15 +24,20 @@ interface FragmentConfig {
   maxDistance: number;
   size: number;
   delay: number;
+  movementIndex: number; // Which movement this fragment represents
 }
+
+// Easing function for spiral convergence
+const easeOutQuart = (t: number): number => 1 - Math.pow(1 - t, 4);
 
 /**
  * FlameSystem — "From Spark to Symphony"
  * 
- * A single flame fragments into 4 pieces that drift with each movement,
- * then reconverge into a unified brilliant flame above the closing CTA.
+ * A single flame (vigil) fragments into 4 pieces (awakening/drifting),
+ * then reconverges into a unified brilliant flame (covenant) above the closing CTA.
  * 
- * State machine: origin → fragmenting → drifting → converging → unified
+ * State machine aligned with brand narrative:
+ * vigil (0-20%) → awakening (20-28%) → drifting (28-75%) → converging (75-88%) → covenant (88-100%)
  */
 export function FlameSystem({
   progress,
@@ -32,88 +45,129 @@ export function FlameSystem({
   isActive,
   className,
 }: FlameSystemProps) {
-  // Determine flame state based on scroll progress
+  // Determine flame state based on scroll progress (narrative-driven thresholds)
   const flameState: FlameState = useMemo(() => {
-    if (progress < 0.08) return 'origin';
-    if (progress < 0.15) return 'fragmenting';
-    if (progress < 0.75) return 'drifting';
-    if (progress < 0.90) return 'converging';
-    return 'unified';
+    if (progress < 0.20) return 'vigil';      // Sacred pause through intro
+    if (progress < 0.28) return 'awakening';  // Synced with Movement I entry
+    if (progress < 0.75) return 'drifting';   // Four movements exploration
+    if (progress < 0.88) return 'converging'; // Spiral toward unity
+    return 'covenant';                         // Unified flame above CTA
   }, [progress]);
 
-  // Fragment configurations
+  // Calculate which fragment is active during drift (per-movement intensity)
+  const activeDriftFragment = useMemo(() => {
+    if (flameState !== 'drifting') return -1;
+    const driftProgress = (progress - 0.28) / 0.47; // 0.28 to 0.75
+    if (driftProgress < 0.255) return 0;      // Movement I: 28-40%
+    if (driftProgress < 0.51) return 1;       // Movement II: 40-52%
+    if (driftProgress < 0.765) return 2;      // Movement III: 52-64%
+    return 3;                                  // Movement IV: 64-75%
+  }, [flameState, progress]);
+
+  // Fragment configurations (each represents a movement in the process)
   const fragments: FragmentConfig[] = useMemo(() => [
-    { id: 1, angle: -45, maxDistance: 120, size: 0.7, delay: 0 },
-    { id: 2, angle: -15, maxDistance: 100, size: 0.8, delay: 100 },
-    { id: 3, angle: 15, maxDistance: 100, size: 0.8, delay: 200 },
-    { id: 4, angle: 45, maxDistance: 120, size: 0.7, delay: 300 },
+    { id: 1, angle: -50, maxDistance: 140, size: 0.65, delay: 0, movementIndex: 0 },
+    { id: 2, angle: -18, maxDistance: 110, size: 0.75, delay: 80, movementIndex: 1 },
+    { id: 3, angle: 18, maxDistance: 110, size: 0.75, delay: 160, movementIndex: 2 },
+    { id: 4, angle: 50, maxDistance: 140, size: 0.65, delay: 240, movementIndex: 3 },
   ], []);
 
-  // Calculate fragment positions based on state
-  const getFragmentStyle = (fragment: FragmentConfig): React.CSSProperties => {
+  // Calculate fragment positions based on state with enhanced choreography
+  const getFragmentStyle = (fragment: FragmentConfig, index: number): React.CSSProperties => {
     const rad = (fragment.angle * Math.PI) / 180;
+    const isActiveFragment = index === activeDriftFragment;
     
     switch (flameState) {
-      case 'origin':
+      case 'vigil':
         return {
           transform: 'translate(0, 0) scale(0)',
           opacity: 0,
         };
-      case 'fragmenting': {
-        const fragmentProgress = Math.min(1, (progress - 0.08) / 0.07);
-        const distance = fragment.maxDistance * 0.3 * fragmentProgress;
+        
+      case 'awakening': {
+        // Burst outward from origin
+        const awakeningProgress = Math.min(1, (progress - 0.20) / 0.08);
+        const burstEase = 1 - Math.pow(1 - awakeningProgress, 3);
+        const distance = fragment.maxDistance * 0.35 * burstEase;
         const x = Math.sin(rad) * distance;
-        const y = -Math.cos(rad) * distance * 0.5;
+        const y = -Math.cos(rad) * distance * 0.4;
         return {
-          transform: `translate(${x}px, ${y}px) scale(${fragment.size * fragmentProgress})`,
-          opacity: fragmentProgress,
+          transform: `translate(${x}px, ${y}px) scale(${fragment.size * burstEase})`,
+          opacity: burstEase,
           transitionDelay: `${fragment.delay}ms`,
         };
       }
+      
       case 'drifting': {
-        const driftProgress = (progress - 0.15) / 0.60;
-        const distance = fragment.maxDistance * (0.3 + driftProgress * 0.7);
-        const verticalDrift = driftProgress * 400; // Drift downward with scroll
-        const x = Math.sin(rad) * distance;
-        const y = verticalDrift - Math.cos(rad) * distance * 0.3;
+        // Per-movement drift with active fragment intensity
+        const driftProgress = (progress - 0.28) / 0.47;
+        const distance = fragment.maxDistance * (0.35 + driftProgress * 0.65);
+        const verticalDrift = driftProgress * 450;
+        
+        // Horizontal sway for organic movement
+        const swayAmount = Math.sin(driftProgress * Math.PI * 2 + index) * 15;
+        const x = Math.sin(rad) * distance + swayAmount;
+        const y = verticalDrift - Math.cos(rad) * distance * 0.25;
+        
+        // Active fragment gets enhanced glow
+        const activeScale = isActiveFragment ? fragment.size * 1.15 : fragment.size;
+        const activeOpacity = isActiveFragment ? 1 : 0.7;
+        
         return {
-          transform: `translate(${x}px, ${y}px) scale(${fragment.size})`,
-          opacity: 0.9,
+          transform: `translate(${x}px, ${y}px) scale(${activeScale})`,
+          opacity: activeOpacity,
         };
       }
+      
       case 'converging': {
-        const convergeProgress = (progress - 0.75) / 0.15;
-        const eased = 1 - Math.pow(1 - convergeProgress, 3); // Ease out cubic
+        // Spiral convergence with easeOutQuart deceleration
+        const convergeProgress = (progress - 0.75) / 0.13;
+        const eased = easeOutQuart(convergeProgress);
+        
+        // Start from drift end position
         const startDistance = fragment.maxDistance;
-        const distance = startDistance * (1 - eased);
-        const verticalDrift = 400 + (convergeProgress * 100);
-        const x = Math.sin(rad) * distance * (1 - eased);
-        const y = verticalDrift;
+        const startVertical = 450;
+        
+        // Spiral inward with rotation
+        const spiralAngle = rad + (eased * Math.PI * 0.5 * (index % 2 === 0 ? 1 : -1));
+        const currentDistance = startDistance * (1 - eased * 0.85);
+        
+        // Converge toward center-bottom (where unified flame will appear)
+        const targetY = 520;
+        const x = Math.sin(spiralAngle) * currentDistance * (1 - eased);
+        const y = startVertical + (targetY - startVertical) * eased;
+        
         return {
-          transform: `translate(${x}px, ${y}px) scale(${fragment.size * (1 - eased * 0.3)})`,
-          opacity: 1 - eased * 0.5,
+          transform: `translate(${x}px, ${y}px) scale(${fragment.size * (1 - eased * 0.6)})`,
+          opacity: 1 - eased * 0.8,
         };
       }
-      case 'unified':
+      
+      case 'covenant':
         return {
-          transform: 'translate(0, 500px) scale(0)',
+          transform: 'translate(0, 520px) scale(0)',
           opacity: 0,
         };
+        
       default:
         return {};
     }
   };
 
-  // Particle burst for fragmentation
+  // Particle burst for awakening transition
   const particles = useMemo(() => 
-    Array.from({ length: 12 }, (_, i) => ({
+    Array.from({ length: 16 }, (_, i) => ({
       id: i,
-      angle: (i * 30) + (Math.random() * 15 - 7.5),
-      distance: 30 + Math.random() * 40,
-      size: 2 + Math.random() * 3,
-      delay: Math.random() * 200,
+      angle: (i * 22.5) + (Math.random() * 10 - 5),
+      distance: 25 + Math.random() * 50,
+      size: 2 + Math.random() * 4,
+      delay: Math.random() * 150,
     })),
   []);
+
+  // Origin flame visibility and fading
+  const originFading = flameState === 'awakening';
+  const originVisible = flameState === 'vigil' || originFading;
 
   return (
     <div
@@ -126,21 +180,22 @@ export function FlameSystem({
       style={cssVars as React.CSSProperties}
       aria-hidden="true"
     >
-      {/* Origin flame (single, breathing, above intro) */}
+      {/* Origin flame (single, breathing, vigil state) */}
       <div
         className={cn(
           'flame-system__origin',
-          flameState === 'origin' && 'is-visible'
+          originVisible && 'is-visible',
+          originFading && 'is-fading'
         )}
       >
-        <div className="flame-system__flame flame-system__flame--origin" />
+        <div className="flame-system__flame flame-system__flame--vigil" />
       </div>
 
-      {/* Particle burst (on fragmentation) */}
+      {/* Particle burst (on awakening) */}
       <div
         className={cn(
           'flame-system__particles',
-          flameState === 'fragmenting' && 'is-bursting'
+          flameState === 'awakening' && 'is-bursting'
         )}
       >
         {particles.map((particle) => (
@@ -157,30 +212,32 @@ export function FlameSystem({
         ))}
       </div>
 
-      {/* Fragment flames (4 pieces with drift) */}
+      {/* Fragment flames (4 pieces representing each movement) */}
       <div className="flame-system__fragments">
-        {fragments.map((fragment) => (
+        {fragments.map((fragment, index) => (
           <div
             key={fragment.id}
             className={cn(
               'flame-system__fragment',
-              (flameState === 'drifting' || flameState === 'fragmenting' || flameState === 'converging') && 'is-visible'
+              (flameState === 'drifting' || flameState === 'awakening' || flameState === 'converging') && 'is-visible',
+              index === activeDriftFragment && 'is-active'
             )}
-            style={getFragmentStyle(fragment)}
+            style={getFragmentStyle(fragment, index)}
           >
             <div className="flame-system__flame flame-system__flame--fragment" />
           </div>
         ))}
       </div>
 
-      {/* Unified flame (converged, brilliant, above CTA) */}
+      {/* Unified flame (covenant state - brilliant, above CTA) */}
       <div
         className={cn(
           'flame-system__unified',
-          flameState === 'unified' && 'is-visible'
+          flameState === 'covenant' && 'is-visible'
         )}
       >
-        <div className="flame-system__flame flame-system__flame--unified" />
+        <div className="flame-system__flame flame-system__flame--covenant" />
+        <div className="flame-system__radiance" />
         <div className="flame-system__burst" />
       </div>
     </div>
