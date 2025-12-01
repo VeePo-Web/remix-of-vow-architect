@@ -5,7 +5,7 @@ import { VigilFlame } from "@/components/VigilFlame";
 import { VigilReveal } from "@/components/VigilReveal";
 import { Footer } from "@/components/Footer";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
-import { HeroTrustBadges } from "@/components/HeroTrustBadges";
+import { TheExhale } from "@/components/TheExhale";
 import { ThreeVows } from "@/components/ThreeVows";
 import { VowMoment } from "@/components/VowMoment";
 import { TheTransformation } from "@/components/TheTransformation";
@@ -92,10 +92,8 @@ export default function Index() {
         <MinimalScrollCue />
       </section>
 
-      {/* Trust Badges — Moved to After Hero */}
-      <section className="py-16 px-4 bg-surface">
-        <HeroTrustBadges />
-      </section>
+      {/* THE EXHALE — Sacred Pause (Emotional Recognition) */}
+      <TheExhale />
 
       {/* SECTION 2 — The Three Vows (Exhale - Surface) */}
       <ThreeVows />
