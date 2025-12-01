@@ -12,3 +12,6 @@ export { ProcessDebugOverlay } from './ProcessDebugOverlay';
 export { MovementImage } from './MovementImage';
 export { LetterpressCard } from './LetterpressCard';
 export { HandwrittenNote } from './HandwrittenNote';
+export { EmbossedNumeral } from './EmbossedNumeral';
+export { GoldRuleShimmer } from './GoldRuleShimmer';
+export { InkBloomText } from './InkBloomText';
