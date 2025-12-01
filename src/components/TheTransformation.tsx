@@ -27,9 +27,9 @@ export function TheTransformation() {
 
       {/* Full-Width Split Screen */}
       <div className="grid md:grid-cols-2 min-h-[600px]">
-        {/* LEFT PANEL — DEATH (Fears) */}
+        {/* LEFT PANEL — DEATH (Fears) — WITH KEN BURNS */}
         <div 
-          className="relative px-8 py-16 md:py-24 flex items-center justify-center"
+          className="relative px-8 py-16 md:py-24 flex items-center justify-center animate-ken-burns"
           style={{
             background: "linear-gradient(135deg, hsl(220 15% 8%) 0%, hsl(240 12% 3%) 100%)",
           }}
@@ -62,21 +62,21 @@ export function TheTransformation() {
           </div>
         </div>
 
-        {/* CENTER DIVIDER — THE THRESHOLD */}
+        {/* CENTER DIVIDER — THE THRESHOLD — VISIBLY GLOWING */}
         <div 
-          className="absolute left-1/2 top-0 bottom-0 w-[2px] -translate-x-1/2 pointer-events-none hidden md:block z-20"
+          className="absolute left-1/2 top-0 bottom-0 w-[3px] -translate-x-1/2 pointer-events-none hidden md:block z-20 animate-pulse-slow"
           style={{
-            background: "linear-gradient(180deg, transparent 0%, hsl(var(--vow-yellow) / 0.3) 50%, transparent 100%)",
-            boxShadow: "0 0 40px 8px hsl(var(--vow-yellow) / 0.2)"
+            background: "linear-gradient(180deg, transparent 0%, hsl(var(--vow-yellow) / 0.7) 50%, transparent 100%)",
+            boxShadow: "0 0 60px 12px hsl(var(--vow-yellow) / 0.4), 0 0 100px 20px hsl(var(--vow-yellow) / 0.2)"
           }}
           aria-hidden="true"
         />
 
-        {/* RIGHT PANEL — LIFE (Resolutions) */}
+        {/* RIGHT PANEL — LIFE (Resolutions) — INCREASED WARMTH */}
         <div 
-          className="relative px-8 py-16 md:py-24 flex items-center justify-center"
+          className="relative px-8 py-16 md:py-24 flex items-center justify-center animate-ken-burns"
           style={{
-            background: "linear-gradient(135deg, hsl(45 35% 94%) 0%, hsl(45 30% 90%) 100%)",
+            background: "linear-gradient(135deg, hsl(40 70% 92%) 0%, hsl(38 65% 88%) 100%)",
           }}
         >
           {/* Warm overlay */}

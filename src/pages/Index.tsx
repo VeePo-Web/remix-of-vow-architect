@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { HeroTrustBadges } from "@/components/HeroTrustBadges";
 import { ThreeVows } from "@/components/ThreeVows";
+import { VowMoment } from "@/components/VowMoment";
 import { TheTransformation } from "@/components/TheTransformation";
 import { TheWitness } from "@/components/TheWitness";
 import { ThreePaths } from "@/components/ThreePaths";
@@ -71,27 +72,38 @@ export default function Index() {
             {/* Chapter Rule Divider */}
             <ChapterRule isVisible={contentVisible} />
 
-            {/* Headline - Two Lines with Sacred Period */}
+            {/* Headline - Two Lines with Sacred Period — PROCLAMATION SCALE */}
             <h1 className="vigil-headline">
               <span 
                 className={cn(
-                  "block reveal reveal--blur reveal--slow",
+                  "block reveal reveal--blur reveal--slow text-[clamp(52px,6vw,76px)]",
                   line1Visible && "is-visible"
                 )}
                 style={{ "--animation-delay": "1600ms" } as React.CSSProperties}
               >
                 Every vow heard
-                <span className="vigil-period">.</span>
+                <span className="vigil-period" style={{ opacity: 0.8 }}>.</span>
               </span>
               <span 
                 className={cn(
-                  "block reveal reveal--blur reveal--slow",
+                  "block reveal reveal--blur reveal--slow text-[clamp(84px,10vw,120px)] mt-4",
                   line2Visible && "is-visible"
                 )}
-                style={{ "--animation-delay": "1800ms" } as React.CSSProperties}
+                style={{ 
+                  "--animation-delay": "1800ms",
+                  textShadow: "0 0 60px rgba(255,224,138,0.3)"
+                } as React.CSSProperties}
               >
                 Beautifully
-                <span className="vigil-period">.</span>
+                <span 
+                  className="vigil-period" 
+                  style={{ 
+                    opacity: 0.9,
+                    textShadow: "0 0 40px rgba(255,224,138,0.6)"
+                  }}
+                >
+                  .
+                </span>
               </span>
             </h1>
 
@@ -149,8 +161,8 @@ export default function Index() {
             <HeroTrustBadges />
           </div>
 
-          {/* Scroll Cue */}
-          <div className="absolute bottom-12 left-1/2 -translate-x-1/2">
+          {/* Scroll Cue — WITH BREATHING ROOM (30vh) */}
+          <div className="absolute bottom-[30vh] left-1/2 -translate-x-1/2">
             <ScrollCue isVisible={isComplete} />
           </div>
         </div>
@@ -158,6 +170,9 @@ export default function Index() {
 
       {/* SECTION 2 — The Three Vows (Exhale - Surface) */}
       <ThreeVows />
+
+      {/* SECTION 2.5 — VOW MOMENT (Altar Interstitial) */}
+      <VowMoment />
 
       {/* SECTION 3 — The Transformation (Full-Width Split) */}
       <TheTransformation />

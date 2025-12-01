@@ -185,9 +185,10 @@ All colors MUST be HSL.
     --font-mono: "JetBrains Mono", "Courier New", monospace;
     --size-timestamp: 12px;
     
-    /* Temperature Shifts */
-    --temp-cold: 220 15% 8%;
-    --temp-warm: 45 35% 94%;
+    /* Temperature Shifts — TRUE TEMPERATURE CONTRAST */
+    --temp-cold: 220 50% 20%;
+    --temp-warm: 40 70% 92%;
+    --temp-neutral: 0 0% 50%;
   }
 
   .light,
@@ -1129,6 +1130,82 @@ All colors MUST be HSL.
       transform: scaleX(1);
       opacity: 1;
     }
+  }
+
+  /* ========================================
+     DIVINE TRANSFORMATION ANIMATIONS
+     ======================================== */
+
+  /* Vigil Pulse — Breathing Glow (8s loop) */
+  @keyframes vigil-pulse {
+    0%, 100% {
+      opacity: 0.03;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.05;
+      transform: scale(1.05);
+    }
+  }
+
+  /* Ken Burns Effect — Subtle 3% Zoom over 10s */
+  @keyframes ken-burns {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.03);
+    }
+  }
+
+  .animate-ken-burns {
+    animation: ken-burns 10s ease-in-out infinite alternate;
+  }
+
+  /* Slow Pulse for Glow Effects */
+  @keyframes pulse-slow {
+    0%, 100% {
+      opacity: 0.7;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  .animate-pulse-slow {
+    animation: pulse-slow 3s ease-in-out infinite;
+  }
+
+  /* ========================================
+     SACRED OBJECTS STYLING
+     ======================================== */
+
+  /* Invitation Texture — Subtle Paper Feel */
+  .invitation-texture {
+    position: relative;
+  }
+
+  .invitation-texture::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-image: 
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        hsl(var(--vow-yellow) / 0.02) 2px,
+        hsl(var(--vow-yellow) / 0.02) 4px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        hsl(var(--vow-yellow) / 0.02) 2px,
+        hsl(var(--vow-yellow) / 0.02) 4px
+      );
+    pointer-events: none;
   }
 
   /* ========================================

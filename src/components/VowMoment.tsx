@@ -1,0 +1,49 @@
+/**
+ * VOW MOMENT — Full-Viewport Sacred Interstitial
+ * 
+ * The "altar moment" - emotional peak of the page.
+ * Full viewport height with single quote in proclamation scale.
+ * Barely visible vow-yellow radial glow.
+ * No animation - demands static attention.
+ */
+
+export function VowMoment() {
+  return (
+    <section 
+      className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden"
+      style={{
+        background: "linear-gradient(180deg, hsl(var(--surface)) 0%, hsl(45 20% 96%) 50%, hsl(var(--surface)) 100%)"
+      }}
+    >
+      {/* Barely Visible Vow-Yellow Radial Glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(circle at center, hsl(var(--vow-yellow) / 0.04) 0%, transparent 60%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Sacred Quote */}
+      <div className="relative z-10 max-w-4xl mx-auto text-center">
+        <blockquote className="text-[clamp(48px,6vw,72px)] font-display font-light italic leading-[1.2] text-foreground">
+          Every vow spoken
+          <br />
+          <span className="relative inline-block">
+            <span className="relative z-10">becomes sacred</span>
+            <span 
+              className="absolute -bottom-2 left-0 right-0 h-[2px] rounded-full"
+              style={{
+                background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.6), transparent)",
+                boxShadow: "0 0 12px hsl(var(--vow-yellow) / 0.3)"
+              }}
+              aria-hidden="true"
+            />
+          </span>
+          <br />
+          the moment it's heard.
+        </blockquote>
+      </div>
+    </section>
+  );
+}

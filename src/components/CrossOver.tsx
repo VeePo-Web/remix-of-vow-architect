@@ -20,9 +20,16 @@ export function CrossOver() {
       />
 
       <div className="container mx-auto max-w-4xl text-center relative z-10">
-        {/* Tagline Returns (Bookend) */}
-        <div className="mb-12">
-          <TaglineCovenant isVisible={true} />
+        {/* Tagline Returns (Bookend) — CARVED STONE TREATMENT */}
+        <div className="mb-16">
+          <h2 
+            className="text-[clamp(16px,2vw,20px)] uppercase tracking-[0.4em] font-display font-light text-ink-inverse/80"
+            style={{
+              textShadow: "0 2px 8px rgba(0,0,0,0.6), 0 0 2px rgba(255,224,138,0.15)"
+            }}
+          >
+            'TIL DEATH <span className="text-primary">;</span> UNTO LIFE
+          </h2>
         </div>
 
         {/* Sacred Quote */}
