@@ -74,10 +74,10 @@ export function ThreePaths() {
             <div
               key={index}
               className={cn(
-                "relative bg-card border rounded-lg p-8 transition-all duration-300",
+                "relative bg-card border rounded-lg p-10 transition-all duration-300 group",
                 path.isChosen 
-                  ? "border-primary shadow-[0_8px_32px_rgba(255,224,138,0.15)] md:-translate-y-2" 
-                  : "border-border/30 hover:border-border/60"
+                  ? "border-primary shadow-[0_8px_32px_rgba(255,224,138,0.15)] md:-translate-y-2 invitation-texture" 
+                  : "border-border/30 hover:border-border/60 hover:shadow-[0_4px_24px_rgba(255,224,138,0.08)]"
               )}
             >
               {/* Chosen Badge */}
@@ -94,9 +94,9 @@ export function ThreePaths() {
                 {path.name}
               </h3>
 
-              {/* Price */}
-              <div className="mb-4">
-                <span className="text-5xl font-display font-light text-card-foreground transition-colors duration-300 hover:text-primary">
+              {/* Price — PROCLAMATION SCALE 80-100px */}
+              <div className="mb-6">
+                <span className="text-[clamp(72px,8vw,100px)] font-display font-light text-card-foreground transition-all duration-300 hover:text-primary group-hover:drop-shadow-[0_0_20px_rgba(255,224,138,0.4)]">
                   {path.price}
                 </span>
               </div>
