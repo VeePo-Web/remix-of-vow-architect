@@ -1487,60 +1487,221 @@ All colors MUST be HSL.
   }
 
   /* ========================================
-     THE SCORE UNFOLDS — Scroll-Linked Experience
-     Fantasy.co + Vanta Principles Applied
+     THE PREPARATION — Compact Vertical Stepper
+     Fantasy.co + Vanta Principles: Reduce Until It Hurts
      ======================================== */
 
-  .score-section {
+  .preparation-section {
     position: relative;
+    padding: var(--space-10) var(--space-6);
+    background: hsl(var(--background));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-9);
   }
 
-  /* Movement cards container */
-  .score-cards {
-    position: relative;
+  /* Opening Block */
+  .preparation-opening {
+    text-align: center;
+    max-width: 680px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
   }
 
-  /* Individual cards */
-  .score-card {
-    position: relative;
+  .preparation-opening.is-visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  /* Promise styling with subtle underline */
-  .score-promise {
-    position: relative;
+  .preparation-label {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: var(--fs-xs);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+    margin-bottom: var(--space-4);
   }
 
-  .score-promise::after {
-    content: '';
+  .preparation-headline {
+    font-family: var(--font-serif);
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 400;
+    line-height: 1.2;
+    color: hsl(var(--foreground));
+    margin-bottom: var(--space-2);
+  }
+
+  .preparation-subheadline {
+    font-family: var(--font-serif);
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 400;
+    line-height: 1.2;
+    color: hsl(var(--vow-yellow));
+    margin-bottom: var(--space-6);
+  }
+
+  .preparation-bridge {
+    font-family: var(--font-sans);
+    font-size: var(--fs-body);
+    color: hsl(var(--muted-foreground));
+    line-height: 1.6;
+  }
+
+  /* Vertical Stepper */
+  .preparation-stepper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    max-width: 480px;
+    width: 100%;
+    padding-left: var(--space-8);
+  }
+
+  .preparation-thread {
     position: absolute;
-    left: 2rem;
-    right: 0;
-    bottom: -4px;
-    height: 1px;
+    left: 19px;
+    top: 12px;
+    bottom: 12px;
+    width: 2px;
     background: linear-gradient(
-      90deg,
-      hsl(var(--vow-yellow) / 0.4),
-      hsl(var(--vow-yellow) / 0.1)
+      to bottom,
+      hsl(var(--vow-yellow) / 0.3),
+      hsl(var(--vow-yellow)),
+      hsl(var(--vow-yellow) / 0.3)
     );
-    opacity: 0.6;
+    transform-origin: top;
+    transform: scaleY(0);
+    transition: transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
 
-  /* Progress indicator pulse */
-  @keyframes score-pulse {
-    0%, 100% {
-      transform: scale(1);
-      opacity: 0.4;
-    }
-    50% {
-      transform: scale(1.4);
-      opacity: 0;
-    }
+  .preparation-stepper.is-visible .preparation-thread {
+    transform: scaleY(1);
   }
 
-  /* Mobile adjustments */
+  .preparation-step {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-5);
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition-delay: calc(0.2s + (var(--step-index) * 0.12s));
+  }
+
+  .preparation-stepper.is-visible .preparation-step {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .preparation-node {
+    position: absolute;
+    left: calc(-1 * var(--space-8) + 8px);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: hsl(var(--background));
+    border: 2px solid hsl(var(--vow-yellow));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .preparation-numeral {
+    font-family: var(--font-serif);
+    font-size: 10px;
+    color: hsl(var(--vow-yellow));
+    font-weight: 500;
+  }
+
+  .preparation-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .preparation-action {
+    font-family: var(--font-sans);
+    font-size: var(--fs-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: hsl(var(--vow-yellow));
+    font-weight: 500;
+  }
+
+  .preparation-question {
+    font-family: var(--font-serif);
+    font-size: clamp(17px, 2.2vw, 22px);
+    color: hsl(var(--foreground));
+    line-height: 1.35;
+    margin: 0;
+  }
+
+  .preparation-reason {
+    font-family: var(--font-sans);
+    font-size: var(--fs-small);
+    color: hsl(var(--muted-foreground) / 0.7);
+    line-height: 1.5;
+    margin: 0;
+    font-style: italic;
+  }
+
+  /* Closing Block */
+  .preparation-closing {
+    text-align: center;
+    max-width: 520px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition-delay: 0.8s;
+  }
+
+  .preparation-closing.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .preparation-promise {
+    font-family: var(--font-serif);
+    font-size: clamp(18px, 2.8vw, 26px);
+    color: hsl(var(--foreground));
+    line-height: 1.4;
+    margin-bottom: var(--space-2);
+  }
+
+  .preparation-assurance {
+    font-family: var(--font-serif);
+    font-size: clamp(18px, 2.8vw, 26px);
+    color: hsl(var(--vow-yellow));
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  /* Mobile Adjustments */
   @media (max-width: 767px) {
-    .score-progress {
-      bottom: 1rem !important;
+    .preparation-section {
+      padding: var(--space-9) var(--space-5);
+      gap: var(--space-8);
+    }
+    
+    .preparation-stepper {
+      padding-left: var(--space-7);
+      gap: var(--space-5);
+    }
+    
+    .preparation-thread {
+      left: 15px;
+    }
+    
+    .preparation-node {
+      left: calc(-1 * var(--space-7) + 4px);
+      width: 22px;
+      height: 22px;
     }
   }
 
