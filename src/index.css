@@ -143,6 +143,21 @@ All colors MUST be HSL.
     /* Intersection Thresholds */
     --reveal-threshold: 0.15;
     --reveal-margin: -60px;
+    
+    /* ========================================
+       VIGIL + HELD BREATH TOKENS
+       ======================================== */
+    
+    /* Vigil Timing (Sacred Waiting) */
+    --vigil-pause: 800ms;
+    --vigil-reveal: 900ms;
+    --vigil-stagger: 100ms;
+    --ease-vigil: cubic-bezier(0.22, 0.68, 0.35, 1);
+    
+    /* Vigil Color Temperatures */
+    --vigil-void: 240 12% 3%;
+    --vigil-glow-opacity: 0.04;
+    --vigil-warmth: 45 100% 76% / 0.15;
   }
 
   .light,
@@ -988,6 +1003,110 @@ All colors MUST be HSL.
 
   .ambient-float--delayed {
     animation-delay: 2s;
+  }
+
+  /* ========================================
+     VIGIL + HELD BREATH KEYFRAMES
+     ======================================== */
+
+  /* Vigil Pulse — Ambient Background Breathing (8s cycle) */
+  @keyframes vigil-pulse {
+    0%, 100% {
+      opacity: var(--vigil-glow-opacity);
+      transform: scale(1);
+    }
+    50% {
+      opacity: calc(var(--vigil-glow-opacity) * 1.3);
+      transform: scale(1.02);
+    }
+  }
+
+  /* Vigil Glow — Initial Light Awakening (600ms) */
+  @keyframes vigil-glow {
+    from {
+      opacity: 0;
+      transform: scale(0.92);
+    }
+    to {
+      opacity: var(--vigil-glow-opacity);
+      transform: scale(1);
+    }
+  }
+
+  /* Semicolon Heartbeat — Tagline Pivot Pulse */
+  @keyframes semicolon-heartbeat {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.85;
+      transform: scale(1.08);
+    }
+  }
+
+  /* Commitment Pulse — CTA Attention Rhythm (3s loop) */
+  @keyframes commitment-pulse {
+    0%, 100% {
+      box-shadow: 0 8px 24px hsl(var(--vow-yellow) / 0.18);
+    }
+    50% {
+      box-shadow: 0 8px 32px hsl(var(--vow-yellow) / 0.28);
+    }
+  }
+
+  /* Breathe Scroll — Scroll Indicator (4s loop) */
+  @keyframes breathe-scroll {
+    0%, 100% {
+      opacity: 0.4;
+      transform: translateY(0);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(8px);
+    }
+  }
+
+  /* Chapter Rule Grow Vigil — Golden Rule Reveal */
+  @keyframes chapter-rule-grow-vigil {
+    from {
+      transform: scaleX(0);
+      opacity: 0;
+    }
+    to {
+      transform: scaleX(1);
+      opacity: 1;
+    }
+  }
+
+  /* ========================================
+     VIGIL UTILITY CLASSES
+     ======================================== */
+
+  /* Vigil Hero Container */
+  .vigil-hero {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Vigil Headline */
+  .vigil-headline {
+    font-family: var(--font-display);
+    font-size: var(--fs-h1);
+    line-height: 1.05;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  /* Vigil Period — Glowing Period Punctuation */
+  .vigil-period {
+    color: hsl(var(--vow-yellow));
+    text-shadow: 0 0 20px hsl(var(--vow-yellow) / 0.5);
+  }
+
+  /* CTA Commitment Pulse */
+  .cta-commitment {
+    animation: commitment-pulse 3s ease-in-out infinite;
   }
 
   @media (prefers-reduced-motion: reduce) {
