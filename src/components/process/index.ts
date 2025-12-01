@@ -6,3 +6,6 @@ export { HeldBreath } from './HeldBreath';
 export { HeldBreathPath } from './HeldBreathPath';
 export { CardConnector } from './CardConnector';
 export { ProcessDebugOverlay } from './ProcessDebugOverlay';
+export { MovementImage } from './MovementImage';
+export { LetterpressCard } from './LetterpressCard';
+export { HandwrittenNote } from './HandwrittenNote';
