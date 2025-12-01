@@ -245,7 +245,7 @@ export function FlameSystem({
     }
   };
 
-  // Update trails during drifting
+  // Update trails during drifting (Fix 4: increased throttle to 150ms)
   useEffect(() => {
     if (flameState !== 'drifting' || !isActive) {
       setTrails(new Map());
@@ -253,7 +253,7 @@ export function FlameSystem({
     }
 
     const now = Date.now();
-    if (now - lastTrailUpdate.current < 100) return;
+    if (now - lastTrailUpdate.current < 150) return; // 150ms throttle (was 100ms)
     lastTrailUpdate.current = now;
 
     setTrails(prev => {

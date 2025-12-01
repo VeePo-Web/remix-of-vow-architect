@@ -77,14 +77,14 @@ export function ProcessSection() {
     debug: process.env.NODE_ENV === 'development',
   });
 
-  // Intro reveal based on scroll activation
+  // Intro reveal based on scroll activation (Fix 3: increased threshold to 12%)
   useEffect(() => {
-    if (orchestrator.isActive && orchestrator.progress > 0.05) {
+    if (orchestrator.isActive && orchestrator.progress > 0.12) {
       setIntroVisible(true);
     }
   }, [orchestrator.isActive, orchestrator.progress]);
 
-  // Map phases to movement visibility
+  // Map phases to movement visibility (Fix 5: single source of truth for closing)
   useEffect(() => {
     // Use highlightedMovement from orchestrator during drifting
     if (orchestrator.phase === 'drifting' && orchestrator.highlightedMovement >= 0) {
@@ -95,23 +95,22 @@ export function ProcessSection() {
     }
   }, [orchestrator.phase, orchestrator.highlightedMovement]);
 
-  // Calculate active rings based on phase
+  // Calculate active rings based on phase (Fix 2: allow up to 4 rings during drifting)
   const activeRings = useMemo(() => {
     const phaseRingMap: Record<string, number> = {
       vigil: 0,
       awakening: 1,
-      drifting: Math.min(3, orchestrator.highlightedMovement + 2),
+      drifting: Math.min(4, orchestrator.highlightedMovement + 2), // Allow 4 rings
       converging: 4,
       covenant: 5,
     };
     return phaseRingMap[orchestrator.phase] || 0;
   }, [orchestrator.phase, orchestrator.highlightedMovement]);
 
+  // Movement enter view handler (Fix 5: removed race condition setTimeout)
   const handleMovementEnterView = useCallback((movementIndex: number) => {
     setActiveStep((prev) => Math.max(prev, movementIndex + 1));
-    if (movementIndex === 3) {
-      setTimeout(() => setClosingVisible(true), 800);
-    }
+    // Closing visibility now solely controlled by orchestrator phase
   }, []);
 
   // Legacy scroll state adapter for child components
