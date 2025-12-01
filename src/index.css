@@ -1977,7 +1977,12 @@ All colors MUST be HSL.
     transform: translateY(0);
   }
 
-  /* Golden Anchor Dot (intro) */
+  /* ═══════════════════════════════════════
+     PROCESS INTRO — Phase 5 Per-Element Stagger
+     Sacred timing: anchor→label→headline→highlight→bridge
+     ═══════════════════════════════════════ */
+
+  /* Golden Anchor Dot — T+200ms */
   .process-intro__anchor {
     width: 8px;
     height: 8px;
@@ -1987,9 +1992,23 @@ All colors MUST be HSL.
       0 0 12px hsl(var(--vow-yellow) / 0.6),
       0 0 24px hsl(var(--vow-yellow) / 0.3);
     margin-bottom: var(--space-6);
-    animation: exhale-pulse 4.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: 
+      opacity 700ms var(--ease-sacred),
+      transform 700ms var(--ease-sacred);
+    transition-delay: 0ms;
   }
 
+  .process-intro.is-visible .process-intro__anchor {
+    opacity: 1;
+    transform: scale(1);
+    transition-delay: 200ms;
+    animation: exhale-pulse 4.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation-delay: 900ms;
+  }
+
+  /* Label — T+400ms */
   .process-intro__label {
     display: block;
     font-family: var(--font-sans);
@@ -1998,9 +2017,21 @@ All colors MUST be HSL.
     text-transform: uppercase;
     color: hsl(var(--muted-foreground));
     margin-bottom: var(--space-5);
-    opacity: 0.7;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: 
+      opacity 700ms var(--ease-sacred),
+      transform 700ms var(--ease-sacred);
+    transition-delay: 0ms;
   }
 
+  .process-intro.is-visible .process-intro__label {
+    opacity: 0.7;
+    transform: translateY(0);
+    transition-delay: 400ms;
+  }
+
+  /* Headline — T+600ms */
   .process-intro__headline {
     font-family: var(--font-serif);
     font-size: clamp(24px, 4.5vw, 36px);
@@ -2009,8 +2040,21 @@ All colors MUST be HSL.
     color: hsl(var(--foreground) / 0.9);
     margin: 0 0 var(--space-2);
     max-width: 18ch;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: 
+      opacity 700ms var(--ease-sacred),
+      transform 700ms var(--ease-sacred);
+    transition-delay: 0ms;
   }
 
+  .process-intro.is-visible .process-intro__headline {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 600ms;
+  }
+
+  /* Highlight — T+900ms */
   .process-intro__highlight {
     font-family: var(--font-serif);
     font-size: clamp(24px, 4.5vw, 36px);
@@ -2018,8 +2062,33 @@ All colors MUST be HSL.
     line-height: 1.25;
     color: hsl(var(--foreground) / 0.9);
     margin: 0 0 var(--space-6);
+    opacity: 0;
+    transform: translateY(16px);
+    transition: 
+      opacity 700ms var(--ease-sacred),
+      transform 700ms var(--ease-sacred);
+    transition-delay: 0ms;
   }
 
+  .process-intro.is-visible .process-intro__highlight {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 900ms;
+  }
+
+  /* Exhale emphasis underline appears with highlight */
+  .process-intro__highlight .exhale-emphasis {
+    opacity: 0;
+    transition: opacity 700ms var(--ease-sacred);
+    transition-delay: 0ms;
+  }
+
+  .process-intro.is-visible .process-intro__highlight .exhale-emphasis {
+    opacity: 1;
+    transition-delay: 1100ms;
+  }
+
+  /* Bridge — T+1200ms */
   .process-intro__bridge {
     font-family: var(--font-sans);
     font-size: clamp(16px, 2.5vw, 18px);
@@ -2027,6 +2096,18 @@ All colors MUST be HSL.
     line-height: 1.6;
     margin: 0;
     max-width: 32ch;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: 
+      opacity 700ms var(--ease-sacred),
+      transform 700ms var(--ease-sacred);
+    transition-delay: 0ms;
+  }
+
+  .process-intro.is-visible .process-intro__bridge {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 1200ms;
   }
 
   /* ═══════════════════════════════════════
@@ -2045,25 +2126,71 @@ All colors MUST be HSL.
     padding: var(--space-9) 0;
   }
 
-  /* Individual Movement */
+  /* ═══════════════════════════════════════
+     MOVEMENT — Phase 5: 6-Phase Reveal System
+     Each element reveals with sacred stagger:
+     header→action→quote→details→assumption→outcome
+     ═══════════════════════════════════════ */
+
   .process-movement {
     position: relative;
     text-align: center;
     max-width: 560px;
     width: 100%;
-    opacity: 0;
-    transform: translateY(32px);
-    transition: 
-      opacity 800ms var(--ease-sacred), 
-      transform 800ms var(--ease-sacred);
-    transition-delay: calc(var(--movement-index, 0) * 150ms);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--space-3);
   }
 
-  .process-movement.is-visible {
+  /* Base transition for all staggered elements */
+  .process-movement__header,
+  .process-movement__action,
+  .process-movement__quote,
+  .process-movement__details,
+  .process-movement__assumption,
+  .process-movement__outcome {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: 
+      opacity 600ms var(--ease-sacred),
+      transform 600ms var(--ease-sacred),
+      text-shadow 400ms var(--ease-sacred);
+  }
+
+  /* Phase 1: Header visible */
+  .process-movement__header.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Phase 2: Action visible */
+  .process-movement__action.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    text-shadow: 0 0 20px hsl(var(--vow-yellow) / 0.4);
+  }
+
+  /* Phase 3: Quote visible */
+  .process-movement__quote.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Phase 4: Details visible */
+  .process-movement__details.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Phase 5: Assumption visible */
+  .process-movement__assumption.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Phase 6: Outcome visible */
+  .process-movement__outcome.is-visible {
     opacity: 1;
     transform: translateY(0);
   }
@@ -2082,6 +2209,12 @@ All colors MUST be HSL.
     font-size: 14px;
     color: hsl(var(--foreground) / 0.5);
     font-weight: 500;
+    transition: color 400ms var(--ease-sacred);
+  }
+
+  /* Numeral glows golden when triggered */
+  .process-movement.is-triggered .process-movement__numeral {
+    color: hsl(var(--vow-yellow) / 0.8);
   }
 
   .process-movement__name {
@@ -2093,7 +2226,7 @@ All colors MUST be HSL.
     font-weight: 400;
   }
 
-  /* Action Verb — ONLY yellow element */
+  /* Action Verb — ONLY yellow element with glow on reveal */
   .process-movement__action {
     font-family: var(--font-sans);
     font-size: var(--fs-sm);
@@ -2135,7 +2268,7 @@ All colors MUST be HSL.
     font-weight: 400;
   }
 
-  /* Outcome — Golden arrow only */
+  /* Outcome — Golden arrow with slide-in */
   .process-movement__outcome {
     font-family: var(--font-sans);
     font-size: var(--fs-sm);
@@ -2151,10 +2284,34 @@ All colors MUST be HSL.
   .process-movement__arrow {
     color: hsl(var(--vow-yellow));
     font-weight: 500;
+    display: inline-block;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: 
+      opacity 400ms var(--ease-sacred),
+      transform 400ms var(--ease-sacred);
+  }
+
+  .process-movement__outcome.is-visible .process-movement__arrow {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 200ms;
+  }
+
+  .process-movement__outcome-text {
+    opacity: 0;
+    transition: opacity 400ms var(--ease-sacred);
+    transition-delay: 0ms;
+  }
+
+  .process-movement__outcome.is-visible .process-movement__outcome-text {
+    opacity: 1;
+    transition-delay: 300ms;
   }
 
   /* ═══════════════════════════════════════
-     CLOSING BLOCK
+     CLOSING BLOCK — Phase 5: Flame-Aligned
+     Per-element stagger with covenant CTA
      ═══════════════════════════════════════ */
 
   .process-closing {
@@ -2162,11 +2319,6 @@ All colors MUST be HSL.
     z-index: 10;
     text-align: center;
     max-width: 560px;
-    opacity: 0;
-    transform: translateY(24px);
-    transition: 
-      opacity 900ms var(--ease-covenant), 
-      transform 900ms var(--ease-covenant);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2174,29 +2326,136 @@ All colors MUST be HSL.
     padding: var(--space-9) 0 var(--space-8);
   }
 
-  .process-closing.is-visible {
-    opacity: 1;
-    transform: translateY(0);
+  /* Flame alignment spacer — creates visual connection to unified flame */
+  .process-closing__flame-spacer {
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(
+      to bottom,
+      hsl(var(--vow-yellow) / 0.4),
+      hsl(var(--vow-yellow) / 0)
+    );
+    margin-bottom: var(--space-4);
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: 
+      opacity 600ms var(--ease-covenant),
+      transform 600ms var(--ease-covenant);
+    transition-delay: 0ms;
   }
 
+  .process-closing.is-visible .process-closing__flame-spacer {
+    opacity: 1;
+    transform: scaleY(1);
+    transition-delay: 0ms;
+  }
+
+  /* Radiance glow behind CTA — breathing with covenant flame */
+  .process-closing__radiance {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    transform: translate(-50%, 50%);
+    background: radial-gradient(
+      ellipse 100% 100% at 50% 50%,
+      hsl(var(--vow-yellow) / 0.15) 0%,
+      hsl(var(--vow-yellow) / 0.05) 40%,
+      transparent 70%
+    );
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 800ms var(--ease-covenant);
+  }
+
+  .process-closing.is-visible .process-closing__radiance {
+    opacity: 1;
+    animation: closing-radiance-breathe 4s ease-in-out infinite;
+    animation-delay: 1200ms;
+  }
+
+  .process-closing[data-flame-state="covenant"] .process-closing__radiance {
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(
+      ellipse 100% 100% at 50% 50%,
+      hsl(var(--vow-yellow) / 0.25) 0%,
+      hsl(var(--vow-yellow) / 0.1) 40%,
+      transparent 70%
+    );
+  }
+
+  @keyframes closing-radiance-breathe {
+    0%, 100% {
+      transform: translate(-50%, 50%) scale(1);
+      opacity: 0.6;
+    }
+    50% {
+      transform: translate(-50%, 50%) scale(1.15);
+      opacity: 1;
+    }
+  }
+
+  /* Promise — T+0ms */
   .process-closing__promise {
     font-family: var(--font-serif);
     font-size: clamp(20px, 3.5vw, 28px);
     color: hsl(var(--foreground) / 0.85);
     line-height: 1.4;
     margin: 0;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: 
+      opacity 800ms var(--ease-covenant),
+      transform 800ms var(--ease-covenant);
+    transition-delay: 0ms;
   }
 
+  .process-closing.is-visible .process-closing__promise {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0ms;
+  }
+
+  /* Assurance — T+300ms */
   .process-closing__assurance {
     font-family: var(--font-serif);
     font-size: clamp(20px, 3.5vw, 28px);
     color: hsl(var(--foreground) / 0.9);
     line-height: 1.4;
     margin: 0;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: 
+      opacity 800ms var(--ease-covenant),
+      transform 800ms var(--ease-covenant);
+    transition-delay: 0ms;
   }
 
-  /* Ghost CTA — vow-yellow border on hover */
+  .process-closing.is-visible .process-closing__assurance {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 300ms;
+  }
+
+  /* Exhale emphasis in assurance */
+  .process-closing__assurance .exhale-emphasis {
+    opacity: 0;
+    transition: opacity 600ms var(--ease-covenant);
+    transition-delay: 0ms;
+  }
+
+  .process-closing.is-visible .process-closing__assurance .exhale-emphasis {
+    opacity: 1;
+    transition-delay: 500ms;
+  }
+
+  /* CTA — T+600ms with multi-layer glow structure */
   .process-closing__cta {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -2211,9 +2470,56 @@ All colors MUST be HSL.
     border: 1px solid hsl(var(--foreground) / 0.2);
     border-radius: 100px;
     text-decoration: none;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(16px);
     transition: 
-      all 260ms var(--ease-sacred),
+      opacity 800ms var(--ease-covenant),
+      transform 800ms var(--ease-covenant),
+      color 260ms var(--ease-sacred),
+      background 260ms var(--ease-sacred),
+      border-color 260ms var(--ease-sacred),
       box-shadow 400ms var(--ease-sacred);
+    transition-delay: 0ms;
+  }
+
+  .process-closing.is-visible .process-closing__cta {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 600ms;
+  }
+
+  /* CTA text layer */
+  .process-closing__cta-text {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* CTA glow layer — pulses in covenant state */
+  .process-closing__cta-glow {
+    position: absolute;
+    inset: -2px;
+    background: hsl(var(--vow-yellow) / 0.15);
+    border-radius: inherit;
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 400ms var(--ease-sacred);
+  }
+
+  .process-closing[data-flame-state="covenant"] .process-closing__cta-glow {
+    opacity: 1;
+    animation: cta-covenant-pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes cta-covenant-pulse {
+    0%, 100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: scale(1.02);
+    }
   }
 
   .process-closing__cta:hover {
@@ -2224,6 +2530,10 @@ All colors MUST be HSL.
     box-shadow: 
       0 8px 24px hsl(var(--vow-yellow) / 0.3),
       0 0 40px hsl(var(--vow-yellow) / 0.15);
+  }
+
+  .process-closing__cta:hover .process-closing__cta-glow {
+    opacity: 0;
   }
 
   /* ═══════════════════════════════════════
@@ -2268,9 +2578,60 @@ All colors MUST be HSL.
     }
 
     .process-intro.is-visible,
-    .process-movement.is-visible,
     .process-closing.is-visible {
       transform: none;
+    }
+
+    /* Phase 5: Immediate visibility for staggered elements */
+    .process-intro.is-visible .process-intro__anchor,
+    .process-intro.is-visible .process-intro__label,
+    .process-intro.is-visible .process-intro__headline,
+    .process-intro.is-visible .process-intro__highlight,
+    .process-intro.is-visible .process-intro__highlight .exhale-emphasis,
+    .process-intro.is-visible .process-intro__bridge {
+      opacity: 1;
+      transform: none;
+      transition-delay: 0ms;
+    }
+
+    /* Phase 5: Movement elements immediately visible */
+    .process-movement__header.is-visible,
+    .process-movement__action.is-visible,
+    .process-movement__quote.is-visible,
+    .process-movement__details.is-visible,
+    .process-movement__assumption.is-visible,
+    .process-movement__outcome.is-visible {
+      opacity: 1;
+      transform: none;
+      text-shadow: none;
+    }
+
+    .process-movement__outcome.is-visible .process-movement__arrow,
+    .process-movement__outcome.is-visible .process-movement__outcome-text {
+      opacity: 1;
+      transform: none;
+      transition-delay: 0ms;
+    }
+
+    /* Phase 5: Closing elements immediately visible */
+    .process-closing.is-visible .process-closing__flame-spacer,
+    .process-closing.is-visible .process-closing__promise,
+    .process-closing.is-visible .process-closing__assurance,
+    .process-closing.is-visible .process-closing__assurance .exhale-emphasis,
+    .process-closing.is-visible .process-closing__cta {
+      opacity: 1;
+      transform: none;
+      transition-delay: 0ms;
+    }
+
+    .process-closing.is-visible .process-closing__radiance {
+      animation: none;
+      opacity: 0.5;
+    }
+
+    .process-closing[data-flame-state="covenant"] .process-closing__cta-glow {
+      animation: none;
+      opacity: 0.3;
     }
 
     .process-thread__line {
