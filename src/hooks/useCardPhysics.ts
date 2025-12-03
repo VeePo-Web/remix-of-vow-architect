@@ -61,6 +61,16 @@ const BLOOM_CONFIG = {
   phases: ['idle', 'blooming', 'complete'] as const,
 };
 
+// Fiber parallax constants
+const FIBER_CONFIG = {
+  // Parallax multipliers (how much each layer moves relative to tilt)
+  surfaceMultiplier: 3.0,   // Surface fibers move most
+  embeddedMultiplier: 1.5,  // Embedded fibers move moderately
+  deepMultiplier: 0.5,      // Deep fibers barely move
+  // Maximum offset in pixels
+  maxOffset: 6,
+};
+
 /**
  * useCardPhysics — Letterpress Material Physics Hook
  * 
