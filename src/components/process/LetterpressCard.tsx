@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 import { useCardPhysics } from '@/hooks/useCardPhysics';
 import { EmbossedNumeral } from './EmbossedNumeral';
 import { GoldRuleShimmer } from './GoldRuleShimmer';
+import { PaperFiberLayers } from './PaperFiberLayers';
 
 interface LetterpressCardProps {
   numeral: string;
@@ -61,8 +62,15 @@ export function LetterpressCard({
         transform: `perspective(1000px) rotateX(${physics.tiltX}deg) rotateY(${physics.tiltY}deg)`,
       } as React.CSSProperties}
     >
-      {/* Paper texture layer */}
-      <div className="letterpress-card__texture" aria-hidden="true" />
+      {/* Paper fiber parallax layers */}
+      <PaperFiberLayers
+        tiltX={physics.tiltX}
+        tiltY={physics.tiltY}
+        shimmerActive={physics.shimmerActive}
+        lightPosition={physics.shimmerPosition}
+        isHighlighted={isHighlighted}
+        className="letterpress-card__fibers"
+      />
       
       {/* Gold rule shimmer (replaces static rule) */}
       <GoldRuleShimmer

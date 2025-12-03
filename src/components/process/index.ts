@@ -15,3 +15,4 @@ export { HandwrittenNote } from './HandwrittenNote';
 export { EmbossedNumeral } from './EmbossedNumeral';
 export { GoldRuleShimmer } from './GoldRuleShimmer';
 export { InkBloomText } from './InkBloomText';
+export { PaperFiberLayers } from './PaperFiberLayers';

@@ -3795,14 +3795,144 @@ All colors MUST be HSL.
     transform: translateY(0);
   }
 
-  .letterpress-card__texture {
+  /* ======================================
+   * PAPER FIBER PARALLAX SYSTEM
+   * Multi-layer handmade paper effect
+   * ====================================== */
+  
+  .paper-fiber-layers {
     position: absolute;
-    inset: 0;
-    background: 
-      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
-    opacity: 0.03;
+    inset: -10px; /* Expand to allow parallax movement */
     pointer-events: none;
     border-radius: inherit;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .paper-fiber-layer {
+    position: absolute;
+    inset: 0;
+    will-change: transform;
+    transition: transform 80ms linear;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  /* Deep Fibers — Large, soft, warm taupe, barely move */
+  .paper-fiber-layer--deep {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='deepFibers'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.015 0.4' numOctaves='3' seed='1' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23deepFibers)'/%3E%3C/svg%3E");
+    background-size: 300px 300px;
+    opacity: 0.018;
+    mix-blend-mode: multiply;
+    animation: fiber-breathe 4s ease-in-out infinite;
+  }
+
+  /* Embedded Fibers — Medium density, warm cream, moderate movement */
+  .paper-fiber-layer--embedded {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='embeddedFibers'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.03 0.6' numOctaves='4' seed='42' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23embeddedFibers)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    opacity: 0.025;
+    mix-blend-mode: multiply;
+    animation: fiber-breathe 4s ease-in-out infinite;
+    animation-delay: -1.3s;
+  }
+
+  /* Surface Fibers — Bright, thin, high-frequency, most movement */
+  .paper-fiber-layer--surface {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='surfaceFibers'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.06 0.9' numOctaves='5' seed='137' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23surfaceFibers)'/%3E%3C/svg%3E");
+    background-size: 150px 150px;
+    opacity: 0.04;
+    mix-blend-mode: soft-light;
+    animation: fiber-breathe 4s ease-in-out infinite;
+    animation-delay: -2.6s;
+  }
+
+  /* Surface fiber shimmer overlay */
+  .paper-fiber-layer--surface::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 0%,
+      transparent 40%,
+      hsl(45 50% 95% / 0.12) 45%,
+      hsl(45 60% 98% / 0.18) 50%,
+      hsl(45 50% 95% / 0.12) 55%,
+      transparent 60%,
+      transparent 100%
+    );
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: opacity 300ms ease;
+    pointer-events: none;
+  }
+
+  .paper-fiber-layer--surface.is-shimmering::after {
+    opacity: 1;
+    transform: translateX(calc(var(--fiber-light-position, 0) * 200% - 100%));
+    transition: transform 1200ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .paper-fiber-layer--surface.is-highlighted::after {
+    opacity: 1;
+  }
+
+  /* Fiber breathing animation */
+  @keyframes fiber-breathe {
+    0%, 100% {
+      opacity: var(--fiber-base-opacity, 0.025);
+    }
+    50% {
+      opacity: calc(var(--fiber-base-opacity, 0.025) * 1.15);
+    }
+  }
+
+  .paper-fiber-layer--deep {
+    --fiber-base-opacity: 0.018;
+  }
+
+  .paper-fiber-layer--embedded {
+    --fiber-base-opacity: 0.025;
+  }
+
+  .paper-fiber-layer--surface {
+    --fiber-base-opacity: 0.04;
+  }
+
+  /* Letterpress card fiber container positioning */
+  .letterpress-card__fibers {
+    z-index: 0;
+  }
+
+  /* Mobile optimizations for fiber system */
+  @media (max-width: 767px) {
+    .paper-fiber-layer--deep {
+      display: none; /* Hide deepest layer on mobile */
+    }
+
+    .paper-fiber-layer--embedded,
+    .paper-fiber-layer--surface {
+      transition: transform 60ms linear; /* Faster response */
+      animation: none; /* Disable breathing for performance */
+    }
+
+    .paper-fiber-layer--surface::after {
+      display: none; /* Disable shimmer on mobile */
+    }
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .paper-fiber-layer {
+      transition: none;
+      animation: none;
+      transform: none !important;
+    }
+
+    .paper-fiber-layer--surface::after {
+      display: none;
+    }
   }
 
   .letterpress-card__rule {
@@ -5257,18 +5387,6 @@ All colors MUST be HSL.
     transform-style: preserve-3d;
     transition: transform 180ms var(--ease-sacred);
     will-change: transform;
-  }
-
-  /* Paper texture overlay */
-  .letterpress-card__texture {
-    position: absolute;
-    inset: 0;
-    background-image: 
-      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    opacity: 0.03;
-    mix-blend-mode: multiply;
-    pointer-events: none;
-    border-radius: inherit;
   }
 
   /* Shadow layer - dynamic with tilt */
