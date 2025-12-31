@@ -5756,4 +5756,45 @@ All colors MUST be HSL.
       background: hsl(var(--vow-yellow));
     }
   }
+
+  /* -------------------------------------------
+     THE INVITATION — Video Section
+     ------------------------------------------- */
+
+  .invitation-video-container {
+    position: relative;
+    border: 2px solid hsl(45 30% 88%);
+    transition: transform 300ms var(--ease-sacred, cubic-bezier(0.22, 0.61, 0.36, 1)), 
+                box-shadow 300ms var(--ease-sacred, cubic-bezier(0.22, 0.61, 0.36, 1));
+  }
+
+  .invitation-video-container:hover {
+    transform: scale(1.015);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .invitation-play-button {
+    animation: invitation-breathe 4s ease-in-out infinite;
+  }
+
+  @keyframes invitation-breathe {
+    0%, 100% { 
+      transform: scale(1); 
+      opacity: 0.9; 
+    }
+    50% { 
+      transform: scale(1.08); 
+      opacity: 1; 
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .invitation-play-button {
+      animation: none;
+    }
+    
+    .invitation-video-container:hover {
+      transform: none;
+    }
+  }
 }
