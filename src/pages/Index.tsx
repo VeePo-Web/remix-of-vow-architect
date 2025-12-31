@@ -9,6 +9,7 @@ import { TheExhale } from "@/components/TheExhale";
 import { ProcessSection } from "@/components/process";
 import { VowMoment } from "@/components/VowMoment";
 import { TheInvitation } from "@/components/TheInvitation";
+import { TheSound } from "@/components/TheSound";
 import { TheTransformation } from "@/components/TheTransformation";
 import { TheWitness } from "@/components/TheWitness";
 import { ThreePaths } from "@/components/ThreePaths";
@@ -104,6 +105,9 @@ export default function Index() {
 
       {/* SECTION 3 — The Invitation (Meet the Owner) */}
       <TheInvitation />
+
+      {/* SECTION 3.5 — The Sound (Dark Listening Environment) */}
+      <TheSound />
 
       {/* SECTION 4 — The Transformation (Full-Width Split) */}
       <TheTransformation />
