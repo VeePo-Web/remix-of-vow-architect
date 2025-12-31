@@ -6,9 +6,9 @@ interface VigilFlameProps {
 }
 
 /**
- * Vigil Flame — The Sacred Spark
- * - Single flame at dead center during Act I (Stillness)
- * - Breathing animation (scale 0.95 → 1.08, 3s cycle)
+ * Vigil Flame — The Sacred Spark (Refined)
+ * - Smaller, more precious flame at dead center
+ * - Breathing animation synced to 4s global breath
  * - Dissolves during Act III (Revelation)
  */
 export function VigilFlame({ isVisible, isDissolving }: VigilFlameProps) {
@@ -22,11 +22,11 @@ export function VigilFlame({ isVisible, isDissolving }: VigilFlameProps) {
       aria-hidden="true"
     >
       <div
-        className="w-2 h-3 rounded-full"
+        className="w-1.5 h-2.5 rounded-full"
         style={{
           background: "radial-gradient(circle at center, hsl(var(--vow-yellow)) 0%, hsl(39 100% 60%) 50%, transparent 100%)",
-          boxShadow: "0 0 40px hsl(var(--vow-yellow) / 0.8), 0 0 80px hsl(39 100% 60% / 0.4)",
-          animation: isVisible && !isDissolving ? "flame-breathe 3s ease-in-out infinite" : undefined,
+          boxShadow: "0 0 24px hsl(var(--vow-yellow) / 0.7), 0 0 48px hsl(39 100% 60% / 0.35)",
+          animation: isVisible && !isDissolving ? "flame-breathe 4s ease-in-out infinite" : undefined,
         }}
       />
     </div>

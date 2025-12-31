@@ -8,12 +8,12 @@ interface VigilPhase {
 }
 
 /**
- * Vigil + Held Breath Orchestration Hook
- * Manages the sacred 0–8s arrival sequence:
- * - 0–1500ms: Complete stillness (void + flame breathe)
- * - 1500–3500ms: Kindling (flame expands, reveals image)
- * - 3500–5500ms: Revelation (full image, Ken Burns starts)
- * - 5500ms+: Covenant (UI elements stagger in)
+ * Vigil + Held Breath Orchestration Hook (Fantasy.co Refined)
+ * Extended timing for deeper anticipation:
+ * - 0–2000ms: Complete stillness (void + flame breathe)
+ * - 2000–4000ms: Kindling (flame expands, reveals image)
+ * - 4000–6000ms: Revelation (full image, Ken Burns starts)
+ * - 6000ms+: Covenant (UI elements stagger in)
  */
 export function useVigilSequence(): VigilPhase {
   const [phase, setPhase] = useState<VigilPhase>({
@@ -40,7 +40,7 @@ export function useVigilSequence(): VigilPhase {
       return;
     }
 
-    // Act I: Stillness (0–1500ms)
+    // Act I: Stillness (0–2000ms) — Extended for deeper anticipation
     const stillnessTimer = setTimeout(() => {
       setPhase({
         isStillness: false,
@@ -48,9 +48,9 @@ export function useVigilSequence(): VigilPhase {
         isRevealing: false,
         isComplete: false,
       });
-    }, 1500);
+    }, 2000);
 
-    // Act II: Kindling (1500–3500ms)
+    // Act II: Kindling (2000–4000ms)
     const kindlingTimer = setTimeout(() => {
       setPhase({
         isStillness: false,
@@ -58,9 +58,9 @@ export function useVigilSequence(): VigilPhase {
         isRevealing: true,
         isComplete: false,
       });
-    }, 3500);
+    }, 4000);
 
-    // Act III: Revelation (3500–5500ms)
+    // Act III: Revelation (4000–6000ms)
     const revealingTimer = setTimeout(() => {
       setPhase({
         isStillness: false,
@@ -68,7 +68,7 @@ export function useVigilSequence(): VigilPhase {
         isRevealing: false,
         isComplete: true,
       });
-    }, 5500);
+    }, 6000);
 
     return () => {
       clearTimeout(stillnessTimer);

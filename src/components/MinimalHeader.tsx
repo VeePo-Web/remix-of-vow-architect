@@ -25,15 +25,15 @@ export function MinimalHeader() {
           "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
           isScrolled && "bg-[rgba(10,10,12,0.92)] backdrop-blur-md border-b border-border/20"
         )}
-        style={{ height: isScrolled ? "64px" : "auto" }}
+        style={{ height: isScrolled ? "56px" : "auto" }}
       >
-        <div className="flex items-center justify-between h-full px-8 py-8">
+        <div className="flex items-center justify-between h-full px-[var(--hero-space-edge,24px)] md:px-[var(--hero-space-edge,48px)] py-6">
           {/* Logo - Top Left */}
           <a 
             href="/"
-            className="font-display text-lg tracking-wide text-foreground opacity-0 animate-fade-in hover:text-accent transition-colors duration-300"
+            className="font-display text-base tracking-wide text-foreground opacity-0 animate-fade-in hover:text-accent transition-colors duration-300"
             style={{ 
-              animationDelay: "5500ms",
+              animationDelay: "6200ms",
               animationFillMode: "forwards"
             }}
           >
@@ -57,7 +57,7 @@ export function MinimalHeader() {
             onClick={() => setIsMenuOpen(true)}
             className="flex items-center gap-2 opacity-0 animate-fade-in group"
             style={{ 
-              animationDelay: "5700ms",
+              animationDelay: "6200ms",
               animationFillMode: "forwards"
             }}
             aria-label="Open menu"

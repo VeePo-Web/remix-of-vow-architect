@@ -7,10 +7,10 @@ export function MinimalScrollCue() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Show after covenant complete
+    // Show after covenant complete (extended timing)
     const showTimer = setTimeout(() => {
       setIsVisible(true);
-    }, 7800);
+    }, 9000);
 
     const handleScroll = () => {
       if (window.scrollY > 100) {
@@ -28,7 +28,7 @@ export function MinimalScrollCue() {
   return (
     <div
       className={cn(
-        "absolute bottom-12 md:bottom-16 right-8 md:right-12 z-20 flex flex-col items-center gap-3 transition-opacity duration-500",
+        "absolute bottom-[var(--hero-space-bottom,48px)] right-[var(--hero-space-edge,24px)] md:right-[var(--hero-space-edge,48px)] z-20 flex flex-col items-center gap-2 transition-opacity duration-500",
         isVisible && !hasScrolled ? "opacity-100" : "opacity-0",
         hasScrolled && "pointer-events-none"
       )}
@@ -38,27 +38,19 @@ export function MinimalScrollCue() {
     >
       {/* Vertical Line */}
       <div 
-        className="w-[1px] h-6"
+        className="w-[1px] h-5"
         style={{
-          background: "linear-gradient(180deg, transparent, hsl(var(--vow-yellow) / 0.6))"
+          background: "linear-gradient(180deg, transparent, hsl(var(--vow-yellow) / 0.5))"
         }}
       />
       
-      {/* Chevron */}
+      {/* Chevron Only - Maximum Restraint */}
       <ChevronDown 
-        size={16} 
+        size={14} 
         className="text-[hsl(var(--vow-yellow))]" 
         strokeWidth={1.5}
-        style={{ opacity: 0.6 }}
-      />
-      
-      {/* Text */}
-      <span 
-        className="text-[10px] font-sans uppercase tracking-[0.26em] text-muted-foreground"
         style={{ opacity: 0.5 }}
-      >
-        scroll
-      </span>
+      />
     </div>
   );
 }
