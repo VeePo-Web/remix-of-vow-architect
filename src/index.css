@@ -5797,4 +5797,50 @@ All colors MUST be HSL.
       transform: none;
     }
   }
+
+  /* -------------------------------------------
+     THE SOUND — Dark Listening Section
+     ------------------------------------------- */
+
+  .sound-embed-container:hover .sound-play-button {
+    box-shadow: 0 0 40px hsl(var(--vow-yellow) / 0.15);
+  }
+
+  .sound-play-button {
+    animation: sound-breathe 4s ease-in-out infinite;
+    transition: box-shadow 300ms var(--easing-std);
+  }
+
+  @keyframes sound-breathe {
+    0%, 100% { 
+      transform: scale(1); 
+      opacity: 0.85; 
+    }
+    50% { 
+      transform: scale(1.06); 
+      opacity: 1; 
+    }
+  }
+
+  .sound-track-card {
+    transition: transform 300ms var(--easing-std),
+                border-color 300ms var(--easing-std),
+                background-color 300ms var(--easing-std);
+  }
+
+  .sound-track-card:hover {
+    transform: translateY(-2px);
+    border-color: hsl(var(--vow-yellow) / 0.3);
+    background-color: hsl(var(--card) / 0.4);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sound-play-button {
+      animation: none;
+    }
+    
+    .sound-track-card:hover {
+      transform: none;
+    }
+  }
 }
