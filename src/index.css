@@ -163,6 +163,10 @@ All colors MUST be HSL.
     --space-edge: 32px;
     --space-edge-mobile: 24px;
     
+    /* Hero Spacing — Responsive Edge System */
+    --hero-space-edge: clamp(24px, 4vw, 48px);
+    --hero-space-bottom: clamp(48px, 6vh, 80px);
+    
     /* Sacred easing functions */
     --ease-sacred: cubic-bezier(0.22, 0.61, 0.36, 1);
     --ease-exhale: cubic-bezier(0.16, 1, 0.3, 1);
@@ -1196,18 +1200,18 @@ All colors MUST be HSL.
     }
   }
 
-  /* Ken Burns Effect — Ultra-Slow Cinematic Zoom (40s) */
+  /* Ken Burns Effect — Ultra-Slow Cinematic Zoom (60s, Refined Scale) */
   @keyframes ken-burns {
     0% {
       transform: scale(1);
     }
     100% {
-      transform: scale(1.03);
+      transform: scale(1.015);
     }
   }
 
   .animate-ken-burns {
-    animation: ken-burns 40s var(--ease-sacred) infinite alternate;
+    animation: ken-burns 60s var(--ease-sacred) infinite alternate;
   }
 
   /* Slow Pulse for Glow Effects */

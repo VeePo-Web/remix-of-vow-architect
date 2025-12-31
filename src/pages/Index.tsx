@@ -41,11 +41,11 @@ export default function Index() {
           isComplete={vigilPhase.isRevealing || vigilPhase.isComplete}
         >
           <div
-            className="absolute inset-0 bg-cover bg-center"
+            className="absolute inset-0 bg-cover bg-center will-change-transform"
             style={{
-              backgroundImage: `linear-gradient(rgba(10, 10, 12, 0.72), rgba(10, 10, 12, 0.88)), url(${heroImage})`,
+              backgroundImage: `linear-gradient(rgba(10, 10, 12, 0.65), rgba(10, 10, 12, 0.85)), url(${heroImage})`,
               filter: "brightness(0.65) contrast(1.1) saturate(0.85)",
-              animation: vigilPhase.isRevealing || vigilPhase.isComplete ? "ken-burns 40s var(--ease-sacred) infinite" : undefined,
+              animation: vigilPhase.isRevealing || vigilPhase.isComplete ? "ken-burns 60s var(--ease-sacred) infinite" : undefined,
             }}
             aria-hidden="true"
           />
@@ -73,10 +73,10 @@ export default function Index() {
           aria-hidden="true"
         />
 
-        {/* Layer 5: Film Grain (Fades in during Revelation) */}
+        {/* Layer 5: Film Grain (Fades in during Revelation) — Reduced */}
         <div 
           className={`absolute inset-0 grain transition-opacity duration-1000 ${
-            vigilPhase.isRevealing || vigilPhase.isComplete ? "opacity-20" : "opacity-0"
+            vigilPhase.isRevealing || vigilPhase.isComplete ? "opacity-[0.15]" : "opacity-0"
           }`}
           aria-hidden="true" 
         />
