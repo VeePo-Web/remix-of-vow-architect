@@ -1,75 +1,45 @@
 
 
-# Critical Fix: Homepage Completely Broken — All Sections at 0 Height
+# World-Class Design Polish Pass — Phase 2
 
-## Problem
+## Issues Identified from Visual Audit
 
-The homepage is catastrophically broken. Every section has `offsetHeight: 0` and the page `scrollHeight` is only 89px. The hero image is visible due to absolute positioning, but all flow-layout sections have collapsed. Additionally, Unicode escape sequences (`\u201C`, `\u201D`, `\u2018`, `\u2019`) are rendering as literal text strings instead of curly quote characters.
+### Critical Bug: Letterpress Card Rendering Upside Down
+The Process section's Movement I card (THE LISTENING) renders completely upside down (180 degrees inverted). Root cause: **duplicate `.letterpress-card` CSS definitions** in `src/index.css`. The first definition (line 3781) sets `opacity: 0; transform: translateY(20px);` with the `.is-revealed` state setting `transform: translateY(0)`. The second definition (line 5384, inside a **second** `@layer components` block starting at line 5379) adds `transform-style: preserve-3d` and overrides padding/border-radius. The inline `perspective(1000px) rotateX/rotateY` transform from `useCardPhysics` combined with the conflicting CSS cascade creates the flip. **Fix:** Remove the entire duplicate `@layer components` block (lines 5375-5877) and merge only the unique properties (`transform-style: preserve-3d`, `will-change: transform`) into the original definitions.
 
-## Root Cause Analysis
+### Debug Overlay Still Visible
+The `ProcessDebugOverlay` correctly checks `import.meta.env.DEV` (line 40), but in the Lovable preview environment this evaluates to `true`. The overlay is visible in all screenshots. **Fix:** Add an additional URL-based check or simply force-hide via `display: none` on `.process-debug-overlay` in production CSS, or add a `?debug=true` query param requirement.
 
-### Issue 1: CSS Syntax or Cascade Failure
-The `index.css` file is 5,877 lines long. The last edit appended new keyframes (`cta-breathe`, `divider-breathe`) and a `@media` block inside an existing `@layer components` block (lines 5845-5877). If this introduced a brace mismatch or CSS parse error, the browser would silently discard large portions of the stylesheet — including the Tailwind utilities that provide `min-h-screen`, `flex`, `py-24`, etc. This would explain why ALL elements collapse to 0 height.
-
-**Fix:** Verify brace matching in `index.css`. The new CSS additions at lines 5845-5877 must be properly nested within the `@layer components` block that opens at line 5379. Count opening and closing braces to ensure they match.
-
-### Issue 2: Unicode Escapes Rendering Literally
-In JSX, `\u201C` inside a string (quotes) works correctly. But when written directly in JSX template text (outside quotes), it renders as the literal characters `\u201C`. The files `CrossOver.tsx`, `TheRecord.tsx`, `TheSacredGround.tsx`, and `TheWitnesses.tsx` all have this bug.
-
-**Fix:** Replace all `\u201C` with the actual Unicode character `\u201C` (left double quotation mark) or use `{"\u201C"}` JSX expression syntax. Same for `\u201D`, `\u2018`, `\u2019`, `\u2014`.
+### Duplicate `@layer components` Block
+Lines 5375-5877 open a **second** `@layer components` block that duplicates letterpress card, embossed numeral, paper fiber, gold rule shimmer, ink bloom, and media query definitions already present in lines 3777-4310. This causes CSS specificity conflicts and the upside-down card bug. The entire block must be removed or merged.
 
 ## Implementation Steps
 
-### Step 1: Fix CSS Brace Matching in `src/index.css`
+### Step 1: Remove Duplicate `@layer components` Block (src/index.css)
+Delete lines 5375-5877 entirely. These are duplicate definitions that conflict with the originals at lines 3777-4310. Before deleting, merge any unique properties from the duplicate block into the originals:
+- Add `transform-style: preserve-3d; will-change: transform;` to the original `.letterpress-card` at line 3781
+- Add `transition: transform 180ms var(--ease-sacred);` to the original definition
+- Keep the original `border-radius: 2px` (not the duplicate's `8px`) for the letterpress aesthetic
 
-Audit the brace structure around lines 5370-5877. The `@layer components` block that opens at line 5379 must have exactly one closing `}` at the very end. Verify that:
-- Line 5379: `@layer components {` (opening)
-- Line 5877: `}` (closing)
-- All intermediate `@keyframes`, `@media`, and selector blocks are properly closed
-- No extra or missing braces exist
+### Step 2: Hide Debug Overlay (src/components/process/ProcessDebugOverlay.tsx)
+Add an additional check beyond `import.meta.env.DEV` to prevent the overlay from showing in preview. Either:
+- Check for `?debug=process` in the URL query params, OR
+- Simply return `null` unconditionally (the overlay has served its purpose)
 
-If the brace count is off, fix it. This single issue could be collapsing the entire stylesheet.
-
-### Step 2: Fix Unicode Escapes in JSX Files
-
-**`src/components/CrossOver.tsx`** (lines 50, 62):
-- Change `\u2018TIL DEATH` to `{'\u2018'}TIL DEATH`
-- Change `\u201CYour vows deserve` to `{'\u201C'}Your vows deserve`
-- Change `to be heard.\u201D` to `to be heard.{'\u201D'}`
-
-**`src/components/TheRecord.tsx`** (lines 107, 110):
-- Change `\u201CIf all failsafes fail,` to `{'\u201C'}If all failsafes fail,`
-- Change `your remedy is automatic.\u201D` to `your remedy is automatic.{'\u201D'}`
-
-**`src/components/TheSacredGround.tsx`** (line 82):
-- Change `\u201CWhere the mountains are` to `{'\u201C'}Where the mountains are`
-- Change `your amplifier.\u201D` to `your amplifier.{'\u201D'}`
-
-**`src/components/TheWitnesses.tsx`** (line 78):
-- Change `\u201C` to `{'\u201C'}`
-
-### Step 3: Verify Process Section Has Min-Height
-
-Check that the `.process-section` class in `index.css` still has its `min-height: 180vh` rule. Search for it — if it was accidentally removed or broken by the CSS cascade failure, re-add it.
-
-### Step 4: Verify All Sections Render After CSS Fix
-
-After the CSS brace fix, all Tailwind utility classes (`min-h-screen`, `flex`, `py-24`, `section-padding-standard`, etc.) should start applying again, restoring proper heights to all 13 sections.
+### Step 3: Verify Card Rendering
+After removing the duplicate CSS, the letterpress cards should render correctly with the original `opacity: 0 -> 1` and `translateY(20px) -> 0` reveal animation, plus the inline 3D perspective tilt from `useCardPhysics`.
 
 ## Files to Modify
 
 | File | Change |
 |------|--------|
-| `src/index.css` | Fix CSS brace matching / syntax error causing cascade failure |
-| `src/components/CrossOver.tsx` | Fix Unicode escapes to use JSX expressions |
-| `src/components/TheRecord.tsx` | Fix Unicode escapes to use JSX expressions |
-| `src/components/TheSacredGround.tsx` | Fix Unicode escapes to use JSX expressions |
-| `src/components/TheWitnesses.tsx` | Fix Unicode escapes to use JSX expressions |
+| `src/index.css` | Remove duplicate `@layer components` block (lines 5375-5877), merge unique props into originals (lines 3781-3793) |
+| `src/components/process/ProcessDebugOverlay.tsx` | Hide overlay unconditionally or add URL param check |
 
 ## Expected Result
-
-- Page scrollHeight returns to ~7500px+
-- All 13 sections render at proper heights with correct breathing rhythm
-- Curly quotes render as proper typographic characters
-- No literal `\u201D` text visible anywhere
+- Letterpress cards render right-side-up with correct text direction
+- 3D tilt physics still work (max 2.5 degrees) via inline transforms
+- Debug overlay no longer visible in preview
+- No duplicate CSS definitions causing cascade conflicts
+- All 13 sections continue rendering at proper heights
 
