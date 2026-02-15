@@ -112,7 +112,7 @@ export function ProcessSection() {
       aria-label="My preparation process"
       data-phase={orchestrator.phase}
       data-scroll-progress={orchestrator.progress.toFixed(2)}
-      style={orchestrator.cssVars as React.CSSProperties}
+      style={{ minHeight: '180vh', ...(orchestrator.cssVars as React.CSSProperties) }}
     >
       {/* Debug Overlay (dev only) */}
       <ProcessDebugOverlay
