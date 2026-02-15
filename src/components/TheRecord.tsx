@@ -104,10 +104,10 @@ export function TheRecord() {
             />
 
             <p className="text-2xl font-display font-light italic text-foreground/90 mb-2">
-              \u201CIf all failsafes fail,
+              {"\u201C"}If all failsafes fail,
             </p>
             <p className="text-2xl font-display font-light italic text-foreground/90 mb-8">
-              your remedy is automatic.\u201D
+              your remedy is automatic.{"\u201D"}
             </p>
 
             <Button variant="ghost-dark" className="gap-2" asChild>

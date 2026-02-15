@@ -75,7 +75,7 @@ export function TheWitnesses() {
                   className="absolute -left-4 md:-left-8 -top-3 text-6xl md:text-7xl font-display text-primary/10 select-none pointer-events-none"
                   aria-hidden="true"
                 >
-                  \u201C
+                  {"\u201C"}
                 </div>
 
                 {/* Quote — curly quotes */}

@@ -47,7 +47,7 @@ export function CrossOver() {
               textShadow: "0 2px 8px rgba(0,0,0,0.6), 0 0 2px rgba(255,224,138,0.15)"
             }}
           >
-            \u2018TIL DEATH <span className="text-primary">;</span> UNTO LIFE
+            {"\u2018"}TIL DEATH <span className="text-primary">;</span> UNTO LIFE
           </h2>
         </div>
 
@@ -59,7 +59,7 @@ export function CrossOver() {
           )}
           style={{ transitionDelay: isVisible ? "150ms" : "0ms" }}
         >
-          \u201CYour vows deserve<br />to be heard.\u201D
+          {"\u201C"}Your vows deserve<br />to be heard.{"\u201D"}
         </h2>
 
         {/* CTA Stack */}

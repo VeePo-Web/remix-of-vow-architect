@@ -79,7 +79,7 @@ export function TheSacredGround() {
                   color: "hsl(var(--rich-black))",
                 }}
               >
-                \u201CWhere the mountains are<br />your amplifier.\u201D
+                {"\u201C"}Where the mountains are<br />your amplifier.{"\u201D"}
               </h2>
 
               {/* Body */}
