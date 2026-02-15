@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Play, Music } from "lucide-react";
+import { Music } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface TrackCardProps {
@@ -68,14 +68,14 @@ export function TheSound() {
             The Sound
           </span>
 
-          {/* Headline */}
+          {/* Headline — text-balance prevents orphans */}
           <h2
             id="sound-heading"
             className={cn(
               "text-[clamp(28px,4vw,42px)] font-display font-light leading-tight text-foreground mb-4 transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
-            style={{ transitionDelay: isVisible ? "150ms" : "0ms" }}
+            style={{ transitionDelay: isVisible ? "150ms" : "0ms", textWrap: "balance" as any }}
           >
             Music that holds the room still.
           </h2>
@@ -91,7 +91,7 @@ export function TheSound() {
             These are real ceremony moments—prelude, processional, vows, recession.
           </p>
 
-          {/* Embed Placeholder */}
+          {/* Compact Audio Placeholder — Waveform Bars */}
           <div
             className={cn(
               "sound-embed-container max-w-3xl mx-auto mb-12 transition-all duration-700",
@@ -100,17 +100,26 @@ export function TheSound() {
             style={{ transitionDelay: isVisible ? "450ms" : "0ms" }}
           >
             <div
-              className="relative aspect-video bg-card/30 border border-border/30 rounded-lg shadow-2xl flex flex-col items-center justify-center gap-4 cursor-pointer group"
+              className="relative h-[100px] bg-card/20 border border-border/20 rounded-lg flex items-center justify-center gap-1.5 cursor-pointer group"
               role="button"
-              aria-label="Audio playlist placeholder - music will appear here"
+              aria-label="Audio playlist — coming soon"
               tabIndex={0}
             >
-              {/* Play icon with breathing animation */}
-              <div className="sound-play-button w-16 h-16 rounded-full bg-vow-yellow/10 border border-vow-yellow/30 flex items-center justify-center group-hover:bg-vow-yellow/20 transition-colors duration-300">
-                <Play className="w-6 h-6 text-vow-yellow ml-1" />
-              </div>
-              <span className="text-sm text-muted-foreground">
-                Your music will appear here
+              {/* Breathing waveform bars */}
+              {[28, 48, 64, 40, 56, 32, 52, 36, 60, 44, 28].map((h, i) => (
+                <div
+                  key={i}
+                  className="w-[3px] rounded-full bg-vow-yellow/20 group-hover:bg-vow-yellow/35 transition-colors duration-300"
+                  style={{
+                    height: `${h}%`,
+                    animation: `sound-breathe ${3 + (i % 3) * 0.5}s ease-in-out ${i * 0.15}s infinite`,
+                  }}
+                  aria-hidden="true"
+                />
+              ))}
+              {/* Center label */}
+              <span className="absolute text-xs text-muted-foreground/60 pointer-events-none">
+                Music coming soon
               </span>
             </div>
           </div>

@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -13,7 +14,7 @@ interface PathCardProps {
 
 const paths: PathCardProps[] = [
   {
-    name: "The Moment",
+    name: "The Vow",
     price: "$650",
     description: "Ceremony only",
     features: [
@@ -22,48 +23,76 @@ const paths: PathCardProps[] = [
       "3 SPL readings logged",
       "Run-of-show cue sheet",
     ],
-    ctaText: "Select The Moment",
+    ctaText: "Choose this presence",
   },
   {
-    name: "The Day",
+    name: "The Hour",
     price: "$750",
     description: "Prelude + Ceremony + Cocktails",
     features: [
-      "Everything in The Moment",
+      "Everything in The Vow",
       "Live piano prelude (30 min)",
       "Cocktail hour music",
       "Extended SPL monitoring",
     ],
     isChosen: true,
-    ctaText: "Select The Day",
+    ctaText: "Choose this presence",
   },
   {
-    name: "The Journey",
+    name: "The Story",
     price: "$1,200",
     description: "Full wedding day",
     features: [
-      "Everything in The Day",
+      "Everything in The Hour",
       "Reception DJ & MC",
       "Full-day SPL documentation",
       "Timeline consultation",
     ],
-    ctaText: "Select The Journey",
+    ctaText: "Choose this presence",
   },
 ];
 
 export function ThreePaths() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) { setIsVisible(true); return; }
+    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) setIsVisible(true); }, { threshold: 0.15 });
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="section--dark py-24 px-4">
+    <section ref={sectionRef} className="section--dark py-24 px-4">
       <div className="container mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-4">
+          <p
+            className={cn(
+              "text-xs uppercase tracking-[0.22em] text-muted-foreground mb-4 transition-all duration-700",
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            )}
+          >
             YOUR PRESENCE
           </p>
-          <h2 className="text-[clamp(28px,4vw,48px)] font-[300] font-display leading-tight text-ink-inverse mb-4">
-            What kind of presence?
+          <h2
+            className={cn(
+              "text-[clamp(28px,4vw,48px)] font-[300] font-display leading-tight text-ink-inverse mb-4 transition-all duration-700",
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            )}
+            style={{ transitionDelay: isVisible ? "150ms" : "0ms" }}
+          >
+            How deeply do you want me there?
           </h2>
-          <p className="text-base text-muted-foreground max-w-2xl mx-auto">
+          <p
+            className={cn(
+              "text-base text-muted-foreground max-w-2xl mx-auto transition-all duration-700",
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            )}
+            style={{ transitionDelay: isVisible ? "300ms" : "0ms" }}
+          >
             Choose the level of ceremony audio coverage that matches your day.
           </p>
         </div>
@@ -74,11 +103,13 @@ export function ThreePaths() {
             <div
               key={index}
               className={cn(
-                "relative bg-card border rounded-lg p-10 transition-all duration-300 group",
+                "relative bg-card border rounded-lg p-10 transition-all duration-700 group",
                 path.isChosen 
                   ? "border-primary shadow-[0_8px_32px_rgba(255,224,138,0.15)] md:-translate-y-2 invitation-texture" 
-                  : "border-border/30 hover:border-border/60 hover:shadow-[0_4px_24px_rgba(255,224,138,0.08)]"
+                  : "border-border/30 hover:border-border/60 hover:shadow-[0_4px_24px_rgba(255,224,138,0.08)]",
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               )}
+              style={{ transitionDelay: isVisible ? `${450 + index * 150}ms` : "0ms" }}
             >
               {/* Chosen Badge */}
               {path.isChosen && (
@@ -94,9 +125,9 @@ export function ThreePaths() {
                 {path.name}
               </h3>
 
-              {/* Price — PROCLAMATION SCALE 80-100px */}
+              {/* Price — Confident, not shouting */}
               <div className="mb-6">
-                <span className="text-[clamp(72px,8vw,100px)] font-display font-light text-card-foreground transition-all duration-300 hover:text-primary group-hover:drop-shadow-[0_0_20px_rgba(255,224,138,0.4)]">
+                <span className="text-[clamp(36px,5vw,48px)] font-display font-light text-card-foreground">
                   {path.price}
                 </span>
               </div>
@@ -129,7 +160,13 @@ export function ThreePaths() {
         </div>
 
         {/* Reassurance */}
-        <p className="text-center text-sm text-muted-foreground/70">
+        <p
+          className={cn(
+            "text-center text-sm text-muted-foreground/70 transition-all duration-700",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          )}
+          style={{ transitionDelay: isVisible ? "900ms" : "0ms" }}
+        >
           Upgrade anytime. No penalty until 2 weeks prior.
         </p>
       </div>

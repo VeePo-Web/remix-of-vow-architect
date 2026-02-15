@@ -1,10 +1,24 @@
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import { TaglineCovenant } from "@/components/TaglineCovenant";
+import { cn } from "@/lib/utils";
 
 export function CrossOver() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) { setIsVisible(true); return; }
+    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) setIsVisible(true); }, { threshold: 0.15 });
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section 
+      ref={sectionRef}
       className="section--dark py-24 px-4 relative overflow-hidden"
       style={{
         background: "radial-gradient(ellipse at center, hsl(240 12% 5%) 0%, hsl(240 9% 2%) 100%)"
@@ -20,8 +34,13 @@ export function CrossOver() {
       />
 
       <div className="container mx-auto max-w-4xl text-center relative z-10">
-        {/* Tagline Returns (Bookend) — CARVED STONE TREATMENT */}
-        <div className="mb-16">
+        {/* Tagline Returns (Bookend) */}
+        <div
+          className={cn(
+            "mb-16 transition-all duration-700",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          )}
+        >
           <h2 
             className="text-[clamp(16px,2vw,20px)] uppercase tracking-[0.4em] font-display font-light text-ink-inverse/80"
             style={{
@@ -33,35 +52,53 @@ export function CrossOver() {
         </div>
 
         {/* Sacred Quote */}
-        <h2 className="text-[clamp(32px,5vw,56px)] font-[300] font-display leading-tight mb-12 text-ink-inverse max-w-2xl mx-auto">
+        <h2
+          className={cn(
+            "text-[clamp(32px,5vw,56px)] font-[300] font-display leading-tight mb-12 text-ink-inverse max-w-2xl mx-auto transition-all duration-700",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          )}
+          style={{ transitionDelay: isVisible ? "150ms" : "0ms" }}
+        >
           "Your vows deserve<br />to be heard."
         </h2>
 
         {/* CTA Stack */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+        <div
+          className={cn(
+            "flex flex-col sm:flex-row gap-4 justify-center items-center mb-4 transition-all duration-700",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          )}
+          style={{ transitionDelay: isVisible ? "300ms" : "0ms" }}
+        >
           <Button 
             size="lg" 
             variant="primary-dark" 
             className="text-base px-8 py-6 h-auto cta-commitment shadow-[0_0_40px_rgba(255,224,138,0.25)] hover:shadow-[0_0_60px_rgba(255,224,138,0.35)]"
             asChild
           >
-            <a href="/contact">Hold my date & get my plan →</a>
+            <a href="/contact">Hold my date →</a>
           </Button>
           <Button 
             variant="ghost-dark" 
             size="lg" 
-            className="gap-2 h-auto py-6" 
+            className="gap-2 h-auto py-6 opacity-70 hover:opacity-100" 
             asChild
           >
             <a href="/resources">
-              <Download size={20} />
+              <Download size={18} />
               Download a sample plan
             </a>
           </Button>
         </div>
 
         {/* Trust Anchor */}
-        <p className="text-sm text-ink-inverse/70 mb-12">
+        <p
+          className={cn(
+            "text-sm text-ink-inverse/50 mb-12 transition-all duration-700",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          )}
+          style={{ transitionDelay: isVisible ? "450ms" : "0ms" }}
+        >
           Includes SPL log, mic setup, and run-of-show.
         </p>
 
@@ -75,7 +112,13 @@ export function CrossOver() {
         />
 
         {/* Commitment Statement */}
-        <p className="text-base font-display font-light text-ink-inverse/90 italic">
+        <p
+          className={cn(
+            "text-base font-display font-light text-ink-inverse/90 italic transition-all duration-700",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          )}
+          style={{ transitionDelay: isVisible ? "600ms" : "0ms" }}
+        >
           Response within <span className="text-primary font-normal not-italic">24 hours</span>. Always.
         </p>
       </div>

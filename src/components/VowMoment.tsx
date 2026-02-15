@@ -1,32 +1,32 @@
 /**
- * VOW MOMENT — Full-Viewport Sacred Interstitial
+ * VOW MOMENT — Full-Viewport Sacred Interstitial (INHALE — Dark)
  * 
  * The "altar moment" - emotional peak of the page.
  * Full viewport height with single quote in proclamation scale.
- * Barely visible vow-yellow radial glow.
+ * White text on rich black void with barely visible vow-yellow radial glow.
  * No animation - demands static attention.
  */
 
 export function VowMoment() {
   return (
     <section 
-      className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden"
+      className="section--dark relative min-h-screen flex items-center justify-center px-4 overflow-hidden"
       style={{
-        background: "linear-gradient(180deg, hsl(var(--surface)) 0%, hsl(45 20% 96%) 50%, hsl(var(--surface)) 100%)"
+        background: "radial-gradient(ellipse at center, hsl(240 12% 5%) 0%, hsl(240 9% 2%) 100%)"
       }}
     >
       {/* Barely Visible Vow-Yellow Radial Glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(circle at center, hsl(var(--vow-yellow) / 0.04) 0%, transparent 60%)",
+          background: "radial-gradient(circle at center, hsl(var(--vow-yellow) / 0.05) 0%, transparent 50%)",
         }}
         aria-hidden="true"
       />
 
       {/* Sacred Quote */}
       <div className="relative z-10 max-w-4xl mx-auto text-center">
-        <blockquote className="text-[clamp(48px,6vw,72px)] font-display font-light italic leading-[1.2] text-foreground">
+        <blockquote className="text-[clamp(48px,6vw,72px)] font-display font-light italic leading-[1.2] text-white">
           Every vow spoken
           <br />
           <span className="relative inline-block">
