@@ -35,7 +35,7 @@ export function TheWitnesses() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="section--surface section-padding-standard">
+    <section ref={sectionRef} data-theme="life" className="section--surface section-padding-standard">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           {/* Header */}

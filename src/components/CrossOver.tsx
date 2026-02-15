@@ -42,7 +42,7 @@ export function CrossOver() {
           )}
         >
           <h2 
-            className="text-[clamp(16px,2vw,20px)] uppercase tracking-[0.4em] font-display font-light text-ink-inverse/80"
+            className="text-[clamp(16px,2vw,20px)] uppercase tracking-[0.4em] font-display font-light text-foreground/80"
             style={{
               textShadow: "0 2px 8px rgba(0,0,0,0.6), 0 0 2px rgba(255,224,138,0.15)"
             }}
@@ -54,7 +54,7 @@ export function CrossOver() {
         {/* Sacred Quote */}
         <h2
           className={cn(
-            "text-[clamp(32px,5vw,56px)] font-[300] font-display leading-tight mb-12 text-ink-inverse max-w-2xl mx-auto transition-all duration-700",
+            "text-[clamp(32px,5vw,56px)] font-[300] font-display leading-tight mb-12 text-foreground max-w-2xl mx-auto transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
           style={{ transitionDelay: isVisible ? "150ms" : "0ms" }}
@@ -94,7 +94,7 @@ export function CrossOver() {
         {/* Trust Anchor */}
         <p
           className={cn(
-            "text-sm text-ink-inverse/50 mb-12 transition-all duration-700",
+            "text-sm text-foreground/50 mb-12 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
           style={{ transitionDelay: isVisible ? "450ms" : "0ms" }}
@@ -114,7 +114,7 @@ export function CrossOver() {
         {/* Commitment Statement */}
         <p
           className={cn(
-            "text-base font-display font-light text-ink-inverse/90 italic transition-all duration-700",
+            "text-base font-display font-light text-foreground/90 italic transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
           style={{ transitionDelay: isVisible ? "600ms" : "0ms" }}
