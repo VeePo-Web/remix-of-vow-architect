@@ -1,7 +1,16 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu } from "lucide-react";
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { FullScreenMenu } from "./FullScreenMenu";
+
+const navLinks = [
+  { to: "/pricing", label: "Pricing" },
+  { to: "/banff-mode", label: "Banff Mode™" },
+  { to: "/about", label: "About" },
+  { to: "/proof", label: "Proof" },
+  { to: "/faq", label: "FAQ" },
+];
 
 export function MinimalHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -9,7 +18,6 @@ export function MinimalHeader() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show full nav after scrolling past hero (100vh)
       setIsScrolled(window.scrollY > window.innerHeight);
     };
 
@@ -29,8 +37,8 @@ export function MinimalHeader() {
       >
         <div className="flex items-center justify-between h-full px-[var(--hero-space-edge,24px)] md:px-[var(--hero-space-edge,48px)] py-6">
           {/* Logo - Top Left */}
-          <a 
-            href="/"
+          <Link 
+            to="/"
             className="font-display text-base tracking-wide text-foreground opacity-0 animate-fade-in hover:text-accent transition-colors duration-300"
             style={{ 
               animationDelay: "6200ms",
@@ -38,17 +46,34 @@ export function MinimalHeader() {
             }}
           >
             Parker Allard
-          </a>
+          </Link>
 
-          {/* Navigation Links - Reveal on Scroll */}
+          {/* Navigation Links - Staggered Reveal on Scroll */}
           {isScrolled && (
-            <nav className="hidden md:flex items-center gap-8 opacity-0 animate-fade-in">
-              <a href="/pricing" className="nav-link">Pricing</a>
-              <a href="/banff-mode" className="nav-link">Banff Mode™</a>
-              <a href="/about" className="nav-link">About</a>
-              <a href="/proof" className="nav-link">Proof</a>
-              <a href="/faq" className="nav-link">FAQ</a>
-              <a href="/contact" className="nav-link nav-link--cta">Hold My Date</a>
+            <nav className="hidden md:flex items-center gap-8">
+              {navLinks.map((link, i) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className="nav-link opacity-0 animate-fade-in"
+                  style={{
+                    animationDelay: `${i * 60}ms`,
+                    animationFillMode: "forwards",
+                  }}
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <Link
+                to="/contact"
+                className="nav-link nav-link--cta opacity-0 animate-fade-in"
+                style={{
+                  animationDelay: `${navLinks.length * 60}ms`,
+                  animationFillMode: "forwards",
+                }}
+              >
+                Hold My Date
+              </Link>
             </nav>
           )}
 

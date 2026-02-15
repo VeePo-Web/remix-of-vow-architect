@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FileDown } from "lucide-react";
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 interface ReadingCardProps {
@@ -58,21 +59,25 @@ export function TheRecord() {
               <div
                 key={index}
                 className={cn(
-                  "bg-card/50 backdrop-blur-sm border border-border/30 rounded-lg p-6 transition-all duration-700 hover:bg-card/70 hover:border-border/50 hover:-translate-y-1",
+                  "border border-border/40 rounded-lg p-6 transition-all duration-700 hover:border-border/60 hover:-translate-y-1",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
                 )}
                 style={{
-                  boxShadow: "0 4px 16px rgba(0,0,0,0.2)",
+                  background: "hsl(var(--ebon-charcoal) / 0.8)",
+                  boxShadow: "0 4px 16px rgba(0,0,0,0.3)",
                   transitionDelay: isVisible ? `${300 + index * 150}ms` : "0ms",
                 }}
               >
                 <p 
-                  className="text-xs mb-3 opacity-50"
-                  style={{ fontFamily: "var(--font-mono)" }}
+                  className="text-xs mb-3 opacity-50 font-mono"
+                  style={{ fontVariantNumeric: "tabular-nums" }}
                 >
                   {reading.timestamp}
                 </p>
-                <div className="text-5xl font-display font-light mb-3 text-card-foreground">
+                <div 
+                  className="text-5xl font-display font-light mb-3 text-card-foreground"
+                  style={{ fontVariantNumeric: "tabular-nums" }}
+                >
                   {reading.reading}
                 </div>
                 <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">
@@ -99,17 +104,17 @@ export function TheRecord() {
             />
 
             <p className="text-2xl font-display font-light italic text-foreground/90 mb-2">
-              "If all failsafes fail,
+              \u201CIf all failsafes fail,
             </p>
             <p className="text-2xl font-display font-light italic text-foreground/90 mb-8">
-              your remedy is automatic."
+              your remedy is automatic.\u201D
             </p>
 
             <Button variant="ghost-dark" className="gap-2" asChild>
-              <a href="/resources">
+              <Link to="/resources">
                 <FileDown size={18} />
                 Download sample report
-              </a>
+              </Link>
             </Button>
           </div>
         </div>

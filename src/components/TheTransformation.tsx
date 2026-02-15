@@ -30,23 +30,11 @@ export function TheTransformation() {
 
   return (
     <section ref={sectionRef} className="relative min-h-[500px] overflow-hidden">
-      {/* Header */}
-      <div className="container mx-auto px-4 py-12 text-center relative z-10">
-        <h2
-          className={cn(
-            "text-sm uppercase tracking-[0.22em] text-muted-foreground mb-2 transition-all duration-700",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          )}
-        >
-          The Transformation
-        </h2>
-      </div>
-
       {/* Full-Width Split Screen */}
       <div className="grid md:grid-cols-2 min-h-[600px]">
         {/* LEFT PANEL — DEATH (Fears) */}
         <div 
-          className="relative px-8 py-16 md:py-24 flex items-center justify-center animate-ken-burns"
+          className="relative px-8 py-16 md:py-24 flex flex-col items-center justify-center"
           style={{
             background: "linear-gradient(135deg, hsl(220 15% 8%) 0%, hsl(240 12% 3%) 100%)",
           }}
@@ -58,6 +46,16 @@ export function TheTransformation() {
             }}
             aria-hidden="true"
           />
+
+          {/* Section Label — inside dark panel for proper contrast */}
+          <p
+            className={cn(
+              "text-xs uppercase tracking-[0.22em] text-muted-foreground mb-10 relative z-10 transition-all duration-700",
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            )}
+          >
+            THE TRANSFORMATION
+          </p>
 
           <div className="relative z-10 max-w-md mx-auto space-y-6">
             {fears.map((fear, index) => (
@@ -82,19 +80,20 @@ export function TheTransformation() {
           </div>
         </div>
 
-        {/* CENTER DIVIDER */}
+        {/* CENTER DIVIDER — breathing glow */}
         <div 
-          className="absolute left-1/2 top-0 bottom-0 w-[3px] -translate-x-1/2 pointer-events-none hidden md:block z-20 animate-pulse-slow"
+          className="absolute left-1/2 top-0 bottom-0 w-[2px] -translate-x-1/2 pointer-events-none hidden md:block z-20"
           style={{
-            background: "linear-gradient(180deg, transparent 0%, hsl(var(--vow-yellow) / 0.7) 50%, transparent 100%)",
-            boxShadow: "0 0 60px 12px hsl(var(--vow-yellow) / 0.4), 0 0 100px 20px hsl(var(--vow-yellow) / 0.2)"
+            background: "linear-gradient(180deg, transparent 0%, hsl(var(--vow-yellow) / 0.6) 50%, transparent 100%)",
+            boxShadow: "0 0 40px 8px hsl(var(--vow-yellow) / 0.2), 0 0 80px 16px hsl(var(--vow-yellow) / 0.1)",
+            animation: "divider-breathe 4s ease-in-out infinite",
           }}
           aria-hidden="true"
         />
 
         {/* RIGHT PANEL — LIFE (Resolutions) */}
         <div 
-          className="relative px-8 py-16 md:py-24 flex items-center justify-center animate-ken-burns"
+          className="relative px-8 py-16 md:py-24 flex items-center justify-center"
           style={{
             background: "linear-gradient(135deg, hsl(40 70% 92%) 0%, hsl(38 65% 88%) 100%)",
           }}
