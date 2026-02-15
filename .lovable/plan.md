@@ -1,45 +1,107 @@
 
+# Critical Fix: Homepage Sections Collapsed Again (0 Height)
 
-# World-Class Design Polish Pass — Phase 2
+## Problem
 
-## Issues Identified from Visual Audit
+All homepage sections between the Hero and CrossOver/Footer have collapsed to 0 height. The page scrollHeight is approximately 2000px instead of 7500+. The hero renders correctly (absolute positioning + h-screen), but flow-layout sections like TheExhale (min-h-[70vh]), ProcessSection (min-height: 180vh), TheSound (min-h-[400px]), etc. all have offsetHeight: 0.
 
-### Critical Bug: Letterpress Card Rendering Upside Down
-The Process section's Movement I card (THE LISTENING) renders completely upside down (180 degrees inverted). Root cause: **duplicate `.letterpress-card` CSS definitions** in `src/index.css`. The first definition (line 3781) sets `opacity: 0; transform: translateY(20px);` with the `.is-revealed` state setting `transform: translateY(0)`. The second definition (line 5384, inside a **second** `@layer components` block starting at line 5379) adds `transform-style: preserve-3d` and overrides padding/border-radius. The inline `perspective(1000px) rotateX/rotateY` transform from `useCardPhysics` combined with the conflicting CSS cascade creates the flip. **Fix:** Remove the entire duplicate `@layer components` block (lines 5375-5877) and merge only the unique properties (`transform-style: preserve-3d`, `will-change: transform`) into the original definitions.
+No console errors are present. No JavaScript crashes detected. The CSS file at src/index.css (5375 lines) has balanced braces at the top level.
 
-### Debug Overlay Still Visible
-The `ProcessDebugOverlay` correctly checks `import.meta.env.DEV` (line 40), but in the Lovable preview environment this evaluates to `true`. The overlay is visible in all screenshots. **Fix:** Add an additional URL-based check or simply force-hide via `display: none` on `.process-debug-overlay` in production CSS, or add a `?debug=true` query param requirement.
+## Root Cause
 
-### Duplicate `@layer components` Block
-Lines 5375-5877 open a **second** `@layer components` block that duplicates letterpress card, embossed numeral, paper fiber, gold rule shimmer, ink bloom, and media query definitions already present in lines 3777-4310. This causes CSS specificity conflicts and the upside-down card bug. The entire block must be removed or merged.
+The previous fix deleted the duplicate `@layer components` block (original lines 5375-5877, ~500 lines) but this deletion may have caused one of:
 
-## Implementation Steps
+1. A subtle CSS parse error somewhere in the remaining `@layer utilities` block (lines 544-5374) that the browser silently discards, invalidating all custom utility rules including section backgrounds, spacing, and layout helpers that downstream sections depend on.
 
-### Step 1: Remove Duplicate `@layer components` Block (src/index.css)
-Delete lines 5375-5877 entirely. These are duplicate definitions that conflict with the originals at lines 3777-4310. Before deleting, merge any unique properties from the duplicate block into the originals:
-- Add `transform-style: preserve-3d; will-change: transform;` to the original `.letterpress-card` at line 3781
-- Add `transition: transform 180ms var(--ease-sacred);` to the original definition
-- Keep the original `border-radius: 2px` (not the duplicate's `8px`) for the letterpress aesthetic
+2. The deletion removed CSS rules that were providing critical layout properties (min-height, display, padding) that the sections relied on -- even though they appeared to be "duplicates," they may have been the rules the browser was actually applying due to cascade order.
 
-### Step 2: Hide Debug Overlay (src/components/process/ProcessDebugOverlay.tsx)
-Add an additional check beyond `import.meta.env.DEV` to prevent the overlay from showing in preview. Either:
-- Check for `?debug=process` in the URL query params, OR
-- Simply return `null` unconditionally (the overlay has served its purpose)
+3. Missing keyframes (`cta-breathe`, `divider-breathe`) that were deleted along with the block are still referenced by components, potentially causing a CSS parse failure when the browser encounters an `animation` property referencing a nonexistent keyframe name within the layer.
 
-### Step 3: Verify Card Rendering
-After removing the duplicate CSS, the letterpress cards should render correctly with the original `opacity: 0 -> 1` and `translateY(20px) -> 0` reveal animation, plus the inline 3D perspective tilt from `useCardPhysics`.
+## Fix Strategy
+
+The safest approach is a two-part fix:
+
+### Part 1: Re-add Missing Keyframes
+
+Add the `cta-breathe` and `divider-breathe` keyframes back into the existing `@layer utilities` block (before the closing brace at line 5374). These are actively referenced by CrossOver.tsx (class `cta-breathe-glow`) and TheTransformation.tsx (inline style `animation: divider-breathe`).
+
+Add at the end of the `@layer utilities` block (before line 5374):
+
+```css
+@keyframes cta-breathe {
+  0%, 100% {
+    box-shadow: 0 0 30px rgba(255, 224, 138, 0.15), 0 0 60px rgba(255, 224, 138, 0.08);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(255, 224, 138, 0.25), 0 0 80px rgba(255, 224, 138, 0.12);
+  }
+}
+
+@keyframes divider-breathe {
+  0%, 100% {
+    opacity: 0.6;
+    box-shadow: 0 0 40px 8px hsl(45 100% 76% / 0.2), 0 0 80px 16px hsl(45 100% 76% / 0.1);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 50px 12px hsl(45 100% 76% / 0.3), 0 0 100px 20px hsl(45 100% 76% / 0.15);
+  }
+}
+
+.cta-breathe-glow {
+  animation: cta-breathe 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-breathe-glow {
+    animation: none;
+    box-shadow: 0 0 30px rgba(255, 224, 138, 0.2);
+  }
+}
+```
+
+### Part 2: Add Defensive Min-Heights to Section Components
+
+As a safety net against CSS cascade issues, add inline `style={{ minHeight: '...' }}` to each section component so they never collapse regardless of CSS state. This ensures the page layout is never broken even if CSS layers conflict.
+
+Files to add inline minHeight:
+- `src/components/TheExhale.tsx` -- add `style={{ minHeight: '70vh' }}` to the section element
+- `src/components/TheSound.tsx` -- add `style={{ minHeight: '400px' }}` (already has className min-h but add inline as backup)
+- `src/components/TheTransformation.tsx` -- add `style={{ minHeight: '500px' }}` 
+- `src/components/TheInvitation.tsx` -- verify and add inline minHeight if needed
+- `src/components/TheWitness.tsx` -- verify and add inline minHeight if needed
+- `src/components/ThreePaths.tsx` -- verify and add inline minHeight if needed
+- `src/components/TheSacredGround.tsx` -- verify and add inline minHeight if needed
+- `src/components/TheRecord.tsx` -- verify and add inline minHeight if needed
+- `src/components/TheWitnesses.tsx` -- verify and add inline minHeight if needed
+- `src/components/VowMoment.tsx` -- already has `min-h-screen` class but add inline backup
+- `src/components/CrossOver.tsx` -- verify and add inline minHeight if needed
+
+### Part 3: Verify ProcessSection CSS
+
+Confirm `.process-section` at line 1501 still has `min-height: 180vh` and that no rules in the utilities block are overriding it with `height: 0` or `display: none`.
 
 ## Files to Modify
 
 | File | Change |
 |------|--------|
-| `src/index.css` | Remove duplicate `@layer components` block (lines 5375-5877), merge unique props into originals (lines 3781-3793) |
-| `src/components/process/ProcessDebugOverlay.tsx` | Hide overlay unconditionally or add URL param check |
+| src/index.css | Add cta-breathe, divider-breathe keyframes and .cta-breathe-glow class before closing of @layer utilities |
+| src/components/TheExhale.tsx | Add inline minHeight style as safety net |
+| src/components/TheSound.tsx | Add inline minHeight style as safety net |
+| src/components/TheTransformation.tsx | Add inline minHeight style as safety net |
+| src/components/TheInvitation.tsx | Add inline minHeight style as safety net |
+| src/components/TheWitness.tsx | Add inline minHeight style as safety net |
+| src/components/ThreePaths.tsx | Add inline minHeight style as safety net |
+| src/components/TheSacredGround.tsx | Add inline minHeight style as safety net |
+| src/components/TheRecord.tsx | Add inline minHeight style as safety net |
+| src/components/TheWitnesses.tsx | Add inline minHeight style as safety net |
+| src/components/VowMoment.tsx | Add inline minHeight style as safety net |
+| src/components/CrossOver.tsx | Add inline minHeight style as safety net |
 
 ## Expected Result
-- Letterpress cards render right-side-up with correct text direction
-- 3D tilt physics still work (max 2.5 degrees) via inline transforms
-- Debug overlay no longer visible in preview
-- No duplicate CSS definitions causing cascade conflicts
-- All 13 sections continue rendering at proper heights
 
+- All 13 sections render at proper heights with inline style safety nets
+- Page scrollHeight returns to 7500px+
+- CTA breathing glow animation works on CrossOver button
+- Divider breathing animation works on TheTransformation center line
+- Reduced motion fallbacks preserved
