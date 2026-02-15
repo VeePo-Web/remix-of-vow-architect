@@ -697,6 +697,13 @@ All colors MUST be HSL.
       @apply py-12;
     }
   }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   UTILITIES BLOCK 2 — Extended styles (tags, components, process, etc.)
+   Split from main layout block for CSS parse resilience.
+   ═══════════════════════════════════════════════════════════════ */
+@layer utilities {
 
   /* Tags (Mood System) */
   .tag {
@@ -5404,6 +5411,67 @@ All colors MUST be HSL.
       animation: none;
       box-shadow: 0 0 30px rgba(255, 224, 138, 0.2);
     }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CRITICAL LAYOUT FALLBACKS — Outside @layer for resilience
+   These rules guarantee section layout even if @layer utilities
+   has a parse error that causes the browser to discard it.
+   ═══════════════════════════════════════════════════════════════ */
+
+.process-section {
+  position: relative;
+  min-height: 180vh;
+  padding: 120px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.section--dark {
+  background-color: hsl(var(--surface-dark-band));
+  color: hsl(var(--foreground));
+}
+
+.section-padding-cinematic {
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+.section-padding-standard {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.section-padding-tight {
+  padding-top: 56px;
+  padding-bottom: 56px;
+}
+
+.exhale-section {
+  background: hsl(var(--rich-black));
+}
+
+.gradient-dawn {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (max-width: 768px) {
+  .section-padding-cinematic {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+  .section-padding-standard {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+  .process-section {
+    padding: 72px 20px;
   }
 }
 
