@@ -79,7 +79,7 @@ export function ThreePaths() {
           </p>
           <h2
             className={cn(
-              "text-[clamp(28px,4vw,48px)] font-[300] font-display leading-tight text-ink-inverse mb-4 transition-all duration-700",
+              "text-[clamp(28px,4vw,48px)] font-[300] font-display leading-tight text-foreground mb-4 transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
             style={{ transitionDelay: isVisible ? "150ms" : "0ms" }}

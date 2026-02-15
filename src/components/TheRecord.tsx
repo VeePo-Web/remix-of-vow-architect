@@ -43,7 +43,7 @@ export function TheRecord() {
             </p>
             <h2
               className={cn(
-                "text-[clamp(28px,4vw,48px)] font-[300] font-display leading-tight text-ink-inverse mb-4 transition-all duration-700",
+                "text-[clamp(28px,4vw,48px)] font-[300] font-display leading-tight text-foreground mb-4 transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{ transitionDelay: isVisible ? "150ms" : "0ms" }}
@@ -98,10 +98,10 @@ export function TheRecord() {
               aria-hidden="true"
             />
 
-            <p className="text-2xl font-display font-light italic text-ink-inverse/90 mb-2">
+            <p className="text-2xl font-display font-light italic text-foreground/90 mb-2">
               "If all failsafes fail,
             </p>
-            <p className="text-2xl font-display font-light italic text-ink-inverse/90 mb-8">
+            <p className="text-2xl font-display font-light italic text-foreground/90 mb-8">
               your remedy is automatic."
             </p>
 

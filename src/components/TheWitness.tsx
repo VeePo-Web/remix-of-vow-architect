@@ -32,6 +32,7 @@ export function TheWitness() {
   return (
     <section 
       ref={sectionRef}
+      data-theme="life"
       className="section--surface section-padding-standard"
       style={{
         background: "linear-gradient(180deg, hsl(45 25% 96%) 0%, hsl(45 20% 93%) 100%)"
