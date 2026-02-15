@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { X, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -16,25 +17,40 @@ const resolutions = [
 ];
 
 export function TheTransformation() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) { setIsVisible(true); return; }
+    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) setIsVisible(true); }, { threshold: 0.15 });
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="relative overflow-hidden">
+    <section ref={sectionRef} className="relative overflow-hidden">
       {/* Header */}
       <div className="container mx-auto px-4 py-12 text-center relative z-10">
-        <h2 className="text-sm uppercase tracking-[0.22em] text-muted-foreground mb-2">
-          The night before... vs. the morning of.
+        <h2
+          className={cn(
+            "text-sm uppercase tracking-[0.22em] text-muted-foreground mb-2 transition-all duration-700",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          )}
+        >
+          The Transformation
         </h2>
       </div>
 
       {/* Full-Width Split Screen */}
       <div className="grid md:grid-cols-2 min-h-[600px]">
-        {/* LEFT PANEL — DEATH (Fears) — WITH KEN BURNS */}
+        {/* LEFT PANEL — DEATH (Fears) */}
         <div 
           className="relative px-8 py-16 md:py-24 flex items-center justify-center animate-ken-burns"
           style={{
             background: "linear-gradient(135deg, hsl(220 15% 8%) 0%, hsl(240 12% 3%) 100%)",
           }}
         >
-          {/* Cold overlay */}
           <div 
             className="absolute inset-0 opacity-20 pointer-events-none"
             style={{
@@ -47,7 +63,11 @@ export function TheTransformation() {
             {fears.map((fear, index) => (
               <div 
                 key={index}
-                className="flex items-start gap-3 opacity-70 hover:opacity-100 transition-opacity duration-300 group"
+                className={cn(
+                  "flex items-start gap-3 transition-all duration-700 group",
+                  isVisible ? "opacity-70 hover:opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
+                )}
+                style={{ transitionDelay: isVisible ? `${150 + index * 150}ms` : "0ms" }}
               >
                 <X 
                   size={20} 
@@ -62,7 +82,7 @@ export function TheTransformation() {
           </div>
         </div>
 
-        {/* CENTER DIVIDER — THE THRESHOLD — VISIBLY GLOWING */}
+        {/* CENTER DIVIDER */}
         <div 
           className="absolute left-1/2 top-0 bottom-0 w-[3px] -translate-x-1/2 pointer-events-none hidden md:block z-20 animate-pulse-slow"
           style={{
@@ -72,14 +92,13 @@ export function TheTransformation() {
           aria-hidden="true"
         />
 
-        {/* RIGHT PANEL — LIFE (Resolutions) — INCREASED WARMTH */}
+        {/* RIGHT PANEL — LIFE (Resolutions) */}
         <div 
           className="relative px-8 py-16 md:py-24 flex items-center justify-center animate-ken-burns"
           style={{
             background: "linear-gradient(135deg, hsl(40 70% 92%) 0%, hsl(38 65% 88%) 100%)",
           }}
         >
-          {/* Warm overlay */}
           <div 
             className="absolute inset-0 opacity-30 pointer-events-none"
             style={{
@@ -92,7 +111,11 @@ export function TheTransformation() {
             {resolutions.map((resolution, index) => (
               <div 
                 key={index}
-                className="flex items-start gap-3 opacity-80 hover:opacity-100 transition-opacity duration-300 group"
+                className={cn(
+                  "flex items-start gap-3 transition-all duration-700 group",
+                  isVisible ? "opacity-80 hover:opacity-100 translate-x-0" : "opacity-0 translate-x-4"
+                )}
+                style={{ transitionDelay: isVisible ? `${150 + index * 150}ms` : "0ms" }}
               >
                 <Check 
                   size={20} 

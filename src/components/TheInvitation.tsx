@@ -46,6 +46,7 @@ export function TheInvitation() {
   return (
     <section
       ref={sectionRef}
+      data-theme="life"
       className="relative py-24 md:py-32 overflow-hidden"
       style={{
         background: 'linear-gradient(180deg, hsl(45 25% 96%) 0%, hsl(45 20% 93%) 100%)',
@@ -56,7 +57,7 @@ export function TheInvitation() {
           {/* Section Label */}
           <p
             className={cn(
-              'text-xs uppercase tracking-[0.22em] text-muted-foreground mb-12 text-center',
+              'text-xs uppercase tracking-[0.22em] text-rich-black/50 mb-12 text-center',
               'transition-all duration-700',
               isVisible
                 ? 'opacity-100 translate-y-0'
@@ -79,7 +80,14 @@ export function TheInvitation() {
               )}
               style={{ transitionDelay: isVisible ? '150ms' : '0ms' }}
             >
-              <div className="invitation-video-container aspect-video rounded-lg shadow-xl overflow-hidden bg-gradient-to-br from-charcoal-900 to-charcoal-950 flex items-center justify-center cursor-pointer group">
+              <div
+                className="invitation-video-container aspect-video rounded-lg shadow-xl overflow-hidden flex items-center justify-center cursor-pointer group"
+                style={{
+                  background: 'linear-gradient(135deg, hsl(240 12% 8%) 0%, hsl(240 9% 5%) 100%)',
+                }}
+              >
+                {/* Subtle grain texture */}
+                <div className="absolute inset-0 grain opacity-[0.08] pointer-events-none" aria-hidden="true" />
                 {/* Play Button */}
                 <button
                   className="invitation-play-button w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300"
@@ -88,7 +96,7 @@ export function TheInvitation() {
                   <Play className="w-6 h-6 md:w-8 md:h-8 text-white fill-white/80 ml-1" />
                 </button>
               </div>
-              <p className="text-sm text-muted-foreground italic mt-4 text-center">
+              <p className="text-sm text-rich-black/50 italic mt-4 text-center">
                 60 seconds on what I do—and why it matters.
               </p>
             </div>
@@ -98,7 +106,7 @@ export function TheInvitation() {
               {/* Headline */}
               <h2
                 className={cn(
-                  'text-[clamp(28px,4vw,42px)] font-display font-light leading-tight text-foreground',
+                  'text-[clamp(28px,4vw,42px)] font-display font-light leading-tight text-rich-black',
                   'transition-all duration-700',
                   isVisible
                     ? 'opacity-100 translate-y-0'
@@ -135,12 +143,12 @@ export function TheInvitation() {
                 )}
                 style={{ transitionDelay: isVisible ? '450ms' : '0ms' }}
               >
-                <p className="text-lg font-display font-light leading-relaxed text-foreground/90">
+                <p className="text-lg font-display font-light leading-relaxed text-rich-black/80">
                   I've been at 200+ ceremonies. I've seen what happens when the wind 
                   takes the vows. When the generator hums through the 'I do.' When 
                   the back row strains to hear.
                 </p>
-                <p className="text-lg font-display font-light leading-relaxed text-foreground/90">
+                <p className="text-lg font-display font-light leading-relaxed text-rich-black/80">
                   I built a system so that never happens to you.
                 </p>
               </div>
@@ -175,10 +183,10 @@ export function TheInvitation() {
                   <div
                     key={badge.label}
                     role="listitem"
-                    className="flex items-center gap-2 px-4 py-2 rounded-full border border-foreground/10 bg-white/50 hover:border-foreground/20 transition-colors duration-200"
+                    className="flex items-center gap-2 px-4 py-2 rounded-full border border-rich-black/8 bg-white hover:border-rich-black/15 transition-colors duration-200"
                   >
-                    <badge.icon className="w-4 h-4 text-foreground/60" />
-                    <span className="text-sm text-foreground/80 font-medium">
+                    <badge.icon className="w-4 h-4 text-rich-black/50" />
+                    <span className="text-sm text-rich-black/70 font-medium">
                       {badge.label}
                     </span>
                   </div>
