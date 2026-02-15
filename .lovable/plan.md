@@ -1,71 +1,88 @@
 
 
-# Critical Fix: Homepage Sections Invisible Due to Color Variable Mismatch
+# Critical Fix: Homepage Sections Invisible — Root Cause Analysis and Design Polish
 
-## The Problem
+## Problem Summary
 
-The homepage sections between the Hero and Footer are **rendering but invisible** due to text color conflicts introduced in the last batch of edits. The page appears to jump from Hero directly to the CrossOver/Footer.
+The homepage appears to jump from the Hero/Exhale directly to CrossOver/Footer. All middle sections (Process, VowMoment, TheInvitation, TheSound, TheTransformation, TheWitness, ThreePaths, TheSacredGround, TheRecord, TheWitnesses) exist in the DOM but are visually invisible due to two CSS-level issues.
 
-### Root Cause
+## Root Cause 1: `.section--dark` Sets Black Text (CRITICAL)
 
-In the death theme (default), the CSS variables resolve as:
-- `--ink-inverse: var(--rich-black)` = nearly black (240 9% 4%)
-- `--foreground: var(--absolute-white)` = white
+In `src/index.css` line 670-673:
+```css
+.section--dark {
+  background-color: hsl(var(--surface-dark-band));
+  color: hsl(var(--ink-inverse));
+}
+```
 
-The rewritten components use `text-ink-inverse` in dark sections (CrossOver, TheRecord, ThreePaths) -- this renders **black text on black backgrounds**. Meanwhile, light-surface sections (TheWitness, TheWitnesses, TheSacredGround) use `text-foreground` and `text-muted-foreground` which resolve to **white/grey text on cream backgrounds** because they lack `data-theme="life"`.
+`--ink-inverse` resolves to `var(--rich-black)` = `240 9% 4%` (nearly black). This sets ALL inherited text color to black on dark sections. While some components now use explicit `text-foreground` Tailwind utilities that override this, many child elements (labels, body text, list items, icons) still inherit the black color.
 
-## The Fix (Two-Part)
+**Fix:** Change `color: hsl(var(--ink-inverse))` to `color: hsl(var(--foreground))` in the `.section--dark` rule. In the death theme, `--foreground` = `var(--absolute-white)` = white, which is correct for dark backgrounds.
 
-### Part 1: Dark Sections -- Replace `text-ink-inverse` with `text-foreground`
+## Root Cause 2: `App.css` Leftover Vite Defaults (MEDIUM)
 
-In the death theme, `text-foreground` = white, which is correct for dark backgrounds. The following files need `text-ink-inverse` replaced with `text-foreground`:
+`src/App.css` contains Vite scaffold defaults:
+```css
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+```
 
-**CrossOver.tsx:**
-- `text-ink-inverse/80` -> `text-foreground/80` (tagline)
-- `text-ink-inverse` -> `text-foreground` (quote heading)
-- `text-ink-inverse/50` -> `text-foreground/50` (trust anchor)
-- `text-ink-inverse/90` -> `text-foreground/90` (commitment statement)
+This constrains the entire app to 1280px width, adds unwanted padding, and forces center text alignment globally. Full-bleed sections like the hero, TheTransformation split, and dark background sections are clipped or mis-aligned.
 
-**TheRecord.tsx:**
-- `text-ink-inverse` -> `text-foreground` (heading)
-- `text-ink-inverse/90` -> `text-foreground/90` (guarantee quotes)
+**Fix:** Remove all contents of `App.css` or delete the file entirely. The `index.css` design system handles all styling.
 
-**ThreePaths.tsx:**
-- `text-ink-inverse` -> `text-foreground` (heading)
+## Implementation Steps
 
-**Footer.tsx:**
-- All `text-ink-inverse` references -> `text-foreground`
-- All `text-ink-inverse/70` -> `text-foreground/70`
+### Step 1: Fix `.section--dark` text color in `src/index.css`
 
-### Part 2: Light-Surface Sections -- Add `data-theme="life"`
+Change line 672 from:
+```css
+color: hsl(var(--ink-inverse));
+```
+to:
+```css
+color: hsl(var(--foreground));
+```
 
-These sections have cream/warm backgrounds but inherit the death theme's white text. They need `data-theme="life"` on their root `<section>` element so that `--foreground` resolves to dark text:
+This single change fixes text visibility in VowMoment, TheSound, ThreePaths, TheRecord, CrossOver, and the Footer — every section using the `section--dark` class.
 
-**TheWitness.tsx:** Add `data-theme="life"` to the section element (line 33)
+### Step 2: Clean up `src/App.css`
 
-**TheWitnesses.tsx:** Add `data-theme="life"` to the section element (line 38)
+Remove the `#root` rule entirely (lines 1-6). This file is a leftover from the Vite scaffold and conflicts with the full-width layout. Either empty the file or remove the `#root` block.
 
-**TheSacredGround.tsx:** Add `data-theme="life"` to the section element (line 25)
+### Step 3: Verify existing `data-theme="life"` on light sections
 
-### Part 3: TheTransformation Right Panel Text Fix
+Already applied in previous fix:
+- TheWitness: has `data-theme="life"` (confirmed)
+- TheWitnesses: has `data-theme="life"` (confirmed)
+- TheSacredGround: has `data-theme="life"` (confirmed)
+- TheInvitation: has `data-theme="life"` (confirmed)
 
-The right panel uses `text-rich-black` which should work (it's defined in tailwind config). The left panel uses `text-foreground/80` which is white -- correct for its dark background. No changes needed here.
+No additional changes needed for light sections.
 
-## Files Modified (7 total)
+## Files Modified
 
-1. `src/components/CrossOver.tsx` -- Replace `text-ink-inverse` with `text-foreground`
-2. `src/components/TheRecord.tsx` -- Replace `text-ink-inverse` with `text-foreground`
-3. `src/components/ThreePaths.tsx` -- Replace `text-ink-inverse` with `text-foreground`
-4. `src/components/Footer.tsx` -- Replace `text-ink-inverse` with `text-foreground`
-5. `src/components/TheWitness.tsx` -- Add `data-theme="life"`
-6. `src/components/TheWitnesses.tsx` -- Add `data-theme="life"`
-7. `src/components/TheSacredGround.tsx` -- Add `data-theme="life"`
+| File | Change |
+|------|--------|
+| `src/index.css` (line 672) | `color: hsl(var(--ink-inverse))` to `color: hsl(var(--foreground))` |
+| `src/App.css` (lines 1-6) | Remove `#root` rule entirely |
 
-## Why This Happened
+## Expected Result
 
-The previous implementation used `text-ink-inverse` assuming it meant "text for inverse (dark) surfaces." In reality, `--ink-inverse` is defined as the **inverse of the theme's primary ink** -- in the death theme, primary ink is white, so inverse is black. This is the wrong token for white-text-on-dark-background scenarios.
+After these two changes:
+- All dark sections render white text on dark backgrounds
+- All light sections render dark text on cream backgrounds (via `data-theme="life"`)
+- Full-width sections (hero, TheTransformation split) extend edge-to-edge
+- The homepage scrolls through all 13 sections with proper breathing rhythm
 
-## After This Fix
+## Technical Notes
 
-Once text is visible, we can proceed with the full world-class design polish pass (animation consistency, typography refinement, micro-interactions, section transition dividers, etc.) as outlined in the original critique. But fixing visibility is the prerequisite -- no design improvements matter if the content cannot be seen.
+- This is a 2-line fix addressing the systemic root cause rather than patching individual components
+- The `.section--dark` rule in `@layer components` sets inherited color; Tailwind utilities on individual elements override it, but elements without explicit `text-*` classes inherit the parent's color
+- After this fix, the world-class design polish pass (animation consistency, typography, micro-interactions) can proceed on a visible, functional foundation
 
