@@ -35,7 +35,21 @@ export function TheWitnesses() {
   }, []);
 
   return (
-    <section ref={sectionRef} data-theme="life" className="section--surface section-padding-standard" style={{ minHeight: '400px' }}>
+    <section
+      ref={sectionRef}
+      data-theme="life"
+      className="relative section--surface section-padding-standard overflow-hidden"
+      style={{
+        minHeight: '400px',
+        background: 'linear-gradient(180deg, hsl(45 25% 96%) 0%, hsl(45 20% 93%) 100%)',
+      }}
+    >
+      {/* Top fade from TheRecord dark */}
+      <div
+        className="section-fade-top"
+        style={{ background: 'linear-gradient(to top, transparent, hsl(240 9% 4%))' }}
+        aria-hidden="true"
+      />
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
           {/* Header */}
@@ -72,7 +86,7 @@ export function TheWitnesses() {
               >
                 {/* Decorative Opening Quote — mobile-safe positioning */}
                 <div 
-                  className="absolute -left-4 md:-left-8 -top-3 text-6xl md:text-7xl font-display text-primary/10 select-none pointer-events-none"
+                  className="absolute -left-4 md:-left-8 -top-3 text-7xl md:text-8xl font-display text-primary/8 select-none pointer-events-none"
                   aria-hidden="true"
                 >
                   {"\u201C"}

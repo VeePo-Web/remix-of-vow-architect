@@ -260,6 +260,13 @@ export function TheExhale() {
           translating the unspeakable into the audible.
         </span>
       </div>
+
+      {/* Bottom fade into ProcessSection */}
+      <div
+        className="section-fade-bottom"
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(45 30% 92%))' }}
+        aria-hidden="true"
+      />
     </section>
   );
 }

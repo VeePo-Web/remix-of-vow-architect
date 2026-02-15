@@ -66,7 +66,13 @@ export function ThreePaths() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="section--dark py-24 px-4" style={{ minHeight: '500px' }}>
+    <section ref={sectionRef} className="section--dark section-grain relative py-24 px-4 overflow-hidden" style={{ minHeight: '500px' }}>
+      {/* Top fade from TheWitness warm */}
+      <div
+        className="section-fade-top"
+        style={{ background: 'linear-gradient(to top, transparent, hsl(45 20% 93%))' }}
+        aria-hidden="true"
+      />
       <div className="container mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
@@ -104,15 +110,21 @@ export function ThreePaths() {
             <div
               key={index}
               className={cn(
-                "relative bg-card border rounded-lg p-10 transition-all duration-300 group flex flex-col",
+                "relative border rounded-lg p-10 transition-all duration-300 group flex flex-col backdrop-blur-sm",
                 path.isChosen 
-                  ? "border-primary/60 shadow-[0_8px_32px_rgba(255,224,138,0.15)] md:-translate-y-2 invitation-texture" 
-                  : "border-border/20 hover:border-primary/30 hover:shadow-[0_8px_32px_rgba(255,224,138,0.1)] hover:-translate-y-1",
+                  ? "border-primary/40 md:-translate-y-2" 
+                  : "border-border/20 hover:border-primary/20 hover:-translate-y-1",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               )}
               style={{ 
                 transitionDelay: isVisible ? `${450 + index * 150}ms` : "0ms",
                 transitionTimingFunction: "var(--easing-std)",
+                background: path.isChosen 
+                  ? 'radial-gradient(ellipse at 50% 0%, hsl(var(--vow-yellow) / 0.06) 0%, hsl(var(--ebon-charcoal) / 0.95) 70%)'
+                  : 'hsl(var(--ebon-charcoal) / 0.9)',
+                boxShadow: path.isChosen
+                  ? '0 8px 40px rgba(255,224,138,0.12), inset 0 1px 0 hsl(var(--vow-yellow) / 0.1)'
+                  : '0 4px 24px rgba(0,0,0,0.3)',
               }}
             >
               {/* Chosen Badge — refined diamond */}

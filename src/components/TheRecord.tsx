@@ -29,7 +29,13 @@ export function TheRecord() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="section--dark py-24 px-4" style={{ minHeight: '400px' }}>
+    <section ref={sectionRef} className="section--dark section-grain relative py-24 px-4 overflow-hidden" style={{ minHeight: '400px' }}>
+      {/* Top fade from TheSacredGround warm */}
+      <div
+        className="section-fade-top"
+        style={{ background: 'linear-gradient(to top, transparent, hsl(45 20% 93%))' }}
+        aria-hidden="true"
+      />
       <div className="container mx-auto">
         <div className="max-w-5xl mx-auto">
           {/* Header */}
@@ -59,15 +65,28 @@ export function TheRecord() {
               <div
                 key={index}
                 className={cn(
-                  "border border-border/40 rounded-lg p-6 transition-all duration-700 hover:border-border/60 hover:-translate-y-1",
+                  "relative border border-border/40 rounded-lg p-8 transition-all duration-700 hover:border-border/60 hover:-translate-y-[2px]",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
                 )}
                 style={{
                   background: "hsl(var(--ebon-charcoal) / 0.8)",
                   boxShadow: "0 4px 16px rgba(0,0,0,0.3)",
                   transitionDelay: isVisible ? `${300 + index * 150}ms` : "0ms",
+                  transitionTimingFunction: "var(--easing-std)",
                 }}
               >
+                {/* Vow-yellow top accent line */}
+                <div
+                  className={cn(
+                    "absolute top-0 left-4 right-4 h-[2px] rounded-full transition-all duration-700",
+                    isVisible ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0"
+                  )}
+                  style={{
+                    background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.4), transparent)",
+                    transitionDelay: isVisible ? `${500 + index * 150}ms` : "0ms",
+                  }}
+                  aria-hidden="true"
+                />
                 <p 
                   className="text-xs mb-3 opacity-50 font-mono"
                   style={{ fontVariantNumeric: "tabular-nums" }}
@@ -75,8 +94,8 @@ export function TheRecord() {
                   {reading.timestamp}
                 </p>
                 <div 
-                  className="text-5xl font-display font-light mb-3 text-card-foreground"
-                  style={{ fontVariantNumeric: "tabular-nums" }}
+                  className="font-display font-light mb-3 text-card-foreground"
+                  style={{ fontVariantNumeric: "tabular-nums", fontSize: "clamp(40px, 6vw, 64px)" }}
                 >
                   {reading.reading}
                 </div>

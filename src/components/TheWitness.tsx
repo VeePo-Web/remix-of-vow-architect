@@ -33,12 +33,18 @@ export function TheWitness() {
     <section 
       ref={sectionRef}
       data-theme="life"
-      className="section--surface section-padding-standard"
+      className="relative section--surface section-padding-standard overflow-hidden"
       style={{
         background: "linear-gradient(180deg, hsl(45 25% 96%) 0%, hsl(45 20% 93%) 100%)",
         minHeight: '400px',
       }}
     >
+      {/* Top fade from TheTransformation dark */}
+      <div
+        className="section-fade-top"
+        style={{ background: 'linear-gradient(to top, transparent, hsl(240 12% 3%))' }}
+        aria-hidden="true"
+      />
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <div className="max-w-2xl mx-auto text-center">
@@ -115,18 +121,17 @@ export function TheWitness() {
               <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-5">
                 Standard Kit
               </p>
-              <div className="flex flex-wrap gap-6 justify-center">
+              <div className="flex flex-wrap gap-3 justify-center">
                 {standardKit.map((item, index) => {
                   const Icon = item.icon;
                   return (
                     <div 
                       key={index} 
-                      className="flex items-center gap-2 group cursor-default"
+                      className="flex items-center gap-2 group cursor-default px-3 py-2 rounded-full border border-border/20 hover:border-primary/30 transition-all duration-[180ms]"
+                      style={{ transitionTimingFunction: 'var(--easing-std)' }}
                     >
-                      <div className="w-8 h-8 rounded-full border border-border/30 flex items-center justify-center transition-all duration-300 group-hover:border-primary/40 group-hover:bg-primary/5">
-                        <Icon size={14} className="text-muted-foreground transition-colors duration-300 group-hover:text-primary" strokeWidth={1.5} />
-                      </div>
-                      <span className="text-sm text-foreground/70 transition-colors duration-300 group-hover:text-foreground">
+                      <Icon size={14} className="text-muted-foreground transition-all duration-[180ms] group-hover:text-primary group-hover:scale-105" strokeWidth={1.5} />
+                      <span className="text-sm text-foreground/70 transition-colors duration-[180ms] group-hover:text-foreground">
                         {item.label}
                       </span>
                     </div>
