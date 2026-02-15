@@ -71,14 +71,24 @@ export function CrossOver() {
           )}
           style={{ transitionDelay: isVisible ? "300ms" : "0ms" }}
         >
-          <Button 
-            size="lg" 
-            variant="primary-dark" 
-            className="text-base px-8 py-6 h-auto cta-commitment cta-breathe-glow"
-            asChild
-          >
-            <Link to="/contact">Hold my date →</Link>
-          </Button>
+          <div className="relative">
+            {/* Ambient radial glow behind CTA */}
+            <div
+              className="absolute inset-0 -inset-x-8 -inset-y-4 rounded-full pointer-events-none"
+              style={{
+                background: 'radial-gradient(ellipse at center, hsl(45 100% 76% / 0.06) 0%, transparent 70%)',
+              }}
+              aria-hidden="true"
+            />
+            <Button 
+              size="lg" 
+              variant="primary-dark" 
+              className="relative text-base px-8 py-6 h-auto cta-commitment cta-breathe-glow"
+              asChild
+            >
+              <Link to="/contact">Hold my date →</Link>
+            </Button>
+          </div>
           <Button 
             variant="ghost-dark" 
             size="lg" 

@@ -30,6 +30,21 @@ export function TheTransformation() {
 
   return (
     <section ref={sectionRef} className="section-grain relative min-h-[500px] overflow-hidden" style={{ minHeight: '500px' }}>
+      {/* Section Label — centered above the split */}
+      <div
+        className="absolute top-0 left-0 right-0 z-30 flex justify-center pt-12 md:pt-16 pointer-events-none"
+        style={{ background: 'linear-gradient(180deg, hsl(220 15% 8%) 0%, transparent 100%)', paddingBottom: '40px' }}
+      >
+        <p
+          className={cn(
+            "text-xs uppercase tracking-[0.22em] text-muted-foreground transition-all duration-700",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          )}
+        >
+          THE TRANSFORMATION
+        </p>
+      </div>
+
       {/* Full-Width Split Screen */}
       <div className="grid md:grid-cols-2 min-h-[600px]">
         {/* LEFT PANEL — DEATH (Fears) */}
@@ -47,17 +62,7 @@ export function TheTransformation() {
             aria-hidden="true"
           />
 
-          {/* Section Label — inside dark panel for proper contrast */}
-          <p
-            className={cn(
-              "text-xs uppercase tracking-[0.22em] text-muted-foreground mb-10 relative z-10 transition-all duration-700",
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            )}
-          >
-            THE TRANSFORMATION
-          </p>
-
-          <div className="relative z-10 max-w-md mx-auto space-y-6">
+          <div className="relative z-10 max-w-md mx-auto space-y-6 mt-8">
             {fears.map((fear, index) => (
               <div 
                 key={index}
