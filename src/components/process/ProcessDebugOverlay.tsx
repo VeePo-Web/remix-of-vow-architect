@@ -36,8 +36,9 @@ export function ProcessDebugOverlay({
   isActive,
   className,
 }: ProcessDebugOverlayProps) {
-  // Only render in development
-  if (!import.meta.env.DEV) return null;
+  // Only render when explicitly requested via URL param
+  const showDebug = typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('debug');
+  if (!showDebug) return null;
 
   const phaseColor = PHASE_COLORS[phase];
 
