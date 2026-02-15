@@ -669,7 +669,7 @@ All colors MUST be HSL.
 
   .section--dark {
     background-color: hsl(var(--surface-dark-band));
-    color: hsl(var(--ink-inverse));
+    color: hsl(var(--foreground));
   }
 
   .section--gradient {
