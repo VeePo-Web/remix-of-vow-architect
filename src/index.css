@@ -5371,5 +5371,39 @@ All colors MUST be HSL.
       opacity: 0.9;
     }
   }
+
+  /* -------------------------------------------
+     CTA Breathing Glow
+     ------------------------------------------- */
+  @keyframes cta-breathe {
+    0%, 100% {
+      box-shadow: 0 0 30px rgba(255, 224, 138, 0.15), 0 0 60px rgba(255, 224, 138, 0.08);
+    }
+    50% {
+      box-shadow: 0 0 40px rgba(255, 224, 138, 0.25), 0 0 80px rgba(255, 224, 138, 0.12);
+    }
+  }
+
+  @keyframes divider-breathe {
+    0%, 100% {
+      opacity: 0.6;
+      box-shadow: 0 0 40px 8px hsl(45 100% 76% / 0.2), 0 0 80px 16px hsl(45 100% 76% / 0.1);
+    }
+    50% {
+      opacity: 1;
+      box-shadow: 0 0 50px 12px hsl(45 100% 76% / 0.3), 0 0 100px 20px hsl(45 100% 76% / 0.15);
+    }
+  }
+
+  .cta-breathe-glow {
+    animation: cta-breathe 4s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cta-breathe-glow {
+      animation: none;
+      box-shadow: 0 0 30px rgba(255, 224, 138, 0.2);
+    }
+  }
 }
 

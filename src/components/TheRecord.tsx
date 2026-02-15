@@ -29,7 +29,7 @@ export function TheRecord() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="section--dark py-24 px-4">
+    <section ref={sectionRef} className="section--dark py-24 px-4" style={{ minHeight: '400px' }}>
       <div className="container mx-auto">
         <div className="max-w-5xl mx-auto">
           {/* Header */}
