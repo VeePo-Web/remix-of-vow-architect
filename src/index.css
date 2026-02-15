@@ -5841,4 +5841,37 @@ All colors MUST be HSL.
       transform: none;
     }
   }
+
+  /* CTA Breathing Glow — 4s sacred timing */
+  .cta-breathe-glow {
+    animation: cta-breathe 4s ease-in-out infinite;
+  }
+
+  @keyframes cta-breathe {
+    0%, 100% {
+      box-shadow: 0 0 30px rgba(255, 224, 138, 0.2);
+    }
+    50% {
+      box-shadow: 0 0 50px rgba(255, 224, 138, 0.35), 0 0 80px rgba(255, 224, 138, 0.15);
+    }
+  }
+
+  /* Divider breathing glow */
+  @keyframes divider-breathe {
+    0%, 100% {
+      opacity: 0.6;
+      box-shadow: 0 0 30px 6px hsl(var(--vow-yellow) / 0.15), 0 0 60px 12px hsl(var(--vow-yellow) / 0.08);
+    }
+    50% {
+      opacity: 1;
+      box-shadow: 0 0 50px 10px hsl(var(--vow-yellow) / 0.25), 0 0 90px 18px hsl(var(--vow-yellow) / 0.12);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cta-breathe-glow {
+      animation: none;
+      box-shadow: 0 0 30px rgba(255, 224, 138, 0.2);
+    }
+  }
 }

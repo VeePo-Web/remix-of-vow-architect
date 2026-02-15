@@ -40,8 +40,7 @@ export function TheWitness() {
     >
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
-          {/* Content — Full-width centered (no image placeholder) */}
-          <div className="max-w-2xl mx-auto text-center md:text-left">
+          <div className="max-w-2xl mx-auto text-center">
             {/* Label */}
             <p
               className={cn(
@@ -52,20 +51,31 @@ export function TheWitness() {
               THE WITNESS
             </p>
 
-            {/* Headline */}
+            {/* Headline with golden vow underline on "witness" */}
             <h2
               className={cn(
-                "text-[clamp(28px,4vw,48px)] font-[300] font-display leading-tight mb-8 transition-all duration-700",
+                "text-[clamp(28px,4vw,48px)] font-[300] font-display leading-tight mb-10 transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{ transitionDelay: isVisible ? "150ms" : "0ms" }}
             >
               Not a musician—<br />
-              your ceremony witness.
+              your ceremony{" "}
+              <span className="relative inline-block">
+                witness
+                <span
+                  className="absolute left-0 right-0 -bottom-1 h-[2px]"
+                  style={{
+                    background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.6), hsl(var(--vow-yellow) / 0.2))",
+                  }}
+                  aria-hidden="true"
+                />
+              </span>
+              .
             </h2>
 
-            {/* Three Declarations */}
-            <div className="space-y-4 mb-10">
+            {/* Three Declarations — generous spacing */}
+            <div className="space-y-6 mb-12">
               {declarations.map((declaration, index) => (
                 <p 
                   key={index}
@@ -80,18 +90,31 @@ export function TheWitness() {
               ))}
             </div>
 
+            {/* Golden thread separator */}
+            <div 
+              className={cn(
+                "h-[1px] w-16 mx-auto mb-10 transition-all duration-700",
+                isVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
+              )}
+              style={{
+                background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.4), transparent)",
+                transitionDelay: isVisible ? "550ms" : "0ms",
+              }}
+              aria-hidden="true"
+            />
+
             {/* Standard Kit */}
             <div
               className={cn(
-                "pt-6 border-t border-border/30 transition-all duration-700",
+                "transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{ transitionDelay: isVisible ? "600ms" : "0ms" }}
             >
-              <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-4">
+              <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-5">
                 Standard Kit
               </p>
-              <div className="flex flex-wrap gap-6 justify-center md:justify-start">
+              <div className="flex flex-wrap gap-6 justify-center">
                 {standardKit.map((item, index) => {
                   const Icon = item.icon;
                   return (

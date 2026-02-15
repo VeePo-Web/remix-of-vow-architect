@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
-import { TaglineCovenant } from "@/components/TaglineCovenant";
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 export function CrossOver() {
@@ -47,7 +47,7 @@ export function CrossOver() {
               textShadow: "0 2px 8px rgba(0,0,0,0.6), 0 0 2px rgba(255,224,138,0.15)"
             }}
           >
-            'TIL DEATH <span className="text-primary">;</span> UNTO LIFE
+            \u2018TIL DEATH <span className="text-primary">;</span> UNTO LIFE
           </h2>
         </div>
 
@@ -59,7 +59,7 @@ export function CrossOver() {
           )}
           style={{ transitionDelay: isVisible ? "150ms" : "0ms" }}
         >
-          "Your vows deserve<br />to be heard."
+          \u201CYour vows deserve<br />to be heard.\u201D
         </h2>
 
         {/* CTA Stack */}
@@ -73,21 +73,21 @@ export function CrossOver() {
           <Button 
             size="lg" 
             variant="primary-dark" 
-            className="text-base px-8 py-6 h-auto cta-commitment shadow-[0_0_40px_rgba(255,224,138,0.25)] hover:shadow-[0_0_60px_rgba(255,224,138,0.35)]"
+            className="text-base px-8 py-6 h-auto cta-commitment cta-breathe-glow"
             asChild
           >
-            <a href="/contact">Hold my date →</a>
+            <Link to="/contact">Hold my date →</Link>
           </Button>
           <Button 
             variant="ghost-dark" 
             size="lg" 
-            className="gap-2 h-auto py-6 opacity-70 hover:opacity-100" 
+            className="gap-2 h-auto py-6 opacity-60 hover:opacity-100 transition-opacity duration-300" 
             asChild
           >
-            <a href="/resources">
+            <Link to="/resources">
               <Download size={18} />
               Download a sample plan
-            </a>
+            </Link>
           </Button>
         </div>
 

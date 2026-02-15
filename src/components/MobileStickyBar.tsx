@@ -16,9 +16,15 @@ export function MobileStickyBar() {
   if (!isVisible) return null;
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-card/95 backdrop-blur-md border-t border-border p-3 animate-fade-in motion-reduce:animate-none">
+    <div 
+      className="md:hidden fixed bottom-0 left-0 right-0 z-40 backdrop-blur-md p-3 animate-fade-in motion-reduce:animate-none"
+      style={{
+        background: "hsl(var(--rich-black) / 0.95)",
+        borderTop: "1px solid hsl(var(--vow-yellow) / 0.15)",
+      }}
+    >
       <div className="flex items-center justify-between gap-3">
-        <span className="text-sm text-muted-foreground">
+        <span className="text-sm font-display text-muted-foreground">
           Dates fill quickly—check yours
         </span>
         <Link to="/contact">

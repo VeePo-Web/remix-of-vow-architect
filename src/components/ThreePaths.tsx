@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 interface PathCardProps {
@@ -98,24 +99,27 @@ export function ThreePaths() {
         </div>
 
         {/* Three Paths Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12 items-stretch">
           {paths.map((path, index) => (
             <div
               key={index}
               className={cn(
-                "relative bg-card border rounded-lg p-10 transition-all duration-700 group",
+                "relative bg-card border rounded-lg p-10 transition-all duration-300 group flex flex-col",
                 path.isChosen 
-                  ? "border-primary shadow-[0_8px_32px_rgba(255,224,138,0.15)] md:-translate-y-2 invitation-texture" 
-                  : "border-border/30 hover:border-border/60 hover:shadow-[0_4px_24px_rgba(255,224,138,0.08)]",
+                  ? "border-primary/60 shadow-[0_8px_32px_rgba(255,224,138,0.15)] md:-translate-y-2 invitation-texture" 
+                  : "border-border/20 hover:border-primary/30 hover:shadow-[0_8px_32px_rgba(255,224,138,0.1)] hover:-translate-y-1",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               )}
-              style={{ transitionDelay: isVisible ? `${450 + index * 150}ms` : "0ms" }}
+              style={{ 
+                transitionDelay: isVisible ? `${450 + index * 150}ms` : "0ms",
+                transitionTimingFunction: "var(--easing-std)",
+              }}
             >
-              {/* Chosen Badge */}
+              {/* Chosen Badge — refined diamond */}
               {path.isChosen && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <div className="bg-primary text-primary-foreground text-xs font-semibold px-4 py-1 rounded-full shadow-md">
-                    ★ MOST SELECTED
+                  <div className="bg-primary text-primary-foreground text-xs font-semibold px-4 py-1 rounded-full shadow-md tracking-wider">
+                    ◆ MOST SELECTED
                   </div>
                 </div>
               )}
@@ -125,22 +129,22 @@ export function ThreePaths() {
                 {path.name}
               </h3>
 
-              {/* Price — Confident, not shouting */}
+              {/* Price */}
               <div className="mb-6">
-                <span className="text-[clamp(36px,5vw,48px)] font-display font-light text-card-foreground">
+                <span className="text-[clamp(36px,5vw,48px)] font-display font-light text-card-foreground" style={{ fontVariantNumeric: "tabular-nums" }}>
                   {path.price}
                 </span>
               </div>
 
               {/* Description */}
-              <p className="text-sm text-muted-foreground mb-6 pb-6 border-b border-border/30">
+              <p className="text-sm text-muted-foreground mb-6 pb-6 border-b border-border/20">
                 {path.description}
               </p>
 
               {/* Features */}
-              <ul className="space-y-3 mb-8">
+              <ul className="space-y-3 mb-8 flex-1">
                 {path.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-start gap-2 text-sm text-card-foreground/80">
+                  <li key={idx} className="flex items-start gap-2.5 text-sm text-card-foreground/80">
                     <Check size={16} className="text-accent shrink-0 mt-0.5" strokeWidth={2} />
                     {feature}
                   </li>
@@ -149,11 +153,11 @@ export function ThreePaths() {
 
               {/* CTA */}
               <Button 
-                className="w-full" 
+                className="w-full mt-auto" 
                 variant={path.isChosen ? "default" : "outline"}
                 asChild
               >
-                <a href="/contact">{path.ctaText}</a>
+                <Link to="/contact">{path.ctaText}</Link>
               </Button>
             </div>
           ))}

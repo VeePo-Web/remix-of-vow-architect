@@ -37,7 +37,7 @@ export function ProcessDebugOverlay({
   className,
 }: ProcessDebugOverlayProps) {
   // Only render in development
-  if (process.env.NODE_ENV !== 'development') return null;
+  if (!import.meta.env.DEV) return null;
 
   const phaseColor = PHASE_COLORS[phase];
 

@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 const testimonials = [
   {
-    quote: "Every guest heard us—even the back row.",
+    quote: "Every guest heard us\u2014even the back row.",
     names: "Sarah & James",
     venue: "Spruce Meadows",
     metric: "62 dBA at aisle mid",
@@ -15,7 +15,7 @@ const testimonials = [
     metric: "unamplified; proximity arc applied",
   },
   {
-    quote: "The SPL log let us skip our venue's site visit requirement.",
+    quote: "The SPL log let us skip our venue\u2019s site visit requirement.",
     names: "Rachel & Marcus",
     venue: "Lake House",
     metric: "68 dBA peak ceremony reading",
@@ -70,15 +70,15 @@ export function TheWitnesses() {
                 )}
                 style={{ transitionDelay: isVisible ? `${300 + index * 200}ms` : "0ms" }}
               >
-                {/* Decorative Opening Quote */}
+                {/* Decorative Opening Quote — mobile-safe positioning */}
                 <div 
-                  className="absolute -left-8 -top-4 text-7xl font-display text-primary/10 select-none pointer-events-none"
+                  className="absolute -left-4 md:-left-8 -top-3 text-6xl md:text-7xl font-display text-primary/10 select-none pointer-events-none"
                   aria-hidden="true"
                 >
-                  "
+                  \u201C
                 </div>
 
-                {/* Quote */}
+                {/* Quote — curly quotes */}
                 <blockquote className="text-2xl font-display font-light leading-relaxed mb-6 text-foreground/90 pl-2">
                   {testimonial.quote}
                 </blockquote>
@@ -89,8 +89,8 @@ export function TheWitnesses() {
                     — {testimonial.names}, {testimonial.venue}
                   </p>
                   <p 
-                    className="text-xs text-muted-foreground opacity-60"
-                    style={{ fontFamily: "var(--font-mono)" }}
+                    className="text-xs text-muted-foreground opacity-60 font-mono"
+                    style={{ fontVariantNumeric: "tabular-nums" }}
                   >
                     [ {testimonial.metric} ]
                   </p>
@@ -99,9 +99,13 @@ export function TheWitnesses() {
                 {/* Separator (except last) */}
                 {index < testimonials.length - 1 && (
                   <div 
-                    className="mt-12 h-[1px] w-24 mx-auto opacity-20"
+                    className={cn(
+                      "mt-12 h-[1px] w-24 mx-auto transition-all duration-700",
+                      isVisible ? "opacity-30 scale-x-100" : "opacity-0 scale-x-0"
+                    )}
                     style={{
-                      background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow)), transparent)"
+                      background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow)), transparent)",
+                      transitionDelay: isVisible ? `${500 + index * 200}ms` : "0ms",
                     }}
                     aria-hidden="true"
                   />
