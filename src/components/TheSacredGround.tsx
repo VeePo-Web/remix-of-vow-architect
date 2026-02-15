@@ -26,12 +26,18 @@ export function TheSacredGround() {
     <section 
       ref={sectionRef}
       data-theme="life"
-      className="section--surface section-padding-standard"
+      className="relative section--surface section-padding-standard overflow-hidden"
       style={{
         background: "linear-gradient(180deg, hsl(45 25% 96%) 0%, hsl(45 20% 93%) 100%)",
         minHeight: '400px',
       }}
     >
+      {/* Top fade from ThreePaths dark */}
+      <div
+        className="section-fade-top"
+        style={{ background: 'linear-gradient(to top, transparent, hsl(240 9% 4%))' }}
+        aria-hidden="true"
+      />
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <div 

@@ -44,10 +44,17 @@ export function TheSound() {
   return (
     <section
       ref={sectionRef}
-      className="section--dark relative min-h-[400px] py-24 md:py-32 overflow-hidden"
+      className="section--dark section-grain relative min-h-[400px] py-24 md:py-32 overflow-hidden"
       style={{ minHeight: '400px' }}
       aria-labelledby="sound-heading"
     >
+      {/* Top fade from TheInvitation warm */}
+      <div
+        className="section-fade-top"
+        style={{ background: 'linear-gradient(to top, transparent, hsl(45 20% 93%))' }}
+        aria-hidden="true"
+      />
+
       {/* Subtle radial glow behind content */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -145,7 +152,7 @@ export function TheSound() {
                 {/* Golden bullet */}
                 <div className="absolute top-4 left-4 w-1.5 h-1.5 rounded-full bg-vow-yellow/60" aria-hidden="true" />
                 
-                <div className="pl-4">
+              <div className="pl-4">
                   <div className="flex items-center gap-2 mb-1">
                     <Music className="w-3 h-3 text-muted-foreground" />
                     <span className="text-xs uppercase tracking-wider text-vow-yellow/80">
@@ -156,6 +163,13 @@ export function TheSound() {
                     {track.title}
                   </p>
                 </div>
+
+                {/* Left accent border */}
+                <div
+                  className="absolute left-0 top-3 bottom-3 w-[2px] rounded-full transition-opacity duration-300"
+                  style={{ background: 'hsl(var(--vow-yellow) / 0.25)' }}
+                  aria-hidden="true"
+                />
               </div>
             ))}
           </div>

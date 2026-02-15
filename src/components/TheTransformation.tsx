@@ -29,7 +29,7 @@ export function TheTransformation() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative min-h-[500px] overflow-hidden" style={{ minHeight: '500px' }}>
+    <section ref={sectionRef} className="section-grain relative min-h-[500px] overflow-hidden" style={{ minHeight: '500px' }}>
       {/* Full-Width Split Screen */}
       <div className="grid md:grid-cols-2 min-h-[600px]">
         {/* LEFT PANEL — DEATH (Fears) */}
@@ -95,7 +95,7 @@ export function TheTransformation() {
         <div 
           className="relative px-8 py-16 md:py-24 flex items-center justify-center"
           style={{
-            background: "linear-gradient(135deg, hsl(40 70% 92%) 0%, hsl(38 65% 88%) 100%)",
+            background: "linear-gradient(135deg, hsl(45 30% 95%) 0%, hsl(42 28% 91%) 100%)",
           }}
         >
           <div 

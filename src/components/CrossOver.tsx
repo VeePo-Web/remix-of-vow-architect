@@ -19,7 +19,7 @@ export function CrossOver() {
   return (
     <section 
       ref={sectionRef}
-      className="section--dark py-24 px-4 relative overflow-hidden"
+      className="section--dark section-grain py-24 px-4 relative overflow-hidden"
       style={{
         background: "radial-gradient(ellipse at center, hsl(240 12% 5%) 0%, hsl(240 9% 2%) 100%)",
         minHeight: '400px',
@@ -118,7 +118,7 @@ export function CrossOver() {
             "text-base font-display font-light text-foreground/90 italic transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
-          style={{ transitionDelay: isVisible ? "600ms" : "0ms" }}
+          style={{ transitionDelay: isVisible ? "600ms" : "0ms", letterSpacing: "0.03em" }}
         >
           Response within <span className="text-primary font-normal not-italic">24 hours</span>. Always.
         </p>

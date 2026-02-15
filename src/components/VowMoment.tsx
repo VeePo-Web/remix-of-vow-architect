@@ -25,6 +25,13 @@ export function VowMoment() {
         aria-hidden="true"
       />
 
+      {/* Top fade from ProcessSection warm */}
+      <div
+        className="section-fade-top"
+        style={{ background: 'linear-gradient(to top, transparent, hsl(45 30% 92%))' }}
+        aria-hidden="true"
+      />
+
       {/* Sacred Quote */}
       <div className="relative z-10 max-w-4xl mx-auto text-center">
         <blockquote className="text-[clamp(48px,6vw,72px)] font-display font-light italic leading-[1.2] text-white">
@@ -45,6 +52,13 @@ export function VowMoment() {
           the moment it's heard.
         </blockquote>
       </div>
+
+      {/* Bottom fade into TheInvitation */}
+      <div
+        className="section-fade-bottom"
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(45 25% 96%))' }}
+        aria-hidden="true"
+      />
     </section>
   );
 }

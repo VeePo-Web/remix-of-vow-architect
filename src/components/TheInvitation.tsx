@@ -53,6 +53,12 @@ export function TheInvitation() {
         minHeight: '400px',
       }}
     >
+      {/* Top fade from VowMoment dark */}
+      <div
+        className="section-fade-top"
+        style={{ background: 'linear-gradient(to top, transparent, hsl(240 9% 4%))' }}
+        aria-hidden="true"
+      />
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Label */}
