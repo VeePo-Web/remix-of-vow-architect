@@ -1,96 +1,148 @@
 
 
-# World-Class Homepage Design Polish — Fix Layout Collapse and Elevate Design
+# World-Class Design Polish Pass — Fantasy.co Quality Standard
 
-## Critical Discovery: Sections Collapsing to Zero Height
+## Current State Assessment
 
-The DOM extraction confirms all 13 homepage sections exist with content, but `document.documentElement.scrollHeight` is only **3078px** instead of the expected **~7500px**. Multiple sections are collapsing to zero visual height. The page jumps from Hero directly to CrossOver/Footer.
+All 13 homepage sections are now visible and functional. The breathing rhythm (dark/light alternation) is working. The core narrative arc flows correctly. The audit reveals specific design craft issues that separate the current implementation from Fantasy.co-level quality.
 
-### Root Causes to Fix
+## Design Issues Identified (No Text Changes)
 
-**1. `contain: layout style` on `.process-section` (index.css line 3233)**
-The CSS `contain: layout` tells the browser the element's size is independent of its children AND its parent. In a flex column layout, this can cause the element to collapse to zero height even with `min-height: 180vh` set, because the containment prevents the flex parent from reading its intrinsic size. This must be removed.
+### 1. Section Transition Seams
+Currently, sections have hard color cuts between dark and light backgrounds. World-class sites use gradient bleeds or subtle overlap zones so the eye flows rather than jumps. Between each section pair, we need 1-2px soft gradient transitions that prevent the "stacked blocks" feeling.
 
-**2. VowMoment `<section>` wrapping issue**
-The VowMoment section was edited to add `section--dark` class. The DOM extraction shows its content as a "BLOCKQUOTE" direct child — suggesting the `<section>` wrapper may have been corrupted or is collapsing due to the `section--dark` class interaction with `min-h-screen flex`. Need to verify and fix.
+### 2. TheWitness Section — Left-Aligned on Life Surface, Feels Unfinished
+The section uses `text-center md:text-left` but without a visual anchor (image, illustration, or decorative element) on the right, it reads as incomplete. The Standard Kit icons need more breathing room and better visual hierarchy. The heading "Not a musician — your ceremony witness" needs the golden vow underline treatment on "witness" to match the brand system.
 
-**3. `section--surface` sections may lack explicit height**
-TheWitness, TheWitnesses, and TheSacredGround use `section--surface section-padding-standard`. If their inner content collapses (e.g., due to opacity-0 initial state from IntersectionObserver reveals), the sections themselves may have no intrinsic height — just padding around invisible content.
+### 3. TheTransformation — Missing Section Label Typography
+The "The Transformation" label at the top uses `text-muted-foreground` which resolves to grey on a white background (since no explicit dark bg is set on the header area). The header `div` sits above the split panels but has no background, creating a disconnect. It should be integrated into the left (dark) panel or given its own dark background to maintain the Death/Life narrative.
 
-**4. IntersectionObserver reveals starting at opacity-0 may contribute**
-Several sections set all their children to `opacity-0 translate-y-4` initially and only reveal them when the IntersectionObserver fires. If the observer never fires (because the section has zero height and never enters the viewport), the content stays invisible in a catch-22 loop.
+### 4. ThreePaths — Pricing Cards Need Luxury Polish
+- Card backgrounds need subtle texture differentiation (the "invitation-texture" class on the chosen card is correct, but the non-chosen cards feel flat)
+- The "MOST SELECTED" badge uses a star character that feels generic — should use a more refined indicator
+- Feature check marks use `text-accent` (vine-green) which is correct, but the checkmark circle/container needs subtle refinement
+- Card hover state needs more luxurious shadow progression
 
----
+### 5. TheSacredGround — Card Needs Glass Morphism Refinement
+The Banff Mode card uses `bg-card/80 backdrop-blur-sm` but the card bg resolves to ebon-charcoal on a cream background (because it's in `data-theme="life"` context but `--card` may not be remapped). Needs explicit warm cream card bg with refined glass effect.
+
+### 6. TheRecord — SPL Cards Typography Polish
+The dBA readings use `text-5xl font-display` but should use tabular/monospace numbers for technical data credibility. The card backgrounds are `bg-card/50` which on dark sections creates a barely visible card. Need more defined card boundaries.
+
+### 7. TheWitnesses — Testimonial Formatting
+Testimonial quotes need proper typographic quotation marks (curly quotes, not straight). The decorative opening quote mark at `-left-8 -top-4` could clip on mobile. The golden separators between testimonials are beautiful but need consistent sizing.
+
+### 8. CrossOver — CTA Button Glow Needs Refinement
+The "Hold my date" button has a `shadow-[0_0_40px...]` glow that could be more refined with a pulsing animation on the glow (not the button itself) to create a breathing heartbeat effect matching the brand's breath metaphor.
+
+### 9. Footer — Missing Luxury Spacing
+The footer uses basic grid without the brand's signature generous spacing. Footer headings should use the display font. Link hover states need the golden underline treatment.
+
+### 10. Debug Overlay Visible in Production
+The ProcessDebugOverlay is visible (shown in screenshots at bottom-right). It checks `process.env.NODE_ENV === 'development'` but Vite uses `import.meta.env.DEV`. This must be fixed so it does not show in production.
+
+### 11. Header — Nav Links Use `<a>` Instead of React Router `<Link>`
+The MinimalHeader nav links and footer links should use React Router's `Link` component for SPA navigation instead of `<a>` tags which cause full page reloads.
+
+### 12. Scroll Cue Persistence
+The MinimalScrollCue should fade out after the user starts scrolling, not persist.
 
 ## Implementation Plan
 
-### Step 1: Remove `contain: layout style` from ProcessSection (index.css)
+### Phase 1: Critical Craft Fixes (Foundational)
 
-Remove lines 3233-3235:
-```css
-.process-section {
-  contain: layout style;
-}
-```
+**File: `src/index.css`**
+- Add section transition gradient overlays (pseudo-elements on section boundaries)
+- Add `.section-transition-blend` class for soft color transitions between sections
+- Fix the debug overlay visibility (if CSS-controlled)
 
-This CSS containment optimization breaks flex layout participation. The `min-height: 180vh` on the process section should then take effect properly. The other containment rules (`contain: layout paint` on `.gradient-dawn`, `contain: strict` on `.weaving-thread`) are fine since those are absolutely positioned inner elements.
+**File: `src/components/process/ProcessDebugOverlay.tsx`**
+- Change `process.env.NODE_ENV === 'development'` to `import.meta.env.DEV` so the debug overlay is hidden in preview/production builds
 
-### Step 2: Remove `contain: layout paint` from `.gradient-dawn` if it affects parent sizing (index.css)
+**File: `src/components/MinimalHeader.tsx`**
+- Replace `<a>` tags with React Router `<Link>` components for SPA navigation
+- Improve nav link transitions with staggered reveal animation when `isScrolled` changes
 
-Check line ~2926-2929. The `.gradient-dawn` element is `position: absolute; inset: 0` so containment shouldn't affect parent sizing, but verify.
+**File: `src/components/MinimalScrollCue.tsx`**
+- Add scroll listener to fade out the scroll cue after user scrolls past ~100px
 
-### Step 3: Ensure VowMoment section renders correctly
+### Phase 2: Section-Level Polish
 
-Read the current VowMoment.tsx to verify the `<section>` wrapper is intact and properly structured. If needed, add explicit `min-h-[100vh]` as a Tailwind class alongside the `section--dark` class to ensure minimum height.
+**File: `src/components/TheTransformation.tsx`**
+- Move the "The Transformation" header label inside the left (dark) panel, or give the header area a dark gradient background so the label has proper contrast
+- Add a subtle animation to the center divider (breathing glow rather than `animate-pulse-slow`)
 
-### Step 4: Add `min-height` safety nets to all sections
+**File: `src/components/TheWitness.tsx`**
+- Center the layout fully (remove `md:text-left` for consistent centered presentation)
+- Add golden vow underline on the word "witness" in the heading
+- Increase vertical spacing between declarations for better breathing room
+- Add subtle border/separator between declarations section and Standard Kit
 
-For every section that uses IntersectionObserver-based content reveals (opacity-0 initial), ensure the wrapping element has an explicit minimum height so the section occupies space even before content becomes visible:
+**File: `src/components/ThreePaths.tsx`**
+- Replace star character in "MOST SELECTED" badge with a refined diamond or simple dot
+- Add subtle gradient border on non-chosen cards for depth
+- Improve card hover transitions (lift + shadow + border glow progression at 180ms)
+- Ensure equal card heights across the grid
 
-- TheExhale: Already has `min-h-[70vh]` -- good
-- ProcessSection: Has `min-height: 180vh` in CSS -- good (once containment is removed)
-- VowMoment: Has `min-h-screen` -- verify it takes effect
-- TheInvitation: Add `min-h-[400px]` or explicit `py-24 md:py-32` (already has padding)
-- TheSound: Add `min-h-[400px]`
-- TheTransformation: Has `min-h-[600px]` on inner grid -- verify section wrapping
-- TheWitness: Has `section-padding-standard` (py-20) -- should be enough
-- ThreePaths: Has `py-24` -- should be enough
-- TheSacredGround: Has `section-padding-standard` -- should be enough
-- TheRecord: Has `py-24` -- should be enough
-- TheWitnesses: Has `section-padding-standard` -- should be enough
-- CrossOver: Has `py-24` -- already working
+**File: `src/components/TheSacredGround.tsx`**
+- Fix card background to use explicit warm cream with refined border
+- Add Mountain icon animation (subtle parallax drift) on scroll
 
-### Step 5: Test scroll through entire page
+**File: `src/components/TheRecord.tsx`**
+- Apply monospace/tabular font to dBA numbers for technical credibility
+- Increase card border visibility slightly for definition
+- Center the guarantee text ("If all failsafes fail") properly
 
-After fixes, verify all 13 sections render with proper height and the breathing rhythm (dark/light alternation) is visible.
+**File: `src/components/TheWitnesses.tsx`**
+- Use proper curly typographic quotes
+- Ensure decorative quote mark does not clip on mobile
+- Add subtle entrance animation to the golden separators
 
----
+**File: `src/components/CrossOver.tsx`**
+- Add breathing glow animation on the CTA button shadow (4s cycle, matching brand timing)
+- Improve "Download a sample plan" ghost button visibility
 
-## Files to Modify
+**File: `src/components/Footer.tsx`**
+- Apply display font to footer headings ("Parker Allard", "Quick Links", "Contact")
+- Add golden underline hover effect to footer links
+- Increase vertical spacing between footer sections
+- Add a subtle golden thread separator above the copyright row
 
-| File | Change |
-|------|--------|
-| `src/index.css` (lines 3233-3235) | Remove `contain: layout style` from `.process-section` |
-| `src/components/VowMoment.tsx` | Verify section wrapper; add explicit height if needed |
-| `src/components/TheSound.tsx` | Add `min-h-[400px]` safety net |
-| `src/components/TheTransformation.tsx` | Verify section wrapper has proper min-height |
+### Phase 3: Motion and Interaction Refinement
 
-## Expected Result
+**File: `src/index.css`**
+- Add CSS keyframe `@keyframes cta-breathe` for the CrossOver CTA glow pulse
+- Add CSS for smooth section-to-section gradient bleed zones
+- Ensure all reveal animations use the sacred timing curve `cubic-bezier(0.22, 0.61, 0.36, 1)` consistently
 
-After removing the CSS containment and adding height safety nets:
-- Total page scrollHeight increases from ~3078px to ~7500px
-- All 13 sections render at proper heights
-- The breathing rhythm (dark/light alternation) becomes visible
-- IntersectionObserver reveals trigger correctly as user scrolls
-- The page scrolls through the full emotional journey: Awe, Recognition, Understanding, Sacred Pause, Trust, Proof, Relief, Clarity, Choice, Confidence, Commitment
+**File: `src/components/MobileStickyBar.tsx`**
+- Improve the mobile CTA bar styling to match the luxury aesthetic (use golden accent border-top instead of generic border)
+- Use display font for the CTA text
 
-## After Layout Fix: Design Polish Phase
+## Files Modified Summary
 
-Once sections are visible, the following design refinements will be applied (no text changes):
-- Consistent scroll-triggered staggered reveals across all sections
-- Sacred timing curves (cubic-bezier(0.22, 0.61, 0.36, 1)) on all transitions
-- Golden thread section dividers between same-temperature sections
-- Scroll cue fade-out after hero
-- Header nav staggered reveal on scroll
-- Typography orphan prevention on all headings
+| Priority | File | Changes |
+|----------|------|---------|
+| P0 | `src/components/process/ProcessDebugOverlay.tsx` | Fix dev-only check to use `import.meta.env.DEV` |
+| P0 | `src/components/MinimalHeader.tsx` | Use React Router Links, staggered nav reveal |
+| P0 | `src/components/MinimalScrollCue.tsx` | Fade out on scroll |
+| P1 | `src/components/TheTransformation.tsx` | Fix header label contrast, improve divider |
+| P1 | `src/components/TheWitness.tsx` | Center layout, add vow underline, spacing |
+| P1 | `src/components/ThreePaths.tsx` | Refine badge, card hover, equal heights |
+| P1 | `src/components/TheSacredGround.tsx` | Fix card background color |
+| P1 | `src/components/TheRecord.tsx` | Monospace numbers, card definition |
+| P1 | `src/components/TheWitnesses.tsx` | Curly quotes, mobile-safe quote mark |
+| P1 | `src/components/CrossOver.tsx` | CTA breathing glow animation |
+| P1 | `src/components/Footer.tsx` | Display font, golden hovers, spacing |
+| P1 | `src/components/MobileStickyBar.tsx` | Luxury styling refinement |
+| P2 | `src/index.css` | Section blend transitions, CTA keyframes |
+
+## Design Principles Applied
+
+Every change follows the brand covenant:
+- **Lagom**: No superfluous additions. Each refinement earns its place.
+- **Funktionalism**: Motion and visual changes serve usability and emotion, not decoration.
+- **Color Covenant**: Yellow remains at 6% or less; green at 4% or less. No new colors introduced.
+- **Sacred Timing**: All transitions use the established timing system (180ms hover, 260ms nav, 450ms sacred reveal).
+- **Reduced Motion**: All new animations respect `prefers-reduced-motion` with opacity-only fallbacks.
 
