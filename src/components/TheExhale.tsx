@@ -63,6 +63,7 @@ export function TheExhale() {
     <section
       ref={sectionRef}
       className="exhale-section relative min-h-[70vh] flex items-center justify-center py-24 md:py-32 lg:py-40 overflow-hidden"
+      style={{ minHeight: '70vh' }}
       aria-label="My promise to you"
       role="region"
     >

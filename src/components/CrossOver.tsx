@@ -21,7 +21,8 @@ export function CrossOver() {
       ref={sectionRef}
       className="section--dark py-24 px-4 relative overflow-hidden"
       style={{
-        background: "radial-gradient(ellipse at center, hsl(240 12% 5%) 0%, hsl(240 9% 2%) 100%)"
+        background: "radial-gradient(ellipse at center, hsl(240 12% 5%) 0%, hsl(240 9% 2%) 100%)",
+        minHeight: '400px',
       }}
     >
       {/* Vignette Effect */}

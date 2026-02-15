@@ -29,7 +29,7 @@ export function TheTransformation() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative min-h-[500px] overflow-hidden">
+    <section ref={sectionRef} className="relative min-h-[500px] overflow-hidden" style={{ minHeight: '500px' }}>
       {/* Full-Width Split Screen */}
       <div className="grid md:grid-cols-2 min-h-[600px]">
         {/* LEFT PANEL — DEATH (Fears) */}

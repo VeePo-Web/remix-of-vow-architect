@@ -12,7 +12,8 @@ export function VowMoment() {
     <section 
       className="section--dark relative min-h-screen flex items-center justify-center px-4 overflow-hidden"
       style={{
-        background: "radial-gradient(ellipse at center, hsl(240 12% 5%) 0%, hsl(240 9% 2%) 100%)"
+        background: "radial-gradient(ellipse at center, hsl(240 12% 5%) 0%, hsl(240 9% 2%) 100%)",
+        minHeight: '100vh',
       }}
     >
       {/* Barely Visible Vow-Yellow Radial Glow */}

@@ -66,7 +66,7 @@ export function ThreePaths() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="section--dark py-24 px-4">
+    <section ref={sectionRef} className="section--dark py-24 px-4" style={{ minHeight: '500px' }}>
       <div className="container mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
