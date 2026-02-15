@@ -44,7 +44,7 @@ export function TheSound() {
   return (
     <section
       ref={sectionRef}
-      className="section--dark relative py-24 md:py-32 overflow-hidden"
+      className="section--dark relative min-h-[400px] py-24 md:py-32 overflow-hidden"
       aria-labelledby="sound-heading"
     >
       {/* Subtle radial glow behind content */}

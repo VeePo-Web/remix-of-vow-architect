@@ -29,7 +29,7 @@ export function TheTransformation() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden">
+    <section ref={sectionRef} className="relative min-h-[500px] overflow-hidden">
       {/* Header */}
       <div className="container mx-auto px-4 py-12 text-center relative z-10">
         <h2
