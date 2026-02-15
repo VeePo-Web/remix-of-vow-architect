@@ -1,88 +1,96 @@
 
 
-# Critical Fix: Homepage Sections Invisible — Root Cause Analysis and Design Polish
+# World-Class Homepage Design Polish — Fix Layout Collapse and Elevate Design
 
-## Problem Summary
+## Critical Discovery: Sections Collapsing to Zero Height
 
-The homepage appears to jump from the Hero/Exhale directly to CrossOver/Footer. All middle sections (Process, VowMoment, TheInvitation, TheSound, TheTransformation, TheWitness, ThreePaths, TheSacredGround, TheRecord, TheWitnesses) exist in the DOM but are visually invisible due to two CSS-level issues.
+The DOM extraction confirms all 13 homepage sections exist with content, but `document.documentElement.scrollHeight` is only **3078px** instead of the expected **~7500px**. Multiple sections are collapsing to zero visual height. The page jumps from Hero directly to CrossOver/Footer.
 
-## Root Cause 1: `.section--dark` Sets Black Text (CRITICAL)
+### Root Causes to Fix
 
-In `src/index.css` line 670-673:
+**1. `contain: layout style` on `.process-section` (index.css line 3233)**
+The CSS `contain: layout` tells the browser the element's size is independent of its children AND its parent. In a flex column layout, this can cause the element to collapse to zero height even with `min-height: 180vh` set, because the containment prevents the flex parent from reading its intrinsic size. This must be removed.
+
+**2. VowMoment `<section>` wrapping issue**
+The VowMoment section was edited to add `section--dark` class. The DOM extraction shows its content as a "BLOCKQUOTE" direct child — suggesting the `<section>` wrapper may have been corrupted or is collapsing due to the `section--dark` class interaction with `min-h-screen flex`. Need to verify and fix.
+
+**3. `section--surface` sections may lack explicit height**
+TheWitness, TheWitnesses, and TheSacredGround use `section--surface section-padding-standard`. If their inner content collapses (e.g., due to opacity-0 initial state from IntersectionObserver reveals), the sections themselves may have no intrinsic height — just padding around invisible content.
+
+**4. IntersectionObserver reveals starting at opacity-0 may contribute**
+Several sections set all their children to `opacity-0 translate-y-4` initially and only reveal them when the IntersectionObserver fires. If the observer never fires (because the section has zero height and never enters the viewport), the content stays invisible in a catch-22 loop.
+
+---
+
+## Implementation Plan
+
+### Step 1: Remove `contain: layout style` from ProcessSection (index.css)
+
+Remove lines 3233-3235:
 ```css
-.section--dark {
-  background-color: hsl(var(--surface-dark-band));
-  color: hsl(var(--ink-inverse));
+.process-section {
+  contain: layout style;
 }
 ```
 
-`--ink-inverse` resolves to `var(--rich-black)` = `240 9% 4%` (nearly black). This sets ALL inherited text color to black on dark sections. While some components now use explicit `text-foreground` Tailwind utilities that override this, many child elements (labels, body text, list items, icons) still inherit the black color.
+This CSS containment optimization breaks flex layout participation. The `min-height: 180vh` on the process section should then take effect properly. The other containment rules (`contain: layout paint` on `.gradient-dawn`, `contain: strict` on `.weaving-thread`) are fine since those are absolutely positioned inner elements.
 
-**Fix:** Change `color: hsl(var(--ink-inverse))` to `color: hsl(var(--foreground))` in the `.section--dark` rule. In the death theme, `--foreground` = `var(--absolute-white)` = white, which is correct for dark backgrounds.
+### Step 2: Remove `contain: layout paint` from `.gradient-dawn` if it affects parent sizing (index.css)
 
-## Root Cause 2: `App.css` Leftover Vite Defaults (MEDIUM)
+Check line ~2926-2929. The `.gradient-dawn` element is `position: absolute; inset: 0` so containment shouldn't affect parent sizing, but verify.
 
-`src/App.css` contains Vite scaffold defaults:
-```css
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-```
+### Step 3: Ensure VowMoment section renders correctly
 
-This constrains the entire app to 1280px width, adds unwanted padding, and forces center text alignment globally. Full-bleed sections like the hero, TheTransformation split, and dark background sections are clipped or mis-aligned.
+Read the current VowMoment.tsx to verify the `<section>` wrapper is intact and properly structured. If needed, add explicit `min-h-[100vh]` as a Tailwind class alongside the `section--dark` class to ensure minimum height.
 
-**Fix:** Remove all contents of `App.css` or delete the file entirely. The `index.css` design system handles all styling.
+### Step 4: Add `min-height` safety nets to all sections
 
-## Implementation Steps
+For every section that uses IntersectionObserver-based content reveals (opacity-0 initial), ensure the wrapping element has an explicit minimum height so the section occupies space even before content becomes visible:
 
-### Step 1: Fix `.section--dark` text color in `src/index.css`
+- TheExhale: Already has `min-h-[70vh]` -- good
+- ProcessSection: Has `min-height: 180vh` in CSS -- good (once containment is removed)
+- VowMoment: Has `min-h-screen` -- verify it takes effect
+- TheInvitation: Add `min-h-[400px]` or explicit `py-24 md:py-32` (already has padding)
+- TheSound: Add `min-h-[400px]`
+- TheTransformation: Has `min-h-[600px]` on inner grid -- verify section wrapping
+- TheWitness: Has `section-padding-standard` (py-20) -- should be enough
+- ThreePaths: Has `py-24` -- should be enough
+- TheSacredGround: Has `section-padding-standard` -- should be enough
+- TheRecord: Has `py-24` -- should be enough
+- TheWitnesses: Has `section-padding-standard` -- should be enough
+- CrossOver: Has `py-24` -- already working
 
-Change line 672 from:
-```css
-color: hsl(var(--ink-inverse));
-```
-to:
-```css
-color: hsl(var(--foreground));
-```
+### Step 5: Test scroll through entire page
 
-This single change fixes text visibility in VowMoment, TheSound, ThreePaths, TheRecord, CrossOver, and the Footer — every section using the `section--dark` class.
+After fixes, verify all 13 sections render with proper height and the breathing rhythm (dark/light alternation) is visible.
 
-### Step 2: Clean up `src/App.css`
+---
 
-Remove the `#root` rule entirely (lines 1-6). This file is a leftover from the Vite scaffold and conflicts with the full-width layout. Either empty the file or remove the `#root` block.
-
-### Step 3: Verify existing `data-theme="life"` on light sections
-
-Already applied in previous fix:
-- TheWitness: has `data-theme="life"` (confirmed)
-- TheWitnesses: has `data-theme="life"` (confirmed)
-- TheSacredGround: has `data-theme="life"` (confirmed)
-- TheInvitation: has `data-theme="life"` (confirmed)
-
-No additional changes needed for light sections.
-
-## Files Modified
+## Files to Modify
 
 | File | Change |
 |------|--------|
-| `src/index.css` (line 672) | `color: hsl(var(--ink-inverse))` to `color: hsl(var(--foreground))` |
-| `src/App.css` (lines 1-6) | Remove `#root` rule entirely |
+| `src/index.css` (lines 3233-3235) | Remove `contain: layout style` from `.process-section` |
+| `src/components/VowMoment.tsx` | Verify section wrapper; add explicit height if needed |
+| `src/components/TheSound.tsx` | Add `min-h-[400px]` safety net |
+| `src/components/TheTransformation.tsx` | Verify section wrapper has proper min-height |
 
 ## Expected Result
 
-After these two changes:
-- All dark sections render white text on dark backgrounds
-- All light sections render dark text on cream backgrounds (via `data-theme="life"`)
-- Full-width sections (hero, TheTransformation split) extend edge-to-edge
-- The homepage scrolls through all 13 sections with proper breathing rhythm
+After removing the CSS containment and adding height safety nets:
+- Total page scrollHeight increases from ~3078px to ~7500px
+- All 13 sections render at proper heights
+- The breathing rhythm (dark/light alternation) becomes visible
+- IntersectionObserver reveals trigger correctly as user scrolls
+- The page scrolls through the full emotional journey: Awe, Recognition, Understanding, Sacred Pause, Trust, Proof, Relief, Clarity, Choice, Confidence, Commitment
 
-## Technical Notes
+## After Layout Fix: Design Polish Phase
 
-- This is a 2-line fix addressing the systemic root cause rather than patching individual components
-- The `.section--dark` rule in `@layer components` sets inherited color; Tailwind utilities on individual elements override it, but elements without explicit `text-*` classes inherit the parent's color
-- After this fix, the world-class design polish pass (animation consistency, typography, micro-interactions) can proceed on a visible, functional foundation
+Once sections are visible, the following design refinements will be applied (no text changes):
+- Consistent scroll-triggered staggered reveals across all sections
+- Sacred timing curves (cubic-bezier(0.22, 0.61, 0.36, 1)) on all transitions
+- Golden thread section dividers between same-temperature sections
+- Scroll cue fade-out after hero
+- Header nav staggered reveal on scroll
+- Typography orphan prevention on all headings
 
