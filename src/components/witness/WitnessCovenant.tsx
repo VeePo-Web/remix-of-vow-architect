@@ -32,7 +32,7 @@ export function WitnessCovenant() {
       ref={ref as React.RefObject<HTMLElement>}
       className="py-[120px] px-4"
       style={{
-        background: "linear-gradient(180deg, hsl(45 25% 96%) 0%, hsl(45 20% 93%) 100%)"
+        background: "linear-gradient(180deg, hsl(var(--surface)) 0%, hsl(var(--surface-warm)) 100%)"
       }}
     >
       <div className="container mx-auto">
