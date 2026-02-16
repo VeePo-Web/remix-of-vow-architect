@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Download } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
@@ -11,7 +10,7 @@ export function CrossOver() {
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion) { setIsVisible(true); return; }
-    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) setIsVisible(true); }, { threshold: 0.15 });
+    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { setIsVisible(true); observer.disconnect(); } }, { threshold: 0.15 });
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
@@ -89,17 +88,6 @@ export function CrossOver() {
               <Link to="/contact">Hold my date →</Link>
             </Button>
           </div>
-          <Button 
-            variant="ghost-dark" 
-            size="lg" 
-            className="gap-2 h-auto py-6 opacity-60 hover:opacity-100 transition-opacity duration-300" 
-            asChild
-          >
-            <Link to="/resources">
-              <Download size={18} />
-              Download a sample plan
-            </Link>
-          </Button>
         </div>
 
         {/* Trust Anchor */}
