@@ -59,7 +59,6 @@ export function LetterpressCard({
       )}
       style={{
         ...physics.cssVars,
-        transform: `perspective(1000px) rotateX(${physics.tiltX}deg) rotateY(${physics.tiltY}deg)`,
       } as React.CSSProperties}
     >
       {/* Paper fiber parallax layers */}

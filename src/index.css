@@ -2245,7 +2245,6 @@ All colors MUST be HSL.
 
   .process-movement {
     position: relative;
-    max-width: 420px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -3793,8 +3792,8 @@ All colors MUST be HSL.
     max-width: 400px;
     opacity: 0;
     transform: translateY(20px);
-    transform-style: preserve-3d;
-    will-change: transform;
+    backface-visibility: hidden;
+    will-change: transform, opacity;
     transition: 
       opacity 600ms var(--ease-covenant),
       transform 600ms var(--ease-covenant);
@@ -3804,6 +3803,11 @@ All colors MUST be HSL.
   .letterpress-card.is-revealed {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  .letterpress-card:hover {
+    transform: translateY(-2px);
+    transition-duration: 180ms;
   }
 
   /* ======================================
