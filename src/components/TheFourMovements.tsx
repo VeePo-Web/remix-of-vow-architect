@@ -17,9 +17,9 @@ const steps: Step[] = [
     name: 'THE LISTENING',
     action: 'I ask',
     quote: 'Before I play a single note, I learn your story.',
-    details: 'What song was playing when you knew? What tempo matches the way your heart beats when you think about walking toward them?',
+    details: 'What song was playing when you knew? What does your heart sound like when you think about walking toward them?',
     assumption: 'I don\'t assume I know. I ask.',
-    outcome: 'We begin with a conversation.',
+    outcome: 'It begins with a conversation.',
   },
   {
     numeral: 'II',
@@ -28,7 +28,7 @@ const steps: Step[] = [
     quote: 'Then I disappear into your vision.',
     details: 'Note by note. Measure by measure. Your walk-down song—not selected from a list, but composed from our conversation.',
     assumption: 'I don\'t assume a cover will capture it. I create.',
-    outcome: 'Custom arrangement. Your love story, translated.',
+    outcome: 'Your love story, translated into sound.',
   },
   {
     numeral: 'III',
@@ -45,7 +45,7 @@ const steps: Step[] = [
     action: 'We complete',
     quote: 'Now we fill the rest of the air together.',
     details: 'Prelude. Procession. Cocktails. Dinner. You brainstorm, or I suggest—either way, we decide together. Communication all the way through. No one left wondering. No silence where there should be sound.',
-    assumption: 'I don\'t assume you know what you want. I guide and ask.',
+    assumption: 'I don\'t assume you know what you need. I guide, and I ask.',
     outcome: 'Every note intentional. Every decision yours.',
   },
 ];

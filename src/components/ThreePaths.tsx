@@ -100,7 +100,7 @@ export function ThreePaths() {
             )}
             style={{ transitionDelay: isVisible ? "300ms" : "0ms" }}
           >
-            Choose the level of ceremony audio coverage that matches your day.
+            Three ways I can be present on your day.
           </p>
         </div>
 
@@ -183,7 +183,7 @@ export function ThreePaths() {
           )}
           style={{ transitionDelay: isVisible ? "900ms" : "0ms" }}
         >
-          Upgrade anytime. No penalty until 2 weeks prior.
+          You can move between these at any time—no penalty until two weeks before your day.
         </p>
       </div>
     </section>

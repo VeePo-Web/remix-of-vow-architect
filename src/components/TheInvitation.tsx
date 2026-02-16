@@ -107,7 +107,7 @@ export function TheInvitation() {
                 />
               </div>
               <p className="text-sm text-rich-black/50 italic mt-4 text-center">
-                60 seconds on what I do—and why it matters.
+                60 seconds on what I do—and why.
               </p>
             </div>
 
@@ -124,11 +124,11 @@ export function TheInvitation() {
                 )}
                 style={{ transitionDelay: isVisible ? '300ms' : '0ms' }}
               >
-                Before I play a single note,
+               I have been at 200 ceremonies.
                 <br />
-                I{' '}
+                I know what can go{' '}
                 <span className="invitation-emphasis relative inline-block">
-                  listen
+                  wrong
                   <span
                     className={cn(
                       'absolute bottom-0 left-0 h-[2px] bg-vow-gold origin-left transition-transform duration-700',
@@ -154,12 +154,11 @@ export function TheInvitation() {
                 style={{ transitionDelay: isVisible ? '450ms' : '0ms' }}
               >
                 <p className="text-lg font-display font-light leading-relaxed text-rich-black/80">
-                  I've been at 200+ ceremonies. I've seen what happens when the wind 
-                  takes the vows. When the generator hums through the 'I do.' When 
-                  the back row strains to hear.
+                  The wind that carries vows away. The generator that hums through 
+                  the 'I do.' The back row that strains and gives up.
                 </p>
                 <p className="text-lg font-display font-light leading-relaxed text-rich-black/80">
-                  I built a system so that never happens to you.
+                  I designed every part of my process so that never happens to you.
                 </p>
               </div>
 

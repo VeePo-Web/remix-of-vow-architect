@@ -24,9 +24,9 @@ const movements: Movement[] = [
     name: 'THE LISTENING',
     action: 'I ask',
     quote: 'Before I play a single note, I learn your story.',
-    details: 'What song was playing when you knew? What tempo matches the way your heart beats when you think about walking toward them?',
+    details: 'What song was playing when you knew? What does your heart sound like when you think about walking toward them?',
     assumption: "I don't assume I know. I ask.",
-    outcome: 'We begin with a conversation.',
+    outcome: 'It begins with a conversation.',
     annotation: 'your story begins here',
   },
   {
@@ -36,7 +36,7 @@ const movements: Movement[] = [
     quote: 'Then I disappear into your vision.',
     details: 'Note by note. Measure by measure. Your walk-down song—not selected from a list, but composed from our conversation.',
     assumption: "I don't assume a cover will capture it. I create.",
-    outcome: 'Custom arrangement. Your love story, translated.',
+    outcome: 'Your love story, translated into sound.',
     annotation: 'note by note',
   },
   {
@@ -44,7 +44,7 @@ const movements: Movement[] = [
     name: 'THE REFINING',
     action: 'I refine',
     quote: 'I send you a first draft—raw, unpolished, honest.',
-    details: "Not to impress you. To ask you: 'Am I heading the right direction?' If something feels off, we course-correct. Your feedback isn't inconvenient. It's essential.",
+    details: "Not to impress you. To ask: 'Does this sound like you?' If something feels off, we course-correct. Your feedback is not inconvenient\u2014it is essential.",
     assumption: "I don't assume I got it right. I check.",
     outcome: 'We iterate until it sounds exactly like you imagined.',
     annotation: 'until it feels right',
@@ -55,7 +55,7 @@ const movements: Movement[] = [
     action: 'We complete',
     quote: 'Now we fill the rest of the air together.',
     details: "Prelude. Procession. Cocktails. Dinner. You brainstorm, or I suggest—either way, we decide together. Communication all the way through. No one left wondering. No silence where there should be sound.",
-    assumption: "I don't assume you know what you want. I guide and ask.",
+    assumption: "I don't assume you know what you need. I guide, and I ask.",
     outcome: 'Every note intentional. Every decision yours.',
     annotation: 'together',
   },
@@ -132,7 +132,7 @@ export function ProcessSection() {
           <span className="exhale-emphasis">It happens now.</span>
         </p>
         <p className="process-intro__bridge">
-          This is my process for ensuring it happens every time.
+          This is how I prepare for the moment that matters most.
         </p>
         <h3 className="process-intro__statement">
           Because there are no second chances for <span className="exhale-emphasis">First Moments</span>

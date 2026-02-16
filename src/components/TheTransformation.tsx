@@ -7,15 +7,15 @@ import transformationLife from "@/assets/transformation-life.jpg";
 const fears = [
   "Guests in the back can't hear our vows",
   "Generators hum through the ceremony",
-  "No SPL proof for permit compliance",
-  "DJ arrives with no ceremony mic plan",
+  "No proof the sound reached every seat",
+  "The musician arrives with no plan for your ceremony",
 ];
 
 const resolutions = [
-  "Every guest hears—mic coverage documented",
-  "Silent battery power; zero ambient noise",
-  "3 SPL readings logged with timestamps",
-  "Ceremony audio plan delivered in 24 hours",
+  "Every guest hears every word\u2014documented",
+  "Silent power. No generators. No hum.",
+  "Three sound readings logged and time-stamped",
+  "Your ceremony audio plan\u2014delivered within 24 hours",
 ];
 
 export function TheTransformation() {

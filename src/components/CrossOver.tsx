@@ -107,7 +107,7 @@ export function CrossOver() {
           )}
           style={{ transitionDelay: isVisible ? "450ms" : "0ms" }}
         >
-          Includes SPL log, mic setup, and run-of-show.
+          Includes sound documentation, microphone setup, and your ceremony run-of-show.
         </p>
 
         {/* Sacred Separator */}
