@@ -72,11 +72,20 @@ export default function Proof() {
         </div>
       </section>
 
+      {/* Fade: hero → SPL */}
+      <div className="section-fade-bottom" style={{ background: 'linear-gradient(to bottom, hsl(var(--background)), transparent)', height: '80px', marginTop: '-80px', position: 'relative', zIndex: 5 }} aria-hidden="true" />
+
       {/* Section 2 - SPL Log Triptych */}
       <SPLTriptych />
 
+      {/* Fade: SPL → Setup */}
+      <div className="h-[80px] -mt-[1px]" style={{ background: 'linear-gradient(to bottom, transparent, hsl(var(--background)))' }} aria-hidden="true" />
+
       {/* Section 3 - Setup Photos */}
       <SetupPhotoGallery />
+
+      {/* Fade: Setup → Insurance */}
+      <div className="h-[80px] -mt-[1px]" style={{ background: 'linear-gradient(to bottom, transparent, hsl(var(--background)))' }} aria-hidden="true" />
 
       {/* Section 4 - Insurance */}
       <InsuranceDocuments />

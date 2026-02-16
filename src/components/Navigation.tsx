@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { NavLink } from "@/components/NavLink";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { useTheme } from "next-themes";
 
 const navItems = [
@@ -55,9 +54,8 @@ export function Navigation() {
                 {item.label}
               </NavLink>
             ))}
-            <ThemeToggle />
-            <Button size="sm" className="hover-scale">
-              Check Availability
+            <Button size="sm" variant="outline" className="hover-scale border-primary/30 text-foreground/80 hover:border-primary/60">
+              Hold My Date
             </Button>
           </div>
 
@@ -86,9 +84,8 @@ export function Navigation() {
                   {item.label}
                 </NavLink>
               ))}
-              <div className="flex items-center gap-3 mt-2">
-                <ThemeToggle />
-                <Button className="flex-1">Check Availability</Button>
+              <div className="mt-2">
+                <Button variant="outline" className="w-full border-primary/30">Hold My Date</Button>
               </div>
             </div>
           </div>

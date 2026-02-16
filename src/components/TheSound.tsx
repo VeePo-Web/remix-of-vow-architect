@@ -109,38 +109,16 @@ export function TheSound() {
             These are real ceremony moments—prelude, processional, vows, recession.
           </p>
 
-          {/* Compact Audio Placeholder — Waveform Bars */}
-          <div
+          {/* Minimal coming-soon note */}
+          <p
             className={cn(
-              "sound-embed-container max-w-3xl mx-auto mb-12 transition-all duration-700",
+              "text-xs uppercase tracking-[0.2em] text-muted-foreground/50 mb-12 transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
             style={{ transitionDelay: isVisible ? "450ms" : "0ms" }}
           >
-            <div
-              className="relative h-[100px] bg-card/20 border border-border/20 rounded-lg flex items-center justify-center gap-1.5 cursor-pointer group"
-              role="button"
-              aria-label="Audio playlist — coming soon"
-              tabIndex={0}
-            >
-              {/* Breathing waveform bars */}
-              {[28, 48, 64, 40, 56, 32, 52, 36, 60, 44, 28].map((h, i) => (
-                <div
-                  key={i}
-                  className="w-[3px] rounded-full bg-vow-yellow/20 group-hover:bg-vow-yellow/35 transition-colors duration-300"
-                  style={{
-                    height: `${h}%`,
-                    animation: `sound-breathe ${3 + (i % 3) * 0.5}s ease-in-out ${i * 0.15}s infinite`,
-                  }}
-                  aria-hidden="true"
-                />
-              ))}
-              {/* Center label */}
-              <span className="absolute text-xs text-muted-foreground/60 pointer-events-none">
-                Music coming soon
-              </span>
-            </div>
-          </div>
+            Samples arriving soon
+          </p>
 
           {/* Track Cards */}
           <div
