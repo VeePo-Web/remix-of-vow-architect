@@ -106,7 +106,7 @@ export function TheSound() {
             )}
             style={{ transitionDelay: isVisible ? "300ms" : "0ms" }}
           >
-            These are real ceremony moments—prelude, processional, vows, recession.
+            The prelude. The procession. The vows. The walk into forever.
           </p>
 
           {/* Minimal coming-soon note */}
@@ -170,8 +170,7 @@ export function TheSound() {
             )}
             style={{ transitionDelay: isVisible ? "800ms" : "0ms" }}
           >
-            Every arrangement crafted specifically for the couple. 
-            No two ceremonies sound alike.
+            Every arrangement begins with a conversation—and ends with a sound that belongs only to you.
           </p>
         </div>
       </div>

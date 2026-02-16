@@ -4,9 +4,9 @@ import { cn } from "@/lib/utils";
 import witnessCeremony from "@/assets/witness-ceremony.jpg";
 
 const declarations = [
-  "I arrive an hour early.",
-  "I test your officiant's mic.",
-  "I co-sign your cue sheet.",
+  "I arrive before anyone else.",
+  "I test every microphone myself.",
+  "I walk your cue sheet until it is second nature.",
 ];
 
 const standardKit = [
@@ -128,7 +128,7 @@ export function TheWitness() {
               style={{ transitionDelay: isVisible ? "600ms" : "0ms" }}
             >
               <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-5">
-                Standard Kit
+                What I bring
               </p>
               <div className="flex flex-wrap gap-3 justify-center">
                 {standardKit.map((item, index) => {

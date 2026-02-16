@@ -69,7 +69,7 @@ export function TheWitnesses() {
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
             >
-              TESTIMONIES
+              THE COVENANT KEPT
             </p>
             <h2
               className={cn(
