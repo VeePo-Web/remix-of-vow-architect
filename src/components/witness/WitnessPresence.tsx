@@ -1,9 +1,10 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
+import aboutPresenceImg from "@/assets/about-presence.jpg";
 
 /**
  * THE PRESENCE — 200+ Ceremonies Witnessed
- * Large proclamation number with floating "witness moments"
+ * Large proclamation number with atmospheric background and floating witness moments
  */
 
 const witnessedMoments = [
@@ -21,9 +22,28 @@ export function WitnessPresence() {
   return (
     <section 
       ref={ref as React.RefObject<HTMLElement>}
-      className="py-[120px] px-4 bg-background overflow-hidden"
+      className="relative py-[120px] px-4 bg-background overflow-hidden"
     >
-      <div className="container mx-auto">
+      {/* Background image */}
+      <div 
+        className="absolute inset-0 opacity-[0.06]"
+        style={{
+          backgroundImage: `url(${aboutPresenceImg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+        aria-hidden="true"
+      />
+      {/* Vignette */}
+      <div 
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse at center, transparent 30%, hsl(var(--background)) 80%)"
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="container mx-auto relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* Label */}
           <p 
@@ -37,7 +57,6 @@ export function WitnessPresence() {
 
           {/* The Big Number */}
           <div className="relative">
-            {/* Background glow */}
             <div 
               className={cn(
                 "absolute inset-0 flex items-center justify-center transition-all duration-1000",
@@ -52,7 +71,6 @@ export function WitnessPresence() {
               />
             </div>
 
-            {/* Number */}
             <div 
               className={cn(
                 "relative text-center transition-all duration-1000",
@@ -71,7 +89,6 @@ export function WitnessPresence() {
               <span className="font-display text-[clamp(40px,8vw,80px)] font-light text-primary align-top">+</span>
             </div>
 
-            {/* Subtitle */}
             <p 
               className={cn(
                 "font-display text-[clamp(20px,3vw,32px)] font-light text-center text-muted-foreground mt-4 transition-all duration-700",
@@ -95,13 +112,13 @@ export function WitnessPresence() {
               <div 
                 key={index}
                 className={cn(
-                  "p-6 rounded-lg border border-border/20 bg-card/30 transition-all duration-500 hover:border-primary/30 hover:bg-card/50",
+                  "p-6 rounded-lg border border-primary/10 bg-card/30 backdrop-blur-sm transition-all duration-500 hover:border-primary/30 hover:bg-card/50",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 )}
                 style={{ transitionDelay: `${900 + index * 100}ms` }}
               >
                 <p className="text-sm text-muted-foreground leading-relaxed italic">
-                  "{moment}"
+                  {moment}
                 </p>
               </div>
             ))}

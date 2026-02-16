@@ -2,24 +2,21 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 
 /**
- * THE SUSTAIN — Piano Keyboard Silhouette
- * Three illuminated keys for: Words, Silence, Memory
- * The sustain pedal metaphor - notes that linger beyond their strike
+ * THE SUSTAIN — Abstract Piano Visualization
+ * Three illuminated golden nodes connected by lines
+ * Words, Silence, Memory — the sustain pedal metaphor
  */
 
 const threeKeys = [
   {
-    key: "C",
     label: "Words",
     description: "I carry every syllable so it lands where it belongs."
   },
   {
-    key: "E", 
     label: "Silence",
     description: "I guard the pause between what is spoken."
   },
   {
-    key: "G",
     label: "Memory",
     description: "I remember what was said when memory fades."
   }
@@ -60,58 +57,43 @@ export function WitnessSustain() {
             I hold your ceremony.
           </h2>
 
-          {/* Piano Keyboard Visualization */}
-          <div className="relative mb-16">
-            {/* Simplified Piano Keys - Abstract */}
-            <div 
-              className={cn(
-                "flex justify-center gap-1 mb-8 transition-all duration-1000",
-                isVisible ? "opacity-100" : "opacity-0"
-              )}
-              style={{ transitionDelay: "400ms" }}
-            >
-              {/* 7 white keys representing an octave */}
-              {['C', 'D', 'E', 'F', 'G', 'A', 'B'].map((note, i) => {
-                const isIlluminated = note === 'C' || note === 'E' || note === 'G';
-                return (
-                  <div
-                    key={note}
-                    className={cn(
-                      "relative w-12 md:w-16 h-32 md:h-40 rounded-b-md border border-border/20 transition-all duration-500",
-                      isIlluminated 
-                        ? "bg-primary/20 border-primary/40" 
-                        : "bg-card/50"
-                    )}
-                    style={{ 
-                      transitionDelay: `${600 + i * 100}ms`,
-                      boxShadow: isIlluminated 
-                        ? "0 0 30px hsl(var(--vow-yellow) / 0.3), inset 0 -20px 40px hsl(var(--vow-yellow) / 0.1)" 
-                        : "none"
-                    }}
-                  >
-                    {/* Key label */}
-                    <span className={cn(
-                      "absolute bottom-3 left-1/2 -translate-x-1/2 text-xs font-mono",
-                      isIlluminated ? "text-primary" : "text-muted-foreground/30"
-                    )}>
-                      {note}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
+          {/* Abstract Visualization — Three connected golden nodes */}
+          <div 
+            className={cn(
+              "relative flex justify-center items-center mb-16 h-20 transition-all duration-1000",
+              isVisible ? "opacity-100" : "opacity-0"
+            )}
+            style={{ transitionDelay: "400ms" }}
+          >
+            <svg viewBox="0 0 400 40" className="w-full max-w-md h-auto" aria-hidden="true">
+              {/* Connecting line */}
+              <line 
+                x1="60" y1="20" x2="340" y2="20" 
+                stroke="hsl(45 80% 75%)" 
+                strokeWidth="1" 
+                opacity="0.3"
+              />
+              {/* Three nodes with glow */}
+              {[60, 200, 340].map((cx, i) => (
+                <g key={i}>
+                  <circle cx={cx} cy="20" r="12" fill="hsl(45 80% 75%)" opacity="0.08" />
+                  <circle cx={cx} cy="20" r="6" fill="hsl(45 80% 75%)" opacity="0.15" />
+                  <circle cx={cx} cy="20" r="3" fill="hsl(45 80% 75%)" opacity="0.8" />
+                </g>
+              ))}
+            </svg>
           </div>
 
           {/* Three Keys Content */}
           <div className="grid md:grid-cols-3 gap-8 md:gap-12">
             {threeKeys.map((item, index) => (
               <div 
-                key={item.key}
+                key={item.label}
                 className={cn(
                   "text-center transition-all duration-700",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 )}
-                style={{ transitionDelay: `${800 + index * 200}ms` }}
+                style={{ transitionDelay: `${600 + index * 200}ms` }}
               >
                 {/* Glowing dot */}
                 <div 

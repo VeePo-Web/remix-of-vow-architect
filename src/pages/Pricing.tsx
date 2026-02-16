@@ -14,6 +14,7 @@ import { StarBar } from "@/components/StarBar";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Check } from "lucide-react";
 import { usePageTheme } from "@/hooks/usePageTheme";
+import servicesHeroImg from "@/assets/services-hero.jpg";
 
 export default function Pricing() {
   usePageTheme();
@@ -25,8 +26,30 @@ export default function Pricing() {
       {/* Section 1: Jump Navigation */}
       <PricingJumpNav />
 
-      <section className="section-padding bg-background grain">
-        <div className="container mx-auto px-4">
+      <section className="relative section-padding bg-background">
+        {/* Atmospheric background on hero area */}
+        <div 
+          className="absolute inset-0 opacity-[0.08]"
+          style={{
+            backgroundImage: `url(${servicesHeroImg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            maskImage: "linear-gradient(to bottom, black 0%, transparent 40%)",
+            WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 40%)",
+          }}
+          aria-hidden="true"
+        />
+        {/* Film grain */}
+        <div 
+          className="absolute inset-0 grain opacity-20 pointer-events-none"
+          style={{
+            maskImage: "linear-gradient(to bottom, black 0%, transparent 40%)",
+            WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 40%)",
+          }}
+          aria-hidden="true" 
+        />
+
+        <div className="container mx-auto px-4 relative z-10">
           <Breadcrumbs items={[
             { label: "Home", path: "/" },
             { label: "Pricing & Packages" }
@@ -96,7 +119,7 @@ export default function Pricing() {
               </Card>
 
               {/* Ceremony + Prelude/Cocktails — $750 */}
-              <Card className="relative p-6 card-keyline bg-card border-primary/20 border-2 card-lift">
+              <Card className="relative p-6 card-keyline bg-card border-primary/20 border-2 card-lift" style={{ boxShadow: "0 0 40px hsl(var(--vow-yellow) / 0.08)" }}>
                 <MostSelectedPill />
                 
                 <div className="flex items-center gap-2 mb-4">

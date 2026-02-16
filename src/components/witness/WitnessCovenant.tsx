@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 /**
  * THE COVENANT — Personal Promise Certificate
  * Certificate-style layout with signature draw animation
- * The witness's promise to every couple
+ * Warm texture and breathing golden glow behind signature
  */
 
 const covenantPromises = [
@@ -58,14 +58,17 @@ export function WitnessCovenant() {
               boxShadow: "0 20px 60px rgba(0,0,0,0.08)"
             }}
           >
+            {/* Film grain texture on certificate */}
+            <div className="absolute inset-0 grain opacity-20 rounded-sm pointer-events-none" aria-hidden="true" />
+
             {/* Corner ornaments */}
-            <div className="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-primary/30" />
-            <div className="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-primary/30" />
-            <div className="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-primary/30" />
-            <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-primary/30" />
+            <div className="absolute top-6 left-6 w-10 h-10 border-l border-t border-primary/30" />
+            <div className="absolute top-6 right-6 w-10 h-10 border-r border-t border-primary/30" />
+            <div className="absolute bottom-6 left-6 w-10 h-10 border-l border-b border-primary/30" />
+            <div className="absolute bottom-6 right-6 w-10 h-10 border-r border-b border-primary/30" />
 
             {/* Certificate Header */}
-            <div className="text-center mb-10">
+            <div className="text-center mb-10 relative">
               <h2 className="font-display text-[clamp(24px,3vw,36px)] font-light text-foreground">
                 My Promise to You
               </h2>
@@ -73,7 +76,7 @@ export function WitnessCovenant() {
             </div>
 
             {/* Promises */}
-            <div className="space-y-4 mb-12">
+            <div className="space-y-4 mb-12 relative">
               {covenantPromises.map((promise, index) => (
                 <p 
                   key={index}
@@ -88,8 +91,18 @@ export function WitnessCovenant() {
               ))}
             </div>
 
-            {/* Signature Area */}
-            <div className="text-center pt-8 border-t border-border/20">
+            {/* Signature Area with breathing glow */}
+            <div className="relative text-center pt-8 border-t border-border/20">
+              {/* Breathing golden glow behind signature */}
+              <div 
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-32 rounded-full pointer-events-none"
+                style={{
+                  background: "radial-gradient(ellipse, hsl(var(--vow-yellow) / 0.06) 0%, transparent 70%)",
+                  animation: signatureDrawn ? "vigil-pulse 8s ease-in-out infinite" : "none",
+                }}
+                aria-hidden="true"
+              />
+
               {/* Signature SVG with draw animation */}
               <div className="relative h-16 mb-4 flex items-center justify-center">
                 <svg 

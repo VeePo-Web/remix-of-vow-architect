@@ -2,11 +2,11 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import crossoverImg from "@/assets/crossover-dance.jpg";
 
 /**
  * THE CROSSING — Final CTA
- * Deep dark section with warm golden glow CTA
- * "Response within 24 hours. Always."
+ * Deep dark section with atmospheric background, warm golden glow CTA
  */
 export function WitnessCrossing() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
@@ -19,12 +19,33 @@ export function WitnessCrossing() {
         background: "linear-gradient(180deg, hsl(var(--rich-black)) 0%, hsl(240 12% 6%) 100%)"
       }}
     >
+      {/* Background image */}
+      <div 
+        className="absolute inset-0 opacity-[0.08]"
+        style={{
+          backgroundImage: `url(${crossoverImg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Vignette */}
+      <div 
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse at center, transparent 20%, hsl(240 12% 6%) 80%)"
+        }}
+        aria-hidden="true"
+      />
+
       {/* Ambient glow */}
       <div 
         className="absolute inset-0 opacity-[0.04]"
         style={{
           background: "radial-gradient(ellipse at 50% 80%, hsl(var(--vow-yellow)) 0%, transparent 60%)"
         }}
+        aria-hidden="true"
       />
 
       <div className="container mx-auto relative z-10">
@@ -62,7 +83,7 @@ export function WitnessCrossing() {
             I'll show you exactly how I'll carry your vows.
           </p>
 
-          {/* CTA Button */}
+          {/* CTA Button with breathing glow */}
           <div 
             className={cn(
               "transition-all duration-700",
@@ -73,10 +94,7 @@ export function WitnessCrossing() {
             <Link to="/contact">
               <Button 
                 size="lg" 
-                className="px-10 py-6 text-base bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300"
-                style={{
-                  boxShadow: "0 0 40px hsl(var(--vow-yellow) / 0.3)"
-                }}
+                className="px-10 py-6 text-base bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 cta-breathe"
               >
                 Hold my date
               </Button>

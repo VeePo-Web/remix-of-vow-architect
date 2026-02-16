@@ -8,6 +8,7 @@ import { FAQChips } from "@/components/FAQChips";
 import { FAQTopTen } from "@/components/FAQTopTen";
 import { FAQPolicyDownload } from "@/components/FAQPolicyDownload";
 import { FAQTrustStack } from "@/components/FAQTrustStack";
+import servicesHeroImg from "@/assets/services-hero.jpg";
 
 export default function FAQ() {
   usePageTheme();
@@ -16,9 +17,23 @@ export default function FAQ() {
     <div className="min-h-screen">
       <Navigation />
       
-      {/* Section 1 — Hero */}
-      <section className="section-padding bg-background grain">
-        <div className="container mx-auto px-4">
+      {/* Section 1 — Hero with atmospheric gradient */}
+      <section className="relative section-padding bg-background overflow-hidden">
+        {/* Atmospheric background */}
+        <div 
+          className="absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage: `url(${servicesHeroImg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            maskImage: "linear-gradient(to bottom, black 0%, transparent 60%)",
+            WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 60%)",
+          }}
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 grain opacity-20 pointer-events-none" aria-hidden="true" />
+
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto animate-fade-in">
             <Breadcrumbs items={[
               { label: "Home", path: "/" },
