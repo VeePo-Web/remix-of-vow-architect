@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import aboutHeroImg from "@/assets/about-hero.jpg";
 
 /**
  * THE RESONANCE — Hero Section
  * A single vibrating golden string that resonates like a struck piano key
- * No images. Pure typography. The string IS the image.
+ * Background image with cinematic vignette and film grain
  */
 export function WitnessHero() {
   const [isVisible, setIsVisible] = useState(false);
@@ -15,12 +16,37 @@ export function WitnessHero() {
 
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-background">
+      {/* Background image with Ken Burns */}
+      <div 
+        className="absolute inset-0 opacity-[0.12]"
+        style={{
+          backgroundImage: `url(${aboutHeroImg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          animation: "ken-burns 25s ease-in-out infinite alternate",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Film grain overlay */}
+      <div className="absolute inset-0 grain opacity-40 pointer-events-none" aria-hidden="true" />
+
+      {/* Cinematic vignette */}
+      <div 
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 100%)"
+        }}
+        aria-hidden="true"
+      />
+
       {/* Ambient glow */}
       <div 
-        className="absolute inset-0 opacity-[0.02]"
+        className="absolute inset-0 opacity-[0.03]"
         style={{
           background: "radial-gradient(ellipse at 50% 60%, hsl(var(--vow-yellow)) 0%, transparent 70%)"
         }}
+        aria-hidden="true"
       />
       
       <div className="container mx-auto px-4 relative z-10">

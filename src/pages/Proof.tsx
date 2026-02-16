@@ -9,6 +9,7 @@ import { DownloadablePlans } from "@/components/DownloadablePlans";
 import { MobileTrustBar } from "@/components/MobileTrustBar";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { Shield, Zap, Layers, Clock } from "lucide-react";
+import galleryHeroImg from "@/assets/gallery-hero.jpg";
 
 export default function Proof() {
   usePageTheme();
@@ -17,9 +18,30 @@ export default function Proof() {
     <div className="min-h-screen">
       <Navigation />
       
-      {/* Section 1 - Hero */}
-      <section className="section-padding bg-background grain">
-        <div className="container mx-auto px-4">
+      {/* Section 1 - Hero with atmospheric background */}
+      <section className="relative section-padding bg-background overflow-hidden">
+        {/* Background image */}
+        <div 
+          className="absolute inset-0 opacity-[0.10]"
+          style={{
+            backgroundImage: `url(${galleryHeroImg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+          aria-hidden="true"
+        />
+        {/* Vignette */}
+        <div 
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse at center, transparent 30%, hsl(var(--background)) 90%)"
+          }}
+          aria-hidden="true"
+        />
+        {/* Film grain */}
+        <div className="absolute inset-0 grain opacity-30 pointer-events-none" aria-hidden="true" />
+
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center space-y-6 animate-fade-in">
             <div className="overline">Assured Ceremony Audio™</div>
             <h1 className="mx-auto">Sound You Can See.</h1>
@@ -34,22 +56,17 @@ export default function Proof() {
 
             {/* Trust stack */}
             <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 mt-12 max-w-3xl mx-auto">
-              <div className="flex flex-col items-center gap-2 p-4 rounded-lg bg-card/50 border border-border">
-                <Shield className="text-primary" size={24} />
-                <span className="text-sm font-medium">$4M Insurance</span>
-              </div>
-              <div className="flex flex-col items-center gap-2 p-4 rounded-lg bg-card/50 border border-border">
-                <Zap className="text-primary" size={24} />
-                <span className="text-sm font-medium">$25k Gear</span>
-              </div>
-              <div className="flex flex-col items-center gap-2 p-4 rounded-lg bg-card/50 border border-border">
-                <Layers className="text-primary" size={24} />
-                <span className="text-sm font-medium">Triple Backups</span>
-              </div>
-              <div className="flex flex-col items-center gap-2 p-4 rounded-lg bg-card/50 border border-border">
-                <Clock className="text-primary" size={24} />
-                <span className="text-sm font-medium">24-Hour Plan</span>
-              </div>
+              {[
+                { icon: Shield, label: "$4M Insurance" },
+                { icon: Zap, label: "$25k Gear" },
+                { icon: Layers, label: "Triple Backups" },
+                { icon: Clock, label: "24-Hour Plan" },
+              ].map(({ icon: Icon, label }) => (
+                <div key={label} className="flex flex-col items-center gap-2 p-4 rounded-lg bg-card/50 border border-primary/10 backdrop-blur-sm transition-all duration-300 hover:border-primary/30 hover:bg-card/70">
+                  <Icon className="text-primary" size={24} />
+                  <span className="text-sm font-medium">{label}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>

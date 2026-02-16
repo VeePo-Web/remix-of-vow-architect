@@ -15,6 +15,7 @@ import { ValuePromiseBadge } from "@/components/ValuePromiseBadge";
 import { Upload } from "lucide-react";
 import { useState, useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
+import contactHeroImg from "@/assets/contact-hero.jpg";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -75,9 +76,24 @@ export default function Contact() {
     <div className="min-h-screen">
       <Navigation />
 
-      {/* Section 1: Hero */}
-      <section className="section-padding bg-background grain">
-        <div className="container mx-auto px-4">
+      {/* Section 1: Hero with atmospheric background */}
+      <section className="relative section-padding bg-background overflow-hidden">
+        {/* Background image */}
+        <div 
+          className="absolute inset-0 opacity-[0.08]"
+          style={{
+            backgroundImage: `url(${contactHeroImg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            maskImage: "linear-gradient(to bottom, black 0%, transparent 50%)",
+            WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 50%)",
+          }}
+          aria-hidden="true"
+        />
+        {/* Film grain */}
+        <div className="absolute inset-0 grain opacity-20 pointer-events-none" aria-hidden="true" />
+
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-5xl mx-auto animate-fade-in">
             <Breadcrumbs
               items={[{ label: "Home", path: "/" }, { label: "Hold Your Date" }]}
