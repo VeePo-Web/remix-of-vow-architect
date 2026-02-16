@@ -1507,7 +1507,7 @@ All colors MUST be HSL.
 
   .process-section {
     position: relative;
-    min-height: 180vh;
+    min-height: auto;
     padding: var(--space-10) var(--space-6);
     display: flex;
     flex-direction: column;
@@ -1669,114 +1669,8 @@ All colors MUST be HSL.
     }
   }
 
-  /* Pulse ring: Expanding circle, appears mid-scroll */
-  .ambient-glow-field__pulse {
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 1px solid hsl(var(--vow-yellow) / 0.15);
-    transform: translate(-50%, -50%) scale(0.5);
-    opacity: 0;
-    transition: opacity 800ms var(--ease-sacred);
-  }
+  /* (Pulse ring + Golden Thread system removed — unused by current components) */
 
-  .ambient-glow-field__pulse.is-visible {
-    opacity: 1;
-    animation: pulse-expand 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-
-  @keyframes pulse-expand {
-    0% {
-      transform: translate(-50%, -50%) scale(0.5);
-      opacity: 0.4;
-      border-width: 1px;
-    }
-    50% {
-      opacity: 0.15;
-    }
-    100% {
-      transform: translate(-50%, -50%) scale(3);
-      opacity: 0;
-      border-width: 0.5px;
-    }
-  }
-  /* Echo Rings removed in UX cleanup — simplified to golden thread only */
-
-  /* ═══════════════════════════════════════
-     GOLDEN THREAD SYSTEM
-     ═══════════════════════════════════════ */
-
-  .process-section__thread {
-    position: absolute;
-    top: 280px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 20px;
-    height: calc(100% - 500px);
-    pointer-events: none;
-    display: none;
-  }
-
-  @media (min-width: 1024px) {
-    .process-section__thread {
-      display: block;
-    }
-  }
-
-  .process-thread {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-
-  .process-thread__svg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  .process-thread__line {
-    stroke-dasharray: 100;
-    stroke-dashoffset: 100;
-    transition: stroke-dashoffset 1800ms var(--ease-covenant);
-  }
-
-  .process-thread__line.is-drawing {
-    stroke-dashoffset: 0;
-  }
-
-  /* Golden Anchor Dots */
-  .process-thread__dot {
-    position: absolute;
-    left: 50%;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: hsl(var(--vow-yellow) / 0.3);
-    transform: translate(-50%, -50%) scale(0.6);
-    opacity: 0;
-    transition: 
-      opacity 700ms var(--ease-sacred),
-      transform 700ms var(--ease-sacred),
-      background 700ms var(--ease-sacred),
-      box-shadow 700ms var(--ease-sacred);
-    transition-delay: var(--dot-delay, 0ms);
-  }
-
-  .process-thread__dot.is-ignited {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-    background: hsl(var(--vow-yellow));
-    box-shadow: 
-      0 0 12px hsl(var(--vow-yellow) / 0.5),
-      0 0 24px hsl(var(--vow-yellow) / 0.25);
-    animation: exhale-pulse 4.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    animation-delay: var(--dot-delay, 0ms);
-  }
 
   /* ═══════════════════════════════════════
      INTRO BLOCK (Exhale-matched typography)
