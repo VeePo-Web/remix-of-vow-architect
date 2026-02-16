@@ -104,10 +104,10 @@ export function TheTransformation() {
 
       {/* CENTER DIVIDER — breathing glow (outside grid for proper overlay) */}
       <div
-        className="absolute left-1/2 top-0 bottom-0 w-[2px] -translate-x-1/2 pointer-events-none hidden md:block z-20"
+        className="absolute left-1/2 top-0 bottom-0 w-[3px] -translate-x-1/2 pointer-events-none hidden md:block z-30"
         style={{
-          background: "linear-gradient(180deg, transparent 0%, hsl(var(--vow-yellow) / 0.6) 50%, transparent 100%)",
-          boxShadow: "0 0 40px 8px hsl(var(--vow-yellow) / 0.2), 0 0 80px 16px hsl(var(--vow-yellow) / 0.1)",
+          background: "linear-gradient(180deg, transparent 0%, hsl(var(--vow-yellow) / 0.85) 50%, transparent 100%)",
+          boxShadow: "0 0 50px 12px hsl(var(--vow-yellow) / 0.25), 0 0 100px 24px hsl(var(--vow-yellow) / 0.12)",
           animation: "divider-breathe 4s ease-in-out infinite",
         }}
         aria-hidden="true"
