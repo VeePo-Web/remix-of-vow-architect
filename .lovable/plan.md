@@ -1,101 +1,154 @@
 
 
-# World-Class Homepage Design Overhaul
+# World-Class Design Overhaul -- Full Website
 
-## Current State Assessment
+## Current State Summary
 
-After thorough audit of every section, screenshot, and CSS file, here are the findings:
+After auditing every page and component, the site has strong narrative architecture but falls short of Fantasy.co-level polish in several areas. The homepage is the strongest page; the About, Gallery (Proof), Services, FAQ, and Contact pages lack the atmospheric imagery, refined spacing, and cinematic transitions that make the homepage work.
 
-### What works well
-- Hero vigil sequence (flame, Ken Burns, staggered UI reveal)
-- TheExhale section (clean emotional text, golden thread SVG)
-- VowMoment (full-viewport sacred interstitial)
-- TheInvitation (portrait + copy, trust badges)
-- TheTransformation (split panels with background images)
-- TheWitness, ThreePaths, TheRecord, TheWitnesses, CrossOver (all rendering)
-- All 7 AI background images are integrated and loading
+## Critical Issues Across the Site
 
-### Critical issues found
+### 1. About Page -- Needs Complete Visual Redesign
+The About page (WitnessHero, WitnessOrigin, WitnessSustain, WitnessPresence, WitnessCovenant, WitnessCrossing) is text-only with no imagery. The "empty memory space" on WitnessOrigin is literally empty -- 60% of the viewport shows a faint dot. The piano keyboard in WitnessSustain looks like a crude diagram, not a world-class visual. The WitnessPresence "floating moments" cards are plain bordered boxes with no atmosphere. This page needs atmospheric background images, refined section transitions, and the same cinematic treatment as the homepage.
 
-**1. Process Section Card Layout is Broken (CSS Class Mismatch)**
-The `ProcessMovement` component renders elements with class `.process-card`, but the journal layout CSS (lines 4042-4063) targets `.letterpress-card` for grid ordering and positioning. Since no component actually outputs `.letterpress-card`, the journal grid layout rules (alternating image/card positioning, margin auto, order swaps) are never applied. This causes cards to stack incorrectly instead of displaying in the intended image-left/card-right alternating journal layout.
+### 2. Gallery/Proof Page -- Generic Trust Stack Layout
+The Gallery page uses generic icon + text cards (Shield, Zap, Layers, Clock) that look like every other SaaS product page. No imagery, no atmospheric depth. The SPLTriptych, SetupPhotoGallery, and InsuranceDocuments sections need cinematic treatment.
 
-**2. Duplicate CSS Systems (~1500 lines of dead code)**
-The CSS contains two complete systems for process cards:
-- Original system (lines 2127-2731): `.process-movement`, `.process-movement__header`, etc. targeting a simpler card layout
-- Journal system (lines 4016-4200): `.process-movement--journal`, targeting `.letterpress-card` for grid layout
-- Card system (lines 5423-5527): `.process-card` styles for cream-colored cards
+### 3. Services/Pricing Page -- Functional but Not Premium
+The pricing cards work but lack the atmospheric depth layers (gradients, vignettes, grain) that make the homepage sections feel premium. The "Assured Ceremony Audio" label and grid of inclusions look like a standard feature list.
 
-The `ProcessMovement` component uses journal class names but references `.process-card` instead of `.letterpress-card`, creating a conflict.
+### 4. FAQ Page -- Standard Accordion Layout
+Clean but standard. Missing the Death/Life emotional rhythm and atmospheric treatment.
 
-**3. Held Breath Line System CSS (~500 lines) with No Component**
-Lines 1871-2126 define an elaborate "Held Breath" transforming line SVG system (`.held-breath`, `.held-breath-path`, `.card-connector`) that has no corresponding component in any TSX file. This is entirely dead CSS.
+### 5. Contact Page -- Standard Form
+Functional form but lacks atmospheric imagery and the emotional warmth of the brand.
 
-**4. Minor design gaps**
-- Process section background is very dark, nearly indistinguishable from other dark sections
-- TheSound "Music coming soon" placeholder feels unfinished
-- Section transitions between dark-to-light sections could be smoother
+### 6. Missing AI-Generated Images Throughout
+The user specifically requested AI-generated stock images to add visual richness. Currently, only the homepage has atmospheric images. Every other page is text-only.
+
+---
 
 ## Implementation Plan
 
-### Phase 1: Fix Process Card CSS Class Mismatch
+### Phase 1: Generate AI Images for All Pages (7 images)
 
-Replace all `.letterpress-card` references in CSS with `.process-card` to match the actual component output.
+Using the AI image generation API, create atmospheric, cinematic images:
 
-| Location | Change |
-|----------|--------|
-| `src/index.css` lines 4042-4063 | Change `.letterpress-card` to `.process-card` (6 instances) |
-| `src/index.css` lines 4150-4158 | Change `.letterpress-card` to `.process-card` in responsive rules |
-| `src/index.css` lines 4164-4166 | Change `.letterpress-card__numeral` to `.process-card__numeral` |
-| `src/index.css` lines 4179-4185 | Change `.letterpress-card` references in mobile rules |
+| Image | Purpose | Prompt Direction |
+|-------|---------|-----------------|
+| about-hero.jpg | About page hero background | Soft-focus grand piano in cathedral light, golden hour, dust motes |
+| about-origin.jpg | WitnessOrigin right panel | Empty wedding ceremony chairs at twilight, wind-blown aisle |
+| about-presence.jpg | WitnessPresence background | Overhead view of wedding ceremony, soft bokeh, warm tones |
+| gallery-hero.jpg | Gallery page hero background | Sound equipment setup detail shot, matte black, golden accents |
+| gallery-setup.jpg | Setup gallery placeholder | Grand piano in mountain venue, Banff-style landscape |
+| services-hero.jpg | Services page hero background | Piano keys close-up with warm candlelight glow |
+| contact-hero.jpg | Contact page background | Intimate wedding venue at dusk, warm string lights |
 
-### Phase 2: Remove Dead "Held Breath" Line System CSS
+### Phase 2: About Page Redesign (6 components)
 
-Remove the unused line/connector system (lines 1871-2126) that has no corresponding component. This removes ~255 lines of dead CSS including:
-- `.held-breath`, `.held-breath__ambient`, `.held-breath__line-container`
-- `.held-breath-path`, all state variants (silent, pulse, wave, refined, keys)
-- `.card-connector` system
-- Associated keyframes (`held-breath-ambient-pulse`, `held-breath-shimmer`, `connector-anchor-pulse`)
+**WitnessHero.tsx**
+- Add the about-hero.jpg as a background layer with 12% opacity, Ken Burns animation
+- Add film grain overlay consistent with homepage hero
+- Add vignette radial gradient for cinematic depth
 
-### Phase 3: Remove Dead Letterpress Material CSS
+**WitnessOrigin.tsx**
+- Replace the empty "memory space" (60% column) with the about-origin.jpg image
+- Add the same cinematic vignette overlay used in TheInvitation
+- Maintain the text column at 40% with current copy
 
-Search for and remove any remaining `.letterpress-card__numeral` rules that referenced the old component system. The process-card system at lines 5423-5527 already handles numeral positioning correctly.
+**WitnessSustain.tsx**
+- Replace the crude 7-key piano diagram with a refined, minimal visualization
+- Use abstract golden dots/lines instead of literal piano key rectangles
+- Maintain the three-column Words/Silence/Memory layout with warm cream background
 
-### Phase 4: Process Section Visual Polish
+**WitnessPresence.tsx**
+- Add about-presence.jpg as 8% opacity background
+- Add radial gradient vignette for depth
+- Refine the floating moments cards with subtle border-primary/10 glow and no explicit quotes
 
-Refine the process section to feel more distinct and premium:
-- The warm dawn gradient background is good but needs stronger warmth to differentiate from surrounding dark sections
-- Increase the process-card cream background contrast slightly for better readability
-- Ensure the ceremony closing image renders at appropriate brightness
+**WitnessCovenant.tsx**
+- Add a subtle warm texture/grain to the certificate
+- Refine corner ornament sizing and spacing
+- Add a breathing golden glow behind the signature area
 
-### Phase 5: Verify All Section Transitions
+**WitnessCrossing.tsx**
+- Add atmospheric background image (reuse crossover-dance.jpg) at low opacity
+- Add the cta-breathe-glow animation to the CTA button (matching CrossOver on homepage)
+- Add vignette overlay for cinematic depth
 
-After the CSS fixes, verify:
-- TheExhale fade-bottom gradient transitions smoothly into ProcessSection
-- ProcessSection closing ceremony image transitions into VowMoment
-- VowMoment transitions into TheInvitation warm section
-- All section-fade-top and section-fade-bottom elements create seamless flow
+### Phase 3: Gallery Page Visual Polish (1 file)
+
+**Proof.tsx**
+- Add gallery-hero.jpg as hero section background with overlay
+- Add film grain to hero section
+- Add atmospheric depth gradients between sections
+- Apply card-lift hover effects to trust stack items
+
+### Phase 4: Services Page Visual Polish (1 file)
+
+**Pricing.tsx**
+- Add services-hero.jpg as hero background with dark overlay
+- Add section-fade transitions between sections
+- Add subtle grain texture to pricing cards section
+- Apply the same breathing glow to the "Most Selected" card border
+
+### Phase 5: FAQ + Contact Page Polish (2 files)
+
+**FAQ.tsx**
+- Add atmospheric gradient background to hero section
+- Add section-fade transitions between FAQ sections
+
+**Contact.tsx**
+- Add contact-hero.jpg as subtle background element
+- Add warm atmospheric glow behind the form card
+- Refine vibe selector styling to match brand aesthetic (remove emoji, use elegant icons)
+
+### Phase 6: Section Transition Consistency (CSS)
+
+Add consistent section-fade-top and section-fade-bottom dividers to all page transitions across all pages, matching the homepage pattern. Ensure every dark-to-light and light-to-dark transition has the proper gradient fade.
+
+---
 
 ## Files to Modify
 
 | File | Changes |
 |------|---------|
-| `src/index.css` | Fix `.letterpress-card` to `.process-card` (Phase 1); remove held-breath/connector CSS (Phase 2); remove dead letterpress numeral rules (Phase 3); polish process section warmth (Phase 4) |
+| src/components/witness/WitnessHero.tsx | Add background image, grain, vignette layers |
+| src/components/witness/WitnessOrigin.tsx | Replace empty space with atmospheric image |
+| src/components/witness/WitnessSustain.tsx | Refine piano visualization to abstract minimal design |
+| src/components/witness/WitnessPresence.tsx | Add background image, refine cards |
+| src/components/witness/WitnessCovenant.tsx | Add warm texture and glow effects |
+| src/components/witness/WitnessCrossing.tsx | Add background image and breathing CTA |
+| src/pages/Proof.tsx | Add hero background image and atmospheric layers |
+| src/pages/Pricing.tsx | Add hero background and section transitions |
+| src/pages/FAQ.tsx | Add atmospheric gradients |
+| src/pages/Contact.tsx | Add background imagery, refine vibe selector |
+| src/index.css | Add any new utility classes for page-level transitions |
 
 ## What Stays Unchanged
 
-- All text content across every component
-- All TSX component logic and structure
-- All 7 AI-generated background images
-- Hero vigil sequence and all animation timing
-- Every section outside the Process section
-- Color palette and typography system
-- Footer, navigation, and routing
+- All text content on Services, FAQ, Contact pages (per user request)
+- All pricing details and package information
+- All process section content and cards
+- Homepage design (already polished)
+- Footer and Navigation structure
+- Color palette, typography system, animation timings
+- All existing AI images on the homepage
 
-## Estimated Impact
+## Technical Approach
 
-- Process section cards will display correctly in alternating journal layout for the first time
-- ~750+ lines of dead CSS removed (held-breath system + letterpress references)
-- Faster CSS parse time and reduced bundle size
-- Zero visual regressions outside the process section (which currently renders incorrectly anyway)
+- Generate 7 AI images using google/gemini-2.5-flash-image via edge function
+- All images will use lazy loading with loading="lazy"
+- All background images will use low opacity (6-15%) to maintain readability
+- All images will include aria-hidden="true" for decorative backgrounds
+- prefers-reduced-motion will disable Ken Burns and breathing animations
+- Images will be compressed and optimized for web delivery
+
+## Design Principles Applied
+
+- **Inhale/Exhale rhythm**: Every page alternates between dark (vigil) and light (celebration) sections with proper gradient transitions
+- **88/6/4 color ratio**: Background images never introduce new colors, only add atmospheric depth
+- **Lagom principle**: Images at low opacity -- enough to add atmosphere, never enough to distract from content
+- **Funktionalism**: Every visual element serves the emotional narrative, nothing decorative
+- **Breathing metaphor**: CTA buttons use the 4s cta-breathe animation, section glows pulse subtly
 
