@@ -1,154 +1,100 @@
 
 
-# World-Class Design Overhaul -- Full Website
+# World-Class Design Polish -- Final Pass
 
-## Current State Summary
+## Audit Summary
 
-After auditing every page and component, the site has strong narrative architecture but falls short of Fantasy.co-level polish in several areas. The homepage is the strongest page; the About, Gallery (Proof), Services, FAQ, and Contact pages lack the atmospheric imagery, refined spacing, and cinematic transitions that make the homepage work.
+The site has come a long way. The homepage is cinematic and polished. The About page now has atmospheric imagery. The Pricing, FAQ, and Contact pages all have subtle background treatments. However, several issues remain that prevent this from reaching true Fantasy.co-level quality.
 
-## Critical Issues Across the Site
+## Issues Found
 
-### 1. About Page -- Needs Complete Visual Redesign
-The About page (WitnessHero, WitnessOrigin, WitnessSustain, WitnessPresence, WitnessCovenant, WitnessCrossing) is text-only with no imagery. The "empty memory space" on WitnessOrigin is literally empty -- 60% of the viewport shows a faint dot. The piano keyboard in WitnessSustain looks like a crude diagram, not a world-class visual. The WitnessPresence "floating moments" cards are plain bordered boxes with no atmosphere. This page needs atmospheric background images, refined section transitions, and the same cinematic treatment as the homepage.
+### 1. Contact Page Switches to Light Theme Unexpectedly
+The Contact page renders in light mode (white background, light form cards) while every other page uses the dark "death" theme. This breaks the visual continuity. The `usePageTheme` hook likely classifies `/contact` as a "life" route, but given the brand's dark-dominant aesthetic, the Contact page hero should maintain dark atmosphere with the warm string lights image providing the only warmth.
 
-### 2. Gallery/Proof Page -- Generic Trust Stack Layout
-The Gallery page uses generic icon + text cards (Shield, Zap, Layers, Clock) that look like every other SaaS product page. No imagery, no atmospheric depth. The SPLTriptych, SetupPhotoGallery, and InsuranceDocuments sections need cinematic treatment.
+### 2. Navigation Inconsistency Between Homepage and Subpages
+The homepage uses `MinimalHeader` (Parker Allard left, MENU right -- cinematic minimal style), while all subpages use `Navigation` (Parker Allard left, full nav links + theme toggle + Check Availability button). This creates a jarring experience when navigating between pages. The subpage nav should match the homepage's quiet luxury -- remove the theme toggle and simplify the CTA button styling.
 
-### 3. Services/Pricing Page -- Functional but Not Premium
-The pricing cards work but lack the atmospheric depth layers (gradients, vignettes, grain) that make the homepage sections feel premium. The "Assured Ceremony Audio" label and grid of inclusions look like a standard feature list.
+### 3. Breadcrumbs Use Left-Aligned Chapter Rule Instead of Centered
+On the Pricing and FAQ pages, the `chapter-rule` element (a gold horizontal line) appears left-aligned beneath the breadcrumbs rather than centered beneath the heading. This breaks the symmetrical hierarchy the brand demands.
 
-### 4. FAQ Page -- Standard Accordion Layout
-Clean but standard. Missing the Death/Life emotional rhythm and atmospheric treatment.
+### 4. "Music Coming Soon" Placeholder on Homepage
+The Sound section displays a "Music coming soon" placeholder with fake waveform bars. This feels unfinished and breaks the premium illusion. It should either be removed entirely or replaced with a more elegant "coming soon" treatment that feels intentional rather than placeholder.
 
-### 5. Contact Page -- Standard Form
-Functional form but lacks atmospheric imagery and the emotional warmth of the brand.
+### 5. Gallery/Proof Page Has No Section Transitions
+The Proof page jumps between sections without the gradient fade transitions (`section-fade-top`, `section-fade-bottom`) that make the homepage flow seamlessly. Each section boundary is a hard cut.
 
-### 6. Missing AI-Generated Images Throughout
-The user specifically requested AI-generated stock images to add visual richness. Currently, only the homepage has atmospheric images. Every other page is text-only.
+### 6. About Page WitnessSustain Uses Hardcoded HSL Colors
+The Sustain and Covenant sections use inline `style` with hardcoded `hsl(45 25% 96%)` backgrounds instead of using CSS custom properties. In "life" theme these would clash. They should use `bg-surface` or the existing warm cream variable.
 
----
+### 7. Mobile: About Hero Text Alignment
+On mobile (390px), the hero text "I don't perform at weddings" is left-aligned while "I witness them" is centered. The text alignment should be consistently centered on all viewport sizes.
 
 ## Implementation Plan
 
-### Phase 1: Generate AI Images for All Pages (7 images)
+### Phase 1: Contact Page Theme Fix
+**File: `src/hooks/usePageTheme.ts`**
+- Ensure `/contact` is included in the dark theme routes so it maintains visual continuity with the rest of the site
+- The atmospheric string lights image provides enough warmth without needing the full light theme
 
-Using the AI image generation API, create atmospheric, cinematic images:
+### Phase 2: Navigation Consistency
+**File: `src/components/Navigation.tsx`**
+- Remove the `ThemeToggle` component from the navigation bar (the theme should be controlled by the page, not the user -- per brand guidelines, the Death/Life rhythm is intentional)
+- Simplify the "Check Availability" button to use a more restrained styling (outline or ghost variant) that doesn't compete with page CTAs
 
-| Image | Purpose | Prompt Direction |
-|-------|---------|-----------------|
-| about-hero.jpg | About page hero background | Soft-focus grand piano in cathedral light, golden hour, dust motes |
-| about-origin.jpg | WitnessOrigin right panel | Empty wedding ceremony chairs at twilight, wind-blown aisle |
-| about-presence.jpg | WitnessPresence background | Overhead view of wedding ceremony, soft bokeh, warm tones |
-| gallery-hero.jpg | Gallery page hero background | Sound equipment setup detail shot, matte black, golden accents |
-| gallery-setup.jpg | Setup gallery placeholder | Grand piano in mountain venue, Banff-style landscape |
-| services-hero.jpg | Services page hero background | Piano keys close-up with warm candlelight glow |
-| contact-hero.jpg | Contact page background | Intimate wedding venue at dusk, warm string lights |
+### Phase 3: Fix Chapter Rule Alignment
+**Files: `src/pages/Pricing.tsx`, `src/pages/FAQ.tsx`**
+- Move the `chapter-rule` element to sit directly beneath the `h1` heading, centered, rather than beneath the breadcrumbs
+- Ensure consistent centering with `mx-auto` and proper spacing
 
-### Phase 2: About Page Redesign (6 components)
+### Phase 4: Refine TheSound Placeholder
+**File: `src/components/TheSound.tsx`**
+- Replace the "Music coming soon" waveform placeholder with a minimal, elegant treatment: just the track cards with a single line of text like "Samples arriving soon" in muted text beneath
+- Remove the fake waveform bars entirely -- they look unfinished
 
-**WitnessHero.tsx**
-- Add the about-hero.jpg as a background layer with 12% opacity, Ken Burns animation
-- Add film grain overlay consistent with homepage hero
-- Add vignette radial gradient for cinematic depth
+### Phase 5: Add Section Transitions to Proof Page
+**File: `src/pages/Proof.tsx`**
+- Add `section-fade-bottom` and `section-fade-top` gradient dividers between each major section (hero to SPL, SPL to setup photos, etc.)
+- Match the transition pattern used on the homepage
 
-**WitnessOrigin.tsx**
-- Replace the empty "memory space" (60% column) with the about-origin.jpg image
-- Add the same cinematic vignette overlay used in TheInvitation
-- Maintain the text column at 40% with current copy
+### Phase 6: CSS Variable Consistency
+**Files: `src/components/witness/WitnessSustain.tsx`, `src/components/witness/WitnessCovenant.tsx`**
+- Replace hardcoded `hsl(45 25% 96%)` with CSS custom property references (e.g., `hsl(var(--surface))` or the existing warm cream tokens)
+- This ensures theme consistency if the user ever views in light mode
 
-**WitnessSustain.tsx**
-- Replace the crude 7-key piano diagram with a refined, minimal visualization
-- Use abstract golden dots/lines instead of literal piano key rectangles
-- Maintain the three-column Words/Silence/Memory layout with warm cream background
-
-**WitnessPresence.tsx**
-- Add about-presence.jpg as 8% opacity background
-- Add radial gradient vignette for depth
-- Refine the floating moments cards with subtle border-primary/10 glow and no explicit quotes
-
-**WitnessCovenant.tsx**
-- Add a subtle warm texture/grain to the certificate
-- Refine corner ornament sizing and spacing
-- Add a breathing golden glow behind the signature area
-
-**WitnessCrossing.tsx**
-- Add atmospheric background image (reuse crossover-dance.jpg) at low opacity
-- Add the cta-breathe-glow animation to the CTA button (matching CrossOver on homepage)
-- Add vignette overlay for cinematic depth
-
-### Phase 3: Gallery Page Visual Polish (1 file)
-
-**Proof.tsx**
-- Add gallery-hero.jpg as hero section background with overlay
-- Add film grain to hero section
-- Add atmospheric depth gradients between sections
-- Apply card-lift hover effects to trust stack items
-
-### Phase 4: Services Page Visual Polish (1 file)
-
-**Pricing.tsx**
-- Add services-hero.jpg as hero background with dark overlay
-- Add section-fade transitions between sections
-- Add subtle grain texture to pricing cards section
-- Apply the same breathing glow to the "Most Selected" card border
-
-### Phase 5: FAQ + Contact Page Polish (2 files)
-
-**FAQ.tsx**
-- Add atmospheric gradient background to hero section
-- Add section-fade transitions between FAQ sections
-
-**Contact.tsx**
-- Add contact-hero.jpg as subtle background element
-- Add warm atmospheric glow behind the form card
-- Refine vibe selector styling to match brand aesthetic (remove emoji, use elegant icons)
-
-### Phase 6: Section Transition Consistency (CSS)
-
-Add consistent section-fade-top and section-fade-bottom dividers to all page transitions across all pages, matching the homepage pattern. Ensure every dark-to-light and light-to-dark transition has the proper gradient fade.
-
----
+### Phase 7: Mobile Text Alignment Fix
+**File: `src/components/witness/WitnessHero.tsx`**
+- Ensure the `text-center` class is applied consistently to the h1 and p elements on all viewport sizes
+- The current `max-w-4xl mx-auto text-center` wrapper should handle this, but verify the child elements inherit center alignment
 
 ## Files to Modify
 
 | File | Changes |
 |------|---------|
-| src/components/witness/WitnessHero.tsx | Add background image, grain, vignette layers |
-| src/components/witness/WitnessOrigin.tsx | Replace empty space with atmospheric image |
-| src/components/witness/WitnessSustain.tsx | Refine piano visualization to abstract minimal design |
-| src/components/witness/WitnessPresence.tsx | Add background image, refine cards |
-| src/components/witness/WitnessCovenant.tsx | Add warm texture and glow effects |
-| src/components/witness/WitnessCrossing.tsx | Add background image and breathing CTA |
-| src/pages/Proof.tsx | Add hero background image and atmospheric layers |
-| src/pages/Pricing.tsx | Add hero background and section transitions |
-| src/pages/FAQ.tsx | Add atmospheric gradients |
-| src/pages/Contact.tsx | Add background imagery, refine vibe selector |
-| src/index.css | Add any new utility classes for page-level transitions |
+| `src/hooks/usePageTheme.ts` | Add `/contact` to dark theme routes |
+| `src/components/Navigation.tsx` | Remove ThemeToggle, simplify CTA button |
+| `src/pages/Pricing.tsx` | Fix chapter-rule positioning |
+| `src/pages/FAQ.tsx` | Fix chapter-rule positioning |
+| `src/components/TheSound.tsx` | Remove waveform placeholder, simplify to elegant "coming soon" |
+| `src/pages/Proof.tsx` | Add section fade transitions between sections |
+| `src/components/witness/WitnessSustain.tsx` | Replace hardcoded HSL with CSS variables |
+| `src/components/witness/WitnessCovenant.tsx` | Replace hardcoded HSL with CSS variables |
+| `src/components/witness/WitnessHero.tsx` | Verify mobile text centering |
 
 ## What Stays Unchanged
 
-- All text content on Services, FAQ, Contact pages (per user request)
+- All text content across every page
 - All pricing details and package information
 - All process section content and cards
-- Homepage design (already polished)
-- Footer and Navigation structure
-- Color palette, typography system, animation timings
-- All existing AI images on the homepage
-
-## Technical Approach
-
-- Generate 7 AI images using google/gemini-2.5-flash-image via edge function
-- All images will use lazy loading with loading="lazy"
-- All background images will use low opacity (6-15%) to maintain readability
-- All images will include aria-hidden="true" for decorative backgrounds
-- prefers-reduced-motion will disable Ken Burns and breathing animations
-- Images will be compressed and optimized for web delivery
+- Homepage hero vigil sequence and all animation timing
+- All 7+ AI-generated background images
+- Footer structure and all valid links
+- Color palette and typography system
+- About page narrative structure and content
 
 ## Design Principles Applied
 
-- **Inhale/Exhale rhythm**: Every page alternates between dark (vigil) and light (celebration) sections with proper gradient transitions
-- **88/6/4 color ratio**: Background images never introduce new colors, only add atmospheric depth
-- **Lagom principle**: Images at low opacity -- enough to add atmosphere, never enough to distract from content
-- **Funktionalism**: Every visual element serves the emotional narrative, nothing decorative
-- **Breathing metaphor**: CTA buttons use the 4s cta-breathe animation, section glows pulse subtly
+- **Lagom**: Remove the theme toggle -- the Death/Life rhythm is architectural, not user-selectable
+- **Funktionalism**: Remove the fake waveform -- if music isn't ready, don't pretend it is
+- **Breathing rhythm**: Add section fade transitions to Proof page for consistent inhale/exhale flow
+- **Consistency**: Navigation should feel the same across all pages
 
