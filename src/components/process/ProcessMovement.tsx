@@ -80,6 +80,34 @@ export function ProcessMovement({
     prevHighlightedRef.current = isHighlighted;
   }, [isHighlighted, hasTriggered, onEnterView]);
 
+  // Fallback: IntersectionObserver reveals card after 2s if orchestrator hasn't
+  useEffect(() => {
+    if (hasTriggered) return;
+    const el = movementRef.current;
+    if (!el) return;
+
+    let timer: NodeJS.Timeout | null = null;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasTriggered) {
+          timer = setTimeout(() => {
+            setHasTriggered(true);
+            onEnterView?.();
+          }, 2000);
+        } else if (timer) {
+          clearTimeout(timer);
+          timer = null;
+        }
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      if (timer) clearTimeout(timer);
+    };
+  }, [hasTriggered, onEnterView]);
+
   // Staggered reveal phases — tighter timing for conductor sync
   useEffect(() => {
     if (!hasTriggered) return;

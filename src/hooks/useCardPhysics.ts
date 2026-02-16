@@ -121,44 +121,8 @@ export function useCardPhysics({
     return { x: targetX, y: targetY };
   }, [scrollVelocity, scrollDirection, side]);
   
-  // Spring physics update
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
-    
-    const updatePhysics = (timestamp: number) => {
-      const deltaTime = lastTimeRef.current ? (timestamp - lastTimeRef.current) / 1000 : 0.016;
-      lastTimeRef.current = timestamp;
-      
-      const target = getTargetTilt();
-      
-      // Spring physics for X
-      const forceX = -TILT_CONFIG.k * (tiltX - target.x);
-      const dampingX = -TILT_CONFIG.c * tiltVelocityRef.current.x;
-      tiltVelocityRef.current.x += (forceX + dampingX) * deltaTime * 60;
-      const newTiltX = tiltX + tiltVelocityRef.current.x * deltaTime * 60;
-      
-      // Spring physics for Y
-      const forceY = -TILT_CONFIG.k * (tiltY - target.y);
-      const dampingY = -TILT_CONFIG.c * tiltVelocityRef.current.y;
-      tiltVelocityRef.current.y += (forceY + dampingY) * deltaTime * 60;
-      const newTiltY = tiltY + tiltVelocityRef.current.y * deltaTime * 60;
-      
-      // Update tilt if change is significant
-      if (Math.abs(newTiltX - tiltX) > 0.001 || Math.abs(newTiltY - tiltY) > 0.001) {
-        setTiltX(newTiltX);
-        setTiltY(newTiltY);
-      }
-      
-      rafRef.current = requestAnimationFrame(updatePhysics);
-    };
-    
-    rafRef.current = requestAnimationFrame(updatePhysics);
-    
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, [getTargetTilt, tiltX, tiltY]);
+  // Tilt physics disabled — was causing mirrored text and RAF loop bugs.
+  // Light/shimmer/bloom still active below.
   
   // Light position based on scroll and highlight
   useEffect(() => {
