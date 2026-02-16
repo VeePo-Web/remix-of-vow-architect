@@ -9,14 +9,11 @@ interface FullScreenMenuProps {
 
 const menuItems = [
   { number: "01", label: "Home", href: "/" },
-  { number: "02", label: "Pricing & Packages", href: "/pricing" },
-  { number: "03", label: "Banff Mode™", href: "/banff-mode" },
-  { number: "04", label: "Proof & Trust", href: "/proof" },
+  { number: "02", label: "Services", href: "/services" },
+  { number: "03", label: "About", href: "/about" },
+  { number: "04", label: "Gallery", href: "/gallery" },
   { number: "05", label: "FAQ", href: "/faq" },
-  { number: "06", label: "About Parker", href: "/about" },
-  { number: "07", label: "Contact", href: "/contact" },
-  { number: "08", label: "Blog", href: "/blog" },
-  { number: "09", label: "Resources", href: "/resources" },
+  { number: "06", label: "Contact", href: "/contact" },
 ];
 
 export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {

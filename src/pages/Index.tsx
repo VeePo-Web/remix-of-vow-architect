@@ -13,7 +13,6 @@ import { TheSound } from "@/components/TheSound";
 import { TheTransformation } from "@/components/TheTransformation";
 import { TheWitness } from "@/components/TheWitness";
 import { ThreePaths } from "@/components/ThreePaths";
-import { TheSacredGround } from "@/components/TheSacredGround";
 import { TheRecord } from "@/components/TheRecord";
 import { TheWitnesses } from "@/components/TheWitnesses";
 import { CrossOver } from "@/components/CrossOver";
@@ -117,9 +116,6 @@ export default function Index() {
 
       {/* SECTION 5 — Three Paths (Inhale - Dark) */}
       <ThreePaths />
-
-      {/* SECTION 6 — The Sacred Ground (Exhale - Accent Soft Green) */}
-      <TheSacredGround />
 
       {/* SECTION 7 — The Record (Inhale - Dark) */}
       <TheRecord />
