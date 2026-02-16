@@ -74,9 +74,9 @@ export function CrossOver() {
           <div className="relative">
             {/* Ambient radial glow behind CTA */}
             <div
-              className="absolute inset-0 -inset-x-8 -inset-y-4 rounded-full pointer-events-none"
+              className="absolute inset-0 -inset-x-12 -inset-y-6 rounded-full pointer-events-none"
               style={{
-                background: 'radial-gradient(ellipse at center, hsl(45 100% 76% / 0.06) 0%, transparent 70%)',
+                background: 'radial-gradient(ellipse at center, hsl(45 100% 76% / 0.10) 0%, transparent 70%)',
               }}
               aria-hidden="true"
             />

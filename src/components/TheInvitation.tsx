@@ -88,11 +88,19 @@ export function TheInvitation() {
               style={{ transitionDelay: isVisible ? '150ms' : '0ms' }}
             >
               <div
-                className="invitation-video-container aspect-video rounded-lg shadow-xl overflow-hidden flex items-center justify-center cursor-pointer group"
+                className="invitation-video-container aspect-video rounded-lg shadow-xl overflow-hidden flex items-center justify-center cursor-pointer group relative"
                 style={{
                   background: 'linear-gradient(135deg, hsl(240 12% 8%) 0%, hsl(240 9% 5%) 100%)',
                 }}
               >
+                {/* Cinematic vignette */}
+                <div 
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background: 'radial-gradient(ellipse at center, hsl(var(--vow-yellow) / 0.03) 0%, transparent 50%), radial-gradient(ellipse at center, transparent 40%, hsl(240 12% 3% / 0.6) 100%)',
+                  }}
+                  aria-hidden="true"
+                />
                 {/* Subtle grain texture */}
                 <div className="absolute inset-0 grain opacity-[0.08] pointer-events-none" aria-hidden="true" />
                 {/* Play Button */}
