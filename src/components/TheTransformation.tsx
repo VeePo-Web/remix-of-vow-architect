@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { X, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import transformationFear from "@/assets/transformation-fear.jpg";
+import transformationLife from "@/assets/transformation-life.jpg";
 
 const fears = [
   "Guests in the back can't hear our vows",
@@ -52,6 +54,13 @@ export function TheTransformation() {
           className="relative px-8 py-16 md:py-24 flex flex-col items-center justify-center"
           style={{ background: "linear-gradient(135deg, hsl(220 15% 8%) 0%, hsl(240 12% 3%) 100%)" }}
         >
+          <img
+            src={transformationFear}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover opacity-[0.15] pointer-events-none"
+            loading="lazy"
+            aria-hidden="true"
+          />
           <div
             className="absolute inset-0 opacity-20 pointer-events-none"
             style={{ background: "radial-gradient(circle at 30% 40%, hsl(220 80% 20% / 0.15) 0%, transparent 60%)" }}
@@ -79,6 +88,13 @@ export function TheTransformation() {
           className="relative px-8 py-16 md:py-24 flex items-center justify-center"
           style={{ background: "linear-gradient(135deg, hsl(45 30% 95%) 0%, hsl(42 28% 91%) 100%)" }}
         >
+          <img
+            src={transformationLife}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover opacity-[0.12] pointer-events-none"
+            loading="lazy"
+            aria-hidden="true"
+          />
           <div
             className="absolute inset-0 opacity-30 pointer-events-none"
             style={{ background: "radial-gradient(circle at 70% 40%, hsl(var(--vow-yellow) / 0.15) 0%, transparent 60%)" }}

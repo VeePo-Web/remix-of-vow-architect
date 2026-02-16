@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import crossoverDance from "@/assets/crossover-dance.jpg";
 
 export function CrossOver() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -24,6 +25,14 @@ export function CrossOver() {
         minHeight: '400px',
       }}
     >
+      {/* Background image layer */}
+      <img
+        src={crossoverDance}
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover opacity-[0.10] pointer-events-none"
+        loading="lazy"
+        aria-hidden="true"
+      />
       {/* Vignette Effect */}
       <div 
         className="absolute inset-0 pointer-events-none"

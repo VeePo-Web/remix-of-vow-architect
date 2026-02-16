@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import witnessesVenue from "@/assets/witnesses-venue.jpg";
 
 const testimonials = [
   {
@@ -29,7 +30,7 @@ export function TheWitnesses() {
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion) { setIsVisible(true); return; }
-    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) setIsVisible(true); }, { threshold: 0.15 });
+    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { setIsVisible(true); observer.disconnect(); } }, { threshold: 0.15 });
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
@@ -44,6 +45,14 @@ export function TheWitnesses() {
         background: 'linear-gradient(180deg, hsl(45 25% 96%) 0%, hsl(45 20% 93%) 100%)',
       }}
     >
+      {/* Background image layer */}
+      <img
+        src={witnessesVenue}
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover opacity-[0.06] pointer-events-none"
+        loading="lazy"
+        aria-hidden="true"
+      />
       {/* Top fade from TheRecord dark */}
       <div
         className="section-fade-top"

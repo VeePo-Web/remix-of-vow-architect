@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Mic, Battery, FileText, Shield, Clock, Activity } from "lucide-react";
 import { cn } from "@/lib/utils";
+import witnessCeremony from "@/assets/witness-ceremony.jpg";
 
 const declarations = [
   "I arrive an hour early.",
@@ -39,6 +40,14 @@ export function TheWitness() {
         minHeight: '400px',
       }}
     >
+      {/* Background image layer */}
+      <img
+        src={witnessCeremony}
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover opacity-[0.08] pointer-events-none"
+        loading="lazy"
+        aria-hidden="true"
+      />
       {/* Top fade from TheTransformation dark */}
       <div
         className="section-fade-top"
