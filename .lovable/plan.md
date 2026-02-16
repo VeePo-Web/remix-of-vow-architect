@@ -1,110 +1,101 @@
 
 
-# World-Class Homepage Design Polish -- Comprehensive Audit and Fixes
+# World-Class Homepage Design Overhaul
 
-## Issues Found
+## Current State Assessment
 
-### 1. Dead Links to `/banff-mode` (Critical -- 404s)
+After thorough audit of every section, screenshot, and CSS file, here are the findings:
 
-There is no `/banff-mode` route defined in `App.tsx`, but 4 files link to it:
+### What works well
+- Hero vigil sequence (flame, Ken Burns, staggered UI reveal)
+- TheExhale section (clean emotional text, golden thread SVG)
+- VowMoment (full-viewport sacred interstitial)
+- TheInvitation (portrait + copy, trust badges)
+- TheTransformation (split panels with background images)
+- TheWitness, ThreePaths, TheRecord, TheWitnesses, CrossOver (all rendering)
+- All 7 AI background images are integrated and loading
 
-- `src/pages/NotFound.tsx` (line 51) -- "Banff Mode" button on the 404 page itself, creating an infinite 404 loop
-- `src/components/FAQTopTen.tsx` (line 18) -- "Banff Mode Explained" link
-- `src/components/FAQChips.tsx` (line 15) -- "See Banff Mode" link
-- `src/components/SoundSystemDiagram.tsx` (line 49) -- "See Banff Mode" link
+### Critical issues found
 
-**Fix:** Replace all `/banff-mode` links with `/faq` (the FAQ page covers Banff-related questions). On the NotFound page, replace the Banff Mode button with a link to `/faq`.
+**1. Process Section Card Layout is Broken (CSS Class Mismatch)**
+The `ProcessMovement` component renders elements with class `.process-card`, but the journal layout CSS (lines 4042-4063) targets `.letterpress-card` for grid ordering and positioning. Since no component actually outputs `.letterpress-card`, the journal grid layout rules (alternating image/card positioning, margin auto, order swaps) are never applied. This causes cards to stack incorrectly instead of displaying in the intended image-left/card-right alternating journal layout.
 
-### 2. Stale Route References in `usePageTheme.ts`
+**2. Duplicate CSS Systems (~1500 lines of dead code)**
+The CSS contains two complete systems for process cards:
+- Original system (lines 2127-2731): `.process-movement`, `.process-movement__header`, etc. targeting a simpler card layout
+- Journal system (lines 4016-4200): `.process-movement--journal`, targeting `.letterpress-card` for grid layout
+- Card system (lines 5423-5527): `.process-card` styles for cream-colored cards
 
-The `deathThemeRoutes` array on line 6 references routes that don't exist: `/blog`, `/banff-mode`, `/resources`, `/email-preferences`, `/unsubscribe-confirmed`, `/sitemap`.
+The `ProcessMovement` component uses journal class names but references `.process-card` instead of `.letterpress-card`, creating a conflict.
 
-**Fix:** Clean up the array to only include routes that actually exist in `App.tsx`.
+**3. Held Breath Line System CSS (~500 lines) with No Component**
+Lines 1871-2126 define an elaborate "Held Breath" transforming line SVG system (`.held-breath`, `.held-breath-path`, `.card-connector`) that has no corresponding component in any TSX file. This is entirely dead CSS.
 
-### 3. `index.html` Contains Stale SEO Structured Data
-
-Line 581-583 references `parkerallard.com/banff-mode` in the SiteNavigationElement schema. This will produce dead link signals in search engines.
-
-**Fix:** Remove or update the structured data entry for Banff Mode.
-
-### 4. TheRecord Observer Missing `disconnect()`
-
-Line 23 in `TheRecord.tsx`: the observer callback does `if (entry.isIntersecting) setIsVisible(true)` but never calls `observer.disconnect()`. This was missed in the previous cleanup pass.
-
-**Fix:** Add `observer.disconnect()` inside the condition, matching the pattern used in all other components.
-
-### 5. Footer Links to `/services` and `/gallery` -- Verified Working
-
-These routes exist in `App.tsx` (lines 31, 33) and resolve correctly. No action needed.
-
-### 6. CSS Has 5,634 Lines of Accumulated Complexity
-
-The `index.css` file contains extensive process section CSS (lines 1506-2500+) with references to orchestrator systems, paper fiber parallax, piano key physics, and letterpress material effects that are no longer used by the simplified `ProcessMovement` component. This dead CSS adds ~1000 lines of unused styles.
-
-**Fix:** Remove dead CSS classes that no longer correspond to any component. This improves maintainability and reduces CSS parse time. Specifically:
-- Remove `.process-section__thread` styles (golden thread SVG system -- not rendered)
-- Remove `.ambient-glow-field__pulse` (pulse ring -- not rendered)
-- Remove all orchestrator-related CSS variables no longer consumed
-- Keep all `.process-movement`, `.process-card`, `.process-intro`, `.process-closing` styles that ARE actively used
-
-### 7. Process Section `min-height: 180vh` May Be Excessive
-
-Line 1510: `.process-section` has `min-height: 180vh`. With 4 cards + intro + closing, this creates unnecessary empty space if content is shorter. 
-
-**Fix:** Change to `min-height: auto` and let content determine height naturally. The padding (`--space-10`) already provides generous vertical breathing room.
+**4. Minor design gaps**
+- Process section background is very dark, nearly indistinguishable from other dark sections
+- TheSound "Music coming soon" placeholder feels unfinished
+- Section transitions between dark-to-light sections could be smoother
 
 ## Implementation Plan
 
-### Phase 1: Dead Link Cleanup (4 files)
+### Phase 1: Fix Process Card CSS Class Mismatch
 
-| File | Change |
-|------|--------|
-| `src/pages/NotFound.tsx` | Replace `/banff-mode` button with `/faq` button, change icon from Shield to HelpCircle, label to "FAQ" |
-| `src/components/FAQTopTen.tsx` | Change link `to: "/banff-mode"` to `to: "/faq"` |
-| `src/components/FAQChips.tsx` | Change link `to: "/banff-mode"` to `to: "/faq"` |
-| `src/components/SoundSystemDiagram.tsx` | Change `/banff-mode` link to `/faq` |
+Replace all `.letterpress-card` references in CSS with `.process-card` to match the actual component output.
 
-### Phase 2: Theme Route Cleanup (1 file)
+| Location | Change |
+|----------|--------|
+| `src/index.css` lines 4042-4063 | Change `.letterpress-card` to `.process-card` (6 instances) |
+| `src/index.css` lines 4150-4158 | Change `.letterpress-card` to `.process-card` in responsive rules |
+| `src/index.css` lines 4164-4166 | Change `.letterpress-card__numeral` to `.process-card__numeral` |
+| `src/index.css` lines 4179-4185 | Change `.letterpress-card` references in mobile rules |
 
-| File | Change |
-|------|--------|
-| `src/hooks/usePageTheme.ts` | Remove `/blog`, `/banff-mode`, `/resources`, `/email-preferences`, `/unsubscribe-confirmed`, `/sitemap` from arrays since those routes don't exist |
+### Phase 2: Remove Dead "Held Breath" Line System CSS
 
-### Phase 3: Observer Fix (1 file)
+Remove the unused line/connector system (lines 1871-2126) that has no corresponding component. This removes ~255 lines of dead CSS including:
+- `.held-breath`, `.held-breath__ambient`, `.held-breath__line-container`
+- `.held-breath-path`, all state variants (silent, pulse, wave, refined, keys)
+- `.card-connector` system
+- Associated keyframes (`held-breath-ambient-pulse`, `held-breath-shimmer`, `connector-anchor-pulse`)
 
-| File | Change |
-|------|--------|
-| `src/components/TheRecord.tsx` | Add `observer.disconnect()` after `setIsVisible(true)` on line 23 |
+### Phase 3: Remove Dead Letterpress Material CSS
 
-### Phase 4: SEO Structured Data Cleanup (1 file)
+Search for and remove any remaining `.letterpress-card__numeral` rules that referenced the old component system. The process-card system at lines 5423-5527 already handles numeral positioning correctly.
 
-| File | Change |
-|------|--------|
-| `index.html` | Remove the Banff Mode SiteNavigationElement entry from the JSON-LD schema |
+### Phase 4: Process Section Visual Polish
 
-### Phase 5: CSS Dead Code Removal (1 file)
+Refine the process section to feel more distinct and premium:
+- The warm dawn gradient background is good but needs stronger warmth to differentiate from surrounding dark sections
+- Increase the process-card cream background contrast slightly for better readability
+- Ensure the ceremony closing image renders at appropriate brightness
 
-| File | Change |
-|------|--------|
-| `src/index.css` | Remove unused orchestrator/thread/pulse CSS; change `.process-section` min-height from `180vh` to `auto` |
+### Phase 5: Verify All Section Transitions
+
+After the CSS fixes, verify:
+- TheExhale fade-bottom gradient transitions smoothly into ProcessSection
+- ProcessSection closing ceremony image transitions into VowMoment
+- VowMoment transitions into TheInvitation warm section
+- All section-fade-top and section-fade-bottom elements create seamless flow
+
+## Files to Modify
+
+| File | Changes |
+|------|---------|
+| `src/index.css` | Fix `.letterpress-card` to `.process-card` (Phase 1); remove held-breath/connector CSS (Phase 2); remove dead letterpress numeral rules (Phase 3); polish process section warmth (Phase 4) |
 
 ## What Stays Unchanged
 
 - All text content across every component
+- All TSX component logic and structure
 - All 7 AI-generated background images
-- Hero vigil sequence and animation timing
-- TheExhale, ProcessSection cards, VowMoment, TheInvitation, TheSound, TheTransformation, TheWitness, ThreePaths, TheWitnesses, CrossOver -- all verified working perfectly
-- Footer structure and all valid links
-- Navigation and FullScreenMenu
-- All animation easing curves and durations
+- Hero vigil sequence and all animation timing
+- Every section outside the Process section
 - Color palette and typography system
+- Footer, navigation, and routing
 
 ## Estimated Impact
 
-- 4 dead link fixes (prevents 404 loops and broken user journeys)
-- 1 memory leak fix (TheRecord observer)
-- ~6 stale route references cleaned from usePageTheme
-- 1 SEO structured data fix
-- ~200+ lines of dead CSS removed for maintainability
-- Zero visual changes -- all fixes are invisible to users but improve reliability
+- Process section cards will display correctly in alternating journal layout for the first time
+- ~750+ lines of dead CSS removed (held-breath system + letterpress references)
+- Faster CSS parse time and reduced bundle size
+- Zero visual regressions outside the process section (which currently renders incorrectly anyway)
 
