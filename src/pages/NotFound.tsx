@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Search, Home, DollarSign, Phone, Shield } from "lucide-react";
+import { Search, Home, DollarSign, Phone, HelpCircle } from "lucide-react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 
 const NotFound = () => {
@@ -48,9 +48,9 @@ const NotFound = () => {
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="h-auto py-4 flex-col gap-2">
-              <Link to="/banff-mode">
-                <Shield className="w-6 h-6" />
-                <span>Banff Mode™</span>
+              <Link to="/faq">
+                <HelpCircle className="w-6 h-6" />
+                <span>FAQ</span>
               </Link>
             </Button>
           </div>

@@ -12,7 +12,7 @@ const chips = [
   {
     question: "What if there's no power?",
     answer: "I run a silent, generator-free battery system with backups.",
-    link: { to: "/banff-mode", label: "See Banff Mode" }
+    link: { to: "/faq", label: "See FAQ" }
   },
   {
     question: "Can I change my package later?",
