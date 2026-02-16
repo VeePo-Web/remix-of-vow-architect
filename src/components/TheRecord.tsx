@@ -1,7 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { FileDown } from "lucide-react";
-import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 interface ReadingCardProps {
@@ -129,12 +126,6 @@ export function TheRecord() {
               your remedy is automatic.{"\u201D"}
             </p>
 
-            <Button variant="ghost-dark" className="gap-2" asChild>
-              <Link to="/resources">
-                <FileDown size={18} />
-                Download sample report
-              </Link>
-            </Button>
           </div>
         </div>
       </div>

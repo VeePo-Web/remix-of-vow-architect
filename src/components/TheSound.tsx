@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Music } from "lucide-react";
 import { cn } from "@/lib/utils";
+import soundKeys from "@/assets/sound-keys.jpg";
 
 interface TrackCardProps {
   title: string;
@@ -56,6 +57,14 @@ export function TheSound() {
         aria-hidden="true"
       />
 
+      {/* Background image layer */}
+      <img
+        src={soundKeys}
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover opacity-[0.15] pointer-events-none"
+        loading="lazy"
+        aria-hidden="true"
+      />
       {/* Subtle radial glow behind content */}
       <div
         className="absolute inset-0 pointer-events-none"

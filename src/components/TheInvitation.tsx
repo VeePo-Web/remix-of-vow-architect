@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { Play, Music, Shield, Award } from 'lucide-react';
+import { Music, Shield, Award } from 'lucide-react';
 import { DirectionalLink } from './DirectionalLink';
 import { cn } from '@/lib/utils';
+import invitationPortrait from '@/assets/invitation-portrait.jpg';
 
 const trustBadges = [
   { icon: Music, label: '200+ Ceremonies' },
@@ -88,28 +89,22 @@ export function TheInvitation() {
               style={{ transitionDelay: isVisible ? '150ms' : '0ms' }}
             >
               <div
-                className="invitation-video-container aspect-video rounded-lg shadow-xl overflow-hidden flex items-center justify-center cursor-pointer group relative"
-                style={{
-                  background: 'linear-gradient(135deg, hsl(240 12% 8%) 0%, hsl(240 9% 5%) 100%)',
-                }}
+                className="invitation-video-container aspect-video rounded-lg shadow-xl overflow-hidden relative"
               >
-                {/* Cinematic vignette */}
+                <img
+                  src={invitationPortrait}
+                  alt="Pianist's hands on grand piano keys in warm candlelight"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+                {/* Cinematic vignette overlay */}
                 <div 
                   className="absolute inset-0 pointer-events-none"
                   style={{
-                    background: 'radial-gradient(ellipse at center, hsl(var(--vow-yellow) / 0.03) 0%, transparent 50%), radial-gradient(ellipse at center, transparent 40%, hsl(240 12% 3% / 0.6) 100%)',
+                    background: 'radial-gradient(ellipse at center, transparent 40%, hsl(240 12% 3% / 0.4) 100%)',
                   }}
                   aria-hidden="true"
                 />
-                {/* Subtle grain texture */}
-                <div className="absolute inset-0 grain opacity-[0.08] pointer-events-none" aria-hidden="true" />
-                {/* Play Button */}
-                <button
-                  className="invitation-play-button w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center group-hover:bg-white/20 transition-colors duration-300"
-                  aria-label="Play introduction video"
-                >
-                  <Play className="w-6 h-6 md:w-8 md:h-8 text-white fill-white/80 ml-1" />
-                </button>
               </div>
               <p className="text-sm text-rich-black/50 italic mt-4 text-center">
                 60 seconds on what I do—and why it matters.
