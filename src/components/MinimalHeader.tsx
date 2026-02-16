@@ -5,10 +5,8 @@ import { cn } from "@/lib/utils";
 import { FullScreenMenu } from "./FullScreenMenu";
 
 const navLinks = [
-  { to: "/pricing", label: "Pricing" },
-  { to: "/banff-mode", label: "Banff Mode™" },
+  { to: "/services", label: "Services" },
   { to: "/about", label: "About" },
-  { to: "/proof", label: "Proof" },
   { to: "/faq", label: "FAQ" },
 ];
 

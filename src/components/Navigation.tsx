@@ -7,14 +7,11 @@ import { useTheme } from "next-themes";
 
 const navItems = [
   { label: "Home", path: "/" },
-  { label: "Pricing", path: "/pricing" },
-  { label: "Banff Mode™", path: "/banff-mode" },
-  { label: "Proof & Trust", path: "/proof" },
+  { label: "Services", path: "/services" },
   { label: "About", path: "/about" },
+  { label: "Gallery", path: "/gallery" },
   { label: "FAQ", path: "/faq" },
   { label: "Contact", path: "/contact" },
-  { label: "Blog", path: "/blog" },
-  { label: "Resources", path: "/resources" },
 ];
 
 export function Navigation() {

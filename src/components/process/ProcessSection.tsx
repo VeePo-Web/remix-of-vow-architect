@@ -1,12 +1,8 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { ProcessMovement } from './ProcessMovement';
 import { GradientDawnBackground } from './GradientDawnBackground';
-import { AmbientGlowField } from './AmbientGlowField';
-import { HeldBreath } from './HeldBreath';
-import { ProcessDebugOverlay } from './ProcessDebugOverlay';
-import { useProcessOrchestrator } from '@/hooks/useProcessOrchestrator';
 
 // Ceremony background for closing block
 import ceremonyImg from '@/assets/process/ceremony.jpg';
@@ -68,41 +64,48 @@ const movements: Movement[] = [
 /**
  * ProcessSection — "The Score"
  * 
- * Fantasy.co-grade design: 3-column grid with alternating left/right cards.
- * Thread weaves between cards like a musical score being written.
+ * Simplified design: clean cards with IntersectionObserver fade-in reveals.
+ * Warm dawn gradient background. No complex orchestration systems.
  */
 export function ProcessSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [introVisible, setIntroVisible] = useState(false);
-  const [activeStep, setActiveStep] = useState(0);
   const [closingVisible, setClosingVisible] = useState(false);
+  const introRef = useRef<HTMLDivElement>(null);
+  const closingRef = useRef<HTMLDivElement>(null);
 
-  // Master orchestrator — unified timing system
-  const orchestrator = useProcessOrchestrator(sectionRef, {
-    debug: process.env.NODE_ENV === 'development',
-  });
-
-  // Intro reveal based on scroll activation
+  // Simple IntersectionObserver for intro
   useEffect(() => {
-    if (orchestrator.isActive && orchestrator.progress > 0.12) {
-      setIntroVisible(true);
-    }
-  }, [orchestrator.isActive, orchestrator.progress]);
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) { setIntroVisible(true); setClosingVisible(true); return; }
 
-  // Map phases to movement visibility
-  useEffect(() => {
-    if (orchestrator.phase === 'drifting' && orchestrator.highlightedMovement >= 0) {
-      setActiveStep(orchestrator.highlightedMovement + 1);
-    } else if (orchestrator.phase === 'converging' || orchestrator.phase === 'covenant') {
-      setActiveStep(4);
-      setClosingVisible(true);
-    }
-  }, [orchestrator.phase, orchestrator.highlightedMovement]);
+    const introEl = introRef.current;
+    const closingEl = closingRef.current;
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            if (entry.target === introEl) setIntroVisible(true);
+            if (entry.target === closingEl) setClosingVisible(true);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
 
-  // Movement enter view handler
-  const handleMovementEnterView = useCallback((movementIndex: number) => {
-    setActiveStep((prev) => Math.max(prev, movementIndex + 1));
+    if (introEl) observer.observe(introEl);
+    if (closingEl) observer.observe(closingEl);
+    return () => observer.disconnect();
   }, []);
+
+  // Simple background CSS vars (static warm tone)
+  const cssVars = {
+    '--process-bg-h': '35',
+    '--process-bg-s': '20%',
+    '--process-bg-l': '8%',
+    '--process-temperature': '0.7',
+  };
 
   return (
     <section
@@ -110,36 +113,16 @@ export function ProcessSection() {
       id="process"
       className="process-section"
       aria-label="My preparation process"
-      data-phase={orchestrator.phase}
-      data-scroll-progress={orchestrator.progress.toFixed(2)}
-      style={{ minHeight: '180vh', ...(orchestrator.cssVars as React.CSSProperties) }}
+      style={{ position: 'relative' }}
     >
-      {/* Debug Overlay (dev only) */}
-      <ProcessDebugOverlay
-        progress={orchestrator.progress}
-        phase={orchestrator.phase}
-        phaseProgress={orchestrator.phaseProgress}
-        velocity={orchestrator.velocity}
-        direction={orchestrator.direction}
-        highlightedMovement={orchestrator.highlightedMovement}
-        isActive={orchestrator.isActive}
-      />
-
-      {/* Layer 0: Gradient Dawn Background (void → warm dawn) */}
+      {/* Layer 0: Gradient Dawn Background */}
       <GradientDawnBackground
-        cssVars={orchestrator.cssVars}
-        isActive={orchestrator.isActive}
-      />
-
-      {/* Layer 1: Ambient Glow Field (breathing golden presence) */}
-      <AmbientGlowField
-        cssVars={orchestrator.cssVars}
-        isActive={orchestrator.isActive}
-        progress={orchestrator.progress}
+        cssVars={cssVars}
+        isActive={true}
       />
 
       {/* Intro Block */}
-      <div className={cn('process-intro', introVisible && 'is-visible')}>
+      <div ref={introRef} className={cn('process-intro', introVisible && 'is-visible')}>
         <div className="process-intro__anchor" aria-hidden="true" />
         <span className="process-intro__label">The Process</span>
         <h2 className="process-intro__headline">
@@ -156,19 +139,8 @@ export function ProcessSection() {
         </h3>
       </div>
 
-      {/* The Score: Held Breath Line with Movement Cards */}
+      {/* Movement Cards */}
       <div className="process-score">
-        {/* The Held Breath — Transforming Line (sticky during scroll) */}
-        <div className="process-score__line-wrapper">
-          <HeldBreath
-            progress={orchestrator.progress}
-            isActive={orchestrator.isActive}
-            highlightedMovement={orchestrator.highlightedMovement}
-            className="process-score__held-breath"
-          />
-        </div>
-
-        {/* Movements: Alternating left/right with connectors */}
         <div className="process-score__movements">
           {movements.map((movement, index) => (
             <ProcessMovement
@@ -176,12 +148,6 @@ export function ProcessSection() {
               movement={movement}
               index={index}
               side={index % 2 === 0 ? 'left' : 'right'}
-              isHighlighted={orchestrator.highlightedMovement === index}
-              onEnterView={() => handleMovementEnterView(index)}
-              lineState={orchestrator.lineState}
-              scrollVelocity={orchestrator.velocity}
-              scrollDirection={orchestrator.direction}
-              progress={orchestrator.progress}
             />
           ))}
         </div>
@@ -189,8 +155,8 @@ export function ProcessSection() {
 
       {/* Closing Block with Ceremony Background */}
       <div 
+        ref={closingRef}
         className={cn('process-closing process-closing--journal', closingVisible && 'is-visible')}
-        data-flame-state={orchestrator.phase}
       >
         {/* Ceremony background image */}
         <div className="process-closing__backdrop">

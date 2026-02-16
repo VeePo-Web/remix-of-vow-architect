@@ -56,18 +56,18 @@ export function Footer() {
             <h4 className="font-display text-sm uppercase tracking-[0.22em] mb-6 text-foreground/80">Quick Links</h4>
             <ul className="space-y-3">
               <li>
-                <NavLink to="/pricing" className="text-foreground/50 hover:text-primary transition-colors duration-300 story-link">
-                  Pricing & Packages
+                <NavLink to="/services" className="text-foreground/50 hover:text-primary transition-colors duration-300 story-link">
+                  Services
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/banff-mode" className="text-foreground/50 hover:text-primary transition-colors duration-300 story-link">
-                  Banff Mode™
+                <NavLink to="/about" className="text-foreground/50 hover:text-primary transition-colors duration-300 story-link">
+                  About
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/proof" className="text-foreground/50 hover:text-primary transition-colors duration-300 story-link">
-                  Proof & Trust
+                <NavLink to="/gallery" className="text-foreground/50 hover:text-primary transition-colors duration-300 story-link">
+                  Gallery
                 </NavLink>
               </li>
               <li>
@@ -76,13 +76,8 @@ export function Footer() {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/blog" className="text-foreground/50 hover:text-primary transition-colors duration-300 story-link">
-                  Blog / Guides
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/resources" className="text-foreground/50 hover:text-primary transition-colors duration-300 story-link">
-                  Resources / Downloads
+                <NavLink to="/contact" className="text-foreground/50 hover:text-primary transition-colors duration-300 story-link">
+                  Contact
                 </NavLink>
               </li>
             </ul>

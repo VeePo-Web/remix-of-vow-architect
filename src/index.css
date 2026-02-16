@@ -5524,3 +5524,111 @@ All colors MUST be HSL.
   }
 }
 
+  /* -------------------------------------------
+     PROCESS CARD — Simplified Clean Card
+     ------------------------------------------- */
+
+  .process-card {
+    position: relative;
+    background: hsl(40 30% 96%);
+    padding: var(--space-6) var(--space-5);
+    padding-left: calc(var(--space-5) + 4px);
+    border-radius: 2px;
+    max-width: 400px;
+    opacity: 0;
+    transform: translateY(20px);
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+    transition: 
+      opacity 600ms var(--ease-covenant),
+      transform 600ms var(--ease-covenant);
+    z-index: 5;
+  }
+
+  .process-card.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .process-card:hover {
+    transform: translateY(-2px);
+    transition-duration: 180ms;
+  }
+
+  .process-card__accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, hsl(var(--vow-yellow) / 0.6), hsl(var(--vow-yellow) / 0.2));
+    border-radius: 1px;
+  }
+
+  .process-card__numeral {
+    position: absolute;
+    top: var(--space-4);
+    font-family: var(--ff-display);
+    font-size: 64px;
+    font-weight: 200;
+    color: hsl(25 15% 85%);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .process-card--left .process-card__numeral {
+    right: var(--space-4);
+  }
+
+  .process-card--right .process-card__numeral {
+    left: var(--space-4);
+  }
+
+  /* Card content typography on cream background */
+  .process-card .process-movement__header {
+    color: hsl(25 20% 15%);
+  }
+
+  .process-card .process-movement__name {
+    color: hsl(25 15% 30%);
+    font-size: var(--fs-xs);
+  }
+
+  .process-card .process-movement__action {
+    color: hsl(35 70% 40%);
+  }
+
+  .process-card .process-movement__quote {
+    color: hsl(25 20% 20%);
+  }
+
+  .process-card .process-movement__details {
+    color: hsl(25 15% 35%);
+  }
+
+  .process-card .process-movement__assumption {
+    color: hsl(25 10% 45%);
+  }
+
+  .process-card .process-movement__outcome {
+    color: hsl(25 20% 25%);
+  }
+
+  .process-card .process-movement__arrow {
+    color: hsl(35 70% 45%);
+  }
+
+  /* Journal layout: process-card positioning */
+  .process-movement--journal .process-card {
+    margin: 0;
+  }
+
+  .process-movement--journal.process-movement--left .process-card {
+    margin-left: auto;
+  }
+
+  .process-movement--journal.process-movement--right .process-card {
+    margin-right: auto;
+  }
+

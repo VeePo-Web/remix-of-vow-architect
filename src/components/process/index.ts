@@ -1,18 +1,5 @@
 export { ProcessSection, default } from './ProcessSection';
 export { ProcessMovement } from './ProcessMovement';
 export { GradientDawnBackground } from './GradientDawnBackground';
-export { AmbientGlowField } from './AmbientGlowField';
-export { HeldBreath } from './HeldBreath';
-export { HeldBreathPath } from './HeldBreathPath';
-export { ResonanceRing } from './ResonanceRing';
-export { KeyOverlay } from './KeyOverlay';
-export { ChordRadiance } from './ChordRadiance';
-export { CardConnector } from './CardConnector';
-export { ProcessDebugOverlay } from './ProcessDebugOverlay';
 export { MovementImage } from './MovementImage';
-export { LetterpressCard } from './LetterpressCard';
 export { HandwrittenNote } from './HandwrittenNote';
-export { EmbossedNumeral } from './EmbossedNumeral';
-export { GoldRuleShimmer } from './GoldRuleShimmer';
-export { InkBloomText } from './InkBloomText';
-export { PaperFiberLayers } from './PaperFiberLayers';
