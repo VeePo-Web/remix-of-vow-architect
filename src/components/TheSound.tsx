@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-import soundKeys from "@/assets/sound-keys.jpg";
+import soundKeys from "@/assets/sound-cathedral-ai.jpg";
 import { AudioPlayer } from "./AudioPlayer";
 
 const tracks = [

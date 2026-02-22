@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Music, Shield, Award } from 'lucide-react';
 import { DirectionalLink } from './DirectionalLink';
 import { cn } from '@/lib/utils';
-import invitationPortrait from '@/assets/invitation-portrait.jpg';
+import invitationPortrait from '@/assets/invitation-portrait-ai.jpg';
 
 const trustBadges = [
   { icon: Music, label: '200+ Ceremonies' },

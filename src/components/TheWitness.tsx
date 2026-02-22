@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Mic, Battery, FileText, Shield, Clock, Activity } from "lucide-react";
 import { cn } from "@/lib/utils";
-import witnessCeremony from "@/assets/witness-ceremony.jpg";
+import witnessCeremony from "@/assets/witness-setup-ai.jpg";
 
 const declarations = [
   "I arrive before anyone else.",
