@@ -6,12 +6,12 @@ export function FormSuccess() {
     // Generate ICS file content
     const icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Parker Allard Ceremony Audio//EN
+PRODID:-//Parker Gawryletz Ceremony Audio//EN
 BEGIN:VEVENT
 SUMMARY:Follow up on ceremony audio inquiry
 DTSTART:${new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().replace(/[-:]/g, '').split('.')[0]}Z
 DURATION:PT1H
-DESCRIPTION:Follow up on your personalized PDF plan from Parker Allard
+DESCRIPTION:Follow up on your personalized PDF plan from Parker Gawryletz
 END:VEVENT
 END:VCALENDAR`;
 

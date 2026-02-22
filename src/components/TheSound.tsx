@@ -1,18 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { Music } from "lucide-react";
 import { cn } from "@/lib/utils";
 import soundKeys from "@/assets/sound-keys.jpg";
+import { AudioPlayer } from "./AudioPlayer";
 
-interface TrackCardProps {
-  title: string;
-  context: string;
-}
-
-const tracks: TrackCardProps[] = [
-  { title: "Canon in D (reimagined)", context: "Processional" },
-  { title: "A Thousand Years", context: "Bride's Entrance" },
-  { title: "Married Life", context: "Signing" },
-  { title: "At Last", context: "Recession" },
+const tracks = [
+  { title: "Canon in D (reimagined)", context: "Processional", src: "/audio/canon-in-d.mp3" },
+  { title: "A Thousand Years", context: "Bride's Entrance", src: "/audio/a-thousand-years.mp3" },
+  { title: "Married Life", context: "Signing", src: "/audio/married-life.mp3" },
+  { title: "At Last", context: "Recession", src: "/audio/at-last.mp3" },
 ];
 
 export function TheSound() {
@@ -86,7 +81,7 @@ export function TheSound() {
             The Sound
           </span>
 
-          {/* Headline — text-balance prevents orphans */}
+          {/* Headline */}
           <h2
             id="sound-heading"
             className={cn(
@@ -109,57 +104,15 @@ export function TheSound() {
             The prelude. The procession. The vows. The walk into forever.
           </p>
 
-          {/* Minimal coming-soon note */}
-          <p
+          {/* Interactive Audio Player */}
+          <div
             className={cn(
-              "text-xs uppercase tracking-[0.2em] text-muted-foreground/50 mb-12 transition-all duration-700",
+              "transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
             style={{ transitionDelay: isVisible ? "450ms" : "0ms" }}
           >
-            Samples arriving soon
-          </p>
-
-          {/* Track Cards */}
-          <div
-            className={cn(
-              "grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 transition-all duration-700",
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            )}
-            style={{ transitionDelay: isVisible ? "600ms" : "0ms" }}
-            role="list"
-            aria-label="Sample ceremony tracks"
-          >
-            {tracks.map((track, index) => (
-              <div
-                key={track.title}
-                className="sound-track-card relative bg-card/20 border border-border/20 rounded-lg p-4 text-left transition-all duration-300"
-                role="listitem"
-                style={{ transitionDelay: isVisible ? `${600 + index * 50}ms` : "0ms" }}
-              >
-                {/* Golden bullet */}
-                <div className="absolute top-4 left-4 w-1.5 h-1.5 rounded-full bg-vow-yellow/60" aria-hidden="true" />
-                
-              <div className="pl-4">
-                  <div className="flex items-center gap-2 mb-1">
-                    <Music className="w-3 h-3 text-muted-foreground" />
-                    <span className="text-xs uppercase tracking-wider text-vow-yellow/80">
-                      {track.context}
-                    </span>
-                  </div>
-                  <p className="text-sm font-display text-foreground/90">
-                    {track.title}
-                  </p>
-                </div>
-
-                {/* Left accent border */}
-                <div
-                  className="absolute left-0 top-3 bottom-3 w-[2px] rounded-full transition-opacity duration-300"
-                  style={{ background: 'hsl(var(--vow-yellow) / 0.25)' }}
-                  aria-hidden="true"
-                />
-              </div>
-            ))}
+            <AudioPlayer tracks={tracks} />
           </div>
 
           {/* Closing Caption */}
@@ -168,7 +121,7 @@ export function TheSound() {
               "text-sm text-muted-foreground max-w-lg mx-auto transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
-            style={{ transitionDelay: isVisible ? "800ms" : "0ms" }}
+            style={{ transitionDelay: isVisible ? "600ms" : "0ms" }}
           >
             Every arrangement begins with a conversation—and ends with a sound that belongs only to you.
           </p>

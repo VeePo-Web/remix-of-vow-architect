@@ -135,7 +135,7 @@ export function WitnessCovenant() {
                   signatureDrawn ? "opacity-100" : "opacity-0"
                 )}
               >
-                Parker Allard
+                Parker Gawryletz
               </p>
               <p 
                 className={cn(

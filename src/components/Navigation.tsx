@@ -39,7 +39,7 @@ export function Navigation() {
       <div className="container mx-auto">
         <div className="flex items-center justify-between h-16">
           <NavLink to="/" className="text-xl font-bold">
-            Parker Allard
+            Parker Gawryletz
           </NavLink>
 
           {/* Desktop Navigation */}

@@ -27,7 +27,7 @@ export function ThemeToggle() {
   const handleToggle = () => {
     const newTheme = isDeath ? "life" : "death";
     setTheme(newTheme);
-    localStorage.setItem("parker-allard-theme-override", "true");
+    localStorage.setItem("parker-gawryletz-theme-override", "true");
   };
 
   return (
