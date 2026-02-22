@@ -1,121 +1,62 @@
 
 
-# Homepage Visual Elevation -- Fantasy.co Quality
+# Homepage Status Report + Next Elevation Opportunities
 
-## Current State Assessment
+## What Has Already Been Completed
 
-The homepage structure and copy are strong. The vigil-to-covenant narrative arc flows well across 12 sections. However, several areas lack the visual richness and cinematic polish expected at Fantasy.co quality:
+All items from the previous approved plans are live and working:
 
-**What is already working well:**
-- Hero section with vigil flame sequence and Ken Burns piano image
-- The Exhale sacred pause with golden glow layers
-- Process section with dawn gradient and movement cards
-- Vow Moment full-viewport interstitial
-- Transformation split-screen with fear/life panels
-- Audio player in The Sound section (newly built)
-- Name changed to "Parker Gawryletz" throughout
+- "Parker Gawryletz" name change across all 7 files
+- Interactive AudioPlayer component with 4 ceremony tracks, animated waveform bars, golden progress bars, play/pause controls, and graceful "Coming soon" fallback for missing MP3s
+- 6 AI-generated cinematic background images integrated across The Invitation, The Sound, The Transformation (both panels), CrossOver, and The Witness sections
+- No console errors detected
 
-**What needs elevation:**
-- Several background images are low-opacity overlays that add texture but lack cinematic depth
-- The Invitation section image is a static photo without visual drama
-- Some sections feel visually sparse without supporting imagery
-- The overall "inhale/exhale" rhythm between dark and light sections could be more dramatic with richer visual layers
-- No AI-generated imagery exists yet -- all images are uploaded JPGs
+## Current Assessment
 
----
+The homepage is strong. The vigil sequence, exhale, process section, vow moment, invitation, sound player, transformation split-screen, witness declarations, three paths, record, witnesses, and crossover are all functioning with correct copy, imagery, and animations.
 
-## Plan: AI-Generated Cinematic Images
+## Remaining Opportunities for Fantasy.co Parity
 
-Generate 6 high-quality AI images to replace or enhance the visual layer across key homepage sections. Each image is tailored to the brand's Death/Life dichotomy and the sacred ceremony narrative.
+To push beyond "good" into truly world-class territory, the following micro-refinements would elevate the overall polish:
 
-### Image 1: The Invitation Portrait
-**Section:** TheInvitation.tsx (line 94-99)
-**Current:** `invitation-portrait.jpg` -- a real photo of hands on piano keys
-**New image prompt:** "Cinematic close-up of a pianist's hands on grand piano keys, warm candlelight, shallow depth of field, golden rim light on fingers, dark moody background, film grain, shot on medium format camera, Kodak Portra 800 film look, intimate and sacred atmosphere"
-**Purpose:** Replace the existing portrait with a more cinematic, high-end version that matches the luxury brand positioning
-**File:** `src/assets/invitation-portrait-ai.jpg`
+### 1. Vinyl Record Spinning Animation for Active Track
+Add a subtle rotating vinyl disc icon (pure CSS, no images) inside the active track card that spins while audio is playing. This creates a more tactile, playful "listening experience" feel that makes the Sound section more memorable and fun.
 
-### Image 2: The Sound Background
-**Section:** TheSound.tsx (line 56-62)
-**Current:** `sound-keys.jpg` at 15% opacity
-**New image prompt:** "Overhead view of a grand piano in a dimly lit cathedral or chapel, single beam of golden light falling across the keys, long shadows, architectural columns in background, dust particles floating in light, ultra cinematic, dark and moody, film noir lighting"
-**Purpose:** Deepen the immersive listening environment behind the audio player
-**File:** `src/assets/sound-cathedral-ai.jpg`
+- 48px vinyl disc rendered as concentric CSS circles (black outer, dark grey grooves, golden center dot)
+- Spins at 33rpm (1.82s per rotation) using CSS `animation: spin`
+- Pauses when audio pauses via `animation-play-state: paused`
+- Replaces the static waveform bars on the active card only
+- Respects `prefers-reduced-motion`
 
-### Image 3: Transformation Fear Panel
-**Section:** TheTransformation.tsx (line 57-63)
-**Current:** `transformation-fear.jpg` at 15% opacity
-**New image prompt:** "Empty outdoor ceremony chairs from behind, wind blowing fabric on seats, overcast sky, muted desaturated colors, a sense of anxiety and uncertainty, shallow depth of field on fabric motion, cinematic 2.39:1 aspect feel, cold blue-grey tones"
-**Purpose:** Viscerally communicate the fear of ceremony audio failure
-**File:** `src/assets/transformation-fear-ai.jpg`
+### 2. Floating "Now Playing" Mini-Bar
+When a track is playing and the user scrolls away from The Sound section, a slim fixed mini-bar appears at the bottom of the viewport showing the current track name, a pause button, and the progress bar. This lets visitors continue listening while exploring the rest of the homepage.
 
-### Image 4: Transformation Life Panel
-**Section:** TheTransformation.tsx (line 91-97)
-**Current:** `transformation-life.jpg` at 12% opacity
-**New image prompt:** "Close-up of two hands intertwined during a ceremony, warm golden hour light, soft bokeh of guests in background, elegant wedding attire visible, warmth and intimacy, shot on 85mm f/1.4, golden tones, hopeful and sacred atmosphere"
-**Purpose:** Communicate the warmth and relief of a ceremony where every word was heard
-**File:** `src/assets/transformation-life-ai.jpg`
+- Fixed to bottom, 48px height, dark glass-morphism background
+- Shows track context + title + pause/play + thin golden progress bar
+- Appears with 260ms slide-up when Sound section leaves viewport
+- Disappears when user scrolls back to Sound section or pauses
+- Does not interfere with MobileStickyBar (positioned above it)
 
-### Image 5: CrossOver Background
-**Section:** CrossOver.tsx (line 29-35)
-**Current:** `crossover-dance.jpg` at 10% opacity
-**New image prompt:** "Silhouette of a couple in their first dance, backlit by warm golden light, ballroom or tent ceiling with string lights above, romantic bokeh, dreamy and celebratory, cinematic film grain, Fuji Pro 400H color palette, sacred and joyful"
-**Purpose:** The final CTA section needs maximum emotional warmth to drive conversion
-**File:** `src/assets/crossover-dance-ai.jpg`
+### 3. Section Transition Polish
+Add smooth gradient fades between adjacent sections to eliminate hard visual cuts. Currently some section boundaries (especially Sound-to-Transformation) have abrupt transitions.
 
-### Image 6: Witness Ceremony Background
-**Section:** TheWitness.tsx (line 44-50)
-**Current:** `witness-ceremony.jpg` at 8% opacity
-**New image prompt:** "Side angle of a wedding ceremony setup, rows of chairs leading to an altar, grand piano positioned to the side, natural outdoor setting with mountains in soft focus background, warm afternoon light, elegant minimalist setup, Banff or Rocky Mountain landscape feel"
-**Purpose:** Reinforce the "ceremony witness" identity with a setup that shows the piano's position in the ceremony space
-**File:** `src/assets/witness-setup-ai.jpg`
+- Add matching `section-fade-bottom` divs to sections that transition into different-colored sections
+- Ensure gradient colors match the destination section's background
 
 ---
 
-## Implementation Details
+## Files That Would Change
 
-### How images will be integrated
+| File | Change |
+|------|--------|
+| `src/components/AudioPlayer.tsx` | Add vinyl disc animation for active track |
+| `src/components/TheSound.tsx` | Add NowPlaying mini-bar logic with IntersectionObserver |
+| `src/index.css` | Add vinyl spin keyframe + mini-bar styles |
 
-Each AI-generated image will be created using the Nano banana model, then saved to `src/assets/`. The existing component imports will be updated to reference the new files. No layout, spacing, typography, or animation changes -- only the image source paths change.
+## What Stays Unchanged
 
-### Opacity and treatment
-
-All background images maintain their current opacity levels and CSS filter treatments. The AI images are designed to work at low opacity as atmospheric texture layers, not as foreground content. The existing gradient overlays, vignettes, and grain textures remain untouched.
-
-### Performance
-
-- Images will be optimized for web (compressed)
-- All images already use `loading="lazy"`
-- No new JavaScript or animation overhead
-- No layout shifts -- images are positioned absolutely behind content
-
----
-
-## Files Changed Summary
-
-| File | Action | Change |
-|------|--------|--------|
-| `src/assets/invitation-portrait-ai.jpg` | Create | AI-generated cinematic piano hands |
-| `src/assets/sound-cathedral-ai.jpg` | Create | AI-generated cathedral piano overhead |
-| `src/assets/transformation-fear-ai.jpg` | Create | AI-generated empty ceremony chairs in wind |
-| `src/assets/transformation-life-ai.jpg` | Create | AI-generated intertwined hands in golden light |
-| `src/assets/crossover-dance-ai.jpg` | Create | AI-generated first dance silhouette |
-| `src/assets/witness-setup-ai.jpg` | Create | AI-generated ceremony setup with piano |
-| `src/components/TheInvitation.tsx` | Edit | Update image import path |
-| `src/components/TheSound.tsx` | Edit | Update image import path |
-| `src/components/TheTransformation.tsx` | Edit | Update two image import paths |
-| `src/components/CrossOver.tsx` | Edit | Update image import path |
-| `src/components/TheWitness.tsx` | Edit | Update image import path |
-
-## What stays unchanged
-
-- All copy, headlines, and CTAs
-- All layout, spacing, and typography
-- All animations and timing
-- All pricing details
-- Process section (already has strong imagery)
-- Hero section (user confirmed it is good)
-- The Exhale and Vow Moment (pure text sections by design)
-- The Record and The Witnesses sections (data-driven, text-focused)
-- Footer, navigation, and all other pages
+- All copy, pricing, and content
+- All existing section layouts and imagery
+- Navigation, footer, and all other pages
+- Process section and hero sequence
 
