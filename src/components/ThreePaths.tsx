@@ -113,7 +113,7 @@ export function ThreePaths() {
                 "relative border rounded-lg p-10 transition-all duration-300 group flex flex-col backdrop-blur-sm",
                 path.isChosen 
                   ? "border-primary/40 md:-translate-y-2" 
-                  : "border-border/20 hover:border-primary/20 hover:-translate-y-1",
+                  : "border-border/20 hover:border-[hsl(var(--vow-yellow)/0.25)] hover:-translate-y-1",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               )}
               style={{ 
@@ -124,7 +124,7 @@ export function ThreePaths() {
                   : 'hsl(var(--ebon-charcoal) / 0.9)',
                 boxShadow: path.isChosen
                   ? '0 8px 40px rgba(255,224,138,0.12), inset 0 1px 0 hsl(var(--vow-yellow) / 0.1)'
-                  : '0 4px 24px rgba(0,0,0,0.3)',
+                  : '0 4px 24px rgba(0,0,0,0.3), 0 0 0 0px rgba(255,224,138,0)',
               }}
             >
               {/* Chosen Badge — refined diamond */}

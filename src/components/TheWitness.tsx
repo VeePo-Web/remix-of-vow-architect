@@ -151,6 +151,12 @@ export function TheWitness() {
           </div>
         </div>
       </div>
+      {/* Bottom fade into ThreePaths dark */}
+      <div
+        className="section-fade-bottom"
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(240 9% 4%))' }}
+        aria-hidden="true"
+      />
     </section>
   );
 }

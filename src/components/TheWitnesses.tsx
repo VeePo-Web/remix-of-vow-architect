@@ -71,12 +71,24 @@ export function TheWitnesses() {
             >
               THE COVENANT KEPT
             </p>
+            {/* Golden rule separator */}
+            <div
+              className={cn(
+                "h-[2px] w-12 mx-auto mb-6 rounded-full transition-all duration-700",
+                isVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
+              )}
+              style={{
+                background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow)), transparent)",
+                transitionDelay: isVisible ? "100ms" : "0ms",
+              }}
+              aria-hidden="true"
+            />
             <h2
               className={cn(
                 "text-[clamp(28px,4vw,48px)] font-[300] font-display leading-tight mb-4 transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
-              style={{ transitionDelay: isVisible ? "150ms" : "0ms" }}
+              style={{ transitionDelay: isVisible ? "200ms" : "0ms" }}
             >
               They heard their vows
             </h2>

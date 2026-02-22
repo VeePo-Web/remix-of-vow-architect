@@ -212,7 +212,7 @@ export function AudioPlayer({ tracks, onPlayStateChange }: AudioPlayerProps) {
             >
               {/* Top row: context label + play/pause */}
               <div className="flex items-center justify-between mb-3">
-                <span className="text-xs uppercase tracking-[0.2em] text-[hsl(var(--vow-yellow)/0.8)]">
+                <span className="text-[11px] md:text-xs uppercase tracking-[0.2em] text-[hsl(var(--vow-yellow)/0.8)]">
                   {track.context}
                 </span>
 
@@ -240,7 +240,7 @@ export function AudioPlayer({ tracks, onPlayStateChange }: AudioPlayerProps) {
               </div>
 
               {/* Track title */}
-              <p className="font-display text-base text-foreground/90 mb-3">
+              <p className="font-display text-base md:text-lg text-foreground/90 mb-3">
                 {track.title}
               </p>
 
