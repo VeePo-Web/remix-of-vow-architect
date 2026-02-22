@@ -3842,3 +3842,90 @@ All colors MUST be HSL.
     margin-right: auto;
   }
 
+/* ═══════════════════════════════════════════════════════════════
+   VINYL DISC — Spinning record animation for active audio track
+   ═══════════════════════════════════════════════════════════════ */
+
+.vinyl-disc {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: hsl(0 0% 8%);
+  position: relative;
+  animation: vinyl-spin 1.82s linear infinite;
+  flex-shrink: 0;
+}
+
+.vinyl-groove {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid hsl(0 0% 20%);
+}
+
+.vinyl-groove-1 {
+  inset: 3px;
+}
+
+.vinyl-groove-2 {
+  inset: 6px;
+}
+
+.vinyl-groove-3 {
+  inset: 9px;
+}
+
+.vinyl-center {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: hsl(var(--vow-yellow));
+}
+
+@keyframes vinyl-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vinyl-disc {
+    animation: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   NOW PLAYING MINI-BAR — Floating bar when scrolled away
+   ═══════════════════════════════════════════════════════════════ */
+
+.now-playing-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  z-index: 45;
+  background: hsl(var(--rich-black) / 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid hsl(var(--vow-yellow) / 0.12);
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 260ms cubic-bezier(.22,.61,.36,1), opacity 260ms cubic-bezier(.22,.61,.36,1);
+  pointer-events: none;
+}
+
+.now-playing-bar--visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Push MobileStickyBar up when mini-bar is visible */
+.now-playing-bar--visible ~ .mobile-sticky-bar,
+body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
+  bottom: 48px;
+}
+

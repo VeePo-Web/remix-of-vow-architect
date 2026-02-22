@@ -126,6 +126,13 @@ export function TheTransformation() {
           boxShadow: "0 0 50px 12px hsl(var(--vow-yellow) / 0.25), 0 0 100px 24px hsl(var(--vow-yellow) / 0.12)",
           animation: "divider-breathe 4s ease-in-out infinite",
         }}
+      aria-hidden="true"
+      />
+
+      {/* Bottom fade into TheWitness warm */}
+      <div
+        className="section-fade-bottom"
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(45 25% 96%))' }}
         aria-hidden="true"
       />
     </section>
