@@ -8,8 +8,9 @@ interface Track {
   src: string;
 }
 
-interface AudioPlayerProps {
+export interface AudioPlayerProps {
   tracks: Track[];
+  onPlayStateChange?: (playing: boolean, trackIndex: number | null, progress: number, duration: number) => void;
 }
 
 const WAVEFORM_BARS = 14;
@@ -40,6 +41,23 @@ function WaveformBars({ isPlaying, reducedMotion }: { isPlaying: boolean; reduce
   );
 }
 
+function VinylDisc({ isPlaying, reducedMotion }: { isPlaying: boolean; reducedMotion: boolean }) {
+  return (
+    <div
+      className="vinyl-disc"
+      style={{
+        animationPlayState: isPlaying && !reducedMotion ? "running" : "paused",
+      }}
+      aria-hidden="true"
+    >
+      <div className="vinyl-groove vinyl-groove-1" />
+      <div className="vinyl-groove vinyl-groove-2" />
+      <div className="vinyl-groove vinyl-groove-3" />
+      <div className="vinyl-center" />
+    </div>
+  );
+}
+
 function formatTime(seconds: number): string {
   if (!isFinite(seconds) || seconds < 0) return "0:00";
   const m = Math.floor(seconds / 60);
@@ -47,7 +65,7 @@ function formatTime(seconds: number): string {
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-export function AudioPlayer({ tracks }: AudioPlayerProps) {
+export function AudioPlayer({ tracks, onPlayStateChange }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -59,6 +77,11 @@ export function AudioPlayer({ tracks }: AudioPlayerProps) {
   useEffect(() => {
     setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   }, []);
+
+  // Notify parent of play state changes
+  useEffect(() => {
+    onPlayStateChange?.(isPlaying, activeIndex, progress, duration);
+  }, [isPlaying, activeIndex, progress, duration, onPlayStateChange]);
 
   // Time update loop
   useEffect(() => {
@@ -88,6 +111,18 @@ export function AudioPlayer({ tracks }: AudioPlayerProps) {
     };
   }, [activeIndex]);
 
+  const togglePlayPause = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio || activeIndex === null) return;
+    if (isPlaying) {
+      audio.pause();
+      setIsPlaying(false);
+    } else {
+      audio.play().catch(() => {});
+      setIsPlaying(true);
+    }
+  }, [activeIndex, isPlaying]);
+
   const handleTrackClick = useCallback(
     (index: number) => {
       if (loadError.has(index)) return;
@@ -95,16 +130,8 @@ export function AudioPlayer({ tracks }: AudioPlayerProps) {
       if (!audio) return;
 
       if (activeIndex === index) {
-        // Toggle play/pause
-        if (isPlaying) {
-          audio.pause();
-          setIsPlaying(false);
-        } else {
-          audio.play().catch(() => {});
-          setIsPlaying(true);
-        }
+        togglePlayPause();
       } else {
-        // Switch track
         audio.pause();
         audio.src = tracks[index].src;
         audio.load();
@@ -115,7 +142,7 @@ export function AudioPlayer({ tracks }: AudioPlayerProps) {
         setIsPlaying(true);
       }
     },
-    [activeIndex, isPlaying, tracks, loadError]
+    [activeIndex, tracks, loadError, togglePlayPause]
   );
 
   const handleKeyDown = useCallback(
@@ -129,6 +156,12 @@ export function AudioPlayer({ tracks }: AudioPlayerProps) {
   );
 
   const progressPercent = duration > 0 ? (progress / duration) * 100 : 0;
+
+  // Expose togglePlayPause for external mini-bar
+  useEffect(() => {
+    (window as any).__sacredSoundToggle = togglePlayPause;
+    return () => { delete (window as any).__sacredSoundToggle; };
+  }, [togglePlayPause]);
 
   return (
     <>
@@ -169,7 +202,6 @@ export function AudioPlayer({ tracks }: AudioPlayerProps) {
               )}
               style={{
                 transition: "all 160ms cubic-bezier(.22,.61,.36,1)",
-                transform: !hasError ? undefined : undefined,
               }}
               onMouseEnter={(e) => {
                 if (!hasError) (e.currentTarget.style.transform = "translateY(-2px)");
@@ -212,9 +244,13 @@ export function AudioPlayer({ tracks }: AudioPlayerProps) {
                 {track.title}
               </p>
 
-              {/* Waveform + time */}
+              {/* Waveform or Vinyl + time */}
               <div className="flex items-end justify-between gap-3">
-                <WaveformBars isPlaying={isTrackPlaying} reducedMotion={reducedMotion} />
+                {isActive && isTrackPlaying ? (
+                  <VinylDisc isPlaying={isTrackPlaying} reducedMotion={reducedMotion} />
+                ) : (
+                  <WaveformBars isPlaying={isTrackPlaying} reducedMotion={reducedMotion} />
+                )}
                 {isActive && !hasError && (
                   <span className="text-[11px] tabular-nums text-muted-foreground/60 whitespace-nowrap">
                     {formatTime(progress)} / {formatTime(duration)}
