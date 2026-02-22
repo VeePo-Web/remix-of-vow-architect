@@ -33,6 +33,15 @@ export function CrossOver() {
         loading="lazy"
         aria-hidden="true"
       />
+      {/* Floating particle dust */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(circle 300px at 30% 40%, hsl(var(--vow-yellow) / 0.03) 0%, transparent 100%)",
+          animation: "crossover-dust 20s ease-in-out infinite alternate",
+        }}
+        aria-hidden="true"
+      />
       {/* Vignette Effect */}
       <div 
         className="absolute inset-0 pointer-events-none"

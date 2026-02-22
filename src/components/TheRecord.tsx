@@ -129,6 +129,12 @@ export function TheRecord() {
           </div>
         </div>
       </div>
+      {/* Bottom fade into TheWitnesses warm */}
+      <div
+        className="section-fade-bottom"
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(45 25% 96%))' }}
+        aria-hidden="true"
+      />
     </section>
   );
 }

@@ -7,7 +7,7 @@ export function Footer() {
       <div className="container mx-auto py-20 px-4">
         {/* Golden thread above content */}
         <div 
-          className="h-[1px] w-24 mx-auto mb-16"
+          className="h-[1px] w-24 mx-auto mb-16 footer-breathe"
           style={{
             background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.25), transparent)"
           }}

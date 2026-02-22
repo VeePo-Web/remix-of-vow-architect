@@ -4,7 +4,7 @@ export function HeroTagline() {
   return (
     <div className="absolute bottom-[var(--hero-space-bottom,48px)] left-[var(--hero-space-edge,24px)] md:left-[var(--hero-space-edge,48px)] z-20">
       {/* Main Tagline - Two Lines, Maximum Restraint */}
-      <h1 className="font-display text-[clamp(32px,4.5vw,48px)] leading-[1.05] tracking-[-0.02em] text-foreground">
+      <h1 className="font-display text-[clamp(32px,4.5vw,56px)] leading-[1.05] tracking-[-0.03em] text-foreground" style={{ textShadow: '0 2px 16px rgba(0,0,0,0.5)' }}>
         {/* Line 1: Death Theme */}
         <span 
           className="block opacity-0 animate-fade-in"
