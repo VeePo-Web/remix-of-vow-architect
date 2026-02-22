@@ -43,7 +43,7 @@ export function MinimalHeader() {
               animationFillMode: "forwards"
             }}
           >
-            Parker Allard
+            Parker Gawryletz
           </Link>
 
           {/* Navigation Links - Staggered Reveal on Scroll */}
