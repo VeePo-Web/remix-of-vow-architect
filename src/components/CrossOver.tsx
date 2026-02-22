@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import crossoverDance from "@/assets/crossover-dance.jpg";
+import crossoverDance from "@/assets/crossover-dance-ai.jpg";
 
 export function CrossOver() {
   const sectionRef = useRef<HTMLElement>(null);

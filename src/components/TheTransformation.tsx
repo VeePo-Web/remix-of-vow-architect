@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { X, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
-import transformationFear from "@/assets/transformation-fear.jpg";
-import transformationLife from "@/assets/transformation-life.jpg";
+import transformationFear from "@/assets/transformation-fear-ai.jpg";
+import transformationLife from "@/assets/transformation-life-ai.jpg";
 
 const fears = [
   "Guests in the back can't hear our vows",
