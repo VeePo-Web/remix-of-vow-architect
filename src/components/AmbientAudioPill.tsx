@@ -108,11 +108,12 @@ export default function AmbientAudioPill() {
           "backdrop-blur-sm select-none",
           "opacity-0 animate-fade-in",
           "transition-[background-color,border-color] duration-[180ms]",
+          "border",
           isPlaying
-            ? "bg-white/[0.08] border border-[hsl(var(--vow-yellow)/0.15)]"
-            : "bg-white/[0.06] border border-white/[0.08] hover:bg-white/[0.10]"
+            ? "bg-white/[0.08]"
+            : "bg-white/[0.06] hover:bg-white/[0.10]"
         )}
-        style={{ animationDelay: "2000ms", animationFillMode: "forwards" }}
+        style={{ animationDelay: "2000ms", animationFillMode: "forwards", borderColor: isPlaying ? "hsl(var(--vow-yellow) / 0.15)" : "rgba(255,255,255,0.08)" }}
       >
         <span className="relative w-[14px] h-[14px] flex-shrink-0">
           <span
