@@ -39,13 +39,10 @@ export function SetupPhotoGallery() {
                   <TooltipTrigger asChild>
                     <Card className="p-6 bg-card border-border hover-scale cursor-help">
                       <div className="flex flex-col items-center text-center">
-                        <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                          <item.icon className="text-primary" size={32} />
+                        <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-5">
+                          <item.icon className="text-primary" size={40} />
                         </div>
-                        <h3 className="font-bold text-sm mb-2">{item.title}</h3>
-                        <div className="aspect-video w-full bg-muted rounded-md flex items-center justify-center text-muted-foreground text-xs">
-                          [Setup Photo]
-                        </div>
+                        <h3 className="font-bold text-sm">{item.title}</h3>
                       </div>
                     </Card>
                   </TooltipTrigger>

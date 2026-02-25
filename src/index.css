@@ -3947,6 +3947,18 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   100% { transform: translate(-3%, 2%) scale(0.95); }
 }
 
+/* Listening Room breathing line */
+@keyframes listening-breathe {
+  0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scaleX(0.92); }
+  50% { opacity: 0.9; transform: translate(-50%, -50%) scaleX(1); }
+}
+
+/* Waveform bar animation */
+@keyframes waveform-bar {
+  0% { height: 4px; }
+  100% { height: 36px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .footer-breathe {
     animation: none;

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Play, Pause } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
+import listenHero from "@/assets/listen-hero.jpg";
 
 /* ── Track data ── */
 const movements = [
@@ -181,6 +182,22 @@ export default function Listen() {
 
       {/* ── HERO ── */}
       <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+        {/* Hero background image */}
+        <img
+          src={listenHero}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover opacity-[0.08] pointer-events-none"
+          style={{ animation: "ken-burns 25s ease-in-out infinite alternate" }}
+          loading="eager"
+          aria-hidden="true"
+        />
+        {/* Vignette overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: "radial-gradient(ellipse 70% 60% at 50% 50%, transparent 30%, hsl(var(--vigil-void)) 100%)" }}
+          aria-hidden="true"
+        />
+
         {/* Breathing golden line */}
         <div
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] md:w-[40vw] h-px"
@@ -249,6 +266,9 @@ export default function Listen() {
         )}
       </section>
 
+      {/* Section fade from hero to movements */}
+      <div className="section-fade-bottom" style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--vigil-void)))", marginTop: "-80px", height: "80px", position: "relative", zIndex: 2 }} aria-hidden="true" />
+
       {/* ── Golden vertical thread ── */}
       <div
         className="fixed left-1/2 top-0 bottom-0 w-px -translate-x-1/2 pointer-events-none z-0"
@@ -280,6 +300,9 @@ export default function Listen() {
         />
       ))}
 
+      {/* Section fade before crossing */}
+      <div className="section-fade-bottom" style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--vigil-void)))", height: "80px", position: "relative", zIndex: 2 }} aria-hidden="true" />
+
       {/* ── THE CROSSING CTA ── */}
       <section className="relative min-h-[60vh] flex items-center justify-center px-6">
         <div className="text-center max-w-lg">
@@ -308,13 +331,6 @@ export default function Listen() {
         onToggle={togglePlayPause}
       />
 
-      {/* Breathing animation keyframes */}
-      <style>{`
-        @keyframes listening-breathe {
-          0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scaleX(0.92); }
-          50% { opacity: 0.9; transform: translate(-50%, -50%) scaleX(1); }
-        }
-      `}</style>
 
       <Footer />
     </div>
