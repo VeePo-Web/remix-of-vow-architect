@@ -30,7 +30,7 @@ export function WitnessCovenant() {
   return (
     <section 
       ref={ref as React.RefObject<HTMLElement>}
-      className="py-[120px] px-4"
+      className="relative py-[120px] px-4"
       style={{
         background: "linear-gradient(180deg, hsl(var(--surface)) 0%, hsl(var(--surface-warm)) 100%)"
       }}
@@ -40,32 +40,35 @@ export function WitnessCovenant() {
           {/* Label */}
           <p 
             className={cn(
-              "text-xs uppercase tracking-[0.3em] text-center mb-8 transition-all duration-700 text-muted-foreground",
+              "text-xs uppercase tracking-[0.3em] text-center mb-4 transition-all duration-700 text-muted-foreground",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
           >
             THE COVENANT
           </p>
 
+          {/* Golden rule separator */}
+          <div className="w-12 h-px mx-auto mb-8" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.6), transparent)" }} />
+
           {/* Certificate Container */}
           <div 
             className={cn(
-              "relative p-12 md:p-16 bg-card border border-border/30 rounded-sm transition-all duration-1000",
+              "relative p-12 md:p-16 bg-card border border-primary/15 rounded-sm transition-all duration-1000",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             )}
             style={{ 
               transitionDelay: "200ms",
-              boxShadow: "0 20px 60px rgba(0,0,0,0.08)"
+              boxShadow: "0 20px 60px rgba(0,0,0,0.08), inset 0 0 80px hsl(var(--vow-yellow) / 0.03)"
             }}
           >
             {/* Film grain texture on certificate */}
             <div className="absolute inset-0 grain opacity-20 rounded-sm pointer-events-none" aria-hidden="true" />
 
             {/* Corner ornaments */}
-            <div className="absolute top-6 left-6 w-10 h-10 border-l border-t border-primary/30" />
-            <div className="absolute top-6 right-6 w-10 h-10 border-r border-t border-primary/30" />
-            <div className="absolute bottom-6 left-6 w-10 h-10 border-l border-b border-primary/30" />
-            <div className="absolute bottom-6 right-6 w-10 h-10 border-r border-b border-primary/30" />
+            <div className="absolute top-6 left-6 w-10 h-10 border-l border-t border-primary/40" />
+            <div className="absolute top-6 right-6 w-10 h-10 border-r border-t border-primary/40" />
+            <div className="absolute bottom-6 left-6 w-10 h-10 border-l border-b border-primary/40" />
+            <div className="absolute bottom-6 right-6 w-10 h-10 border-r border-b border-primary/40" />
 
             {/* Certificate Header */}
             <div className="text-center mb-10 relative">
@@ -161,6 +164,13 @@ export function WitnessCovenant() {
           </p>
         </div>
       </div>
+
+      {/* Section fade bottom → Crossing */}
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--rich-black)))" }}
+        aria-hidden="true"
+      />
     </section>
   );
 }

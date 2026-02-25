@@ -26,11 +26,12 @@ export function WitnessPresence() {
     >
       {/* Background image */}
       <div 
-        className="absolute inset-0 opacity-[0.06]"
+        className="absolute inset-0 opacity-[0.10]"
         style={{
           backgroundImage: `url(${aboutPresenceImg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
+          animation: "ken-burns 30s ease-in-out infinite alternate",
         }}
         aria-hidden="true"
       />
@@ -48,12 +49,15 @@ export function WitnessPresence() {
           {/* Label */}
           <p 
             className={cn(
-              "text-xs uppercase tracking-[0.3em] text-muted-foreground text-center mb-8 transition-all duration-700",
+              "text-xs uppercase tracking-[0.3em] text-muted-foreground text-center mb-4 transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
           >
             THE PRESENCE
           </p>
+
+          {/* Golden rule separator */}
+          <div className="w-12 h-px mx-auto mb-8" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.6), transparent)" }} />
 
           {/* The Big Number */}
           <div className="relative">
@@ -136,6 +140,13 @@ export function WitnessPresence() {
           </p>
         </div>
       </div>
+
+      {/* Section fade bottom → Covenant */}
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--surface)))" }}
+        aria-hidden="true"
+      />
     </section>
   );
 }

@@ -103,10 +103,17 @@ export function WitnessHero() {
             }`}
             style={{ transitionDelay: "1500ms" }}
           >
-            <div className="w-px h-12 bg-gradient-to-b from-primary/50 to-transparent mx-auto animate-pulse" />
+          <div className="w-px h-12 bg-gradient-to-b from-primary/50 to-transparent mx-auto animate-pulse" />
           </div>
         </div>
       </div>
+
+      {/* Section fade bottom → Origin */}
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--background)))" }}
+        aria-hidden="true"
+      />
     </section>
   );
 }

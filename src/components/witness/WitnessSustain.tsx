@@ -28,11 +28,21 @@ export function WitnessSustain() {
   return (
     <section 
       ref={ref as React.RefObject<HTMLElement>}
-      className="py-[120px] px-4"
+      className="relative py-[120px] px-4"
       style={{
         background: "linear-gradient(180deg, hsl(var(--surface)) 0%, hsl(var(--surface-warm)) 100%)"
       }}
     >
+      {/* Film grain */}
+      <div className="absolute inset-0 grain opacity-15 pointer-events-none" aria-hidden="true" />
+
+      {/* Ambient golden glow behind visualization */}
+      <div 
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{ background: "radial-gradient(ellipse at 50% 40%, hsl(var(--vow-yellow)) 0%, transparent 60%)" }}
+        aria-hidden="true"
+      />
+
       <div className="container mx-auto">
         <div className="max-w-5xl mx-auto">
           {/* Label */}
@@ -115,6 +125,13 @@ export function WitnessSustain() {
           </div>
         </div>
       </div>
+
+      {/* Section fade bottom → Presence */}
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--background)))" }}
+        aria-hidden="true"
+      />
     </section>
   );
 }

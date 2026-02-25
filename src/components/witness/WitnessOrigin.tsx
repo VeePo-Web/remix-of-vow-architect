@@ -12,7 +12,7 @@ export function WitnessOrigin() {
   return (
     <section 
       ref={ref as React.RefObject<HTMLElement>}
-      className="py-[120px] px-4 bg-background"
+      className="relative py-[120px] px-4 bg-background"
     >
       <div className="container mx-auto">
         <div className="grid md:grid-cols-5 gap-12 max-w-6xl mx-auto items-center">
@@ -105,6 +105,13 @@ export function WitnessOrigin() {
           </div>
         </div>
       </div>
+
+      {/* Section fade bottom → Sustain */}
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--surface)))" }}
+        aria-hidden="true"
+      />
     </section>
   );
 }
