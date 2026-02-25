@@ -1,52 +1,44 @@
 
 
-# Gateway Refinement -- Golden Thread Connector and Staggered Reveal Choreography
+# Gateway Refinement -- Gradient Overlay Depth and Card Border Luminance
 
 ## Audit Finding
 
-Two opportunities surfaced during this audit cycle:
+Two subtle but high-impact details separate this Gateway from true world-class studio work:
 
-### 1. Missing Visual Hierarchy Between Cards (The "Golden Thread")
+### 1. Card Gradient Overlay Is Uniform Across All Cards
 
-The three cards currently float as isolated rectangles with no visual relationship to one another. World-class agency work (Fantasy, Pentagram) uses connective tissue -- subtle lines, shared geometry, or visual threads -- to signal that disparate elements belong to a unified system. The brand document explicitly calls for "golden threads connecting moments."
+Every card uses an identical `from-black/80 via-black/40 to-black/20` gradient. World-class bento layouts (Fantasy, Pentagram portfolio pages) use slightly varied gradient intensities per card to create visual rhythm -- the eye reads the trio as a composed triptych rather than three copies of the same template. The available (Weddings) card should feel slightly more "revealed" than the Coming Soon cards, reinforcing its active status through luminance hierarchy, not just text color.
 
-**The fix:** Add a thin horizontal golden line (1px, vow-yellow at 15% opacity) that runs behind the cards on desktop, vertically centered. On mobile, this becomes a vertical thread. This is purely decorative (`aria-hidden`), positioned absolutely behind the card container, and fades in with the last card's animation delay. It creates the subliminal impression that the three services are branches of a single trunk -- Parker's artistry.
+**The fix:** The available card gets a lighter gradient (`from-black/70 via-black/30 to-black/10`) so its image reads slightly brighter -- subconsciously drawing the eye first. The unavailable cards get a slightly heavier gradient (`from-black/85 via-black/50 to-black/30`) that dims them further, reinforcing their dormant state. This creates a three-tier luminance hierarchy: bright (active) to dim (coming soon).
 
-### 2. Card Hover Lacks a Directional Arrow Affordance
+### 2. Card Border Has No Resting-State Differentiation
 
-The Weddings card says "Enter" but has no visual cue that it leads somewhere. The "Coming Soon" cards have no differentiation beyond dimmed text. A small directional arrow (a simple CSS-drawn chevron or Unicode arrow) that slides in on hover for the active card would provide:
-- Clear affordance that this is a navigational element
-- Motion choreography that feels intentional (180ms, matching brand timing)
-- A detail that separates this from a static poster and makes it feel interactive
+All three cards share the same `border-white/10` at rest. The available card only differentiates on hover (yellow border glow). At first glance -- before any interaction -- there is no visual signal that one card is "alive" and the others are not. A subtle resting-state border tint on the active card would create an immediate visual hierarchy the moment the page loads, before the user even reads the text.
 
-**The fix:** On hover of available cards, animate a small right-arrow (`\u2192`) sliding 8px from the left alongside the "Enter" text. Uses `translate-x` and `opacity` transition at 180ms. No arrow appears on unavailable cards.
+**The fix:** The available card gets a resting border of `border-white/[0.14]` -- just 4% brighter than the others at `border-white/[0.06]`. The difference is nearly imperceptible consciously but creates a subliminal "this one is different" signal. The unavailable cards drop to `border-white/[0.06]` to recede further. On hover, the available card still transitions to the golden border as before.
 
 ---
 
 ## Specifications
 
-### Golden Thread
-- Element: `div` with `position: absolute`, 1px height (desktop) or 1px width (mobile)
-- Color: `hsl(var(--vow-yellow) / 0.15)`
-- Desktop: horizontal, vertically centered in the card container, full width minus 48px padding
-- Mobile: vertical, horizontally centered, full height of card container
-- Animation: fades in at 1400ms delay (same as footer), 600ms duration
-- `aria-hidden="true"`, `pointer-events: none`
+### Gradient Differentiation
+- Available cards: `from-black/70 via-black/30 to-black/10`
+- Unavailable cards: `from-black/85 via-black/50 to-black/30`
+- No animation change -- purely static gradient values
 
-### Directional Arrow on Hover
-- Character: `\u2192` (right arrow)
-- Default state: `opacity-0 -translate-x-2`
-- Hover state: `opacity-100 translate-x-0`
-- Transition: 180ms ease-out (matches brand hover timing)
-- Only rendered when `s.available === true`
+### Border Luminance Hierarchy
+- Available cards (resting): `border-white/[0.14]`
+- Unavailable cards (resting): `border-white/[0.06]`
+- Available cards (hover): unchanged -- still transitions to `border-[hsl(var(--vow-yellow)/0.25)]`
 
 ## Files Changed
 
 | File | Change |
 |------|--------|
-| `src/pages/Gateway.tsx` | Add golden thread connector element behind cards; add arrow affordance to "Enter" label on available cards |
+| `src/pages/Gateway.tsx` | Differentiate gradient overlay and resting border opacity between available and unavailable cards |
 
 ## What Stays Unchanged
 
-All routing, mobile flex layout, parallax, semicolon breathing, animation timings, and desktop aspect ratios remain exactly as they are.
+All routing, animations, parallax, golden thread, semicolon breathing, arrow affordance, mobile layout, and desktop aspect ratios remain exactly as they are.
 
