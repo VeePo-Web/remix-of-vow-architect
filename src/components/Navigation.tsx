@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "@/components/NavLink";
+import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
@@ -55,8 +56,8 @@ export function Navigation() {
                 {item.label}
               </NavLink>
             ))}
-            <Button size="sm" variant="outline" className="hover-scale border-primary/30 text-foreground/80 hover:border-primary/60">
-              Hold My Date
+            <Button size="sm" variant="outline" className="hover-scale border-primary/30 text-foreground/80 hover:border-primary/60" asChild>
+              <Link to="/contact">Hold My Date</Link>
             </Button>
           </div>
 
@@ -86,7 +87,9 @@ export function Navigation() {
                 </NavLink>
               ))}
               <div className="mt-2">
-                <Button variant="outline" className="w-full border-primary/30">Hold My Date</Button>
+                <Button variant="outline" className="w-full border-primary/30" asChild>
+                  <Link to="/contact">Hold My Date</Link>
+                </Button>
               </div>
             </div>
           </div>

@@ -214,13 +214,6 @@ export function ListeningMovement({
         </div>
       </div>
 
-      {/* Waveform keyframes */}
-      <style>{`
-        @keyframes waveform-bar {
-          0% { height: 4px; }
-          100% { height: 36px; }
-        }
-      `}</style>
     </section>
   );
 }

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-import witnessesVenue from "@/assets/witnesses-venue.jpg";
+import witnessesVenue from "@/assets/witnesses-venue-ai.jpg";
 
 const testimonials = [
   {
@@ -49,7 +49,8 @@ export function TheWitnesses() {
       <img
         src={witnessesVenue}
         alt=""
-        className="absolute inset-0 w-full h-full object-cover opacity-[0.06] pointer-events-none"
+        className="absolute inset-0 w-full h-full object-cover opacity-[0.10] pointer-events-none"
+        style={{ animation: "ken-burns 25s ease-in-out infinite alternate" }}
         loading="lazy"
         aria-hidden="true"
       />
