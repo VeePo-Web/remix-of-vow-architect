@@ -1,62 +1,46 @@
 
 
-# Audit: Active Track Row Lacks a Leading Edge Accent
+# Audit: MiniWaveform Bars Animate to Wrong Heights
 
 ## Finding
 
-The active track row currently signals its state through four cues: gold text color, a radial gradient background at 6% opacity, a 3px dot indicator, and the animated mini waveform. These work together, but the row still reads as "highlighted text" rather than "selected instrument." It lacks the tactile, material quality that defines the rest of the panel -- the strings, the hammer rail, the felt damper, the interior glow all reference real piano anatomy.
+The `MiniWaveform` component inside the PianoPanel references `ambient-wave-0` through `ambient-wave-3` keyframes. These keyframes are defined inside `AmbientAudioPill.tsx`'s inline `<style>` block with max heights of 10px, 14px, 12px, and 8px -- values designed for the pill's waveform bars, which sit in a taller container.
 
-In premium audio interfaces (Apple Music's "Now Playing" sidebar, Spotify's queue panel, Linear's active item states), the active row features a vertical accent bar on the leading edge -- a confident, minimal mark that says "you are here" with the authority of a bookmark ribbon pressed into a page. In the context of this piano metaphor, this accent bar evokes a **piano key's sharp edge** -- the precise vertical line where ivory meets ebony, where silence becomes sound.
+The PianoPanel's mini waveform container is only 12px tall (`h-[12px]`), and the intended max heights are defined in `miniBarHeights` as [6, 10, 8, 5]. But because the keyframes animate to [10, 14, 12, 8], bars 1 and 2 overflow the 12px container (14px and 12px respectively), creating visual clipping. Bar 0 animates to 10px instead of the intended 6px. Only bar 3 (8px vs 5px) stays within bounds but is still disproportionate.
 
-The existing 3px dot is too small to anchor the eye. The radial gradient is atmospheric but diffuse. A 2px vertical gold bar on the left edge provides the missing structural anchor -- a single confident line that completes the active state hierarchy.
+This is a coupling defect -- the panel silently depends on keyframes designed for a different context. If the pill's style block ever changes or the pill unmounts before the panel, the waveform breaks entirely.
 
 ## The Refinement
 
-Modify the active dot indicator (lines 332-343) from a 3px circle to a 2px-wide, 16px-tall vertical bar. This replaces one element with a more visually authoritative version -- no additional DOM nodes needed.
+Add a scoped `<style>` block inside `PianoPanel` with dedicated keyframes (`panel-wave-0` through `panel-wave-3`) that use the correct `miniBarHeights` values. Update the `MiniWaveform` animation references accordingly.
 
-### Technical Change
+### Technical Changes
 
-**File: `src/components/PianoPanel.tsx` (lines 332-343)**
+**File: `src/components/PianoPanel.tsx`**
 
-Change the active dot span from a circle to a vertical bar:
+**1. Add scoped keyframes inside the PianoPanel return (before the overlay div, around line 234):**
 
-Current:
 ```jsx
-<span
-  className="flex-shrink-0 rounded-full"
-  style={{
-    width: "3px",
-    height: "3px",
-    background: isActive ? "hsl(var(--vow-yellow))" : "transparent",
-    transform: isActive ? "scale(1)" : "scale(0)",
-    transition: "transform 120ms ease-out, background 120ms",
-  }}
-/>
+<style>{`
+  @keyframes panel-wave-0 { 0% { height: 3px; } 100% { height: 6px; } }
+  @keyframes panel-wave-1 { 0% { height: 3px; } 100% { height: 10px; } }
+  @keyframes panel-wave-2 { 0% { height: 3px; } 100% { height: 8px; } }
+  @keyframes panel-wave-3 { 0% { height: 3px; } 100% { height: 5px; } }
+`}</style>
 ```
 
-New:
-```jsx
-<span
-  className="flex-shrink-0 rounded-full"
-  style={{
-    width: "2px",
-    height: isActive ? "16px" : "3px",
-    borderRadius: "1px",
-    background: isActive ? "hsl(var(--vow-yellow))" : "transparent",
-    transform: isActive ? "scaleY(1)" : "scaleY(0)",
-    transition: "transform 180ms cubic-bezier(0.22,0.61,0.36,1), height 180ms cubic-bezier(0.22,0.61,0.36,1), background 120ms",
-  }}
-/>
-```
+**2. Update MiniWaveform animation name (line 166):**
 
-Key differences:
-- Width: 3px to 2px (thinner, more refined)
-- Height: 3px circle to 16px bar when active (fills ~44% of the 36px row height -- enough presence without overwhelming)
-- Border-radius: overridden to 1px (pill-shaped ends, not circular)
-- Transform: `scale` to `scaleY` (grows vertically from center, like a piano key being depressed)
-- Timing: 120ms to 180ms with the brand easing curve (matches hover timing standard)
+Change from:
+```
+ambient-wave-${i} 1200ms ease-in-out ${i * 150}ms infinite alternate
+```
+to:
+```
+panel-wave-${i} 1200ms ease-in-out ${i * 150}ms infinite alternate
+```
 
 ## What Stays Unchanged
 
-All other track row styling, text size, gap, padding, radial gradient background, mini waveform, category headers, piano strings, fade masks, scroll logic, caret, panel dimensions, animation timing.
+All panel layout, strings, interior glow, border, fade masks, track rows, category headers, accent bar, scroll logic, caret, pill behavior, panel dimensions, animation timing curves.
 
