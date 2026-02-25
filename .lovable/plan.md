@@ -1,44 +1,40 @@
 
 
-# Gateway Refinement -- Gradient Overlay Depth and Card Border Luminance
+# Gateway Refinement -- Image Reveal Opacity Hierarchy and Hover Scale Breathing
 
 ## Audit Finding
 
-Two subtle but high-impact details separate this Gateway from true world-class studio work:
+### 1. Background Image Opacity Is Identical Across All Cards
 
-### 1. Card Gradient Overlay Is Uniform Across All Cards
+Every card uses the same `opacity-[0.30]` for its background image at rest and `group-hover:opacity-[0.40]` on hover. This flattens the visual hierarchy -- the active Weddings card reads at the same "energy level" as the dormant Teaching and Events cards. World-class triptych layouts use image opacity as a subtle signifier of state: the active element feels more present, more alive, while dormant elements recede into deeper shadow.
 
-Every card uses an identical `from-black/80 via-black/40 to-black/20` gradient. World-class bento layouts (Fantasy, Pentagram portfolio pages) use slightly varied gradient intensities per card to create visual rhythm -- the eye reads the trio as a composed triptych rather than three copies of the same template. The available (Weddings) card should feel slightly more "revealed" than the Coming Soon cards, reinforcing its active status through luminance hierarchy, not just text color.
+**The fix:** The available card's background image uses `opacity-[0.35]` at rest (5% brighter than before) and `group-hover:opacity-[0.45]` on hover. The unavailable cards drop to `opacity-[0.20]` at rest with no hover change. This creates a three-tier depth: the Weddings card image is perceptibly more vivid, reinforcing the gradient and border hierarchy already established. The unavailable cards feel like they exist further back in the visual plane -- present but waiting.
 
-**The fix:** The available card gets a lighter gradient (`from-black/70 via-black/30 to-black/10`) so its image reads slightly brighter -- subconsciously drawing the eye first. The unavailable cards get a slightly heavier gradient (`from-black/85 via-black/50 to-black/30`) that dims them further, reinforcing their dormant state. This creates a three-tier luminance hierarchy: bright (active) to dim (coming soon).
+### 2. Hover Lift Lacks Micro-Scale for Dimensionality
 
-### 2. Card Border Has No Resting-State Differentiation
+The available card currently lifts on hover (`hover:-translate-y-2`) but does not scale. Premium portfolio sites (Fantasy, Pentagram) pair vertical lift with a barely perceptible scale increase (1.5-2%) to create a "coming toward you" depth effect. Without it, the card feels like it slides on a flat plane rather than lifting off the surface. The scale must be subtle enough to avoid layout shift or visual noise.
 
-All three cards share the same `border-white/10` at rest. The available card only differentiates on hover (yellow border glow). At first glance -- before any interaction -- there is no visual signal that one card is "alive" and the others are not. A subtle resting-state border tint on the active card would create an immediate visual hierarchy the moment the page loads, before the user even reads the text.
-
-**The fix:** The available card gets a resting border of `border-white/[0.14]` -- just 4% brighter than the others at `border-white/[0.06]`. The difference is nearly imperceptible consciously but creates a subliminal "this one is different" signal. The unavailable cards drop to `border-white/[0.06]` to recede further. On hover, the available card still transitions to the golden border as before.
+**The fix:** Add `hover:scale-[1.015]` to the available card's hover state. Combined with the existing `-translate-y-2` and golden shadow, this creates a three-part dimensionality: lift + scale + glow. The 1.5% scale is imperceptible as a number but perceptible as a feeling -- the card breathes toward the user. The `transition-all duration-300` already in place handles the easing.
 
 ---
 
 ## Specifications
 
-### Gradient Differentiation
-- Available cards: `from-black/70 via-black/30 to-black/10`
-- Unavailable cards: `from-black/85 via-black/50 to-black/30`
-- No animation change -- purely static gradient values
+### Image Opacity Hierarchy
+- Available cards: `opacity-[0.35] group-hover:opacity-[0.45]`
+- Unavailable cards: `opacity-[0.20]` (no hover change -- remove `group-hover:opacity-[0.40]`)
 
-### Border Luminance Hierarchy
-- Available cards (resting): `border-white/[0.14]`
-- Unavailable cards (resting): `border-white/[0.06]`
-- Available cards (hover): unchanged -- still transitions to `border-[hsl(var(--vow-yellow)/0.25)]`
+### Hover Micro-Scale
+- Available cards: add `hover:scale-[1.015]` alongside existing `hover:-translate-y-2`
+- Unavailable cards: no change
 
 ## Files Changed
 
 | File | Change |
 |------|--------|
-| `src/pages/Gateway.tsx` | Differentiate gradient overlay and resting border opacity between available and unavailable cards |
+| `src/pages/Gateway.tsx` | Differentiate image opacity between available/unavailable cards; add micro-scale to available card hover |
 
 ## What Stays Unchanged
 
-All routing, animations, parallax, golden thread, semicolon breathing, arrow affordance, mobile layout, and desktop aspect ratios remain exactly as they are.
+All routing, golden thread, gradient overlays, border hierarchy, semicolon breathing, arrow affordance, mobile layout, animation timings, and desktop aspect ratios remain exactly as they are.
 
