@@ -1,40 +1,40 @@
 
 
-# Gateway Refinement -- Image Reveal Opacity Hierarchy and Hover Scale Breathing
+# Gateway Refinement -- Typography Scale Hierarchy and Card Content Vertical Rhythm
 
 ## Audit Finding
 
-### 1. Background Image Opacity Is Identical Across All Cards
+### 1. Card Title Typography Is Identical Across Available and Unavailable Cards
 
-Every card uses the same `opacity-[0.30]` for its background image at rest and `group-hover:opacity-[0.40]` on hover. This flattens the visual hierarchy -- the active Weddings card reads at the same "energy level" as the dormant Teaching and Events cards. World-class triptych layouts use image opacity as a subtle signifier of state: the active element feels more present, more alive, while dormant elements recede into deeper shadow.
+All three cards render their title at `text-[28px]` with `font-light` and identical `text-foreground` color. The Weddings card -- the only live, clickable service -- reads at the exact same typographic weight and presence as Teaching and Events. World-class triptych compositions (Fantasy portfolio, Pentagram case study grids) use subtle typographic differentiation to signal primacy: the active element's title carries slightly more visual weight, while dormant elements feel quieter. Currently, the opacity, gradient, and border hierarchies do the heavy lifting, but the typography itself -- the most content-dense element -- remains flat.
 
-**The fix:** The available card's background image uses `opacity-[0.35]` at rest (5% brighter than before) and `group-hover:opacity-[0.45]` on hover. The unavailable cards drop to `opacity-[0.20]` at rest with no hover change. This creates a three-tier depth: the Weddings card image is perceptibly more vivid, reinforcing the gradient and border hierarchy already established. The unavailable cards feel like they exist further back in the visual plane -- present but waiting.
+**The fix:** The available card's title uses `text-[30px]` (2px larger) and `font-normal` (weight 400 vs. 300). The unavailable cards remain at `text-[28px] font-light` and shift to `text-foreground/70` (30% transparency). This creates a reading hierarchy where the eye naturally lands on the Weddings title first -- it is fractionally bolder and larger. The difference is subtle enough to feel compositional rather than designed, but it reinforces every other hierarchy layer already in place.
 
-### 2. Hover Lift Lacks Micro-Scale for Dimensionality
+### 2. Card Description Lacks Breathing Room from the CTA Label
 
-The available card currently lifts on hover (`hover:-translate-y-2`) but does not scale. Premium portfolio sites (Fantasy, Pentagram) pair vertical lift with a barely perceptible scale increase (1.5-2%) to create a "coming toward you" depth effect. Without it, the card feels like it slides on a flat plane rather than lifting off the surface. The scale must be subtle enough to avoid layout shift or visual noise.
+The description text (`mt-1`) and the "Enter" / "Coming Soon" label (`mt-4`) create an uneven vertical rhythm. The gap between title and description is tight (4px via `mt-1`), while the gap between description and CTA is larger (16px via `mt-4`). This creates a bottom-heavy cluster. Premium card layouts use consistent internal spacing that follows a harmonic scale. A slight increase in the title-to-description gap and a slight decrease in the description-to-CTA gap would create a more balanced vertical distribution -- the content feels centered within the card rather than compressed at the bottom.
 
-**The fix:** Add `hover:scale-[1.015]` to the available card's hover state. Combined with the existing `-translate-y-2` and golden shadow, this creates a three-part dimensionality: lift + scale + glow. The 1.5% scale is imperceptible as a number but perceptible as a feeling -- the card breathes toward the user. The `transition-all duration-300` already in place handles the easing.
+**The fix:** Change the description's margin from `mt-1` to `mt-2` (8px), and the CTA label's margin from `mt-4` to `mt-3` (12px). This redistributes the vertical rhythm: 8px between title and description, 12px between description and CTA. The total vertical space consumed increases by only 4px, but the distribution feels more balanced and intentional -- each element breathes equally.
 
 ---
 
 ## Specifications
 
-### Image Opacity Hierarchy
-- Available cards: `opacity-[0.35] group-hover:opacity-[0.45]`
-- Unavailable cards: `opacity-[0.20]` (no hover change -- remove `group-hover:opacity-[0.40]`)
+### Typography Scale Differentiation
+- Available card title: `text-[30px] font-normal text-foreground`
+- Unavailable card titles: `text-[28px] font-light text-foreground/70`
 
-### Hover Micro-Scale
-- Available cards: add `hover:scale-[1.015]` alongside existing `hover:-translate-y-2`
-- Unavailable cards: no change
+### Vertical Rhythm Rebalancing
+- Description: change `mt-1` to `mt-2`
+- CTA label: change `mt-4` to `mt-3`
 
 ## Files Changed
 
 | File | Change |
 |------|--------|
-| `src/pages/Gateway.tsx` | Differentiate image opacity between available/unavailable cards; add micro-scale to available card hover |
+| `src/pages/Gateway.tsx` | Conditional title size/weight/color for available vs. unavailable; adjust description and CTA margins |
 
 ## What Stays Unchanged
 
-All routing, golden thread, gradient overlays, border hierarchy, semicolon breathing, arrow affordance, mobile layout, animation timings, and desktop aspect ratios remain exactly as they are.
+All routing, images, opacity hierarchy, gradient overlays, border luminance, golden thread, semicolon breathing, arrow affordance, hover scale, mobile layout, and animation timings remain exactly as they are.
 
