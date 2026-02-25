@@ -1,43 +1,63 @@
 
 
-# Gateway Refinement -- Ambient Audio Pill Entrance Choreography
+# Gateway Refinement -- Ambient Audio Pill Shuffle and Repertoire Expansion
 
 ## Audit Finding
 
-All four transition layers (icon crossfade, text dissolve, waveform bloom, border warmth) now breathe as one organism. The pill's *internal* behavior is polished. But the pill's **entrance** -- how it first appears on the page -- is generic. It uses the standard `animate-fade-in` class (a 300ms fade + 10px translateY lift), which is the same entrance animation used by dozens of elements across the site. For a component this special -- a floating, living audio control that invites the visitor into a sensory experience -- the entrance should be bespoke, not borrowed.
+The pill currently holds three hardcoded tracks with no way for visitors to explore breadth. It plays sequentially: Nocturne, Canon in D, Clair de Lune -- all classical. For a pianist whose brand spans weddings, teaching, and events, the repertoire should hint at range. More critically, the visitor has zero agency over what they hear. The pill plays track 1, then 2, then 3, then stops. There is no discovery, no surprise, no invitation to linger.
 
-World-class audio interfaces (Apple's AirPlay pill, Sonos's ambient controller, Bang & Olufsen's floating UI) enter the viewport with a distinct micro-choreography: they rise from a slightly deeper offset, scale from just below 1.0, and fade in -- all slightly staggered so the motion reads as "emerging" rather than "appearing." The current 10px lift and 300ms fade reads as a standard UI element mounting. The pill deserves its own entrance that feels like it *surfaces* -- as if it was always there, just beneath the threshold of perception, and now slowly reveals itself.
+World-class ambient players (Apple Music's autoplay, Sonos Radio, the Ace Hotel lobby stream) share one trait: they shuffle. The listener never knows what comes next, which creates a sense of living presence rather than a looping playlist. The pill should feel like sitting in a room where Parker is playing -- you do not choose the song, but every song feels right.
 
-Additionally, the 2000ms entrance delay is correct (the pill should arrive after the page settles), but the animation itself should be longer than the standard 300ms. A 600ms entrance with a gentle scale-up from 0.96 to 1.0 and a 16px rise creates a "surfacing" feel -- the pill rises like a breath, not a pop.
+Adding a full genre picker UI would violate the pill's minimalism. Instead, the elegant solution is:
 
-## The Fix
+1. **Expand the track list** with categorized entries spanning Classical, Contemporary, and Film/Pop -- reflecting the three service pillars (Weddings, Teaching, Events).
+2. **Shuffle on first play** so every visit feels unique.
+3. **Add a tiny skip-forward affordance** (a `Shuffle` icon that appears only during playback, replacing the waveform's right edge) so visitors can skip to the next track if the current one does not resonate. One tap, next random track. No menu, no picker, no cognitive load.
 
-Replace the generic `animate-fade-in` with a bespoke `animate-pill-surface` keyframe that combines:
-- Opacity: 0 to 1
-- TranslateY: 16px to 0
-- Scale: 0.96 to 1.0
-- Duration: 600ms
-- Easing: cubic-bezier(0.22, 0.61, 0.36, 1) (the brand's standard easing)
+This preserves the pill's sacred minimalism while giving the visitor a sense of abundance and discovery.
 
-This keyframe is defined inline (in the existing `<style>` block already present for the waveform animation), keeping it scoped to this component. The `animate-fade-in` class is replaced with a custom class referencing this keyframe.
+## Track Repertoire
+
+Expand from 3 to 9+ tracks across three moods (sources remain empty strings until real audio is added):
+
+- **Classical:** Nocturne (Chopin), Clair de Lune (Debussy), Canon in D (Pachelbel)
+- **Contemporary:** A Thousand Years (Perri), Turning Page (Sleeping at Last), All of Me (Legend)
+- **Film/Cinematic:** River Flows in You (Yiruma), Comptine d'un autre ete (Tiersen), Moon River (Mancini)
+
+The pill label shows the track title during playback (already implemented). The genre/mood is not displayed -- it is felt, not labeled.
+
+## Shuffle Logic
+
+- On component mount, create a shuffled order of all track indices using Fisher-Yates.
+- `activeIndex` references position within the shuffled array, not the original tracks array.
+- On track end, advance to next in shuffled order; when exhausted, reshuffle and continue.
+- On skip tap, same behavior as track end: advance to next shuffled track.
+
+## Skip Affordance
+
+- A small `Shuffle` icon (from lucide-react) appears to the right of the waveform bars, only when `isPlaying` is true.
+- Icon size: 10px, `text-muted-foreground/40`, with `hover:text-muted-foreground/70` and `transition-opacity duration-[180ms]`.
+- It enters with the same `max-w` bloom as the waveform (already transitioning).
+- Tap handler: `e.stopPropagation()` (so the pill's main toggle is not triggered), then advance to next shuffled track.
+- Accessible: `aria-label="Skip to next track"`, `role="button"`, `tabIndex={0}`.
 
 ## Specifications
 
-- New keyframe `pill-surface`: `0% { opacity: 0; transform: translateY(16px) scale(0.96); } 100% { opacity: 1; transform: translateY(0) scale(1); }`
-- Duration: 600ms
-- Easing: cubic-bezier(0.22, 0.61, 0.36, 1)
-- Delay: 2000ms (unchanged)
-- Fill mode: forwards (unchanged)
-- Replace `animate-fade-in` class with inline animation style
-- Reduced motion fallback: opacity-only, 120ms
+- Track array: 9 entries with `title` and `src` (src empty for now).
+- New state: `shuffledOrder: number[]` -- initialized via `useEffect` on mount.
+- New state: `shufflePosition: number` -- current index within `shuffledOrder`.
+- `shuffle()` utility: Fisher-Yates in-place, returns new array.
+- Skip icon: `Shuffle` from lucide-react, 10px, appears inside the existing waveform bloom container.
+- `onClick` on skip icon calls `e.stopPropagation()` then `skipToNext()`.
+- `skipToNext()`: pause current, advance `shufflePosition`, load next track, play.
 
 ## File Changed
 
 | File | Change |
 |------|--------|
-| `src/components/AmbientAudioPill.tsx` | Add bespoke `pill-surface` keyframe; replace generic fade-in with surfacing entrance |
+| `src/components/AmbientAudioPill.tsx` | Expand tracks to 9, add Fisher-Yates shuffle on mount, add skip icon during playback |
 
 ## What Stays Unchanged
 
-All icon crossfade, text dissolve, waveform bloom, border warmth transition, positioning, progress line, audio logic, track advancement, and hover states remain exactly as they are.
+All entrance choreography (pill-surface), icon crossfade, text dissolve, border warmth transition, positioning, progress line, reduced motion handling, and hover states remain exactly as they are.
 
