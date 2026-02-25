@@ -80,13 +80,14 @@ export default function Contact() {
       <section className="relative section-padding bg-background overflow-hidden">
         {/* Background image */}
         <div 
-          className="absolute inset-0 opacity-[0.08]"
+          className="absolute inset-0 opacity-[0.10]"
           style={{
             backgroundImage: `url(${contactHeroImg})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             maskImage: "linear-gradient(to bottom, black 0%, transparent 50%)",
             WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 50%)",
+            animation: "ken-burns 25s ease-in-out infinite alternate",
           }}
           aria-hidden="true"
         />

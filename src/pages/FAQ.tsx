@@ -8,7 +8,7 @@ import { FAQChips } from "@/components/FAQChips";
 import { FAQTopTen } from "@/components/FAQTopTen";
 import { FAQPolicyDownload } from "@/components/FAQPolicyDownload";
 import { FAQTrustStack } from "@/components/FAQTrustStack";
-import servicesHeroImg from "@/assets/services-hero.jpg";
+import faqHeroImg from "@/assets/faq-hero.jpg";
 
 export default function FAQ() {
   usePageTheme();
@@ -23,11 +23,12 @@ export default function FAQ() {
         <div 
           className="absolute inset-0 opacity-[0.06]"
           style={{
-            backgroundImage: `url(${servicesHeroImg})`,
+            backgroundImage: `url(${faqHeroImg})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             maskImage: "linear-gradient(to bottom, black 0%, transparent 60%)",
             WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 60%)",
+            animation: "ken-burns 25s ease-in-out infinite alternate",
           }}
           aria-hidden="true"
         />
@@ -86,8 +87,7 @@ export default function FAQ() {
               </Button>
             </div>
             <p className="text-xs text-ink-inverse/70 max-w-2xl mx-auto">
-              Buttons use clear, first-person labels. Download links include file type and size. 
-              All images include alt text describing function (not decoration).
+              Response within 24 hours. Your clarity starts before the ceremony does.
             </p>
           </div>
         </div>

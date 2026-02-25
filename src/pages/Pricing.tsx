@@ -36,6 +36,7 @@ export default function Pricing() {
             backgroundPosition: "center",
             maskImage: "linear-gradient(to bottom, black 0%, transparent 40%)",
             WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 40%)",
+            animation: "ken-burns 25s ease-in-out infinite alternate",
           }}
           aria-hidden="true"
         />

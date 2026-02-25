@@ -39,6 +39,7 @@ export function FAQChips() {
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-center mb-2">Got a ceremony-audio question?</h2>
+          <div className="chapter-rule mx-auto" />
           <p className="caption text-center text-muted-foreground mb-8">
             Scroll or tap — every answer links to real evidence.
           </p>

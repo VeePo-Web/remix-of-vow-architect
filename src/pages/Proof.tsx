@@ -27,6 +27,7 @@ export default function Proof() {
             backgroundImage: `url(${galleryHeroImg})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
+            animation: "ken-burns 30s ease-in-out infinite alternate",
           }}
           aria-hidden="true"
         />
