@@ -349,6 +349,21 @@ export default function PianoPanel({
             }}
           />
         </div>
+        {/* Caret / notch anchoring panel to pill */}
+        <div
+          className="absolute left-1/2 -translate-x-1/2 md:left-[80px] md:translate-x-0"
+          style={{
+            bottom: "-8px",
+            width: 0,
+            height: 0,
+            borderLeft: "8px solid transparent",
+            borderRight: "8px solid transparent",
+            borderTop: "8px solid hsl(var(--rich-black))",
+            filter: "drop-shadow(0 1px 0 hsl(var(--vow-yellow) / 0.08))",
+            pointerEvents: "none",
+          }}
+          aria-hidden="true"
+        />
       </div>
     </>
   );
