@@ -1,34 +1,29 @@
 
 
-# Audit: Clipped Caret and Dead Code Cleanup
+# Audit: Active Track Lacks Tactile Presence
 
-## Findings
+## Finding
 
-### 1. Caret Is Invisible -- Clipped by overflow-hidden
+When a track is selected in the Listening Room panel, three indicators mark it as active: vow-yellow text color, a 3px dot on the left, and animated waveform bars on the right. These are all fine, but the row itself has no background differentiation. The active track row looks flat — identical in surface to every other row. It reads as "highlighted text" rather than "a key being pressed."
 
-The panel's outer container has `overflow-hidden` (line 221) to contain the scroll area and piano string decorations. But the caret notch we just added sits at `bottom: -8px` -- 8 pixels outside the container bounds. The `overflow-hidden` clips it entirely. The caret is rendered in the DOM but visually invisible.
+World-class audio interfaces (Spotify's desktop player, Apple Music's Now Playing queue, Sonos) give the active track a subtle luminous background — a warm wash that makes it feel physically present, like a piano key depressed and held. This is the difference between "the text is yellow" and "this row is alive."
 
-This is a silent bug. The panel still appears to float disconnected from the pill.
+## The Fix
 
-**The fix**: Remove `overflow-hidden` from the outer panel container. The scroll containment is already handled by the inner scroll div (line 254-255, which has `overflow-y-auto`). The piano strings layer has its own `overflow-hidden` via the `PianoStrings` component (line 80). The outer container does not need overflow clipping -- it only prevents the caret from rendering.
+Add a subtle radial gradient background to the active track row in `PianoPanel.tsx`. When `isActive` is true, the row gets a horizontal vow-yellow glow at approximately 3-4% opacity — just enough to distinguish it from idle rows without competing with the text or waveform. The glow will use a left-biased radial gradient (`radial-gradient(ellipse at 20% 50%, hsl(var(--vow-yellow) / 0.06) 0%, transparent 70%)`) that suggests light emanating from the struck string position. This transitions in with the same 180ms duration used elsewhere.
 
-### 2. Dead WaveformBars Component
+## Technical Change
 
-The `WaveformBars` function (lines 7-31) and its associated constants (`barHeights`, `barOpacities`, `idleHeights`, lines 7-9) are no longer referenced anywhere. The right-side waveform render was removed in the previous iteration, but the component definition was left behind. Dead code adds cognitive weight and signals lack of craft.
+### File: `src/components/PianoPanel.tsx` (line ~277-290, the track button)
 
-**The fix**: Remove lines 6-31 (the `WaveformBars` component, `barHeights`, `barOpacities`, `idleHeights` constants, and the comment).
+Add a `style.background` property to the track button when `isActive` is true:
 
-## Technical Changes
+- Active state: `background: radial-gradient(ellipse at 20% 50%, hsl(var(--vow-yellow) / 0.06) 0%, transparent 70%)`
+- Inactive state: no background (handled by existing hover class)
 
-### File: `src/components/PianoPanel.tsx`
-
-**Change**: On line 221, remove `overflow-hidden` from the className string. Change `"fixed z-30 overflow-hidden"` to `"fixed z-30"`.
-
-### File: `src/components/AmbientAudioPill.tsx`
-
-**Change**: Remove lines 6-31 (the dead `WaveformBars` component and its constants). The unused `showWaveform` variable on line 142 should also be removed since it only served the now-deleted waveform render.
+This is applied via the existing inline `style` object on the button, adding a `background` property conditioned on `isActive`. The CSS `transition` already covers `background-color` via the `transition-colors` class, so the glow will fade in smoothly.
 
 ## What Stays Unchanged
 
-All panel interior styling, pill behavior, audio logic, caret positioning, track data, entrance animations.
+All other panel styling, pill behavior, caret, strings, audio logic, track data.
 
