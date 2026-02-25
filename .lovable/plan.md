@@ -1,131 +1,90 @@
 
 
-# Name Update + Dedicated Sound Experience Page
+# Final Polish Pass -- Homepage Remaining Sections + Listening Room Hero Image
 
-## Part 1: Name Change (Parker Allard to Parker Gawryletz)
+## Current State Assessment
 
-Two remaining references to the old name need updating:
+The site is 90% complete across all pages. The major gaps remaining are:
 
-**File: `src/components/FullScreenMenu.tsx`**
-- Change `parker@parkerallard.com` to `parker@parkergawryletz.com` (lines 100-101)
-
-**File: `src/hooks/usePageTheme.ts`**
-- Change localStorage key from `parker-allard-theme-override` to `parker-gawryletz-theme-override` (line 20)
-
-All other instances already say "Parker Gawryletz."
+1. **Listening Room hero has no background image** -- it's a pure black void, missing the cinematic depth that every other page hero has
+2. **Homepage sections missing AI background images**: TheWitnesses (uses `witnesses-venue.jpg` at 6% -- likely a placeholder), TheInvitation (uses portrait but no ambient background), CrossOver (uses `crossover-dance-ai.jpg` -- good)
+3. **Gallery/Proof page still has `[Setup Photo]` placeholder text** in `SetupPhotoGallery.tsx` -- three cards show `[Setup Photo]` instead of actual images
+4. **Navigation "Hold My Date" button doesn't link to `/contact`** -- it's a plain Button with no `asChild` or Link wrapper
+5. **Mobile menu "Hold My Date" button also doesn't link** -- same issue
+6. **Listen page `<style>` tags inside JSX** -- both `Listen.tsx` and `ListeningMovement.tsx` inject `<style>` tags per render; these keyframes should be in `index.css`
 
 ---
 
-## Part 2: The Listening Room -- A Dedicated Sound Page
+## Plan: 2 AI-Generated Images
 
-A new route at `/listen` that functions as an immersive, scroll-driven music experience where you can embed your own MP3 files. This is not a standard audio player page -- it is a cinematic listening environment.
+### Image 1: Listening Room Hero Background
+**File:** `src/assets/listen-hero.jpg` (new)
+**Prompt:** "Dimly lit concert grand piano from audience perspective, single warm spotlight from above, dark concert hall auditorium with rows of empty seats barely visible, intimate and sacred atmosphere, cinematic shallow depth of field, moody dark tones with golden light accent"
+**Purpose:** Give the Listening Room hero the same cinematic depth as every other page
 
-### Concept: "The Listening Room"
+### Image 2: Witnesses / Testimonials Background
+**File:** `src/assets/witnesses-venue.jpg` (replace existing)
+**Prompt:** "Elegant outdoor wedding ceremony venue at golden hour, mountain backdrop with soft warm light, rows of white chairs set up with aisle, floral arrangements on stands, no people, soft focus, cinematic landscape photography, warm golden tones"
+**Purpose:** The current `witnesses-venue.jpg` is a generic placeholder; this gives the testimonials section emotional resonance
 
-A dark, intimate page that feels like stepping into a private concert hall. As visitors scroll, they move through ceremony moments (Prelude, Processional, Bride's Entrance, Signing, Recession), each with its own track, waveform visualization, and contextual copy. The page plays audio as sections scroll into view, creating a continuous soundtrack experience.
+---
 
-### Page Structure
+## Plan: 6 Technical Fixes
 
-```text
-+------------------------------------------+
-|  THE LISTENING ROOM (Hero)               |
-|  Dark void, single golden line pulsing   |
-|  "Step inside. Press play."              |
-+------------------------------------------+
-|                                          |
-|  MOVEMENT I: THE PRELUDE                 |
-|  [ Waveform visualization ]             |
-|  Track: Canon in D (reimagined)          |
-|  "Before anyone arrives, the room        |
-|   fills with possibility."               |
-|                                          |
-+------------------------------------------+
-|                                          |
-|  MOVEMENT II: THE PROCESSIONAL           |
-|  [ Waveform visualization ]             |
-|  Track: A Thousand Years                 |
-|  "The doors open. Footsteps begin."      |
-|                                          |
-+------------------------------------------+
-|                                          |
-|  MOVEMENT III: THE ENTRANCE              |
-|  [ Waveform visualization ]             |
-|  Track: Married Life                     |
-|  "Everyone stands. Time stops."          |
-|                                          |
-+------------------------------------------+
-|                                          |
-|  MOVEMENT IV: THE VOW                    |
-|  [ Waveform visualization ]             |
-|  Track: At Last                          |
-|  "The silence after 'I do.'"            |
-|                                          |
-+------------------------------------------+
-|                                          |
-|  THE CROSSING (CTA)                      |
-|  "Every arrangement begins with a        |
-|   conversation."                         |
-|  [ Hold My Date ]                        |
-+------------------------------------------+
-```
+### 1. Navigation "Hold My Date" -- Add Link to /contact
+**Files:** `src/components/Navigation.tsx` (lines 58-59, 89)
+- Wrap both desktop and mobile "Hold My Date" buttons with `<Link to="/contact">` using `asChild`
 
-### Design Details
+### 2. Listening Room -- Add Hero Background Image
+**File:** `src/pages/Listen.tsx`
+- Import new `listen-hero.jpg`
+- Add background image layer with Ken Burns animation at 8% opacity behind the hero section
+- Add vignette and film grain overlays matching About page hero pattern
 
-**Hero Section:**
-- Full-screen dark void with a single horizontal golden line that pulses with a breathing animation (3s cycle)
-- Large display text: "The Listening Room" in Cormorant serif, fade-in over 800ms
-- Subtext: "Close your eyes. Press play. Feel what your ceremony sounds like."
-- AI-generated background image: dimly lit concert grand piano from audience perspective, single spotlight, dark auditorium
+### 3. Move Inline Keyframes to CSS
+**Files:** `src/pages/Listen.tsx`, `src/components/ListeningMovement.tsx`, `src/index.css`
+- Remove the `<style>` tags from Listen.tsx (`listening-breathe` keyframes) and ListeningMovement.tsx (`waveform-bar` keyframes)
+- Add both keyframe definitions to `src/index.css` where all other keyframes live
+- This prevents re-injecting style tags on every render (performance optimization)
 
-**Each Movement Section:**
-- Full viewport height, dark background with alternating warm undertones
-- Large movement number in faded display type (I, II, III, IV) as background watermark at 3% opacity
-- Track card with play/pause button, waveform bars animation, vinyl disc, and progress bar (reusing existing AudioPlayer patterns)
-- Contextual copy describing the ceremony moment in first person
-- IntersectionObserver auto-plays the track when section reaches 50% viewport (with user gesture requirement handled by an initial "Enter the room" interaction)
-- Ken Burns background with subtle section-specific imagery at 6-8% opacity
+### 4. SetupPhotoGallery -- Replace Placeholder Text with Icons
+**File:** `src/components/SetupPhotoGallery.tsx`
+- The three cards currently show `<div>[Setup Photo]</div>` as placeholder
+- Replace with a larger, more prominent icon display (the icons are already defined but small) and remove the placeholder `[Setup Photo]` divs
+- This makes the section look intentional rather than unfinished
 
-**Scroll-Linked Audio Behavior:**
-- When a movement section scrolls into view (50% threshold), highlight that track
-- A floating "Now Playing" mini-bar persists at the bottom (reusing existing NowPlayingBar component pattern)
-- Tracks crossfade as user scrolls between movements
+### 5. TheWitnesses -- Increase Background Image Opacity
+**File:** `src/components/TheWitnesses.tsx`
+- Increase background image opacity from `0.06` to `0.10`
+- Add Ken Burns animation matching other sections (25s alternate)
 
-**Visual Accents:**
-- Golden thread connecting all movements (a thin 1px vertical line running through the page center, fading in/out per section)
-- Each movement has a subtle radial golden glow behind the waveform
-- Film grain overlay at 15% opacity throughout
-- Section fades between all movements
+### 6. Listen Page Section Fades
+**File:** `src/pages/Listen.tsx`
+- Add `section-fade-bottom` gradient between the hero section and the first movement
+- Add `section-fade-bottom` gradient before the Crossing CTA section
+- These eliminate the hard visual cuts that break the breathing rhythm
 
-### Technical Implementation
+---
 
-**New Files:**
-| File | Purpose |
-|------|---------|
-| `src/pages/Listen.tsx` | Main page component with movement sections, scroll-linked audio, hero |
-| `src/components/ListeningMovement.tsx` | Reusable movement section with track player, copy, and reveal animations |
+## Files Changed Summary
 
-**Modified Files:**
-| File | Change |
-|------|--------|
-| `src/App.tsx` | Add `/listen` route |
-| `src/components/Navigation.tsx` | Add "Listen" nav link |
-| `src/components/FullScreenMenu.tsx` | Add "Listen" link + fix email |
-| `src/hooks/usePageTheme.ts` | Add `/listen` to dark theme routes + fix localStorage key |
+| File | Action | Change |
+|------|--------|--------|
+| `src/assets/listen-hero.jpg` | Create | AI-generated concert hall piano |
+| `src/assets/witnesses-venue.jpg` | Replace | AI-generated outdoor venue at golden hour |
+| `src/components/Navigation.tsx` | Edit | Link "Hold My Date" buttons to /contact |
+| `src/pages/Listen.tsx` | Edit | Hero image, section fades, move keyframes to CSS |
+| `src/components/ListeningMovement.tsx` | Edit | Remove inline style tag |
+| `src/index.css` | Edit | Add listening-breathe and waveform-bar keyframes |
+| `src/components/SetupPhotoGallery.tsx` | Edit | Remove [Setup Photo] placeholders |
+| `src/components/TheWitnesses.tsx` | Edit | Increase bg opacity, add Ken Burns |
 
-### Audio File Placement
+## What Stays Unchanged
 
-MP3 files are referenced from `/audio/` in the public folder (same pattern as the existing TheSound section). You can replace these with your own recordings:
-- `/public/audio/canon-in-d.mp3`
-- `/public/audio/a-thousand-years.mp3`
-- `/public/audio/married-life.mp3`
-- `/public/audio/at-last.mp3`
-
-The track list is defined as a simple array at the top of `Listen.tsx` -- easy to update titles, contexts, and file paths.
-
-### What Stays Unchanged
-
-- All existing pages (Homepage, About, Services, FAQ, Contact, Gallery)
-- The Sound section on the homepage (remains as-is with its own player)
-- All pricing, process content, and copy
-- All existing animations and timing
+- All copy, pricing, and service details
+- Homepage hero, Exhale, Process, VowMoment, Sound, Transformation, Witness, ThreePaths, Record, CrossOver sections
+- About page (already polished)
+- FAQ, Contact, Services pages (already polished)
+- All existing animation timing and interaction patterns
+- Footer structure
 
