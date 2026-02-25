@@ -230,12 +230,32 @@ export default function AmbientAudioPill() {
           >
             <Play size={14} strokeWidth={2} className="text-foreground/70 translate-x-[1px]" />
           </span>
-          {/* Pause icon (playing, panel closed) — this shouldn't toggle panel */}
-          {/* We handle this separately below */}
+          {/* Mini waveform icon (playing, panel closed) */}
+          <span
+            className={cn(
+              "absolute inset-0 flex items-center justify-center gap-[1.5px] transition-opacity duration-[180ms]",
+              isPlaying && !isPanelOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+            )}
+            aria-hidden="true"
+          >
+            {[6, 10, 8, 5].map((h, i) => (
+              <div
+                key={i}
+                className="w-[1.5px] rounded-full"
+                style={{
+                  background: `hsl(var(--vow-yellow) / ${[0.6, 0.9, 0.75, 0.5][i]})`,
+                  animation: reduced
+                    ? "none"
+                    : `ambient-wave-${i} 1200ms ease-in-out ${i * 150}ms infinite alternate`,
+                  height: reduced ? `${h * 0.6}px` : undefined,
+                }}
+              />
+            ))}
+          </span>
         </span>
 
         {/* Label */}
-        <span className="relative min-w-[100px] h-5 flex items-center">
+        <span className="relative min-w-[140px] h-5 flex items-center">
           {/* "Hear me play" */}
           <span
             className={cn(
