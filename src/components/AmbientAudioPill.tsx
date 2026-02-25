@@ -230,10 +230,10 @@ export default function AmbientAudioPill() {
           </span>
         </span>
 
-        <span className="relative min-w-[80px] h-[14px] flex items-center">
+        <span className="relative min-w-[100px] h-5 flex items-center">
           <span
             className={cn(
-              "absolute inset-0 flex items-center font-sans text-[12px] uppercase tracking-[0.16em] text-muted-foreground transition-opacity duration-[180ms]",
+              "absolute inset-0 flex items-center whitespace-nowrap font-sans text-[12px] uppercase tracking-[0.16em] text-muted-foreground transition-opacity duration-[180ms]",
               isPlaying ? "opacity-0" : "opacity-100"
             )}
           >
@@ -241,7 +241,7 @@ export default function AmbientAudioPill() {
           </span>
           <span
             className={cn(
-              "absolute inset-0 flex items-center font-sans text-[12px] uppercase tracking-[0.16em] text-muted-foreground transition-opacity duration-[120ms]",
+              "absolute inset-0 flex items-center whitespace-nowrap overflow-hidden text-ellipsis font-sans text-[12px] uppercase tracking-[0.16em] text-muted-foreground transition-opacity duration-[120ms]",
               isPlaying && titleVisible ? "opacity-100" : "opacity-0"
             )}
           >
