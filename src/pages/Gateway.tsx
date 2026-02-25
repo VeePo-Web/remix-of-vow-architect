@@ -105,9 +105,9 @@ export default function Gateway() {
               {/* Gradient overlay */}
               <div
                 className={cn(
-                  "absolute inset-0 bg-gradient-to-t",
+                  "absolute inset-0 bg-gradient-to-t transition-all duration-500",
                   s.available
-                    ? "from-black/70 via-black/30 to-black/10"
+                    ? "from-black/70 via-black/30 to-black/10 group-hover:from-black/60"
                     : "from-black/85 via-black/50 to-black/30"
                 )}
                 aria-hidden="true"
@@ -146,7 +146,7 @@ export default function Gateway() {
 
           const cardClasses = cn(
             "group relative overflow-hidden rounded-2xl flex-1 min-h-0 md:flex-none md:aspect-[6/7]",
-            s.available ? "border border-white/[0.14]" : "border border-white/[0.06]",
+            s.available ? "border border-[hsl(var(--vow-yellow)/0.08)]" : "border border-white/[0.06]",
             "transition-all duration-300 opacity-0 animate-fade-in",
             s.available
               ? "cursor-pointer hover:-translate-y-2 hover:scale-[1.015] hover:border-[hsl(var(--vow-yellow)/0.25)] hover:shadow-[0_16px_48px_rgba(255,224,138,0.08)]"
