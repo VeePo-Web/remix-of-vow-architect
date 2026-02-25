@@ -163,7 +163,7 @@ function MiniWaveform({ active }: { active: boolean }) {
             height: active ? undefined : "3px",
             background: `hsl(var(--vow-yellow) / ${miniBarOpacities[i]})`,
             animation: active
-              ? `ambient-wave-${i} 1200ms ease-in-out ${i * 150}ms infinite alternate`
+              ? `panel-wave-${i} 1200ms ease-in-out ${i * 150}ms infinite alternate`
               : "none",
           }}
         />
@@ -232,6 +232,12 @@ export default function PianoPanel({
 
   return (
     <>
+      <style>{`
+        @keyframes panel-wave-0 { 0% { height: 3px; } 100% { height: 6px; } }
+        @keyframes panel-wave-1 { 0% { height: 3px; } 100% { height: 10px; } }
+        @keyframes panel-wave-2 { 0% { height: 3px; } 100% { height: 8px; } }
+        @keyframes panel-wave-3 { 0% { height: 3px; } 100% { height: 5px; } }
+      `}</style>
       {/* Overlay for click-outside */}
       {isOpen && (
         <div
