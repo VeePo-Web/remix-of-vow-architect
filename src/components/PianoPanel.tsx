@@ -349,14 +349,14 @@ export default function PianoPanel({
                     transition: `opacity 120ms ease-out ${150 + catIdx * 30}ms`,
                   }}
                 >
-                  <span className="font-sans text-[10px] uppercase tracking-[0.24em] text-muted-foreground/50">
+                  <span className="font-sans text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
                     {category.label}
                   </span>
                   <div
                     className="mt-1.5"
                     style={{
-                      height: "0.5px",
-                      background: "hsl(var(--vow-yellow) / 0.06)",
+                      height: "1px",
+                      background: "hsl(var(--vow-yellow) / 0.12)",
                     }}
                   />
                 </div>
