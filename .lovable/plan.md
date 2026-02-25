@@ -1,123 +1,39 @@
 
 
-# Gateway Refinement -- Ambient Audio Player ("Hear Me Play")
+# Gateway Refinement -- Wordmark Entrance Choreography and Subtitle Letterspacing Precision
 
-## The Concept
+## Audit Finding
 
-An ultra-minimal ambient audio control that lives in the bottom-left corner of the Gateway page. It does not demand attention -- it waits. A small, refined pill appears after the entrance choreography completes (~2000ms), offering a single quiet invitation: a play icon and the words "Hear me play." One tap, and piano begins. The pill contracts to a breathing waveform indicator -- proof that sound is alive, but never intrusive. The visitor browses in atmosphere.
+### 1. The Wordmark and Subtitle Share the Same Animation but Lack Choreographic Relationship
 
-This is the digital equivalent of walking into a high-end gallery and hearing a solo piano echoing softly from another room. You do not see the pianist. You simply feel the space change.
+The header currently uses two independent `animate-fade-in` instances: the name at 400ms delay and "Sound Director" at 600ms delay. Both use the same `fade-in` keyframe (opacity 0→1, translateY 10px→0). This creates a simple stagger, but the two elements arrive with identical motion character — same distance, same duration, same easing. World-class entrance choreography (Fantasy hero sequences, Apple product reveals) differentiates parent and child elements: the parent arrives with more authority (slightly larger translate), the child arrives with more refinement (smaller translate, or no translate at all — just opacity). Currently both elements move 10px upward identically, making the stagger feel mechanical rather than composed.
 
----
+**The fix:** The name (`h1`) keeps the standard `animate-fade-in` (10px translate). The subtitle ("Sound Director") switches to an opacity-only fade — no vertical movement. This creates a layered reveal: the name settles into place with physical weight, then the subtitle materializes beneath it like an inscription appearing on stone. The subtitle's delay increases from 600ms to 800ms to widen the breathing gap, reinforcing the vigil pacing. The subtitle also uses a longer fade duration (500ms vs the default 300ms) to feel more gradual and refined.
 
-## Design Philosophy
+### 2. The Subtitle Tracking Is Slightly Too Tight for Its Size
 
-The feature must satisfy three constraints simultaneously:
-
-1. **Humble in language** -- "Hear me play" is an offer, not a command. No "enhance your experience" or "immersive soundtrack." Just a quiet, first-person invitation.
-2. **Confident in presence** -- The control is always accessible, always elegant, never hidden behind a menu or modal. Its mere existence says: "I am good enough that the sound will only help."
-3. **Frictionless in interaction** -- One tap to start. One tap to stop. No track selection, no volume sliders, no playlist UI. The Gateway is a threshold, not a listening room. Complexity belongs on the Listen page.
+"Sound Director" uses `tracking-[0.22em]` at `text-[11px]`. At this small size, 0.22em produces roughly 2.42px of letter-spacing. Premium luxury typography at micro sizes (Cartier, Hermès, Chanel digital) typically uses slightly wider tracking — around 0.28–0.32em — to ensure each letter breathes and the label reads as an engraving rather than compressed text. The current 0.22em is adequate but not distinctive. Widening to `tracking-[0.28em]` adds 0.66px per character, spreading the word by approximately 8px total. This subtle expansion transforms the subtitle from "small text" to "deliberately placed inscription."
 
 ---
 
-## Interaction Choreography
+## Specifications
 
-### Entrance
-- The pill fades in at `2000ms` delay (after all cards and footer have landed)
-- Opacity 0 to 1 over 300ms with a subtle 6px upward translate
-- Resting state: semi-transparent background (`bg-white/[0.06]`), border at `border-white/[0.08]`
+### Subtitle Animation Refinement
+- Remove `animate-fade-in` from the subtitle `<p>` tag
+- Add a custom opacity-only animation via inline style or a new utility
+- Duration: 500ms (slower than the 300ms default)
+- Delay: 800ms (increased from 600ms)
+- No translateY — pure opacity fade
 
-### Idle State (Not Playing)
-- Play triangle icon (12px, `lucide` `Play`) + "Hear me play" in 11px uppercase tracking
-- Subtle hover: background warms to `bg-white/[0.10]`, 180ms transition
-
-### Playing State
-- Text crossfades from "Hear me play" to the current track title (e.g., "Canon in D")
-- Play icon morphs to Pause icon
-- 5 tiny waveform bars (3px wide, vow-yellow) animate beside the track title
-- Pill border warms to `border-[hsl(var(--vow-yellow)/0.15)]`
-- A thin 2px progress line runs along the bottom of the pill
-
-### Track Advancement
-- Placeholder: 3 tracks defined in an array with `title` and `src` (empty string for now)
-- When one track ends, the next begins automatically (loop back to first after last)
-- Track title crossfades on change (180ms opacity transition)
-
-### Dismissal
-- Tap the pill while playing to pause
-- Tap again to resume
-- No close/dismiss button -- the pill is always present, just quiet when inactive
-
----
-
-## Technical Specifications
-
-### New Component: `AmbientAudioPill`
-Located at `src/components/AmbientAudioPill.tsx`
-
-**Props:** None (self-contained, manages own audio element)
-
-**Internal state:**
-- `isPlaying: boolean`
-- `activeIndex: number` (current track)
-- `progress: number` (currentTime)
-- `duration: number`
-
-**Audio management:**
-- Single `<audio>` element with `preload="none"`
-- Tracks array with 3 placeholder entries (empty `src` for now, titles like "Nocturne," "Canon in D," "Clair de Lune")
-- `timeupdate` listener for progress bar
-- `ended` listener to advance to next track
-- `error` handler to silently skip broken tracks
-
-**Reduced motion:**
-- Waveform bars fall back to static heights
-- Entrance animation becomes opacity-only (no translate)
-
-### Waveform Bars
-- 5 bars, 3px wide, 2px gap
-- Height range: 4px to 14px (smaller than the Listen page's 22px -- this is ambient, not focal)
-- Animation: reuse `waveform-bar` keyframe at 900ms (slower, calmer than Listen page's 700-800ms)
-- Color: `hsl(var(--vow-yellow))` when playing, `foreground/15` when paused
-
-### Positioning
-- `fixed bottom-6 left-6` (desktop)
-- `fixed bottom-4 left-4` (mobile, via responsive classes)
-- `z-30` (below the potential nav overlay at z-50, above content)
-
-### Sizing
-- Pill height: 40px
-- Idle width: ~160px (auto based on content)
-- Playing width: ~180px (slightly wider for track title + waveform)
-- Border radius: `rounded-full`
-- Padding: `px-4`
-
-### Animation Timings
-- Entrance fade: 300ms, delay 2000ms
-- Play/pause icon swap: instant (no transition needed on icon swap)
-- Track title crossfade: 180ms opacity
-- Hover background: 180ms
-- Progress bar: no transition (direct width binding like existing players)
-- Waveform bars: 900ms ease-in-out infinite alternate
-
----
-
-## Integration in Gateway
-
-In `src/pages/Gateway.tsx`:
-- Import and render `<AmbientAudioPill />` as a sibling to the footer, positioned fixed so it floats independently of the flex layout
-- No props needed -- the component is self-contained
-
----
+### Subtitle Tracking
+- Change `tracking-[0.22em]` to `tracking-[0.28em]`
 
 ## Files Changed
 
 | File | Change |
 |------|--------|
-| `src/components/AmbientAudioPill.tsx` | New component: ambient audio pill with play/pause, waveform bars, progress line, track advancement |
-| `src/pages/Gateway.tsx` | Import and render `<AmbientAudioPill />` at the bottom of the page component |
+| `src/pages/Gateway.tsx` | Update subtitle animation to opacity-only with longer duration/delay; widen letter-spacing |
 
 ## What Stays Unchanged
 
-All card layout, typography, copy, aspect ratios, animation stagger, routing, images, opacity layers, gradient overlays, border luminance, golden thread, semicolon breathing, arrow affordance, hover states, and mobile card layout remain exactly as they are.
-
+All card layout, typography hierarchy, gradient overlays, border luminance, golden thread, semicolon breathing, arrow affordance, hover states, ambient audio pill, mobile layout, and animation timings on cards/footer remain exactly as they are.
