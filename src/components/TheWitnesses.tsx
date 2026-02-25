@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 import witnessesVenue from "@/assets/witnesses-venue-ai.jpg";
 
 const testimonials = [
@@ -24,16 +24,7 @@ const testimonials = [
 ];
 
 export function TheWitnesses() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReducedMotion) { setIsVisible(true); return; }
-    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { setIsVisible(true); observer.disconnect(); } }, { threshold: 0.15 });
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
+  const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.2 });
 
   return (
     <section

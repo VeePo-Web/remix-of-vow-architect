@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
 import { X, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 import transformationFear from "@/assets/transformation-fear-ai.jpg";
 import transformationLife from "@/assets/transformation-life-ai.jpg";
 
@@ -19,16 +19,7 @@ const resolutions = [
 ];
 
 export function TheTransformation() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReducedMotion) { setIsVisible(true); return; }
-    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { setIsVisible(true); observer.disconnect(); } }, { threshold: 0.15 });
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
+  const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.2 });
 
   return (
     <section ref={sectionRef} className="section-grain relative min-h-[500px] overflow-hidden" style={{ minHeight: '500px' }}>
