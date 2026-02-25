@@ -56,8 +56,25 @@ export default function AmbientAudioPill() {
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [reduced, setReduced] = useState(false);
+  const [displayedTitle, setDisplayedTitle] = useState(() => tracks[fisherYatesShuffle(tracks.length)[0]]?.title ?? "");
+  const [titleVisible, setTitleVisible] = useState(true);
 
   const activeTrackIndex = shuffledOrder[shufflePos] ?? 0;
+
+  // Initialize displayedTitle from first shuffled track
+  useEffect(() => {
+    setDisplayedTitle(tracks[shuffledOrder[0]]?.title ?? "");
+  }, []);
+
+  // Title crossfade on track change
+  useEffect(() => {
+    setTitleVisible(false);
+    const t = setTimeout(() => {
+      setDisplayedTitle(tracks[activeTrackIndex]?.title ?? "");
+      setTitleVisible(true);
+    }, 120);
+    return () => clearTimeout(t);
+  }, [activeTrackIndex]);
 
   useEffect(() => {
     setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
@@ -202,11 +219,11 @@ export default function AmbientAudioPill() {
           </span>
           <span
             className={cn(
-              "absolute inset-0 flex items-center font-sans text-[11px] uppercase tracking-[0.18em] text-muted-foreground transition-opacity duration-[180ms]",
-              isPlaying ? "opacity-100" : "opacity-0"
+              "absolute inset-0 flex items-center font-sans text-[11px] uppercase tracking-[0.18em] text-muted-foreground transition-opacity duration-[120ms]",
+              isPlaying && titleVisible ? "opacity-100" : "opacity-0"
             )}
           >
-            {tracks[activeTrackIndex].title}
+            {displayedTitle}
           </span>
         </span>
 
