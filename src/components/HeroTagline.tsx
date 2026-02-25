@@ -1,6 +1,10 @@
 import { cn } from "@/lib/utils";
 
 export function HeroTagline() {
+  const hasPlayed = typeof window !== 'undefined' && sessionStorage.getItem('vigil-complete') === 'true';
+  const taglineDelay1 = hasPlayed ? '0ms' : '6600ms';
+  const taglineDelay2 = hasPlayed ? '100ms' : '7200ms';
+
   return (
     <div className="absolute bottom-[var(--hero-space-bottom,48px)] left-[var(--hero-space-edge,24px)] md:left-[var(--hero-space-edge,48px)] z-20">
       {/* Main Tagline - Two Lines, Maximum Restraint */}
@@ -9,7 +13,7 @@ export function HeroTagline() {
         <span 
           className="block opacity-0 animate-fade-in"
           style={{ 
-            animationDelay: "6600ms",
+            animationDelay: taglineDelay1,
             animationFillMode: "forwards"
           }}
         >
@@ -29,7 +33,7 @@ export function HeroTagline() {
         <span 
           className="block opacity-0 animate-fade-in"
           style={{ 
-            animationDelay: "7200ms",
+            animationDelay: taglineDelay2,
             animationFillMode: "forwards"
           }}
         >

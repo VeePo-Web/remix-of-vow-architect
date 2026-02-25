@@ -16,31 +16,33 @@ interface VigilPhase {
  * - 6000ms+: Covenant (UI elements stagger in)
  */
 export function useVigilSequence(): VigilPhase {
+  const hasPlayed = typeof window !== 'undefined' && sessionStorage.getItem('vigil-complete') === 'true';
+
   const [phase, setPhase] = useState<VigilPhase>({
-    isStillness: true,
+    isStillness: !hasPlayed,
     isKindling: false,
     isRevealing: false,
-    isComplete: false,
+    isComplete: hasPlayed,
   });
 
   useEffect(() => {
-    // Check for reduced motion preference
+    if (hasPlayed) return;
+
     const prefersReducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
     ).matches;
 
     if (prefersReducedMotion) {
-      // Skip to complete immediately
       setPhase({
         isStillness: false,
         isKindling: false,
         isRevealing: false,
         isComplete: true,
       });
+      sessionStorage.setItem('vigil-complete', 'true');
       return;
     }
 
-    // Act I: Stillness (0–2000ms) — Extended for deeper anticipation
     const stillnessTimer = setTimeout(() => {
       setPhase({
         isStillness: false,
@@ -50,7 +52,6 @@ export function useVigilSequence(): VigilPhase {
       });
     }, 2000);
 
-    // Act II: Kindling (2000–4000ms)
     const kindlingTimer = setTimeout(() => {
       setPhase({
         isStillness: false,
@@ -60,7 +61,6 @@ export function useVigilSequence(): VigilPhase {
       });
     }, 4000);
 
-    // Act III: Revelation (4000–6000ms)
     const revealingTimer = setTimeout(() => {
       setPhase({
         isStillness: false,
@@ -68,6 +68,7 @@ export function useVigilSequence(): VigilPhase {
         isRevealing: false,
         isComplete: true,
       });
+      sessionStorage.setItem('vigil-complete', 'true');
     }, 6000);
 
     return () => {
@@ -75,7 +76,7 @@ export function useVigilSequence(): VigilPhase {
       clearTimeout(kindlingTimer);
       clearTimeout(revealingTimer);
     };
-  }, []);
+  }, [hasPlayed]);
 
   return phase;
 }
