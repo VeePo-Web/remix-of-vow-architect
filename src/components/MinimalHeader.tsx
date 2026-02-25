@@ -7,7 +7,7 @@ import { FullScreenMenu } from "./FullScreenMenu";
 const navLinks = [
   { to: "/services", label: "Services" },
   { to: "/about", label: "About" },
-  { to: "/faq", label: "FAQ" },
+  { to: "/gallery", label: "Case Studies" },
 ];
 
 export function MinimalHeader() {
