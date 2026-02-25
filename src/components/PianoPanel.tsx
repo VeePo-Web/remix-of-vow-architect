@@ -218,7 +218,7 @@ export default function PianoPanel({
         role="dialog"
         aria-label="Listening Room"
         className={cn(
-          "fixed z-30 overflow-hidden",
+          "fixed z-30",
           // Desktop: above pill, left-aligned; Mobile: centered above pill
           "bottom-[calc(4.5rem)] left-1/2 -translate-x-1/2 md:bottom-[calc(3.5rem)] md:left-6 md:translate-x-0",
           "w-[calc(100vw-24px)] md:w-[320px]",
