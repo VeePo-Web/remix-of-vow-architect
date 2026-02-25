@@ -1,67 +1,67 @@
 
 
-# Audit: Track Rows Lack Hover Feedback on the Leading Edge
+# Refactor: Eliminate Duplicated IntersectionObserver Boilerplate Across Homepage Sections
 
-## Finding
+## Problem
 
-The active track row now has a confident 2px vertical gold accent bar on its leading edge -- a clear "you are here" marker. But when hovering over inactive tracks, only the text color shifts and a faint 3% yellow background appears (line 327). There is no movement or visual change on the leading edge position where the accent bar will eventually appear.
+Eight homepage sections each copy-paste the same 8-12 line pattern: check `prefers-reduced-motion`, create an `IntersectionObserver`, observe, set `isVisible`, disconnect. This is approximately 80 lines of identical logic spread across 8 files.
 
-In premium interfaces (Linear, Stripe Dashboard, Apple Music), the hover state previews the selected state at reduced intensity. The user's eye learns the pattern: "that edge lights up when I interact." This creates a predictive visual language -- the hover previews the commitment, reducing cognitive load on click.
+A perfectly capable `useScrollReveal` hook already exists at `src/hooks/useScrollReveal.ts` but none of these sections use it. They all roll their own.
 
-Currently, the 2px accent bar goes from fully invisible (transparent + scaleY(0)) to fully visible (gold + scaleY(1)) only on selection. There is no intermediate hover state. Adding a subtle hover preview -- a 50% height bar at reduced opacity -- creates a three-state progression: invisible (default) -> hint (hover) -> full (active). This mirrors the brand's Death->Threshold->Life progression.
+Additionally, thresholds are inconsistent -- TheExhale uses `0.3`, TheInvitation uses `0.2`, and the remaining 6 sections all use `0.15`. This creates an uneven "popcorn" reveal pattern where some sections animate too early during fast scrolling and others animate too late.
 
 ## The Refinement
 
-Add hover-responsive styles to the accent bar span so it shows a partial preview on parent hover. Since the accent bar uses inline styles, the cleanest approach is to track hover state per row and conditionally adjust the bar's properties.
-
-However, to avoid adding useState per row (15 state variables), a simpler CSS-only approach works: wrap the accent bar's transition values so the parent's hover state (already defined via Tailwind on the button) can influence the child via CSS. But inline styles cannot respond to parent hover.
-
-The most efficient solution: add a single CSS rule in the existing `<style>` block that targets the accent bar on button hover.
+Replace the hand-rolled `IntersectionObserver` boilerplate in each section with a single call to the existing `useScrollReveal` hook. Normalize thresholds to `0.2` for all sections except TheExhale (which keeps `0.3` for its unique two-phase reveal).
 
 ### Technical Changes
 
-**File: `src/components/PianoPanel.tsx`**
+**No changes to `src/hooks/useScrollReveal.ts`** -- the hook already supports `threshold`, `rootMargin`, `triggerOnce`, and `delay` options and returns `{ ref, isVisible, hasTriggered }`. It already handles `prefers-reduced-motion`.
 
-**1. Add a className to the accent bar span (line 339):**
+**Update 8 section files to use the hook:**
 
-Current:
-```jsx
-className="flex-shrink-0"
+Each file follows the same pattern. Replace the manual `useRef` + `useState` + `useEffect` block with:
+
+```tsx
+import { useScrollReveal } from '@/hooks/useScrollReveal';
+
+// Replace:
+//   const sectionRef = useRef<HTMLElement>(null);
+//   const [isVisible, setIsVisible] = useState(false);
+//   useEffect(() => { ... IntersectionObserver boilerplate ... }, []);
+// With:
+const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.2 });
 ```
 
-New:
-```jsx
-className="flex-shrink-0 panel-accent-bar"
-```
+**Files and specific details:**
 
-**2. Add hover rule to the existing `<style>` block (after line 239):**
+1. **`TheInvitation.tsx`** (lines 14-45) -- Remove `useRef`, `useState`, `useEffect` imports where no longer needed. Replace with `useScrollReveal({ threshold: 0.2 })`. Remove `useEffect` block entirely.
 
-Add inside the style tag:
-```css
-button:hover .panel-accent-bar {
-  transform: scaleY(1) !important;
-  height: 8px !important;
-  background: hsl(var(--vow-yellow) / 0.35) !important;
-}
-button:hover .panel-accent-bar[data-active="true"] {
-  height: 16px !important;
-  background: hsl(var(--vow-yellow)) !important;
-}
-```
+2. **`TheTransformation.tsx`** (lines 22-31) -- Same pattern. Threshold changes from `0.15` to `0.2`.
 
-**3. Add data-active attribute to the accent bar (line 338):**
+3. **`TheWitness.tsx`** (lines 22-31) -- Same pattern. Threshold changes from `0.15` to `0.2`.
 
-Add `data-active={isActive ? "true" : "false"}` to the span so the CSS can differentiate active from inactive hover states.
+4. **`ThreePaths.tsx`** (lines 57-66) -- Same pattern. Threshold changes from `0.15` to `0.2`.
 
-### Key Details
+5. **`TheRecord.tsx`** (lines 17-26) -- Same pattern. Threshold changes from `0.15` to `0.2`.
 
-- Inactive hover: bar appears at 8px height (half of active's 16px), 35% opacity gold -- a whisper, not a shout
-- Active hover: no change (already at full state, CSS rule preserves it)
-- The `!important` overrides are necessary because inline styles have higher specificity than class-based rules; this is the standard pattern for CSS-overriding inline styles
-- No JavaScript state changes, no re-renders on hover -- pure CSS, zero performance cost
-- Transition timing already set on the span (180ms cubic-bezier) carries over to hover transitions automatically
+6. **`TheWitnesses.tsx`** (lines 27-36) -- Same pattern. Threshold changes from `0.15` to `0.2`.
+
+7. **`CrossOver.tsx`** (lines 8-17) -- Same pattern. Threshold changes from `0.15` to `0.2`.
+
+8. **`TheSound.tsx`** (lines 82-114) -- Replace only the first `useEffect` (visibility observer). Keep the second `useEffect` (sectionInView tracking for mini-bar) as-is since it serves a different purpose (non-once observation). Threshold changes from `0.15` to `0.2`.
+
+**Special case: `TheExhale.tsx`** -- This section has a two-phase reveal (`isVisible` then `purposeVisible` with a 1600ms delay). Use `useScrollReveal({ threshold: 0.3, rootMargin: '-40px 0px' })` for the primary visibility, but keep the local `useState` for `purposeVisible` and a small `useEffect` that triggers `setPurposeVisible(true)` after 1600ms when `isVisible` becomes true.
 
 ## What Stays Unchanged
 
-All track row layout, text styling, radial gradient background, waveform, category headers, strings, interior glow, border, fade masks, scroll logic, caret, panel dimensions, animation keyframes.
+All visual design, copy, imagery, animation timing, stagger delays, layout, typography, section ordering, fade gradients, and responsive behavior. This is purely a structural refactor.
+
+## Expected Impact
+
+- ~80 lines of duplicated observer boilerplate eliminated
+- Single point of control for reveal timing (adjust the hook's defaults to change all sections)
+- Consistent `0.2` threshold creates a uniform, cinematic scroll reveal cadence
+- Reduced motion handling centralized in one place
+- Each section file becomes ~8 lines shorter and easier to maintain
 
