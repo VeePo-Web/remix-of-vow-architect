@@ -15,6 +15,7 @@ import Terms from "./pages/Terms";
 import CookiePolicy from "./pages/CookiePolicy";
 import Accessibility from "./pages/Accessibility";
 import Legal from "./pages/Legal";
+import Listen from "./pages/Listen";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,6 +34,7 @@ const App = () => (
           <Route path="/gallery" element={<Proof />} />
           <Route path="/proof" element={<Navigate to="/gallery" replace />} />
           <Route path="/about" element={<About />} />
+          <Route path="/listen" element={<Listen />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
