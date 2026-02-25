@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { Play, Pause } from "lucide-react";
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 import soundKeys from "@/assets/sound-cathedral-ai.jpg";
 import { AudioPlayer } from "./AudioPlayer";
 
@@ -79,8 +80,7 @@ function NowPlayingBar({
 }
 
 export function TheSound() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.2 });
   const [sectionInView, setSectionInView] = useState(true);
   const [playState, setPlayState] = useState({
     playing: false,
@@ -89,32 +89,11 @@ export function TheSound() {
     duration: 0,
   });
 
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReducedMotion) {
-      setIsVisible(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   // Track whether section is in view for mini-bar
   useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         setSectionInView(entry.isIntersecting);
@@ -122,12 +101,9 @@ export function TheSound() {
       { threshold: 0.05 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+    observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [sectionRef]);
 
   const handlePlayStateChange = useCallback(
     (playing: boolean, trackIndex: number | null, progress: number, duration: number) => {

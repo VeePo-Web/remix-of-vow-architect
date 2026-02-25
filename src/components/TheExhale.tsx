@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 /**
  * THE EXHALE — The Sacred Declaration
@@ -19,45 +20,16 @@ import { useEffect, useRef, useState } from 'react';
  * - Silence: Generous spacing, whispered transitions
  */
 export function TheExhale() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.3, rootMargin: '-40px 0px' });
   const [purposeVisible, setPurposeVisible] = useState(false);
 
   useEffect(() => {
-    const element = sectionRef.current;
-    if (!element) return;
-
-    const prefersReducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
-
-    if (prefersReducedMotion) {
-      setIsVisible(true);
-      setPurposeVisible(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            // Sacred pause before declaration — the held breath
-            setTimeout(() => setPurposeVisible(true), 1600);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.3,
-        rootMargin: '-40px 0px',
-      }
-    );
-
-    observer.observe(element);
-
-    return () => observer.disconnect();
-  }, []);
+    if (!isVisible) return;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) { setPurposeVisible(true); return; }
+    const timer = setTimeout(() => setPurposeVisible(true), 1600);
+    return () => clearTimeout(timer);
+  }, [isVisible]);
 
   return (
     <section

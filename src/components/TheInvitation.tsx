@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
 import { Music, Shield, Award } from 'lucide-react';
 import { DirectionalLink } from './DirectionalLink';
 import { cn } from '@/lib/utils';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 import invitationPortrait from '@/assets/invitation-portrait-ai.jpg';
 
 const trustBadges = [
@@ -11,38 +11,7 @@ const trustBadges = [
 ];
 
 export function TheInvitation() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const element = sectionRef.current;
-    if (!element) return;
-
-    const prefersReducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
-
-    if (prefersReducedMotion) {
-      setIsVisible(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    observer.observe(element);
-
-    return () => observer.disconnect();
-  }, []);
+  const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.2 });
 
   return (
     <section
