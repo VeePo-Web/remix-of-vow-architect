@@ -1,32 +1,41 @@
 
 
-# Gateway Refinement -- Ambient Audio Pill Icon Crossfade
+# Gateway Refinement -- Ambient Audio Pill Border Warmth Transition
 
 ## Audit Finding
 
-The text crossfade and waveform bloom are now polished. One hard swap remains: the Play and Pause icons. When toggling, the icon pops instantly from one to the other. Worse, the Play icon carries `ml-0.5` (a 2px left offset to optically center the triangle within the pill's circular hit area) while the Pause icon does not -- creating a subtle but perceptible 2px horizontal jolt on every tap. This is the last "binary toggle" in a component that otherwise breathes.
+The icon crossfade, text dissolve, and waveform bloom are now all breathing. One binary snap remains: the **border color**. When toggling between idle and playing states, the pill's border jumps instantly from `border-white/[0.08]` (cool, neutral) to `border-[hsl(var(--vow-yellow)/0.15)]` (warm, golden). This is handled by a className swap -- but because the border color property is not included in the pill's `transition` declaration, the shift is instantaneous.
 
-Every premium audio control (Apple Music, Spotify's mini-player, Bang & Olufsen's Beosound app) crossfades its transport icons. The fix is the same pattern already applied to the text: render both icons simultaneously in a relative container, toggle their opacity over 180ms, and use consistent spacing so neither icon shifts the layout.
+The current transition property is explicitly scoped: `transition-[background-color,border-color] duration-[180ms]`. This *should* work. However, the border classes themselves are being swapped via conditional `cn()` -- Tailwind generates different class names for each state, and the browser treats this as a full class replacement rather than a smooth property interpolation. The background transitions correctly because both states use `bg-white/[...]` (same hue, different alpha). But the border jumps from a `white` base to an `hsl(var(--vow-yellow))` base -- a hue shift that *does* interpolate correctly in CSS, but only if both classes coexist with the transition property applied consistently.
+
+The real issue: the conditional ternary applies *either* the warm border *or* the cool border class, never both simultaneously. The outgoing class is removed before the transition can occur. This is a common Tailwind pitfall with state-dependent styling.
 
 ## The Fix
 
-Replace the conditional `{isPlaying ? <Pause /> : <Play />}` with a small relative container holding both icons at `absolute` position. The active icon gets `opacity-100`, the inactive gets `opacity-0`, both transition over `duration-[180ms]`. The Play icon's `ml-0.5` optical correction moves into its own absolute positioning so it never affects the container width. Container size is fixed at 14x14px (enough for the 12px icons plus the 2px optical offset).
+Instead of swapping border classes conditionally, apply a single persistent border with a CSS custom property for color, and transition that property. Specifically:
+
+1. Remove the conditional border classes from the `cn()` ternary
+2. Apply a single `border` class to the button at all times
+3. Use inline `style` to set `borderColor` based on `isPlaying`, allowing CSS `transition-property: border-color` to interpolate smoothly between the two values
+4. Keep the existing `duration-[180ms]` timing
+
+This ensures the border *dissolves* from cool neutral to warm golden over 180ms -- matching the icon crossfade, text dissolve, and background shift. The pill now transitions as a single unified organism rather than snapping one property while breathing the others.
 
 ## Specifications
 
-- Container: `relative w-[14px] h-[14px] flex-shrink-0`
-- Play icon: `absolute inset-0 flex items-center justify-center`, with a 1px left padding for optical centering, opacity toggles inversely to `isPlaying`
-- Pause icon: `absolute inset-0 flex items-center justify-center`, opacity toggles with `isPlaying`
-- Both: `transition-opacity duration-[180ms]`
-- Icon size and strokeWidth unchanged (12px, 2)
+- Remove conditional border color from className ternary
+- Add persistent `border` class
+- Set `borderColor` via inline style: `isPlaying ? 'hsl(var(--vow-yellow) / 0.15)' : 'rgba(255,255,255,0.08)'`
+- Existing `transition-[background-color,border-color] duration-[180ms]` handles the interpolation
+- Hover state for idle: keep `hover:bg-white/[0.10]` (background only, no border change on hover)
 
 ## File Changed
 
 | File | Change |
 |------|--------|
-| `src/components/AmbientAudioPill.tsx` | Replace conditional icon render with dual-icon crossfade in a fixed-size container |
+| `src/components/AmbientAudioPill.tsx` | Move border color from conditional className to inline style for smooth CSS transition |
 
 ## What Stays Unchanged
 
-All text crossfade, waveform bloom, positioning, progress line, entrance delay, border warmth, hover states, audio logic, track advancement, and reduced motion handling remain exactly as they are.
+All icon crossfade, text dissolve, waveform bloom, positioning (mobile centered / desktop bottom-left), progress line, entrance delay, audio logic, track advancement, reduced motion handling, and background transitions remain exactly as they are.
 
