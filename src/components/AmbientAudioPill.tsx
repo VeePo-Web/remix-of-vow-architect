@@ -103,7 +103,7 @@ export default function AmbientAudioPill() {
         onClick={toggle}
         aria-label={isPlaying ? "Pause ambient piano" : "Hear me play"}
         className={cn(
-          "fixed bottom-4 left-4 md:bottom-6 md:left-6 z-30",
+          "fixed bottom-16 left-1/2 -translate-x-1/2 md:bottom-6 md:left-6 md:translate-x-0 z-30",
           "h-10 rounded-full px-4 flex items-center gap-2",
           "backdrop-blur-sm select-none",
           "opacity-0 animate-fade-in",
