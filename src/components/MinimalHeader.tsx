@@ -11,6 +11,8 @@ const navLinks = [
 ];
 
 export function MinimalHeader() {
+  const hasPlayed = typeof window !== 'undefined' && sessionStorage.getItem('vigil-complete') === 'true';
+  const headerDelay = hasPlayed ? '0ms' : '6200ms';
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -39,7 +41,7 @@ export function MinimalHeader() {
             to="/"
             className="font-display text-base tracking-wide text-foreground opacity-0 animate-fade-in hover:text-accent transition-colors duration-300"
             style={{ 
-              animationDelay: "6200ms",
+              animationDelay: headerDelay,
               animationFillMode: "forwards"
             }}
           >
@@ -80,7 +82,7 @@ export function MinimalHeader() {
             onClick={() => setIsMenuOpen(true)}
             className="flex items-center gap-2 opacity-0 animate-fade-in group"
             style={{ 
-              animationDelay: "6200ms",
+              animationDelay: headerDelay,
               animationFillMode: "forwards"
             }}
             aria-label="Open menu"
