@@ -114,15 +114,20 @@ export default function Gateway() {
               />
               {/* Content */}
               <div className="relative z-10 flex flex-col justify-end h-full p-6 md:p-8">
-                <h2 className="font-display text-[28px] font-light text-foreground tracking-tight">
+                <h2 className={cn(
+                  "font-display tracking-tight",
+                  s.available
+                    ? "text-[30px] font-normal text-foreground"
+                    : "text-[28px] font-light text-foreground/70"
+                )}>
                   {s.title}
                 </h2>
-                <p className="font-sans text-[14px] text-muted-foreground mt-1 leading-relaxed">
+                <p className="font-sans text-[14px] text-muted-foreground mt-2 leading-relaxed">
                   {s.description}
                 </p>
                 <span
                   className={cn(
-                    "mt-4 font-sans text-[12px] uppercase tracking-[0.18em] inline-flex items-center gap-1.5",
+                    "mt-3 font-sans text-[12px] uppercase tracking-[0.18em] inline-flex items-center gap-1.5",
                     s.available
                       ? "text-[hsl(var(--vow-yellow))]"
                       : "text-muted-foreground/50"
