@@ -58,6 +58,7 @@ export default function AmbientAudioPill() {
   const [reduced, setReduced] = useState(false);
   const [displayedTitle, setDisplayedTitle] = useState(() => tracks[fisherYatesShuffle(tracks.length)[0]]?.title ?? "");
   const [titleVisible, setTitleVisible] = useState(true);
+  const [entranceComplete, setEntranceComplete] = useState(false);
 
   const activeTrackIndex = shuffledOrder[shufflePos] ?? 0;
 
@@ -78,6 +79,11 @@ export default function AmbientAudioPill() {
 
   useEffect(() => {
     setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }, []);
+
+  useEffect(() => {
+    const t = setTimeout(() => setEntranceComplete(true), 2700);
+    return () => clearTimeout(t);
   }, []);
 
   useEffect(() => {
@@ -163,9 +169,17 @@ export default function AmbientAudioPill() {
           0% { opacity: 0; transform: translateY(16px) scale(0.96); }
           100% { opacity: 1; transform: translateY(0) scale(1); }
         }
+        @keyframes pill-breathe {
+          0% { opacity: 0.82; }
+          100% { opacity: 1; }
+        }
         @media (prefers-reduced-motion: reduce) {
           @keyframes pill-surface {
             0% { opacity: 0; }
+            100% { opacity: 1; }
+          }
+          @keyframes pill-breathe {
+            0% { opacity: 1; }
             100% { opacity: 1; }
           }
         }
@@ -185,7 +199,9 @@ export default function AmbientAudioPill() {
             : "bg-white/[0.06] hover:bg-white/[0.10]"
         )}
         style={{
-          animation: "pill-surface 600ms cubic-bezier(0.22,0.61,0.36,1) 2000ms forwards",
+          animation: !isPlaying && entranceComplete && !reduced
+            ? "pill-breathe 4000ms ease-in-out infinite alternate"
+            : "pill-surface 600ms cubic-bezier(0.22,0.61,0.36,1) 2000ms forwards",
           borderColor: isPlaying ? "hsl(var(--vow-yellow) / 0.15)" : "rgba(255,255,255,0.08)",
         }}
       >
