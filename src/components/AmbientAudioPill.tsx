@@ -120,13 +120,33 @@ export default function AmbientAudioPill() {
           <Play size={12} strokeWidth={2} className="text-foreground/70 ml-0.5" />
         )}
 
-        <span
-          className="font-sans text-[11px] uppercase tracking-[0.18em] text-muted-foreground transition-opacity duration-[180ms]"
-        >
-          {isPlaying ? tracks[activeIndex].title : "Hear me play"}
+        <span className="relative min-w-[80px] h-[14px] flex items-center">
+          <span
+            className={cn(
+              "absolute inset-0 flex items-center font-sans text-[11px] uppercase tracking-[0.18em] text-muted-foreground transition-opacity duration-[180ms]",
+              isPlaying ? "opacity-0" : "opacity-100"
+            )}
+          >
+            Hear me play
+          </span>
+          <span
+            className={cn(
+              "absolute inset-0 flex items-center font-sans text-[11px] uppercase tracking-[0.18em] text-muted-foreground transition-opacity duration-[180ms]",
+              isPlaying ? "opacity-100" : "opacity-0"
+            )}
+          >
+            {tracks[activeIndex].title}
+          </span>
         </span>
 
-        {isPlaying && <WaveformBars active reduced={reduced} />}
+        <div
+          className={cn(
+            "overflow-hidden transition-all duration-[260ms]",
+            isPlaying ? "opacity-100 max-w-[40px]" : "opacity-0 max-w-0"
+          )}
+        >
+          <WaveformBars active={isPlaying} reduced={reduced} />
+        </div>
 
         {/* Progress line */}
         <div className="absolute bottom-0 left-0 right-0 h-[2px] rounded-b-full overflow-hidden">
