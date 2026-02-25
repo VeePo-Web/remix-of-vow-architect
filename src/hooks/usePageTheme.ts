@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useTheme } from "next-themes";
 
 const lifeThemeRoutes = ["/pricing", "/gallery"];
-const deathThemeRoutes = ["/", "/about", "/proof", "/faq", "/contact", "/privacy-policy", "/terms", "/cookie-policy", "/accessibility", "/legal"];
+const deathThemeRoutes = ["/", "/about", "/proof", "/faq", "/contact", "/listen", "/privacy-policy", "/terms", "/cookie-policy", "/accessibility", "/legal"];
 
 export function usePageTheme() {
   const location = useLocation();
@@ -17,7 +17,7 @@ export function usePageTheme() {
   const { theme, setTheme } = themeContext;
 
   useEffect(() => {
-    const userOverride = localStorage.getItem("parker-allard-theme-override");
+    const userOverride = localStorage.getItem("parker-gawryletz-theme-override");
     
     if (userOverride) {
       return;

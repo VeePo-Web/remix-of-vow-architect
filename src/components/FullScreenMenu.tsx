@@ -13,7 +13,8 @@ const menuItems = [
   { number: "03", label: "About", href: "/about" },
   { number: "04", label: "Gallery", href: "/gallery" },
   { number: "05", label: "FAQ", href: "/faq" },
-  { number: "06", label: "Contact", href: "/contact" },
+  { number: "06", label: "Listen", href: "/listen" },
+  { number: "07", label: "Contact", href: "/contact" },
 ];
 
 export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
@@ -97,8 +98,8 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
         >
           <p>Calgary, Cochrane, Canmore & Banff</p>
           <p>
-            <a href="mailto:parker@parkerallard.com" className="hover:text-accent transition-colors">
-              parker@parkerallard.com
+            <a href="mailto:parker@parkergawryletz.com" className="hover:text-accent transition-colors">
+              parker@parkergawryletz.com
             </a>
           </p>
         </div>
