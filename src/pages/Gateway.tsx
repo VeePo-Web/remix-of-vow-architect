@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useCallback, useRef } from "react";
 import weddingsImg from "@/assets/gateway-weddings.jpg";
 import teachingImg from "@/assets/gateway-teaching.jpg";
 import eventsImg from "@/assets/gateway-events.jpg";
@@ -31,6 +32,40 @@ const services = [
   },
 ];
 
+function CardImage({ image }: { image: string }) {
+  const imgRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (!imgRef.current) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 8; // max ±4px
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 8;
+    imgRef.current.style.transform = `translate(${x}px, ${y}px)`;
+    imgRef.current.style.transition = "transform 100ms ease-out";
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    if (!imgRef.current) return;
+    imgRef.current.style.transform = "translate(0, 0)";
+    imgRef.current.style.transition = "transform 500ms ease-out";
+  }, []);
+
+  return (
+    <div
+      className="absolute inset-0 overflow-hidden"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      aria-hidden="true"
+    >
+      <div
+        ref={imgRef}
+        className="absolute -inset-2 bg-cover bg-center transition-opacity duration-500 opacity-[0.30] group-hover:opacity-[0.40]"
+        style={{ backgroundImage: `url(${image})` }}
+      />
+    </div>
+  );
+}
+
 export default function Gateway() {
   return (
     <div className="h-screen w-screen overflow-hidden bg-[hsl(var(--rich-black))] flex flex-col items-center justify-center relative">
@@ -55,12 +90,7 @@ export default function Gateway() {
         {services.map((s) => {
           const inner = (
             <>
-              {/* Background image */}
-              <div
-                className="absolute inset-0 bg-cover bg-center transition-opacity duration-500 opacity-[0.30] group-hover:opacity-[0.40]"
-                style={{ backgroundImage: `url(${s.image})` }}
-                aria-hidden="true"
-              />
+              <CardImage image={s.image} />
               {/* Gradient overlay */}
               <div
                 className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20"
@@ -113,6 +143,17 @@ export default function Gateway() {
         })}
       </div>
 
+      {/* Semicolon breathing keyframe */}
+      <style>{`
+        @keyframes semicolon-breathe {
+          0%, 100% { text-shadow: 0 0 20px hsl(var(--vow-yellow) / 0.4); }
+          50% { text-shadow: 0 0 40px hsl(var(--vow-yellow) / 0.7); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .semicolon-breathe { animation: none !important; }
+        }
+      `}</style>
+
       {/* Footer tagline */}
       <footer
         className="mt-10 md:mt-14 text-center opacity-0 animate-fade-in"
@@ -120,7 +161,10 @@ export default function Gateway() {
       >
         <p className="font-display text-[16px] font-light text-muted-foreground tracking-tight">
           'Til Death
-          <span className="text-[hsl(var(--vow-yellow))]" style={{ textShadow: "0 0 20px hsl(var(--vow-yellow) / 0.4)" }}>;</span>
+          <span
+            className="semicolon-breathe text-[hsl(var(--vow-yellow))]"
+            style={{ animation: "semicolon-breathe 4s ease-in-out infinite" }}
+          >;</span>
           {" "}Unto Life
           <span className="text-[hsl(var(--vow-yellow))]">.</span>
         </p>
