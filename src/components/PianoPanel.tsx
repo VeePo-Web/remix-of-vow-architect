@@ -290,7 +290,10 @@ export default function PianoPanel({
                   )}
                   style={{
                     opacity: isOpen ? 1 : 0,
-                    transition: `opacity 120ms ease-out ${150 + catIdx * 30 + tIdx * 20}ms, color 180ms, background-color 180ms`,
+                    background: isActive
+                      ? "radial-gradient(ellipse at 20% 50%, hsl(var(--vow-yellow) / 0.06) 0%, transparent 70%)"
+                      : undefined,
+                    transition: `opacity 120ms ease-out ${150 + catIdx * 30 + tIdx * 20}ms, color 180ms, background 180ms`,
                   }}
                 >
                   {/* Active dot */}
