@@ -85,13 +85,13 @@ export function TheInvitation() {
               {/* Headline */}
               <h2
                 className={cn(
-                  'text-[clamp(28px,4vw,42px)] font-display font-light leading-tight text-rich-black',
+                  'text-[clamp(28px,4vw,40px)] font-display font-light leading-tight text-rich-black',
                   'transition-all duration-700',
                   isVisible
                     ? 'opacity-100 translate-y-0'
                     : 'opacity-0 translate-y-6'
                 )}
-                style={{ transitionDelay: isVisible ? '300ms' : '0ms' }}
+                style={{ transitionDelay: isVisible ? '300ms' : '0ms', textWrap: "balance" as any }}
               >
                I have been at 200 ceremonies.
                 <br />

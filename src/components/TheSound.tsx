@@ -152,7 +152,7 @@ export function TheSound() {
             {/* Label */}
             <span
               className={cn(
-                "inline-block text-xs uppercase tracking-[0.22em] text-muted-foreground mb-6 transition-all duration-700",
+                "inline-block text-xs uppercase tracking-[0.22em] text-muted-foreground mb-4 transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
             >
@@ -163,7 +163,7 @@ export function TheSound() {
             <h2
               id="sound-heading"
               className={cn(
-                "text-[clamp(28px,4vw,42px)] font-display font-light leading-tight text-foreground mb-4 transition-all duration-700",
+                "text-[clamp(28px,4vw,40px)] font-display font-light leading-tight text-foreground mb-4 transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{ transitionDelay: isVisible ? "150ms" : "0ms", textWrap: "balance" as any }}

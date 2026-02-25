@@ -4,12 +4,18 @@
  * The "altar moment" - emotional peak of the page.
  * Full viewport height with single quote in proclamation scale.
  * White text on rich black void with barely visible vow-yellow radial glow.
- * No animation - demands static attention.
+ * Subtle opacity fade on scroll entry — no translate, preserving static gravitas.
  */
 
+import { cn } from "@/lib/utils";
+import { useScrollReveal } from '@/hooks/useScrollReveal';
+
 export function VowMoment() {
+  const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.3 });
+
   return (
     <section 
+      ref={sectionRef}
       className="section--dark relative min-h-screen flex items-center justify-center px-4 overflow-hidden"
       style={{
         background: "radial-gradient(ellipse at center, hsl(240 12% 5%) 0%, hsl(240 9% 2%) 100%)",
@@ -33,7 +39,10 @@ export function VowMoment() {
       />
 
       {/* Sacred Quote */}
-      <div className="relative z-10 max-w-4xl mx-auto text-center">
+      <div className={cn(
+        "relative z-10 max-w-4xl mx-auto text-center transition-opacity duration-1000",
+        isVisible ? "opacity-100" : "opacity-0"
+      )}>
         <blockquote className="text-[clamp(48px,6vw,72px)] font-display font-light italic leading-[1.2] text-white">
           Every vow spoken
           <br />

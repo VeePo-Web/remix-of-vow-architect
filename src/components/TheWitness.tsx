@@ -61,10 +61,10 @@ export function TheWitness() {
             {/* Headline with golden vow underline on "witness" */}
             <h2
               className={cn(
-                "text-[clamp(28px,4vw,48px)] font-[300] font-display leading-tight mb-10 transition-all duration-700",
+                "text-[clamp(28px,4vw,40px)] font-display font-light leading-tight mb-10 transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
-              style={{ transitionDelay: isVisible ? "150ms" : "0ms" }}
+              style={{ transitionDelay: isVisible ? "150ms" : "0ms", textWrap: "balance" as any }}
             >
               Not a musician—<br />
               your ceremony{" "}
@@ -121,7 +121,7 @@ export function TheWitness() {
               <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-5">
                 What I bring
               </p>
-              <div className="flex flex-wrap gap-3 justify-center">
+              <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 justify-center">
                 {standardKit.map((item, index) => {
                   const Icon = item.icon;
                   return (
