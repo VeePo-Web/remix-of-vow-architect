@@ -8,7 +8,7 @@ import eventsImg from "@/assets/gateway-events.jpg";
 const services = [
   {
     title: "Weddings",
-    description: "Sacred ceremony audio",
+    description: "I carry every vow so it lands where it belongs",
     image: weddingsImg,
     href: "/weddings",
     available: true,
@@ -16,7 +16,7 @@ const services = [
   },
   {
     title: "Teaching",
-    description: "Private lessons & studio sessions",
+    description: "Learn the instrument that speaks when words fall short",
     image: teachingImg,
     href: "/teaching",
     available: false,
@@ -24,7 +24,7 @@ const services = [
   },
   {
     title: "Events",
-    description: "Live music for your occasion",
+    description: "Live piano for moments that demand presence",
     image: eventsImg,
     href: "/events",
     available: false,
@@ -133,9 +133,9 @@ export default function Gateway() {
                       : "text-muted-foreground/50"
                   )}
                 >
-                  {s.available ? "Enter" : "Coming Soon"}
+                  {s.available ? "Step Inside" : "Coming Soon"}
                   {s.available && (
-                    <span className="inline-block opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-[180ms] ease-out">
+                    <span className="inline-block opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-[180ms] ease-out">
                       →
                     </span>
                   )}
