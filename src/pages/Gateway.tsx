@@ -12,7 +12,7 @@ const services = [
     image: weddingsImg,
     href: "/weddings",
     available: true,
-    delay: 800,
+    delay: 1000,
   },
   {
     title: "Teaching",
@@ -20,7 +20,7 @@ const services = [
     image: teachingImg,
     href: "/teaching",
     available: false,
-    delay: 1000,
+    delay: 1200,
   },
   {
     title: "Events",
@@ -28,7 +28,7 @@ const services = [
     image: eventsImg,
     href: "/events",
     available: false,
-    delay: 1200,
+    delay: 1400,
   },
 ];
 
@@ -95,7 +95,7 @@ export default function Gateway() {
         {/* Golden Thread */}
         <div
           className="absolute pointer-events-none opacity-0 animate-fade-in left-1/2 top-6 bottom-6 w-px md:left-6 md:right-6 md:top-1/2 md:w-auto md:h-px bg-[hsl(var(--vow-yellow)/0.15)]"
-          style={{ animationDelay: "1400ms", animationFillMode: "forwards" }}
+          style={{ animationDelay: "1600ms", animationFillMode: "forwards" }}
           aria-hidden="true"
         />
         {services.map((s) => {
@@ -145,7 +145,7 @@ export default function Gateway() {
           );
 
           const cardClasses = cn(
-            "group relative overflow-hidden rounded-2xl flex-1 min-h-0 md:flex-none md:aspect-[3/4]",
+            "group relative overflow-hidden rounded-2xl flex-1 min-h-0 md:flex-none md:aspect-[6/7]",
             s.available ? "border border-white/[0.14]" : "border border-white/[0.06]",
             "transition-all duration-300 opacity-0 animate-fade-in",
             s.available
@@ -184,7 +184,7 @@ export default function Gateway() {
       {/* Footer tagline */}
       <footer
         className="mt-6 md:mt-14 shrink-0 text-center opacity-0 animate-fade-in"
-        style={{ animationDelay: "1400ms", animationFillMode: "forwards" }}
+        style={{ animationDelay: "1600ms", animationFillMode: "forwards" }}
       >
         <p className="font-display text-[16px] font-light text-muted-foreground tracking-tight">
           'Til Death
