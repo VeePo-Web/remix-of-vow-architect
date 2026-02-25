@@ -1,46 +1,39 @@
 
 
-# Audit: MiniWaveform Bars Animate to Wrong Heights
+# Audit: Category Dividers Read as Flat Rules, Not Illuminated Bracing
 
 ## Finding
 
-The `MiniWaveform` component inside the PianoPanel references `ambient-wave-0` through `ambient-wave-3` keyframes. These keyframes are defined inside `AmbientAudioPill.tsx`'s inline `<style>` block with max heights of 10px, 14px, 12px, and 8px -- values designed for the pill's waveform bars, which sit in a taller container.
+Inside a grand piano, the horizontal structural elements (the plate bracing, the hitch pin rail) are not uniformly lit. Light from the open lid falls most intensely at the center and fades toward the sides, creating a natural gradient across every horizontal surface. This is one of the visual signatures that makes the interior of a piano feel three-dimensional rather than flat.
 
-The PianoPanel's mini waveform container is only 12px tall (`h-[12px]`), and the intended max heights are defined in `miniBarHeights` as [6, 10, 8, 5]. But because the keyframes animate to [10, 14, 12, 8], bars 1 and 2 overflow the 12px container (14px and 12px respectively), creating visual clipping. Bar 0 animates to 10px instead of the intended 6px. Only bar 3 (8px vs 5px) stays within bounds but is still disproportionate.
+The current category divider lines (lines 372-377) use a uniform `hsl(var(--vow-yellow) / 0.12)` across their full width. Combined with the interior light gradient we added earlier (which illuminates from the top), these dividers should reflect that same light source -- brighter at center, fading to near-invisible at the edges. This is how real horizontal surfaces inside a piano catch overhead light.
 
-This is a coupling defect -- the panel silently depends on keyframes designed for a different context. If the pill's style block ever changes or the pill unmounts before the panel, the waveform breaks entirely.
+This is a single-property change on an existing element. No new DOM nodes.
 
 ## The Refinement
 
-Add a scoped `<style>` block inside `PianoPanel` with dedicated keyframes (`panel-wave-0` through `panel-wave-3`) that use the correct `miniBarHeights` values. Update the `MiniWaveform` animation references accordingly.
+Replace the flat `background` color on each category divider with a horizontal gradient that peaks at center and fades to transparent at both edges.
 
-### Technical Changes
+### Technical Change
 
-**File: `src/components/PianoPanel.tsx`**
+**File: `src/components/PianoPanel.tsx` (line 376)**
 
-**1. Add scoped keyframes inside the PianoPanel return (before the overlay div, around line 234):**
-
+Current:
 ```jsx
-<style>{`
-  @keyframes panel-wave-0 { 0% { height: 3px; } 100% { height: 6px; } }
-  @keyframes panel-wave-1 { 0% { height: 3px; } 100% { height: 10px; } }
-  @keyframes panel-wave-2 { 0% { height: 3px; } 100% { height: 8px; } }
-  @keyframes panel-wave-3 { 0% { height: 3px; } 100% { height: 5px; } }
-`}</style>
+background: "hsl(var(--vow-yellow) / 0.12)",
 ```
 
-**2. Update MiniWaveform animation name (line 166):**
+New:
+```jsx
+background: "linear-gradient(to right, transparent 0%, hsl(var(--vow-yellow) / 0.14) 40%, hsl(var(--vow-yellow) / 0.14) 60%, transparent 100%)",
+```
 
-Change from:
-```
-ambient-wave-${i} 1200ms ease-in-out ${i * 150}ms infinite alternate
-```
-to:
-```
-panel-wave-${i} 1200ms ease-in-out ${i * 150}ms infinite alternate
-```
+Key details:
+- Center section (40%-60%) holds at 0.14 opacity (slightly brighter than the previous flat 0.12 to compensate for the fade)
+- Edges fade to fully transparent, creating the illusion of light fall-off
+- No timing or animation changes -- this is a static gradient on a 1px element
 
 ## What Stays Unchanged
 
-All panel layout, strings, interior glow, border, fade masks, track rows, category headers, accent bar, scroll logic, caret, pill behavior, panel dimensions, animation timing curves.
+All track rows, accent bars, waveform, strings, interior glow, border, fade masks, scroll logic, caret, panel dimensions, animation timing.
 
