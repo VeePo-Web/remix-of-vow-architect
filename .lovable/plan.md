@@ -1,90 +1,116 @@
 
 
-# Final Polish Pass -- Homepage Remaining Sections + Listening Room Hero Image
+# Service Gateway -- A New Landing Page at `/`
 
-## Current State Assessment
+## Concept
 
-The site is 90% complete across all pages. The major gaps remaining are:
+A cinematic, ultra-minimal single-page gateway that presents three service offerings as bento cards. The current wedding site becomes nested under `/weddings/*`, while the root `/` becomes this new portal. Teaching and Events cards will link to placeholder routes for now (expandable later into full sub-sites).
 
-1. **Listening Room hero has no background image** -- it's a pure black void, missing the cinematic depth that every other page hero has
-2. **Homepage sections missing AI background images**: TheWitnesses (uses `witnesses-venue.jpg` at 6% -- likely a placeholder), TheInvitation (uses portrait but no ambient background), CrossOver (uses `crossover-dance-ai.jpg` -- good)
-3. **Gallery/Proof page still has `[Setup Photo]` placeholder text** in `SetupPhotoGallery.tsx` -- three cards show `[Setup Photo]` instead of actual images
-4. **Navigation "Hold My Date" button doesn't link to `/contact`** -- it's a plain Button with no `asChild` or Link wrapper
-5. **Mobile menu "Hold My Date" button also doesn't link** -- same issue
-6. **Listen page `<style>` tags inside JSX** -- both `Listen.tsx` and `ListeningMovement.tsx` inject `<style>` tags per render; these keyframes should be in `index.css`
+The design follows the same death-to-life aesthetic: dark void background, staggered fade-in reveals, golden accents, Cormorant serif typography, and the vigil flame as a shared brand anchor.
 
 ---
 
-## Plan: 2 AI-Generated Images
+## Page Layout
 
-### Image 1: Listening Room Hero Background
-**File:** `src/assets/listen-hero.jpg` (new)
-**Prompt:** "Dimly lit concert grand piano from audience perspective, single warm spotlight from above, dark concert hall auditorium with rows of empty seats barely visible, intimate and sacred atmosphere, cinematic shallow depth of field, moody dark tones with golden light accent"
-**Purpose:** Give the Listening Room hero the same cinematic depth as every other page
-
-### Image 2: Witnesses / Testimonials Background
-**File:** `src/assets/witnesses-venue.jpg` (replace existing)
-**Prompt:** "Elegant outdoor wedding ceremony venue at golden hour, mountain backdrop with soft warm light, rows of white chairs set up with aisle, floral arrangements on stands, no people, soft focus, cinematic landscape photography, warm golden tones"
-**Purpose:** The current `witnesses-venue.jpg` is a generic placeholder; this gives the testimonials section emotional resonance
-
----
-
-## Plan: 6 Technical Fixes
-
-### 1. Navigation "Hold My Date" -- Add Link to /contact
-**Files:** `src/components/Navigation.tsx` (lines 58-59, 89)
-- Wrap both desktop and mobile "Hold My Date" buttons with `<Link to="/contact">` using `asChild`
-
-### 2. Listening Room -- Add Hero Background Image
-**File:** `src/pages/Listen.tsx`
-- Import new `listen-hero.jpg`
-- Add background image layer with Ken Burns animation at 8% opacity behind the hero section
-- Add vignette and film grain overlays matching About page hero pattern
-
-### 3. Move Inline Keyframes to CSS
-**Files:** `src/pages/Listen.tsx`, `src/components/ListeningMovement.tsx`, `src/index.css`
-- Remove the `<style>` tags from Listen.tsx (`listening-breathe` keyframes) and ListeningMovement.tsx (`waveform-bar` keyframes)
-- Add both keyframe definitions to `src/index.css` where all other keyframes live
-- This prevents re-injecting style tags on every render (performance optimization)
-
-### 4. SetupPhotoGallery -- Replace Placeholder Text with Icons
-**File:** `src/components/SetupPhotoGallery.tsx`
-- The three cards currently show `<div>[Setup Photo]</div>` as placeholder
-- Replace with a larger, more prominent icon display (the icons are already defined but small) and remove the placeholder `[Setup Photo]` divs
-- This makes the section look intentional rather than unfinished
-
-### 5. TheWitnesses -- Increase Background Image Opacity
-**File:** `src/components/TheWitnesses.tsx`
-- Increase background image opacity from `0.06` to `0.10`
-- Add Ken Burns animation matching other sections (25s alternate)
-
-### 6. Listen Page Section Fades
-**File:** `src/pages/Listen.tsx`
-- Add `section-fade-bottom` gradient between the hero section and the first movement
-- Add `section-fade-bottom` gradient before the Crossing CTA section
-- These eliminate the hard visual cuts that break the breathing rhythm
+```text
++--------------------------------------------------+
+|  PARKER GAWRYLETZ (wordmark, centered)           |
+|  "Sound Director" (subtitle)                      |
++--------------------------------------------------+
+|                                                    |
+|  Three Bento Cards (2:3 aspect ratio, hover lift) |
+|                                                    |
+|  +------------+  +------------+  +------------+  |
+|  |            |  |            |  |            |  |
+|  |  WEDDINGS  |  |  TEACHING  |  |   EVENTS   |  |
+|  |            |  |            |  |            |  |
+|  |  AI image  |  |  AI image  |  |  AI image  |  |
+|  |  bg layer  |  |  bg layer  |  |  bg layer  |  |
+|  |            |  |            |  |            |  |
+|  |  "Sacred   |  | "Private   |  | "Live      |  |
+|  |   ceremony |  |  lessons   |  |  music for |  |
+|  |   audio"   |  |  & studio  |  |  your      |  |
+|  |            |  |  sessions" |  |  occasion" |  |
+|  |  [Enter]   |  |  [Coming   |  |  [Coming   |  |
+|  |            |  |   Soon]    |  |   Soon]    |  |
+|  +------------+  +------------+  +------------+  |
+|                                                    |
+|  'Til Death; Unto Life. (footer tagline)          |
++--------------------------------------------------+
+```
 
 ---
 
-## Files Changed Summary
+## Design Specifications
 
-| File | Action | Change |
-|------|--------|--------|
-| `src/assets/listen-hero.jpg` | Create | AI-generated concert hall piano |
-| `src/assets/witnesses-venue.jpg` | Replace | AI-generated outdoor venue at golden hour |
-| `src/components/Navigation.tsx` | Edit | Link "Hold My Date" buttons to /contact |
-| `src/pages/Listen.tsx` | Edit | Hero image, section fades, move keyframes to CSS |
-| `src/components/ListeningMovement.tsx` | Edit | Remove inline style tag |
-| `src/index.css` | Edit | Add listening-breathe and waveform-bar keyframes |
-| `src/components/SetupPhotoGallery.tsx` | Edit | Remove [Setup Photo] placeholders |
-| `src/components/TheWitnesses.tsx` | Edit | Increase bg opacity, add Ken Burns |
+**Background:** Pure black void (`--rich-black`) with subtle film grain at 10% opacity. No hero image -- the cards ARE the visual content.
+
+**Wordmark:** "Parker Gawryletz" in Cormorant Garamond, 28px, centered, fade-in at 400ms. Below it: "Sound Director" in Inter 11px uppercase tracking-[0.22em], muted-foreground, fade-in at 600ms.
+
+**Bento Cards (3 across on desktop, stacked on mobile):**
+- Aspect ratio approximately 3:4 (portrait)
+- Each card has an AI-generated background image at 30% opacity with a dark gradient overlay
+- Card border: 1px `border/20` with hover transition to `vow-yellow/25`
+- Hover: `-translate-y-2`, increased image opacity to 40%, subtle golden glow shadow
+- Service name in Cormorant 28px, light weight
+- One-line description in Inter 14px, muted-foreground
+- CTA: "Enter" for Weddings (links to current homepage at `/weddings`), "Coming Soon" for Teaching and Events (muted, non-interactive)
+- Staggered reveal: cards fade in at 800ms, 1000ms, 1200ms
+
+**Footer tagline:** "'Til Death; Unto Life." centered at bottom, Cormorant 16px, semicolon in vow-yellow, fade-in at 1400ms.
+
+**No navigation bar, no menu, no scroll.** This page is a single viewport -- `h-screen` with flexbox centering.
+
+---
+
+## Routing Changes
+
+The current wedding homepage at `/` moves to `/weddings`. All wedding sub-pages (`/services`, `/about`, `/gallery`, `/listen`, `/faq`, `/contact`) stay at their current paths but will eventually move under `/weddings/*` when the other services launch. For now, only the root `/` changes.
+
+| Route | Before | After |
+|-------|--------|-------|
+| `/` | Wedding homepage | Service Gateway |
+| `/weddings` | (none) | Wedding homepage (current Index) |
+| `/teaching` | (none) | Placeholder redirect or "Coming Soon" |
+| `/events` | (none) | Placeholder redirect or "Coming Soon" |
+| All others | Unchanged | Unchanged |
+
+---
+
+## AI-Generated Images (3)
+
+1. **`src/assets/gateway-weddings.jpg`** -- Intimate ceremony scene, piano keys in foreground with blurred wedding arch and warm golden light behind, dark moody tones, cinematic
+2. **`src/assets/gateway-teaching.jpg`** -- Close-up of hands on piano keys in a warmly lit studio, sheet music visible, intimate teaching moment, soft bokeh, dark atmospheric
+3. **`src/assets/gateway-events.jpg`** -- Grand piano on stage at an elegant event venue, dramatic spotlight, empty audience seats, architectural interior, dark cinematic tones
+
+---
+
+## Files Summary
+
+| File | Action | Purpose |
+|------|--------|---------|
+| `src/assets/gateway-weddings.jpg` | Create (AI) | Bento card background |
+| `src/assets/gateway-teaching.jpg` | Create (AI) | Bento card background |
+| `src/assets/gateway-events.jpg` | Create (AI) | Bento card background |
+| `src/pages/Gateway.tsx` | Create | New service gateway page |
+| `src/App.tsx` | Edit | Add `/weddings` route for current Index, change `/` to Gateway |
 
 ## What Stays Unchanged
 
-- All copy, pricing, and service details
-- Homepage hero, Exhale, Process, VowMoment, Sound, Transformation, Witness, ThreePaths, Record, CrossOver sections
-- About page (already polished)
-- FAQ, Contact, Services pages (already polished)
-- All existing animation timing and interaction patterns
-- Footer structure
+- The entire wedding site (all pages, components, styling, animations)
+- All existing routes except `/` which now points to Gateway
+- Navigation, footer, theme system
+- All pricing, process, and content
+
+---
+
+## Technical Details for Gateway.tsx
+
+- Single-file component, no external dependencies beyond React, react-router-dom Link, and cn utility
+- Uses existing design tokens: `--rich-black`, `--vow-yellow`, `--mist-grey`, font-display, font-sans
+- Film grain overlay reuses existing `.grain` CSS class from index.css
+- Hover animations use Tailwind `transition-all duration-300` with `group-hover` pattern
+- Reduced motion: all animations wrapped in `prefers-reduced-motion` check, falling back to immediate visibility
+- Cards use `<Link>` for Weddings (to `/weddings`), plain `<div>` for Coming Soon items
+- Viewport-locked: `h-screen` with `overflow-hidden` to prevent scroll on this page
 
