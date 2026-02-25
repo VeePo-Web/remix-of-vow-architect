@@ -134,6 +134,16 @@ function PianoStrings({ visible }: { visible: boolean }) {
           transition: "opacity 180ms ease-out 160ms",
         }}
       />
+
+      {/* Interior light gradient — warm glow from open lid */}
+      <div
+        className="absolute inset-0 rounded-[16px]"
+        style={{
+          background: "radial-gradient(ellipse at 50% 0%, hsl(var(--vow-yellow) / 0.04) 0%, transparent 60%)",
+          opacity: visible ? 1 : 0,
+          transition: "opacity 260ms ease-out 80ms",
+        }}
+      />
     </div>
   );
 }
@@ -246,7 +256,7 @@ export default function PianoPanel({
         style={{
           maxHeight: "420px",
           background: "hsl(var(--rich-black))",
-          border: "1px solid hsl(var(--vow-yellow) / 0.08)",
+          border: "1px solid hsl(var(--vow-yellow) / 0.12)",
           boxShadow:
             "inset 0 1px 0 rgba(255,255,255,0.04), 0 24px 80px rgba(0,0,0,0.5)",
           backdropFilter: "blur(24px)",
