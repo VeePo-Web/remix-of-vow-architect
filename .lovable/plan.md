@@ -1,42 +1,41 @@
 
 
-# Gateway Refinement -- Ambient Audio Pill Track Title Crossfade on Skip
+# Gateway Refinement -- Ambient Audio Pill Idle Breathing Pulse
 
 ## Audit Finding
 
-The pill now has nine tracks, Fisher-Yates shuffle, a bespoke surfacing entrance, smooth border warmth, icon crossfade, and a skip affordance. Every transition layer breathes -- except one: **the track title swap on skip**.
+The pill now has nine layers of choreography: bespoke surfacing entrance, icon crossfade, title crossfade on skip, border warmth transition, waveform bloom, shuffle logic, skip affordance, and a progress line. Every *active* state is polished.
 
-When the visitor taps the shuffle icon, the `activeTrackIndex` changes and the title text updates. But because both the idle label ("Hear me play") and the playing label share the same rendering pattern -- a single `<span>` whose text content changes via `tracks[activeTrackIndex].title` -- the title swap is **instantaneous**. "Nocturne" snaps to "River Flows in You" in a single frame. There is no dissolve, no crossfade, no breathing. Every other state change in this pill is choreographed to 180ms. The title swap breaks the contract.
+But the pill's **idle state is dead**. After the 600ms entrance animation completes, the pill sits at `opacity: 1` with a static play icon and the words "Hear me play" -- forever still. It is the only persistent element on the Gateway page with zero ambient motion. The Vigil flame breathes. The semicolon breathes. The golden dot breathes. The pill does not.
 
-World-class audio players (Apple Music's Now Playing bar, Spotify's mini player) crossfade between track titles. The outgoing title fades to 0 while the incoming title fades from 0. This creates continuity -- the feeling that one song flows into the next rather than being replaced.
+The brand document specifies: "3000-4000ms: Ambient breathing (flame, golden dot)" and "The entire site breathes: Inhale, Exhale, Held breath, Release." The pill, as the singular interactive audio element, should be the most alive resting object on the page -- not the least.
 
-The fix is lightweight: track the *displayed* title separately from the *active* title, and use a brief opacity dip (fade out old, update text, fade in new) triggered whenever the track index changes. This is a CSS-only opacity transition driven by a small state toggle -- no additional DOM elements, no layout shift, no complexity.
+World-class ambient UI elements (Apple's Dynamic Island at rest, Sonos's idle controller, Bang and Olufsen's standby glow) share one trait: a slow, barely perceptible opacity oscillation that says "I am here. I am waiting. I am alive." Not a pulse. Not a throb. A breath -- so slow the visitor feels it before they see it.
 
 ## The Fix
 
-1. Add a `displayedTitle` state that holds the currently shown track name
-2. Add a `titleVisible` boolean state (default `true`) that controls opacity
-3. When `activeTrackIndex` changes, set `titleVisible` to `false` (triggers 120ms fade-out)
-4. After a 120ms timeout, update `displayedTitle` to the new track name and set `titleVisible` back to `true` (triggers 120ms fade-in)
-5. The playing-state title span gets its opacity from `titleVisible` (multiplied with the existing `isPlaying` opacity toggle)
+Add a `@keyframes pill-breathe` animation that gently oscillates the pill's opacity between `0.82` and `1.0` over `4000ms` with `ease-in-out` infinite alternation. This animation runs **only when idle** (not playing). When playback starts, the breathing stops -- the waveform bars take over as the "life" signal.
 
-Total crossfade duration: 240ms (120ms out + 120ms in). Fast enough to feel responsive, slow enough to read as intentional.
+The breathing starts after the entrance animation completes (2000ms delay + 600ms entrance = 2600ms), using a separate `animation-delay` so the entrance and breathe do not conflict. The simplest approach: apply the breathe animation via a class toggle, but only add it after a mount delay that exceeds the entrance duration.
+
+For reduced motion: the breathing is suppressed entirely (opacity stays at 1.0).
 
 ## Specifications
 
-- New state: `displayedTitle: string` initialized to `tracks[shuffledOrder[0]].title`
-- New state: `titleVisible: boolean` initialized to `true`
-- `useEffect` watching `activeTrackIndex`: sets `titleVisible = false`, then after 120ms sets `displayedTitle` and `titleVisible = true`
-- The playing-state title span: opacity class becomes `isPlaying && titleVisible ? "opacity-100" : "opacity-0"` with existing `duration-[180ms]` reduced to `duration-[120ms]` for this span only
-- Cleanup: timeout cleared on unmount or re-trigger
+- New keyframe `pill-breathe`: `0% { opacity: 0.82; } 100% { opacity: 1; }` -- duration 4000ms, ease-in-out, infinite, alternate
+- Applied to the pill button only when `!isPlaying` and after entrance completes
+- New state: `entranceComplete: boolean` (default `false`), set to `true` via a 2700ms setTimeout on mount
+- When `isPlaying`: no breathe animation, opacity locked at 1.0
+- When `!isPlaying && entranceComplete && !reduced`: apply `pill-breathe` via inline `animation` style
+- Reduced motion: no breathing, opacity stays solid
 
 ## File Changed
 
 | File | Change |
 |------|--------|
-| `src/components/AmbientAudioPill.tsx` | Add title crossfade on track change using opacity dip pattern |
+| `src/components/AmbientAudioPill.tsx` | Add `pill-breathe` keyframe, `entranceComplete` state, conditional breathing animation on idle |
 
 ## What Stays Unchanged
 
-All entrance choreography, icon crossfade, border warmth, waveform bloom, shuffle logic, skip affordance, progress line, positioning, and reduced motion handling remain exactly as they are.
+All entrance choreography (pill-surface), icon crossfade, title crossfade, border warmth, waveform bloom, shuffle logic, skip affordance, progress line, positioning, and all active-state behavior remain exactly as they are.
 
