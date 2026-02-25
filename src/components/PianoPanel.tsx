@@ -330,15 +330,16 @@ export default function PianoPanel({
                 >
                   {/* Active dot */}
                   <span
-                    className="flex-shrink-0 rounded-full"
+                    className="flex-shrink-0"
                     style={{
-                      width: "3px",
-                      height: "3px",
+                      width: "2px",
+                      height: isActive ? "16px" : "3px",
+                      borderRadius: "1px",
                       background: isActive
                         ? "hsl(var(--vow-yellow))"
                         : "transparent",
-                      transform: isActive ? "scale(1)" : "scale(0)",
-                      transition: "transform 120ms ease-out, background 120ms",
+                      transform: isActive ? "scaleY(1)" : "scaleY(0)",
+                      transition: "transform 180ms cubic-bezier(0.22,0.61,0.36,1), height 180ms cubic-bezier(0.22,0.61,0.36,1), background 120ms",
                     }}
                   />
                   <span className="flex-1 text-left truncate">
