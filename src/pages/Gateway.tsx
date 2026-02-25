@@ -68,12 +68,12 @@ function CardImage({ image }: { image: string }) {
 
 export default function Gateway() {
   return (
-    <div className="h-screen w-screen overflow-hidden bg-[hsl(var(--rich-black))] flex flex-col items-center justify-center relative">
+    <div className="h-screen w-screen overflow-hidden bg-[hsl(var(--rich-black))] flex flex-col items-center py-8 md:py-0 md:justify-center relative">
       {/* Film grain */}
       <div className="absolute inset-0 grain opacity-[0.10] pointer-events-none" aria-hidden="true" />
 
       {/* Wordmark */}
-      <header className="text-center mb-10 md:mb-14 opacity-0 animate-fade-in" style={{ animationDelay: "400ms", animationFillMode: "forwards" }}>
+      <header className="text-center mb-6 md:mb-14 shrink-0 opacity-0 animate-fade-in" style={{ animationDelay: "400ms", animationFillMode: "forwards" }}>
         <h1 className="font-display text-[28px] font-light tracking-tight text-foreground">
           Parker Gawryletz
         </h1>
@@ -86,7 +86,7 @@ export default function Gateway() {
       </header>
 
       {/* Bento Cards */}
-      <div className="flex flex-col md:flex-row gap-5 md:gap-6 px-6 max-w-5xl w-full">
+      <div className="flex flex-col md:flex-row gap-3 md:gap-6 px-6 max-w-5xl w-full flex-1 md:flex-initial min-h-0">
         {services.map((s) => {
           const inner = (
             <>
@@ -119,7 +119,7 @@ export default function Gateway() {
           );
 
           const cardClasses = cn(
-            "group relative overflow-hidden rounded-2xl border border-white/10 aspect-[3/4] md:aspect-[3/4]",
+            "group relative overflow-hidden rounded-2xl border border-white/10 flex-1 min-h-0 md:flex-none md:aspect-[3/4]",
             "transition-all duration-300 opacity-0 animate-fade-in",
             s.available
               ? "cursor-pointer hover:-translate-y-2 hover:border-[hsl(var(--vow-yellow)/0.25)] hover:shadow-[0_16px_48px_rgba(255,224,138,0.08)]"
@@ -132,11 +132,11 @@ export default function Gateway() {
           };
 
           return s.available ? (
-            <Link key={s.title} to={s.href} className={cn(cardClasses, "flex-1")} style={style}>
+            <Link key={s.title} to={s.href} className={cn(cardClasses, "md:flex-1")} style={style}>
               {inner}
             </Link>
           ) : (
-            <div key={s.title} className={cn(cardClasses, "flex-1")} style={style}>
+            <div key={s.title} className={cn(cardClasses, "md:flex-1")} style={style}>
               {inner}
             </div>
           );
@@ -156,7 +156,7 @@ export default function Gateway() {
 
       {/* Footer tagline */}
       <footer
-        className="mt-10 md:mt-14 text-center opacity-0 animate-fade-in"
+        className="mt-6 md:mt-14 shrink-0 text-center opacity-0 animate-fade-in"
         style={{ animationDelay: "1400ms", animationFillMode: "forwards" }}
       >
         <p className="font-display text-[16px] font-light text-muted-foreground tracking-tight">
