@@ -1,111 +1,119 @@
 
 
-# Homepage Final Polish -- Fantasy.co Parity
+# About Page Elevation + Final Homepage Polish -- Fantasy.co Quality
 
-## Assessment
+## Current State
 
-The homepage is structurally strong with excellent narrative flow, proper dark/light breathing rhythm, AI-generated images, interactive audio player, vinyl disc animation, and floating mini-bar. The remaining gap to Fantasy.co quality is in **micro-polish details** -- the small refinements that separate "very good" from "world-class."
+### Homepage (95% complete)
+The homepage is strong with vigil sequence, AI images, vinyl disc animation, now-playing mini-bar, section transitions, typography polish, and breathing footer separator all implemented. No console errors.
 
----
-
-## 1. Smooth Scroll Behavior
-
-Currently the page uses default browser scroll. Adding native smooth scrolling and optimized GPU-accelerated layers will make the page feel more fluid and cinematic.
-
-**Change:** Add `scroll-behavior: smooth` to the HTML element and `will-change: transform` to key animated sections in `src/index.css`.
-
----
-
-## 2. Hero Tagline Typography Refinement
-
-The hero tagline "'Til Death; Unto Life." currently uses `clamp(32px,4.5vw,48px)`. At larger viewports this feels slightly undersized for a full-viewport hero. Increasing the upper bound to 56px and adding subtle letter-spacing will give it more gravitas.
-
-**File:** `src/components/HeroTagline.tsx`
-- Font size: `clamp(32px,4.5vw,56px)`
-- Add `letter-spacing: -0.03em` for tighter, more editorial feel
-- Add subtle text shadow for depth against the dark background
+### About Page (70% complete -- primary focus)
+The About page has excellent narrative structure (Hero/Origin/Sustain/Presence/Covenant/Crossing) but lacks the visual richness of the homepage:
+- **WitnessHero**: Has `about-hero.jpg` at 12% opacity -- works but image needs to be more cinematic
+- **WitnessOrigin**: Has `about-origin.jpg` -- adequate but could be more emotionally resonant
+- **WitnessSustain**: No background image at all -- feels flat compared to homepage sections
+- **WitnessPresence**: Has `about-presence.jpg` at 6% opacity -- barely visible
+- **WitnessCovenant**: No background imagery -- feels disconnected from the cinematic language
+- **WitnessCrossing**: Uses `crossover-dance.jpg` from homepage -- should have its own identity
+- **Missing section transitions**: No `section-fade-bottom` divs between sections (hard cuts)
+- **Missing golden rule separators**: No visual anchoring between section labels and headings
 
 ---
 
-## 3. Section Transition Continuity Fix
+## Plan: 4 AI-Generated Images for About Page
 
-Several section boundaries still show visible hard cuts, particularly:
-- Between The Witness (light) and Three Paths (dark): the `section-fade-top` on ThreePaths fades from warm to dark, but The Witness section is missing a `section-fade-bottom` to match
-- Between The Record (dark) and The Witnesses/Covenant Kept (light): same issue
+### Image 1: About Hero Background
+**File:** `src/assets/about-hero.jpg` (replace existing)
+**Prompt:** "Grand piano in a cathedral with stained glass windows, moody dramatic lighting, single beam of warm light illuminating the piano, vast empty space around it, cinematic composition, dark atmosphere, film grain, architectural photography style"
+**Purpose:** The hero needs to convey solitude, sacredness, and the weight of being a witness
 
-**Files:** `src/components/TheWitness.tsx`, `src/components/TheRecord.tsx`
-- Add `section-fade-bottom` divs with gradients matching the destination section
+### Image 2: About Origin Story
+**File:** `src/assets/about-origin.jpg` (replace existing)
+**Prompt:** "Empty outdoor wedding ceremony chairs at dusk, scattered flower petals on the ground, no people, wind-blown fabric on chairs, moody overcast sky with last light on horizon, shallow depth of field, sense of abandonment and lost moment, cinematic film photography"
+**Purpose:** Visually convey the origin story -- the wedding where vows were lost to the wind
 
----
+### Image 3: About Presence / Ceremonies
+**File:** `src/assets/about-presence.jpg` (replace existing)
+**Prompt:** "Aerial overhead view of a wedding ceremony in progress, circular seating arrangement, grand piano visible to the side, outdoor mountain setting, warm golden hour light, guests seated, beautiful natural landscape, cinematic drone photography style"
+**Purpose:** Convey the scale and intimacy of 200+ ceremonies witnessed
 
-## 4. Pricing Cards Hover Micro-Interaction
-
-The three pricing cards (The Vow, The Hour, The Story) have hover lift but no other feedback. Adding a subtle golden border glow on hover for the non-selected cards will make them feel more interactive and premium.
-
-**File:** `src/components/ThreePaths.tsx`
-- Add `hover:border-[hsl(var(--vow-yellow)/0.25)]` to non-chosen cards
-- Add `hover:shadow-[0_8px_32px_rgba(255,224,138,0.08)]` for ambient glow
-
----
-
-## 5. Testimonial Section Visual Weight
-
-The Covenant Kept testimonials section (TheWitnesses.tsx) currently shows quotes with large decorative quotation marks, but the section feels text-heavy without visual anchoring. Adding a subtle golden rule between the section label and heading will provide structure.
-
-**File:** `src/components/TheWitnesses.tsx`
-- Add a 48px golden gradient line between "THE COVENANT KEPT" label and "They heard their vows" heading
+### Image 4: Witness Crossing Background
+**File:** `src/assets/witness-crossing-ai.jpg` (new)
+**Prompt:** "Close-up of piano keys with warm candlelight reflections on the lacquered surface, intimate and sacred, golden warm tones, extremely shallow depth of field, one candle reflected in the black piano surface, dark moody atmosphere"
+**Purpose:** Give the About page crossing section its own visual identity rather than sharing the homepage's dance image
 
 ---
 
-## 6. Footer Polish -- Breathing Separator
+## Plan: Component Polish (6 refinements)
 
-The golden rule in the footer area feels static. Adding a gentle 6-second breathing opacity animation will make it feel alive, matching the brand's "breathing" metaphor.
+### 1. Section Transition Fades
+Add `section-fade-bottom` and `section-fade-top` divs between all About page sections to eliminate hard visual cuts.
 
-**File:** `src/index.css`
-- Add `@keyframes footer-breathe` with 0.3 to 0.6 opacity cycle
-- Apply to footer golden separator
+**Files affected:**
+- `WitnessHero.tsx` -- add bottom fade into Origin (warm direction)
+- `WitnessOrigin.tsx` -- add bottom fade into Sustain (warm surface)
+- `WitnessSustain.tsx` -- add bottom fade into Presence (dark direction)
+- `WitnessPresence.tsx` -- add bottom fade into Covenant (warm direction)
+- `WitnessCovenant.tsx` -- add bottom fade into Crossing (dark direction)
 
----
+### 2. Sustain Section -- Add Atmospheric Background
+The Sustain section currently has no background image and feels flat. Add a subtle radial gradient glow and the same grain texture as other sections.
 
-## 7. CrossOver CTA Section -- Particle Dust
+**File:** `WitnessSustain.tsx`
+- Add `grain` overlay at 15% opacity
+- Add radial golden glow behind the SVG visualization
 
-The CrossOver background image is at 10% opacity which is quite subtle. Rather than increasing opacity (which would break the darkness), adding a very subtle CSS-only floating particle effect using `radial-gradient` keyframes will give the section more depth and life.
+### 3. Presence Section -- Increase Image Visibility
+The background image is at 6% opacity which is nearly invisible. Increase to 10% and add a Ken Burns animation to bring it to life.
 
-**File:** `src/components/CrossOver.tsx`
-- Add a second radial gradient layer with slow drift animation (20s cycle)
-- Keep performance-safe: single CSS animation, no JS
+**File:** `WitnessPresence.tsx`
+- Increase opacity from `0.06` to `0.10`
+- Add Ken Burns animation matching homepage style
 
----
+### 4. Crossing Section -- Use Dedicated Image
+Replace the shared `crossover-dance.jpg` with a new dedicated image for the About page crossing.
 
-## 8. Sound Section -- Align Track Grid Layout
+**File:** `WitnessCrossing.tsx`
+- Import new `witness-crossing-ai.jpg` instead of `crossover-dance.jpg`
+- Increase opacity slightly to 10% (from 8%)
 
-The audio player cards are in a 2x2 grid, but on mobile they stack to a single column. The track context labels (PROCESSIONAL, etc.) would benefit from slightly larger font size on desktop for better scannability.
+### 5. Golden Rule Separators
+Add the same golden rule separator pattern used on the homepage to key About page section headers for visual consistency.
 
-**File:** `src/components/AudioPlayer.tsx`
-- Context label: change from `text-xs` to `text-[11px] md:text-xs` 
-- Track title: add `md:text-lg` for better desktop sizing
+**Files:** `WitnessPresence.tsx`, `WitnessCovenant.tsx`
+- Add a 48px golden gradient line between section labels and headings
+
+### 6. Covenant Certificate -- Enhanced Warmth
+The certificate section is well-designed but the container feels cold. Add a warm inner glow and slightly warmer border treatment.
+
+**File:** `WitnessCovenant.tsx`
+- Change border from `border-border/30` to `border-primary/15`
+- Add inner box shadow with warm golden tone
+- Enhance corner ornament opacity from `border-primary/30` to `border-primary/40`
 
 ---
 
 ## Files Changed Summary
 
-| File | Change |
-|------|--------|
-| `src/index.css` | Smooth scroll, footer breathing keyframe |
-| `src/components/HeroTagline.tsx` | Typography size increase + letter-spacing |
-| `src/components/TheWitness.tsx` | Add section-fade-bottom for transition to ThreePaths |
-| `src/components/TheRecord.tsx` | Add section-fade-bottom for transition to TheWitnesses |
-| `src/components/ThreePaths.tsx` | Pricing card hover golden glow |
-| `src/components/TheWitnesses.tsx` | Golden rule separator under label |
-| `src/components/CrossOver.tsx` | Floating gradient particle layer |
-| `src/components/AudioPlayer.tsx` | Responsive typography refinement |
+| File | Action | Change |
+|------|--------|--------|
+| `src/assets/about-hero.jpg` | Replace | AI-generated cathedral piano |
+| `src/assets/about-origin.jpg` | Replace | AI-generated empty ceremony chairs at dusk |
+| `src/assets/about-presence.jpg` | Replace | AI-generated aerial ceremony view |
+| `src/assets/witness-crossing-ai.jpg` | Create | AI-generated piano keys with candlelight |
+| `src/components/witness/WitnessHero.tsx` | Edit | Section fade bottom |
+| `src/components/witness/WitnessOrigin.tsx` | Edit | Section fade bottom |
+| `src/components/witness/WitnessSustain.tsx` | Edit | Grain overlay, radial glow, section fade bottom |
+| `src/components/witness/WitnessPresence.tsx` | Edit | Increase bg opacity, Ken Burns, golden rule, section fade |
+| `src/components/witness/WitnessCovenant.tsx` | Edit | Warmer certificate, golden rule, section fade bottom |
+| `src/components/witness/WitnessCrossing.tsx` | Edit | New dedicated background image |
 
 ## What Stays Unchanged
 
-- All copy, pricing, and content
-- All existing animations and timing
-- Process section, hero vigil sequence, exhale
-- About page, FAQ, Pricing, Contact pages
-- Navigation, footer content
-- All AI-generated images
+- All copy, text, and content on every page
+- All pricing and service details
+- Homepage sections (already polished)
+- Process section structure
+- Navigation, footer, and all other pages
+- All existing animation timing and interaction patterns
 
