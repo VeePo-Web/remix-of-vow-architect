@@ -1,39 +1,85 @@
 
 
-# Fix: FullScreenMenu SPA Navigation + ProcessSection Dead Code Removal
+# Refinement: Skip Vigil Sequence on Return Navigation (Session-Aware Hero)
 
-## Two Changes
+## Problem
 
-### 1. FullScreenMenu: Replace `<a>` with React Router `<Link>`
+The vigil sequence (8-second hero animation) replays every time a user navigates to `/weddings`. With the SPA navigation fix now in place, this means:
 
-**File: `src/components/FullScreenMenu.tsx`**
+1. User lands on `/weddings` -- sees the full 6-second vigil (correct)
+2. User navigates to `/about` via the menu
+3. User returns to `/weddings` -- sees another 6-second black void before any content appears (broken)
 
-The menu currently uses plain `<a href="...">` tags (line 70-88), causing full-page reloads on every navigation. This destroys the cinematic experience -- the 8-second vigil sequence replays, audio stops, scroll position resets, and the site feels like disconnected pages rather than a fluid application.
+The `MinimalHeader` logo and menu button also have `animationDelay: "6200ms"` hardcoded, meaning they disappear for 6.2 seconds on every remount. This makes the site feel broken on return visits.
 
-**Changes:**
-- Add `import { Link } from "react-router-dom";` (line 1 area)
-- Replace `<a ... href={item.href}>` with `<Link ... to={item.href}>` on lines 70-88
-- The existing `onClick={onClose}` handler stays, ensuring the menu closes before route transition
+## Solution
 
-### 2. ProcessSection: Remove unused `sectionRef`
+Use `sessionStorage` to track whether the vigil has already played during this browser session. On subsequent visits within the same session, skip directly to the "complete" phase.
 
-**File: `src/components/process/ProcessSection.tsx`**
+## Technical Changes
 
-After the previous refactor, `sectionRef` (line 72) is attached to the `<section>` element (line 86) but never observed by any hook or observer. It is dead code.
+### File: `src/hooks/useVigilSequence.ts`
 
-**Changes:**
-- Line 1: Remove `useRef` import (no longer needed)
-- Line 72: Remove `const sectionRef = useRef<HTMLElement>(null);`
-- Line 86: Remove `ref={sectionRef}` from the `<section>` element
+At the start of the hook, check `sessionStorage` for a `vigil-complete` flag:
+
+- If the flag exists, immediately return the `isComplete` phase (no timers, no delay)
+- If the flag does not exist, run the normal sequence and set the flag when the sequence completes (at the 6000ms mark)
+
+```tsx
+export function useVigilSequence(): VigilPhase {
+  const hasPlayed = typeof window !== 'undefined' && sessionStorage.getItem('vigil-complete') === 'true';
+
+  const [phase, setPhase] = useState<VigilPhase>({
+    isStillness: !hasPlayed,
+    isKindling: false,
+    isRevealing: false,
+    isComplete: hasPlayed,
+  });
+
+  useEffect(() => {
+    if (hasPlayed) return; // Already played this session
+
+    // ... existing timer logic ...
+
+    // At the 6000ms mark (revelation complete):
+    const revealingTimer = setTimeout(() => {
+      setPhase({ ... isComplete: true });
+      sessionStorage.setItem('vigil-complete', 'true');
+    }, 6000);
+
+    // ...
+  }, [hasPlayed]);
+
+  return phase;
+}
+```
+
+### File: `src/components/MinimalHeader.tsx`
+
+The logo and menu button have `animationDelay: "6200ms"`. This should be conditional:
+
+- If vigil has already played (check `sessionStorage`), set `animationDelay: "0ms"` so the header appears instantly
+- If vigil has not played, keep the `6200ms` delay
+
+```tsx
+const hasPlayed = typeof window !== 'undefined' && sessionStorage.getItem('vigil-complete') === 'true';
+const headerDelay = hasPlayed ? '0ms' : '6200ms';
+```
+
+Apply `headerDelay` to both the logo Link (line 42) and the menu button (line 83).
+
+### File: `src/components/HeroTagline.tsx`
+
+Same pattern -- check if this needs a similar conditional delay. The tagline should appear instantly on return visits.
 
 ## What Stays Unchanged
 
-All visual design, animations, gradient transitions, copy, imagery, menu styling, staggered reveal timing, escape-key dismissal, body scroll lock, and close button behavior.
+All visual design, animation choreography on first visit, section content, gradient transitions, and the full vigil experience for first-time visitors. The sequence still plays on hard refresh or new sessions.
 
 ## Expected Impact
 
-- Navigation between pages becomes instant (client-side routing)
-- The vigil sequence only plays once per session
-- 3 lines of dead code removed from ProcessSection
-- The site feels like a seamless, app-like experience
+- First visit: Full 8-second cinematic vigil experience (unchanged)
+- Return navigation within session: Instant page render, no black void
+- Header/menu visible immediately on return visits
+- The site feels like a fluid, responsive application rather than replaying its intro on every page visit
 
