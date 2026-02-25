@@ -188,7 +188,7 @@ export default function AmbientAudioPill() {
           "fixed bottom-16 left-1/2 -translate-x-1/2 md:bottom-6 md:left-6 md:translate-x-0 z-30",
           "h-10 rounded-full px-4 flex items-center gap-2",
           "backdrop-blur-sm select-none",
-          "opacity-0",
+          entranceComplete ? "opacity-100" : "opacity-0",
           "transition-[background-color,border-color] duration-[180ms]",
           "border",
           isPlaying
@@ -196,9 +196,11 @@ export default function AmbientAudioPill() {
             : "bg-white/[0.06] hover:bg-white/[0.10]"
         )}
         style={{
-          animation: !isPlaying && entranceComplete && !reduced
-            ? "pill-breathe 4000ms ease-in-out infinite alternate"
-            : "pill-surface 600ms cubic-bezier(0.22,0.61,0.36,1) 2000ms forwards",
+          animation: !entranceComplete
+            ? "pill-surface 600ms cubic-bezier(0.22,0.61,0.36,1) 2000ms forwards"
+            : entranceComplete && !isPlaying && !reduced
+              ? "pill-breathe 4000ms ease-in-out infinite alternate"
+              : "none",
           borderColor: isPlaying ? "hsl(var(--vow-yellow) / 0.15)" : "rgba(255,255,255,0.08)",
         }}
       >
