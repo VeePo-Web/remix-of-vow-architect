@@ -1,48 +1,46 @@
 
-
-# Audit: Scroll-Triggered Fade Masks for Track List
+# Audit: Category Headers Need Bolder Typographic Presence
 
 ## Finding
 
-The panel already has top and bottom fade masks (lines 262-269 and 346-353) implemented as `sticky` positioned divs with linear gradients from `rich-black` to `transparent`. However, they are always visible regardless of scroll position. This creates two problems:
+The category labels ("Hymns," "Worship," "Pop," "Classical," "Film") are currently rendered at `10px` uppercase with `0.24em` letter-spacing at `50% muted-foreground` opacity. The divider beneath each is `0.5px` at `6%` vow-yellow. These are so quiet they barely register as section dividers -- they read as metadata rather than structural landmarks within the panel.
 
-1. **Top mask shows on load** even though the list starts at the top -- there is nothing to fade into, so the gradient feels like a visual artifact rather than a functional cue.
-2. **Bottom mask persists when scrolled to the end** -- the user has reached the last track, but the gradient still implies more content below.
+In a real grand piano, the string sections (bass, tenor, treble) are visually distinct zones separated by physical bridges -- prominent wooden bars that cross the soundboard. The category headers should evoke that same sense of clear, confident zoning. World-class audio interfaces (Apple Music's library sections, Spotify's genre headers) give section labels enough weight to serve as navigation anchors without competing with the track titles.
 
-World-class scroll containers (Apple Music, Spotify desktop, Linear) only show fade masks when there is content in that direction. The mask appears as a scroll-awareness signal and disappears when the edge is reached. This is the difference between "decorative gradient" and "intelligent spatial cue."
+The current treatment is "whispering in a void." The refinement makes it "a quiet statement with presence" -- still restrained, but unmistakably there.
 
 ## The Refinement
 
-Track scroll position within the scroll container using an `onScroll` handler and `useRef`. Derive two booleans:
+Two changes to the category header block (lines 345-362):
 
-- `canScrollUp`: `scrollTop > 2` (2px threshold to avoid sub-pixel flicker)
-- `canScrollDown`: `scrollTop + clientHeight < scrollHeight - 2`
+### 1. Category label typography -- increase presence
 
-Apply these as opacity values to the existing fade mask divs, transitioning with `180ms ease-out` to match the panel's motion language.
+- Font size: `10px` to `11px` -- one step up, still clearly subordinate to track titles (15px)
+- Opacity: `text-muted-foreground/50` to `text-muted-foreground/60` -- 20% relative increase in visibility
+- Letter-spacing: `0.24em` to `0.2em` -- slightly tighter for a more refined, less "screaming" uppercase feel
+- Add `font-medium` (weight 500) -- gives the letterforms enough stroke width to read confidently at small sizes on both retina and non-retina displays
 
-### Technical Changes in `src/components/PianoPanel.tsx`
+### 2. Category divider line -- from invisible to structural
 
-**1. Add scroll state (inside the component, near existing refs):**
-- Add `const scrollRef = useRef<HTMLDivElement>(null)`
-- Add `const [canScrollUp, setCanScrollUp] = useState(false)`
-- Add `const [canScrollDown, setCanScrollDown] = useState(false)`
+- Height: `0.5px` to `1px` -- sub-pixel values render inconsistently across displays; 1px is the minimum reliable thickness
+- Opacity: `hsl(var(--vow-yellow) / 0.06)` to `hsl(var(--vow-yellow) / 0.12)` -- doubled, matching the string opacity established in the previous refinement for visual cohesion (the dividers read as "bridges" between string groups)
 
-**2. Add scroll handler:**
-- Create a `handleScroll` callback that reads `scrollRef.current.scrollTop`, `clientHeight`, and `scrollHeight` to update the two booleans.
-- Attach `onScroll={handleScroll}` to the scroll container div (line 254).
-- Also run the check once when `isOpen` changes to `true` (via a `useEffect`) to set the initial state correctly -- the bottom mask should appear on open if the list overflows.
+## Technical Changes
 
-**3. Apply ref to scroll container:**
-- Add `ref={scrollRef}` to the scroll container div (line 254).
+### File: `src/components/PianoPanel.tsx`
 
-**4. Update fade mask opacity:**
-- Top mask (line 263): Add `opacity: canScrollUp ? 1 : 0` and `transition: "opacity 180ms ease-out"` to the existing style object.
-- Bottom mask (line 348): Add `opacity: canScrollDown ? 1 : 0` and `transition: "opacity 180ms ease-out"` to the existing style object.
+**Category label (line 352):**
+Change class from:
+`font-sans text-[10px] uppercase tracking-[0.24em] text-muted-foreground/50`
+to:
+`font-sans text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground/60`
 
-**5. Add `useState` to imports:**
-- Add `useState` to the existing `useEffect, useRef, useCallback` import from React.
+**Category divider (line 358):**
+Change style from:
+`height: "0.5px"` and `background: "hsl(var(--vow-yellow) / 0.06)"`
+to:
+`height: "1px"` and `background: "hsl(var(--vow-yellow) / 0.12)"`
 
 ## What Stays Unchanged
 
-Fade mask height (h-6), gradient colors, sticky positioning, z-index, pointer-events, all other panel styling, piano strings, caret, audio logic, track data.
-
+All track row styling, piano strings, fade masks, scroll logic, caret, pill behavior, audio logic, panel dimensions, animation timing.
