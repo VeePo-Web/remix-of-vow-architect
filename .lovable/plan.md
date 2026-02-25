@@ -1,63 +1,42 @@
 
 
-# Gateway Refinement -- Ambient Audio Pill Shuffle and Repertoire Expansion
+# Gateway Refinement -- Ambient Audio Pill Track Title Crossfade on Skip
 
 ## Audit Finding
 
-The pill currently holds three hardcoded tracks with no way for visitors to explore breadth. It plays sequentially: Nocturne, Canon in D, Clair de Lune -- all classical. For a pianist whose brand spans weddings, teaching, and events, the repertoire should hint at range. More critically, the visitor has zero agency over what they hear. The pill plays track 1, then 2, then 3, then stops. There is no discovery, no surprise, no invitation to linger.
+The pill now has nine tracks, Fisher-Yates shuffle, a bespoke surfacing entrance, smooth border warmth, icon crossfade, and a skip affordance. Every transition layer breathes -- except one: **the track title swap on skip**.
 
-World-class ambient players (Apple Music's autoplay, Sonos Radio, the Ace Hotel lobby stream) share one trait: they shuffle. The listener never knows what comes next, which creates a sense of living presence rather than a looping playlist. The pill should feel like sitting in a room where Parker is playing -- you do not choose the song, but every song feels right.
+When the visitor taps the shuffle icon, the `activeTrackIndex` changes and the title text updates. But because both the idle label ("Hear me play") and the playing label share the same rendering pattern -- a single `<span>` whose text content changes via `tracks[activeTrackIndex].title` -- the title swap is **instantaneous**. "Nocturne" snaps to "River Flows in You" in a single frame. There is no dissolve, no crossfade, no breathing. Every other state change in this pill is choreographed to 180ms. The title swap breaks the contract.
 
-Adding a full genre picker UI would violate the pill's minimalism. Instead, the elegant solution is:
+World-class audio players (Apple Music's Now Playing bar, Spotify's mini player) crossfade between track titles. The outgoing title fades to 0 while the incoming title fades from 0. This creates continuity -- the feeling that one song flows into the next rather than being replaced.
 
-1. **Expand the track list** with categorized entries spanning Classical, Contemporary, and Film/Pop -- reflecting the three service pillars (Weddings, Teaching, Events).
-2. **Shuffle on first play** so every visit feels unique.
-3. **Add a tiny skip-forward affordance** (a `Shuffle` icon that appears only during playback, replacing the waveform's right edge) so visitors can skip to the next track if the current one does not resonate. One tap, next random track. No menu, no picker, no cognitive load.
+The fix is lightweight: track the *displayed* title separately from the *active* title, and use a brief opacity dip (fade out old, update text, fade in new) triggered whenever the track index changes. This is a CSS-only opacity transition driven by a small state toggle -- no additional DOM elements, no layout shift, no complexity.
 
-This preserves the pill's sacred minimalism while giving the visitor a sense of abundance and discovery.
+## The Fix
 
-## Track Repertoire
+1. Add a `displayedTitle` state that holds the currently shown track name
+2. Add a `titleVisible` boolean state (default `true`) that controls opacity
+3. When `activeTrackIndex` changes, set `titleVisible` to `false` (triggers 120ms fade-out)
+4. After a 120ms timeout, update `displayedTitle` to the new track name and set `titleVisible` back to `true` (triggers 120ms fade-in)
+5. The playing-state title span gets its opacity from `titleVisible` (multiplied with the existing `isPlaying` opacity toggle)
 
-Expand from 3 to 9+ tracks across three moods (sources remain empty strings until real audio is added):
-
-- **Classical:** Nocturne (Chopin), Clair de Lune (Debussy), Canon in D (Pachelbel)
-- **Contemporary:** A Thousand Years (Perri), Turning Page (Sleeping at Last), All of Me (Legend)
-- **Film/Cinematic:** River Flows in You (Yiruma), Comptine d'un autre ete (Tiersen), Moon River (Mancini)
-
-The pill label shows the track title during playback (already implemented). The genre/mood is not displayed -- it is felt, not labeled.
-
-## Shuffle Logic
-
-- On component mount, create a shuffled order of all track indices using Fisher-Yates.
-- `activeIndex` references position within the shuffled array, not the original tracks array.
-- On track end, advance to next in shuffled order; when exhausted, reshuffle and continue.
-- On skip tap, same behavior as track end: advance to next shuffled track.
-
-## Skip Affordance
-
-- A small `Shuffle` icon (from lucide-react) appears to the right of the waveform bars, only when `isPlaying` is true.
-- Icon size: 10px, `text-muted-foreground/40`, with `hover:text-muted-foreground/70` and `transition-opacity duration-[180ms]`.
-- It enters with the same `max-w` bloom as the waveform (already transitioning).
-- Tap handler: `e.stopPropagation()` (so the pill's main toggle is not triggered), then advance to next shuffled track.
-- Accessible: `aria-label="Skip to next track"`, `role="button"`, `tabIndex={0}`.
+Total crossfade duration: 240ms (120ms out + 120ms in). Fast enough to feel responsive, slow enough to read as intentional.
 
 ## Specifications
 
-- Track array: 9 entries with `title` and `src` (src empty for now).
-- New state: `shuffledOrder: number[]` -- initialized via `useEffect` on mount.
-- New state: `shufflePosition: number` -- current index within `shuffledOrder`.
-- `shuffle()` utility: Fisher-Yates in-place, returns new array.
-- Skip icon: `Shuffle` from lucide-react, 10px, appears inside the existing waveform bloom container.
-- `onClick` on skip icon calls `e.stopPropagation()` then `skipToNext()`.
-- `skipToNext()`: pause current, advance `shufflePosition`, load next track, play.
+- New state: `displayedTitle: string` initialized to `tracks[shuffledOrder[0]].title`
+- New state: `titleVisible: boolean` initialized to `true`
+- `useEffect` watching `activeTrackIndex`: sets `titleVisible = false`, then after 120ms sets `displayedTitle` and `titleVisible = true`
+- The playing-state title span: opacity class becomes `isPlaying && titleVisible ? "opacity-100" : "opacity-0"` with existing `duration-[180ms]` reduced to `duration-[120ms]` for this span only
+- Cleanup: timeout cleared on unmount or re-trigger
 
 ## File Changed
 
 | File | Change |
 |------|--------|
-| `src/components/AmbientAudioPill.tsx` | Expand tracks to 9, add Fisher-Yates shuffle on mount, add skip icon during playback |
+| `src/components/AmbientAudioPill.tsx` | Add title crossfade on track change using opacity dip pattern |
 
 ## What Stays Unchanged
 
-All entrance choreography (pill-surface), icon crossfade, text dissolve, border warmth transition, positioning, progress line, reduced motion handling, and hover states remain exactly as they are.
+All entrance choreography, icon crossfade, border warmth, waveform bloom, shuffle logic, skip affordance, progress line, positioning, and reduced motion handling remain exactly as they are.
 
