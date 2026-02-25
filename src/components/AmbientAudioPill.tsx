@@ -116,8 +116,6 @@ export default function AmbientAudioPill() {
       if (t.src) {
         audioRef.current!.src = t.src;
         audioRef.current!.play().catch(() => {});
-      } else {
-        setIsPlaying(false);
       }
     } else {
       setShufflePos(nextPos);
@@ -125,8 +123,6 @@ export default function AmbientAudioPill() {
       if (t.src) {
         audioRef.current!.src = t.src;
         audioRef.current!.play().catch(() => {});
-      } else {
-        setIsPlaying(false);
       }
     }
   }, [shufflePos, shuffledOrder]);
@@ -145,12 +141,13 @@ export default function AmbientAudioPill() {
       audio.pause();
       setIsPlaying(false);
     } else {
-      if (!audio.src || audio.src === window.location.href) {
-        const t = tracks[activeTrackIndex];
-        if (!t.src) return;
-        audio.src = t.src;
+      const t = tracks[activeTrackIndex];
+      if (t.src) {
+        if (!audio.src || audio.src === window.location.href) {
+          audio.src = t.src;
+        }
+        audio.play().catch(() => {});
       }
-      audio.play().catch(() => {});
       setIsPlaying(true);
     }
   }, [isPlaying, activeTrackIndex]);
