@@ -2,7 +2,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import crossoverImg from "@/assets/crossover-dance.jpg";
+import crossingImg from "@/assets/witness-crossing-ai.jpg";
 
 /**
  * THE CROSSING — Final CTA
@@ -21,9 +21,9 @@ export function WitnessCrossing() {
     >
       {/* Background image */}
       <div 
-        className="absolute inset-0 opacity-[0.08]"
+        className="absolute inset-0 opacity-[0.10]"
         style={{
-          backgroundImage: `url(${crossoverImg})`,
+          backgroundImage: `url(${crossingImg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
