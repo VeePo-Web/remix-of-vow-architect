@@ -1,47 +1,48 @@
 
 
-# Gateway Refinement -- Semicolon Breathing Pulse and Card Image Parallax
+# Gateway Mobile Fix -- Viewport-Locked Card Layout
 
-## Audit Findings
+## The Problem
 
-After a thorough browser-based verification of the Gateway page, two micro-refinements surfaced that would elevate it from "well-built" to "world-class agency-level":
+On mobile (375x812), the Gateway page overflows and scrolls. The wordmark is clipped at the top, the third card (Events) is cut off, and the tagline is completely hidden below the fold. This breaks the core design intent of a viewport-locked, no-scroll experience.
 
-1. **The semicolon in the tagline is static.** On the wedding homepage, the vigil flame breathes with a 4s ambient cycle. The Gateway's semicolon -- the brand's most sacred typographic element, the threshold between death and life -- sits completely still. This is a missed opportunity to create a visual heartbeat that ties the Gateway to the deeper brand.
+**Root cause:** Each card uses `aspect-[3/4]` on both mobile and desktop. Three cards at 3:4 aspect ratio stacked vertically (plus header margins and footer) far exceed the mobile viewport height.
 
-2. **Card images are flat.** The background images sit at fixed opacity with no spatial depth. A subtle mouse-tracking parallax on the card images (2-4px shift) would create a sense of dimensionality -- the kind of "alive" quality that separates Fantasy-level work from standard implementations. This is a single CSS transform, no library needed.
+## The Fix
 
----
+Replace the fixed aspect ratio on mobile with a flex-based layout that distributes available vertical space evenly across the three cards. The aspect ratio remains on desktop where the cards sit side-by-side.
 
-## Change 1: Semicolon Breathing Glow
+### Specific changes in `src/pages/Gateway.tsx`:
 
-Add a CSS animation to the semicolon in the footer tagline -- a soft golden `text-shadow` pulse on a 4-second cycle matching the vigil flame's `flame-breathe` timing.
+1. **Card container:** Change from simple `flex-col` to a flex layout that fills available space on mobile. Add `flex-1 min-h-0` so the card group stretches to fill the space between header and footer without overflow.
 
-**Specifications:**
-- Animation: `text-shadow` oscillates between `0 0 20px hsl(var(--vow-yellow) / 0.4)` and `0 0 40px hsl(var(--vow-yellow) / 0.7)`
-- Duration: 4s, ease-in-out, infinite
-- Reduced motion: falls back to static glow (no animation)
-- Applied via inline style or a small keyframe in the component
+2. **Individual cards:** Remove `aspect-[3/4]` on mobile. Use `flex-1 min-h-0` so each card takes equal share of the available height. Keep `md:aspect-[3/4]` for desktop where the horizontal layout has room.
 
-## Change 2: Subtle Card Image Parallax on Hover
+3. **Outer wrapper margins:** Reduce `mb-10` on the header and `mt-10` on the footer to `mb-6`/`mt-6` on mobile to reclaim vertical space. Keep the larger `md:mb-14`/`md:mt-14` values for desktop.
 
-When the user hovers a card, the background image shifts slightly in the direction of the cursor, creating a parallax "window" effect. This uses `onMouseMove` to calculate a small `translate` offset (max 4px in any direction) on the image layer.
+### Technical detail
 
-**Specifications:**
-- Max translation: 4px in X and Y
-- Transition on mouse leave: 500ms ease-out back to center
-- Applied only to the image `div` inside each card, not the card itself
-- Desktop only (no effect on touch devices)
-- No external library -- pure `onMouseMove` handler with `transform: translate()`
+```text
+Before (mobile):
+  h-screen container (justify-center)
+    header (mb-10)
+    cards-row (3 x aspect-3/4 stacked) -- OVERFLOWS
+    footer (mt-10)
 
----
+After (mobile):
+  h-screen container (no justify-center on mobile)
+    header (mb-6, shrink-0)
+    cards-row (flex-1, min-h-0, children flex-1) -- FILLS REMAINING SPACE
+    footer (mt-6, shrink-0)
+```
 
 ## Files Changed
 
 | File | Change |
 |------|--------|
-| `src/pages/Gateway.tsx` | Add semicolon breathing keyframe animation; add `onMouseMove`/`onMouseLeave` parallax logic to card image layers |
+| `src/pages/Gateway.tsx` | Fix mobile layout: remove fixed aspect ratio on small screens, use flex-fill distribution, reduce mobile margins |
 
 ## What Stays Unchanged
 
-All routing, all other pages, all existing animations, theme system, and card structure remain exactly as they are.
+Desktop layout, all animations, parallax, semicolon breathing, routing, and all other pages remain exactly as they are.
 
