@@ -288,11 +288,10 @@ export default function AmbientAudioPill() {
         {/* Waveform + pause button (when playing, panel closed) */}
         <div
           className={cn(
-            "overflow-hidden transition-all duration-[260ms] flex items-center gap-1.5",
-            showWaveform || showPauseButton ? "opacity-100 max-w-[60px]" : "opacity-0 max-w-0"
+            "overflow-hidden transition-all duration-[260ms] flex items-center",
+            showPauseButton ? "opacity-100 max-w-[30px]" : "opacity-0 max-w-0"
           )}
         >
-          {showWaveform && <WaveformBars active={isPlaying} reduced={reduced} />}
           {showPauseButton && (
             <span
               role="button"
