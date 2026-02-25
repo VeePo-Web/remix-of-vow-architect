@@ -41,6 +41,12 @@ export function CrossOver() {
         }}
         aria-hidden="true"
       />
+      {/* Top fade from TheWitnesses warm */}
+      <div
+        className="section-fade-top"
+        style={{ background: 'linear-gradient(to top, transparent, hsl(45 20% 93%))' }}
+        aria-hidden="true"
+      />
 
       <div className="container mx-auto max-w-4xl text-center relative z-10">
         {/* Tagline Returns (Bookend) */}
