@@ -26,20 +26,24 @@ function fisherYatesShuffle(length: number): number[] {
   return arr;
 }
 
+const barHeights = [10, 14, 12, 8];
+const barOpacities = [0.7, 1, 0.85, 0.6];
+const idleHeights = [5, 7, 6, 4];
+
 function WaveformBars({ active, reduced }: { active: boolean; reduced: boolean }) {
   return (
-    <div className="flex items-center gap-[2px] h-[14px]" aria-hidden="true">
-      {Array.from({ length: 5 }).map((_, i) => (
+    <div className="flex items-center gap-[2px] h-[16px]" aria-hidden="true">
+      {barHeights.map((maxH, i) => (
         <div
           key={i}
-          className={cn(
-            "w-[3px] rounded-full",
-            active ? "bg-[hsl(var(--vow-yellow))]" : "bg-foreground/15"
-          )}
+          className="w-[2px] rounded-full"
           style={{
-            height: active && !reduced ? undefined : `${4 + Math.sin(i * 1.2) * 5}px`,
+            height: active && !reduced ? undefined : `${idleHeights[i]}px`,
+            background: active
+              ? `hsl(var(--vow-yellow) / ${barOpacities[i]})`
+              : "hsl(var(--foreground) / 0.15)",
             animation: active && !reduced
-              ? `ambient-wave 900ms ease-in-out ${i * 120}ms infinite alternate`
+              ? `ambient-wave-${i} 1200ms ease-in-out ${i * 150}ms infinite alternate`
               : "none",
           }}
         />
@@ -158,10 +162,10 @@ export default function AmbientAudioPill() {
     <>
       <audio ref={audioRef} preload="none" />
       <style>{`
-        @keyframes ambient-wave {
-          0% { height: 4px; }
-          100% { height: 14px; }
-        }
+        @keyframes ambient-wave-0 { 0% { height: 3px; } 100% { height: 10px; } }
+        @keyframes ambient-wave-1 { 0% { height: 4px; } 100% { height: 14px; } }
+        @keyframes ambient-wave-2 { 0% { height: 3px; } 100% { height: 12px; } }
+        @keyframes ambient-wave-3 { 0% { height: 2px; } 100% { height: 8px; } }
         @keyframes pill-surface {
           0% { opacity: 0; transform: translateY(16px) scale(0.96); }
           100% { opacity: 1; transform: translateY(0) scale(1); }
@@ -186,14 +190,14 @@ export default function AmbientAudioPill() {
         aria-label={isPlaying ? "Pause ambient piano" : "Hear me play"}
         className={cn(
           "fixed bottom-16 left-1/2 -translate-x-1/2 md:bottom-6 md:left-6 md:translate-x-0 z-30",
-          "h-10 rounded-full px-4 flex items-center gap-2",
-          "backdrop-blur-sm select-none",
+          "h-11 rounded-full px-5 flex items-center gap-2",
+          "backdrop-blur-md select-none",
           entranceComplete ? "opacity-100" : "opacity-0",
           "transition-[background-color,border-color] duration-[180ms]",
           "border",
           isPlaying
-            ? "bg-white/[0.08]"
-            : "bg-white/[0.06] hover:bg-white/[0.10]"
+            ? "bg-black/50"
+            : "bg-black/40 hover:bg-black/45"
         )}
         style={{
           animation: !entranceComplete
@@ -201,7 +205,10 @@ export default function AmbientAudioPill() {
             : entranceComplete && !isPlaying && !reduced
               ? "pill-breathe 4000ms ease-in-out infinite alternate"
               : "none",
-          borderColor: isPlaying ? "hsl(var(--vow-yellow) / 0.15)" : "rgba(255,255,255,0.08)",
+          borderColor: isPlaying ? "hsl(var(--vow-yellow) / 0.20)" : "rgba(255,255,255,0.12)",
+          boxShadow: isPlaying
+            ? "inset 0 1px 0 rgba(255,255,255,0.06), 0 0 20px rgba(255,224,138,0.06)"
+            : "inset 0 1px 0 rgba(255,255,255,0.06)",
         }}
       >
         <span className="relative w-[14px] h-[14px] flex-shrink-0">
@@ -211,7 +218,7 @@ export default function AmbientAudioPill() {
               isPlaying ? "opacity-0" : "opacity-100"
             )}
           >
-            <Play size={12} strokeWidth={2} className="text-foreground/70 translate-x-[1px]" />
+            <Play size={14} strokeWidth={2} className="text-foreground/70 translate-x-[1px]" />
           </span>
           <span
             className={cn(
@@ -219,14 +226,14 @@ export default function AmbientAudioPill() {
               isPlaying ? "opacity-100" : "opacity-0"
             )}
           >
-            <Pause size={12} strokeWidth={2} className="text-foreground/70" />
+            <Pause size={14} strokeWidth={2} className="text-foreground/70" />
           </span>
         </span>
 
         <span className="relative min-w-[80px] h-[14px] flex items-center">
           <span
             className={cn(
-              "absolute inset-0 flex items-center font-sans text-[11px] uppercase tracking-[0.18em] text-muted-foreground transition-opacity duration-[180ms]",
+              "absolute inset-0 flex items-center font-sans text-[12px] uppercase tracking-[0.16em] text-muted-foreground transition-opacity duration-[180ms]",
               isPlaying ? "opacity-0" : "opacity-100"
             )}
           >
@@ -234,7 +241,7 @@ export default function AmbientAudioPill() {
           </span>
           <span
             className={cn(
-              "absolute inset-0 flex items-center font-sans text-[11px] uppercase tracking-[0.18em] text-muted-foreground transition-opacity duration-[120ms]",
+              "absolute inset-0 flex items-center font-sans text-[12px] uppercase tracking-[0.16em] text-muted-foreground transition-opacity duration-[120ms]",
               isPlaying && titleVisible ? "opacity-100" : "opacity-0"
             )}
           >
