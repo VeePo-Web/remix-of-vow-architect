@@ -114,11 +114,24 @@ export default function AmbientAudioPill() {
         )}
         style={{ animationDelay: "2000ms", animationFillMode: "forwards" }}
       >
-        {isPlaying ? (
-          <Pause size={12} strokeWidth={2} className="text-foreground/70" />
-        ) : (
-          <Play size={12} strokeWidth={2} className="text-foreground/70 ml-0.5" />
-        )}
+        <span className="relative w-[14px] h-[14px] flex-shrink-0">
+          <span
+            className={cn(
+              "absolute inset-0 flex items-center justify-center transition-opacity duration-[180ms]",
+              isPlaying ? "opacity-0" : "opacity-100"
+            )}
+          >
+            <Play size={12} strokeWidth={2} className="text-foreground/70 translate-x-[1px]" />
+          </span>
+          <span
+            className={cn(
+              "absolute inset-0 flex items-center justify-center transition-opacity duration-[180ms]",
+              isPlaying ? "opacity-100" : "opacity-0"
+            )}
+          >
+            <Pause size={12} strokeWidth={2} className="text-foreground/70" />
+          </span>
+        </span>
 
         <span className="relative min-w-[80px] h-[14px] flex items-center">
           <span
