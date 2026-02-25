@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { ProcessMovement } from './ProcessMovement';
@@ -69,35 +70,8 @@ const movements: Movement[] = [
  */
 export function ProcessSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [introVisible, setIntroVisible] = useState(false);
-  const [closingVisible, setClosingVisible] = useState(false);
-  const introRef = useRef<HTMLDivElement>(null);
-  const closingRef = useRef<HTMLDivElement>(null);
-
-  // Simple IntersectionObserver for intro
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) { setIntroVisible(true); setClosingVisible(true); return; }
-
-    const introEl = introRef.current;
-    const closingEl = closingRef.current;
-    
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            if (entry.target === introEl) setIntroVisible(true);
-            if (entry.target === closingEl) setClosingVisible(true);
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    if (introEl) observer.observe(introEl);
-    if (closingEl) observer.observe(closingEl);
-    return () => observer.disconnect();
-  }, []);
+  const { ref: introRef, isVisible: introVisible } = useScrollReveal({ threshold: 0.2 });
+  const { ref: closingRef, isVisible: closingVisible } = useScrollReveal({ threshold: 0.2 });
 
   // Simple background CSS vars (static warm tone)
   const cssVars = {
@@ -122,7 +96,7 @@ export function ProcessSection() {
       />
 
       {/* Intro Block */}
-      <div ref={introRef} className={cn('process-intro', introVisible && 'is-visible')}>
+      <div ref={introRef as React.RefObject<HTMLDivElement>} className={cn('process-intro', introVisible && 'is-visible')}>
         <div className="process-intro__anchor" aria-hidden="true" />
         <span className="process-intro__label">The Process</span>
         <h2 className="process-intro__headline">
@@ -155,7 +129,7 @@ export function ProcessSection() {
 
       {/* Closing Block with Ceremony Background */}
       <div 
-        ref={closingRef}
+        ref={closingRef as React.RefObject<HTMLDivElement>}
         className={cn('process-closing process-closing--journal', closingVisible && 'is-visible')}
       >
         {/* Ceremony background image */}
