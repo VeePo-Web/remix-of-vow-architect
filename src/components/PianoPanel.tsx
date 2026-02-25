@@ -373,7 +373,7 @@ export default function PianoPanel({
                     className="mt-1.5"
                     style={{
                       height: "1px",
-                      background: "hsl(var(--vow-yellow) / 0.12)",
+                      background: "linear-gradient(to right, transparent 0%, hsl(var(--vow-yellow) / 0.14) 40%, hsl(var(--vow-yellow) / 0.14) 60%, transparent 100%)",
                     }}
                   />
                 </div>
