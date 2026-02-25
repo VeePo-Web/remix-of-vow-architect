@@ -1,58 +1,62 @@
 
 
-# Audit: Panel Lacks Interior Warmth -- The "Light Falling Into an Open Piano" Effect
+# Audit: Active Track Row Lacks a Leading Edge Accent
 
 ## Finding
 
-When you open a grand piano lid and look inside, the most striking visual quality is how ambient light catches the brass strings and gold-painted frame from above, creating a warm glow concentrated at the top that fades into shadow below. The current panel is uniformly dark -- the strings and hammers exist but float in a void with no sense of light source or depth.
+The active track row currently signals its state through four cues: gold text color, a radial gradient background at 6% opacity, a 3px dot indicator, and the animated mini waveform. These work together, but the row still reads as "highlighted text" rather than "selected instrument." It lacks the tactile, material quality that defines the rest of the panel -- the strings, the hammer rail, the felt damper, the interior glow all reference real piano anatomy.
 
-The panel background is flat `rich-black` with no gradient variation. The border is `0.08` opacity vow-yellow -- nearly invisible. The box-shadow provides external depth but no interior warmth. The result: the decorative piano elements feel pasted onto a dark rectangle rather than existing inside a lit instrument.
+In premium audio interfaces (Apple Music's "Now Playing" sidebar, Spotify's queue panel, Linear's active item states), the active row features a vertical accent bar on the leading edge -- a confident, minimal mark that says "you are here" with the authority of a bookmark ribbon pressed into a page. In the context of this piano metaphor, this accent bar evokes a **piano key's sharp edge** -- the precise vertical line where ivory meets ebony, where silence becomes sound.
 
-World-class dark UI panels (Apple Music's album detail, Spotify's canvas view, Linear's command palette) use subtle interior radial gradients to create depth and a sense of space. For this piano metaphor, the gradient should simulate the warm light that falls through an open grand piano lid.
+The existing 3px dot is too small to anchor the eye. The radial gradient is atmospheric but diffuse. A 2px vertical gold bar on the left edge provides the missing structural anchor -- a single confident line that completes the active state hierarchy.
 
 ## The Refinement
 
-Two changes that add interior warmth without touching any existing elements:
+Modify the active dot indicator (lines 332-343) from a 3px circle to a 2px-wide, 16px-tall vertical bar. This replaces one element with a more visually authoritative version -- no additional DOM nodes needed.
 
-### 1. Interior light gradient -- warm glow at the top of the panel
+### Technical Change
 
-Add a new decorative div inside `PianoStrings` that renders a radial gradient positioned at the top-center of the panel. This creates the illusion of warm light falling onto the strings from the open lid above.
+**File: `src/components/PianoPanel.tsx` (lines 332-343)**
 
-- Shape: `radial-gradient(ellipse at 50% 0%, hsl(var(--vow-yellow) / 0.04) 0%, transparent 60%)`
-- Position: absolute, covering the full panel area
-- This is extremely subtle (4% max opacity) but provides the crucial warm-to-dark vertical transition that makes the string area feel "lit"
+Change the active dot span from a circle to a vertical bar:
 
-### 2. Panel border warmth increase
-
-- Border opacity: `0.08` to `0.12` -- a 50% relative increase that gives the panel a perceptible warm edge, like the gilt rim of a piano's cast iron frame
-- This is on the main panel div (line 249)
-
-## Technical Changes
-
-### File: `src/components/PianoPanel.tsx`
-
-**1. Add interior light gradient inside PianoStrings (after the felt damper strip, before closing div -- after line 136):**
-
-Add a new div:
+Current:
 ```jsx
-<div
-  className="absolute inset-0 rounded-[16px]"
+<span
+  className="flex-shrink-0 rounded-full"
   style={{
-    background: "radial-gradient(ellipse at 50% 0%, hsl(var(--vow-yellow) / 0.04) 0%, transparent 60%)",
-    opacity: visible ? 1 : 0,
-    transition: "opacity 260ms ease-out 80ms",
+    width: "3px",
+    height: "3px",
+    background: isActive ? "hsl(var(--vow-yellow))" : "transparent",
+    transform: isActive ? "scale(1)" : "scale(0)",
+    transition: "transform 120ms ease-out, background 120ms",
   }}
 />
 ```
 
-**2. Panel border (line 249):**
+New:
+```jsx
+<span
+  className="flex-shrink-0 rounded-full"
+  style={{
+    width: "2px",
+    height: isActive ? "16px" : "3px",
+    borderRadius: "1px",
+    background: isActive ? "hsl(var(--vow-yellow))" : "transparent",
+    transform: isActive ? "scaleY(1)" : "scaleY(0)",
+    transition: "transform 180ms cubic-bezier(0.22,0.61,0.36,1), height 180ms cubic-bezier(0.22,0.61,0.36,1), background 120ms",
+  }}
+/>
+```
 
-Change from:
-`border: "1px solid hsl(var(--vow-yellow) / 0.08)"`
-to:
-`border: "1px solid hsl(var(--vow-yellow) / 0.12)"`
+Key differences:
+- Width: 3px to 2px (thinner, more refined)
+- Height: 3px circle to 16px bar when active (fills ~44% of the 36px row height -- enough presence without overwhelming)
+- Border-radius: overridden to 1px (pill-shaped ends, not circular)
+- Transform: `scale` to `scaleY` (grows vertically from center, like a piano key being depressed)
+- Timing: 120ms to 180ms with the brand easing curve (matches hover timing standard)
 
 ## What Stays Unchanged
 
-All piano strings, hammer rail, hammer ticks, felt damper, fade masks, scroll logic, track rows, category headers, caret, pill, audio logic, panel dimensions, animation timing.
+All other track row styling, text size, gap, padding, radial gradient background, mini waveform, category headers, piano strings, fade masks, scroll logic, caret, panel dimensions, animation timing.
 
