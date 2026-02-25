@@ -237,6 +237,15 @@ export default function PianoPanel({
         @keyframes panel-wave-1 { 0% { height: 3px; } 100% { height: 10px; } }
         @keyframes panel-wave-2 { 0% { height: 3px; } 100% { height: 8px; } }
         @keyframes panel-wave-3 { 0% { height: 3px; } 100% { height: 5px; } }
+        button:hover .panel-accent-bar {
+          transform: scaleY(1) !important;
+          height: 8px !important;
+          background: hsl(var(--vow-yellow) / 0.35) !important;
+        }
+        button:hover .panel-accent-bar[data-active="true"] {
+          height: 16px !important;
+          background: hsl(var(--vow-yellow)) !important;
+        }
       `}</style>
       {/* Overlay for click-outside */}
       {isOpen && (
@@ -336,7 +345,8 @@ export default function PianoPanel({
                 >
                   {/* Active dot */}
                   <span
-                    className="flex-shrink-0"
+                    className="flex-shrink-0 panel-accent-bar"
+                    data-active={isActive ? "true" : "false"}
                     style={{
                       width: "2px",
                       height: isActive ? "16px" : "3px",
