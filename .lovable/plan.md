@@ -1,128 +1,112 @@
 
 
-# Homepage Typography, Spacing, and Visual Hierarchy Audit
+# Homepage Visual Hierarchy Refinement — Phase 2
 
-## Findings
+## Problem
 
-After reviewing every homepage section both in code and in the browser, the site already has strong bones: the vigil sequence is cinematic, the inhale/exhale rhythm works, the Fitzgerald typography system is well-defined, and the narrative arc flows logically. However, several inconsistencies prevent it from reaching Fantasy.co-level polish.
+After the Phase 1 typography standardization, several visual centering issues remain visible in the browser. Multiple section headings, labels, and content blocks appear left-shifted despite having `text-center` on parent containers. This breaks the symmetrical, luxury aesthetic the brand requires.
 
-## Issues Identified
+## Root Cause
 
-### 1. Inconsistent heading/subhead alignment across sections
+The `text-wrap: balance` property creates a narrower text block that renders left-aligned within a centered container. The balanced block itself is centered, but shorter headings visually appear left-shifted because the balanced block shrinks to fit the shortest line. This is a known CSS behavior — the fix is to add explicit `text-center` directly on heading elements (not just parents) or use `margin: 0 auto` with `max-width` constraints.
 
-Several sections have their label and headline left-aligned while their content is centered (or vice versa). Specifically:
+## Issues and Fixes
 
-- **TheInvitation**: Label "THE INVITATION" is left-aligned (`text-center` only on the label `p` element, but it's inside a left-aligned grid column context). The label ends up left-floating above the 2-column grid.
-- **ThreePaths**: Header block has `text-center` on the wrapper but `mb-16` then the headline and subtext are left-aligned due to missing `text-center` on `h2`/`p` elements themselves. Actually looking closer, `h2` does not have `text-center` applied, but the parent `div` does. The headline text wraps at "me there?" -- this is fine but could benefit from `text-wrap: balance`.
-- **TheRecord**: Same pattern -- header `div` has `text-center` but heading lacks `text-wrap: balance`.
+### Fix 1: TheSound heading alignment
 
-### 2. Section label inconsistency
+**File**: `src/components/TheSound.tsx`
 
-Labels across sections use slightly different spacing/margins:
-- TheExhale: No explicit label (uses golden dot anchor instead)
-- TheSound: `mb-6`
-- TheWitness: `mb-4`  
-- ThreePaths: `mb-4`
-- TheRecord: `mb-4`
-- TheWitnesses: `mb-4` (plus golden rule separator adding `mb-6`)
-- CrossOver: `mb-16` (much larger)
+The heading "Music that holds the room still." and subhead appear visually left-aligned. The `text-center` is on the parent `div` but the heading's `text-wrap: balance` causes visual shift.
 
-The brand's spacing system calls for consistent `mb-4` (16px) between label and heading per the typography memory. Most sections follow this, but TheSound uses `mb-6` and CrossOver uses `mb-16`.
+- Add explicit `text-center` class directly to the `h2` element
+- Add `text-center` to the subhead `p` element
+- Add `text-center` to the closing caption `p`
 
-### 3. Heading font-weight inconsistency
+### Fix 2: TheWitness content centering
 
-Some headings use `font-[300]` (explicit) while others use `font-light` (Tailwind class for 300). These are equivalent, but the code is inconsistent. More importantly:
-- TheWitness, ThreePaths, TheRecord, TheWitnesses: `font-[300]`
-- TheSound, TheInvitation: `font-light`
-- CrossOver: `font-[300]`
+**File**: `src/components/TheWitness.tsx`
 
-All should use the same class for maintainability.
+The label, heading, declarations, and kit pills all appear visually left-shifted within the `max-w-2xl mx-auto text-center` wrapper.
 
-### 4. Heading size inconsistency
+- The nested `max-w-4xl > max-w-2xl` structure is sound but the heading with `text-wrap: balance` shifts left
+- Add explicit `text-center` class directly to the `h2` and declaration `p` elements
 
-- TheSound: `clamp(28px,4vw,42px)` -- max 42px
-- TheWitness, ThreePaths, TheRecord, TheWitnesses: `clamp(28px,4vw,48px)` -- max 48px  
-- CrossOver: `clamp(32px,5vw,56px)` -- max 56px
-- VowMoment: `clamp(48px,6vw,72px)` -- intentionally larger (altar)
-- TheInvitation: `clamp(28px,4vw,42px)` -- max 42px
+### Fix 3: ThreePaths heading centering
 
-Standard section headings should use a consistent max. The typography system defines H2 as 40px. Recommend standardizing non-altar headings to `clamp(28px,4vw,40px)` to match the Fitzgerald scale.
+**File**: `src/components/ThreePaths.tsx`
 
-### 5. TheWitness and TheWitnesses content not centered on page
+"How deeply do you want me there?" heading appears at the left edge.
 
-Both "exhale" sections have content shifted left. TheWitness has `max-w-2xl mx-auto text-center` inside `max-w-4xl mx-auto` -- the double nesting is fine but the "What I bring" pills wrap to a second row with "24h plan" orphaned alone. This looks unbalanced.
+- Add explicit `text-center` to the `h2` element
+- Add explicit `text-center` to the subtitle `p`
 
-### 6. Pricing cards (ThreePaths) text alignment
+### Fix 4: TheRecord content centering
 
-The heading "How deeply do you want me there?" and subtitle "Three ways I can be present on your day." are not centered -- they lack explicit centering. Actually, looking again, the parent div has `text-center` which should cascade. The issue is the text wraps at an odd point on the heading because it lacks `text-wrap: balance`.
+**File**: `src/components/TheRecord.tsx`
 
-### 7. VowMoment has no scroll-triggered reveal
+The guarantee quote "If all failsafes fail" appears off-center.
 
-Every other section uses `useScrollReveal` for entrance animation. VowMoment is purely static with no entrance animation. While the brand doc says "No animation - demands static attention," this creates a jarring contrast when scrolling -- the section snaps in without any transition. A subtle opacity fade (no translate) would maintain the "static attention" feel while smoothing the scroll experience.
+- Add explicit `text-center` to the guarantee `p` elements
+- Ensure the `h2` has explicit `text-center`
 
-### 8. Footer spacing refinement
+### Fix 5: TheWitnesses centering
 
-The footer is well-structured but has some spacing inconsistencies relative to the design system. The `py-20` (80px) is good for hero-level spacing but feels slightly generous for a footer. The golden thread `mb-16` above content is also generous.
+**File**: `src/components/TheWitnesses.tsx`
 
-## Plan
+"THE COVENANT KEPT" label and "They heard their vows" heading appear left-shifted.
 
-### Change 1: Standardize section heading sizes to Fitzgerald H2 (40px)
+- Add explicit `text-center` to `h2`
+- The testimonials are intentionally left-aligned (blockquotes with left-side decorative quotes) so those stay as-is
 
-**Files**: `TheSound.tsx`, `TheWitness.tsx`, `ThreePaths.tsx`, `TheRecord.tsx`, `TheWitnesses.tsx`, `TheInvitation.tsx`
+### Fix 6: TheInvitation label positioning
 
-Replace all section `h2` font-size clamps with the Fitzgerald-standard `clamp(28px,4vw,40px)` except:
-- VowMoment (keeps `clamp(48px,6vw,72px)` -- intentionally proclamation scale)
-- CrossOver (keeps `clamp(32px,5vw,56px)` -- final CTA deserves elevated scale)
+**File**: `src/components/TheInvitation.tsx`
 
-Also standardize `font-[300]` to `font-light` for consistency across all h2 elements.
+The label "THE INVITATION" sits above the 2-column grid and appears left-floating because `text-center` is applied but the label is inside the grid's flow context at `max-w-6xl`.
 
-### Change 2: Standardize label-to-heading spacing
+- Move the label outside and above the grid, keeping `text-center` with `max-w-6xl mx-auto` wrapper
+- Reduce label `mb-12` to `mb-8` for tighter coupling with the content below
 
-**Files**: `TheSound.tsx`
+### Fix 7: TheTransformation missing heading
 
-Change `mb-6` to `mb-4` on the section label to match other sections.
+**File**: `src/components/TheTransformation.tsx`
 
-### Change 3: Add `text-wrap: balance` to all section headings
+This section only has a floating label "THE TRANSFORMATION" with no h2 heading. Every other section follows the pattern: label, then h2. This section breaks the visual rhythm.
 
-**Files**: `TheSound.tsx`, `TheWitness.tsx`, `ThreePaths.tsx`, `TheRecord.tsx`, `TheWitnesses.tsx`, `CrossOver.tsx`
+- The split-screen layout (fears vs resolutions) functions as the content, so a heading would sit awkwardly above the split. However, the floating label treatment is unique and inconsistent.
+- Remove the gradient-backed floating label and instead embed it as a standard label above the split grid, matching other sections' label positioning
+- No h2 needed here — the split layout IS the message. But the label should be consistently positioned.
 
-Add `style={{ textWrap: 'balance' }}` (or add to existing style objects) to prevent awkward line breaks on section headings.
+### Fix 8: Footer spacing tightening
 
-### Change 4: Add subtle fade-in to VowMoment
+**File**: `src/components/Footer.tsx`
 
-**File**: `VowMoment.tsx`
+- Reduce golden thread top margin from `mb-16` to `mb-12`
+- Keep `py-20` (80px) as it matches the brand's section spacing standard
 
-Add `useScrollReveal` with a simple opacity transition (no translate) on the blockquote. This preserves the "static attention" principle while smoothing scroll entry.
+### Fix 9: CrossOver duplicate h2 issue
 
-### Change 5: Fix TheWitness kit pill orphan
+**File**: `src/components/CrossOver.tsx`
 
-**File**: `TheWitness.tsx`
+The section has TWO `h2` elements — the tagline bookend and the sacred quote. Having two h2s in one section is semantically incorrect and visually confusing for hierarchy.
 
-Change the "What I bring" pills layout from `flex flex-wrap gap-3` to a 3-column grid on desktop (`grid grid-cols-3 sm:grid-cols-6 gap-3`) to prevent orphaned single pills on the second row.
-
-### Change 6: CrossOver label spacing
-
-**File**: `CrossOver.tsx`
-
-Reduce `mb-16` on the tagline container to `mb-10` -- 16 is too much vertical gap between the returning tagline and the sacred quote below it.
+- Change the tagline bookend from `h2` to `p` — it's a decorative reprise, not a heading
+- Keep the sacred quote as the sole `h2`
 
 ## What Stays Unchanged
 
 - All copy, content, pricing, and brand messaging
 - All section ordering and narrative arc
-- Hero vigil sequence and session-aware skip
-- Inhale/exhale background rhythm
-- ProcessSection design and animations
-- All navigation and routing
-- Footer content and structure
-- All images and assets
+- Hero vigil sequence
+- ProcessSection design
+- VowMoment (already fixed in Phase 1)
+- All images, animations, and motion
+- Footer content and legal links
 
 ## Expected Impact
 
-- Consistent H2 sizing creates unified visual rhythm as users scroll
-- Balanced text wrapping eliminates orphaned words and awkward breaks
-- VowMoment fade-in smooths the scroll experience at the emotional peak
-- Standardized label spacing creates metronomic consistency
-- Kit pills display cleanly without orphans
-- The page reads as one cohesive, meticulously crafted experience
+- All centered sections will appear truly centered in the viewport
+- Consistent label-to-content spacing across all sections
+- Proper semantic heading hierarchy (one h2 per section)
+- The page reads as a unified, precisely crafted luxury experience with metronomic visual rhythm
 
