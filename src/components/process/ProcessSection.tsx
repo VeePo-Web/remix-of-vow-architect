@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -69,7 +68,6 @@ const movements: Movement[] = [
  * Warm dawn gradient background. No complex orchestration systems.
  */
 export function ProcessSection() {
-  const sectionRef = useRef<HTMLElement>(null);
   const { ref: introRef, isVisible: introVisible } = useScrollReveal({ threshold: 0.2 });
   const { ref: closingRef, isVisible: closingVisible } = useScrollReveal({ threshold: 0.2 });
 
@@ -83,7 +81,6 @@ export function ProcessSection() {
 
   return (
     <section
-      ref={sectionRef}
       id="process"
       className="process-section"
       aria-label="My preparation process"
