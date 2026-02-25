@@ -1,44 +1,48 @@
 
 
-# Audit: Piano Interior Strings and Hammers Lack Visual Presence
+# Audit: Scroll-Triggered Fade Masks for Track List
 
 ## Finding
 
-The current `PianoStrings` component renders decorative elements at extremely low opacity values that are nearly invisible against the rich-black panel background:
+The panel already has top and bottom fade masks (lines 262-269 and 346-353) implemented as `sticky` positioned divs with linear gradients from `rich-black` to `transparent`. However, they are always visible regardless of scroll position. This creates two problems:
 
-- **Strings**: 0.5px wide at 7% vow-yellow opacity -- effectively invisible on most displays
-- **Hammer rail**: 0.5px at 10% opacity -- barely perceptible
-- **Hammer ticks**: 0.5px wide, 3px tall at 12% opacity -- nearly invisible
-- **Felt damper strip**: 1px at 60% opacity of a dark brown (`hsl(40 20% 18%)`) -- the only element with some presence, but it blends into the black background
+1. **Top mask shows on load** even though the list starts at the top -- there is nothing to fade into, so the gradient feels like a visual artifact rather than a functional cue.
+2. **Bottom mask persists when scrolled to the end** -- the user has reached the last track, but the gradient still implies more content below.
 
-The piano interior metaphor is the defining visual concept of this panel -- it is what makes it feel like "looking inside a piano" rather than just another dropdown menu. At current values, a user would need to squint to notice the strings exist at all. The decoration fails to deliver on the concept.
+World-class scroll containers (Apple Music, Spotify desktop, Linear) only show fade masks when there is content in that direction. The mask appears as a scroll-awareness signal and disappears when the edge is reached. This is the difference between "decorative gradient" and "intelligent spatial cue."
 
 ## The Refinement
 
-Increase opacity and width values across all decorative elements to make them perceptible but still elegant. The goal is "visible at a glance, not demanding attention" -- the way real piano strings catch light in a dimly lit room.
+Track scroll position within the scroll container using an `onScroll` handler and `useRef`. Derive two booleans:
 
-### Specific changes in `PianoStrings` component:
+- `canScrollUp`: `scrollTop > 2` (2px threshold to avoid sub-pixel flicker)
+- `canScrollDown`: `scrollTop + clientHeight < scrollHeight - 2`
 
-**Strings (lines 87-95)**:
-- Width: `0.5px` to `1px` -- real piano strings have material presence
-- Opacity: `0.07` to `0.14` -- double the current value; still subtle but now visible
-- Add a subtle vertical gradient so strings fade out toward the bottom (like perspective depth): change `background` from flat color to `linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.18), hsl(var(--vow-yellow) / 0.06))` -- brighter at top where hammers strike, fading toward the bottom
+Apply these as opacity values to the existing fade mask divs, transitioning with `180ms ease-out` to match the panel's motion language.
 
-**Hammer rail (lines 99-108)**:
-- Height: `0.5px` to `1px`
-- Opacity: `0.10` to `0.22` -- a clear horizontal line that reads as the mechanical rail
+### Technical Changes in `src/components/PianoPanel.tsx`
 
-**Hammer ticks (lines 110-123)**:
-- Width: `0.5px` to `1.5px` -- wider than strings to read as hammer felt pads
-- Height: `3px` to `5px` -- taller for more presence
-- Opacity: `0.12` to `0.25` -- clearly visible as distinct elements at string intersections
+**1. Add scroll state (inside the component, near existing refs):**
+- Add `const scrollRef = useRef<HTMLDivElement>(null)`
+- Add `const [canScrollUp, setCanScrollUp] = useState(false)`
+- Add `const [canScrollDown, setCanScrollDown] = useState(false)`
 
-**Felt damper strip (lines 127-136)**:
-- Height: `1px` to `2px`
-- Color: Change from dark brown `hsl(40 20% 18%)` to warm vow-yellow at low opacity: `hsl(var(--vow-yellow) / 0.10)` -- this creates a second horizontal line that pairs with the hammer rail, establishing a clear two-rail structure like a real piano action
-- Opacity: `0.6` to `1` (the color itself carries the subtlety via the 10% alpha)
+**2. Add scroll handler:**
+- Create a `handleScroll` callback that reads `scrollRef.current.scrollTop`, `clientHeight`, and `scrollHeight` to update the two booleans.
+- Attach `onScroll={handleScroll}` to the scroll container div (line 254).
+- Also run the check once when `isOpen` changes to `true` (via a `useEffect`) to set the initial state correctly -- the bottom mask should appear on open if the list overflows.
+
+**3. Apply ref to scroll container:**
+- Add `ref={scrollRef}` to the scroll container div (line 254).
+
+**4. Update fade mask opacity:**
+- Top mask (line 263): Add `opacity: canScrollUp ? 1 : 0` and `transition: "opacity 180ms ease-out"` to the existing style object.
+- Bottom mask (line 348): Add `opacity: canScrollDown ? 1 : 0` and `transition: "opacity 180ms ease-out"` to the existing style object.
+
+**5. Add `useState` to imports:**
+- Add `useState` to the existing `useEffect, useRef, useCallback` import from React.
 
 ## What Stays Unchanged
 
-String positions/grouping, stagger timing, panel layout, track list, caret, pill, audio logic. The change is purely opacity/size tuning within the existing `PianoStrings` component.
+Fade mask height (h-6), gradient colors, sticky positioning, z-index, pointer-events, all other panel styling, piano strings, caret, audio logic, track data.
 
