@@ -1,45 +1,32 @@
 
 
-# Gateway Refinement -- Ambient Audio Pill Text Crossfade and Waveform Entrance
+# Gateway Refinement -- Ambient Audio Pill Icon Crossfade
 
 ## Audit Finding
 
-### 1. Text Swap Between States Has No Transition
+The text crossfade and waveform bloom are now polished. One hard swap remains: the Play and Pause icons. When toggling, the icon pops instantly from one to the other. Worse, the Play icon carries `ml-0.5` (a 2px left offset to optically center the triangle within the pill's circular hit area) while the Pause icon does not -- creating a subtle but perceptible 2px horizontal jolt on every tap. This is the last "binary toggle" in a component that otherwise breathes.
 
-When the pill toggles between idle ("Hear me play") and playing (track title), the text swaps via a conditional render -- it pops instantly from one string to the other. Every world-class audio control (Apple Music mini-player, Spotify's now-playing pill, Sonos ambient bar) crossfades text on state change. The abrupt swap breaks the pill's otherwise composed, breathing aesthetic. It reads as a UI toggle rather than a living instrument responding to touch.
+Every premium audio control (Apple Music, Spotify's mini-player, Bang & Olufsen's Beosound app) crossfades its transport icons. The fix is the same pattern already applied to the text: render both icons simultaneously in a relative container, toggle their opacity over 180ms, and use consistent spacing so neither icon shifts the layout.
 
-**The fix:** Replace the single conditional `<span>` with two overlapping `<span>` elements that crossfade via opacity. Both texts are always rendered, positioned absolutely within a relative container. The idle text ("Hear me play") has `opacity-100` when not playing and `opacity-0` when playing. The track title has the inverse. Both transition over `180ms`. This creates a smooth dissolve between states -- the invitation fades out as the track name fades in, and vice versa.
+## The Fix
 
-### 2. Waveform Bars Mount and Unmount Abruptly
-
-The waveform bars are conditionally rendered (`{isPlaying && <WaveformBars />}`), meaning they hard-mount when playing and hard-unmount when paused. This creates a jarring width change in the pill -- elements snap in and out of existence. Premium audio interfaces ease their visualizers in and out.
-
-**The fix:** Always render the `WaveformBars` component, but control its visibility with opacity and width transitions. When not playing, the bars container collapses to `w-0 opacity-0`; when playing, it expands to `w-auto opacity-100` over `260ms`. This creates a gentle bloom effect -- the waveform breathes into existence rather than appearing.
-
----
+Replace the conditional `{isPlaying ? <Pause /> : <Play />}` with a small relative container holding both icons at `absolute` position. The active icon gets `opacity-100`, the inactive gets `opacity-0`, both transition over `duration-[180ms]`. The Play icon's `ml-0.5` optical correction moves into its own absolute positioning so it never affects the container width. Container size is fixed at 14x14px (enough for the 12px icons plus the 2px optical offset).
 
 ## Specifications
 
-### Text Crossfade
-- Wrapper: `relative` container with fixed minimum width to prevent layout shift
-- Idle text ("Hear me play"): `absolute inset-0`, opacity toggles based on `isPlaying`
-- Track title: `absolute inset-0`, opacity toggles inversely
-- Transition: `transition-opacity duration-[180ms]`
-- Both texts share identical styling (11px uppercase tracking)
+- Container: `relative w-[14px] h-[14px] flex-shrink-0`
+- Play icon: `absolute inset-0 flex items-center justify-center`, with a 1px left padding for optical centering, opacity toggles inversely to `isPlaying`
+- Pause icon: `absolute inset-0 flex items-center justify-center`, opacity toggles with `isPlaying`
+- Both: `transition-opacity duration-[180ms]`
+- Icon size and strokeWidth unchanged (12px, 2)
 
-### Waveform Entrance
-- Always render `<WaveformBars>`
-- Wrapper div: `overflow-hidden transition-all duration-[260ms]`
-- Playing: `opacity-100 max-w-[40px]`
-- Not playing: `opacity-0 max-w-0`
-
-## Files Changed
+## File Changed
 
 | File | Change |
 |------|--------|
-| `src/components/AmbientAudioPill.tsx` | Replace conditional text render with crossfade; always render waveform with opacity/width transition |
+| `src/components/AmbientAudioPill.tsx` | Replace conditional icon render with dual-icon crossfade in a fixed-size container |
 
 ## What Stays Unchanged
 
-All positioning (mobile centered, desktop bottom-left), progress line, icon swap, entrance delay, border warmth, hover states, audio management logic, track advancement, and reduced motion handling remain exactly as they are.
+All text crossfade, waveform bloom, positioning, progress line, entrance delay, border warmth, hover states, audio logic, track advancement, and reduced motion handling remain exactly as they are.
 
