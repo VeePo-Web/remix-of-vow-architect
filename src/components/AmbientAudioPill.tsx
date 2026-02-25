@@ -3,33 +3,6 @@ import { Play, Pause, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import PianoPanel, { allTracks } from "./PianoPanel";
 
-/* ─── Waveform bars for the pill ─── */
-const barHeights = [10, 14, 12, 8];
-const barOpacities = [0.7, 1, 0.85, 0.6];
-const idleHeights = [5, 7, 6, 4];
-
-function WaveformBars({ active, reduced }: { active: boolean; reduced: boolean }) {
-  return (
-    <div className="flex items-center gap-[2px] h-[16px]" aria-hidden="true">
-      {barHeights.map((_, i) => (
-        <div
-          key={i}
-          className="w-[2px] rounded-full"
-          style={{
-            height: active && !reduced ? undefined : `${idleHeights[i]}px`,
-            background: active
-              ? `hsl(var(--vow-yellow) / ${barOpacities[i]})`
-              : "hsl(var(--foreground) / 0.15)",
-            animation: active && !reduced
-              ? `ambient-wave-${i} 1200ms ease-in-out ${i * 150}ms infinite alternate`
-              : "none",
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
 export default function AmbientAudioPill() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -139,7 +112,6 @@ export default function AmbientAudioPill() {
     ? displayedTitle
     : "Hear me play";
 
-  const showWaveform = isPlaying && !isPanelOpen;
   const showPauseButton = activeTrackIndex !== null && !isPanelOpen;
 
   return (
