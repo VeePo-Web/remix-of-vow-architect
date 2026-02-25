@@ -18,12 +18,6 @@ export function TheRecord() {
 
   return (
     <section ref={sectionRef} className="section--dark section-grain relative py-24 px-4 overflow-hidden" style={{ minHeight: '400px' }}>
-      {/* Top fade from TheSacredGround warm */}
-      <div
-        className="section-fade-top"
-        style={{ background: 'linear-gradient(to top, transparent, hsl(45 20% 93%))' }}
-        aria-hidden="true"
-      />
       <div className="container mx-auto">
         <div className="max-w-5xl mx-auto">
           {/* Header */}

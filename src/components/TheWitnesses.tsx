@@ -142,6 +142,12 @@ export function TheWitnesses() {
           </div>
         </div>
       </div>
+      {/* Bottom fade into CrossOver dark */}
+      <div
+        className="section-fade-bottom"
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(240 9% 2%))' }}
+        aria-hidden="true"
+      />
     </section>
   );
 }
