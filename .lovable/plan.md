@@ -1,85 +1,68 @@
 
+# Audit: ProcessSection Still Uses Hand-Rolled IntersectionObserver
 
-# Fix: Section Fade Gradient Mismatches Between Adjacent Sections
+## Finding
 
-## Problem
+During the scroll-reveal refactor, ProcessSection was excluded because it observes two separate elements (introRef and closingRef) within the same section. However, this means it still carries 22 lines of manual `IntersectionObserver` boilerplate (lines 78-100) including its own `prefers-reduced-motion` check, which duplicates logic already centralized in `useScrollReveal`.
 
-The homepage sections use `section-fade-top` and `section-fade-bottom` gradient overlays to create seamless visual transitions between adjacent sections. Several of these gradients reference colors from sections that no longer exist in the current section order, or are missing entirely between certain transitions. This creates visible color banding artifacts -- light gradients appearing between two dark sections, or hard cuts between warm and dark sections.
-
-### Section Order (from Index.tsx)
-
-```text
-1. Hero (dark void)
-2. TheExhale (dark)
-3. ProcessSection (warm)
-4. VowMoment (dark)
-5. TheInvitation (warm, hsl(45 25% 96%) -> hsl(45 20% 93%))
-6. TheSound (dark)
-7. TheTransformation (dark)
-8. TheWitness (warm, hsl(45 25% 96%))
-9. ThreePaths (dark)
-10. TheRecord (dark)       <-- TWO DARK IN A ROW
-11. TheWitnesses (warm)
-12. CrossOver (dark)
-```
-
-### Issues Found
-
-1. **TheRecord top fade references a deleted section**: Comment says "from TheSacredGround warm" with `hsl(45 20% 93%)`, but TheSacredGround no longer exists. TheRecord follows ThreePaths (dark). A warm gradient bleeds into a dark-to-dark transition.
-
-2. **ThreePaths has no bottom fade**: No transition gradient into TheRecord. Combined with issue 1, the ThreePaths-to-TheRecord boundary has a visible warm band that should not exist.
-
-3. **TheWitnesses has no bottom fade**: No gradient transition into CrossOver (dark). This creates a hard cut from warm cream to deep black.
-
-4. **CrossOver has no top fade**: No gradient pulling from TheWitnesses warm. Another contributor to the hard cut.
+The existing `useScrollReveal` hook can be called multiple times in a single component — each call creates its own ref and visibility state. This is the standard React hooks pattern.
 
 ## The Refinement
 
-### File: `src/components/TheRecord.tsx`
+Replace the manual observer block in ProcessSection with two `useScrollReveal` calls, one for the intro and one for the closing block.
 
-**Change 1**: Replace the warm top fade with a dark-to-dark fade (or remove it entirely since both sections are dark).
+### Technical Changes
 
-- Remove the `section-fade-top` div (lines 21-26), since ThreePaths and TheRecord share the same dark palette. A fade between two identical dark backgrounds is unnecessary and the warm color actively harms the transition.
+**File: `src/components/process/ProcessSection.tsx`**
 
-### File: `src/components/ThreePaths.tsx`
+**1. Replace imports (line 1):**
 
-**Change 2**: No bottom fade needed -- both ThreePaths and TheRecord are dark with similar backgrounds. No change required here.
-
-### File: `src/components/TheWitnesses.tsx`
-
-**Change 3**: Add a `section-fade-bottom` div before the closing `</section>` tag (after line 144) to transition into CrossOver's dark background.
-
-```jsx
-<div
-  className="section-fade-bottom"
-  style={{ background: 'linear-gradient(to bottom, transparent, hsl(240 9% 2%))' }}
-  aria-hidden="true"
-/>
+Current:
+```tsx
+import { useEffect, useRef, useState } from 'react';
 ```
 
-The color `hsl(240 9% 2%)` matches CrossOver's radial gradient endpoint.
-
-### File: `src/components/CrossOver.tsx`
-
-**Change 4**: Add a `section-fade-top` div after the existing background layers (after line 43) to pull from TheWitnesses warm background.
-
-```jsx
-<div
-  className="section-fade-top"
-  style={{ background: 'linear-gradient(to top, transparent, hsl(45 20% 93%))' }}
-  aria-hidden="true"
-/>
+New:
+```tsx
+import { useRef } from 'react';
 ```
 
-The color `hsl(45 20% 93%)` matches TheWitnesses' gradient endpoint.
+Add import:
+```tsx
+import { useScrollReveal } from '@/hooks/useScrollReveal';
+```
+
+**2. Replace state and observer logic (lines 71-100):**
+
+Remove:
+- `const sectionRef = useRef<HTMLElement>(null);`
+- `const [introVisible, setIntroVisible] = useState(false);`
+- `const [closingVisible, setClosingVisible] = useState(false);`
+- `const introRef = useRef<HTMLDivElement>(null);`
+- `const closingRef = useRef<HTMLDivElement>(null);`
+- The entire `useEffect` block (lines 78-100)
+
+Replace with:
+```tsx
+const sectionRef = useRef<HTMLElement>(null);
+const { ref: introRef, isVisible: introVisible } = useScrollReveal({ threshold: 0.2 });
+const { ref: closingRef, isVisible: closingVisible } = useScrollReveal({ threshold: 0.2 });
+```
+
+**3. Update ref assignments (lines 125 and 158):**
+
+The `introRef` and `closingRef` from `useScrollReveal` return `RefObject<HTMLElement>`, which needs to be cast for the div elements. Update the ref assignments:
+
+Line 125: `ref={introRef as React.RefObject<HTMLDivElement>}`
+Line 158: `ref={closingRef as React.RefObject<HTMLDivElement>}`
 
 ## What Stays Unchanged
 
-All section content, copy, imagery, animation timing, layout, typography, reveal logic, and section ordering. This is purely a gradient color correction on transition overlays.
+All visual design, movement cards, gradient background, ceremony image, animations, section structure, and content. This is purely a boilerplate reduction.
 
 ## Expected Impact
 
-- Eliminates the visible warm band between ThreePaths and TheRecord (two dark sections)
-- Creates a smooth warm-to-dark transition between TheWitnesses and CrossOver
-- All section boundaries now have correct, matching gradient colors
-
+- 22 lines of duplicated observer logic removed
+- Reduced-motion handling now fully centralized in `useScrollReveal`
+- Consistent threshold (0.2) matching the rest of the homepage
+- ProcessSection follows the same pattern as all other homepage sections
