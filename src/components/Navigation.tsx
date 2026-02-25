@@ -6,12 +6,10 @@ import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 
 const navItems = [
-  { label: "Home", path: "/" },
+  { label: "Home", path: "/weddings" },
   { label: "Services", path: "/services" },
   { label: "About", path: "/about" },
-  { label: "Gallery", path: "/gallery" },
-  { label: "Listen", path: "/listen" },
-  { label: "FAQ", path: "/faq" },
+  { label: "Case Studies", path: "/gallery" },
   { label: "Contact", path: "/contact" },
 ];
 

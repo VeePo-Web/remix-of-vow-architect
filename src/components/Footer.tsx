@@ -67,12 +67,7 @@ export function Footer() {
               </li>
               <li>
                 <NavLink to="/gallery" className="text-foreground/50 hover:text-primary transition-colors duration-300 story-link">
-                  Gallery
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/faq" className="text-foreground/50 hover:text-primary transition-colors duration-300 story-link">
-                  FAQ
+                  Case Studies
                 </NavLink>
               </li>
               <li>
