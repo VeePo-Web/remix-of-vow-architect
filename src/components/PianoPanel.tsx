@@ -86,8 +86,8 @@ function PianoStrings({ visible }: { visible: boolean }) {
           className="absolute top-0 bottom-0"
           style={{
             left: `${pct}%`,
-            width: "0.5px",
-            background: `hsl(var(--vow-yellow) / 0.07)`,
+            width: "1px",
+            background: `linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.18), hsl(var(--vow-yellow) / 0.06))`,
             opacity: visible ? 1 : 0,
             transition: "opacity 180ms ease-out",
             transitionDelay: visible ? `${100 + i * 12}ms` : "0ms",
@@ -100,8 +100,8 @@ function PianoStrings({ visible }: { visible: boolean }) {
         className="absolute left-0 right-0"
         style={{
           top: "8px",
-          height: "0.5px",
-          background: `hsl(var(--vow-yellow) / 0.10)`,
+          height: "1px",
+          background: `hsl(var(--vow-yellow) / 0.22)`,
           opacity: visible ? 1 : 0,
           transition: "opacity 180ms ease-out 120ms",
         }}
@@ -114,9 +114,9 @@ function PianoStrings({ visible }: { visible: boolean }) {
           style={{
             left: `${pct}%`,
             top: "8px",
-            width: "0.5px",
-            height: "3px",
-            background: `hsl(var(--vow-yellow) / 0.12)`,
+            width: "1.5px",
+            height: "5px",
+            background: `hsl(var(--vow-yellow) / 0.25)`,
             opacity: visible ? 1 : 0,
             transition: "opacity 180ms ease-out 140ms",
           }}
@@ -128,9 +128,9 @@ function PianoStrings({ visible }: { visible: boolean }) {
         className="absolute left-0 right-0"
         style={{
           top: "20px",
-          height: "1px",
-          background: "hsl(40 20% 18%)",
-          opacity: visible ? 0.6 : 0,
+          height: "2px",
+          background: "hsl(var(--vow-yellow) / 0.10)",
+          opacity: visible ? 1 : 0,
           transition: "opacity 180ms ease-out 160ms",
         }}
       />
