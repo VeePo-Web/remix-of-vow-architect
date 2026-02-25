@@ -31,10 +31,10 @@ export function TheInvitation() {
       />
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          {/* Section Label */}
+          {/* Section Label — above grid, centered */}
           <p
             className={cn(
-              'text-xs uppercase tracking-[0.22em] text-rich-black/50 mb-12 text-center',
+              'text-xs uppercase tracking-[0.22em] text-rich-black/50 mb-8 text-center',
               'transition-all duration-700',
               isVisible
                 ? 'opacity-100 translate-y-0'

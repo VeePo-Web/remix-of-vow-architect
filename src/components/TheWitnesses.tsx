@@ -77,7 +77,7 @@ export function TheWitnesses() {
             />
             <h2
               className={cn(
-                "text-[clamp(28px,4vw,40px)] font-display font-light leading-tight mb-4 transition-all duration-700",
+                "text-[clamp(28px,4vw,40px)] font-display font-light leading-tight mb-4 text-center transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{ transitionDelay: isVisible ? "200ms" : "0ms", textWrap: "balance" as any }}

@@ -61,7 +61,7 @@ export function TheWitness() {
             {/* Headline with golden vow underline on "witness" */}
             <h2
               className={cn(
-                "text-[clamp(28px,4vw,40px)] font-display font-light leading-tight mb-10 transition-all duration-700",
+                "text-[clamp(28px,4vw,40px)] font-display font-light leading-tight mb-10 text-center transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{ transitionDelay: isVisible ? "150ms" : "0ms", textWrap: "balance" as any }}
@@ -87,7 +87,7 @@ export function TheWitness() {
                 <p 
                   key={index}
                   className={cn(
-                    "text-lg font-display font-light leading-relaxed text-foreground/90 transition-all duration-700",
+                    "text-lg font-display font-light leading-relaxed text-foreground/90 text-center transition-all duration-700",
                     isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                   )}
                   style={{ transitionDelay: isVisible ? `${300 + index * 100}ms` : "0ms" }}

@@ -77,7 +77,7 @@ export function ThreePaths() {
           </p>
           <h2
             className={cn(
-              "text-[clamp(28px,4vw,40px)] font-display font-light leading-tight text-foreground mb-4 transition-all duration-700",
+              "text-[clamp(28px,4vw,40px)] font-display font-light leading-tight text-foreground mb-4 text-center transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
             style={{ transitionDelay: isVisible ? "150ms" : "0ms", textWrap: "balance" as any }}
@@ -86,7 +86,7 @@ export function ThreePaths() {
           </h2>
           <p
             className={cn(
-              "text-base text-muted-foreground max-w-2xl mx-auto transition-all duration-700",
+              "text-base text-muted-foreground max-w-2xl mx-auto text-center transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
             style={{ transitionDelay: isVisible ? "300ms" : "0ms" }}
