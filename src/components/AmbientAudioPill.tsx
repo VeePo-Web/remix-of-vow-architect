@@ -1,12 +1,30 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { Play, Pause } from "lucide-react";
+import { Play, Pause, Shuffle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const tracks = [
+  // Classical
   { title: "Nocturne", src: "" },
-  { title: "Canon in D", src: "" },
   { title: "Clair de Lune", src: "" },
+  { title: "Canon in D", src: "" },
+  // Contemporary
+  { title: "A Thousand Years", src: "" },
+  { title: "Turning Page", src: "" },
+  { title: "All of Me", src: "" },
+  // Film / Cinematic
+  { title: "River Flows in You", src: "" },
+  { title: "Comptine d'un autre été", src: "" },
+  { title: "Moon River", src: "" },
 ];
+
+function fisherYatesShuffle(length: number): number[] {
+  const arr = Array.from({ length }, (_, i) => i);
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
 
 function WaveformBars({ active, reduced }: { active: boolean; reduced: boolean }) {
   return (
@@ -33,10 +51,13 @@ function WaveformBars({ active, reduced }: { active: boolean; reduced: boolean }
 export default function AmbientAudioPill() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [shuffledOrder, setShuffledOrder] = useState<number[]>(() => fisherYatesShuffle(tracks.length));
+  const [shufflePos, setShufflePos] = useState(0);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [reduced, setReduced] = useState(false);
+
+  const activeTrackIndex = shuffledOrder[shufflePos] ?? 0;
 
   useEffect(() => {
     setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
@@ -47,16 +68,7 @@ export default function AmbientAudioPill() {
     if (!audio) return;
     const onTime = () => setProgress(audio.currentTime);
     const onDur = () => setDuration(audio.duration);
-    const onEnd = () => {
-      const next = (activeIndex + 1) % tracks.length;
-      setActiveIndex(next);
-      if (tracks[next].src) {
-        audio.src = tracks[next].src;
-        audio.play().catch(() => {});
-      } else {
-        setIsPlaying(false);
-      }
-    };
+    const onEnd = () => advanceTrack();
     const onErr = () => setIsPlaying(false);
 
     audio.addEventListener("timeupdate", onTime);
@@ -69,7 +81,39 @@ export default function AmbientAudioPill() {
       audio.removeEventListener("ended", onEnd);
       audio.removeEventListener("error", onErr);
     };
-  }, [activeIndex]);
+  }, [shufflePos, shuffledOrder]);
+
+  const advanceTrack = useCallback(() => {
+    const nextPos = shufflePos + 1;
+    if (nextPos >= shuffledOrder.length) {
+      const newOrder = fisherYatesShuffle(tracks.length);
+      setShuffledOrder(newOrder);
+      setShufflePos(0);
+      const t = tracks[newOrder[0]];
+      if (t.src) {
+        audioRef.current!.src = t.src;
+        audioRef.current!.play().catch(() => {});
+      } else {
+        setIsPlaying(false);
+      }
+    } else {
+      setShufflePos(nextPos);
+      const t = tracks[shuffledOrder[nextPos]];
+      if (t.src) {
+        audioRef.current!.src = t.src;
+        audioRef.current!.play().catch(() => {});
+      } else {
+        setIsPlaying(false);
+      }
+    }
+  }, [shufflePos, shuffledOrder]);
+
+  const skipToNext = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    const audio = audioRef.current;
+    if (audio) audio.pause();
+    advanceTrack();
+  }, [advanceTrack]);
 
   const toggle = useCallback(() => {
     const audio = audioRef.current;
@@ -79,14 +123,14 @@ export default function AmbientAudioPill() {
       setIsPlaying(false);
     } else {
       if (!audio.src || audio.src === window.location.href) {
-        const t = tracks[activeIndex];
-        if (!t.src) return; // no src yet
+        const t = tracks[activeTrackIndex];
+        if (!t.src) return;
         audio.src = t.src;
       }
       audio.play().catch(() => {});
       setIsPlaying(true);
     }
-  }, [isPlaying, activeIndex]);
+  }, [isPlaying, activeTrackIndex]);
 
   const pct = duration > 0 ? (progress / duration) * 100 : 0;
 
@@ -162,17 +206,30 @@ export default function AmbientAudioPill() {
               isPlaying ? "opacity-100" : "opacity-0"
             )}
           >
-            {tracks[activeIndex].title}
+            {tracks[activeTrackIndex].title}
           </span>
         </span>
 
         <div
           className={cn(
-            "overflow-hidden transition-all duration-[260ms]",
-            isPlaying ? "opacity-100 max-w-[40px]" : "opacity-0 max-w-0"
+            "overflow-hidden transition-all duration-[260ms] flex items-center gap-1",
+            isPlaying ? "opacity-100 max-w-[60px]" : "opacity-0 max-w-0"
           )}
         >
           <WaveformBars active={isPlaying} reduced={reduced} />
+          <span
+            role="button"
+            tabIndex={0}
+            aria-label="Skip to next track"
+            onClick={skipToNext}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); skipToNext(e as any); } }}
+            className={cn(
+              "flex-shrink-0 cursor-pointer transition-opacity duration-[180ms]",
+              isPlaying ? "opacity-40 hover:opacity-70" : "opacity-0 pointer-events-none"
+            )}
+          >
+            <Shuffle size={10} className="text-muted-foreground" />
+          </span>
         </div>
 
         {/* Progress line */}
