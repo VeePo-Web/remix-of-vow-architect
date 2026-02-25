@@ -23,14 +23,11 @@ export function TheTransformation() {
 
   return (
     <section ref={sectionRef} className="section-grain relative min-h-[500px] overflow-hidden" style={{ minHeight: '500px' }}>
-      {/* Section Label */}
-      <div
-        className="absolute top-0 left-0 right-0 z-30 flex justify-center pt-12 md:pt-16 pointer-events-none"
-        style={{ background: 'linear-gradient(180deg, hsl(220 15% 8% / 0.8) 0%, transparent 100%)', paddingBottom: '40px' }}
-      >
+      {/* Section Label — standard positioning above split */}
+      <div className="container mx-auto px-4 pt-12 md:pt-16 pb-6 relative z-30">
         <p
           className={cn(
-            "text-xs uppercase tracking-[0.22em] text-foreground/50 transition-all duration-700",
+            "text-xs uppercase tracking-[0.22em] text-foreground/50 text-center transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
         >

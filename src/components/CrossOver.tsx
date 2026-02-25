@@ -56,14 +56,14 @@ export function CrossOver() {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
         >
-          <h2 
+          <p 
             className="text-[clamp(16px,2vw,20px)] uppercase tracking-[0.4em] font-display font-light text-foreground/80"
             style={{
               textShadow: "0 2px 8px rgba(0,0,0,0.6), 0 0 2px rgba(255,224,138,0.15)"
             }}
           >
             {"\u2018"}TIL DEATH <span className="text-primary">;</span> UNTO LIFE
-          </h2>
+          </p>
         </div>
 
         {/* Sacred Quote */}

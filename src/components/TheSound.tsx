@@ -163,7 +163,7 @@ export function TheSound() {
             <h2
               id="sound-heading"
               className={cn(
-                "text-[clamp(28px,4vw,40px)] font-display font-light leading-tight text-foreground mb-4 transition-all duration-700",
+                "text-[clamp(28px,4vw,40px)] font-display font-light leading-tight text-foreground mb-4 text-center transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{ transitionDelay: isVisible ? "150ms" : "0ms", textWrap: "balance" as any }}
@@ -174,7 +174,7 @@ export function TheSound() {
             {/* Subhead */}
             <p
               className={cn(
-                "text-lg font-display font-light italic text-muted-foreground mb-12 transition-all duration-700",
+                "text-lg font-display font-light italic text-muted-foreground mb-12 text-center transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{ transitionDelay: isVisible ? "300ms" : "0ms" }}
@@ -196,7 +196,7 @@ export function TheSound() {
             {/* Closing Caption */}
             <p
               className={cn(
-                "text-sm text-muted-foreground max-w-lg mx-auto transition-all duration-700",
+                "text-sm text-muted-foreground max-w-lg mx-auto text-center transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{ transitionDelay: isVisible ? "600ms" : "0ms" }}
