@@ -1,94 +1,131 @@
 
 
-# Secondary Pages Elevation -- Services, Gallery, FAQ, Contact
+# Name Update + Dedicated Sound Experience Page
 
-## Current State
+## Part 1: Name Change (Parker Allard to Parker Gawryletz)
 
-The homepage and About page are fully polished with AI-generated images, section transition fades, vinyl disc animation, now-playing mini-bar, golden rule separators, and breathing footer. The secondary pages are functional but lack the same cinematic depth.
+Two remaining references to the old name need updating:
 
-**What needs attention:**
-- Services, Gallery, FAQ, and Contact pages all share the same `services-hero.jpg` background or have minimal atmospheric treatment
-- No section transition fades between sections on any of these pages
-- No Ken Burns animation on background images
-- FAQ final CTA section contains meta-commentary text ("Buttons use clear, first-person labels...") that reads like design documentation, not user-facing copy
-- Gallery/Proof page hero lacks Ken Burns and vignette polish
-- Contact page background image at only 8% opacity with no Ken Burns
+**File: `src/components/FullScreenMenu.tsx`**
+- Change `parker@parkerallard.com` to `parker@parkergawryletz.com` (lines 100-101)
 
----
+**File: `src/hooks/usePageTheme.ts`**
+- Change localStorage key from `parker-allard-theme-override` to `parker-gawryletz-theme-override` (line 20)
 
-## Plan: 3 AI-Generated Images
-
-### Image 1: Services Page Hero
-**File:** `src/assets/services-hero.jpg` (replace existing -- currently shared across Services and FAQ)
-**Prompt:** "Elegant grand piano setup at a luxury wedding venue, warm ambient lighting, crystal chandeliers in soft bokeh, intimate reception space, rich dark wood tones, cinematic photography, shallow depth of field, editorial luxury style"
-**Purpose:** Give the Services page its own dedicated cinematic identity
-
-### Image 2: FAQ Page Hero
-**File:** `src/assets/faq-hero.jpg` (new)
-**Prompt:** "Close-up of professional audio equipment and microphone on a piano, warm golden backlighting, soft focus background showing wedding chairs, technical precision meets artistry, moody dark atmosphere, cinematic photography"
-**Purpose:** FAQ page currently shares the services image -- needs its own identity that conveys technical precision and trust
-
-### Image 3: Gallery/Proof Page Hero
-**File:** `src/assets/gallery-hero.jpg` (replace existing)
-**Prompt:** "Wedding ceremony setup from behind the piano, looking toward rows of guest chairs and a floral arch, outdoor mountain setting, golden hour light streaming through, sound equipment subtly visible, cinematic wide-angle photography"
-**Purpose:** Gallery hero needs to convey proof and professionalism -- seeing the setup from the pianist's perspective
+All other instances already say "Parker Gawryletz."
 
 ---
 
-## Plan: 6 Component Refinements
+## Part 2: The Listening Room -- A Dedicated Sound Page
 
-### 1. Services Page -- Ken Burns + Section Fades
-**File:** `src/pages/Pricing.tsx`
-- Add Ken Burns animation to background image (25s alternate)
-- Add `section-fade-bottom` gradient at bottom of hero area before InclusionBlock
+A new route at `/listen` that functions as an immersive, scroll-driven music experience where you can embed your own MP3 files. This is not a standard audio player page -- it is a cinematic listening environment.
 
-### 2. FAQ Page -- Dedicated Image + Remove Meta-Copy
-**File:** `src/pages/FAQ.tsx`
-- Import new `faq-hero.jpg` instead of `services-hero.jpg`
-- Add Ken Burns animation to background image
-- Fix the final CTA section: remove the meta-commentary paragraph ("Buttons use clear, first-person labels. Download links include file type and size. All images include alt text describing function (not decoration).") -- this reads like internal design notes, not user-facing copy
+### Concept: "The Listening Room"
 
-### 3. Gallery/Proof Page -- Ken Burns + Vignette Polish
-**File:** `src/pages/Proof.tsx`
-- Add Ken Burns animation to hero background image (30s alternate)
-- Add subtle ambient golden glow behind hero content
-- Add `section-fade-bottom` at end of hero section for smoother transition
+A dark, intimate page that feels like stepping into a private concert hall. As visitors scroll, they move through ceremony moments (Prelude, Processional, Bride's Entrance, Signing, Recession), each with its own track, waveform visualization, and contextual copy. The page plays audio as sections scroll into view, creating a continuous soundtrack experience.
 
-### 4. Contact Page -- Ken Burns + Section Fade
-**File:** `src/pages/Contact.tsx`
-- Add Ken Burns animation to background image
-- Increase background opacity from 0.08 to 0.10
-- Add subtle golden ambient glow in hero area
+### Page Structure
 
-### 5. FAQ Chips + Top Ten -- Golden Rule Separators
-**Files:** `src/components/FAQChips.tsx`, `src/components/FAQTopTen.tsx`
-- Add golden rule separator between section labels and headings for visual consistency with homepage and About page
+```text
++------------------------------------------+
+|  THE LISTENING ROOM (Hero)               |
+|  Dark void, single golden line pulsing   |
+|  "Step inside. Press play."              |
++------------------------------------------+
+|                                          |
+|  MOVEMENT I: THE PRELUDE                 |
+|  [ Waveform visualization ]             |
+|  Track: Canon in D (reimagined)          |
+|  "Before anyone arrives, the room        |
+|   fills with possibility."               |
+|                                          |
++------------------------------------------+
+|                                          |
+|  MOVEMENT II: THE PROCESSIONAL           |
+|  [ Waveform visualization ]             |
+|  Track: A Thousand Years                 |
+|  "The doors open. Footsteps begin."      |
+|                                          |
++------------------------------------------+
+|                                          |
+|  MOVEMENT III: THE ENTRANCE              |
+|  [ Waveform visualization ]             |
+|  Track: Married Life                     |
+|  "Everyone stands. Time stops."          |
+|                                          |
++------------------------------------------+
+|                                          |
+|  MOVEMENT IV: THE VOW                    |
+|  [ Waveform visualization ]             |
+|  Track: At Last                          |
+|  "The silence after 'I do.'"            |
+|                                          |
++------------------------------------------+
+|                                          |
+|  THE CROSSING (CTA)                      |
+|  "Every arrangement begins with a        |
+|   conversation."                         |
+|  [ Hold My Date ]                        |
++------------------------------------------+
+```
 
-### 6. Services Page -- Pricing Cards Section Fade
-**File:** `src/pages/Pricing.tsx`
-- Add `section-fade-bottom` gradient at the very bottom of the page before the footer for a smoother exit
+### Design Details
 
----
+**Hero Section:**
+- Full-screen dark void with a single horizontal golden line that pulses with a breathing animation (3s cycle)
+- Large display text: "The Listening Room" in Cormorant serif, fade-in over 800ms
+- Subtext: "Close your eyes. Press play. Feel what your ceremony sounds like."
+- AI-generated background image: dimly lit concert grand piano from audience perspective, single spotlight, dark auditorium
 
-## Files Changed Summary
+**Each Movement Section:**
+- Full viewport height, dark background with alternating warm undertones
+- Large movement number in faded display type (I, II, III, IV) as background watermark at 3% opacity
+- Track card with play/pause button, waveform bars animation, vinyl disc, and progress bar (reusing existing AudioPlayer patterns)
+- Contextual copy describing the ceremony moment in first person
+- IntersectionObserver auto-plays the track when section reaches 50% viewport (with user gesture requirement handled by an initial "Enter the room" interaction)
+- Ken Burns background with subtle section-specific imagery at 6-8% opacity
 
-| File | Action | Change |
-|------|--------|--------|
-| `src/assets/services-hero.jpg` | Replace | AI-generated luxury piano venue |
-| `src/assets/faq-hero.jpg` | Create | AI-generated audio equipment close-up |
-| `src/assets/gallery-hero.jpg` | Replace | AI-generated ceremony setup from pianist's POV |
-| `src/pages/Pricing.tsx` | Edit | Ken Burns on hero image, section fade |
-| `src/pages/FAQ.tsx` | Edit | New dedicated image, remove meta-copy |
-| `src/pages/Proof.tsx` | Edit | Ken Burns, golden glow, section fade |
-| `src/pages/Contact.tsx` | Edit | Ken Burns, increased opacity, golden glow |
-| `src/components/FAQChips.tsx` | Edit | Golden rule separator |
-| `src/components/FAQTopTen.tsx` | Edit | Golden rule separator |
+**Scroll-Linked Audio Behavior:**
+- When a movement section scrolls into view (50% threshold), highlight that track
+- A floating "Now Playing" mini-bar persists at the bottom (reusing existing NowPlayingBar component pattern)
+- Tracks crossfade as user scrolls between movements
 
-## What Stays Unchanged
+**Visual Accents:**
+- Golden thread connecting all movements (a thin 1px vertical line running through the page center, fading in/out per section)
+- Each movement has a subtle radial golden glow behind the waveform
+- Film grain overlay at 15% opacity throughout
+- Section fades between all movements
 
-- All copy, pricing, and service details (except removing the FAQ meta-commentary)
-- Homepage and About page (already polished)
-- All existing animation timing
-- Navigation, footer structure
-- Process section and form functionality
+### Technical Implementation
+
+**New Files:**
+| File | Purpose |
+|------|---------|
+| `src/pages/Listen.tsx` | Main page component with movement sections, scroll-linked audio, hero |
+| `src/components/ListeningMovement.tsx` | Reusable movement section with track player, copy, and reveal animations |
+
+**Modified Files:**
+| File | Change |
+|------|--------|
+| `src/App.tsx` | Add `/listen` route |
+| `src/components/Navigation.tsx` | Add "Listen" nav link |
+| `src/components/FullScreenMenu.tsx` | Add "Listen" link + fix email |
+| `src/hooks/usePageTheme.ts` | Add `/listen` to dark theme routes + fix localStorage key |
+
+### Audio File Placement
+
+MP3 files are referenced from `/audio/` in the public folder (same pattern as the existing TheSound section). You can replace these with your own recordings:
+- `/public/audio/canon-in-d.mp3`
+- `/public/audio/a-thousand-years.mp3`
+- `/public/audio/married-life.mp3`
+- `/public/audio/at-last.mp3`
+
+The track list is defined as a simple array at the top of `Listen.tsx` -- easy to update titles, contexts, and file paths.
+
+### What Stays Unchanged
+
+- All existing pages (Homepage, About, Services, FAQ, Contact, Gallery)
+- The Sound section on the homepage (remains as-is with its own player)
+- All pricing, process content, and copy
+- All existing animations and timing
 
