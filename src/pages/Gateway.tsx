@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useCallback, useRef } from "react";
+import AmbientAudioPill from "@/components/AmbientAudioPill";
 import weddingsImg from "@/assets/gateway-weddings.jpg";
 import teachingImg from "@/assets/gateway-teaching.jpg";
 import eventsImg from "@/assets/gateway-events.jpg";
@@ -196,6 +197,8 @@ export default function Gateway() {
           <span className="text-[hsl(var(--vow-yellow))]">.</span>
         </p>
       </footer>
+
+      <AmbientAudioPill />
     </div>
   );
 }
