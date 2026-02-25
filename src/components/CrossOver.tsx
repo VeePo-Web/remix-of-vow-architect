@@ -52,7 +52,7 @@ export function CrossOver() {
         {/* Tagline Returns (Bookend) */}
         <div
           className={cn(
-            "mb-16 transition-all duration-700",
+            "mb-10 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
         >
@@ -69,10 +69,10 @@ export function CrossOver() {
         {/* Sacred Quote */}
         <h2
           className={cn(
-            "text-[clamp(32px,5vw,56px)] font-[300] font-display leading-tight mb-12 text-foreground max-w-2xl mx-auto transition-all duration-700",
+            "text-[clamp(32px,5vw,56px)] font-display font-light leading-tight mb-12 text-foreground max-w-2xl mx-auto transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
-          style={{ transitionDelay: isVisible ? "150ms" : "0ms" }}
+          style={{ transitionDelay: isVisible ? "150ms" : "0ms", textWrap: "balance" as any }}
         >
           {"\u201C"}Your vows deserve<br />to be heard.{"\u201D"}
         </h2>
