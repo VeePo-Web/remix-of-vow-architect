@@ -32,13 +32,13 @@ const services = [
   },
 ];
 
-function CardImage({ image }: { image: string }) {
+function CardImage({ image, available }: { image: string; available: boolean }) {
   const imgRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (!imgRef.current) return;
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 8; // max ±4px
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 8;
     const y = ((e.clientY - rect.top) / rect.height - 0.5) * 8;
     imgRef.current.style.transform = `translate(${x}px, ${y}px)`;
     imgRef.current.style.transition = "transform 100ms ease-out";
@@ -59,7 +59,12 @@ function CardImage({ image }: { image: string }) {
     >
       <div
         ref={imgRef}
-        className="absolute -inset-2 bg-cover bg-center transition-opacity duration-500 opacity-[0.30] group-hover:opacity-[0.40]"
+        className={cn(
+          "absolute -inset-2 bg-cover bg-center transition-opacity duration-500",
+          available
+            ? "opacity-[0.35] group-hover:opacity-[0.45]"
+            : "opacity-[0.20]"
+        )}
         style={{ backgroundImage: `url(${image})` }}
       />
     </div>
@@ -96,7 +101,7 @@ export default function Gateway() {
         {services.map((s) => {
           const inner = (
             <>
-              <CardImage image={s.image} />
+              <CardImage image={s.image} available={s.available} />
               {/* Gradient overlay */}
               <div
                 className={cn(
@@ -139,7 +144,7 @@ export default function Gateway() {
             s.available ? "border border-white/[0.14]" : "border border-white/[0.06]",
             "transition-all duration-300 opacity-0 animate-fade-in",
             s.available
-              ? "cursor-pointer hover:-translate-y-2 hover:border-[hsl(var(--vow-yellow)/0.25)] hover:shadow-[0_16px_48px_rgba(255,224,138,0.08)]"
+              ? "cursor-pointer hover:-translate-y-2 hover:scale-[1.015] hover:border-[hsl(var(--vow-yellow)/0.25)] hover:shadow-[0_16px_48px_rgba(255,224,138,0.08)]"
               : "cursor-default"
           );
 
