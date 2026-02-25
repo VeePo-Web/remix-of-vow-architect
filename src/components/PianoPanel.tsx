@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import { cn } from "@/lib/utils";
 
 /* ─── Track Data ─── */
@@ -179,6 +179,24 @@ export default function PianoPanel({
   reduced,
 }: PianoPanelProps) {
   const panelRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollUp, setCanScrollUp] = useState(false);
+  const [canScrollDown, setCanScrollDown] = useState(false);
+
+  const checkScroll = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollUp(el.scrollTop > 2);
+    setCanScrollDown(el.scrollTop + el.clientHeight < el.scrollHeight - 2);
+  }, []);
+
+  // Check scroll state when panel opens
+  useEffect(() => {
+    if (isOpen) {
+      // Allow DOM to settle before measuring
+      requestAnimationFrame(checkScroll);
+    }
+  }, [isOpen, checkScroll]);
 
   // Click outside
   const handleOverlayClick = useCallback(
@@ -252,6 +270,8 @@ export default function PianoPanel({
 
         {/* Scroll container */}
         <div
+          ref={scrollRef}
+          onScroll={checkScroll}
           className="relative z-10 overflow-y-auto"
           style={{
             maxHeight: "420px",
@@ -265,6 +285,8 @@ export default function PianoPanel({
             style={{
               background:
                 "linear-gradient(to bottom, hsl(var(--rich-black)), transparent)",
+              opacity: canScrollUp ? 1 : 0,
+              transition: "opacity 180ms ease-out",
             }}
           />
 
@@ -349,6 +371,8 @@ export default function PianoPanel({
             style={{
               background:
                 "linear-gradient(to top, hsl(var(--rich-black)), transparent)",
+              opacity: canScrollDown ? 1 : 0,
+              transition: "opacity 180ms ease-out",
             }}
           />
         </div>
