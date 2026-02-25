@@ -1,43 +1,123 @@
 
 
-# Gateway Refinement -- Gradient Overlay Transition and Card Border Luminance on Hover
+# Gateway Refinement -- Ambient Audio Player ("Hear Me Play")
 
-## Audit Finding
+## The Concept
 
-### 1. The Bottom Gradient Overlay Is Static During Hover -- Missing a Key Depth Cue
+An ultra-minimal ambient audio control that lives in the bottom-left corner of the Gateway page. It does not demand attention -- it waits. A small, refined pill appears after the entrance choreography completes (~2000ms), offering a single quiet invitation: a play icon and the words "Hear me play." One tap, and piano begins. The pill contracts to a breathing waveform indicator -- proof that sound is alive, but never intrusive. The visitor browses in atmosphere.
 
-When hovering the Weddings card, the image opacity increases from 0.35 to 0.45, the card lifts by 2px and scales to 1.015, and the border warms to vow-yellow at 25% opacity. However, the gradient overlay sitting between the image and the text content remains completely static: `from-black/70 via-black/30 to-black/10`. This means the image brightens behind an unchanging dark veil -- the two layers fight each other. The visitor's eye registers something changed but the text area feels inert.
-
-World-class card hover states (Apple product cards, Fantasy project entries) subtly lighten the gradient on hover, allowing the image warmth to "breathe through" to the content area. This creates a sense of the card opening up -- inviting you in -- rather than just mechanically lifting.
-
-**The fix:** Add a hover-state gradient variant on the available card's overlay: transition from `from-black/70` to `from-black/60` on group-hover. The `via` and `to` stops remain unchanged. This 10% lightening of just the bottom band creates a subtle warmth shift that synchronizes with the image opacity increase, making the hover feel cohesive rather than layered. The transition uses the existing `duration-500` on the overlay div.
-
-### 2. Card Border Lacks Transition Smoothness
-
-The border shifts from `border-white/[0.14]` to `hover:border-[hsl(var(--vow-yellow)/0.25)]` via the card's `transition-all duration-300`. However, transitioning between two completely different color formats (rgba white vs hsl yellow) can cause a hard color jump on some browsers rather than a smooth interpolation. This is because CSS transitions between different color spaces can produce unexpected intermediate values.
-
-**The fix:** Normalize the resting border to use the same hsl format as the hover state: change `border-white/[0.14]` to `border-[hsl(var(--vow-yellow)/0.08)]`. At 8% opacity, vow-yellow is virtually indistinguishable from white at 14% opacity against a rich-black background -- both read as a faint warm-neutral line. But now the transition from 8% to 25% of the same hsl color produces a perfectly smooth, single-channel interpolation. The border "warms" rather than "switches." The dormant cards keep `border-white/[0.06]` unchanged since they have no hover state.
+This is the digital equivalent of walking into a high-end gallery and hearing a solo piano echoing softly from another room. You do not see the pianist. You simply feel the space change.
 
 ---
 
-## Specifications
+## Design Philosophy
 
-### Gradient Overlay Hover
-- Available card overlay: add `group-hover:from-black/60` alongside existing `from-black/70`
-- Add `transition-all duration-500` to the overlay div (it currently has no transition classes)
+The feature must satisfy three constraints simultaneously:
 
-### Card Border Color Normalization
-- Available card resting border: `border-white/[0.14]` changes to `border-[hsl(var(--vow-yellow)/0.08)]`
-- Hover border remains: `hover:border-[hsl(var(--vow-yellow)/0.25)]`
-- Dormant card border unchanged: `border-white/[0.06]`
+1. **Humble in language** -- "Hear me play" is an offer, not a command. No "enhance your experience" or "immersive soundtrack." Just a quiet, first-person invitation.
+2. **Confident in presence** -- The control is always accessible, always elegant, never hidden behind a menu or modal. Its mere existence says: "I am good enough that the sound will only help."
+3. **Frictionless in interaction** -- One tap to start. One tap to stop. No track selection, no volume sliders, no playlist UI. The Gateway is a threshold, not a listening room. Complexity belongs on the Listen page.
+
+---
+
+## Interaction Choreography
+
+### Entrance
+- The pill fades in at `2000ms` delay (after all cards and footer have landed)
+- Opacity 0 to 1 over 300ms with a subtle 6px upward translate
+- Resting state: semi-transparent background (`bg-white/[0.06]`), border at `border-white/[0.08]`
+
+### Idle State (Not Playing)
+- Play triangle icon (12px, `lucide` `Play`) + "Hear me play" in 11px uppercase tracking
+- Subtle hover: background warms to `bg-white/[0.10]`, 180ms transition
+
+### Playing State
+- Text crossfades from "Hear me play" to the current track title (e.g., "Canon in D")
+- Play icon morphs to Pause icon
+- 5 tiny waveform bars (3px wide, vow-yellow) animate beside the track title
+- Pill border warms to `border-[hsl(var(--vow-yellow)/0.15)]`
+- A thin 2px progress line runs along the bottom of the pill
+
+### Track Advancement
+- Placeholder: 3 tracks defined in an array with `title` and `src` (empty string for now)
+- When one track ends, the next begins automatically (loop back to first after last)
+- Track title crossfades on change (180ms opacity transition)
+
+### Dismissal
+- Tap the pill while playing to pause
+- Tap again to resume
+- No close/dismiss button -- the pill is always present, just quiet when inactive
+
+---
+
+## Technical Specifications
+
+### New Component: `AmbientAudioPill`
+Located at `src/components/AmbientAudioPill.tsx`
+
+**Props:** None (self-contained, manages own audio element)
+
+**Internal state:**
+- `isPlaying: boolean`
+- `activeIndex: number` (current track)
+- `progress: number` (currentTime)
+- `duration: number`
+
+**Audio management:**
+- Single `<audio>` element with `preload="none"`
+- Tracks array with 3 placeholder entries (empty `src` for now, titles like "Nocturne," "Canon in D," "Clair de Lune")
+- `timeupdate` listener for progress bar
+- `ended` listener to advance to next track
+- `error` handler to silently skip broken tracks
+
+**Reduced motion:**
+- Waveform bars fall back to static heights
+- Entrance animation becomes opacity-only (no translate)
+
+### Waveform Bars
+- 5 bars, 3px wide, 2px gap
+- Height range: 4px to 14px (smaller than the Listen page's 22px -- this is ambient, not focal)
+- Animation: reuse `waveform-bar` keyframe at 900ms (slower, calmer than Listen page's 700-800ms)
+- Color: `hsl(var(--vow-yellow))` when playing, `foreground/15` when paused
+
+### Positioning
+- `fixed bottom-6 left-6` (desktop)
+- `fixed bottom-4 left-4` (mobile, via responsive classes)
+- `z-30` (below the potential nav overlay at z-50, above content)
+
+### Sizing
+- Pill height: 40px
+- Idle width: ~160px (auto based on content)
+- Playing width: ~180px (slightly wider for track title + waveform)
+- Border radius: `rounded-full`
+- Padding: `px-4`
+
+### Animation Timings
+- Entrance fade: 300ms, delay 2000ms
+- Play/pause icon swap: instant (no transition needed on icon swap)
+- Track title crossfade: 180ms opacity
+- Hover background: 180ms
+- Progress bar: no transition (direct width binding like existing players)
+- Waveform bars: 900ms ease-in-out infinite alternate
+
+---
+
+## Integration in Gateway
+
+In `src/pages/Gateway.tsx`:
+- Import and render `<AmbientAudioPill />` as a sibling to the footer, positioned fixed so it floats independently of the flex layout
+- No props needed -- the component is self-contained
+
+---
 
 ## Files Changed
 
 | File | Change |
 |------|--------|
-| `src/pages/Gateway.tsx` | Update available card gradient overlay classes to include hover variant and transition; update available card resting border color format |
+| `src/components/AmbientAudioPill.tsx` | New component: ambient audio pill with play/pause, waveform bars, progress line, track advancement |
+| `src/pages/Gateway.tsx` | Import and render `<AmbientAudioPill />` at the bottom of the page component |
 
 ## What Stays Unchanged
 
-All typography, copy, aspect ratios, animation stagger, routing, images, opacity layers, golden thread, semicolon breathing, arrow affordance, hover scale/lift, parallax, CTA labels, and mobile layout remain exactly as they are.
+All card layout, typography, copy, aspect ratios, animation stagger, routing, images, opacity layers, gradient overlays, border luminance, golden thread, semicolon breathing, arrow affordance, hover states, and mobile card layout remain exactly as they are.
 
