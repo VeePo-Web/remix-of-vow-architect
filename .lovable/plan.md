@@ -1,48 +1,52 @@
 
 
-# Gateway Mobile Fix -- Viewport-Locked Card Layout
+# Gateway Refinement -- Golden Thread Connector and Staggered Reveal Choreography
 
-## The Problem
+## Audit Finding
 
-On mobile (375x812), the Gateway page overflows and scrolls. The wordmark is clipped at the top, the third card (Events) is cut off, and the tagline is completely hidden below the fold. This breaks the core design intent of a viewport-locked, no-scroll experience.
+Two opportunities surfaced during this audit cycle:
 
-**Root cause:** Each card uses `aspect-[3/4]` on both mobile and desktop. Three cards at 3:4 aspect ratio stacked vertically (plus header margins and footer) far exceed the mobile viewport height.
+### 1. Missing Visual Hierarchy Between Cards (The "Golden Thread")
 
-## The Fix
+The three cards currently float as isolated rectangles with no visual relationship to one another. World-class agency work (Fantasy, Pentagram) uses connective tissue -- subtle lines, shared geometry, or visual threads -- to signal that disparate elements belong to a unified system. The brand document explicitly calls for "golden threads connecting moments."
 
-Replace the fixed aspect ratio on mobile with a flex-based layout that distributes available vertical space evenly across the three cards. The aspect ratio remains on desktop where the cards sit side-by-side.
+**The fix:** Add a thin horizontal golden line (1px, vow-yellow at 15% opacity) that runs behind the cards on desktop, vertically centered. On mobile, this becomes a vertical thread. This is purely decorative (`aria-hidden`), positioned absolutely behind the card container, and fades in with the last card's animation delay. It creates the subliminal impression that the three services are branches of a single trunk -- Parker's artistry.
 
-### Specific changes in `src/pages/Gateway.tsx`:
+### 2. Card Hover Lacks a Directional Arrow Affordance
 
-1. **Card container:** Change from simple `flex-col` to a flex layout that fills available space on mobile. Add `flex-1 min-h-0` so the card group stretches to fill the space between header and footer without overflow.
+The Weddings card says "Enter" but has no visual cue that it leads somewhere. The "Coming Soon" cards have no differentiation beyond dimmed text. A small directional arrow (a simple CSS-drawn chevron or Unicode arrow) that slides in on hover for the active card would provide:
+- Clear affordance that this is a navigational element
+- Motion choreography that feels intentional (180ms, matching brand timing)
+- A detail that separates this from a static poster and makes it feel interactive
 
-2. **Individual cards:** Remove `aspect-[3/4]` on mobile. Use `flex-1 min-h-0` so each card takes equal share of the available height. Keep `md:aspect-[3/4]` for desktop where the horizontal layout has room.
+**The fix:** On hover of available cards, animate a small right-arrow (`\u2192`) sliding 8px from the left alongside the "Enter" text. Uses `translate-x` and `opacity` transition at 180ms. No arrow appears on unavailable cards.
 
-3. **Outer wrapper margins:** Reduce `mb-10` on the header and `mt-10` on the footer to `mb-6`/`mt-6` on mobile to reclaim vertical space. Keep the larger `md:mb-14`/`md:mt-14` values for desktop.
+---
 
-### Technical detail
+## Specifications
 
-```text
-Before (mobile):
-  h-screen container (justify-center)
-    header (mb-10)
-    cards-row (3 x aspect-3/4 stacked) -- OVERFLOWS
-    footer (mt-10)
+### Golden Thread
+- Element: `div` with `position: absolute`, 1px height (desktop) or 1px width (mobile)
+- Color: `hsl(var(--vow-yellow) / 0.15)`
+- Desktop: horizontal, vertically centered in the card container, full width minus 48px padding
+- Mobile: vertical, horizontally centered, full height of card container
+- Animation: fades in at 1400ms delay (same as footer), 600ms duration
+- `aria-hidden="true"`, `pointer-events: none`
 
-After (mobile):
-  h-screen container (no justify-center on mobile)
-    header (mb-6, shrink-0)
-    cards-row (flex-1, min-h-0, children flex-1) -- FILLS REMAINING SPACE
-    footer (mt-6, shrink-0)
-```
+### Directional Arrow on Hover
+- Character: `\u2192` (right arrow)
+- Default state: `opacity-0 -translate-x-2`
+- Hover state: `opacity-100 translate-x-0`
+- Transition: 180ms ease-out (matches brand hover timing)
+- Only rendered when `s.available === true`
 
 ## Files Changed
 
 | File | Change |
 |------|--------|
-| `src/pages/Gateway.tsx` | Fix mobile layout: remove fixed aspect ratio on small screens, use flex-fill distribution, reduce mobile margins |
+| `src/pages/Gateway.tsx` | Add golden thread connector element behind cards; add arrow affordance to "Enter" label on available cards |
 
 ## What Stays Unchanged
 
-Desktop layout, all animations, parallax, semicolon breathing, routing, and all other pages remain exactly as they are.
+All routing, mobile flex layout, parallax, semicolon breathing, animation timings, and desktop aspect ratios remain exactly as they are.
 
