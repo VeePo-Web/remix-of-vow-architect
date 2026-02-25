@@ -1,41 +1,43 @@
 
 
-# Gateway Refinement -- Ambient Audio Pill Border Warmth Transition
+# Gateway Refinement -- Ambient Audio Pill Entrance Choreography
 
 ## Audit Finding
 
-The icon crossfade, text dissolve, and waveform bloom are now all breathing. One binary snap remains: the **border color**. When toggling between idle and playing states, the pill's border jumps instantly from `border-white/[0.08]` (cool, neutral) to `border-[hsl(var(--vow-yellow)/0.15)]` (warm, golden). This is handled by a className swap -- but because the border color property is not included in the pill's `transition` declaration, the shift is instantaneous.
+All four transition layers (icon crossfade, text dissolve, waveform bloom, border warmth) now breathe as one organism. The pill's *internal* behavior is polished. But the pill's **entrance** -- how it first appears on the page -- is generic. It uses the standard `animate-fade-in` class (a 300ms fade + 10px translateY lift), which is the same entrance animation used by dozens of elements across the site. For a component this special -- a floating, living audio control that invites the visitor into a sensory experience -- the entrance should be bespoke, not borrowed.
 
-The current transition property is explicitly scoped: `transition-[background-color,border-color] duration-[180ms]`. This *should* work. However, the border classes themselves are being swapped via conditional `cn()` -- Tailwind generates different class names for each state, and the browser treats this as a full class replacement rather than a smooth property interpolation. The background transitions correctly because both states use `bg-white/[...]` (same hue, different alpha). But the border jumps from a `white` base to an `hsl(var(--vow-yellow))` base -- a hue shift that *does* interpolate correctly in CSS, but only if both classes coexist with the transition property applied consistently.
+World-class audio interfaces (Apple's AirPlay pill, Sonos's ambient controller, Bang & Olufsen's floating UI) enter the viewport with a distinct micro-choreography: they rise from a slightly deeper offset, scale from just below 1.0, and fade in -- all slightly staggered so the motion reads as "emerging" rather than "appearing." The current 10px lift and 300ms fade reads as a standard UI element mounting. The pill deserves its own entrance that feels like it *surfaces* -- as if it was always there, just beneath the threshold of perception, and now slowly reveals itself.
 
-The real issue: the conditional ternary applies *either* the warm border *or* the cool border class, never both simultaneously. The outgoing class is removed before the transition can occur. This is a common Tailwind pitfall with state-dependent styling.
+Additionally, the 2000ms entrance delay is correct (the pill should arrive after the page settles), but the animation itself should be longer than the standard 300ms. A 600ms entrance with a gentle scale-up from 0.96 to 1.0 and a 16px rise creates a "surfacing" feel -- the pill rises like a breath, not a pop.
 
 ## The Fix
 
-Instead of swapping border classes conditionally, apply a single persistent border with a CSS custom property for color, and transition that property. Specifically:
+Replace the generic `animate-fade-in` with a bespoke `animate-pill-surface` keyframe that combines:
+- Opacity: 0 to 1
+- TranslateY: 16px to 0
+- Scale: 0.96 to 1.0
+- Duration: 600ms
+- Easing: cubic-bezier(0.22, 0.61, 0.36, 1) (the brand's standard easing)
 
-1. Remove the conditional border classes from the `cn()` ternary
-2. Apply a single `border` class to the button at all times
-3. Use inline `style` to set `borderColor` based on `isPlaying`, allowing CSS `transition-property: border-color` to interpolate smoothly between the two values
-4. Keep the existing `duration-[180ms]` timing
-
-This ensures the border *dissolves* from cool neutral to warm golden over 180ms -- matching the icon crossfade, text dissolve, and background shift. The pill now transitions as a single unified organism rather than snapping one property while breathing the others.
+This keyframe is defined inline (in the existing `<style>` block already present for the waveform animation), keeping it scoped to this component. The `animate-fade-in` class is replaced with a custom class referencing this keyframe.
 
 ## Specifications
 
-- Remove conditional border color from className ternary
-- Add persistent `border` class
-- Set `borderColor` via inline style: `isPlaying ? 'hsl(var(--vow-yellow) / 0.15)' : 'rgba(255,255,255,0.08)'`
-- Existing `transition-[background-color,border-color] duration-[180ms]` handles the interpolation
-- Hover state for idle: keep `hover:bg-white/[0.10]` (background only, no border change on hover)
+- New keyframe `pill-surface`: `0% { opacity: 0; transform: translateY(16px) scale(0.96); } 100% { opacity: 1; transform: translateY(0) scale(1); }`
+- Duration: 600ms
+- Easing: cubic-bezier(0.22, 0.61, 0.36, 1)
+- Delay: 2000ms (unchanged)
+- Fill mode: forwards (unchanged)
+- Replace `animate-fade-in` class with inline animation style
+- Reduced motion fallback: opacity-only, 120ms
 
 ## File Changed
 
 | File | Change |
 |------|--------|
-| `src/components/AmbientAudioPill.tsx` | Move border color from conditional className to inline style for smooth CSS transition |
+| `src/components/AmbientAudioPill.tsx` | Add bespoke `pill-surface` keyframe; replace generic fade-in with surfacing entrance |
 
 ## What Stays Unchanged
 
-All icon crossfade, text dissolve, waveform bloom, positioning (mobile centered / desktop bottom-left), progress line, entrance delay, audio logic, track advancement, reduced motion handling, and background transitions remain exactly as they are.
+All icon crossfade, text dissolve, waveform bloom, border warmth transition, positioning, progress line, audio logic, track advancement, and hover states remain exactly as they are.
 
