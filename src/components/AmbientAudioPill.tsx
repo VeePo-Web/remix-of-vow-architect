@@ -98,6 +98,16 @@ export default function AmbientAudioPill() {
           0% { height: 4px; }
           100% { height: 14px; }
         }
+        @keyframes pill-surface {
+          0% { opacity: 0; transform: translateY(16px) scale(0.96); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          @keyframes pill-surface {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+          }
+        }
       `}</style>
       <button
         onClick={toggle}
@@ -106,14 +116,17 @@ export default function AmbientAudioPill() {
           "fixed bottom-16 left-1/2 -translate-x-1/2 md:bottom-6 md:left-6 md:translate-x-0 z-30",
           "h-10 rounded-full px-4 flex items-center gap-2",
           "backdrop-blur-sm select-none",
-          "opacity-0 animate-fade-in",
+          "opacity-0",
           "transition-[background-color,border-color] duration-[180ms]",
           "border",
           isPlaying
             ? "bg-white/[0.08]"
             : "bg-white/[0.06] hover:bg-white/[0.10]"
         )}
-        style={{ animationDelay: "2000ms", animationFillMode: "forwards", borderColor: isPlaying ? "hsl(var(--vow-yellow) / 0.15)" : "rgba(255,255,255,0.08)" }}
+        style={{
+          animation: "pill-surface 600ms cubic-bezier(0.22,0.61,0.36,1) 2000ms forwards",
+          borderColor: isPlaying ? "hsl(var(--vow-yellow) / 0.15)" : "rgba(255,255,255,0.08)",
+        }}
       >
         <span className="relative w-[14px] h-[14px] flex-shrink-0">
           <span
