@@ -1,6 +1,7 @@
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 interface FullScreenMenuProps {
   isOpen: boolean;
@@ -67,9 +68,9 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
       <div className="flex flex-col justify-center items-start min-h-screen px-8 md:px-16 lg:px-24">
         <nav className="space-y-6 md:space-y-8">
           {menuItems.map((item, index) => (
-            <a
+            <Link
               key={item.number}
-              href={item.href}
+              to={item.href}
               className={cn(
                 "flex items-baseline gap-6 group transition-all duration-300",
                 isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
@@ -85,7 +86,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
               <span className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground group-hover:text-accent transition-colors duration-300">
                 {item.label}
               </span>
-            </a>
+            </Link>
           ))}
         </nav>
 
