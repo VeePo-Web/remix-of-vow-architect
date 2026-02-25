@@ -1,48 +1,43 @@
 
 
-# Gateway Refinement -- Description Copy Refinement and CTA Micro-Interaction Polish
+# Gateway Refinement -- Gradient Overlay Transition and Card Border Luminance on Hover
 
 ## Audit Finding
 
-### 1. Card Description Copy Lacks Brand Voice Differentiation
+### 1. The Bottom Gradient Overlay Is Static During Hover -- Missing a Key Depth Cue
 
-All three card descriptions use a generic service-listing tone: "Sacred ceremony audio," "Private lessons & studio sessions," "Live music for your occasion." While functional, these read as category labels rather than brand-voice copy. The brand's first-person, composed, reverent voice ("I will carry every word") is absent from the Gateway -- the very first touchpoint a visitor encounters. World-class gateway pages (Pentagram partner pages, Fantasy project entries) use evocative micro-copy that hints at the experience within, not just categorizes it.
+When hovering the Weddings card, the image opacity increases from 0.35 to 0.45, the card lifts by 2px and scales to 1.015, and the border warms to vow-yellow at 25% opacity. However, the gradient overlay sitting between the image and the text content remains completely static: `from-black/70 via-black/30 to-black/10`. This means the image brightens behind an unchanging dark veil -- the two layers fight each other. The visitor's eye registers something changed but the text area feels inert.
 
-**The fix:** Shift each description to a first-person, emotionally resonant fragment that previews the world behind each card:
+World-class card hover states (Apple product cards, Fantasy project entries) subtly lighten the gradient on hover, allowing the image warmth to "breathe through" to the content area. This creates a sense of the card opening up -- inviting you in -- rather than just mechanically lifting.
 
-- Weddings: "Sacred ceremony audio" becomes "I carry every vow so it lands where it belongs"
-- Teaching: "Private lessons & studio sessions" becomes "Learn the instrument that speaks when words fall short"
-- Events: "Live music for your occasion" becomes "Live piano for moments that demand presence"
+**The fix:** Add a hover-state gradient variant on the available card's overlay: transition from `from-black/70` to `from-black/60` on group-hover. The `via` and `to` stops remain unchanged. This 10% lightening of just the bottom band creates a subtle warmth shift that synchronizes with the image opacity increase, making the hover feel cohesive rather than layered. The transition uses the existing `duration-500` on the overlay div.
 
-Each line is under 60 characters, maintains the brand's composed tone, and gives the visitor an emotional reason to enter rather than just a category description.
+### 2. Card Border Lacks Transition Smoothness
 
-### 2. The "ENTER" CTA Label Lacks Contextual Warmth
+The border shifts from `border-white/[0.14]` to `hover:border-[hsl(var(--vow-yellow)/0.25)]` via the card's `transition-all duration-300`. However, transitioning between two completely different color formats (rgba white vs hsl yellow) can cause a hard color jump on some browsers rather than a smooth interpolation. This is because CSS transitions between different color spaces can produce unexpected intermediate values.
 
-"Enter" is functional but cold -- it reads like a software command, not an invitation. The brand philosophy frames every interaction as crossing a threshold ("The Crossing," the semicolon as threshold). The CTA should feel like an invitation to cross into that world, not a button click. Additionally, the arrow transition at 180ms is correct but could benefit from a slightly longer travel distance to feel more intentional.
-
-**The fix:** Change "Enter" to "Step Inside" -- a phrase that carries the threshold metaphor, feels warm and invitational, and reads as first-person hospitality rather than UI instruction. Increase the arrow's initial offset from `-translate-x-2` (8px) to `-translate-x-3` (12px) to give the slide-in 50% more travel distance, making the motion more perceptible and satisfying without changing the 180ms duration.
+**The fix:** Normalize the resting border to use the same hsl format as the hover state: change `border-white/[0.14]` to `border-[hsl(var(--vow-yellow)/0.08)]`. At 8% opacity, vow-yellow is virtually indistinguishable from white at 14% opacity against a rich-black background -- both read as a faint warm-neutral line. But now the transition from 8% to 25% of the same hsl color produces a perfectly smooth, single-channel interpolation. The border "warms" rather than "switches." The dormant cards keep `border-white/[0.06]` unchanged since they have no hover state.
 
 ---
 
 ## Specifications
 
-### Description Copy
-- Weddings: "I carry every vow so it lands where it belongs"
-- Teaching: "Learn the instrument that speaks when words fall short"
-- Events: "Live piano for moments that demand presence"
+### Gradient Overlay Hover
+- Available card overlay: add `group-hover:from-black/60` alongside existing `from-black/70`
+- Add `transition-all duration-500` to the overlay div (it currently has no transition classes)
 
-### CTA Label
-- "Enter" changes to "Step Inside"
-
-### Arrow Travel Distance
-- Initial offset: `-translate-x-2` changes to `-translate-x-3`
+### Card Border Color Normalization
+- Available card resting border: `border-white/[0.14]` changes to `border-[hsl(var(--vow-yellow)/0.08)]`
+- Hover border remains: `hover:border-[hsl(var(--vow-yellow)/0.25)]`
+- Dormant card border unchanged: `border-white/[0.06]`
 
 ## Files Changed
 
 | File | Change |
 |------|--------|
-| `src/pages/Gateway.tsx` | Update three description strings in services array; change "Enter" to "Step Inside" in render; change arrow `-translate-x-2` to `-translate-x-3` |
+| `src/pages/Gateway.tsx` | Update available card gradient overlay classes to include hover variant and transition; update available card resting border color format |
 
 ## What Stays Unchanged
 
-All typography hierarchy, aspect ratios, animation stagger, routing, images, opacity layers, gradient overlays, border luminance, golden thread, semicolon breathing, hover scale/lift/glow, parallax, and mobile layout remain exactly as they are.
+All typography, copy, aspect ratios, animation stagger, routing, images, opacity layers, golden thread, semicolon breathing, arrow affordance, hover scale/lift, parallax, CTA labels, and mobile layout remain exactly as they are.
+
