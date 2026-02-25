@@ -1,46 +1,34 @@
 
 
-# Audit: Redundant Waveform Duplication and Panel-to-Pill Visual Disconnect
+# Audit: Clipped Caret and Dead Code Cleanup
 
 ## Findings
 
-### 1. Double Waveform Clutter
+### 1. Caret Is Invisible -- Clipped by overflow-hidden
 
-When a track is playing and the panel is closed, the pill now renders animated waveform bars in **two places simultaneously**:
-- **Left icon slot**: 4 mini bars (1.5px wide, vow-yellow, animated) -- added in the last refinement
-- **Right side**: 4 larger bars (2px wide, vow-yellow, animated) via the `WaveformBars` component
+The panel's outer container has `overflow-hidden` (line 221) to contain the scroll area and piano string decorations. But the caret notch we just added sits at `bottom: -8px` -- 8 pixels outside the container bounds. The `overflow-hidden` clips it entirely. The caret is rendered in the DOM but visually invisible.
 
-Two identical animations flanking a title is visually redundant and breaks the Swedish "lagom" principle -- just the right amount, never more. Premium audio interfaces (Sonos app, Apple Music mini-player) show the equalizer indicator in exactly one location. The left icon slot is the correct place because it replaces the play/X icon contextually. The right-side waveform should be removed, leaving only the pause/play toggle button on the right.
+This is a silent bug. The panel still appears to float disconnected from the pill.
 
-**The fix**: Remove the `WaveformBars` component render from the right-side section. Keep only the pause/play toggle button there. This gives the pill a clean three-part layout: [waveform icon] [title] [pause button].
+**The fix**: Remove `overflow-hidden` from the outer panel container. The scroll containment is already handled by the inner scroll div (line 254-255, which has `overflow-y-auto`). The piano strings layer has its own `overflow-hidden` via the `PianoStrings` component (line 80). The outer container does not need overflow clipping -- it only prevents the caret from rendering.
 
-### 2. Floating Panel Has No Visual Anchor
+### 2. Dead WaveformBars Component
 
-The panel hovers above the pill with no visual connection between them. It appears as a disconnected rectangle floating in space. World-class popovers (Apple's context menus, Framer's dropdowns, Linear's command palette) create a subtle visual thread between trigger and popover -- typically a small caret/notch or a shared glow that says "I came from here."
+The `WaveformBars` function (lines 7-31) and its associated constants (`barHeights`, `barOpacities`, `idleHeights`, lines 7-9) are no longer referenced anywhere. The right-side waveform render was removed in the previous iteration, but the component definition was left behind. Dead code adds cognitive weight and signals lack of craft.
 
-**The fix**: Add a tiny downward-pointing caret at the bottom-center of the panel. This is a 8px-tall CSS triangle using `border` technique, colored to match the panel background (`hsl(var(--rich-black))`), with a 1px border that continues the panel's `vow-yellow / 0.08` border. It sits at the bottom edge of the panel, pointing down toward the pill. On desktop it aligns with the pill's horizontal center (`left: ~80px` to center over the pill). On mobile it centers. This creates a physical "speech bubble" connection that makes the panel feel tethered to the pill rather than arbitrarily floating.
+**The fix**: Remove lines 6-31 (the `WaveformBars` component, `barHeights`, `barOpacities`, `idleHeights` constants, and the comment).
 
 ## Technical Changes
 
-### File: `src/components/AmbientAudioPill.tsx`
-
-**Change 1 -- Remove right-side WaveformBars render (around lines 288-296):**
-
-Remove the `{showWaveform && <WaveformBars ... />}` line. Keep the pause/play toggle button. Simplify the container's visibility condition to only depend on `showPauseButton` (active track exists, panel closed).
-
 ### File: `src/components/PianoPanel.tsx`
 
-**Change 2 -- Add caret/notch at panel bottom (after the panel's closing div):**
+**Change**: On line 221, remove `overflow-hidden` from the className string. Change `"fixed z-30 overflow-hidden"` to `"fixed z-30"`.
 
-Add an absolutely-positioned pseudo-element or small `div` at the bottom of the panel container. It will be an 8px downward-pointing triangle made with CSS borders:
-- `border-left: 8px solid transparent`
-- `border-right: 8px solid transparent`  
-- `border-top: 8px solid hsl(var(--rich-black))`
-- Positioned: `bottom: -8px`, horizontally centered on mobile, offset to align with the pill center on desktop
-- Inherits the panel's opacity/transform animation so it appears and disappears with the panel
-- A subtle `0.5px` outline matching the panel border color for continuity
+### File: `src/components/AmbientAudioPill.tsx`
+
+**Change**: Remove lines 6-31 (the dead `WaveformBars` component and its constants). The unused `showWaveform` variable on line 142 should also be removed since it only served the now-deleted waveform render.
 
 ## What Stays Unchanged
 
-Panel interior (strings, hammers, damper, categories, tracks), pill entrance animation, progress bar, audio logic, track data.
+All panel interior styling, pill behavior, audio logic, caret positioning, track data, entrance animations.
 
