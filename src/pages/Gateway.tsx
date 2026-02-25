@@ -86,7 +86,13 @@ export default function Gateway() {
       </header>
 
       {/* Bento Cards */}
-      <div className="flex flex-col md:flex-row gap-3 md:gap-6 px-6 max-w-5xl w-full flex-1 md:flex-initial min-h-0">
+      <div className="relative flex flex-col md:flex-row gap-3 md:gap-6 px-6 max-w-5xl w-full flex-1 md:flex-initial min-h-0">
+        {/* Golden Thread */}
+        <div
+          className="absolute pointer-events-none opacity-0 animate-fade-in left-1/2 top-6 bottom-6 w-px md:left-6 md:right-6 md:top-1/2 md:w-auto md:h-px bg-[hsl(var(--vow-yellow)/0.15)]"
+          style={{ animationDelay: "1400ms", animationFillMode: "forwards" }}
+          aria-hidden="true"
+        />
         {services.map((s) => {
           const inner = (
             <>
@@ -106,13 +112,18 @@ export default function Gateway() {
                 </p>
                 <span
                   className={cn(
-                    "mt-4 font-sans text-[12px] uppercase tracking-[0.18em]",
+                    "mt-4 font-sans text-[12px] uppercase tracking-[0.18em] inline-flex items-center gap-1.5",
                     s.available
                       ? "text-[hsl(var(--vow-yellow))]"
                       : "text-muted-foreground/50"
                   )}
                 >
                   {s.available ? "Enter" : "Coming Soon"}
+                  {s.available && (
+                    <span className="inline-block opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-[180ms] ease-out">
+                      →
+                    </span>
+                  )}
                 </span>
               </div>
             </>
