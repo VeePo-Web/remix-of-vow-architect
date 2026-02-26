@@ -154,9 +154,9 @@ export function TheWitnesses() {
                   transitionDelay: isVisible ? `${400 + index * 300}ms` : "0ms",
                 }}
               >
-                {/* Step 8: Decorative quotation mark */}
+                {/* Step 8: Decorative quotation mark — absolute positioned */}
                 <div
-                  className="font-display text-6xl leading-none text-foreground/[0.08] select-none pointer-events-none mb-2"
+                  className="font-display text-6xl leading-none text-foreground/[0.08] select-none pointer-events-none absolute -top-6 left-1/2 -translate-x-1/2"
                   aria-hidden="true"
                 >
                   &ldquo;
@@ -200,6 +200,19 @@ export function TheWitnesses() {
               </div>
             ))}
           </div>
+
+          {/* Closing golden thread */}
+          <div
+            className={cn(
+              "h-[1px] w-12 mx-auto mt-16 transition-all duration-700",
+              isVisible ? "opacity-60 scale-x-100" : "opacity-0 scale-x-0"
+            )}
+            style={{
+              background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow)), transparent)",
+              transitionDelay: isVisible ? "1200ms" : "0ms",
+            }}
+            aria-hidden="true"
+          />
         </div>
       </div>
 

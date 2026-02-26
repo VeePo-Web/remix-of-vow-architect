@@ -381,8 +381,11 @@ export function TheSound() {
                 borderLeft: "1px solid hsl(var(--vow-yellow) / 0.10)",
                 borderRight: "1px solid hsl(var(--vow-yellow) / 0.10)",
                 borderBottom: "1px solid hsl(var(--vow-yellow) / 0.06)",
-                boxShadow: "inset 0 2px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.3), 0 24px 80px rgba(0,0,0,0.5)",
+                boxShadow: isPlaying
+                  ? "inset 0 2px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.3), 0 24px 80px rgba(0,0,0,0.5), 0 0 40px hsl(var(--vow-yellow) / 0.08)"
+                  : "inset 0 2px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.3), 0 24px 80px rgba(0,0,0,0.5)",
                 backdropFilter: "blur(12px)",
+                transition: "box-shadow 0.7s cubic-bezier(0.22, 0.61, 0.36, 1)",
               }}
             >
               <PianoStrings visible={isVisible} />

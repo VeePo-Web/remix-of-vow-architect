@@ -158,11 +158,14 @@ export function ThreePaths() {
                 transitionDelay: isVisible ? `${450 + index * 150}ms` : "0ms",
               }}
             >
+              {/* Film grain overlay */}
+              <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none rounded-lg" aria-hidden="true" />
+
               {/* Chosen Badge */}
               {path.isChosen && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                   <div className="bg-primary text-primary-foreground text-xs font-semibold px-4 py-1 rounded-full shadow-md tracking-wider">
-                    ◆ MOST SELECTED
+                    <span className="inline-block" style={{ animation: 'vigil-pulse 3s ease-in-out infinite' }}>◆</span> MOST SELECTED
                   </div>
                 </div>
               )}
