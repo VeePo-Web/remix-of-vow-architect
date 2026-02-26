@@ -196,8 +196,8 @@ export function ThreePaths() {
 
               {/* CTA */}
               <Button 
-                className="w-full mt-auto" 
-                variant={path.isChosen ? "default" : "outline"}
+                className={cn("w-full mt-auto", path.isChosen && "cta-breathe-glow")} 
+                variant={path.isChosen ? "default" : "ghost-dark"}
                 asChild
               >
                 <Link to="/contact">{path.ctaText}</Link>
