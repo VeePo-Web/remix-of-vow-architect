@@ -167,7 +167,8 @@ function NowPlayingBar({
 
 /* ─── Main Section ─── */
 export function TheSound() {
-  const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.2 });
+  const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.15 });
+  const { ref: cardZoneRef, isVisible: cardVisible } = useScrollReveal({ threshold: 0.3 });
   const audioRef = useRef<HTMLAudioElement>(null);
   const [sectionInView, setSectionInView] = useState(true);
   const [activeTrackIndex, setActiveTrackIndex] = useState<number | null>(null);
@@ -176,9 +177,13 @@ export function TheSound() {
   const [duration, setDuration] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
 
-  // Reduced motion
+  // Reduced motion — live listener
   useEffect(() => {
-    setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(mql.matches);
+    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mql.addEventListener("change", handler);
+    return () => mql.removeEventListener("change", handler);
   }, []);
 
   // Track section visibility for mini-bar
@@ -442,14 +447,16 @@ export function TheSound() {
               />
             </div>
 
+            {/* ── Zone B: Card + Closing (independent scroll reveal) ── */}
+            <div ref={cardZoneRef as React.RefObject<HTMLDivElement>}>
+
             {/* ── Step 2: Wider card with category context ── */}
             <div
-              className={cn(
-                "max-w-lg mx-4 sm:mx-auto rounded-[16px] relative overflow-hidden transition-all duration-700",
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-              )}
+              className="max-w-lg mx-4 sm:mx-auto rounded-[16px] relative overflow-hidden"
               style={{
-                transitionDelay: isVisible ? "450ms" : "0ms",
+                opacity: cardVisible ? 1 : 0,
+                transform: cardVisible ? "translateY(0) scale(1)" : "translateY(16px) scale(0.98)",
+                transition: "opacity 800ms cubic-bezier(0.22, 0.61, 0.36, 1), transform 800ms cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 0.7s cubic-bezier(0.22, 0.61, 0.36, 1)",
                 background: "hsl(var(--rich-black))",
                 borderTop: "1px solid hsl(var(--vow-yellow) / 0.18)",
                 borderLeft: "1px solid hsl(var(--vow-yellow) / 0.10)",
@@ -459,8 +466,8 @@ export function TheSound() {
                   ? "inset 0 2px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.3), 0 24px 80px rgba(0,0,0,0.5), 0 0 40px hsl(var(--vow-yellow) / 0.08)"
                   : "inset 0 2px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.3), 0 24px 80px rgba(0,0,0,0.5)",
                 backdropFilter: "blur(12px)",
-                transition: "box-shadow 0.7s cubic-bezier(0.22, 0.61, 0.36, 1)",
                 animation: !isPlaying && !reducedMotion ? "sound-card-breathe 6s cubic-bezier(0.4,0,0.6,1) infinite" : "none",
+                animationDelay: cardVisible ? "900ms" : "0ms",
               }}
             >
               {/* Card header — "Repertoire" label with piano keys strip */}
@@ -480,7 +487,7 @@ export function TheSound() {
                 />
               </div>
 
-              <PianoStrings visible={isVisible} />
+              <PianoStrings visible={cardVisible} />
 
               <div className="relative z-10 py-2">
                 {categories.map((category, catIdx) => {
@@ -554,7 +561,15 @@ export function TheSound() {
                           />
                         </div>
                       )}
-                      <div className="px-4 sm:px-5 pt-4 sm:pt-5 pb-1">
+                      <div
+                        className="px-4 sm:px-5 pt-4 sm:pt-5 pb-1"
+                        style={{
+                          opacity: cardVisible ? 1 : 0,
+                          transform: cardVisible ? "translateY(0)" : "translateY(6px)",
+                          transition: "opacity 400ms ease, transform 400ms ease",
+                          transitionDelay: cardVisible ? `${100 + catIdx * 80}ms` : "0ms",
+                        }}
+                      >
                         <span className="font-sans text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
                           {category.label}
                         </span>
@@ -594,11 +609,13 @@ export function TheSound() {
 
             {/* ── Step 5: Closing Caption with glow + bookend diamond ── */}
             <div
-              className={cn(
-                "max-w-lg mx-auto text-center mt-16 md:mt-20 relative transition-all duration-700",
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-              )}
-              style={{ transitionDelay: isVisible ? "700ms" : "0ms" }}
+              className="max-w-lg mx-auto text-center mt-16 md:mt-20 relative"
+              style={{
+                opacity: cardVisible ? 1 : 0,
+                transform: cardVisible ? "translateY(0)" : "translateY(8px)",
+                transition: "opacity 700ms ease, transform 700ms ease",
+                transitionDelay: cardVisible ? "500ms" : "0ms",
+              }}
             >
               {/* Warm glow behind text */}
               <div
@@ -639,6 +656,8 @@ export function TheSound() {
                 </footer>
               </blockquote>
             </div>
+
+            </div>{/* End Zone B */}
           </div>
         </div>
 
