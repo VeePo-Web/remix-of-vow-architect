@@ -399,8 +399,9 @@ export function TheSound() {
       <audio ref={audioRef} preload="none" />
 
       <section
+        id="the-sound"
         ref={sectionRef}
-        className="section--dark section-grain relative min-h-[400px] py-24 md:py-32 overflow-hidden"
+        className="section--dark section-grain piano-section-target relative min-h-[400px] py-24 md:py-32 overflow-hidden"
         aria-labelledby="sound-heading"
       >
         {/* Top fade */}

@@ -9,8 +9,9 @@ export function CrossOver() {
 
   return (
     <section 
+      id="the-crossing"
       ref={sectionRef}
-      className="section--dark section-grain py-24 px-4 relative overflow-hidden min-h-[400px]"
+      className="section--dark section-grain piano-section-target py-24 px-4 relative overflow-hidden min-h-[400px]"
       style={{
         background: "radial-gradient(ellipse at center, hsl(240 12% 5%) 0%, hsl(240 9% 2%) 100%)",
       }}

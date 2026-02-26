@@ -16,8 +16,9 @@ export function VowMoment() {
 
   return (
     <section 
+      id="vow-moment"
       ref={sectionRef}
-      className="section--dark section-grain relative min-h-screen flex items-center justify-center px-4 overflow-hidden"
+      className="section--dark section-grain piano-section-target relative min-h-screen flex items-center justify-center px-4 overflow-hidden"
       style={{
         background: "radial-gradient(ellipse at center, hsl(240 12% 5%) 0%, hsl(240 9% 2%) 100%)",
         minHeight: '100vh',

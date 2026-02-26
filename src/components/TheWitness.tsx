@@ -23,9 +23,10 @@ export function TheWitness() {
 
   return (
     <section 
+      id="the-witness"
       ref={sectionRef}
       data-theme="life"
-      className="relative section--surface section-padding-standard overflow-hidden min-h-[400px]"
+      className="relative section--surface section-padding-standard piano-section-target overflow-hidden min-h-[400px]"
       style={{
         background: "linear-gradient(180deg, hsl(45 25% 96%) 0%, hsl(45 20% 93%) 100%)",
       }}
