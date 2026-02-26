@@ -1,5 +1,6 @@
 import { Card } from "./ui/card";
 import { Music, Clock, MapPin, Mountain } from "lucide-react";
+import { StaggerChildren } from "@/components/animation";
 
 const addOns = [
   {
@@ -37,21 +38,21 @@ export function PricingAddOns() {
           Personalize your sound experience
         </h2>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <StaggerChildren staggerDelay={100} className="grid md:grid-cols-2 gap-6">
           {addOns.map((addon, index) => (
             <Card
               key={index}
-              className={`p-6 card-keyline ${
-                addon.highlight ? "border-primary/50" : ""
+              className={`p-6 bg-card/80 backdrop-blur-[8px] border-border/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)] hover:shadow-[0_0_24px_rgba(255,224,138,0.06)] transition-all duration-[180ms] ${
+                addon.highlight ? "border-primary/30" : ""
               }`}
             >
               <div className="flex items-start gap-4">
-                <div className={`p-3 rounded-lg ${addon.highlight ? "bg-primary/10" : "bg-muted"}`}>
+                <div className={`p-3 rounded-lg ${addon.highlight ? "bg-primary/[0.06] border border-primary/10" : "bg-muted"}`}>
                   <addon.icon size={24} className={addon.highlight ? "text-primary" : "text-foreground"} />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-lg font-bold mb-1">{addon.title}</h3>
-                  <p className="text-2xl font-bold text-primary mb-3 price-numeral">
+                  <h3 className="font-display text-lg font-medium mb-1">{addon.title}</h3>
+                  <p className="font-display text-2xl font-light text-primary mb-3">
                     {addon.price}
                   </p>
                   <p className="text-sm text-muted-foreground leading-relaxed">
@@ -61,7 +62,7 @@ export function PricingAddOns() {
               </div>
             </Card>
           ))}
-        </div>
+        </StaggerChildren>
 
         <p className="text-center text-sm text-muted-foreground mt-8 italic">
           You'll never see a surprise fee. Ever.
