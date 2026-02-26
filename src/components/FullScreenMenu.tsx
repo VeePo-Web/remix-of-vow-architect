@@ -1,7 +1,7 @@
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 interface FullScreenMenuProps {
   isOpen: boolean;
@@ -10,14 +10,18 @@ interface FullScreenMenuProps {
 
 const menuItems = [
   { number: "01", label: "Home", href: "/weddings" },
-  { number: "02", label: "Services", href: "/services" },
+  { number: "02", label: "Pricing", href: "/services" },
   { number: "03", label: "About", href: "/about" },
-  { number: "04", label: "Case Studies", href: "/gallery" },
-  { number: "05", label: "Contact", href: "/contact" },
+  { number: "04", label: "Proof", href: "/proof" },
+  { number: "05", label: "FAQ", href: "/faq" },
+  { number: "06", label: "Listen", href: "/listen" },
+  { number: "07", label: "Contact", href: "/contact" },
 ];
 
 export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   // Prevent body scroll when menu is open
   useEffect(() => {
@@ -29,6 +33,11 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
     return () => {
       document.body.style.overflow = "";
     };
+  }, [isOpen]);
+
+  // Reset hover on close
+  useEffect(() => {
+    if (!isOpen) setHoveredIndex(null);
   }, [isOpen]);
 
   // Close on escape key
@@ -61,7 +70,6 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
       }
     };
     window.addEventListener("keydown", trap);
-    // Auto-focus close button
     first.focus();
     return () => window.removeEventListener("keydown", trap);
   }, [isOpen]);
@@ -110,28 +118,57 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
 
       {/* Menu Content */}
       <div className="flex flex-col justify-center items-start min-h-screen px-8 md:px-16 lg:px-24">
-        <nav className="space-y-6 md:space-y-8">
-          {menuItems.map((item, index) => (
-            <Link
-              key={item.number}
-              to={item.href}
-              className={cn(
-                "flex items-baseline gap-6 group transition-all duration-[260ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm",
-                isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-              )}
-              style={{
-                transitionDelay: isOpen ? `${300 + index * 50}ms` : "0ms",
-              }}
-              onClick={onClose}
-            >
-              <span className="text-xs font-sans text-muted-foreground/50 min-w-[2ch] group-hover:text-primary/30 transition-colors duration-[180ms]">
-                {item.number}
-              </span>
-              <span className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground group-hover:text-primary transition-colors duration-[180ms]">
-                {item.label}
-              </span>
-            </Link>
-          ))}
+        <nav
+          className="space-y-6 md:space-y-8"
+          onMouseLeave={() => setHoveredIndex(null)}
+        >
+          {menuItems.map((item, index) => {
+            const isActive = location.pathname === item.href;
+            const isDimmed = hoveredIndex !== null && hoveredIndex !== index;
+
+            return (
+              <Link
+                key={item.number}
+                to={item.href}
+                className={cn(
+                  "flex items-baseline gap-6 group transition-all duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm",
+                  isOpen ? "translate-y-0" : "translate-y-4",
+                  isOpen ? (isDimmed ? "opacity-[0.3]" : "opacity-100") : "opacity-0"
+                )}
+                style={{
+                  transitionDelay: isOpen ? `${300 + index * 50}ms` : "0ms",
+                }}
+                onClick={onClose}
+                onMouseEnter={() => setHoveredIndex(index)}
+              >
+                {/* Golden dash for active page */}
+                <span
+                  className={cn(
+                    "w-4 h-[1px] transition-all duration-[260ms] self-center",
+                    isActive ? "opacity-100" : "opacity-0 w-0"
+                  )}
+                  style={{ background: "hsl(var(--vow-yellow) / 0.5)" }}
+                  aria-hidden="true"
+                />
+                <span className={cn(
+                  "text-xs font-sans min-w-[2ch] transition-colors duration-[180ms]",
+                  isActive
+                    ? "text-primary/60"
+                    : "text-muted-foreground/50 group-hover:text-primary/30"
+                )}>
+                  {item.number}
+                </span>
+                <span className={cn(
+                  "font-display text-4xl md:text-5xl lg:text-6xl transition-colors duration-[180ms]",
+                  isActive
+                    ? "text-foreground"
+                    : "text-foreground/80 group-hover:text-primary"
+                )}>
+                  {item.label}
+                </span>
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Golden thread separator */}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu } from "lucide-react";
-import { Link } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { FullScreenMenu } from "./FullScreenMenu";
 
@@ -16,15 +16,28 @@ export function MinimalHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAtFooter, setIsAtFooter] = useState(false);
+  const [wasScrolled, setWasScrolled] = useState(false);
+  const location = useLocation();
+  const isContactPage = location.pathname === '/contact';
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > window.innerHeight);
+      const scrolled = window.scrollY > window.innerHeight;
+      setIsScrolled(scrolled);
+      if (scrolled) setWasScrolled(true);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Reset wasScrolled when transitioning back to not scrolled
+  useEffect(() => {
+    if (!isScrolled) {
+      const timer = setTimeout(() => setWasScrolled(false), 400);
+      return () => clearTimeout(timer);
+    }
+  }, [isScrolled]);
 
   // Footer proximity detection via IntersectionObserver
   useEffect(() => {
@@ -53,12 +66,14 @@ export function MinimalHeader() {
           background: isScrolled ? "rgba(10,10,12,0.92)" : undefined,
         }}
       >
-        {/* Golden gradient thread at bottom — intensifies during arrival */}
+        {/* Golden gradient thread at bottom — fades in over 450ms */}
         {isScrolled && (
           <div
-            className="absolute bottom-0 left-0 right-0 h-[1px] pointer-events-none transition-opacity duration-[450ms]"
+            className="absolute bottom-0 left-0 right-0 h-[1px] pointer-events-none animate-fade-in"
             style={{
               background: `linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / ${isArrival ? '0.25' : '0.12'}), transparent)`,
+              animationDuration: '450ms',
+              animationFillMode: 'forwards',
             }}
             aria-hidden="true"
           />
@@ -69,7 +84,7 @@ export function MinimalHeader() {
           isArrival ? "justify-center" : "justify-between"
         )}>
           {/* Logo — centers during arrival */}
-          <Link 
+          <NavLink 
             to="/"
             className={cn(
               "relative font-display text-base tracking-wide text-foreground opacity-0 animate-fade-in hover:text-primary transition-all duration-[260ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm",
@@ -92,7 +107,7 @@ export function MinimalHeader() {
               }}
               aria-hidden="true"
             />
-          </Link>
+          </NavLink>
 
           {/* Navigation Links — fade out during arrival */}
           {isScrolled && (
@@ -102,33 +117,73 @@ export function MinimalHeader() {
                 isArrival && "opacity-0 w-0 overflow-hidden pointer-events-none"
               )}
             >
-              {navLinks.map((link, i) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className="nav-link opacity-0 animate-fade-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
-                  style={{
-                    animationDelay: `${i * 60}ms`,
-                    animationFillMode: "forwards",
-                  }}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <span className="relative opacity-0 animate-fade-in" style={{ animationDelay: `${navLinks.length * 60}ms`, animationFillMode: "forwards" }}>
+              {navLinks.map((link, i) => {
+                // Reverse stagger on fade-out
+                const reverseI = navLinks.length - 1 - i;
+                const delay = wasScrolled && !isScrolled
+                  ? `${reverseI * 80}ms`
+                  : `${i * 80}ms`;
+
+                return (
+                  <NavLink
+                    key={link.to}
+                    to={link.to}
+                    className={({ isActive }) => cn(
+                      "relative nav-link opacity-0 animate-fade-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm",
+                      isActive && "text-foreground"
+                    )}
+                    style={{
+                      animationDelay: delay,
+                      animationFillMode: "forwards",
+                    }}
+                  >
+                    {({ isActive }) => (
+                      <>
+                        {link.label}
+                        {/* Vow-yellow underline — draws from center when active */}
+                        <span
+                          className={cn(
+                            "absolute -bottom-1 left-0 w-full h-[1px] origin-center transition-transform duration-[450ms]",
+                            isActive ? "scale-x-100" : "scale-x-0"
+                          )}
+                          style={{
+                            background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.4), transparent)",
+                            transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
+                          }}
+                          aria-hidden="true"
+                        />
+                      </>
+                    )}
+                  </NavLink>
+                );
+              })}
+              <span
+                className="relative opacity-0 animate-fade-in"
+                style={{
+                  animationDelay: `${navLinks.length * 80}ms`,
+                  animationFillMode: "forwards",
+                }}
+              >
                 <span
                   className="absolute inset-0 -inset-x-4 -inset-y-2 rounded-full pointer-events-none"
                   style={{
-                    background: 'radial-gradient(ellipse at center, hsl(45 100% 76% / 0.06) 0%, transparent 70%)',
+                    background: isContactPage
+                      ? 'none'
+                      : 'radial-gradient(ellipse at center, hsl(45 100% 76% / 0.06) 0%, transparent 70%)',
                   }}
                   aria-hidden="true"
                 />
-                <Link
+                <NavLink
                   to="/contact"
-                  className="relative nav-link nav-link--cta transition-all duration-[180ms] hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
+                  className={cn(
+                    "relative nav-link transition-all duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm",
+                    isContactPage
+                      ? "text-foreground/50 cursor-default"
+                      : "nav-link--cta hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)]"
+                  )}
                 >
-                  Hold My Date
-                </Link>
+                  {isContactPage ? "You're here" : "Hold My Date"}
+                </NavLink>
               </span>
             </nav>
           )}
