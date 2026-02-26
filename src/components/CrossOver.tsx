@@ -55,6 +55,9 @@ export function CrossOver() {
         }}
         aria-hidden="true"
       />
+      {/* Film grain overlay */}
+      <div className="absolute inset-0 grain opacity-[0.08] pointer-events-none" aria-hidden="true" />
+
       {/* Top fade from TheWitnesses warm */}
       <div
         className="section-fade-top"
@@ -129,8 +132,6 @@ export function CrossOver() {
         </div>
 
         {/* Trust Anchor */}
-        {/* Film grain overlay */}
-        <div className="absolute inset-0 grain opacity-[0.08] pointer-events-none" aria-hidden="true" />
 
         <p
           className={cn(
@@ -163,7 +164,7 @@ export function CrossOver() {
           )}
           style={{ transitionDelay: isVisible ? "750ms" : "0ms", letterSpacing: "0.03em" }}
         >
-          Response within <span className="text-primary font-normal not-italic text-xl">24 hours</span>. Always.
+          Response within <span className="text-primary font-normal not-italic text-lg font-semibold">24 hours</span>. Always.
         </p>
       </div>
 

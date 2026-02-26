@@ -202,6 +202,12 @@ export function TheInvitation() {
           </div>
         </div>
       </div>
+      {/* Bottom fade into TheSound dark */}
+      <div
+        className="section-fade-bottom"
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(220 15% 8%))' }}
+        aria-hidden="true"
+      />
     </section>
   );
 }

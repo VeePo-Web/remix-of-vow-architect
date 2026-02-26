@@ -209,7 +209,7 @@ export function TheWitnesses() {
             )}
             style={{
               background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow)), transparent)",
-              transitionDelay: isVisible ? "1200ms" : "0ms",
+              transitionDelay: isVisible ? "900ms" : "0ms",
             }}
             aria-hidden="true"
           />
