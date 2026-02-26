@@ -5,9 +5,9 @@ import { cn } from "@/lib/utils";
 import { FullScreenMenu } from "./FullScreenMenu";
 
 const navLinks = [
-  { to: "/services", label: "Services" },
+  { to: "/services", label: "Pricing" },
   { to: "/about", label: "About" },
-  { to: "/gallery", label: "Case Studies" },
+  { to: "/gallery", label: "Proof" },
 ];
 
 export function MinimalHeader() {
