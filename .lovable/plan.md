@@ -1,109 +1,93 @@
 
-# Services Page Design Audit — Typography, Spacing, and Visual Hierarchy
 
-## Current State Assessment
+# Process Section Copy Refinement — Clearer, Simpler, Sharper
 
-The Services page has solid content and information architecture, but several design inconsistencies prevent it from matching the homepage's refined quality. The page uses the `Navigation` component (different from the homepage's `MinimalHeader`), includes a sticky jump navigation bar, breadcrumbs, star ratings, colored status dots, and multiple sections with typography that bypasses the Fitzgerald system.
+## Philosophy
 
-## Issues Identified
+The current copy is strong but slightly overwrought in places. The "details" lines try to do too much — mixing poetic questions with explanations. The "assumption" lines repeat a grammatical pattern ("I don't assume... I [verb]") that becomes predictable by the fourth card. The goal: preserve the intimate first-person voice and the four-movement structure while making each card land faster and hit harder.
 
-### 1. Navigation inconsistency
-The Services page uses `Navigation` while the homepage uses `MinimalHeader`. This creates a jarring experience when navigating between pages — different header heights, different styling, different behavior.
+**No design changes.** Only the `movements` array data and the intro/closing text in `ProcessSection.tsx`.
 
-**Fix**: Replace `Navigation` with `MinimalHeader` in `Pricing.tsx`.
+## Changes
 
-### 2. PricingJumpNav adds visual clutter
-The sticky sub-navigation bar creates a double-header effect (main nav + jump nav = 2 bars stacked). For a page that scrolls linearly, this is unnecessary complexity. Luxury sites let content breathe — they don't need persistent wayfinding on a single-scroll page.
+### File: `src/components/process/ProcessSection.tsx`
 
-**Fix**: Remove `PricingJumpNav` from the page entirely. The page is not long enough to warrant it.
+**Intro block** — tighten the bridge line and statement:
 
-### 3. Breadcrumbs are off-brand
-Breadcrumbs are a utilitarian UI pattern for deep, multi-level sites. This is a 5-page site. They add visual noise at the top of the hero area and break the luxury aesthetic.
+| Element | Current | Proposed |
+|---------|---------|----------|
+| Label | "The Process" | "The Process" (unchanged) |
+| Headline | "Excellence on the big day doesn't happen on the big day." | "Excellence on the big day doesn't happen on the big day." (unchanged — it's perfect) |
+| Highlight | "It happens now." | "It happens now." (unchanged) |
+| Bridge | "This is how I prepare for the moment that matters most." | "This is how I prepare — so the moment you've imagined is the moment you live." |
+| Statement | "Because there are no second chances for First Moments" | "Because there are no second takes on a First Moment" |
 
-**Fix**: Remove `Breadcrumbs` from `Pricing.tsx`.
+**Closing block** — unchanged. "Because there's one chance to get this right. And it will be right." is already excellent.
 
-### 4. Typography bypasses Fitzgerald system (4 components)
-Four sub-components use raw Tailwind heading classes instead of the Fitzgerald `.h2` class:
-- `InclusionBlock.tsx`: `text-2xl md:text-3xl font-bold` (should be `.h2`)
-- `PricingAddOns.tsx`: `text-3xl md:text-4xl font-bold` (should be `.h2`)
-- `PricingFAQ.tsx`: `text-3xl md:text-4xl font-bold` (should be `.h2`)
-- `PricingSampleDownload.tsx`: `text-3xl md:text-4xl font-bold` (should be `.h2`)
+### Movement I — THE LISTENING
 
-All use `font-bold` (700) instead of the system's `font-weight: 500`. This makes these headings visually heavier than the page's own hero and tier headings that correctly use `.h2`.
+| Field | Current | Proposed |
+|-------|---------|----------|
+| action | "I ask" | "I ask" (unchanged) |
+| quote | "Before I play a single note, I learn your story." | "Before I touch a single key, I learn your story." |
+| details | "What song was playing when you knew? What does your heart sound like when you think about walking toward them?" | "What song was playing when you knew? What do you want to feel the moment you begin your walk?" |
+| assumption | "I don't assume I know. I ask." | "I never assume. I listen first." |
+| outcome | "It begins with a conversation." | "It starts with a conversation — not a playlist." |
+| annotation | "your story begins here" | "it starts here" |
 
-**Fix**: Replace raw heading classes with `h2` class (the global CSS rule handles font-family, size, weight, max-width, and centering automatically).
+**Rationale**: "touch a single key" is more pianistic and specific. "What does your heart sound like" is abstract — replacing with "What do you want to feel" is direct and emotionally clear. The outcome now differentiates from competitors (playlist providers) in one line.
 
-### 5. StarBar on pricing cards feels commodity
-Five gold stars on every card reads like an Amazon review widget, not a luxury brand. The brand doc explicitly warns against "bright adjectives" and commodity positioning.
+### Movement II — THE CRAFTING
 
-**Fix**: Remove `StarBar` from all three pricing cards.
+| Field | Current | Proposed |
+|-------|---------|----------|
+| action | "I create" | "I compose" |
+| quote | "Then I disappear into your vision." | "Then I disappear into the music." |
+| details | "Note by note. Measure by measure. Your walk-down song—not selected from a list, but composed from our conversation." | "Your walk-down song — composed from our conversation, not selected from a catalogue." |
+| assumption | "I don't assume a cover will capture it. I create." | "A cover cannot hold what is yours alone. So I write it." |
+| outcome | "Your love story, translated into sound." | "Your story, made audible." |
+| annotation | "note by note" | "note by note" (unchanged) |
 
-### 6. Colored status dots are off-brand
-Green (`bg-green-500`), blue (`bg-blue-500`), and purple (`bg-purple-500`) dots on card headers violate the color covenant (88% charcoal, 6% vow-yellow, 4% vine-green). These colors appear nowhere else in the brand.
+**Rationale**: "I compose" is more precise than "I create." "Disappear into the music" is clearer than "into your vision." The details are streamlined — one clean sentence instead of three fragments followed by a clause. The assumption line becomes a poetic statement rather than another "I don't assume" repetition.
 
-**Fix**: Remove the colored dots from pricing card headers.
+### Movement III — THE REFINING
 
-### 7. PricingFAQ contains broken links
-The `DirectionalLink` components link to `/faq` (redirects to `/weddings`) and `/proof` (redirects to `/gallery`). These create circular or confusing navigation.
+| Field | Current | Proposed |
+|-------|---------|----------|
+| action | "I refine" | "I refine" (unchanged) |
+| quote | "I send you a first draft—raw, unpolished, honest." | "I send a first draft — unpolished, honest, yours to shape." |
+| details | "Not to impress you. To ask: 'Does this sound like you?' If something feels off, we course-correct. Your feedback is not inconvenient—it is essential." | "Not to impress you — to ask: does this sound like us? Your feedback is not inconvenient. It is the whole point." |
+| assumption | "I don't assume I got it right. I check." | "I would rather revise ten times than settle once." |
+| outcome | "We iterate until it sounds exactly like you imagined." | "We refine until it sounds exactly as you imagined." |
+| annotation | "until it feels right" | "until it's right" |
 
-**Fix**: Update links — remove the `/faq` link (user is already on a page with FAQs), change `/proof` to `/gallery`, keep `/contact` link.
+**Rationale**: "yours to shape" gives the couple agency. Changing "like you" to "like us" reinforces partnership. "It is the whole point" is stronger and more direct than "it is essential." The assumption line replaces the repetitive pattern with a commitment statement that communicates the same idea with more conviction.
 
-### 8. InclusionBlock h3 uses raw `font-semibold`
-The inclusion item titles use `font-semibold` without the `.h4` class. They should use the Fitzgerald H4 for consistency.
+### Movement IV — THE COMPLETING
 
-**Fix**: Add `h4` class to inclusion item titles.
+| Field | Current | Proposed |
+|-------|---------|----------|
+| action | "We complete" | "We complete" (unchanged) |
+| quote | "Now we fill the rest of the air together." | "Now we shape the rest of the day — together." |
+| details | "Prelude. Procession. Cocktails. Dinner. You brainstorm, or I suggest—either way, we decide together. Communication all the way through. No one left wondering. No silence where there should be sound." | "Prelude. Procession. Cocktails. Dinner. You suggest, or I guide — either way, every decision is shared. No one left wondering. No silence where there should be sound." |
+| assumption | "I don't assume you know what you need. I guide, and I ask." | "You lead. I follow. And when you need direction, I offer it." |
+| outcome | "Every note intentional. Every decision yours." | "Every note chosen. Every moment accounted for." |
+| annotation | "together" | "together" (unchanged) |
 
-### 9. Section spacing inconsistency
-Some sections use `py-16`, the download section uses `py-16 bg-muted/30`, the testimonials use `py-16`, but the page's main container already provides `section-padding`. This creates inconsistent vertical rhythm.
+**Rationale**: "fill the rest of the air" is vague — "shape the rest of the day" is concrete. The details trim redundant phrasing ("Communication all the way through" is implied by "every decision is shared"). The assumption line becomes a clear power-dynamic statement: the couple leads, I support. "Every moment accounted for" adds the reassurance of thoroughness.
 
-**Fix**: Standardize section gaps within the page container to use consistent margins (`mb-20` between major sections, matching the 80px luxury gap from the spacing system).
+## Summary of Emotional Arc
 
-### 10. "Amounts shown before GST" text left-aligned
-The disclaimer text under pricing cards uses `text-center` but the `max-width: 22ch` on the parent `p` element's computed style may cause left-shifting (same root cause as the homepage issue). Since this is a `p` element, not `h2`, it should be fine — but verify visually.
+The refined copy follows this progression across the four movements:
 
-**Fix**: No code change needed — just verification.
+1. **Listening** — "I hear you before I play for you."
+2. **Crafting** — "I build something that belongs only to you."
+3. **Refining** — "I trust your ear more than mine."
+4. **Completing** — "We finish this together — nothing left to chance."
 
-## Plan of Changes
+Each card now lands in fewer words, avoids the repetitive "I don't assume" pattern, and reinforces the partnership narrative that differentiates this service from every other wedding musician.
 
-### File 1: `src/pages/Pricing.tsx`
-- Replace `Navigation` import with `MinimalHeader`
-- Remove `PricingJumpNav` import and usage
-- Remove `Breadcrumbs` import and usage
-- Remove `StarBar` import
-- Remove colored dots from pricing card headers
-- Remove `StarBar` components from all three cards
-- Standardize section spacing with consistent `mb-20` gaps
-- Add `text-center` explicitly to the "Amounts shown before GST" note
+## Files Modified
 
-### File 2: `src/components/InclusionBlock.tsx`
-- Replace raw `text-2xl md:text-3xl font-bold` on h2 with `h2` class
-- Add `h4` class to inclusion item h3 titles
-- Add `text-center` to the h2 for explicit centering
+- `src/components/process/ProcessSection.tsx` — movements array data + bridge/statement text (copy only, no structural changes)
 
-### File 3: `src/components/PricingAddOns.tsx`
-- Replace raw `text-3xl md:text-4xl font-bold text-center` on h2 with `h2 text-center` class
-
-### File 4: `src/components/PricingFAQ.tsx`
-- Replace raw `text-3xl md:text-4xl font-bold text-center` on h2 with `h2 text-center` class
-- Fix DirectionalLink: remove `/faq` link, change `/proof` to `/gallery`
-
-### File 5: `src/components/PricingSampleDownload.tsx`
-- Replace raw heading classes on h2 with `h2 text-center` class
-- Replace raw `text-lg` on subtitle with `p-lead` class
-
-## What Stays Unchanged
-- All pricing amounts ($650, $750, $1,200)
-- All package names and descriptions
-- All add-on content and pricing
-- All FAQ questions and answers
-- All comparison table data
-- All testimonial content
-- MostSelectedPill on middle card
-- Footer content and structure
-- All CTA button text and behavior
-
-## Expected Impact
-- Consistent navigation experience across all pages (MinimalHeader everywhere)
-- Reduced visual clutter (no jump nav, no breadcrumbs, no star ratings, no colored dots)
-- Typography follows Fitzgerald system uniformly (font-weight 500, proper sizing)
-- The page reads as a refined, confident presentation of services — not a SaaS pricing page
