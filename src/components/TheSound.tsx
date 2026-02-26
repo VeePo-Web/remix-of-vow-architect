@@ -167,16 +167,27 @@ function NowPlayingBar({
             </span>
           </div>
         </div>
+        <span className="text-[9px] text-foreground/30 font-mono tabular-nums shrink-0 ml-1">
+          {formatTime(progress)}/{formatTime(duration)}
+        </span>
       </div>
     </div>
   );
 }
 
 /* ─── Main Section ─── */
+/* ─── Format time helper ─── */
+const formatTime = (s: number) => {
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return `${m}:${sec.toString().padStart(2, "0")}`;
+};
+
 export function TheSound() {
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.15 });
   const { ref: cardZoneRef, isVisible: cardVisible } = useScrollReveal({ threshold: 0.3 });
   const audioRef = useRef<HTMLAudioElement>(null);
+  const trackListRef = useRef<HTMLDivElement>(null);
   const [sectionInView, setSectionInView] = useState(true);
   const [activeTrackIndex, setActiveTrackIndex] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -196,6 +207,15 @@ export function TheSound() {
     window.addEventListener("keydown", handleEscape);
     return () => window.removeEventListener("keydown", handleEscape);
   }, [isPlaying]);
+
+  // Scroll-to-active track
+  useEffect(() => {
+    if (activeTrackIndex === null || !trackListRef.current) return;
+    const activeButton = trackListRef.current.querySelector('[aria-current="true"]');
+    if (activeButton) {
+      activeButton.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }, [activeTrackIndex]);
 
   // Reduced motion — live listener
   useEffect(() => {
@@ -517,7 +537,7 @@ export function TheSound() {
 
               <PianoStrings visible={cardVisible} />
 
-              <div className="relative z-10 py-2">
+              <div ref={trackListRef} className="relative z-10 py-2 max-h-[55vh] overflow-y-auto sound-card-scroll">
                 {categories.map((category, catIdx) => {
                   const startIndex = globalOffset;
                   const contextPhrase = categoryContext[category.id] || "";
@@ -534,7 +554,7 @@ export function TheSound() {
                         key={track.title}
                         onClick={() => hasSrc ? handleTrackClick(thisGlobalIndex) : undefined}
                         className={cn(
-                          "track-button group w-full flex items-center gap-3 h-11 px-4 sm:px-5 relative",
+                          "track-button group w-full flex items-center gap-3 min-h-[48px] sm:h-11 px-4 sm:px-5 relative",
                           "font-display text-[15px] font-light tracking-normal",
                           "transition-all duration-[180ms]",
                           isActive
@@ -569,7 +589,7 @@ export function TheSound() {
                         {/* Step 4: Graceful empty state */}
                         {isActive && hasSrc && <MiniWaveform active={isTrackPlaying} reducedMotion={reducedMotion} />}
                         {!hasSrc && !isActive && (
-                          <span className="text-[9px] uppercase tracking-[0.2em] text-foreground/20 shrink-0">
+                          <span className="hidden sm:inline text-[9px] uppercase tracking-[0.2em] text-foreground/20 shrink-0">
                             Coming Soon
                           </span>
                         )}
@@ -615,8 +635,9 @@ export function TheSound() {
                         style={{
                           opacity: cardVisible ? 1 : 0,
                           transform: cardVisible ? "translateY(0)" : "translateY(6px)",
-                          transition: "opacity 400ms ease, transform 400ms ease",
+                          transition: "opacity 500ms ease, transform 500ms ease",
                           transitionDelay: cardVisible ? `${100 + catIdx * 80}ms` : "0ms",
+                          background: "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.02), transparent)",
                         }}
                       >
                         <span
