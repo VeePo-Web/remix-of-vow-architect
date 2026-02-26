@@ -4,6 +4,16 @@ import { Play, Pause } from "lucide-react";
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import soundKeys from "@/assets/sound-cathedral-ai.jpg";
 import { categories, allTracks } from "./PianoPanel";
+import { Link } from "react-router-dom";
+
+/* ─── Category emotional context phrases ─── */
+const categoryContext: Record<string, string> = {
+  hymns: "For the weight of what is sacred",
+  worship: "For the praise that carries you",
+  pop: "For the love song that is yours",
+  classical: "For the timeless and the elegant",
+  film: "For the story you are writing",
+};
 
 /* ─── Mini waveform for active track ─── */
 const miniBarHeights = [6, 10, 8, 5];
@@ -55,7 +65,6 @@ function PianoStrings({ visible }: { visible: boolean }) {
           }}
         />
       ))}
-      {/* Hammer rail */}
       <div
         className="absolute left-0 right-0"
         style={{
@@ -66,7 +75,6 @@ function PianoStrings({ visible }: { visible: boolean }) {
           transition: "opacity 180ms ease-out 120ms",
         }}
       />
-      {/* Felt damper strip */}
       <div
         className="absolute left-0 right-0"
         style={{
@@ -77,7 +85,6 @@ function PianoStrings({ visible }: { visible: boolean }) {
           transition: "opacity 180ms ease-out 160ms",
         }}
       />
-      {/* Interior light gradient */}
       <div
         className="absolute inset-0 rounded-[16px]"
         style={{
@@ -223,7 +230,7 @@ export function TheSound() {
     const audio = audioRef.current;
     if (!audio) return;
     const track = allTracks[globalIndex];
-    if (!track?.src) return; // no audio file yet
+    if (!track?.src) return;
 
     if (activeTrackIndex === globalIndex) {
       togglePlayPause();
@@ -275,12 +282,14 @@ export function TheSound() {
           aria-hidden="true"
         />
 
-        {/* Background image with Ken Burns */}
+        {/* ── Step 1: Enhanced atmospheric layers ── */}
+
+        {/* Background image — increased opacity */}
         <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
           <img
             src={soundKeys}
             alt=""
-            className="w-full h-full object-cover opacity-[0.12] pointer-events-none"
+            className="w-full h-full object-cover opacity-[0.18] pointer-events-none"
             loading="lazy"
             style={{
               filter: "saturate(0.6) contrast(1.1)",
@@ -290,11 +299,29 @@ export function TheSound() {
           />
         </div>
 
-        {/* Cinematic vignette */}
+        {/* Cinematic vignette — tighter center */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: "radial-gradient(ellipse at center, transparent 30%, hsl(220 15% 4%) 100%)",
+            background: "radial-gradient(ellipse at center, transparent 25%, hsl(220 15% 4%) 100%)",
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Warm floor — candlelight pooling */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse 80% 50% at 50% 60%, hsl(30 40% 12% / 0.15) 0%, transparent 70%)",
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Top light leak */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.03) 0%, transparent 20%)",
           }}
           aria-hidden="true"
         />
@@ -313,6 +340,15 @@ export function TheSound() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background: "radial-gradient(ellipse 60% 40% at 50% 50%, hsl(var(--vow-yellow) / 0.04) 0%, transparent 70%)",
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Dust mote layer */}
+        <div
+          className="absolute inset-0 pointer-events-none sound-dust"
+          style={{
+            background: "radial-gradient(ellipse 40% 30% at 35% 40%, hsl(var(--vow-yellow) / 0.03) 0%, transparent 70%)",
           }}
           aria-hidden="true"
         />
@@ -352,26 +388,51 @@ export function TheSound() {
               Browse. Listen. Imagine it at yours.
             </p>
 
-            {/* Step 3: Golden thread connector — headline to listening room */}
+            {/* ── Step 3: Living golden thread with breathing anchor dots ── */}
             <div
               className={cn(
-                "mx-auto mb-8 transition-all duration-700",
+                "mx-auto mb-8 relative transition-all duration-700",
                 isVisible ? "opacity-100 scale-y-100" : "opacity-0 scale-y-0"
               )}
               style={{
                 width: "1px",
                 height: "48px",
-                background: "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.4), hsl(var(--vow-yellow) / 0.08))",
                 transformOrigin: "top",
                 transitionDelay: isVisible ? "380ms" : "0ms",
               }}
               aria-hidden="true"
-            />
+            >
+              {/* Top anchor dot */}
+              <div
+                className="absolute -top-[2px] left-1/2 -translate-x-1/2 w-[4px] h-[4px] rounded-full"
+                style={{
+                  background: "hsl(var(--vow-yellow) / 0.7)",
+                  animation: reducedMotion ? "none" : "exhale-pulse 4.2s cubic-bezier(0.4,0,0.6,1) infinite",
+                }}
+              />
+              {/* Thread line */}
+              <div
+                className="absolute inset-0 sound-thread"
+                style={{
+                  background: "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.4), hsl(var(--vow-yellow) / 0.08))",
+                  opacity: isPlaying ? 0.6 : undefined,
+                  transition: "opacity 700ms ease",
+                }}
+              />
+              {/* Bottom anchor dot */}
+              <div
+                className="absolute -bottom-[2px] left-1/2 -translate-x-1/2 w-[4px] h-[4px] rounded-full"
+                style={{
+                  background: "hsl(var(--vow-yellow) / 0.4)",
+                  animation: reducedMotion ? "none" : "exhale-pulse 4.2s cubic-bezier(0.4,0,0.6,1) infinite 2.1s",
+                }}
+              />
+            </div>
 
-            {/* Inline Listening Room */}
+            {/* ── Step 2: Wider card with category context ── */}
             <div
               className={cn(
-                "max-w-md mx-auto rounded-[16px] relative overflow-hidden transition-all duration-700",
+                "max-w-lg mx-auto rounded-[16px] relative overflow-hidden transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{
@@ -393,6 +454,7 @@ export function TheSound() {
               <div className="relative z-10 py-2">
                 {categories.map((category, catIdx) => {
                   const startIndex = globalOffset;
+                  const contextPhrase = categoryContext[category.id] || "";
                   const trackElements = category.tracks.map((track, tIdx) => {
                     const thisGlobalIndex = startIndex + tIdx;
                     const isActive = activeTrackIndex === thisGlobalIndex;
@@ -404,7 +466,7 @@ export function TheSound() {
                         key={track.title}
                         onClick={() => hasSrc ? handleTrackClick(thisGlobalIndex) : undefined}
                         className={cn(
-                          "w-full flex items-center gap-3 h-10 px-5",
+                          "w-full flex items-center gap-3 h-11 px-5",
                           "font-display text-[15px] font-light tracking-tight",
                           "transition-colors duration-[180ms]",
                           isActive
@@ -435,7 +497,13 @@ export function TheSound() {
                         <span className="flex-1 text-left truncate">
                           {track.title}
                         </span>
-                        {isActive && <MiniWaveform active={isTrackPlaying} reducedMotion={reducedMotion} />}
+                        {/* Step 4: Graceful empty state */}
+                        {isActive && hasSrc && <MiniWaveform active={isTrackPlaying} reducedMotion={reducedMotion} />}
+                        {!hasSrc && !isActive && (
+                          <span className="text-[9px] uppercase tracking-[0.2em] text-foreground/20 shrink-0">
+                            Coming Soon
+                          </span>
+                        )}
                       </button>
                     );
                   });
@@ -443,12 +511,30 @@ export function TheSound() {
 
                   return (
                     <div key={category.id}>
-                      <div className="px-5 pt-5 pb-2">
+                      {/* Category divider between groups */}
+                      {catIdx > 0 && (
+                        <div className="flex justify-center py-2" aria-hidden="true">
+                          <div
+                            style={{
+                              width: "32px",
+                              height: "1px",
+                              background: "linear-gradient(to right, transparent, hsl(var(--vow-yellow) / 0.2), transparent)",
+                            }}
+                          />
+                        </div>
+                      )}
+                      <div className="px-5 pt-5 pb-1">
                         <span className="font-sans text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
                           {category.label}
                         </span>
+                        {/* Emotional context phrase */}
+                        {contextPhrase && (
+                          <span className="block font-display text-xs italic text-foreground/30 mt-0.5">
+                            {contextPhrase}
+                          </span>
+                        )}
                         <div
-                          className="mt-1.5"
+                          className="mt-2"
                           style={{
                             height: "1px",
                             background: "linear-gradient(to right, transparent 0%, hsl(var(--vow-yellow) / 0.14) 40%, hsl(var(--vow-yellow) / 0.14) 60%, transparent 100%)",
@@ -459,30 +545,63 @@ export function TheSound() {
                     </div>
                   );
                 })}
+
+                {/* Step 4: Footer conversion note */}
+                <div className="px-5 pt-4 pb-5 text-center">
+                  <p className="text-[11px] text-foreground/25 italic font-display">
+                    Recordings arriving soon.{" "}
+                    <Link
+                      to="/contact"
+                      className="underline decoration-foreground/10 hover:decoration-foreground/30 transition-colors duration-[160ms]"
+                    >
+                      Request a live preview at your consultation.
+                    </Link>
+                  </p>
+                </div>
               </div>
             </div>
 
-            {/* Closing Caption */}
+            {/* ── Step 5: Closing Caption with glow + bookend diamond ── */}
             <div
               className={cn(
-                "max-w-lg mx-auto text-center mt-16 transition-all duration-700",
+                "max-w-lg mx-auto text-center mt-16 relative transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{ transitionDelay: isVisible ? "700ms" : "0ms" }}
             >
-              {/* Golden thread */}
+              {/* Warm glow behind text */}
               <div
-                className="mx-auto mb-6"
+                className="absolute inset-0 pointer-events-none"
                 style={{
-                  width: "48px",
-                  height: "1px",
-                  background: "linear-gradient(to right, transparent, hsl(var(--vow-yellow) / 0.5), transparent)",
+                  background: "radial-gradient(ellipse 50% 40% at 50% 50%, hsl(var(--vow-yellow) / 0.03) 0%, transparent 70%)",
                 }}
                 aria-hidden="true"
               />
-              <p className="text-lg font-display font-light italic text-foreground/80">
-                Every piece I play begins the same way — with someone in mind.
-              </p>
+              {/* Wider golden thread separator */}
+              <div className="relative mx-auto mb-6" style={{ width: "64px", height: "1px" }} aria-hidden="true">
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background: "linear-gradient(to right, transparent, hsl(var(--vow-yellow) / 0.5), transparent)",
+                  }}
+                />
+                {/* Breathing diamond */}
+                <div
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                  style={{
+                    width: "3px",
+                    height: "3px",
+                    background: "hsl(var(--vow-yellow) / 0.6)",
+                    transform: "translate(-50%, -50%) rotate(45deg)",
+                    animation: reducedMotion ? "none" : "divider-diamond-breathe 4.2s cubic-bezier(0.4,0,0.6,1) infinite",
+                  }}
+                />
+              </div>
+              <blockquote className="relative z-10" cite="Parker Allard">
+                <p className="text-lg font-display font-light italic text-foreground/80">
+                  Every piece I play begins the same way — with someone in mind.
+                </p>
+              </blockquote>
             </div>
           </div>
         </div>
