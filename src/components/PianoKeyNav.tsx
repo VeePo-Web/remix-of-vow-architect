@@ -17,8 +17,8 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [pressedIndex, setPressedIndex] = useState<number | null>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [hasAnimated, setHasAnimated] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
-  const hasAnimated = useRef(false);
 
   // Reduced motion
   useEffect(() => {
@@ -29,10 +29,12 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
     return () => mql.removeEventListener('change', handler);
   }, []);
 
-  // Show/hide based on scroll past hero
+  // Show/hide based on scroll past hero; reset activeIndex on hide
   useEffect(() => {
     const handleScroll = () => {
-      setIsVisible(window.scrollY > window.innerHeight * 0.8);
+      const visible = window.scrollY > window.innerHeight * 0.8;
+      setIsVisible(visible);
+      if (!visible) setActiveIndex(-1);
     };
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -41,15 +43,14 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
 
   // Track first animation
   useEffect(() => {
-    if (isVisible && !hasAnimated.current) {
-      // Mark as animated after the stagger completes
+    if (isVisible && !hasAnimated) {
       const totalDuration = sections.length * 40 + 260;
       const timer = setTimeout(() => {
-        hasAnimated.current = true;
+        setHasAnimated(true);
       }, totalDuration);
       return () => clearTimeout(timer);
     }
-  }, [isVisible, sections.length]);
+  }, [isVisible, hasAnimated, sections.length]);
 
   // IntersectionObserver for active section
   useEffect(() => {
@@ -93,7 +94,7 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
       aria-label="Page sections"
       className={cn(
         'fixed right-0 top-1/2 -translate-y-1/2 z-40 flex-col gap-[2px] hidden md:flex',
-        hasAnimated.current
+        hasAnimated
           ? 'transition-opacity duration-[260ms]'
           : 'transition-opacity duration-300',
         isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
@@ -113,7 +114,7 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
         const isHovered = hoveredIndex === i;
         const isPressed = pressedIndex === i;
         const enterDelay = reducedMotion ? 0 : i * 40;
-        const animated = hasAnimated.current;
+        const animated = hasAnimated;
 
         return (
           <div key={section.id} className="relative flex items-center justify-end">

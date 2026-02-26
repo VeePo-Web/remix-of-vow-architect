@@ -723,6 +723,7 @@ All colors MUST be HSL.
   cursor: pointer;
   transition: background 180ms ease, border-color 180ms ease, box-shadow 260ms ease;
   position: relative;
+  isolation: isolate;
 }
 
 .piano-key:hover {
@@ -752,7 +753,13 @@ All colors MUST be HSL.
 }
 
 .piano-key--black:hover {
-  background: hsl(var(--foreground) / 0.08);
+  background: linear-gradient(
+    to bottom,
+    hsl(var(--foreground) / 0.12) 0%,
+    hsl(var(--foreground) / 0.06) 15%,
+    hsl(var(--foreground) / 0.06) 85%,
+    hsl(var(--foreground) / 0.03) 100%
+  );
 }
 
 .piano-key--pressed {
@@ -798,6 +805,7 @@ All colors MUST be HSL.
   top: 50%;
   transform: translateY(-50%);
   white-space: nowrap;
+  z-index: 10;
   font-family: var(--font-sans);
   font-size: 10px;
   text-transform: uppercase;
