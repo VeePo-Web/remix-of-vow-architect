@@ -1,92 +1,98 @@
 
 
-# Process Section — 7-Step Design Elevation to Fantasy.co Quality
+# Vow Moment — 7-Step Design Elevation to Fantasy.co Quality
 
 ## Current State Critique
 
-The Process Section ("The Score") is the storytelling heart of the homepage — it walks visitors through how Parker prepares their ceremony music in four movements: Listening, Crafting, Refining, Completing. The structure is narratively excellent, but the visual execution falls short of Fantasy.co standards in several critical ways:
+The Vow Moment is the emotional apex of the entire homepage -- the "altar interstitial" where the brand's core promise is declared in proclamation scale. It sits between the warm Process section and The Invitation. Currently it has the right narrative intent but falls short of world-class execution in these ways:
 
-1. **The warm journal background lacks depth** -- GradientDawnBackground has a paper texture layer, candlelight pools, grain, and vignette, but the paper layer uses a low-contrast SVG noise pattern that reads as flat digital noise rather than warm handmade paper. The candlelight pools animate but feel disconnected from the content flow.
+1. **No atmospheric texture** -- The section is a flat radial gradient from `hsl(240 12% 5%)` to `hsl(240 9% 2%)` with a single 5%-opacity vow-yellow glow. No grain, no fog, no depth. Every other dark section on the page (hero, CrossOver) has film grain and atmospheric layers. This one feels like a colored rectangle.
 
-2. **Movement images have no Ken Burns motion** -- The MovementImage component references "Ken Burns drift animation" in its JSDoc but the CSS for `.movement-image__photo` uses a static `animation` only when loaded. The images (listening.jpg, crafting.jpg, refining.jpg, completing.jpg) are desaturated but feel static and lifeless once revealed.
+2. **No cinematic background image** -- This is a full-viewport sacred moment but has zero imagery. A subtle, barely-visible background image (ceremony altar, candlelit aisle, hands exchanging rings) at very low opacity would give the void materiality without competing with the text.
 
-3. **No section-to-section transition from The Exhale** -- The Exhale fades to `hsl(45 30% 92%)` (warm cream) at its bottom, but the Process section's GradientDawnBackground starts with a dark warm gradient (`hsl(35 20% 8%)`). This creates a jarring color discontinuity between the two sections.
+3. **The quote has no staggered reveal** -- The entire blockquote fades in as one unit via `opacity-0` to `opacity-100`. Fantasy.co would reveal each line sequentially: "Every vow spoken" (first), "becomes sacred" (second, with underline draw), "the moment it's heard." (third). This creates reading rhythm and dramatic pacing.
 
-4. **The card design is functional but not luxurious** -- `.process-card` uses a flat `hsl(40 30% 96%)` background with a `1px solid hsl(40 20% 88%)` border. This reads as clean but generic -- it lacks the tactile, letterpress quality the brand demands. The gold accent border on the left is a good touch but is thin and easy to miss.
+4. **The underline animation is static** -- The golden underline beneath "becomes sacred" is rendered immediately with the text. It should draw from center outward (or left to right) with a 450ms delay, matching the brand's vow-underline reveal standard.
 
-5. **Stagger timing is too fast** -- Movement content phases stagger at 150ms intervals (0, 150, 280, 400, 520, 640ms). For a section about careful, deliberate preparation, the speed undermines the narrative. Fantasy.co would slow this to feel more considered.
+5. **No ambient breathing** -- The vow-yellow glow is static at 5% opacity. It should pulse very subtly (3% to 6% over 6 seconds) to create the sense that this moment is alive, breathing, waiting.
 
-6. **The closing block ceremony image is underleveraged** -- `ceremony.jpg` sits behind the closing text at very low opacity with no atmospheric treatment beyond a simple overlay. It should create a cinematic moment that ties the preparation narrative to its destination: the ceremony itself.
+6. **Top/bottom section fades use hardcoded colors** -- The top fade from Process uses `hsl(45 30% 92%)` and the bottom fade to Invitation uses `hsl(45 25% 96%)`. These should match the actual neighboring section backgrounds precisely.
 
-7. **No ambient continuity between movements** -- Each movement card reveals independently with no visual thread connecting them. The weaving thread SVG exists in CSS but is not rendered by the current ProcessSection component. The diamond separators on mobile are functional but lack elegance.
+7. **No reduced-motion consideration for the ambient glow** -- While the global rule exists, the glow has no animation to reduce. Once we add breathing, we need to ensure the fallback works.
 
 ---
 
 ## The 7-Step Transformation
 
-### Step 1: Fix Section-to-Section Color Continuity
+### Step 1: Generate a Sacred Ceremony Background Image
 
-The Exhale's bottom fade targets warm cream (`hsl(45 30% 92%)`), but the Process section opens with a dark warm gradient. This creates a visible seam. The fix: update the GradientDawnBackground's base to start from a warm cream at the top (matching The Exhale's exit) and gradually deepen into the walnut/espresso tones. This creates an organic "dawn" progression that feels like the light is slowly building.
+Generate an AI image for this section -- a softly lit ceremony altar scene, shallow depth of field, warm candlelight, with a cinematic film-grain aesthetic. This image will sit at 8-10% opacity behind the text, giving the void materiality and emotional context without competing with the proclamation.
+
+**Technical:**
+- Generate via AI image generation (Nano banana pro for quality)
+- Save to `src/assets/vow-moment-altar.jpg`
+- Add as an `<img>` element in VowMoment.tsx with `opacity-[0.08]`, `object-cover`, and `pointer-events-none`
+
+### Step 2: Add Film Grain and Atmospheric Fog
+
+Add the grain overlay and a warm fog layer consistent with hero and CrossOver sections. This eliminates the visual discontinuity where this section is the only dark section without atmospheric texture.
+
+**Technical changes in `VowMoment.tsx`:**
+- Add `grain` div with `opacity-[0.08]`, matching hero pattern
+- Add a subtle warm fog radial gradient at 2-3% opacity
+- Add `section-grain` class to the section element
+
+### Step 3: Implement Staggered Line Reveal
+
+Replace the single `opacity` transition with a three-phase staggered reveal:
+- Line 1 ("Every vow spoken") at 0ms delay
+- Line 2 ("becomes sacred") at 400ms delay
+- Line 3 ("the moment it's heard.") at 800ms delay
+
+Each line gets its own `<span className="block">` with independent opacity + translateY transitions. This creates the dramatic reading rhythm that Fantasy.co uses for proclamation moments.
+
+**Technical changes in `VowMoment.tsx`:**
+- Wrap each line in its own `<span>` with individual `transition-all duration-700` and staggered `transitionDelay`
+- Each line transitions from `opacity-0 translate-y-4` to `opacity-100 translate-y-0`
+
+### Step 4: Animate the Sacred Underline
+
+The golden underline beneath "becomes sacred" should draw from center outward using `scale-x-0` to `scale-x-100` with `origin-center`. This uses the brand's standard 450ms vow-underline timing. The underline should appear after line 2 is fully visible (delay: 800ms from section visible).
+
+**Technical changes in `VowMoment.tsx`:**
+- Change the underline span to use `scale-x-0` / `scale-x-100` transition with `origin-center`
+- Apply `transition-transform duration-[450ms]` with `transitionDelay: 800ms`
+- Match the easing: `cubic-bezier(0.22, 0.61, 0.36, 1)` (brand standard)
+
+### Step 5: Add Ambient Breathing to the Glow
+
+The vow-yellow radial glow should breathe with a slow 6s cycle, oscillating between 3% and 6% opacity. This creates the sensation that the sacred moment is alive. Add a keyframe animation applied to the glow div.
+
+**Technical changes in `src/index.css`:**
+- Add `@keyframes vow-glow-breathe` with `0% { opacity: 0.03 }` and `100% { opacity: 0.06 }`
+- Apply to the glow layer with `animation: vow-glow-breathe 6s ease-in-out infinite alternate`
+
+**Technical changes in `VowMoment.tsx`:**
+- Apply the animation class or inline style to the glow div
+- Add `will-change: opacity` for GPU compositing
+
+### Step 6: Refine Section Fade Transitions
+
+Ensure the top fade precisely matches the Process section's exit color and the bottom fade matches The Invitation's entry color. Currently the Process section ends with a warm journal gradient, so the top fade should transition from that warm palette into the void. The bottom fade should match `hsl(45 25% 96%)` (The Invitation's background).
+
+**Technical changes in `VowMoment.tsx`:**
+- Top fade: `linear-gradient(to top, transparent, hsl(40 25% 90%))` (matching Process section's updated warm cream)
+- Bottom fade: Keep `hsl(45 25% 96%)` (already correct for TheInvitation)
+
+### Step 7: Performance and Accessibility
+
+Ensure all new elements use compositor-only properties. The background image uses `loading="lazy"`. The grain overlay uses `pointer-events: none`. Add reduced-motion fallback for the breathing glow animation. Verify the staggered text reveal degrades to immediate visibility under reduced motion.
 
 **Technical changes:**
-- `src/index.css` (gradient-dawn__base): Modify the top portion of the linear-gradient to start from `hsl(40 25% 90%)` (warm cream matching Exhale exit) and transition to the current warm dark by 30%
-- This ensures the seam between Exhale and Process is invisible
-
-### Step 2: Elevate Card Material Design
-
-The current flat cards need tactile depth. Add a subtle inner shadow for recessed feel, refine the gold accent border to 2px with a gradient that fades at top and bottom (like a measure line in sheet music), and add a very subtle warm paper texture to the card background.
-
-**Technical changes in `src/index.css`:**
-- `.process-card`: Add `box-shadow: inset 0 1px 0 hsl(40 30% 100% / 0.5), 0 2px 8px hsl(35 20% 10% / 0.08)` for depth
-- `.process-card__accent`: Increase width to 2px, apply a vertical gradient that fades at extremes
-- `.process-card`: Add a subtle warm tint to background: `hsl(40 28% 97%)`
-- `.process-card:hover`: Refine hover shadow to include a very subtle golden tint: `0 4px 16px hsl(var(--vow-yellow) / 0.06)`
-
-### Step 3: Slow Movement Reveal Timing
-
-The stagger phases at 150ms intervals feel rushed for a section about careful, deliberate preparation. Slow the timing to create a more contemplative cascade that honors the narrative weight.
-
-**Technical changes in `src/components/process/ProcessMovement.tsx`:**
-- Change timing array from `[0, 150, 280, 400, 520, 640]` to `[0, 200, 380, 560, 720, 880]`
-- This adds roughly 40% more breathing room between each phase reveal
-
-### Step 4: Add Ken Burns Motion to Movement Images
-
-The images should slowly drift to create the sense of living memory. Add a gentle CSS animation to `.movement-image__photo` that scales from 1.0 to 1.03 over 20 seconds with alternating direction. This ultra-subtle motion rewards lingering without distracting from the card content.
-
-**Technical changes in `src/index.css`:**
-- Add `@keyframes movement-ken-burns` with `0% { transform: scale(1) }` and `100% { transform: scale(1.03) }`
-- Apply to `.movement-image.is-revealed .movement-image__photo` with `animation: movement-ken-burns 20s ease-in-out infinite alternate`
-- Ensure the existing `filter: saturate(0.7) contrast(1.05)` is maintained
-- Add reduced-motion fallback (already covered by global rule)
-
-### Step 5: Elevate Closing Block Cinematography
-
-The closing block with `ceremony.jpg` needs a more cinematic treatment. Increase the image opacity slightly, add a warm vignette that frames the text, and add a film grain overlay for consistency. The text should feel like it's emerging from the ceremony image, not floating above it.
-
-**Technical changes in `src/index.css`:**
-- `.process-closing__backdrop-img`: Increase opacity from current low value to `0.15` and add `filter: saturate(0.6) contrast(1.1)` for film-like treatment
-- `.process-closing__backdrop-overlay`: Add a radial gradient that's transparent at center and dark at edges (cinematic vignette) instead of flat overlay
-- Add a film grain `::after` pseudo-element to `.process-closing__backdrop` with `opacity: 0.06`
-
-### Step 6: Add Subtle Golden Thread Between Movements
-
-Rather than the complex SVG weaving thread (which was removed), add a simpler visual continuity element: a thin vertical golden line that connects each movement card to the next, with diamond nodes at each junction. This creates the "conductor's score" metaphor without the complexity overhead.
-
-**Technical changes in `src/index.css`:**
-- Add `.process-score__movements::before` pseudo-element: a 1px vertical line centered horizontally with `hsl(var(--vow-yellow) / 0.15)` that runs the full height of the movements container
-- The existing diamond separators on mobile (`.process-movement::after`) get refined: increase to 8px, add a subtle box-shadow glow
-- On desktop, the vertical line replaces the need for per-card bar-lines
-
-### Step 7: Performance and Reduced Motion Audit
-
-Ensure all new animations use compositor-only properties (transform, opacity). Verify the Ken Burns on images doesn't cause repaints. Confirm that the gradient-dawn candlelight animations don't conflict with the new Ken Burns timing. Test the closing block grain pseudo-element for GPU compositing.
-
-**Technical changes:**
-- Add `will-change: transform` to `.movement-image__photo` (only when animated)
-- Verify all new animations are covered by the existing global `prefers-reduced-motion` rule at line 2737
-- Add `contain: layout paint` to `.process-card` for isolation
-- Add `loading="lazy"` verification on all movement images (already present)
+- Add `will-change: opacity` to glow and fog layers
+- Reduced-motion: glow breathing stops (static at 5%), text appears immediately without stagger
+- Background image: `loading="lazy"` and `aria-hidden="true"`
+- Film grain: `pointer-events: none` and low z-index
 
 ---
 
@@ -94,13 +100,13 @@ Ensure all new animations use compositor-only properties (transform, opacity). V
 
 | Step | File(s) | Change |
 |------|---------|--------|
-| 1 | `src/index.css` | Gradient dawn base color continuity |
-| 2 | `src/index.css` | Card material design (shadow, accent, texture) |
-| 3 | `src/components/process/ProcessMovement.tsx` | Slower stagger timing array |
-| 4 | `src/index.css` | Ken Burns keyframes + application |
-| 5 | `src/index.css` | Closing block cinematography |
-| 6 | `src/index.css` | Vertical golden thread + diamond refinement |
-| 7 | `src/index.css`, `ProcessMovement.tsx` | Performance + reduced motion |
+| 1 | `src/assets/vow-moment-altar.jpg`, `VowMoment.tsx` | New AI image + integration |
+| 2 | `VowMoment.tsx` | Grain overlay + fog layer |
+| 3 | `VowMoment.tsx` | Staggered 3-line reveal |
+| 4 | `VowMoment.tsx` | Animated underline draw |
+| 5 | `index.css`, `VowMoment.tsx` | Breathing glow animation |
+| 6 | `VowMoment.tsx` | Section fade color refinement |
+| 7 | `VowMoment.tsx`, `index.css` | Performance + reduced motion |
 
-All changes are refinements to existing elements -- no new components, no new dependencies. Pure atmospheric and typographic elevation.
+All changes are atmospheric and typographic refinements -- no layout restructuring, no new dependencies.
 
