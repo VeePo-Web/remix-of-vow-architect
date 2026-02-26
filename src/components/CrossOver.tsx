@@ -16,14 +16,21 @@ export function CrossOver() {
         minHeight: '400px',
       }}
     >
-      {/* Background image layer */}
-      <img
-        src={crossoverDance}
-        alt=""
-        className="absolute inset-0 w-full h-full object-cover opacity-[0.10] pointer-events-none"
-        loading="lazy"
-        aria-hidden="true"
-      />
+      {/* Background image with Ken Burns */}
+      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+        <img
+          src={crossoverDance}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover opacity-[0.10] pointer-events-none"
+          style={{
+            animation: 'crossover-ken-burns 30s ease-in-out infinite alternate',
+            filter: 'saturate(0.5) contrast(1.1)',
+            willChange: 'transform',
+          }}
+          loading="lazy"
+        />
+      </div>
+
       {/* Floating particle dust */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -38,6 +45,14 @@ export function CrossOver() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background: "radial-gradient(ellipse at center, transparent 0%, hsl(240 9% 2% / 0.6) 100%)"
+        }}
+        aria-hidden="true"
+      />
+      {/* Warm fog layer */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse at 50% 40%, hsl(var(--vow-yellow) / 0.02) 0%, transparent 50%)",
         }}
         aria-hidden="true"
       />

@@ -5,17 +5,17 @@ import witnessesVenue from "@/assets/witnesses-venue-ai.jpg";
 const testimonials = [
   {
     quote: "The moment the first note played, every worry I had disappeared.",
-    names: "Future couple",
+    names: "A spring bride, Canmore",
     venue: "Outdoor ceremony",
   },
   {
     quote: "Our guests still talk about the music more than anything else.",
-    names: "Future couple",
+    names: "A couple married at sunset",
     venue: "Mountain venue",
   },
   {
     quote: "He played the song from our first date. I did not know I could cry that much and still say I do.",
-    names: "Future couple",
+    names: "A bride who danced in the rain",
     venue: "Lakeside ceremony",
   },
 ];
@@ -33,15 +33,39 @@ export function TheWitnesses() {
         background: 'linear-gradient(180deg, hsl(45 25% 96%) 0%, hsl(45 20% 93%) 100%)',
       }}
     >
-      {/* Background image layer */}
-      <img
-        src={witnessesVenue}
-        alt=""
-        className="absolute inset-0 w-full h-full object-cover opacity-[0.06] pointer-events-none"
-        style={{ animation: "ken-burns 25s ease-in-out infinite alternate" }}
-        loading="lazy"
+      {/* Background image with Ken Burns — overflow-hidden wrapper */}
+      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+        <img
+          src={witnessesVenue}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover opacity-[0.06] pointer-events-none"
+          style={{
+            animation: "ken-burns 25s ease-in-out infinite alternate",
+            filter: 'saturate(0.85) contrast(1.05)',
+            willChange: 'transform',
+          }}
+          loading="lazy"
+        />
+      </div>
+
+      {/* Cinematic vignette */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at center, transparent 40%, hsl(45 20% 93% / 0.7) 100%)',
+        }}
         aria-hidden="true"
       />
+
+      {/* Warm atmospheric fog */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.025) 0%, transparent 60%)',
+        }}
+        aria-hidden="true"
+      />
+
       {/* Radial warm glow for depth */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -50,15 +74,18 @@ export function TheWitnesses() {
         }}
         aria-hidden="true"
       />
+
       {/* Film grain overlay */}
-      <div className="section-grain" aria-hidden="true" />
+      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
+
       {/* Top fade from ThreePaths dark */}
       <div
         className="section-fade-top"
         style={{ background: 'linear-gradient(to top, transparent, hsl(240 9% 4%))' }}
         aria-hidden="true"
       />
-      <div className="container mx-auto px-4">
+
+      <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-3xl mx-auto">
           {/* Header */}
           <div className="text-center mb-20">
@@ -109,13 +136,14 @@ export function TheWitnesses() {
                 style={{
                   transitionDelay: isVisible ? `${400 + index * 300}ms` : "0ms",
                   borderColor: "hsl(var(--vow-yellow) / 0.2)",
+                  boxShadow: '-1px 0 6px hsl(var(--vow-yellow) / 0.15)',
                 }}
               >
                 {/* Quote */}
                 <blockquote
                   className="font-display font-light leading-relaxed mb-6 text-foreground/90"
                   style={{
-                    fontSize: "clamp(22px, 3vw, 28px)",
+                    fontSize: "clamp(24px, 3vw, 28px)",
                     textWrap: "balance" as any,
                   }}
                 >
@@ -151,6 +179,7 @@ export function TheWitnesses() {
           </div>
         </div>
       </div>
+
       {/* Bottom fade into CrossOver dark */}
       <div
         className="section-fade-bottom"

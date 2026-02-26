@@ -3,6 +3,7 @@ import { Check } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import soundKeys from "@/assets/sound-keys.jpg";
 
 interface PathCardProps {
   name: string;
@@ -64,7 +65,41 @@ export function ThreePaths() {
         style={{ background: 'linear-gradient(to top, transparent, hsl(45 20% 93%))' }}
         aria-hidden="true"
       />
-      <div className="container mx-auto">
+
+      {/* Background image with Ken Burns */}
+      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+        <img
+          src={soundKeys}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover opacity-[0.06] pointer-events-none"
+          style={{
+            animation: 'paths-ken-burns 30s ease-in-out infinite alternate',
+            filter: 'saturate(0.5) contrast(1.1)',
+            willChange: 'transform',
+          }}
+          loading="lazy"
+        />
+      </div>
+
+      {/* Cinematic vignette */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at center, transparent 30%, hsl(240 9% 4%) 100%)',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Warm fog layer */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.02) 0%, transparent 60%)',
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="container mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
           <p
@@ -93,6 +128,19 @@ export function ThreePaths() {
           >
             Three ways I can shape the music of your day.
           </p>
+
+          {/* Golden thread separator */}
+          <div
+            className={cn(
+              "h-[1px] w-12 mx-auto mt-8 transition-all duration-700",
+              isVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
+            )}
+            style={{
+              background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow)), transparent)",
+              transitionDelay: isVisible ? "400ms" : "0ms",
+            }}
+            aria-hidden="true"
+          />
         </div>
 
         {/* Three Paths Grid */}
@@ -101,10 +149,10 @@ export function ThreePaths() {
             <div
               key={index}
               className={cn(
-                "relative border rounded-lg p-10 transition-all duration-300 group flex flex-col backdrop-blur-sm",
+                "relative rounded-lg p-10 md:p-12 transition-all duration-300 group flex flex-col",
                 path.isChosen 
-                  ? "border-primary/40 md:-translate-y-2" 
-                  : "border-border/20 hover:border-[hsl(var(--vow-yellow)/0.25)] hover:-translate-y-1",
+                  ? "md:-translate-y-2" 
+                  : "hover:-translate-y-1",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               )}
               style={{ 
@@ -113,12 +161,32 @@ export function ThreePaths() {
                 background: path.isChosen 
                   ? 'radial-gradient(ellipse at 50% 0%, hsl(var(--vow-yellow) / 0.06) 0%, hsl(var(--ebon-charcoal) / 0.95) 70%)'
                   : 'hsl(var(--ebon-charcoal) / 0.9)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                border: path.isChosen
+                  ? '1px solid hsl(var(--vow-yellow) / 0.25)'
+                  : '1px solid hsl(var(--border) / 0.2)',
+                borderTop: path.isChosen
+                  ? '1px solid hsl(var(--vow-yellow) / 0.3)'
+                  : undefined,
                 boxShadow: path.isChosen
-                  ? '0 8px 40px rgba(255,224,138,0.12), inset 0 1px 0 hsl(var(--vow-yellow) / 0.1)'
-                  : '0 4px 24px rgba(0,0,0,0.3), 0 0 0 0px rgba(255,224,138,0)',
+                  ? 'inset 0 1px 0 rgba(255,255,255,0.05), 0 16px 48px rgba(0,0,0,0.4), 0 8px 40px rgba(255,224,138,0.12)'
+                  : 'inset 0 1px 0 rgba(255,255,255,0.05), 0 16px 48px rgba(0,0,0,0.4)',
+              }}
+              onMouseEnter={(e) => {
+                if (!path.isChosen) {
+                  (e.currentTarget as HTMLElement).style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.05), 0 16px 48px rgba(0,0,0,0.4), 0 0 24px rgba(255,224,138,0.06)';
+                  (e.currentTarget as HTMLElement).style.borderColor = 'hsl(var(--vow-yellow) / 0.25)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!path.isChosen) {
+                  (e.currentTarget as HTMLElement).style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.05), 0 16px 48px rgba(0,0,0,0.4)';
+                  (e.currentTarget as HTMLElement).style.borderColor = 'hsl(var(--border) / 0.2)';
+                }
               }}
             >
-              {/* Chosen Badge — refined diamond */}
+              {/* Chosen Badge */}
               {path.isChosen && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                   <div className="bg-primary text-primary-foreground text-xs font-semibold px-4 py-1 rounded-full shadow-md tracking-wider">
@@ -140,7 +208,7 @@ export function ThreePaths() {
               </div>
 
               {/* Description */}
-              <p className="text-sm text-muted-foreground mb-6 pb-6 border-b border-border/20">
+              <p className="text-[13px] font-display font-light italic text-muted-foreground mb-6 pb-6 border-b border-border/20">
                 {path.description}
               </p>
 
@@ -148,7 +216,7 @@ export function ThreePaths() {
               <ul className="space-y-3 mb-8 flex-1">
                 {path.features.map((feature, idx) => (
                   <li key={idx} className="flex items-start gap-2.5 text-sm text-card-foreground/80">
-                    <Check size={16} className="text-accent shrink-0 mt-0.5" strokeWidth={2} />
+                    <Check size={16} className="text-primary/70 shrink-0 mt-0.5" strokeWidth={2} />
                     {feature}
                   </li>
                 ))}
@@ -177,6 +245,13 @@ export function ThreePaths() {
           You can move between these at any time—no penalty until two weeks before your day.
         </p>
       </div>
+
+      {/* Bottom fade into TheWitnesses warm */}
+      <div
+        className="section-fade-bottom"
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(45 20% 93%))' }}
+        aria-hidden="true"
+      />
     </section>
   );
 }
