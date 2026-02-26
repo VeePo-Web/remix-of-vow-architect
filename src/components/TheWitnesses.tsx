@@ -40,7 +40,7 @@ export function TheWitnesses() {
           alt=""
           className="absolute inset-0 w-full h-full object-cover opacity-[0.06] pointer-events-none"
           style={{
-            animation: "ken-burns 25s ease-in-out infinite alternate",
+            animation: "witnesses-ken-burns 25s ease-in-out infinite alternate",
             filter: 'saturate(0.85) contrast(1.05)',
             willChange: 'transform',
           }}

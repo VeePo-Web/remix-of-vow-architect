@@ -78,16 +78,22 @@ export function MinimalHeader() {
                   {link.label}
                 </Link>
               ))}
-              <Link
-                to="/contact"
-                className="nav-link nav-link--cta opacity-0 animate-fade-in transition-all duration-[180ms] hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
-                style={{
-                  animationDelay: `${navLinks.length * 60}ms`,
-                  animationFillMode: "forwards",
-                }}
-              >
-                Hold My Date
-              </Link>
+              <span className="relative opacity-0 animate-fade-in" style={{ animationDelay: `${navLinks.length * 60}ms`, animationFillMode: "forwards" }}>
+                {/* Subtle ambient glow behind CTA */}
+                <span
+                  className="absolute inset-0 -inset-x-4 -inset-y-2 rounded-full pointer-events-none"
+                  style={{
+                    background: 'radial-gradient(ellipse at center, hsl(45 100% 76% / 0.06) 0%, transparent 70%)',
+                  }}
+                  aria-hidden="true"
+                />
+                <Link
+                  to="/contact"
+                  className="relative nav-link nav-link--cta transition-all duration-[180ms] hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
+                >
+                  Hold My Date
+                </Link>
+              </span>
             </nav>
           )}
 

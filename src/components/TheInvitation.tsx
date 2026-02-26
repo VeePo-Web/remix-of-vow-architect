@@ -153,12 +153,19 @@ export function TheInvitation() {
                 )}
                 style={{ transitionDelay: isVisible ? '750ms' : '0ms' }}
               >
-                <p className="text-xs uppercase tracking-[0.22em] text-rich-black/45">
+                <p className="text-xs uppercase tracking-[0.22em] text-rich-black/45 flex items-center flex-wrap justify-start gap-x-3 gap-y-1">
                   {credentials.map((cred, i) => (
-                    <span key={cred}>
+                    <span key={cred} className="flex items-center gap-x-3">
                       {cred}
                       {i < credentials.length - 1 && (
-                        <span className="text-vow-gold mx-3">·</span>
+                        <span
+                          className="witness-kit-diamond inline-block w-[4px] h-[4px] rotate-45"
+                          style={{
+                            background: 'hsl(var(--vow-yellow) / 0.5)',
+                            boxShadow: '0 0 6px hsl(var(--vow-yellow) / 0.2)',
+                          }}
+                          aria-hidden="true"
+                        />
                       )}
                     </span>
                   ))}
