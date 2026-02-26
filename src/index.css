@@ -4342,6 +4342,11 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   100% { transform: scale(1.03); }
 }
 
+@keyframes divider-diamond-breathe {
+  0%, 100% { opacity: 0.6; transform: rotate(45deg) scale(1); }
+  50% { opacity: 1; transform: rotate(45deg) scale(1.15); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   img[style*="sound-ken-burns"],
   img[style*="transform-fear-kb"],
@@ -4360,5 +4365,8 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   .vigil-pulse {
     animation: none !important;
   }
-}
 
+  [style*="divider-diamond-breathe"] {
+    animation: none !important;
+  }
+}

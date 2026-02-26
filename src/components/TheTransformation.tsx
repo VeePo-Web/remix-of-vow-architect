@@ -22,7 +22,7 @@ export function TheTransformation() {
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.2 });
 
   return (
-    <section ref={sectionRef} className="section-grain relative min-h-[500px] overflow-hidden" style={{ minHeight: '500px' }}>
+    <section ref={sectionRef} className="section-grain relative min-h-[500px] overflow-hidden">
       {/* Top fade — seamless transition from The Sound's dark exit */}
       <div
         className="section-fade-top"
@@ -84,10 +84,10 @@ export function TheTransformation() {
             {/* Panel heading */}
             <h3
               className={cn(
-                "font-display text-lg font-light italic text-foreground/40 mb-8 transition-all duration-700",
+                "font-display text-xl font-light italic tracking-tight text-foreground/40 mb-8 transition-all duration-900",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
-              style={{ transitionDelay: "0ms" }}
+              style={{ transitionDelay: "0ms", transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)' }}
             >
               What keeps you up at night
             </h3>
@@ -97,15 +97,31 @@ export function TheTransformation() {
                 key={index}
                 className={cn(
                   "flex items-start gap-3 transition-all duration-700 group",
-                  isVisible ? "opacity-70 hover:opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
+                  isVisible ? "opacity-70 hover:opacity-100 translate-x-0" : "opacity-0 -translate-x-6"
                 )}
-                style={{ transitionDelay: isVisible ? `${150 + index * 150}ms` : "0ms" }}
+                style={{
+                  transitionDelay: isVisible ? `${200 + index * 200}ms` : "0ms",
+                  transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+                }}
               >
                 <X size={20} className="text-error shrink-0 mt-0.5 transition-transform duration-300 group-hover:scale-110" strokeWidth={2} />
                 <p className="text-base leading-relaxed text-foreground/80">{fear}</p>
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Mobile golden thread separator — Death-to-Life threshold */}
+        <div
+          className="md:hidden flex justify-center my-8"
+          aria-hidden="true"
+        >
+          <div
+            className="w-12 h-[1px]"
+            style={{
+              background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.4), transparent)",
+            }}
+          />
         </div>
 
         {/* RIGHT PANEL — LIFE (Resolutions) */}
@@ -149,12 +165,26 @@ export function TheTransformation() {
             {/* Panel heading */}
             <h3
               className={cn(
-                "font-display text-lg font-light italic text-rich-black/50 mb-8 transition-all duration-700",
+                "font-display text-xl font-light italic tracking-tight text-rich-black/50 mb-8 transition-all duration-900 relative inline-block",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
-              style={{ transitionDelay: "0ms" }}
+              style={{ transitionDelay: "0ms", transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)' }}
             >
               What I promise instead
+              {/* Golden vow underline */}
+              <span
+                className={cn(
+                  "absolute left-0 -bottom-1 h-[2px] w-8 origin-left transition-transform duration-700",
+                  isVisible ? "scale-x-100" : "scale-x-0"
+                )}
+                style={{
+                  background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.6), hsl(var(--vow-yellow) / 0.2))",
+                  boxShadow: isVisible ? "0 0 8px hsl(var(--vow-yellow) / 0.3)" : "none",
+                  transitionDelay: isVisible ? "400ms" : "0ms",
+                  transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+                }}
+                aria-hidden="true"
+              />
             </h3>
 
             {resolutions.map((resolution, index) => (
@@ -162,9 +192,12 @@ export function TheTransformation() {
                 key={index}
                 className={cn(
                   "flex items-start gap-3 transition-all duration-700 group",
-                  isVisible ? "opacity-80 hover:opacity-100 translate-x-0" : "opacity-0 translate-x-4"
+                  isVisible ? "opacity-80 hover:opacity-100 translate-x-0" : "opacity-0 translate-x-6"
                 )}
-                style={{ transitionDelay: isVisible ? `${150 + index * 150}ms` : "0ms" }}
+                style={{
+                  transitionDelay: isVisible ? `${200 + index * 200}ms` : "0ms",
+                  transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+                }}
               >
                 <Check size={20} className="text-success shrink-0 mt-0.5 transition-transform duration-300 group-hover:scale-110" strokeWidth={2.5} />
                 <p className="text-base leading-relaxed text-rich-black font-medium">{resolution}</p>
@@ -190,7 +223,7 @@ export function TheTransformation() {
           style={{
             background: 'hsl(var(--vow-yellow))',
             boxShadow: '0 0 12px 4px hsl(var(--vow-yellow) / 0.5), 0 0 30px 8px hsl(var(--vow-yellow) / 0.2)',
-            animation: 'divider-breathe 4s ease-in-out 2s infinite',
+            animation: 'divider-diamond-breathe 4s ease-in-out 2.5s infinite',
           }}
         />
       </div>
