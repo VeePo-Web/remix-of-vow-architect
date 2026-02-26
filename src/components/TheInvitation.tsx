@@ -24,11 +24,19 @@ export function TheInvitation() {
         aria-hidden="true"
       />
 
-      {/* Atmospheric radial glow behind portrait */}
+      {/* Step 2: Two-layer atmospheric depth — warm elliptical fog behind portrait */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at 30% 50%, hsla(38, 60%, 60%, 0.02) 0%, transparent 60%)',
+          background: 'radial-gradient(ellipse 50% 60% at 30% 50%, hsla(38, 60%, 60%, 0.04) 0%, transparent 70%)',
+        }}
+        aria-hidden="true"
+      />
+      {/* Step 2: Secondary cold-to-warm gradient sweep */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'linear-gradient(90deg, hsl(220 15% 92% / 0.3) 0%, hsl(42 30% 93% / 0.5) 50%, hsl(45 25% 96% / 0.2) 100%)',
         }}
         aria-hidden="true"
       />
@@ -57,7 +65,14 @@ export function TheInvitation() {
               )}
               style={{ transitionDelay: isVisible ? '150ms' : '0ms' }}
             >
-              <div className="invitation-portrait-frame aspect-[3/4] rounded-lg shadow-xl overflow-hidden relative">
+              {/* Step 1: Portrait frame with border + inner shadow */}
+              <div
+                className="invitation-portrait-frame aspect-[3/4] rounded-lg shadow-xl overflow-hidden relative"
+                style={{
+                  border: '1px solid hsl(var(--vow-yellow) / 0.12)',
+                  boxShadow: 'inset 0 2px 12px hsl(var(--vow-yellow) / 0.06), 0 20px 60px -12px rgba(0,0,0,0.2)',
+                }}
+              >
                 <img
                   src={invitationPortrait}
                   alt="Pianist's hands on grand piano keys in warm candlelight"
@@ -78,7 +93,14 @@ export function TheInvitation() {
                   aria-hidden="true"
                 />
               </div>
-              <p className="text-sm text-rich-black/50 italic mt-4 text-center">
+              {/* Step 1: Caption with scroll-reveal animation */}
+              <p
+                className={cn(
+                  'text-sm text-rich-black/50 italic mt-4 text-center transition-all duration-700',
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
+                )}
+                style={{ transitionDelay: isVisible ? '400ms' : '0ms' }}
+              >
                 A moment with me — before the moment with you.
               </p>
             </div>

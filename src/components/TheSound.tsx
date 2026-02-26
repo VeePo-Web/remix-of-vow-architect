@@ -352,6 +352,22 @@ export function TheSound() {
               Browse. Listen. Imagine it at yours.
             </p>
 
+            {/* Step 3: Golden thread connector — headline to listening room */}
+            <div
+              className={cn(
+                "mx-auto mb-8 transition-all duration-700",
+                isVisible ? "opacity-100 scale-y-100" : "opacity-0 scale-y-0"
+              )}
+              style={{
+                width: "1px",
+                height: "48px",
+                background: "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.4), hsl(var(--vow-yellow) / 0.08))",
+                transformOrigin: "top",
+                transitionDelay: isVisible ? "380ms" : "0ms",
+              }}
+              aria-hidden="true"
+            />
+
             {/* Inline Listening Room */}
             <div
               className={cn(
@@ -461,7 +477,7 @@ export function TheSound() {
                 }}
                 aria-hidden="true"
               />
-              <p className="text-base font-display font-light italic text-muted-foreground">
+              <p className="text-lg font-display font-light italic text-foreground/70">
                 Every piece I play begins the same way — with someone in mind.
               </p>
             </div>

@@ -108,6 +108,7 @@ export function TheWitnesses() {
               }}
               aria-hidden="true"
             />
+            {/* Step 9: Heading with animated "stayed" underline */}
             <h2
               className={cn(
                 "font-display font-light leading-tight mb-4 text-center transition-all duration-700",
@@ -119,7 +120,24 @@ export function TheWitnesses() {
                 textWrap: "balance" as any,
               }}
             >
-              The music stayed with them
+              The music{" "}
+              <span className="relative inline-block">
+                stayed
+                <span
+                  className={cn(
+                    "absolute left-0 right-0 -bottom-1 h-[2px] origin-left transition-transform duration-700",
+                    isVisible ? "scale-x-100" : "scale-x-0"
+                  )}
+                  style={{
+                    background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.5), hsl(var(--vow-yellow) / 0.15))",
+                    boxShadow: isVisible ? "0 0 6px hsl(var(--vow-yellow) / 0.2)" : "none",
+                    transitionDelay: isVisible ? "700ms" : "0ms",
+                    transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
+                  }}
+                  aria-hidden="true"
+                />
+              </span>
+              {" "}with them
             </h2>
           </div>
 
@@ -136,6 +154,14 @@ export function TheWitnesses() {
                   transitionDelay: isVisible ? `${400 + index * 300}ms` : "0ms",
                 }}
               >
+                {/* Step 8: Decorative quotation mark */}
+                <div
+                  className="font-display text-6xl leading-none text-foreground/[0.08] select-none pointer-events-none mb-2"
+                  aria-hidden="true"
+                >
+                  &ldquo;
+                </div>
+
                 {/* Quote */}
                 <blockquote
                   className="font-display font-light leading-relaxed mb-6 text-foreground/90"
@@ -157,7 +183,7 @@ export function TheWitnesses() {
                   </p>
                 </div>
 
-                {/* Separator (except last) */}
+                {/* Separator (except last) — increased spacing */}
                 {index < testimonials.length - 1 && (
                   <div
                     className={cn(

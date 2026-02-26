@@ -86,7 +86,7 @@ export function TheWitness() {
               THE WITNESS
             </p>
 
-            {/* Headline with golden vow underline on "pianist" */}
+            {/* Step 5: Headline with animated golden vow underline on "pianist" */}
             <h2
               className={cn(
                 "text-[clamp(28px,4vw,40px)] font-display font-light leading-tight mb-10 text-center transition-all duration-700",
@@ -99,10 +99,15 @@ export function TheWitness() {
               <span className="relative inline-block">
                 pianist
                 <span
-                  className="absolute left-0 right-0 -bottom-1 h-[2px]"
+                  className={cn(
+                    "absolute left-0 right-0 -bottom-1 h-[2px] origin-left transition-transform duration-700",
+                    isVisible ? "scale-x-100" : "scale-x-0"
+                  )}
                   style={{
                     background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.6), hsl(var(--vow-yellow) / 0.2))",
-                    boxShadow: "0 0 8px hsl(var(--vow-yellow) / 0.3)",
+                    boxShadow: isVisible ? "0 0 8px hsl(var(--vow-yellow) / 0.3)" : "none",
+                    transitionDelay: isVisible ? "600ms" : "0ms",
+                    transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
                   }}
                   aria-hidden="true"
                 />
@@ -139,7 +144,7 @@ export function TheWitness() {
               aria-hidden="true"
             />
 
-            {/* Standard Kit — Editorial Credentials */}
+            {/* Step 6: Standard Kit — with hover accent bars */}
             <div
               className={cn(
                 "transition-all duration-700",
@@ -153,7 +158,16 @@ export function TheWitness() {
               <div className="flex flex-wrap justify-center gap-x-3 gap-y-2">
                 {standardKit.map((item, index) => (
                   <span key={index} className="flex items-center gap-x-3">
-                    <span className="text-xs uppercase tracking-[0.18em] font-display text-muted-foreground transition-colors duration-[180ms] hover:text-foreground">
+                    <span className="group relative text-xs uppercase tracking-[0.18em] font-display text-muted-foreground transition-colors duration-[180ms] hover:text-foreground flex items-center gap-2 cursor-default">
+                      {/* Hover accent bar */}
+                      <span
+                        className="w-[2px] h-0 group-hover:h-4 rounded-full transition-all duration-[180ms]"
+                        style={{
+                          background: 'hsl(var(--vow-yellow) / 0.5)',
+                          transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+                        }}
+                        aria-hidden="true"
+                      />
                       {item}
                     </span>
                     {index < standardKit.length - 1 && (

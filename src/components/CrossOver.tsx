@@ -63,7 +63,7 @@ export function CrossOver() {
       />
 
       <div className="container mx-auto max-w-4xl text-center relative z-10">
-        {/* Tagline Returns (Bookend) */}
+        {/* Step 10: Tagline with semicolon heartbeat */}
         <div
           className={cn(
             "mb-10 transition-all duration-700",
@@ -76,7 +76,16 @@ export function CrossOver() {
               textShadow: "0 2px 8px rgba(0,0,0,0.6), 0 0 2px rgba(255,224,138,0.15)"
             }}
           >
-            {"\u2018"}TIL DEATH <span className="text-primary">;</span> UNTO LIFE
+            {"\u2018"}TIL DEATH{" "}
+            <span
+              className="text-primary inline-block"
+              style={{
+                animation: isVisible ? "semicolon-heartbeat 2s ease-in-out infinite" : undefined,
+              }}
+            >
+              ;
+            </span>
+            {" "}UNTO LIFE
           </p>
         </div>
 
@@ -130,24 +139,28 @@ export function CrossOver() {
           Includes sound documentation, microphone setup, and your ceremony run-of-show.
         </p>
 
-        {/* Sacred Separator */}
+        {/* Step 11: Golden thread above commitment */}
         <div 
-          className="h-[1px] w-24 mx-auto mb-8"
+          className={cn(
+            "h-[1px] w-8 mx-auto mb-8 transition-all duration-700",
+            isVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
+          )}
           style={{
-            background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)"
+            background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)",
+            transitionDelay: isVisible ? "600ms" : "0ms",
           }}
           aria-hidden="true"
         />
 
-        {/* Commitment Statement */}
+        {/* Step 11: Commitment Statement with ceremony */}
         <p
           className={cn(
-            "text-base font-display font-light text-foreground/90 italic transition-all duration-700",
+            "text-lg font-display font-light text-foreground/90 italic transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
-          style={{ transitionDelay: isVisible ? "600ms" : "0ms", letterSpacing: "0.03em" }}
+          style={{ transitionDelay: isVisible ? "750ms" : "0ms", letterSpacing: "0.03em" }}
         >
-          Response within <span className="text-primary font-normal not-italic">24 hours</span>. Always.
+          Response within <span className="text-primary font-normal not-italic text-xl">24 hours</span>. Always.
         </p>
       </div>
 
