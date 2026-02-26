@@ -4558,3 +4558,32 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
     animation: none !important;
   }
 }
+
+/* ── Round 25: Track bar hover preview ── */
+.track-button:hover .track-bar {
+  transform: scaleY(0.5) !important;
+  opacity: 0.5;
+}
+.track-button--active .track-bar {
+  transform: scaleY(1) !important;
+  opacity: 1;
+}
+
+/* Coming Soon track hover dimming */
+.track-button--coming-soon:hover {
+  opacity: 0.6;
+}
+
+/* Blockquote hover warmth */
+.blockquote-warm {
+  cursor: default;
+}
+.blockquote-warm:hover {
+  text-shadow: 0 0 20px hsl(var(--vow-yellow) / 0.03);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blockquote-warm:hover {
+    text-shadow: none;
+  }
+}

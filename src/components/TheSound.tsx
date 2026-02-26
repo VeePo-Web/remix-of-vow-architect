@@ -127,6 +127,12 @@ function NowPlayingBar({
         "now-playing-bar",
         visible ? "now-playing-bar--visible" : ""
       )}
+      style={{
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+        background: "hsl(var(--rich-black) / 0.92)",
+        borderTop: "1px solid hsl(var(--vow-yellow) / 0.1)",
+      }}
       aria-label="Now playing"
       role="region"
     >
@@ -320,6 +326,7 @@ export function TheSound() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background: "radial-gradient(ellipse 80% 50% at 50% 60%, hsl(30 40% 12% / 0.15) 0%, transparent 70%)",
+            backgroundAttachment: "fixed",
           }}
           aria-hidden="true"
         />
@@ -518,7 +525,7 @@ export function TheSound() {
                             ? "text-[hsl(var(--vow-yellow))] track-button--active"
                             : hasSrc
                             ? "text-foreground/70 hover:text-foreground hover:bg-[hsl(var(--vow-yellow)/0.03)] hover:shadow-[inset_2px_0_8px_hsl(var(--vow-yellow)/0.04)]"
-                            : "text-foreground/35 cursor-default"
+                            : "text-foreground/35 cursor-default track-button--coming-soon"
                         )}
                         style={{
                           background: isActive
@@ -670,7 +677,7 @@ export function TheSound() {
                 />
               </div>
               <blockquote className="relative z-10" cite="Parker Allard">
-                <p className="text-lg font-display font-light italic text-foreground/80">
+                <p className="text-lg font-display font-light italic text-foreground/80 transition-all duration-300 blockquote-warm">
                   Every piece I play begins the same way — with someone in mind.
                 </p>
                 <footer className="mt-3">
