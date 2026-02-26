@@ -4575,6 +4575,12 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   opacity: 1;
 }
 
+/* Track button press feedback */
+.track-button:active {
+  transform: scale(0.98);
+  transition-duration: 60ms;
+}
+
 /* Coming Soon track hover dimming */
 .track-button--coming-soon:hover {
   opacity: 0.6;
