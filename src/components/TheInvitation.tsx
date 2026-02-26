@@ -5,7 +5,7 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 import invitationPortrait from '@/assets/invitation-portrait-ai.jpg';
 
 const trustBadges = [
-  { icon: Music, label: '200+ Ceremonies' },
+  { icon: Music, label: '500+ Events' },
   { icon: Award, label: 'SOCAN Licensed' },
   { icon: Shield, label: '$4M Insured' },
 ];
@@ -76,7 +76,7 @@ export function TheInvitation() {
                 />
               </div>
               <p className="text-sm text-rich-black/50 italic mt-4 text-center">
-                60 seconds on what I do—and why.
+                A moment with me — before the moment with you.
               </p>
             </div>
 
@@ -93,7 +93,7 @@ export function TheInvitation() {
                 )}
                 style={{ transitionDelay: isVisible ? '300ms' : '0ms', textWrap: "balance" as any, marginInline: 0 }}
               >
-               I have been at 200 ceremonies.
+               I have played at over 500 events.
                 <br />
                 I know what can go{' '}
                 <span className="invitation-emphasis relative inline-block">
@@ -123,11 +123,10 @@ export function TheInvitation() {
                 style={{ transitionDelay: isVisible ? '450ms' : '0ms' }}
               >
                 <p className="text-lg font-display font-light leading-relaxed text-rich-black/80">
-                  The wind that carries vows away. The generator that hums through 
-                  the 'I do.' The back row that strains and gives up.
+                  The wind that steals a vow mid-sentence. The hum that bleeds through silence. The back row that leans in — and still cannot hear.
                 </p>
                 <p className="text-lg font-display font-light leading-relaxed text-rich-black/80">
-                  I designed every part of my process so that never happens to you.
+                  Every part of my process exists so that never happens to you.
                 </p>
               </div>
 
@@ -142,7 +141,7 @@ export function TheInvitation() {
                 style={{ transitionDelay: isVisible ? '600ms' : '0ms' }}
               >
                 <DirectionalLink to="/about">
-                  Read my full story
+                  Read my story
                 </DirectionalLink>
               </div>
 
