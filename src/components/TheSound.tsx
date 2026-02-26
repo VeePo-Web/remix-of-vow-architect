@@ -3,6 +3,8 @@ import { cn } from "@/lib/utils";
 import { Play, Pause } from "lucide-react";
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import soundKeys from "@/assets/sound-cathedral-ai.jpg";
+import soundBokeh from "@/assets/sound-bokeh-ai.jpg";
+import soundKeysIntimate from "@/assets/sound-keys-intimate-ai.jpg";
 import { categories, allTracks } from "./PianoPanel";
 import { Link } from "react-router-dom";
 
@@ -326,6 +328,17 @@ export function TheSound() {
           aria-hidden="true"
         />
 
+        {/* Golden bokeh overlay — screen blend for warmth */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+          <img
+            src={soundBokeh}
+            alt=""
+            className="w-full h-full object-cover opacity-[0.06] pointer-events-none"
+            loading="lazy"
+            style={{ mixBlendMode: "screen" }}
+          />
+        </div>
+
         {/* Warm atmospheric fog */}
         <div
           className="absolute inset-0 pointer-events-none"
@@ -432,7 +445,7 @@ export function TheSound() {
             {/* ── Step 2: Wider card with category context ── */}
             <div
               className={cn(
-                "max-w-lg mx-auto rounded-[16px] relative overflow-hidden transition-all duration-700",
+                "max-w-lg mx-4 sm:mx-auto rounded-[16px] relative overflow-hidden transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{
@@ -449,6 +462,17 @@ export function TheSound() {
                 transition: "box-shadow 0.7s cubic-bezier(0.22, 0.61, 0.36, 1)",
               }}
             >
+              {/* Card header — "Repertoire" label with piano keys strip */}
+              <div className="relative h-12 overflow-hidden">
+                <img src={soundKeysIntimate} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.08]" loading="lazy" aria-hidden="true" />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, transparent 0%, hsl(var(--rich-black)) 100%)" }} aria-hidden="true" />
+                <div className="relative z-10 h-full flex items-center justify-center">
+                  <span className="text-[10px] uppercase tracking-[0.25em] text-foreground/25 font-sans">
+                    Repertoire
+                  </span>
+                </div>
+              </div>
+
               <PianoStrings visible={isVisible} />
 
               <div className="relative z-10 py-2">
@@ -466,13 +490,13 @@ export function TheSound() {
                         key={track.title}
                         onClick={() => hasSrc ? handleTrackClick(thisGlobalIndex) : undefined}
                         className={cn(
-                          "w-full flex items-center gap-3 h-11 px-5",
+                          "track-button group w-full flex items-center gap-3 h-11 px-4 sm:px-5",
                           "font-display text-[15px] font-light tracking-tight",
-                          "transition-colors duration-[180ms]",
+                          "transition-all duration-[180ms]",
                           isActive
-                            ? "text-[hsl(var(--vow-yellow))]"
+                            ? "text-[hsl(var(--vow-yellow))] track-button--active"
                             : hasSrc
-                            ? "text-foreground/70 hover:text-foreground hover:bg-[hsl(var(--vow-yellow)/0.03)]"
+                            ? "text-foreground/70 hover:text-foreground hover:bg-[hsl(var(--vow-yellow)/0.03)] hover:shadow-[inset_2px_0_8px_hsl(var(--vow-yellow)/0.04)]"
                             : "text-foreground/30 cursor-default"
                         )}
                         style={{
@@ -484,12 +508,12 @@ export function TheSound() {
                       >
                         {/* Accent bar */}
                         <span
-                          className="flex-shrink-0"
+                          className="track-bar flex-shrink-0"
                           style={{
                             width: "2px",
-                            height: isActive ? "16px" : "3px",
+                            height: isActive ? "16px" : "8px",
                             borderRadius: "1px",
-                            background: isActive ? "hsl(var(--vow-yellow))" : "transparent",
+                            background: isActive ? "hsl(var(--vow-yellow))" : "hsl(var(--vow-yellow) / 0.3)",
                             transform: isActive ? "scaleY(1)" : "scaleY(0)",
                             transition: "transform 180ms cubic-bezier(0.22,0.61,0.36,1), height 180ms cubic-bezier(0.22,0.61,0.36,1), background 120ms",
                           }}
@@ -523,13 +547,13 @@ export function TheSound() {
                           />
                         </div>
                       )}
-                      <div className="px-5 pt-5 pb-1">
+                      <div className="px-4 sm:px-5 pt-4 sm:pt-5 pb-1">
                         <span className="font-sans text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
                           {category.label}
                         </span>
-                        {/* Emotional context phrase */}
+                        {/* Emotional context phrase — hidden on mobile */}
                         {contextPhrase && (
-                          <span className="block font-display text-xs italic text-foreground/30 mt-0.5">
+                          <span className="hidden sm:block font-display text-xs italic text-foreground/30 mt-0.5">
                             {contextPhrase}
                           </span>
                         )}
@@ -564,7 +588,7 @@ export function TheSound() {
             {/* ── Step 5: Closing Caption with glow + bookend diamond ── */}
             <div
               className={cn(
-                "max-w-lg mx-auto text-center mt-16 relative transition-all duration-700",
+                "max-w-lg mx-auto text-center mt-16 md:mt-20 relative transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{ transitionDelay: isVisible ? "700ms" : "0ms" }}
