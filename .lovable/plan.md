@@ -1,72 +1,79 @@
 
 
-# Homepage Round 10 — Final Polish and Consistency Audit
+# Homepage Round 11 — Atmospheric Refinement and Interaction Polish
 
-After 9 rounds of progressive elevation, all 7 final sections have strong cinematic layering, animated golden threads, directional staggers, and reduced-motion coverage. This round addresses the remaining inconsistencies and missed opportunities discovered in a full code audit.
+After 10 rounds of progressive elevation, all seven final sections have strong cinematic layering, animated golden threads, directional staggers, and accessibility coverage. This round targets the remaining "last 5%" polish — the subtle atmospheric, typographic, and interaction refinements that separate a very good website from a truly world-class one.
 
 ---
 
-## Findings
+## Audit Findings
 
-### 1. TheWitness missing `aria-hidden="true"` on background image wrapper
-The background image wrapper `<div>` at line 33 lacks `aria-hidden="true"`, unlike every other section (TheWitnesses, CrossOver, ThreePaths all have it on the wrapper). Inconsistency.
+### TheInvitation
+- The portrait image uses class `invitation-ken-burns` which needs to be verified in CSS. If missing, the Ken Burns parallax drift will not animate.
+- The credential diamonds and DirectionalLink are solid, but the body text paragraphs lack any stagger between them — both appear at the same 450ms delay, feeling like a single block rather than a deliberate two-beat reveal.
 
-### 2. TheTransformation mobile golden thread has no scroll-reveal animation
-The mobile separator (lines 114-125) is always visible with static opacity. Every other golden thread in the homepage animates on scroll. This feels static compared to the rest.
+### TheSound
+- When a track is actively playing, there is no visual feedback on the listening room card itself (no ambient glow or border shift). The card looks identical whether silent or playing.
+- The closing quote section (lines 462-506) has the golden thread but the quote text itself uses `text-muted-foreground` which is too dim for a parting statement at this narrative position.
 
-### 3. Closing quote stagger in TheSound needs refinement
-The closing quote block (line 462-483) uses `transitionDelay: "600ms"` but the golden thread connector above the listening room already uses `380ms`. The total reveal sequence is: label (0) -> heading (150) -> subhead (300) -> thread (380) -> listening room (450) -> closing (600). This is correct timing but the closing quote could benefit from a slightly longer delay (700ms) to create a more deliberate pause after the listening room interaction.
+### TheTransformation
+- Both panels' fear/resolution items all animate to the same resting opacity (0.7 for fears, 0.8 for resolutions). A subtle opacity gradient (first item slightly brighter, last item slightly dimmer) would create visual depth and reading hierarchy.
+- The floating section label pill uses `bg-background/40` which may not provide enough contrast on the split-screen below it.
 
-### 4. TheWitnesses testimonial cards lack `transition-duration`
-The testimonial cards (line 149-155) have `transition-all` but no explicit `duration-700` class, relying on the default `transition-all` duration (150ms). This makes them appear faster than every other section's 700ms reveal. Need to add `duration-700`.
+### TheWitness
+- The three declarations have no visual separator between them — just `space-y-6`. A micro golden diamond between declarations would match the kit list diamond pattern and create visual rhythm.
+- The section has no closing thought or transition statement before ThreePaths — it just ends after the kit list.
 
-### 5. CrossOver CTA button contrast
-The `primary-dark` button variant on the deep dark background may have insufficient contrast. Need to verify the button styles provide adequate visibility.
+### ThreePaths
+- Cards lack the film grain overlay that every other section has. This breaks the tactile material consistency.
+- The "MOST SELECTED" badge is static — a subtle `vigil-pulse` breathing animation would draw attention without being distracting.
 
-### 6. ThreePaths card glassmorphism class `three-paths-card` needs verification
-The class `three-paths-card` and `three-paths-card--chosen` are referenced but need to be confirmed in CSS to ensure they render correctly.
+### TheWitnesses
+- The decorative quotation marks are good but positioned with `mb-2` which creates inconsistent spacing. They should use absolute positioning to float above the quote without affecting flow.
+- The space between the last testimonial and the section bottom fade feels abrupt — no closing golden thread to bookend the section.
 
-### 7. Missing `transition-duration` on TheTransformation panel headings
-The headings use `duration-900` which is not a standard Tailwind class (Tailwind has `duration-700`, `duration-1000`). This will default to the base transition duration. Should use `duration-1000` or add a custom `duration-[900ms]`.
+### CrossOver
+- The trust anchor text ("Includes sound documentation...") uses `text-foreground/50` which is quite dim. This is important reassurance copy that should be slightly more visible.
+- The section lacks a film grain overlay, breaking consistency with every other dark section.
 
 ---
 
 ## The 7-Step Plan
 
-### Step 1: Fix TheWitness background wrapper `aria-hidden`
-Add `aria-hidden="true"` to the background image wrapper div in `TheWitness.tsx` line 33 for consistency with all other sections.
+### Step 1: TheInvitation — Body Text Stagger Refinement
+Split the two body paragraphs into individually staggered reveals (450ms and 550ms) instead of both at 450ms. This creates a deliberate two-beat reading rhythm. Also verify the `invitation-ken-burns` CSS class exists in `index.css`.
 
-**File:** `src/components/TheWitness.tsx`
+**File:** `src/components/TheInvitation.tsx`, `src/index.css` (verification)
 
-### Step 2: Animate TheTransformation mobile golden thread on scroll
-Replace the static mobile separator with a scroll-reveal version using the existing `isVisible` state and `scale-x` animation pattern, matching ThreePaths' reassurance thread.
-
-**File:** `src/components/TheTransformation.tsx`
-
-### Step 3: Refine TheSound closing quote delay
-Increase the closing quote `transitionDelay` from `600ms` to `700ms` for a more deliberate pause after the listening room card.
+### Step 2: TheSound — Active Track Ambient Feedback
+Add a subtle golden border-glow to the listening room card when a track is actively playing (`isPlaying` state). Use a conditional `boxShadow` that transitions from the existing shadow to one with an added `0 0 40px hsl(var(--vow-yellow) / 0.08)` outer glow. This provides visual feedback that the card is "alive."
 
 **File:** `src/components/TheSound.tsx`
 
-### Step 4: Fix TheWitnesses testimonial card transition duration
-Add explicit `duration-700` to the testimonial card transition classes to match the 700ms standard used across all other sections.
-
-**File:** `src/components/TheWitnesses.tsx`
-
-### Step 5: Fix TheTransformation heading transition duration
-Replace `duration-900` (invalid Tailwind class) with `duration-[900ms]` for correct custom duration, or standardize to `duration-700` for consistency.
+### Step 3: TheTransformation — Opacity Gradient for Depth
+Apply a subtle opacity gradient to fear and resolution items: first item at full target opacity, subsequent items at progressively lower values (e.g., fears: 0.70, 0.65, 0.60, 0.55; resolutions: 0.80, 0.75, 0.70, 0.65). This creates visual reading hierarchy and depth perspective.
 
 **File:** `src/components/TheTransformation.tsx`
 
-### Step 6: Verify ThreePaths card CSS classes exist
-Search for `three-paths-card` in CSS and confirm glassmorphism styles are defined. If missing, add them.
+### Step 4: TheWitness — Declaration Diamonds and Closing Thought
+Add subtle golden diamond separators between the three declarations (matching the kit list diamond pattern) and add a brief closing statement beneath the kit list: a single line of text like the existing copy style that transitions into ThreePaths.
 
-**File:** `src/index.css` (if needed)
+**File:** `src/components/TheWitness.tsx`
 
-### Step 7: Add reduced-motion fallback for CrossOver dust animation
-Verify the `crossover-dust` animation has proper reduced-motion coverage (was added in Round 7 but should be confirmed still present after subsequent edits).
+### Step 5: ThreePaths — Card Film Grain and Badge Breathing
+Add a film grain overlay inside each card (matching the `grain opacity-[0.04]` pattern used everywhere else). Add `vigil-pulse` animation to the "MOST SELECTED" badge diamond character for a subtle breathing effect.
 
-**File:** `src/index.css` (verification only, fix if needed)
+**File:** `src/components/ThreePaths.tsx`
+
+### Step 6: TheWitnesses — Quotation Mark Positioning and Closing Thread
+Change the decorative quotation marks from flow-based (`mb-2`) to absolute positioning (`absolute -top-6 left-1/2 -translate-x-1/2`) so they float above without affecting text spacing. Add a closing golden thread after the last testimonial to bookend the section.
+
+**File:** `src/components/TheWitnesses.tsx`
+
+### Step 7: CrossOver — Film Grain and Trust Text Visibility
+Add the standard film grain overlay (`grain opacity-[0.08]`) to CrossOver for dark-section material consistency. Increase the trust anchor text from `text-foreground/50` to `text-foreground/60` for better readability.
+
+**File:** `src/components/CrossOver.tsx`
 
 ---
 
@@ -74,13 +81,13 @@ Verify the `crossover-dust` animation has proper reduced-motion coverage (was ad
 
 | Step | File | Change |
 |------|------|--------|
-| 1 | `TheWitness.tsx` | Add aria-hidden to bg wrapper |
-| 2 | `TheTransformation.tsx` | Animate mobile golden thread |
-| 3 | `TheSound.tsx` | Adjust closing quote delay |
-| 4 | `TheWitnesses.tsx` | Fix transition duration |
-| 5 | `TheTransformation.tsx` | Fix heading duration class |
-| 6 | `src/index.css` | Verify/add card classes |
-| 7 | `src/index.css` | Verify reduced-motion coverage |
+| 1 | `TheInvitation.tsx` | Body text stagger split |
+| 2 | `TheSound.tsx` | Active track ambient glow |
+| 3 | `TheTransformation.tsx` | Item opacity gradient |
+| 4 | `TheWitness.tsx` | Declaration diamonds + closing thought |
+| 5 | `ThreePaths.tsx` | Card grain + badge breathing |
+| 6 | `TheWitnesses.tsx` | Quote mark positioning + closing thread |
+| 7 | `CrossOver.tsx` | Film grain + trust text visibility |
 
-No copy changes. No new dependencies. Pure consistency and accessibility polish.
+No copy changes to existing text. No pricing changes. No new dependencies. Pure atmospheric refinement and interaction polish.
 
