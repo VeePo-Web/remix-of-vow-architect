@@ -117,6 +117,22 @@ function NowPlayingBar({
 }) {
   const percent = duration > 0 ? (progress / duration) * 100 : 0;
 
+  // Step 5: Title crossfade
+  const [displayTitle, setDisplayTitle] = useState(trackTitle);
+  const [displayCategory, setDisplayCategory] = useState(categoryLabel);
+  const [titleFade, setTitleFade] = useState(true);
+
+  useEffect(() => {
+    if (trackTitle === displayTitle && categoryLabel === displayCategory) return;
+    setTitleFade(false);
+    const timer = setTimeout(() => {
+      setDisplayTitle(trackTitle);
+      setDisplayCategory(categoryLabel);
+      setTitleFade(true);
+    }, 120);
+    return () => clearTimeout(timer);
+  }, [trackTitle, categoryLabel, displayTitle, displayCategory]);
+
   const handleToggle = () => {
     (window as any).__sacredSoundToggle?.();
   };
@@ -136,11 +152,26 @@ function NowPlayingBar({
       aria-label="Now playing"
       role="region"
     >
-      <div className="absolute top-0 left-0 right-0 h-[2px] bg-foreground/5">
-        <div
-          className="h-full bg-[hsl(var(--vow-yellow))] transition-none"
-          style={{ width: `${percent}%` }}
-        />
+      {/* Step 1: Seekable progress bar */}
+      <div
+        className="absolute top-0 left-0 right-0 h-3 cursor-pointer group/seek -translate-y-1"
+        onClick={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+          const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+          (window as any).__sacredSoundSeek?.(pct);
+        }}
+        role="slider"
+        aria-label="Seek"
+        aria-valuenow={Math.round(percent)}
+        aria-valuemin={0}
+        aria-valuemax={100}
+      >
+        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-foreground/5 group-hover/seek:h-[4px] transition-all duration-150">
+          <div
+            className="h-full bg-[hsl(var(--vow-yellow))] transition-none"
+            style={{ width: `${percent}%` }}
+          />
+        </div>
       </div>
       <div className="container mx-auto px-4 h-full flex items-center justify-between gap-4">
         <div className="flex items-center gap-3 min-w-0">
@@ -158,12 +189,13 @@ function NowPlayingBar({
           >
             {isPlaying ? <Pause size={12} strokeWidth={2} /> : <Play size={12} strokeWidth={2} className="ml-0.5" />}
           </button>
-          <div className="min-w-0">
+          {/* Step 5: Crossfade text */}
+          <div className="min-w-0" style={{ opacity: titleFade ? 1 : 0, transition: "opacity 120ms ease" }}>
             <span className="text-[10px] uppercase tracking-[0.15em] text-[hsl(var(--vow-yellow)/0.7)] block leading-none mb-0.5">
-              {categoryLabel}
+              {displayCategory}
             </span>
             <span className="text-xs text-foreground/80 font-display truncate block">
-              {trackTitle}
+              {displayTitle}
             </span>
           </div>
         </div>
@@ -272,6 +304,18 @@ export function TheSound() {
     (window as any).__sacredSoundToggle = togglePlayPause;
     return () => { delete (window as any).__sacredSoundToggle; };
   }, [togglePlayPause]);
+
+  // Step 1: Expose seek function for NowPlayingBar
+  useEffect(() => {
+    (window as any).__sacredSoundSeek = (pct: number) => {
+      const audio = audioRef.current;
+      if (audio && duration > 0) {
+        audio.currentTime = pct * duration;
+        setProgress(pct * duration);
+      }
+    };
+    return () => { delete (window as any).__sacredSoundSeek; };
+  }, [duration]);
 
   const handleTrackClick = useCallback((globalIndex: number) => {
     const audio = audioRef.current;
@@ -434,6 +478,23 @@ export function TheSound() {
               style={{ transitionDelay: isVisible ? "150ms" : "0ms", textWrap: "balance" as any }}
             >
               Hear me play.
+              {/* Step 3: Note bloom */}
+              <span
+                className="inline-block ml-2 align-middle"
+                style={{
+                  opacity: isVisible ? 0.4 : 0,
+                  transform: isVisible ? "scale(1)" : "scale(0.5)",
+                  transition: "opacity 900ms ease 600ms, transform 900ms ease 600ms",
+                  filter: isVisible ? "drop-shadow(0 0 6px hsl(var(--vow-yellow) / 0.3))" : "none",
+                }}
+                aria-hidden="true"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[hsl(var(--vow-yellow))]">
+                  <path d="M9 18V5l12-2v13" />
+                  <circle cx="6" cy="18" r="3" />
+                  <circle cx="18" cy="16" r="3" />
+                </svg>
+              </span>
             </h2>
 
             {/* Subhead */}
@@ -583,6 +644,12 @@ export function TheSound() {
                             transition: "transform 180ms cubic-bezier(0.22,0.61,0.36,1), height 180ms cubic-bezier(0.22,0.61,0.36,1), background 120ms",
                           }}
                         />
+                        {/* Step 2: Track number for inactive tracks */}
+                        {!isActive && (
+                          <span className="text-[10px] font-mono text-foreground/20 tabular-nums w-5 shrink-0 text-right">
+                            {String(tIdx + 1).padStart(2, "0")}
+                          </span>
+                        )}
                         <span className="flex-1 text-left truncate">
                           {track.title}
                         </span>
@@ -670,9 +737,9 @@ export function TheSound() {
                 <div className="px-5 pt-4 pb-5 text-center">
                   <p className="text-[11px] text-foreground/25 italic font-display">
                     Recordings arriving soon.{" "}
-                    <Link
+                     <Link
                       to="/contact"
-                      className="underline decoration-foreground/10 hover:decoration-foreground/30 transition-colors duration-[160ms]"
+                      className="underline decoration-foreground/10 hover:decoration-[hsl(var(--vow-yellow)/0.3)] hover:text-[hsl(var(--vow-yellow)/0.6)] transition-all duration-[260ms]"
                     >
                       Request a live preview at your consultation.
                     </Link>
