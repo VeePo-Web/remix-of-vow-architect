@@ -166,10 +166,15 @@ function NowPlayingBar({
         aria-valuemin={0}
         aria-valuemax={100}
       >
-        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-foreground/5 group-hover/seek:h-[4px] transition-all duration-150">
+        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-foreground/5 group-hover/seek:h-[4px] transition-all duration-150 relative">
           <div
             className="h-full bg-[hsl(var(--vow-yellow))] transition-none"
             style={{ width: `${percent}%` }}
+          />
+          {/* Seek head dot */}
+          <div
+            className="absolute top-1/2 w-[6px] h-[6px] rounded-full bg-[hsl(var(--vow-yellow))] opacity-0 group-hover/seek:opacity-100 transition-opacity duration-150"
+            style={{ left: `${percent}%`, transform: 'translate(-50%, -50%)', boxShadow: '0 0 4px hsl(var(--vow-yellow) / 0.4)' }}
           />
         </div>
       </div>
@@ -218,6 +223,7 @@ const formatTime = (s: number) => {
 export function TheSound() {
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.15 });
   const { ref: cardZoneRef, isVisible: cardVisible } = useScrollReveal({ threshold: 0.3 });
+  const { ref: quoteRef, isVisible: quoteVisible } = useScrollReveal({ threshold: 0.5 });
   const audioRef = useRef<HTMLAudioElement>(null);
   const trackListRef = useRef<HTMLDivElement>(null);
   const [sectionInView, setSectionInView] = useState(true);
@@ -226,6 +232,7 @@ export function TheSound() {
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [scrollOffset, setScrollOffset] = useState(0);
 
   // Escape key to stop playback
   useEffect(() => {
@@ -258,7 +265,19 @@ export function TheSound() {
     return () => mql.removeEventListener("change", handler);
   }, []);
 
-  // Track section visibility for mini-bar
+  // Scroll-linked parallax on background image
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || reducedMotion) return;
+    const handleScroll = () => {
+      const rect = el.getBoundingClientRect();
+      setScrollOffset(-rect.top * 0.05);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [reducedMotion, sectionRef]);
+
+
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
@@ -376,7 +395,14 @@ export function TheSound() {
         {/* ── Step 1: Enhanced atmospheric layers ── */}
 
         {/* Background image — increased opacity */}
-        <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div
+          className="absolute inset-0 overflow-hidden"
+          aria-hidden="true"
+          style={{
+            transform: reducedMotion ? "none" : `translateY(${scrollOffset}px)`,
+            willChange: reducedMotion ? "auto" : "transform",
+          }}
+        >
           <img
             src={soundKeys}
             alt=""
@@ -597,6 +623,14 @@ export function TheSound() {
               </div>
 
               <PianoStrings visible={cardVisible} />
+              {/* Inner depth shadow */}
+              <div
+                className="absolute inset-0 pointer-events-none rounded-[16px] z-[1]"
+                style={{
+                  boxShadow: "inset 0 8px 20px rgba(0,0,0,0.12), inset 0 -4px 12px rgba(0,0,0,0.06)",
+                }}
+                aria-hidden="true"
+              />
 
               <div ref={trackListRef} className="relative z-10 py-2 max-h-[55vh] overflow-y-auto sound-card-scroll">
                 {categories.map((category, catIdx) => {
@@ -750,12 +784,13 @@ export function TheSound() {
 
             {/* ── Step 5: Closing Caption with glow + bookend diamond ── */}
             <div
+              ref={quoteRef as React.RefObject<HTMLDivElement>}
               className="max-w-lg mx-auto text-center mt-16 md:mt-20 relative"
               style={{
-                opacity: cardVisible ? 1 : 0,
-                transform: cardVisible ? "translateY(0)" : "translateY(8px)",
-                transition: "opacity 700ms ease, transform 700ms ease",
-                transitionDelay: cardVisible ? "500ms" : "0ms",
+                opacity: quoteVisible ? 1 : 0,
+                transform: quoteVisible ? "translateY(0)" : "translateY(12px)",
+                transition: "opacity 1000ms ease, transform 1000ms ease",
+                transitionDelay: quoteVisible ? "200ms" : "0ms",
               }}
             >
               {/* Warm glow behind text */}
