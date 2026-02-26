@@ -1,113 +1,98 @@
 
-# Homepage Final Craft Pass — Performance, Usability, and Visual Cohesion
 
-## Critical Issue Discovered
+# Homepage Polish Round 6 — Remaining Will-Change Cleanup, Attribution Alignment, and Performance Containment
 
-**The non-chosen ThreePaths card buttons are invisible.** The `ghost-dark` variant uses `text-ink-inverse border border-ink-inverse`, which in the default dark theme resolves to `--rich-black` (dark text on dark background). This is a usability-breaking bug — visitors cannot see two of three pricing CTAs.
+## Current State Assessment
 
-## Additional Issues
+The previous five rounds have elevated the homepage substantially. After thorough browser testing on both desktop (1920x1080) and mobile (390x844):
 
-1. **Performance: 3.3 seconds of style recalculation** across 3,147 recalcs. FCP is 4.1s. The proliferation of `will-change` properties across dozens of elements forces the browser to create GPU layers unnecessarily, consuming memory and triggering excessive composite operations. Many `will-change` declarations are on elements that only animate once (scroll-reveals).
+**Working correctly:**
+- ThreePaths buttons are now visible (outline variant with white text)
+- Reassurance text is centered with max-w-2xl constraint
+- VowMoment Ken Burns is wrapped in overflow-hidden container
+- Footer diamond separators replaced plain dots
+- Testimonial cards have frosted glass with border-top treatment
+- MobileStickyBar slides in with CTA glow
+- Section fades work correctly in both directions
 
-2. **`will-change` overuse** — Elements with scroll-triggered `transition-all` that fire once should not have persistent `will-change`. Only continuously animated elements (breathing, Ken Burns, pulses) should retain it.
+**Remaining issues (7 items):**
 
-3. **TheWitnesses section heading is left-aligned** but the section label and golden rule are centered — a typography alignment inconsistency. The header block has `text-center` on the container but the testimonial `blockquote` uses left alignment via the card's `pl-8`. This creates a jarring center-to-left shift.
+1. **Residual `will-change-[opacity]` on one-shot transitions** -- VowMoment has two `will-change-[opacity]` divs (warm fog layer and breathing glow) that fire once on load. TheExhale has one remaining `will-change-[opacity]` on the bloom glow layer. These consume GPU memory without benefit since the opacity only transitions once.
 
-4. **Footer social icon separators are plain text dots** (`·`) while the rest of the site now uses breathing golden diamonds. Inconsistent separator vocabulary.
+2. **TheWitnesses attribution text appears left-aligned within centered cards** -- The `text-center` class is on the parent card, but the attribution `<p>` inside its own `<div>` wrapper doesn't explicitly inherit centering on all browsers. Adding `text-center` directly on the attribution div ensures consistent rendering.
 
-5. **TheTransformation section lacks `loading="lazy"` with proper `fetchpriority`** — The two background images load eagerly, competing with above-fold resources.
+3. **TheWitnesses heading uses left-aligned label and rule** -- The section label "THE COVENANT KEPT" and golden rule separator are left-aligned in the container despite `text-center` on the wrapping div. The heading `<h2>` also has a redundant `text-center` class when the parent already centers. This looks intentional but creates a subtle misalignment with the section's overall centered flow.
 
-6. **Vow Moment backdrop image is NOT lazy-loaded** — It uses a bare `<img>` with `loading="lazy"` but sits directly in the DOM as a full-screen element. Should be wrapped in an overflow-hidden container for Ken Burns future-proofing and have consistent treatment with other sections.
+4. **Style recalc still at 4.94s / 3165 recalcs** -- While some of this is Vite dev-mode overhead (162 script modules), adding `contain: layout style` to major section wrappers (.exhale-section, section--dark, the witnesses container) will reduce the scope of recalculation cascades.
 
-7. **Reassurance text in ThreePaths is left-aligned** (`text-left` implied) but should be centered to match the section's centered layout.
+5. **VowMoment breathing glow div still has `will-change-[opacity]`** -- This is the `vow-glow-breathe` animation which IS continuous (not one-shot), so `will-change` is appropriate. However, it uses the Tailwind class `will-change-[opacity]` on a static fog layer (line 43) that does NOT animate — this one should be removed.
 
----
+6. **TheTransformation background images lack `loading="lazy"`** -- Both fear and life images use `will-change-transform` (appropriate for continuous Ken Burns) but neither has `loading="lazy"`, competing with above-fold resources. Adding `loading="lazy"` will defer loading until the section approaches the viewport.
 
-## The 7-Step Transformation
-
-### Step 1: Fix Invisible ThreePaths Buttons (Critical)
-
-The non-chosen card buttons use `variant="ghost-dark"` which resolves to invisible dark-on-dark colors. Fix by using `variant="outline"` with explicit styling overrides for the dark card context.
-
-**Changes in `ThreePaths.tsx`:**
-- Change non-chosen button from `variant="ghost-dark"` to `variant="outline"` with an explicit className override: `text-foreground/80 border-foreground/20 hover:bg-foreground/10 hover:text-foreground hover:border-foreground/30`
-- This ensures visible white text and white border on the dark card background, with proper hover states
-
-### Step 2: Performance — Remove Unnecessary `will-change`
-
-The 3.3s style recalculation is caused by excessive GPU layer promotion. Remove `will-change` from elements that animate only once (scroll-reveals) and keep it only on continuously animated elements.
-
-**Changes in `src/index.css`:**
-- Remove `will-change: transform` from `.three-paths-card` (only transforms once on scroll)
-- Remove `will-change: opacity` from scroll-reveal divs in TheExhale, TheWitnesses
-- Keep `will-change: transform` only on Ken Burns images, breathing animations, and the CTA glow pulse
-- Add `contain: layout style` to section containers to reduce style recalculation scope
-
-**Changes in component files (TheExhale.tsx, TheWitnesses.tsx, Footer.tsx):**
-- Remove inline `will-change` styles from one-time transition elements
-- Keep `will-change` only on elements with `animation:` (continuous)
-
-### Step 3: TheWitnesses Typography Alignment Fix
-
-Fix the jarring center-to-left alignment shift between the section header and testimonial content.
-
-**Changes in `TheWitnesses.tsx`:**
-- Center-align the testimonials by removing `pl-8` from testimonial cards and setting `text-center` on the blockquote
-- Move the attribution text to center alignment
-- Change the `border-left` frosted glass treatment to a `border-top` or remove it entirely (the frosted glass background, inset shadow, and hover glow are sufficient visual differentiation)
-- Update `witnesses-testimonial-card` in `src/index.css` to use `border-left: none` and add a subtle `border-top: 1px solid hsl(var(--vow-yellow) / 0.15)` instead
-
-### Step 4: Footer Social Icon Diamond Separators
-
-Replace plain text dot separators between social icons with the standardized breathing golden diamonds.
-
-**Changes in `Footer.tsx`:**
-- Replace `<span className="text-foreground/20 text-xs select-none" aria-hidden="true">·</span>` with `<span className="witness-kit-diamond inline-block w-[3px] h-[3px] rotate-45" style={{ background: 'hsl(var(--vow-yellow) / 0.3)', boxShadow: '0 0 4px hsl(var(--vow-yellow) / 0.15)' }} aria-hidden="true" />`
-- Slightly smaller (3px) than the credential diamonds (4px) to maintain hierarchical proportion
-
-### Step 5: VowMoment Image Containment
-
-Wrap the VowMoment backdrop image in an overflow-hidden container for Ken Burns future-proofing and visual consistency with other sections.
-
-**Changes in `VowMoment.tsx`:**
-- Wrap the `<img>` in a `<div className="absolute inset-0 overflow-hidden">` container
-- Add Ken Burns animation to the image: `animation: 'vow-ken-burns 30s ease-in-out infinite alternate'`
-- Add `filter: 'saturate(0.7) contrast(1.08)'` for cinematic consistency with other sections
-
-**Changes in `src/index.css`:**
-- Add `@keyframes vow-ken-burns { 0% { transform: scale(1); } 100% { transform: scale(1.03); } }`
-- Add to `prefers-reduced-motion` query
-
-### Step 6: ThreePaths Reassurance Text Centering
-
-Fix the left-aligned reassurance text to match the section's centered layout.
-
-**Changes in `ThreePaths.tsx`:**
-- The reassurance paragraph already has `text-center` class, but verify it renders centered
-- Add `max-w-2xl mx-auto` to constrain width for better readability on wide screens
-
-### Step 7: CSS Containment and Final Audit
-
-Add CSS containment to reduce style recalculation scope, and perform final consistency audit.
-
-**Changes in `src/index.css`:**
-- Add `contain: layout style paint` to major section selectors (`.section--dark`, `.section--surface`, `.exhale-section`) to limit recalculation scope
-- Remove any duplicate `transition-all` declarations that may be overridden by more specific transitions
-- Verify all continuous animations have `will-change` and all one-shot transitions do not
-- Verify `prefers-reduced-motion` covers all remaining keyframe animations
+7. **Footer social icons lack accessible labels** -- The email, phone, Instagram, and YouTube links use only icon components with no `aria-label`, making them invisible to screen readers.
 
 ---
 
-## Summary of Files Modified
+## The 7-Step Plan
+
+### Step 1: Remove One-Shot `will-change` from VowMoment and TheExhale
+
+Remove `will-change-[opacity]` from the VowMoment warm fog layer (static, never animates) and the TheExhale bloom glow (transitions once). Keep `will-change` only on the VowMoment `vow-glow-breathe` div which has a continuous animation.
+
+**Files:** `VowMoment.tsx` (line 43), `TheExhale.tsx` (line 73)
+
+### Step 2: Fix TheWitnesses Attribution Centering
+
+Add explicit `text-center` to the attribution `<div>` wrapper inside each testimonial card to guarantee cross-browser centering.
+
+**File:** `TheWitnesses.tsx` (line 152)
+
+### Step 3: Add `loading="lazy"` to TheTransformation Images
+
+Add `loading="lazy"` attribute to both the fear and life background images in TheTransformation to defer their loading.
+
+**File:** `TheTransformation.tsx` (lines ~54, ~120)
+
+### Step 4: Add CSS Containment to Section Wrappers
+
+Add `contain: layout style` to the exhale section, witnesses section container, and transformation section in `src/index.css` to limit style recalculation scope.
+
+**File:** `src/index.css`
+
+### Step 5: Add `aria-label` to Footer Social Links
+
+Add descriptive `aria-label` attributes to the email, phone, Instagram, and YouTube links in the Footer for screen reader accessibility.
+
+**File:** `Footer.tsx`
+
+### Step 6: Clean Up Redundant CSS Classes in TheWitnesses
+
+Remove the redundant `text-center` from the `<h2>` heading (parent already centers) and verify the section label positioning aligns with the centered layout.
+
+**File:** `TheWitnesses.tsx`
+
+### Step 7: Final Cross-Check Audit
+
+Verify all changes render correctly on desktop and mobile. Confirm:
+- No remaining unnecessary `will-change` on one-shot elements
+- All continuous animations retain `will-change`
+- All images below fold have `loading="lazy"`
+- Footer links are accessible via screen reader
+- Style recalc scope is reduced by CSS containment
+
+---
+
+## Files Modified Summary
 
 | Step | File(s) | Change |
 |------|---------|--------|
-| 1 | `ThreePaths.tsx` | Fix invisible non-chosen CTA buttons |
-| 2 | `src/index.css`, multiple `.tsx` | Remove unnecessary `will-change` |
-| 3 | `TheWitnesses.tsx`, `src/index.css` | Center-align testimonials, fix border direction |
-| 4 | `Footer.tsx` | Diamond separators for social icons |
-| 5 | `VowMoment.tsx`, `src/index.css` | Image containment + Ken Burns |
-| 6 | `ThreePaths.tsx` | Reassurance text centering |
-| 7 | `src/index.css` | CSS containment + performance audit |
+| 1 | `VowMoment.tsx`, `TheExhale.tsx` | Remove one-shot `will-change` |
+| 2 | `TheWitnesses.tsx` | Attribution centering fix |
+| 3 | `TheTransformation.tsx` | Add `loading="lazy"` to images |
+| 4 | `src/index.css` | CSS containment on section wrappers |
+| 5 | `Footer.tsx` | Aria labels for social links |
+| 6 | `TheWitnesses.tsx` | Clean up redundant classes |
+| 7 | All modified files | Cross-check audit |
 
-No content changes. No new dependencies. Copy remains identical. Focus on usability fix, performance optimization, and visual consistency.
+No content changes. No new dependencies. Pure performance, accessibility, and consistency fixes.
+
