@@ -92,6 +92,9 @@ export function ProcessSection() {
         isActive={true}
       />
 
+      {/* Section transition fade — top */}
+      <div className="process-section__fade-top" aria-hidden="true" />
+
       {/* Intro Block */}
       <div ref={introRef as React.RefObject<HTMLDivElement>} className={cn('process-intro', introVisible && 'is-visible')}>
         <div className="process-intro__anchor" aria-hidden="true" />
@@ -149,12 +152,15 @@ export function ProcessSection() {
           <p className="process-closing__assurance">
             <span className="exhale-emphasis">And it will be right.</span>
           </p>
-          <Link to="/contact" className="process-closing__cta">
+          <Link to="/contact" className="process-closing__cta cta-breathe-glow">
             <span className="process-closing__cta-text">Begin the conversation</span>
             <span className="process-closing__cta-glow" aria-hidden="true" />
           </Link>
         </div>
       </div>
+
+      {/* Section transition fade — bottom */}
+      <div className="process-section__fade-bottom" aria-hidden="true" />
 
       {/* Screen reader narrative */}
       <span className="sr-only">
