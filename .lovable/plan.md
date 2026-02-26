@@ -1,80 +1,73 @@
 
 
-# Round 15 — Process Intro Block: Fantasy.co-Quality Background and Scroll Animation
+# Round 16 — Process Intro Audit and Bug Fixes
 
-## Current State Assessment
+## Audit Findings
 
-The process intro block ("The Process / Excellence on the big day...") already has:
-- A `GradientDawnBackground` with warm walnut-to-espresso gradient, paper texture, candlelight glow pools, grain, and vignette
-- A staggered scroll-reveal animation (anchor dot at T+200ms through statement at T+1800ms)
-- Centered text layout with max-width constraints
+After reviewing the Round 15 implementation, I found two CSS bugs that break intended behavior and one structural issue:
 
-### What falls short of Fantasy.co quality:
+### Bug 1: Candlelight Parallax Is Completely Broken
 
-1. **The background gradient starts abruptly** -- the transition from the previous section (TheExhale) into the warm dawn gradient has no cinematic entry. The top 8-25% of the gradient jumps from `hsl(40 25% 90%)` (bright cream) to dark tones, creating a jarring warm band at the very top.
+The candlelight glow pools have `transform: translateY(calc(var(--process-scroll-y, 0) * 0.05))` applied via the CSS rule at line 3368. However, the `candlelight-flicker` keyframes animation (line 3401-3410) sets `transform: scale(1)` and `transform: scale(1.1)` -- CSS animation keyframes **override** any static `transform` property. The parallax translateY is being clobbered every frame by the animation.
 
-2. **No scroll-linked parallax on the background** -- the gradient dawn is completely static. At Fantasy.co, backgrounds respond subtly to scroll position, creating depth and presence. The candlelight glow pools animate on a timer but have no relationship to the user's scroll.
+**Fix**: Combine the parallax translateY into the keyframes themselves, or use a wrapper approach. The simplest fix: change the candlelight `transform` property to use `translate` (the individual property) instead of the shorthand, and change the keyframes to use `scale` (individual property) instead of the shorthand `transform`. Modern CSS supports individual transform properties (`translate`, `scale`, `rotate`) that compose independently.
 
-3. **The golden anchor dot is tiny and underwhelming** -- it appears as an 8px circle. For a section entrance at this emotional weight, it needs to feel like a single candle flame igniting in darkness, not a UI dot.
+### Bug 2: Duplicate Paper Selector Creates Ambiguity
 
-4. **No vertical golden thread connecting intro to movements** -- the intro block ends and the movement cards begin with no visual connective tissue. A thin golden line growing downward from the anchor dot would create narrative continuity.
+There are two `.gradient-dawn--journal .gradient-dawn__paper` blocks:
+- Lines 3341-3353: Original with `position: absolute; inset: 0; background: ...; opacity: 0.5`
+- Lines 3372-3375: Added in Round 15 with only `transform` and `transition`
 
-5. **The "First Moment" emphasis lacks a reveal flourish** -- the vow-yellow italic text just fades in. At Fantasy.co quality, this would have a subtle underline draw or glow bloom to mark it as the emotional peak of the intro.
+While CSS cascade means the second block adds to the first (no override conflict here), it is poor practice and could cause confusion. These should be merged into a single rule.
+
+### Bug 3: Candlelight Flicker Keyframes Reset Scale During Parallax
+
+Even after fixing the transform composition, the `candlelight-flicker` keyframes use `transform: scale()` which means on browsers that don't support individual transform properties (older Safari), the parallax will still break. Need a fallback.
 
 ---
 
-## The 5-Step Plan
+## The 5-Step Fix Plan
 
-### Step 1: Refine the Gradient Dawn Entry -- Cinematic Top Transition
+### Step 1: Fix Candlelight Parallax with Individual Transform Properties
 
-The top of the gradient currently starts with `hsl(40 25% 90%)` (bright cream) which creates a visible warm seam against the dark section above. Fix by adjusting the journal gradient to start dark and warm into the walnut tones, ensuring a seamless transition from TheExhale's dark exit.
+Change the candlelight elements to use `translate` (individual CSS property) for parallax and `scale` (individual CSS property) for the flicker animation, so they compose independently without overriding each other.
 
-**File:** `src/index.css` (lines 3227-3237)
-- Change the gradient's first two stops: start from `hsl(220 15% 6%)` (matching TheExhale's dark exit), then transition smoothly into the warm walnut tones by 15-20%.
-- This creates a "dawn emerging from darkness" effect rather than a hard color cut.
+**File:** `src/index.css` (lines 3355-3370)
+- Change `transform: translateY(...)` to `translate: 0 calc(var(--process-scroll-y, 0) * 0.05)`
+- Remove `transition: transform 0ms` (unnecessary with individual properties)
 
-### Step 2: Add Scroll-Linked Background Parallax
+**File:** `src/index.css` (lines 3401-3410)
+- Change `candlelight-flicker` keyframes from `transform: scale(1)` / `transform: scale(1.1)` to `scale: 1` / `scale: 1.1`
 
-Add a subtle scroll-responsive vertical shift to the `GradientDawnBackground` layers. As the user scrolls through the intro, the candlelight pools and paper texture shift at different rates (0.05x and 0.02x parallax), creating depth without performance cost.
+### Step 2: Merge Duplicate Paper Selector
 
-**File:** `src/components/process/ProcessSection.tsx`
-- Add a scroll listener (using `useEffect` + `requestAnimationFrame`) scoped to the intro block that calculates a `--scroll-y` CSS variable.
-- Keep it lightweight: only active when section is in viewport (use existing IntersectionObserver pattern).
-
-**File:** `src/index.css`
-- Add `transform: translateY(calc(var(--scroll-y, 0) * 0.05))` to `.gradient-dawn--journal .gradient-dawn__candlelight` elements.
-- Add `transform: translateY(calc(var(--scroll-y, 0) * 0.02))` to `.gradient-dawn--journal .gradient-dawn__paper`.
-- Use `will-change: transform` only when active.
-
-### Step 3: Elevate the Golden Anchor Dot to a Flame Ignition
-
-Transform the 8px anchor dot into a cinematic flame ignition moment. When the intro scrolls into view, the dot scales from 0 to full size with a radial glow bloom that expands outward (like lighting a candle), then settles into the existing 4.2s breathing pulse.
-
-**File:** `src/index.css` (lines 1768-1791)
-- Increase dot size to 10px with a larger `box-shadow` glow spread (three layers: tight bright, medium warm, wide ambient).
-- Add a one-time `@keyframes flame-ignite` animation: scale(0) -> scale(1.8) -> scale(1) with glow bloom expanding over 900ms.
-- Chain: flame-ignite plays once on reveal, then the breathing pulse takes over via `animation` shorthand with comma-separated values.
-
-### Step 4: Add a Growing Golden Thread Below the Intro
-
-After the intro block reveals, a thin golden vertical line (1px, vow-yellow at 30% opacity) grows downward from the anchor dot toward the first movement card. This creates visual continuity -- the "thread" that stitches the narrative together.
-
-**File:** `src/components/process/ProcessSection.tsx`
-- Add a `<div className="process-intro__thread" aria-hidden="true" />` after the intro block, inside the section.
+Combine the two `.gradient-dawn--journal .gradient-dawn__paper` blocks (lines 3341-3353 and 3372-3375) into a single rule with all properties.
 
 **File:** `src/index.css`
-- Style `.process-intro__thread`: 1px wide, centered, vow-yellow at 30% opacity, `height: 0`, positioned between intro and movements.
-- On `.process-intro.is-visible ~ .process-intro__thread` (or via a sibling/parent class): animate height from 0 to 80px over 1200ms with `transition-delay: 2200ms` (after the last intro element reveals).
-- Add a soft radial glow at the thread's tip (4px spread, vow-yellow at 15% opacity).
+- Add `translate: 0 calc(var(--process-scroll-y, 0) * 0.02)` to the first paper selector block at line 3341
+- Delete the duplicate second block at lines 3372-3375
 
-### Step 5: Add Underline Draw to "First Moment" Emphasis
+### Step 3: Add will-change Hint for Active Parallax
 
-The "First Moment" text currently uses `.exhale-emphasis` (vow-yellow italic). Add a subtle underline draw animation that activates at T+2000ms (200ms after the statement text reveals), using a `scaleX(0) -> scaleX(1)` pseudo-element.
+The parallax elements should use `will-change: translate` only when the section is in viewport to hint the browser to promote to a compositing layer.
 
-**File:** `src/index.css` (around line 1915-1918)
-- Add `::after` pseudo-element to `.process-intro__statement .exhale-emphasis`: 2px height, vow-yellow background, `transform: scaleX(0)`, `transform-origin: left`, `transition: transform 450ms var(--ease-sacred)`.
-- On `.process-intro.is-visible .process-intro__statement .exhale-emphasis::after`: `transform: scaleX(1)`, `transition-delay: 2200ms`.
-- Reduced motion: skip the draw, show underline immediately with opacity fade.
+**File:** `src/index.css`
+- Add `.process-section .gradient-dawn__candlelight, .process-section .gradient-dawn__paper { will-change: translate; }` scoped to when section is visible
+
+### Step 4: Verify Flame Ignition Animation Chain
+
+The flame-ignite keyframes use `transform: scale()` shorthand. Since the anchor dot does not have parallax, this is fine -- but for consistency and future-proofing, change to individual `scale` property.
+
+**File:** `src/index.css` (lines 1795-1814)
+- Change `flame-ignite` keyframes from `transform: scale(0)` etc. to `scale: 0` etc.
+- Update the anchor dot's initial `transform: scale(0)` to `scale: 0`
+
+### Step 5: Add Reduced Motion Guard for Parallax
+
+The scroll-linked parallax in ProcessSection.tsx already checks `prefers-reduced-motion`, but the CSS should also have a fallback that resets `translate` to `none` under reduced motion.
+
+**File:** `src/index.css` (in the existing `@media (prefers-reduced-motion: reduce)` block around line 2005)
+- Add rules to reset `translate` and `scale` for candlelight and paper elements
 
 ---
 
@@ -82,13 +75,12 @@ The "First Moment" text currently uses `.exhale-emphasis` (vow-yellow italic). A
 
 | Step | File | Change |
 |------|------|--------|
-| 1 | `src/index.css` | Fix gradient dawn top stops for dark-to-warm transition |
-| 2 | `src/components/process/ProcessSection.tsx` | Add scroll-linked `--scroll-y` CSS variable |
-| 2 | `src/index.css` | Add parallax transforms to candlelight and paper layers |
-| 3 | `src/index.css` | Flame ignition keyframes and elevated glow for anchor dot |
-| 4 | `src/components/process/ProcessSection.tsx` | Add golden thread div element |
-| 4 | `src/index.css` | Thread grow animation styles |
-| 5 | `src/index.css` | "First Moment" underline draw animation |
+| 1 | `src/index.css` | Fix candlelight parallax: individual `translate` + `scale` properties |
+| 1 | `src/index.css` | Fix `candlelight-flicker` keyframes to use `scale` property |
+| 2 | `src/index.css` | Merge duplicate paper selector |
+| 3 | `src/index.css` | Add `will-change: translate` for parallax layers |
+| 4 | `src/index.css` | Fix `flame-ignite` keyframes to use individual `scale` property |
+| 5 | `src/index.css` | Add reduced-motion guards for parallax properties |
 
-No copy changes. No pricing changes. No new dependencies. Pure visual and animation refinement for Fantasy.co-level cinematic quality.
+Single file change. No copy changes. No new dependencies. Pure bug fixes to make Round 15 animations work as intended.
 
