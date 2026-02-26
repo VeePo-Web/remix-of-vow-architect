@@ -1,4 +1,5 @@
-import { Navigation } from "@/components/Navigation";
+import { MinimalHeader } from "@/components/MinimalHeader";
+import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
@@ -37,11 +38,21 @@ export default function Legal() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <Navigation />
+    <div className="min-h-screen flex flex-col bg-background relative">
+      <MinimalHeader />
+
+      {/* Grain overlay */}
+      <div className="grain opacity-[0.04] pointer-events-none fixed inset-0 z-[1]" style={{ willChange: "opacity" }} aria-hidden="true" />
+
+      {/* Warm fog */}
+      <div
+        className="fixed inset-0 pointer-events-none z-[1]"
+        style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)" }}
+        aria-hidden="true"
+      />
       
-      <main className="flex-1">
-        <div className="container mx-auto px-4 py-8 md:py-12">
+      <main className="flex-1 relative z-[2]">
+        <div className="container mx-auto px-4 py-8 md:py-12 pt-24">
           <Breadcrumbs
             items={[
               { label: "Home", path: "/" },
@@ -50,15 +61,15 @@ export default function Legal() {
           />
           
           <div className="max-w-4xl mx-auto mt-8">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Legal & Policies</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-light mb-4">Legal & Policies</h1>
             <p className="text-lg text-muted-foreground mb-12">
               All the policies in one place.
             </p>
 
             <div className="grid md:grid-cols-2 gap-6 mb-12">
               {policies.map((policy, index) => (
-                <Link key={index} to={policy.link}>
-                  <Card className="h-full hover:border-primary/50 transition-all duration-300 cursor-pointer">
+                <Link key={index} to={policy.link} className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm">
+                  <Card className="h-full hover:border-primary/20 transition-all duration-[180ms] cursor-pointer">
                     <CardHeader>
                       <div className="mb-4">{policy.icon}</div>
                       <CardTitle>{policy.title}</CardTitle>
@@ -81,7 +92,7 @@ export default function Legal() {
                   Email{" "}
                   <a
                     href="mailto:ParJorFraGaw@gmail.com"
-                    className="text-primary hover:text-primary/80 transition-colors"
+                    className="text-primary hover:text-primary/80 transition-colors duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm"
                   >
                     ParJorFraGaw@gmail.com
                   </a>
@@ -94,6 +105,7 @@ export default function Legal() {
       </main>
 
       <Footer />
+      <MobileStickyBar />
     </div>
   );
 }
