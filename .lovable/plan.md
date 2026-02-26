@@ -1,86 +1,84 @@
 
 
-# Round 32 — Piano Key Navigator: Micro-Polish and Interaction Integrity
+# Round 33 — Top Navigation Bar: Fantasy.co-Level Header Refinement
 
-## Audit of Current State (Post-Round 31)
+## Current State Assessment
 
-The PianoKeyNav now includes: first-impression stagger, key press depression, golden thread progress, 3D black keys, tooltips, ARIA semantics, reduced motion, and multi-page integration (About, Pricing, Proof). Five remaining refinements to reach true Fantasy.co caliber:
+The Piano Key section navigator is now polished (Rounds 30-32). The remaining navigation component that needs elevation is the **top header bar** (`MinimalHeader`) and the **full-screen menu overlay** (`FullScreenMenu`). These are functional but lack the bespoke, world-class micro-interactions and brand-integrated details that Fantasy.co exemplifies.
 
-### Issue 1: `hasAnimated` Ref Does Not Trigger Re-render
+### Identified Gaps
 
-The `hasAnimated.current` ref is read during render to conditionally apply `transition-opacity` classes on the `<nav>` element (lines 96-98). However, changing a ref does not cause a re-render. After the stagger completes and `hasAnimated.current` becomes `true`, the nav element still has the old className from the previous render. The conditional `hasAnimated.current ? 'transition-opacity duration-[260ms]' : 'transition-opacity duration-300'` never actually switches. This means the "first-impression only" logic is silently broken -- keys may still re-animate on subsequent scroll toggles because the component never re-renders after the ref flips.
+1. **Header nav links are generic** — Plain `<Link>` elements with basic fade-in. No active page indicator, no hover underline draw, no brand-specific interaction.
 
-**Fix:** Convert `hasAnimated` from a ref to state, or force a re-render after the timeout fires. Using a state `const [hasAnimated, setHasAnimated] = useState(false)` is the cleanest approach. The timeout in the effect would call `setHasAnimated(true)` instead of mutating a ref.
+2. **Full-screen menu lacks page indicators** — The menu shows 5 items but doesn't highlight which page you're currently on. No active state feedback.
 
-### Issue 2: Active Key Glow Bleeds Into Adjacent Keys Via Negative Margins
+3. **Full-screen menu is missing pages** — Only lists Home, Services, About, Case Studies, Contact. Missing Pricing, FAQ, Proof, Listen pages that exist in the router.
 
-Black keys use `margin-top: -4px; margin-bottom: -4px` for depth overlap. When a black key is active, its `box-shadow: -4px 0 12px hsl(var(--vow-yellow) / 0.08)` bleeds visually into the overlapping white keys above and below. On a real piano, the active glow should be contained to the key itself, not leak through the overlap zone. Adding `overflow: hidden` on the parent wrapper `<div>` for each key would clip the glow -- but this would also clip the tooltip.
+4. **No header active page indicator** — When on `/about`, the "About" nav link looks identical to all others. No visual cue for current page.
 
-**Fix:** Apply `isolation: isolate` on each key button to create a new stacking context, preventing box-shadow bleed without clipping tooltips (which are in the parent div, not the button).
+5. **Menu items lack hover micro-interaction** — Fantasy.co menus have a distinctive "push" effect where hovered items shift slightly while non-hovered items dim. Current menu has only color change.
 
-### Issue 3: Tooltip Appears Behind Other Keys on Black Key Hover
-
-Black keys have `z-index: 1` to overlap white keys. But the tooltip is rendered in the parent `<div>` which has no z-index. When hovering a black key near the bottom of the stack, the tooltip can appear behind a white key above it. The tooltip needs a higher stacking context.
-
-**Fix:** Add `z-index: 10` to `.piano-key-tooltip` to ensure it always renders above all keys.
-
-### Issue 4: No Smooth Scroll Offset Accounting
-
-`scrollIntoView({ block: 'start' })` scrolls the section's top edge to the viewport top. The `.piano-section-target` class adds `scroll-margin-top: 64px` which offsets for the header. But some sections (like wrapper `<div>` elements on Pricing/Proof) may not have this class applied directly to the element with the matching `id`. If the `id` is on a wrapper div but `piano-section-target` is on a child, the scroll offset won't apply.
-
-**Fix:** Ensure every element with a piano-nav `id` also has the `piano-section-target` class. Audit all wrapper divs added in Round 31.
-
-### Issue 5: Golden Thread Progress Doesn't Reset When Scrolling Back to Top
-
-When the user scrolls back above the hero and the nav hides, `activeIndex` remains at its last value. If the user scrolls down again, the golden thread immediately shows progress from the previous position rather than starting empty. At Fantasy.co quality, the thread should reset to 0 when the nav becomes invisible.
-
-**Fix:** Reset `activeIndex` to -1 when `isVisible` transitions to `false`.
+6. **Mobile sticky bar has no page awareness** — The bottom bar is identical on every page with no contextual adaptation.
 
 ---
 
-## 5-Step Implementation Plan
+## Implementation Plan (5 Steps)
 
-### Step 1: Convert `hasAnimated` Ref to State
+### Step 1: Add Active Page Indicator to Header Nav Links
 
-**File:** `src/components/PianoKeyNav.tsx`
+**Files:** `src/components/MinimalHeader.tsx`
 
-Replace `const hasAnimated = useRef(false)` with `const [hasAnimated, setHasAnimated] = useState(false)`. Update the tracking effect to call `setHasAnimated(true)` instead of `hasAnimated.current = true`. Update all references from `hasAnimated.current` to `hasAnimated`. This ensures the component re-renders after the stagger completes, correctly switching to opacity-only transitions for subsequent visibility toggles.
+Replace plain `<Link>` elements with `react-router-dom`'s `NavLink` (the router one, not the custom wrapper). When on the current page, add:
+- A vow-yellow underline that draws in from center (same draw animation used in hero tagline)
+- Slightly brighter text color (`text-foreground` instead of `text-muted-foreground`)
 
-### Step 2: Add Stacking Context Isolation to Keys
+For the "Hold My Date" CTA, when already on `/contact`, change text to "You're here" with reduced glow -- acknowledging the user's presence rather than pushing them to a page they're already on.
 
-**File:** `src/index.css`
+### Step 2: Complete the Full-Screen Menu Page List
 
-Add `isolation: isolate` to `.piano-key` base styles and `z-index: 10` to `.piano-key-tooltip`. This prevents active-key box-shadow glow from bleeding through negative-margin overlaps and ensures tooltips always render above all keys regardless of black/white key z-index layering.
+**File:** `src/components/FullScreenMenu.tsx`
 
-### Step 3: Reset Active Index on Nav Hide
-
-**File:** `src/components/PianoKeyNav.tsx`
-
-In the scroll handler effect, when `isVisible` transitions to `false`, reset `activeIndex` to -1. This ensures the golden thread progress resets to empty when the user scrolls back to the hero, providing a clean "fresh start" when re-entering the page content.
-
-### Step 4: Audit and Fix Section ID/Class Pairing
-
-**Files:** `src/pages/Pricing.tsx`, `src/pages/Proof.tsx`
-
-Verify that every wrapper `<div>` with a piano-nav `id` also has `piano-section-target` class (which provides `scroll-margin-top: 64px`). Several wrapper divs were added in Round 31 -- confirm they all include both the `id` and the class. Fix any that are missing the class.
-
-### Step 5: Black Key Hover Gradient Consistency
-
-**File:** `src/index.css`
-
-The `.piano-key--black:hover` currently sets `background: hsl(var(--foreground) / 0.08)` which is a flat color, losing the 3D gradient effect on hover. Update it to use a lighter version of the gradient to maintain the depth illusion even during hover interaction:
-
-```css
-.piano-key--black:hover {
-  background: linear-gradient(
-    to bottom,
-    hsl(var(--foreground) / 0.12) 0%,
-    hsl(var(--foreground) / 0.06) 15%,
-    hsl(var(--foreground) / 0.06) 85%,
-    hsl(var(--foreground) / 0.03) 100%
-  );
-}
+Update `menuItems` to include all navigable pages in brand-appropriate order:
 ```
+01 — Home (/weddings)
+02 — Pricing (/services)
+03 — About (/about)
+04 — Proof (/proof)
+05 — FAQ (/faq)
+06 — Listen (/listen)
+07 — Contact (/contact)
+```
+
+This matches the site's complete page list. "Case Studies" and "Gallery" routes are consolidated. Each item gets the numbered treatment already in place.
+
+### Step 3: Active Page State in Full-Screen Menu
+
+**File:** `src/components/FullScreenMenu.tsx`
+
+Use `useLocation()` from react-router-dom to detect current page. For the active menu item:
+- Number color shifts to `vow-yellow` (from muted)
+- A thin golden dash appears to the left of the number (4px wide, 1px tall, vow-yellow)
+- Label text is slightly brighter
+- Non-active items remain at current styling
+
+This gives immediate orientation — "you are here" — before the user navigates elsewhere.
+
+### Step 4: Fantasy.co-Style Menu Hover Dimming
+
+**File:** `src/components/FullScreenMenu.tsx`
+
+Implement a collective hover behavior: when ANY menu item is hovered, all OTHER items dim to 30% opacity. The hovered item stays at full opacity with the existing color shift. This creates the "spotlight" effect Fantasy.co uses — drawing focus to the hovered item while creating visual depth.
+
+Add a `hoveredIndex` state. On hover of item `i`, set `hoveredIndex = i`. All items with `index !== hoveredIndex` get `opacity-[0.3]`. Transition: `180ms ease`. On mouse leave from the nav container, reset `hoveredIndex` to `null` (all items return to full opacity).
+
+### Step 5: Header Scroll Transition Polish
+
+**File:** `src/components/MinimalHeader.tsx`
+
+Refine the header's scroll state transition to be more cinematic:
+- Add a 1px golden thread at the header bottom that fades in over 450ms (currently abrupt)
+- Nav links stagger-in should use the brand's timing: 80ms intervals instead of 60ms
+- When scrolling back UP past the hero, nav links should fade out in reverse order (last to first) before the header expands -- creating a "closing" sequence that mirrors the opening
 
 ---
 
@@ -88,16 +86,16 @@ The `.piano-key--black:hover` currently sets `background: hsl(var(--foreground) 
 
 | Step | File(s) | Change |
 |------|---------|--------|
-| 1 | `src/components/PianoKeyNav.tsx` | `hasAnimated` ref converted to state for proper re-render |
-| 2 | `src/index.css` | `isolation: isolate` on keys, `z-index: 10` on tooltip |
-| 3 | `src/components/PianoKeyNav.tsx` | Reset `activeIndex` to -1 when nav hides |
-| 4 | `src/pages/Pricing.tsx`, `src/pages/Proof.tsx` | Verify all ID'd elements have `piano-section-target` |
-| 5 | `src/index.css` | Black key hover retains 3D gradient |
+| 1 | `MinimalHeader.tsx` | Active page indicator via NavLink + underline draw |
+| 2 | `FullScreenMenu.tsx` | Complete page list (7 items) |
+| 3 | `FullScreenMenu.tsx` | Active page golden dash + brighter label via useLocation |
+| 4 | `FullScreenMenu.tsx` | Collective hover dimming (spotlight effect) |
+| 5 | `MinimalHeader.tsx` | Refined scroll transitions and timing |
 
 ## What This Achieves
 
-- **Correctness:** The first-impression stagger logic actually works now -- React re-renders when the flag flips, switching to opacity-only transitions
-- **Visual integrity:** No glow bleed between keys, tooltips always visible above all keys, and black keys maintain their 3D depth even during hover
-- **Scroll UX:** Golden thread resets cleanly when revisiting the page from the top, and all sections scroll to the correct offset
-- **Zero performance cost:** All fixes are CSS properties or state corrections -- no new observers, no new animation loops
+- **Orientation:** Users always know which page they're on, whether viewing the header, the full-screen menu, or the mobile bar
+- **Completeness:** All 7 navigable pages are accessible from the menu — no hidden pages
+- **Fantasy.co polish:** The collective hover dimming and staggered transitions create the cinematic, intentional feel that distinguishes world-class navigation from functional navigation
+- **Brand coherence:** Vow-yellow active indicators extend the golden thread motif from the piano key nav into the top navigation — unified visual language across both nav systems
 
