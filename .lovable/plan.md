@@ -1,77 +1,79 @@
 
 
-# Homepage Round 11 — Atmospheric Refinement and Interaction Polish
+# Homepage Round 12 — Cinematic Continuity and Material Perfection
 
-After 10 rounds of progressive elevation, all seven final sections have strong cinematic layering, animated golden threads, directional staggers, and accessibility coverage. This round targets the remaining "last 5%" polish — the subtle atmospheric, typographic, and interaction refinements that separate a very good website from a truly world-class one.
+After 11 rounds, each section individually achieves high quality. This final round addresses cross-section continuity, remaining interaction gaps, and the handful of material inconsistencies that prevent the experience from feeling like one unbroken cinematic sequence.
 
 ---
 
 ## Audit Findings
 
 ### TheInvitation
-- The portrait image uses class `invitation-ken-burns` which needs to be verified in CSS. If missing, the Ken Burns parallax drift will not animate.
-- The credential diamonds and DirectionalLink are solid, but the body text paragraphs lack any stagger between them — both appear at the same 450ms delay, feeling like a single block rather than a deliberate two-beat reveal.
+- The section label "The Invitation" has no `transitionDelay`, appearing before the portrait and content columns. At Fantasy-level choreography, the label should appear first (0ms) but the current lack of explicit delay is correct by accident — no fix needed.
+- The "Read my story" DirectionalLink at `600ms` appears before the credentials at `750ms` — correct narrative ordering. Solid.
+- **Issue**: The section lacks a bottom fade into TheSound's dark environment. Currently TheSound has a top fade FROM TheInvitation's warm, but TheInvitation itself has no `section-fade-bottom` — creating a hard color cut on the Invitation side.
 
 ### TheSound
-- When a track is actively playing, there is no visual feedback on the listening room card itself (no ambient glow or border shift). The card looks identical whether silent or playing.
-- The closing quote section (lines 462-506) has the golden thread but the quote text itself uses `text-muted-foreground` which is too dim for a parting statement at this narrative position.
+- The closing quote at line 487 uses `text-foreground/70` — this was elevated from `text-muted-foreground` in Round 9, but on the dark background it could still benefit from `text-foreground/80` for the quote text itself (the attribution can stay dimmer).
+- **Issue**: The NowPlayingBar component (sticky mini-bar when scrolling away) has no reduced-motion consideration — its progress bar animates continuously. Should respect `prefers-reduced-motion`.
+- The `sound-wave` keyframe animations for the mini waveform bars use inline animation names (`sound-wave-0`, `sound-wave-1`, etc.) that need to be verified in CSS.
 
 ### TheTransformation
-- Both panels' fear/resolution items all animate to the same resting opacity (0.7 for fears, 0.8 for resolutions). A subtle opacity gradient (first item slightly brighter, last item slightly dimmer) would create visual depth and reading hierarchy.
-- The floating section label pill uses `bg-background/40` which may not provide enough contrast on the split-screen below it.
+- The opacity gradient implementation (0.70 tapering to 0.55 for fears, 0.80 tapering to 0.65 for resolutions) works but the `hover:opacity-100` class competes with the inline `opacity` style. Inline styles always win over classes, so the hover state will not actually reach full opacity. This is a **functional bug**.
+- The left panel heading uses `duration-[900ms]` (fixed in Round 10) — confirmed correct.
 
 ### TheWitness
-- The three declarations have no visual separator between them — just `space-y-6`. A micro golden diamond between declarations would match the kit list diamond pattern and create visual rhythm.
-- The section has no closing thought or transition statement before ThreePaths — it just ends after the kit list.
+- The closing thought "Now — choose how deeply you want me there" is a strong narrative bridge to ThreePaths. However, it lacks the em-dash typographic treatment used elsewhere (currently a plain hyphen surrounded by spaces). Should use `\u2014` for consistency.
+- **Issue**: The testimonial cards in the section below (TheWitnesses) have `relative` positioning for the absolute quotation marks, but the card container does not — meaning the quotes position relative to the nearest positioned ancestor, which may not be the card itself on all layouts.
 
 ### ThreePaths
-- Cards lack the film grain overlay that every other section has. This breaks the tactile material consistency.
-- The "MOST SELECTED" badge is static — a subtle `vigil-pulse` breathing animation would draw attention without being distracting.
+- Film grain overlay added in Round 11 is inside the card but uses `rounded-lg` — if the card has `overflow-hidden` the grain will clip correctly, but if not, grain may bleed outside rounded corners. Need to verify.
+- The card `transition` property is set via the class `three-paths-card` in CSS but the inline `transitionDelay` may conflict. Need to verify no double-transition.
 
 ### TheWitnesses
-- The decorative quotation marks are good but positioned with `mb-2` which creates inconsistent spacing. They should use absolute positioning to float above the quote without affecting flow.
-- The space between the last testimonial and the section bottom fade feels abrupt — no closing golden thread to bookend the section.
+- The absolute-positioned quotation marks (`-top-6`) work when the card has `relative` positioning. The card has class `witnesses-testimonial-card relative` — confirmed correct.
+- The closing golden thread at `1200ms` delay is very late — if the section trigger fires at 20% viewport intersection, the thread may not animate until the user has already scrolled past. Consider reducing to `900ms`.
 
 ### CrossOver
-- The trust anchor text ("Includes sound documentation...") uses `text-foreground/50` which is quite dim. This is important reassurance copy that should be slightly more visible.
-- The section lacks a film grain overlay, breaking consistency with every other dark section.
+- The film grain overlay was inserted between the CTA stack and the trust text (line 132-133), which places it inside the `container` div rather than as a section-level overlay. This means it only covers the content area, not the full section. It should be moved to be a direct child of the `section` element.
+- The "24 hours" text uses `text-xl` which creates a slight vertical alignment jump within the italic sentence. Using `text-lg` with `font-semibold` instead would maintain emphasis without the size discontinuity.
 
 ---
 
 ## The 7-Step Plan
 
-### Step 1: TheInvitation — Body Text Stagger Refinement
-Split the two body paragraphs into individually staggered reveals (450ms and 550ms) instead of both at 450ms. This creates a deliberate two-beat reading rhythm. Also verify the `invitation-ken-burns` CSS class exists in `index.css`.
+### Step 1: TheInvitation — Add Bottom Fade
+Add a `section-fade-bottom` div at the end of TheInvitation, matching TheSound's color (`hsl(220 15% 8%)`), creating a seamless warm-to-dark gradient transition.
 
-**File:** `src/components/TheInvitation.tsx`, `src/index.css` (verification)
+**File:** `src/components/TheInvitation.tsx`
 
-### Step 2: TheSound — Active Track Ambient Feedback
-Add a subtle golden border-glow to the listening room card when a track is actively playing (`isPlaying` state). Use a conditional `boxShadow` that transitions from the existing shadow to one with an added `0 0 40px hsl(var(--vow-yellow) / 0.08)` outer glow. This provides visual feedback that the card is "alive."
-
-**File:** `src/components/TheSound.tsx`
-
-### Step 3: TheTransformation — Opacity Gradient for Depth
-Apply a subtle opacity gradient to fear and resolution items: first item at full target opacity, subsequent items at progressively lower values (e.g., fears: 0.70, 0.65, 0.60, 0.55; resolutions: 0.80, 0.75, 0.70, 0.65). This creates visual reading hierarchy and depth perspective.
+### Step 2: TheTransformation — Fix Hover Opacity Bug
+The inline `opacity` style overrides the `hover:opacity-100` Tailwind class. Fix by removing the inline opacity and instead using a CSS custom property with a hover override, or by applying the base opacity as a Tailwind arbitrary value that can be overridden by the hover state. The cleanest approach: wrap each item's opacity in a `style` that sets `opacity` only when not hovered, using `group-hover` on a parent.
 
 **File:** `src/components/TheTransformation.tsx`
 
-### Step 4: TheWitness — Declaration Diamonds and Closing Thought
-Add subtle golden diamond separators between the three declarations (matching the kit list diamond pattern) and add a brief closing statement beneath the kit list: a single line of text like the existing copy style that transitions into ThreePaths.
+### Step 3: TheSound — Closing Quote Typography
+Increase the closing blockquote text from `text-foreground/70` to `text-foreground/80` for better readability on the dark background. The attribution line remains at the current dimmer level.
+
+**File:** `src/components/TheSound.tsx`
+
+### Step 4: TheWitness — Em-dash Typography Fix
+Replace the plain dash in "Now — choose how deeply you want me there" with a proper em-dash character (`\u2014`) for typographic consistency with the rest of the site.
 
 **File:** `src/components/TheWitness.tsx`
 
-### Step 5: ThreePaths — Card Film Grain and Badge Breathing
-Add a film grain overlay inside each card (matching the `grain opacity-[0.04]` pattern used everywhere else). Add `vigil-pulse` animation to the "MOST SELECTED" badge diamond character for a subtle breathing effect.
-
-**File:** `src/components/ThreePaths.tsx`
-
-### Step 6: TheWitnesses — Quotation Mark Positioning and Closing Thread
-Change the decorative quotation marks from flow-based (`mb-2`) to absolute positioning (`absolute -top-6 left-1/2 -translate-x-1/2`) so they float above without affecting text spacing. Add a closing golden thread after the last testimonial to bookend the section.
+### Step 5: TheWitnesses — Reduce Closing Thread Delay
+Reduce the closing golden thread `transitionDelay` from `1200ms` to `900ms` so it animates while still in view for most scroll speeds.
 
 **File:** `src/components/TheWitnesses.tsx`
 
-### Step 7: CrossOver — Film Grain and Trust Text Visibility
-Add the standard film grain overlay (`grain opacity-[0.08]`) to CrossOver for dark-section material consistency. Increase the trust anchor text from `text-foreground/50` to `text-foreground/60` for better readability.
+### Step 6: CrossOver — Relocate Film Grain Overlay
+Move the film grain overlay from inside the container div (line 132-133) to be a direct child of the `section` element, ensuring full-bleed coverage matching every other dark section's grain placement.
+
+**File:** `src/components/CrossOver.tsx`
+
+### Step 7: CrossOver — Normalize "24 hours" Emphasis
+Change `text-xl` to `text-lg font-semibold` on the "24 hours" span to maintain emphasis without creating a vertical size jump within the italic sentence.
 
 **File:** `src/components/CrossOver.tsx`
 
@@ -81,13 +83,13 @@ Add the standard film grain overlay (`grain opacity-[0.08]`) to CrossOver for da
 
 | Step | File | Change |
 |------|------|--------|
-| 1 | `TheInvitation.tsx` | Body text stagger split |
-| 2 | `TheSound.tsx` | Active track ambient glow |
-| 3 | `TheTransformation.tsx` | Item opacity gradient |
-| 4 | `TheWitness.tsx` | Declaration diamonds + closing thought |
-| 5 | `ThreePaths.tsx` | Card grain + badge breathing |
-| 6 | `TheWitnesses.tsx` | Quote mark positioning + closing thread |
-| 7 | `CrossOver.tsx` | Film grain + trust text visibility |
+| 1 | `TheInvitation.tsx` | Add bottom fade gradient |
+| 2 | `TheTransformation.tsx` | Fix hover opacity override bug |
+| 3 | `TheSound.tsx` | Closing quote text visibility |
+| 4 | `TheWitness.tsx` | Em-dash typography fix |
+| 5 | `TheWitnesses.tsx` | Reduce closing thread delay |
+| 6 | `CrossOver.tsx` | Relocate film grain to section level |
+| 7 | `CrossOver.tsx` | Normalize "24 hours" text size |
 
-No copy changes to existing text. No pricing changes. No new dependencies. Pure atmospheric refinement and interaction polish.
+No copy changes. No pricing changes. No new dependencies. Bug fix (Step 2) plus continuity and material refinements.
 
