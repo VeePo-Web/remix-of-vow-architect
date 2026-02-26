@@ -7,7 +7,7 @@ import { SetupPhotoGallery } from "@/components/SetupPhotoGallery";
 import { InsuranceDocuments } from "@/components/InsuranceDocuments";
 import { RedundancyStack } from "@/components/RedundancyStack";
 import { DownloadablePlans } from "@/components/DownloadablePlans";
-import { MobileTrustBar } from "@/components/MobileTrustBar";
+import { RevealOnScroll } from "@/components/animation";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { Shield, Zap, Layers, Clock } from "lucide-react";
 import galleryHeroImg from "@/assets/gallery-hero.jpg";
@@ -19,9 +19,8 @@ export default function Proof() {
     <div className="min-h-screen">
       <MinimalHeader />
       
-      {/* Section 1 - Hero with atmospheric background */}
+      {/* Section 1 - Hero */}
       <section className="relative section-padding bg-background overflow-hidden">
-        {/* Background image */}
         <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
           <div 
             className="absolute inset-0 opacity-[0.10]"
@@ -34,29 +33,24 @@ export default function Proof() {
             }}
           />
         </div>
-        {/* Warm fog */}
         <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)" }} aria-hidden="true" />
-        {/* Vignette */}
         <div 
           className="absolute inset-0 pointer-events-none"
-          style={{
-            background: "radial-gradient(ellipse at center, transparent 30%, hsl(var(--background)) 90%)"
-          }}
+          style={{ background: "radial-gradient(ellipse at center, transparent 30%, hsl(var(--background)) 90%)" }}
           aria-hidden="true"
         />
-        {/* Film grain */}
         <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center space-y-6 animate-fade-in">
             <div className="overline">Assured Ceremony Audio™</div>
-            <h1 className="mx-auto">Sound You Can See.</h1>
+            <h1 className="h1 mx-auto">Sound You Can See.</h1>
             <div className="chapter-rule mx-auto" />
             <p className="lead text-muted-foreground max-w-2xl mx-auto">
               Backed by SPL logs, certified plans, and insured execution—this is wedding clarity you can measure.
             </p>
             
-            <Button size="lg" className="hover-scale mt-8">
+            <Button size="lg" variant="primary-dark" className="hover-scale mt-8">
               Download a Sample Plan & SPL Log
             </Button>
 
@@ -68,7 +62,7 @@ export default function Proof() {
                 { icon: Layers, label: "Triple Backups" },
                 { icon: Clock, label: "24-Hour Plan" },
               ].map(({ icon: Icon, label }) => (
-                <div key={label} className="flex flex-col items-center gap-2 p-4 rounded-lg bg-card/50 border border-primary/10 backdrop-blur-sm transition-all duration-300 hover:border-primary/30 hover:bg-card/70">
+                <div key={label} className="flex flex-col items-center gap-2 p-4 rounded-lg bg-card/50 backdrop-blur-[8px] border border-primary/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] transition-all duration-[180ms] hover:border-primary/20 hover:shadow-[0_0_24px_rgba(255,224,138,0.06)]">
                   <Icon className="text-primary" size={24} />
                   <span className="text-sm font-medium">{label}</span>
                 </div>
@@ -78,51 +72,72 @@ export default function Proof() {
         </div>
       </section>
 
-      {/* Fade: hero → SPL */}
-      <div className="section-fade-bottom" style={{ background: 'linear-gradient(to bottom, hsl(var(--background)), transparent)', height: '80px', marginTop: '-80px', position: 'relative', zIndex: 5 }} aria-hidden="true" />
+      {/* Golden thread */}
+      <div className="h-[1px] max-w-xs mx-auto my-0" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
 
       {/* Section 2 - SPL Log Triptych */}
-      <SPLTriptych />
+      <RevealOnScroll variant="up">
+        <SPLTriptych />
+      </RevealOnScroll>
 
-      {/* Fade: SPL → Setup */}
-      <div className="h-[80px] -mt-[1px]" style={{ background: 'linear-gradient(to bottom, transparent, hsl(var(--background)))' }} aria-hidden="true" />
+      {/* Golden thread */}
+      <div className="h-[1px] max-w-xs mx-auto" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
 
       {/* Section 3 - Setup Photos */}
-      <SetupPhotoGallery />
+      <RevealOnScroll variant="up">
+        <SetupPhotoGallery />
+      </RevealOnScroll>
 
-      {/* Fade: Setup → Insurance */}
-      <div className="h-[80px] -mt-[1px]" style={{ background: 'linear-gradient(to bottom, transparent, hsl(var(--background)))' }} aria-hidden="true" />
+      {/* Golden thread */}
+      <div className="h-[1px] max-w-xs mx-auto" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
 
       {/* Section 4 - Insurance */}
-      <InsuranceDocuments />
+      <RevealOnScroll variant="up">
+        <InsuranceDocuments />
+      </RevealOnScroll>
+
+      {/* Golden thread */}
+      <div className="h-[1px] max-w-xs mx-auto" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
 
       {/* Section 5 - Redundancy */}
-      <RedundancyStack />
+      <RevealOnScroll variant="up">
+        <RedundancyStack />
+      </RevealOnScroll>
+
+      {/* Golden thread */}
+      <div className="h-[1px] max-w-xs mx-auto" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
 
       {/* Section 6 - Downloadable Plans */}
-      <DownloadablePlans />
+      <RevealOnScroll variant="up">
+        <DownloadablePlans />
+      </RevealOnScroll>
 
-      {/* Section 8 - Final CTA */}
-      <section className="section--dark section-padding">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl font-bold text-ink-inverse">
-              I don't just say it—I log it, show it, and guarantee it.
-            </h2>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="primary-dark" className="hover-scale">
-                Hold my date & receive my ceremony-audio plan
-              </Button>
-              <Button variant="ghost-dark" size="lg" className="hover-scale">
-                Download a full SPL report & timeline sample →
-              </Button>
+      {/* Golden thread */}
+      <div className="h-[1px] max-w-xs mx-auto" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
+
+      {/* Final CTA */}
+      <RevealOnScroll variant="up">
+        <section className="section--dark section-padding">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto text-center space-y-6">
+              <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light text-foreground">
+                I don't just say it—I log it, show it, and guarantee it.
+              </h2>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" variant="primary-dark" className="hover-scale">
+                  Hold my date & receive my ceremony-audio plan
+                </Button>
+                <Button variant="ghost-dark" size="lg" className="hover-scale">
+                  Download a full SPL report & timeline sample →
+                </Button>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Response in 24 hours. Your trust starts with proof.
+              </p>
             </div>
-            <p className="text-sm text-ink-inverse/70">
-              Response in 24 hours. Your trust starts with proof.
-            </p>
           </div>
-        </div>
-      </section>
+        </section>
+      </RevealOnScroll>
 
       {/* Footer Microcopy */}
       <section className="section--surface py-8">
@@ -135,7 +150,6 @@ export default function Proof() {
         </div>
       </section>
 
-      <MobileTrustBar />
       <Footer />
       <MobileStickyBar />
     </div>

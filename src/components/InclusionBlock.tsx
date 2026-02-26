@@ -1,4 +1,5 @@
 import { Shield, Music, Mic, Users, Wrench, Clock, Battery, FileCheck, Activity } from "lucide-react";
+import { StaggerChildren } from "@/components/animation";
 
 const inclusions = [
   { 
@@ -45,9 +46,9 @@ const inclusions = [
 
 export function InclusionBlock() {
   return (
-    <div className="bg-card border border-border rounded-lg p-8 mb-8">
+    <div className="bg-card/80 backdrop-blur-[8px] border border-primary/10 rounded-lg p-8 mb-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)]">
       <div className="text-center mb-8">
-        <h2 className="h2 text-center mb-3">
+        <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light text-center mb-3">
           All Packages Include Ceremony-Proof Clarity
         </h2>
         <p className="text-muted-foreground max-w-3xl mx-auto">
@@ -55,21 +56,21 @@ export function InclusionBlock() {
         </p>
       </div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+      <StaggerChildren staggerDelay={80} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         {inclusions.map((item, i) => (
           <div key={i} className="flex flex-col items-start gap-3">
-            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 rounded-lg bg-primary/[0.06] border border-primary/10 flex items-center justify-center flex-shrink-0">
               <item.icon size={20} className="text-primary" />
             </div>
             <div>
-              <h3 className="h4 mb-1">{item.label}</h3>
+              <h3 className="font-display text-base font-medium mb-1">{item.label}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 {item.description}
               </p>
             </div>
           </div>
         ))}
-      </div>
+      </StaggerChildren>
 
       <p className="text-center text-sm text-muted-foreground italic">
         No upsell. No surprises. No wires. This is your base level of assurance.
