@@ -1,93 +1,89 @@
 
 
-# Remaining Subpages — Navigation Unification and Atmospheric Consistency
+# Final Navigation Unification — NotFound, Legal, and PolicyLayout
 
 ## Current State
 
-Four subpages still use the old generic `Navigation.tsx` instead of the elevated `MinimalHeader`: **Contact**, **FAQ**, **Listen**, and **Proof**. These pages also have inconsistent atmospheric treatments (grain at `opacity-20` or `opacity-30` instead of the brand standard `opacity-[0.06]`, missing `will-change`, missing `overflow-hidden` on Ken Burns images, no `MobileStickyBar`).
+Three remaining files still import the old generic `Navigation.tsx`:
 
-**Pricing** and **Gateway** are already correct — Pricing uses `MinimalHeader`, Gateway has its own bespoke layout.
+1. **`NotFound.tsx`** — The 404 page uses `Navigation` and has generic SaaS styling (bold `text-6xl` heading, lucide icons in outline buttons, a card with checkmarks). No atmospheric treatment, no brand voice.
+2. **`Legal.tsx`** — The legal hub page uses `Navigation` directly. No grain, no atmospheric layers.
+3. **`PolicyLayout.tsx`** — The shared layout wrapper for PrivacyPolicy, Terms, CookiePolicy, and Accessibility pages. Uses `Navigation`. Fixing this one file fixes four pages at once.
+
+The Gateway page (`/`) has its own bespoke full-screen layout and does not need `MinimalHeader` — it is correct as-is.
+
+The `/listen` and `/faq` routes now redirect to `/weddings` in the router, so those page files are effectively unused, but their nav swaps were already completed in the previous step.
 
 ---
 
 ## The 7-Step Transformation
 
-### Step 1: Contact Page — Navigation Swap
+### Step 1: PolicyLayout Navigation Swap
 
-Replace `Navigation` with `MinimalHeader` and add `MobileStickyBar`. This is the highest-traffic subpage (the booking funnel endpoint) and must feel seamless with the homepage.
+Replace `Navigation` with `MinimalHeader` in the shared `PolicyLayout.tsx`. This single change fixes **four pages** (PrivacyPolicy, Terms, CookiePolicy, Accessibility) at once.
 
-**Changes in `Contact.tsx`:**
+**Changes in `PolicyLayout.tsx`:**
 - Replace `import { Navigation }` with `import { MinimalHeader }` and `import { MobileStickyBar }`
 - Replace `<Navigation />` with `<MinimalHeader />`
 - Add `<MobileStickyBar />` before closing div
 
-### Step 2: Contact Page — Atmospheric Fixes
+### Step 2: Legal Page Navigation Swap
 
-Fix the hero atmospheric layers to match brand standards.
+Replace `Navigation` with `MinimalHeader` in `Legal.tsx` and add `MobileStickyBar`.
 
-**Changes in `Contact.tsx`:**
-- Wrap Ken Burns background image in `overflow-hidden` container, add `will-change: transform`
-- Change grain from `opacity-20` to `opacity-[0.06]`
-- Add warm fog layer: `radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)`
-- Add cinematic vignette: `radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 100%)`
-
-### Step 3: FAQ Page — Navigation Swap and Atmosphere
-
-Replace `Navigation` with `MinimalHeader` and add `MobileStickyBar`. Fix atmospheric consistency.
-
-**Changes in `FAQ.tsx`:**
+**Changes in `Legal.tsx`:**
 - Replace `import { Navigation }` with `import { MinimalHeader }` and `import { MobileStickyBar }`
 - Replace `<Navigation />` with `<MinimalHeader />`
 - Add `<MobileStickyBar />` before closing div
-- Wrap Ken Burns image in `overflow-hidden`, add `will-change: transform`
-- Change grain from `opacity-20` to `opacity-[0.06]`
-- Add warm fog and vignette layers matching brand standard
 
-### Step 4: Listen Page — Navigation Swap and Atmosphere
+### Step 3: NotFound Page Navigation Swap
 
-Replace `Navigation` with `MinimalHeader`. The Listen page already has a bespoke dark environment but uses the old nav.
+Replace `Navigation` with `MinimalHeader` in `NotFound.tsx`. Add `MobileStickyBar`.
 
-**Changes in `Listen.tsx`:**
-- Replace `import { Navigation }` with `import { MinimalHeader }`
-- Replace `<Navigation />` with `<MinimalHeader />`
-- Change the global grain layer from `opacity: 0.12` to `opacity-[0.06]` with `will-change: opacity`
-- Add `will-change: transform` to the hero `<img>` Ken Burns element
-- Add `overflow-hidden` to the hero section (already has it, verify)
-
-### Step 5: Proof Page — Navigation Swap and Atmosphere
-
-Replace `Navigation` with `MinimalHeader` and add `MobileStickyBar`. Fix heavy grain.
-
-**Changes in `Proof.tsx`:**
+**Changes in `NotFound.tsx`:**
 - Replace `import { Navigation }` with `import { MinimalHeader }` and `import { MobileStickyBar }`
 - Replace `<Navigation />` with `<MinimalHeader />`
-- Move `<MobileTrustBar />` before Footer, add `<MobileStickyBar />` before closing div (or keep MobileTrustBar if it serves a different purpose — verify it doesn't conflict)
-- Wrap Ken Burns background in `overflow-hidden`, add `will-change: transform`
-- Change grain from `opacity-30` to `opacity-[0.06]`
-- Add warm fog and vignette layers
+- Add `<MobileStickyBar />` before closing div/Footer
 
-### Step 6: Grain and Ken Burns Consistency Audit
+### Step 4: NotFound Page Brand Voice and Atmosphere
 
-Verify all subpages now use consistent atmospheric values:
-- Dark sections: grain `opacity-[0.06]`
-- Warm/light sections: grain `opacity-[0.04]`
-- All Ken Burns: `will-change: transform`, wrapped in `overflow-hidden`
-- All grain layers: `will-change: opacity`
-- Pricing page: verify its grain (currently `opacity-20` with mask) is corrected to `opacity-[0.06]`
+The 404 page currently uses generic SaaS copy and styling. Elevate it to match the brand's composed, reverent voice and add atmospheric treatment.
 
-**Changes in `Pricing.tsx`:**
-- Fix grain from `opacity-20` to `opacity-[0.06]`
-- Add `will-change: transform` to Ken Burns background
-- Add `will-change: opacity` to grain layer
-- Add `MobileStickyBar` (currently missing)
+**Changes in `NotFound.tsx`:**
+- Add grain overlay at `opacity-[0.04]` (warm section)
+- Change the heading from bold `text-6xl` to `font-display font-light` with brand typography
+- Rewrite copy to match brand voice: "This page has wandered beyond the threshold" or similar composed language (no exclamation marks, no urgency)
+- Replace generic lucide icon buttons with simpler, brand-aligned text links using `DirectionalLink` or styled `Link` components
+- Remove the "What makes ceremony audio reliable?" card — it's off-brand for a 404 page
+- Add a golden thread separator and the covenant whisper at the bottom
+
+### Step 5: Legal Page Atmospheric Polish
+
+Add subtle atmospheric treatment to the Legal hub page.
+
+**Changes in `Legal.tsx`:**
+- Add grain overlay at `opacity-[0.04]`
+- Add warm fog layer matching brand standard
+- Ensure card hover states use `hover:border-primary/20` instead of default border treatment
+- Change card icons from `text-primary` (which is fine) but verify hover transitions use `duration-[180ms]`
+
+### Step 6: PolicyLayout Atmospheric Polish
+
+Add subtle grain and warm fog to the policy layout wrapper so all four policy pages inherit atmospheric consistency.
+
+**Changes in `PolicyLayout.tsx`:**
+- Add a grain overlay at `opacity-[0.04]` to the main content area
+- Verify the breadcrumb styling uses `text-primary` for active links (not vine-green)
 
 ### Step 7: Performance and Accessibility Audit
 
-Across all modified pages:
-- Verify `focus-visible:ring-primary/70` on all interactive elements
-- Verify `prefers-reduced-motion` disables Ken Burns and entrance animations
-- Verify `MobileStickyBar` doesn't overlap footer content (Footer already has `pb-16 md:pb-0`)
-- Verify MinimalHeader `sessionStorage` vigil detection works correctly on subpages (should skip vigil delay and show immediately)
+Verify all changes across the three files.
+
+**Across all modified files:**
+- Verify `focus-visible:ring-primary/70` on interactive elements
+- Verify `MobileStickyBar` doesn't overlap footer content
+- Verify `MinimalHeader` shows immediately on subpages (no vigil delay)
+- Confirm the old `Navigation.tsx` component is no longer imported anywhere (can be deprecated)
 
 ---
 
@@ -95,13 +91,13 @@ Across all modified pages:
 
 | Step | File | Change |
 |------|------|--------|
-| 1 | `Contact.tsx` | Nav swap to MinimalHeader + MobileStickyBar |
-| 2 | `Contact.tsx` | Grain fix, overflow fix, fog + vignette |
-| 3 | `FAQ.tsx` | Nav swap + atmospheric fixes |
-| 4 | `Listen.tsx` | Nav swap + grain fix + will-change |
-| 5 | `Proof.tsx` | Nav swap + grain fix + atmospheric layers |
-| 6 | `Pricing.tsx` | Grain fix + will-change + MobileStickyBar |
-| 7 | All files | Performance + accessibility audit |
+| 1 | `PolicyLayout.tsx` | Nav swap (fixes 4 policy pages) |
+| 2 | `Legal.tsx` | Nav swap + MobileStickyBar |
+| 3 | `NotFound.tsx` | Nav swap + MobileStickyBar |
+| 4 | `NotFound.tsx` | Brand voice + atmosphere + remove generic SaaS elements |
+| 5 | `Legal.tsx` | Grain + fog + hover polish |
+| 6 | `PolicyLayout.tsx` | Grain + fog atmospheric layer |
+| 7 | All three files | Performance + accessibility audit |
 
-No new components, no new dependencies, no content or pricing changes. Pure navigation unification and atmospheric consistency.
+No new components or dependencies. After this step, `Navigation.tsx` will have zero imports across the entire codebase and can be considered deprecated.
 
