@@ -35,6 +35,9 @@ export function GradientDawnBackground({
       {/* Layer 1: Paper texture overlay */}
       <div className="gradient-dawn__paper" />
       
+      {/* Layer 1.5: Scroll-linked warmth */}
+      <div className="gradient-dawn__warmth" />
+      
       {/* Layer 2: Candlelight glow pools */}
       <div className="gradient-dawn__candlelight gradient-dawn__candlelight--tl" />
       <div className="gradient-dawn__candlelight gradient-dawn__candlelight--tr" />
