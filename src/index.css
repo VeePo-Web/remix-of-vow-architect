@@ -4593,3 +4593,22 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
     text-shadow: none;
   }
 }
+
+/* ── Round 27: Custom scrollbar for sound card track list ── */
+.sound-card-scroll::-webkit-scrollbar {
+  width: 3px;
+}
+.sound-card-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sound-card-scroll::-webkit-scrollbar-thumb {
+  background: hsl(var(--vow-yellow) / 0.15);
+  border-radius: 2px;
+}
+.sound-card-scroll::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--vow-yellow) / 0.3);
+}
+.sound-card-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--vow-yellow) / 0.15) transparent;
+}
