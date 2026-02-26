@@ -1,81 +1,72 @@
 
 
-# Homepage Round 12 — Cinematic Continuity and Material Perfection
+# Homepage Round 13 — Final Audit and Edge-Case Hardening
 
-After 11 rounds, each section individually achieves high quality. This final round addresses cross-section continuity, remaining interaction gaps, and the handful of material inconsistencies that prevent the experience from feeling like one unbroken cinematic sequence.
+After 12 rounds, the seven final sections achieve cinematic quality. This round addresses the remaining edge cases, a missed implementation from Round 12, and two subtle interaction issues that would be caught in a Fantasy.co QA pass.
 
 ---
 
 ## Audit Findings
 
-### TheInvitation
-- The section label "The Invitation" has no `transitionDelay`, appearing before the portrait and content columns. At Fantasy-level choreography, the label should appear first (0ms) but the current lack of explicit delay is correct by accident — no fix needed.
-- The "Read my story" DirectionalLink at `600ms` appears before the credentials at `750ms` — correct narrative ordering. Solid.
-- **Issue**: The section lacks a bottom fade into TheSound's dark environment. Currently TheSound has a top fade FROM TheInvitation's warm, but TheInvitation itself has no `section-fade-bottom` — creating a hard color cut on the Invitation side.
+### NowPlayingBar — Missing Reduced-Motion on Progress Bar (Missed in R12)
+The Round 12 plan noted that the NowPlayingBar progress bar animates continuously without respecting `prefers-reduced-motion`, but no fix was implemented. The progress bar at line 126 uses `transition-none` — this is correct (it tracks audio position, not decorative motion). However, the sound-wave animations in MiniWaveform ARE decorative and while the CSS selector `[style*="sound-wave"]` at line 4236 targets them, it relies on attribute matching which may not work reliably across browsers since the animation name is set via inline `animation` style property, not a `style` attribute containing that string literally. A more robust approach: check `reducedMotion` state in the component itself.
 
-### TheSound
-- The closing quote at line 487 uses `text-foreground/70` — this was elevated from `text-muted-foreground` in Round 9, but on the dark background it could still benefit from `text-foreground/80` for the quote text itself (the attribution can stay dimmer).
-- **Issue**: The NowPlayingBar component (sticky mini-bar when scrolling away) has no reduced-motion consideration — its progress bar animates continuously. Should respect `prefers-reduced-motion`.
-- The `sound-wave` keyframe animations for the mini waveform bars use inline animation names (`sound-wave-0`, `sound-wave-1`, etc.) that need to be verified in CSS.
+### TheTransformation — Hover Opacity Fix Incomplete
+The Round 12 fix used `onMouseEnter`/`onMouseLeave` event handlers to toggle opacity. This works but creates a problem: on touch devices, `mouseEnter` fires but `mouseLeave` may not fire reliably, leaving items stuck at full opacity. Need to add `onTouchEnd` handler or use CSS-only approach via `@media (hover: hover)`.
 
-### TheTransformation
-- The opacity gradient implementation (0.70 tapering to 0.55 for fears, 0.80 tapering to 0.65 for resolutions) works but the `hover:opacity-100` class competes with the inline `opacity` style. Inline styles always win over classes, so the hover state will not actually reach full opacity. This is a **functional bug**.
-- The left panel heading uses `duration-[900ms]` (fixed in Round 10) — confirmed correct.
+### TheSound — NowPlayingBar Slide Transition
+The NowPlayingBar uses `transform: translateY(100%)` to hide and `translateY(0)` to show (in CSS). The transition timing is not explicitly set in the CSS — it inherits from whatever the browser default is. Should have explicit `transition` property matching the site's 260ms navigation timing standard.
 
-### TheWitness
-- The closing thought "Now — choose how deeply you want me there" is a strong narrative bridge to ThreePaths. However, it lacks the em-dash typographic treatment used elsewhere (currently a plain hyphen surrounded by spaces). Should use `\u2014` for consistency.
-- **Issue**: The testimonial cards in the section below (TheWitnesses) have `relative` positioning for the absolute quotation marks, but the card container does not — meaning the quotes position relative to the nearest positioned ancestor, which may not be the card itself on all layouts.
+### CrossOver — Trust Anchor Spacing
+After relocating the film grain in Round 12, the trust anchor text (`mb-12`) creates a large gap before the golden thread below it. The visual rhythm feels disconnected. The `mb-4` on the CTA stack was also changed, creating a tight CTA-to-trust gap. The spacing sequence should be: CTA -> 16px -> trust text -> 32px -> golden thread -> 32px -> commitment.
 
-### ThreePaths
-- Film grain overlay added in Round 11 is inside the card but uses `rounded-lg` — if the card has `overflow-hidden` the grain will clip correctly, but if not, grain may bleed outside rounded corners. Need to verify.
-- The card `transition` property is set via the class `three-paths-card` in CSS but the inline `transitionDelay` may conflict. Need to verify no double-transition.
+### ProcessSection — Closing CTA Button Variant
+The closing CTA in ProcessSection uses class `cta-breathe-glow` on a `<Link>` element (line 128). This should match CrossOver's `cta-commitment cta-breathe-glow` pattern for visual consistency across the two primary CTAs on the page.
 
-### TheWitnesses
-- The absolute-positioned quotation marks (`-top-6`) work when the card has `relative` positioning. The card has class `witnesses-testimonial-card relative` — confirmed correct.
-- The closing golden thread at `1200ms` delay is very late — if the section trigger fires at 20% viewport intersection, the thread may not animate until the user has already scrolled past. Consider reducing to `900ms`.
+### VowMoment — Missing Film Grain Layer
+VowMoment uses `section-grain` class on the section element but does NOT have an explicit grain div overlay like every other dark section. If `section-grain` applies grain via CSS pseudo-element, this is fine. But other sections all use explicit `<div className="grain opacity-[0.08]">`. Need to verify consistency.
 
-### CrossOver
-- The film grain overlay was inserted between the CTA stack and the trust text (line 132-133), which places it inside the `container` div rather than as a section-level overlay. This means it only covers the content area, not the full section. It should be moved to be a direct child of the `section` element.
-- The "24 hours" text uses `text-xl` which creates a slight vertical alignment jump within the italic sentence. Using `text-lg` with `font-semibold` instead would maintain emphasis without the size discontinuity.
+### Global — Section Fade Height Consistency
+Some section fades use the default `section-fade-top` / `section-fade-bottom` CSS class height, while some set inline backgrounds. The height of these fade overlays should be verified as consistent (typically 120-160px) so transitions feel uniform.
 
 ---
 
 ## The 7-Step Plan
 
-### Step 1: TheInvitation — Add Bottom Fade
-Add a `section-fade-bottom` div at the end of TheInvitation, matching TheSound's color (`hsl(220 15% 8%)`), creating a seamless warm-to-dark gradient transition.
-
-**File:** `src/components/TheInvitation.tsx`
-
-### Step 2: TheTransformation — Fix Hover Opacity Bug
-The inline `opacity` style overrides the `hover:opacity-100` Tailwind class. Fix by removing the inline opacity and instead using a CSS custom property with a hover override, or by applying the base opacity as a Tailwind arbitrary value that can be overridden by the hover state. The cleanest approach: wrap each item's opacity in a `style` that sets `opacity` only when not hovered, using `group-hover` on a parent.
-
-**File:** `src/components/TheTransformation.tsx`
-
-### Step 3: TheSound — Closing Quote Typography
-Increase the closing blockquote text from `text-foreground/70` to `text-foreground/80` for better readability on the dark background. The attribution line remains at the current dimmer level.
+### Step 1: TheSound — Robust Reduced-Motion for MiniWaveform
+Pass the `reducedMotion` state from TheSound down to MiniWaveform as a prop. When true, disable the sound-wave animations directly in the component rather than relying on CSS attribute selectors.
 
 **File:** `src/components/TheSound.tsx`
 
-### Step 4: TheWitness — Em-dash Typography Fix
-Replace the plain dash in "Now — choose how deeply you want me there" with a proper em-dash character (`\u2014`) for typographic consistency with the rest of the site.
+### Step 2: TheTransformation — Touch-Safe Hover Opacity
+Wrap the `onMouseEnter`/`onMouseLeave` handlers in a `@media (hover: hover)` check. Use a ref or state to detect if the device supports hover. On non-hover devices, items remain at their base opacity without the hover interaction. This prevents touch-device sticking.
 
-**File:** `src/components/TheWitness.tsx`
+**File:** `src/components/TheTransformation.tsx`
 
-### Step 5: TheWitnesses — Reduce Closing Thread Delay
-Reduce the closing golden thread `transitionDelay` from `1200ms` to `900ms` so it animates while still in view for most scroll speeds.
+### Step 3: NowPlayingBar — Explicit Transition Timing
+Add explicit `transition: transform 260ms cubic-bezier(0.22, 0.61, 0.36, 1), opacity 260ms ease` to the `.now-playing-bar` CSS class to match the site's navigation timing standard.
 
-**File:** `src/components/TheWitnesses.tsx`
+**File:** `src/index.css`
 
-### Step 6: CrossOver — Relocate Film Grain Overlay
-Move the film grain overlay from inside the container div (line 132-133) to be a direct child of the `section` element, ensuring full-bleed coverage matching every other dark section's grain placement.
-
-**File:** `src/components/CrossOver.tsx`
-
-### Step 7: CrossOver — Normalize "24 hours" Emphasis
-Change `text-xl` to `text-lg font-semibold` on the "24 hours" span to maintain emphasis without creating a vertical size jump within the italic sentence.
+### Step 4: CrossOver — Normalize Spacing Rhythm
+Adjust the spacing between CTA stack, trust text, golden thread, and commitment statement to create an even visual cadence: CTA (`mb-6`) -> trust text (`mb-10`) -> golden thread (`mb-8`) -> commitment.
 
 **File:** `src/components/CrossOver.tsx`
+
+### Step 5: ProcessSection — Match CTA Class Pattern
+Add `cta-commitment` class to the ProcessSection closing CTA to match CrossOver's dual-class pattern, ensuring visual consistency between the two primary page CTAs.
+
+**File:** `src/components/process/ProcessSection.tsx`
+
+### Step 6: VowMoment — Verify/Add Explicit Grain Overlay
+Check if `section-grain` class applies grain via pseudo-element. If not, add an explicit grain div matching other dark sections' pattern.
+
+**File:** `src/components/VowMoment.tsx` (if needed)
+
+### Step 7: CSS — Verify Section Fade Heights
+Audit the `section-fade-top` and `section-fade-bottom` class heights in CSS. Ensure they provide 120-160px of gradient space for all section transitions.
+
+**File:** `src/index.css` (verification, fix if needed)
 
 ---
 
@@ -83,13 +74,13 @@ Change `text-xl` to `text-lg font-semibold` on the "24 hours" span to maintain e
 
 | Step | File | Change |
 |------|------|--------|
-| 1 | `TheInvitation.tsx` | Add bottom fade gradient |
-| 2 | `TheTransformation.tsx` | Fix hover opacity override bug |
-| 3 | `TheSound.tsx` | Closing quote text visibility |
-| 4 | `TheWitness.tsx` | Em-dash typography fix |
-| 5 | `TheWitnesses.tsx` | Reduce closing thread delay |
-| 6 | `CrossOver.tsx` | Relocate film grain to section level |
-| 7 | `CrossOver.tsx` | Normalize "24 hours" text size |
+| 1 | `TheSound.tsx` | Pass reducedMotion prop to MiniWaveform |
+| 2 | `TheTransformation.tsx` | Touch-safe hover with media query check |
+| 3 | `src/index.css` | NowPlayingBar transition timing |
+| 4 | `CrossOver.tsx` | Normalize spacing rhythm |
+| 5 | `ProcessSection.tsx` | Add cta-commitment class |
+| 6 | `VowMoment.tsx` | Verify/add grain overlay |
+| 7 | `src/index.css` | Verify section fade heights |
 
-No copy changes. No pricing changes. No new dependencies. Bug fix (Step 2) plus continuity and material refinements.
+No copy changes. No pricing changes. No new dependencies. Edge-case hardening and interaction reliability.
 
