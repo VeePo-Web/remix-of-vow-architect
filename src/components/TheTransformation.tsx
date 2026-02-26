@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { X, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useScrollReveal } from '@/hooks/useScrollReveal';
@@ -20,6 +21,11 @@ const resolutions = [
 
 export function TheTransformation() {
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.2 });
+  const [canHover, setCanHover] = useState(true);
+
+  useEffect(() => {
+    setCanHover(window.matchMedia("(hover: hover)").matches);
+  }, []);
 
   return (
     <section ref={sectionRef} className="section-grain relative min-h-[500px] overflow-hidden">
@@ -104,8 +110,8 @@ export function TheTransformation() {
                   transitionDelay: isVisible ? `${200 + index * 200}ms` : "0ms",
                   transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
-                onMouseLeave={(e) => { if (isVisible) e.currentTarget.style.opacity = String(0.70 - index * 0.05); }}
+                onMouseEnter={canHover ? (e) => e.currentTarget.style.opacity = '1' : undefined}
+                onMouseLeave={canHover ? (e) => { if (isVisible) e.currentTarget.style.opacity = String(0.70 - index * 0.05); } : undefined}
               >
                 <X size={20} className="text-error shrink-0 mt-0.5 transition-transform duration-300 group-hover:scale-110" strokeWidth={2} />
                 <p className="text-base leading-relaxed text-foreground/80">{fear}</p>
@@ -207,8 +213,8 @@ export function TheTransformation() {
                   transitionDelay: isVisible ? `${200 + index * 200}ms` : "0ms",
                   transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
-                onMouseLeave={(e) => { if (isVisible) e.currentTarget.style.opacity = String(0.80 - index * 0.05); }}
+                onMouseEnter={canHover ? (e) => e.currentTarget.style.opacity = '1' : undefined}
+                onMouseLeave={canHover ? (e) => { if (isVisible) e.currentTarget.style.opacity = String(0.80 - index * 0.05); } : undefined}
               >
                 <Check size={20} className="text-success shrink-0 mt-0.5 transition-transform duration-300 group-hover:scale-110" strokeWidth={2.5} />
                 <p className="text-base leading-relaxed text-rich-black font-medium">{resolution}</p>

@@ -106,7 +106,7 @@ export function CrossOver() {
         {/* CTA Stack */}
         <div
           className={cn(
-            "flex flex-col sm:flex-row gap-4 justify-center items-center mb-4 transition-all duration-700",
+            "flex flex-col sm:flex-row gap-4 justify-center items-center mb-6 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
           style={{ transitionDelay: isVisible ? "300ms" : "0ms" }}
@@ -135,7 +135,7 @@ export function CrossOver() {
 
         <p
           className={cn(
-            "text-sm text-foreground/60 mb-12 transition-all duration-700",
+            "text-sm text-foreground/60 mb-10 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
           style={{ transitionDelay: isVisible ? "450ms" : "0ms" }}
