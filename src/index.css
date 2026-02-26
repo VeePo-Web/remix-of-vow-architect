@@ -3885,6 +3885,7 @@ All colors MUST be HSL.
 .section--dark {
   background-color: hsl(var(--surface-dark-band));
   color: hsl(var(--foreground));
+  contain: layout style paint;
 }
 
 .section-padding-cinematic {
@@ -3904,6 +3905,11 @@ All colors MUST be HSL.
 
 .exhale-section {
   background: hsl(var(--rich-black));
+  contain: layout style paint;
+}
+
+.section--surface {
+  contain: layout style paint;
 }
 
 .gradient-dawn {

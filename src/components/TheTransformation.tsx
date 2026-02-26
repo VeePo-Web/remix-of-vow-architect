@@ -59,6 +59,7 @@ export function TheTransformation() {
                 filter: 'saturate(0.6) contrast(1.1)',
               }}
               loading="lazy"
+              fetchPriority="low"
             />
           </div>
 
@@ -123,6 +124,7 @@ export function TheTransformation() {
                 filter: 'saturate(0.85) contrast(1.05)',
               }}
               loading="lazy"
+              fetchPriority="low"
             />
           </div>
 

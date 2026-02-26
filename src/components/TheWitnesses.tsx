@@ -149,7 +149,7 @@ export function TheWitnesses() {
                 </blockquote>
 
                 {/* Attribution */}
-                <div>
+                <div className="text-center">
                   <p
                     className="font-display italic text-foreground/70"
                     style={{ fontSize: "14px", letterSpacing: "0.04em" }}

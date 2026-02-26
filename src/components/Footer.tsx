@@ -70,7 +70,7 @@ export function Footer() {
               <a
                 href="mailto:ParJorFraGaw@gmail.com"
                 className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] transition-all duration-[180ms] p-3 -m-3 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
-                aria-label="Email"
+                aria-label="Send me an email"
               >
                 <Mail size={18} />
               </a>
@@ -78,7 +78,7 @@ export function Footer() {
               <a
                 href="tel:+14038308930"
                 className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] transition-all duration-[180ms] p-3 -m-3 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
-                aria-label="Phone"
+                aria-label="Call me by phone"
               >
                 <Phone size={18} />
               </a>
@@ -86,7 +86,7 @@ export function Footer() {
               <a
                 href="https://instagram.com"
                 className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] transition-all duration-[180ms] p-3 -m-3 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
-                aria-label="Instagram"
+                aria-label="Follow me on Instagram"
               >
                 <Instagram size={18} />
               </a>
@@ -94,7 +94,7 @@ export function Footer() {
               <a
                 href="https://youtube.com"
                 className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] transition-all duration-[180ms] p-3 -m-3 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
-                aria-label="YouTube"
+                aria-label="Watch me on YouTube"
               >
                 <Youtube size={18} />
               </a>

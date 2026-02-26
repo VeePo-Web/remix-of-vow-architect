@@ -70,7 +70,7 @@ export function TheExhale() {
       {/* Layer 2: Outer bloom glow — delayed, expansive */}
       <div 
         className={`
-          absolute inset-0 pointer-events-none transition-opacity will-change-[opacity]
+          absolute inset-0 pointer-events-none transition-opacity
           ${purposeVisible ? 'opacity-100' : 'opacity-0'}
         `}
         style={{
