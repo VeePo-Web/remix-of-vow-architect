@@ -4518,6 +4518,17 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   50% { opacity: 1; transform: rotate(45deg) scale(1.15); }
 }
 
+/* Track button hover — piano key depression hint */
+.track-button:not(.track-button--active):hover .track-bar {
+  transform: scaleY(1) !important;
+}
+
+/* Ambient card glow breathing */
+@keyframes sound-card-breathe {
+  0%, 100% { box-shadow: 0 0 40px hsl(var(--vow-yellow) / 0.04); }
+  50% { box-shadow: 0 0 60px hsl(var(--vow-yellow) / 0.08); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   img[style*="sound-ken-burns"],
   img[style*="transform-fear-kb"],
