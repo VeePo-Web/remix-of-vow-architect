@@ -1,107 +1,72 @@
 
 
-# Homepage Final 7 Sections — World-Class Elevation Plan (11 Steps)
+# Homepage Round 10 — Final Polish and Consistency Audit
 
-The last seven sections of the homepage — **TheInvitation, TheSound, TheTransformation, TheWitness, ThreePaths, TheWitnesses, CrossOver** — form the conversion funnel from emotional recognition to commitment. After 8 rounds of performance and accessibility polish, these sections are technically sound but visually lack the cinematic gravity and narrative tension that Fantasy.co would demand. This plan addresses design, animation choreography, and emotional impact — without changing copy or pricing.
-
----
-
-## Critical Audit Findings
-
-### TheInvitation
-- Portrait frame has no inner shadow or border treatment — feels flat, not like a premium letterpress or invitation card
-- The "wrong" underline is good but the portrait-to-content grid gap feels mechanical, not organic
-- Credential diamonds are visually correct but the section lacks a unifying atmospheric depth layer
-- Caption beneath portrait has no reveal animation — appears static while everything else animates
-
-### TheSound
-- The listening room card is well-crafted but floats in space with no visual relationship to the section
-- No visual connection between the "Hear me play" headline and the listening room — feels disconnected
-- The closing quote at the bottom has a golden thread but lacks emotional weight at this narrative position
-
-### TheTransformation
-- Round 8 improved stagger direction and heading typography — now solid
-- The mobile golden thread separator could use a reveal animation tied to scroll
-- Center divider diamond pulse is refined — no further changes needed
-
-### TheWitness
-- The "What I bring" kit list feels like a feature spec, not a sacred inventory
-- The golden underline on "pianist" is static (no scale-in animation) — inconsistent with TheInvitation's animated underline
-- No visual weight differential between declarations and kit — everything reads at the same hierarchy
-
-### ThreePaths
-- Cards have good glassmorphism but the "MOST SELECTED" badge sits too close to the card top on mobile
-- Price typography could use tabular nums alignment refinement
-- The reassurance text at the bottom lacks a golden thread above it to separate from cards
-
-### TheWitnesses
-- Testimonial cards have no quotation mark decoration — relying entirely on text punctuation
-- The section heading "The music stayed with them" is strong but could benefit from a subtle word emphasis
-- Separator between testimonials is correct but the 16px spacing above separator feels tight for the editorial pace
-
-### CrossOver
-- The CTA "Hold my date" button uses `primary-dark` variant but lacks sufficient contrast on the deep dark background
-- The commitment statement "Response within 24 hours. Always." is the last thing visitors read — needs more visual ceremony
-- The semicolon in the tagline bookend lacks the heartbeat animation present in the hero TaglineCovenant
+After 9 rounds of progressive elevation, all 7 final sections have strong cinematic layering, animated golden threads, directional staggers, and reduced-motion coverage. This round addresses the remaining inconsistencies and missed opportunities discovered in a full code audit.
 
 ---
 
-## The 11-Step Plan
+## Findings
 
-### Step 1: TheInvitation — Portrait Frame Elevation
-Add a subtle 1px border with `hsl(var(--vow-yellow) / 0.12)` to the portrait frame and an inner box-shadow for depth. Add a scroll-reveal animation to the caption beneath the portrait (currently static). Add `transitionDelay` matching the portrait column delay.
+### 1. TheWitness missing `aria-hidden="true"` on background image wrapper
+The background image wrapper `<div>` at line 33 lacks `aria-hidden="true"`, unlike every other section (TheWitnesses, CrossOver, ThreePaths all have it on the wrapper). Inconsistency.
 
-**File:** `TheInvitation.tsx`
+### 2. TheTransformation mobile golden thread has no scroll-reveal animation
+The mobile separator (lines 114-125) is always visible with static opacity. Every other golden thread in the homepage animates on scroll. This feels static compared to the rest.
 
-### Step 2: TheInvitation — Atmospheric Depth Enhancement
-Replace the single radial glow with a two-layer system: a warm elliptical fog behind the portrait column AND a secondary cold-to-warm gradient sweep across the full section width. This creates the temperature shift (vigil-to-celebration) within the section itself.
+### 3. Closing quote stagger in TheSound needs refinement
+The closing quote block (line 462-483) uses `transitionDelay: "600ms"` but the golden thread connector above the listening room already uses `380ms`. The total reveal sequence is: label (0) -> heading (150) -> subhead (300) -> thread (380) -> listening room (450) -> closing (600). This is correct timing but the closing quote could benefit from a slightly longer delay (700ms) to create a more deliberate pause after the listening room interaction.
 
-**File:** `TheInvitation.tsx`
+### 4. TheWitnesses testimonial cards lack `transition-duration`
+The testimonial cards (line 149-155) have `transition-all` but no explicit `duration-700` class, relying on the default `transition-all` duration (150ms). This makes them appear faster than every other section's 700ms reveal. Need to add `duration-700`.
 
-### Step 3: TheSound — Listening Room Visual Connection
-Add a thin golden thread line connecting the headline area to the top of the listening room card (a vertical 1px line, 48px tall, centered, with the standard golden gradient). This creates visual flow from headline to interaction.
+### 5. CrossOver CTA button contrast
+The `primary-dark` button variant on the deep dark background may have insufficient contrast. Need to verify the button styles provide adequate visibility.
 
-**File:** `TheSound.tsx`
+### 6. ThreePaths card glassmorphism class `three-paths-card` needs verification
+The class `three-paths-card` and `three-paths-card--chosen` are referenced but need to be confirmed in CSS to ensure they render correctly.
 
-### Step 4: TheSound — Closing Quote Ceremony
-Increase the closing quote's font size from `text-base` to `text-lg` and add a subtle `text-foreground/70` color instead of `text-muted-foreground` for more presence. Add stagger delay so it appears last, reinforcing its narrative weight as a parting thought.
+### 7. Missing `transition-duration` on TheTransformation panel headings
+The headings use `duration-900` which is not a standard Tailwind class (Tailwind has `duration-700`, `duration-1000`). This will default to the base transition duration. Should use `duration-1000` or add a custom `duration-[900ms]`.
 
-**File:** `TheSound.tsx`
+---
 
-### Step 5: TheWitness — Pianist Underline Animation
-Make the golden underline beneath "pianist" animate on scroll (scale-x-0 to scale-x-100) matching the brand's signature vow-underline pattern with `cubic-bezier(0.22, 0.61, 0.36, 1)` and 700ms duration. Currently static.
+## The 7-Step Plan
 
-**File:** `TheWitness.tsx`
+### Step 1: Fix TheWitness background wrapper `aria-hidden`
+Add `aria-hidden="true"` to the background image wrapper div in `TheWitness.tsx` line 33 for consistency with all other sections.
 
-### Step 6: TheWitness — Kit List Hierarchy Enhancement
-Add a subtle left gold accent bar (2px wide, 16px tall) before each kit item on hover, matching the accent bar pattern from TheSound's track list. This elevates the kit list from a flat credential strip to an interactive inventory.
+**File:** `src/components/TheWitness.tsx`
 
-**File:** `TheWitness.tsx`
+### Step 2: Animate TheTransformation mobile golden thread on scroll
+Replace the static mobile separator with a scroll-reveal version using the existing `isVisible` state and `scale-x` animation pattern, matching ThreePaths' reassurance thread.
 
-### Step 7: ThreePaths — Reassurance Golden Thread
-Add a 48px golden thread separator between the card grid and the reassurance text. This creates breathing room and visual hierarchy between the pricing cards and the policy statement.
+**File:** `src/components/TheTransformation.tsx`
 
-**File:** `ThreePaths.tsx`
+### Step 3: Refine TheSound closing quote delay
+Increase the closing quote `transitionDelay` from `600ms` to `700ms` for a more deliberate pause after the listening room card.
 
-### Step 8: TheWitnesses — Decorative Quotation Marks
-Add large decorative open-quote marks (`"`) positioned absolutely above each testimonial blockquote, using `font-display text-6xl text-foreground/8` — barely visible but providing editorial structure. This is a hallmark of luxury testimonial design.
+**File:** `src/components/TheSound.tsx`
 
-**File:** `TheWitnesses.tsx`
+### Step 4: Fix TheWitnesses testimonial card transition duration
+Add explicit `duration-700` to the testimonial card transition classes to match the 700ms standard used across all other sections.
 
-### Step 9: TheWitnesses — Heading Word Emphasis
-Add a subtle golden underline to "stayed" in "The music stayed with them" using the animated scale-x vow-underline pattern. This creates a micro-emphasis that draws the eye and reinforces the emotional claim.
+**File:** `src/components/TheWitnesses.tsx`
 
-**File:** `TheWitnesses.tsx`
+### Step 5: Fix TheTransformation heading transition duration
+Replace `duration-900` (invalid Tailwind class) with `duration-[900ms]` for correct custom duration, or standardize to `duration-700` for consistency.
 
-### Step 10: CrossOver — Semicolon Heartbeat Animation
-Apply the `semicolon-heartbeat` CSS animation (already defined in the codebase for TaglineCovenant) to the semicolon in the closing tagline bookend. This creates visual continuity between hero and closing — the heartbeat that started the journey completes it.
+**File:** `src/components/TheTransformation.tsx`
 
-**File:** `CrossOver.tsx`
+### Step 6: Verify ThreePaths card CSS classes exist
+Search for `three-paths-card` in CSS and confirm glassmorphism styles are defined. If missing, add them.
 
-### Step 11: CrossOver — Commitment Statement Ceremony
-Wrap "24 hours" in a slightly larger size and add a 32px golden thread above the commitment statement to separate it from the CTA stack. Add a subtle bottom-up reveal animation with 750ms delay so it appears as the final, deliberate promise.
+**File:** `src/index.css` (if needed)
 
-**File:** `CrossOver.tsx`
+### Step 7: Add reduced-motion fallback for CrossOver dust animation
+Verify the `crossover-dust` animation has proper reduced-motion coverage (was added in Round 7 but should be confirmed still present after subsequent edits).
+
+**File:** `src/index.css` (verification only, fix if needed)
 
 ---
 
@@ -109,17 +74,13 @@ Wrap "24 hours" in a slightly larger size and add a 32px golden thread above the
 
 | Step | File | Change |
 |------|------|--------|
-| 1 | `TheInvitation.tsx` | Portrait frame border + caption reveal |
-| 2 | `TheInvitation.tsx` | Two-layer atmospheric depth |
-| 3 | `TheSound.tsx` | Vertical golden thread connector |
-| 4 | `TheSound.tsx` | Closing quote typography elevation |
-| 5 | `TheWitness.tsx` | Animated pianist underline |
-| 6 | `TheWitness.tsx` | Kit list hover accent bars |
-| 7 | `ThreePaths.tsx` | Reassurance golden thread separator |
-| 8 | `TheWitnesses.tsx` | Decorative quotation marks |
-| 9 | `TheWitnesses.tsx` | "stayed" word emphasis underline |
-| 10 | `CrossOver.tsx` | Semicolon heartbeat animation |
-| 11 | `CrossOver.tsx` | Commitment statement ceremony |
+| 1 | `TheWitness.tsx` | Add aria-hidden to bg wrapper |
+| 2 | `TheTransformation.tsx` | Animate mobile golden thread |
+| 3 | `TheSound.tsx` | Adjust closing quote delay |
+| 4 | `TheWitnesses.tsx` | Fix transition duration |
+| 5 | `TheTransformation.tsx` | Fix heading duration class |
+| 6 | `src/index.css` | Verify/add card classes |
+| 7 | `src/index.css` | Verify reduced-motion coverage |
 
-No copy changes. No pricing changes. No new dependencies. Pure design elevation through animation choreography, visual hierarchy, and atmospheric depth.
+No copy changes. No new dependencies. Pure consistency and accessibility polish.
 
