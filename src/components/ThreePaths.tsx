@@ -210,13 +210,26 @@ export function ThreePaths() {
           ))}
         </div>
 
+        {/* Step 7: Golden thread separator before reassurance */}
+        <div
+          className={cn(
+            "h-[1px] w-12 mx-auto mb-8 transition-all duration-700",
+            isVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
+          )}
+          style={{
+            background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)",
+            transitionDelay: isVisible ? "850ms" : "0ms",
+          }}
+          aria-hidden="true"
+        />
+
         {/* Reassurance */}
         <p
           className={cn(
             "text-center text-sm text-muted-foreground/70 max-w-2xl mx-auto transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
-          style={{ transitionDelay: isVisible ? "900ms" : "0ms" }}
+          style={{ transitionDelay: isVisible ? "950ms" : "0ms" }}
         >
           You can move between these at any time—no penalty until two weeks before your day.
         </p>
