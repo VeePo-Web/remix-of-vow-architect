@@ -1,64 +1,55 @@
 
 
-# TheSound Section — Redesign as "Hear Me Play" Browsing Experience
+# TheTransformation Section — Copy Rewrite
 
-## Vision
+## Problem with Current Copy
+The current fears and resolutions position Parker as a sound engineer ("SPL logs," "generators," "sound readings," "audio plan"). In reality, Parker is a pianist who brings a piano and a small PA system. The copy overpromises technical capabilities and misrepresents the service.
 
-Transform TheSound from a ceremony-specific audio player into a relaxed, inviting listening environment that mirrors the Gateway page's Listening Room (PianoPanel) — but expanded into a full homepage section rather than a floating overlay. The tone shifts from "ceremony soundtrack preview" to "hear me play while you explore."
+## New Direction
+Based on your input, the core fear couples have is **no emotional connection** — that the music will feel generic, forgettable, or like background noise. The resolutions should reflect what you actually deliver: a custom, emotionally resonant piano experience built through your listening-first process.
 
-## Current Problems
+## Copy Changes (No Design Changes)
 
-1. **Copy is ceremony-locked**: "The prelude. The procession. The vows. The walk into forever." — too narrow for a browsing invitation
-2. **Only 4 tracks, all ceremony-labeled**: "Processional," "Bride's Entrance," "Signing," "Recession" — limits the experience
-3. **Disconnected from the Listening Room**: The Gateway page has a rich PianoPanel with 15 tracks across 5 genres (Hymns, Worship, Pop, Classical, Film) — but TheSound section uses a completely separate, smaller player
-4. **The closing caption oversells**: "Every arrangement begins with a conversation" belongs in the Process section, not here
+### File: `src/components/TheTransformation.tsx`
 
-## Proposed Changes
+**Fears array** (lines 7-12):
+```
+Current:
+- "Guests in the back can't hear our vows"
+- "Generators hum through the ceremony"
+- "No proof the sound reached every seat"
+- "The musician arrives with no plan for your ceremony"
 
-### Copy (in `TheSound.tsx`)
+Proposed:
+- "The pianist plays the same songs as every other wedding"
+- "The music feels like background noise — not your story"
+- "No one asked what songs actually mean something to you"
+- "The musician shows up, plays, and leaves — no connection"
+```
 
-| Element | Current | Proposed |
-|---------|---------|----------|
-| Label | "The Sound" | "The Sound" (unchanged) |
-| Headline | "Music that holds the room still." | "Hear me play." |
-| Subhead | "The prelude. The procession. The vows. The walk into forever." | "Browse. Listen. Imagine it at yours." |
-| Closing caption | "Every arrangement begins with a conversation — and ends with a sound that belongs only to you." | "Every piece I play begins the same way — with someone in mind." |
+**Resolutions array** (lines 14-19):
+```
+Current:
+- "Every guest hears every word—documented"
+- "Silent power. No generators. No hum."
+- "Three sound readings logged and time-stamped"
+- "Your ceremony audio plan—delivered within 24 hours"
 
-### Design — Embed the PianoPanel Track List Inline
+Proposed:
+- "Every arrangement is built from a conversation — yours"
+- "Your walk-down song, composed note by note for you"
+- "A full ceremony plan — sent before you ever have to ask"
+- "A pianist who stays until the last guest leaves the room"
+```
 
-Replace the current 4-card `AudioPlayer` grid with the existing `PianoPanel` track list (5 categories, 15 tracks), but rendered inline within the section rather than as a floating overlay. This reuses the existing component data and interaction patterns.
+## Rationale
 
-**Specifically:**
+The fears now mirror real anxieties couples feel when hiring musicians: generic playlists, emotional disconnect, no personalisation, no care. The resolutions map directly to Parker's actual process (The Listening, The Crafting, The Refining) and real deliverables — without claiming sound engineering capabilities. Each resolution answers its corresponding fear in sequence, maintaining the left-right visual contrast of the split panel.
 
-1. Import `categories` and `allTracks` from `PianoPanel.tsx` (already exported)
-2. Build an inline track list that mirrors PianoPanel's layout: category headers with golden divider lines, track rows with the accent bar and mini waveform — but rendered directly in the section container instead of a fixed-position dialog
-3. Keep the same `<audio>` element and play/pause logic from the current `AudioPlayer`
-4. Retain the decorative PianoStrings overlay (golden vertical lines, hammer rail, damper strip) to give the section the same "grand piano interior" aesthetic as the Gateway panel
-5. Keep the NowPlayingBar mini-bar for when users scroll away while music plays
-6. Remove the separate `AudioPlayer` component import — the inline list replaces it
-7. Add genre filter chips at the top (Hymns, Worship, Pop, Classical, Film) so users can browse by category, with an "All" default
-
-**Layout:**
-- Max width constrained to `max-w-md` centered, matching the intimate scale of the PianoPanel
-- Rounded container with the same `hsl(var(--rich-black))` background and `vow-yellow/0.12` border
-- PianoStrings decoration layered behind
-- Category sections stack vertically with the same golden divider separating each
-
-### What Stays Unchanged
-
-- Section dark theme (`section--dark section-grain`)
-- Background image layer (sound-cathedral-ai.jpg at 15% opacity)
-- Radial glow behind content
-- Top/bottom gradient fades
-- Scroll reveal animations
-- NowPlayingBar floating mini-bar behavior
-- All animation timings and easing curves
-
-## Files Modified
-
-- `src/components/TheSound.tsx` — replace copy + swap AudioPlayer grid for inline PianoPanel-style track list using imported `categories`/`allTracks` data
-
-## Emotional Arc
-
-The section's role in the page journey shifts from "preview my ceremony music" to a breathing room — a quiet invitation to sit, listen, and let the music build trust. It becomes the sonic equivalent of The Invitation's portrait: "Here I am. Listen." The copy reduction from 3 lines to 1 ("Hear me play.") honors the Swedish principle of lagom — just the right amount. The music speaks for itself.
+## What Stays Unchanged
+- All design: split-panel layout, dark/light gradient backgrounds, background images, center divider with breathing glow, bottom fade
+- Section label "THE TRANSFORMATION"
+- X and Check icons with hover animations
+- Scroll reveal timing and stagger delays
+- All CSS classes, transitions, and z-index layering
 
