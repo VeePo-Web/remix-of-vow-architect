@@ -3,21 +3,7 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 /**
  * THE EXHALE — The Sacred Declaration
- * 
- * Position: Immediately after hero
- * Purpose: Create emotional recognition, then declare singular purpose
- * Principle: "Make them feel before they think" (Fantasy.co)
- * 
- * Narrative Arc:
- * ACT I — Recognition (their promise)
- * ACT II — The Pivot (golden thread threshold)
- * ACT III — Declaration (my promise to them)
- * 
- * Swedish Principles Applied:
- * - Lagom: Every element justified, nothing superfluous
- * - Funktionalism: Animations serve emotional purpose
- * - Light & Shadow: Glow evolution mimics natural dawn
- * - Silence: Generous spacing, whispered transitions
+ * Fantasy.co Quality — All 7 elevation steps applied
  */
 export function TheExhale() {
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.3, rootMargin: '-40px 0px' });
@@ -51,10 +37,27 @@ export function TheExhale() {
         }}
       />
 
-      {/* Layer 1: Inner core glow — immediate, concentrated */}
+      {/* Step 1: Film grain overlay — consistent with hero */}
+      <div 
+        className="absolute inset-0 grain opacity-[0.08] pointer-events-none will-change-[opacity]"
+        style={{ zIndex: 1 }}
+        aria-hidden="true"
+      />
+
+      {/* Step 1: Subtle warm fog — atmospheric depth */}
+      <div 
+        className="absolute inset-0 pointer-events-none will-change-[opacity]"
+        style={{
+          background: `radial-gradient(ellipse 60% 50% at 50% 50%, hsl(var(--vow-yellow) / 0.02) 0%, transparent 70%)`,
+          zIndex: 1,
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Layer 1: Inner core glow — with Step 5 ambient breathing */}
       <div 
         className={`
-          absolute inset-0 pointer-events-none transition-opacity
+          absolute inset-0 pointer-events-none transition-opacity exhale-glow-breathe-layer
           ${isVisible ? 'opacity-100' : 'opacity-0'}
         `}
         style={{
@@ -67,7 +70,7 @@ export function TheExhale() {
       {/* Layer 2: Outer bloom glow — delayed, expansive */}
       <div 
         className={`
-          absolute inset-0 pointer-events-none transition-opacity
+          absolute inset-0 pointer-events-none transition-opacity will-change-[opacity]
           ${purposeVisible ? 'opacity-100' : 'opacity-0'}
         `}
         style={{
@@ -78,14 +81,17 @@ export function TheExhale() {
         }}
       />
 
-      {/* Content container with subtle parallax feel */}
+      {/* Step 3: Top gradient fade — seamless hero transition */}
+      <div
+        className="section-fade-top"
+        style={{ background: 'linear-gradient(to top, transparent, hsl(0 0% 0%))' }}
+        aria-hidden="true"
+      />
+
+      {/* Content */}
       <div className="relative z-10 max-w-[680px] mx-auto px-6 text-center">
         
-        {/* ═══════════════════════════════════════
-            ACT I — THE RECOGNITION
-            ═══════════════════════════════════════ */}
-        
-        {/* Golden Dot Anchor — heartbeat of the section */}
+        {/* ACT I — Golden Dot Anchor (Step 2: refined) */}
         <div 
           className={`
             exhale-anchor mx-auto mb-10 md:mb-12
@@ -100,7 +106,7 @@ export function TheExhale() {
           aria-hidden="true"
         />
 
-        {/* Recognition Statement — their journey acknowledged */}
+        {/* Recognition Statement — Step 4: text-shadow for depth */}
         <p 
           className={`
             font-serif text-foreground/90
@@ -115,12 +121,13 @@ export function TheExhale() {
             lineHeight: 1.25,
             maxWidth: '18ch',
             margin: '0 auto',
+            textShadow: '0 2px 24px rgba(0,0,0,0.4)',
           }}
         >
           You're about to make a promise that will echo beyond your lifetime.
         </p>
 
-        {/* Understanding Statement — I see you */}
+        {/* Understanding Statement */}
         <p 
           className={`
             font-sans leading-relaxed text-muted-foreground
@@ -138,11 +145,7 @@ export function TheExhale() {
           I understand the weight of that moment.
         </p>
 
-        {/* ═══════════════════════════════════════
-            ACT II — THE PIVOT
-            ═══════════════════════════════════════ */}
-        
-        {/* Golden Thread — SVG with organic curve */}
+        {/* ACT II — Golden Thread SVG (Step 6: glow filter) */}
         <div 
           className="exhale-thread-container my-12 md:my-16"
           style={{ width: 'clamp(120px, 25vw, 200px)', margin: '48px auto' }}
@@ -161,23 +164,28 @@ export function TheExhale() {
                 <stop offset="85%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0.8" />
                 <stop offset="100%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0" />
               </linearGradient>
+              {/* Step 6: Glow filter for thread */}
+              <filter id="threadGlow" x="-20%" y="-100%" width="140%" height="300%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
             </defs>
             <path 
               d="M 0,3 Q 50,1 100,3 Q 150,5 200,3" 
               fill="none" 
               stroke="url(#threadGradient)" 
-              strokeWidth="1.5"
+              strokeWidth="1.8"
               strokeLinecap="round"
               className="exhale-thread-path"
+              filter="url(#threadGlow)"
             />
           </svg>
         </div>
 
-        {/* ═══════════════════════════════════════
-            ACT III — THE DECLARATION
-            ═══════════════════════════════════════ */}
-        
-        {/* Goal Declaration — whispered transition */}
+        {/* ACT III — Declaration (Step 4: elevated scale) */}
         <p 
           className={`
             font-sans uppercase tracking-[0.22em]
@@ -195,7 +203,7 @@ export function TheExhale() {
           And so I have one goal:
         </p>
 
-        {/* Singular Purpose — the covenant */}
+        {/* Singular Purpose — Step 4: increased scale */}
         <p 
           className={`
             font-serif text-foreground
@@ -207,7 +215,7 @@ export function TheExhale() {
             transitionDuration: '900ms',
             transitionDelay: purposeVisible ? '1400ms' : '0ms',
             transitionTimingFunction: 'var(--ease-covenant)',
-            fontSize: 'clamp(18px, 3.5vw, 24px)',
+            fontSize: 'clamp(20px, 3.8vw, 28px)',
             lineHeight: 1.6,
             wordSpacing: '0.05em',
             maxWidth: '24ch',
@@ -224,7 +232,6 @@ export function TheExhale() {
           what your hearts feel like.
         </p>
 
-        {/* Screen reader narrative — complete story */}
         <span className="sr-only">
           This section acknowledges the sacred significance of your upcoming wedding ceremony.
           You are about to make a promise that will echo beyond your lifetime, and I understand the weight of that moment.
