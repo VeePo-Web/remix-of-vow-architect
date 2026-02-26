@@ -23,40 +23,40 @@ const movements: Movement[] = [
     numeral: 'I',
     name: 'THE LISTENING',
     action: 'I ask',
-    quote: 'Before I play a single note, I learn your story.',
-    details: 'What song was playing when you knew? What does your heart sound like when you think about walking toward them?',
-    assumption: "I don't assume I know. I ask.",
-    outcome: 'It begins with a conversation.',
-    annotation: 'your story begins here',
+    quote: 'Before I touch a single key, I learn your story.',
+    details: 'What song was playing when you knew? What do you want to feel the moment you begin your walk?',
+    assumption: 'I never assume. I listen first.',
+    outcome: 'It starts with a conversation — not a playlist.',
+    annotation: 'it starts here',
   },
   {
     numeral: 'II',
     name: 'THE CRAFTING',
-    action: 'I create',
-    quote: 'Then I disappear into your vision.',
-    details: 'Note by note. Measure by measure. Your walk-down song—not selected from a list, but composed from our conversation.',
-    assumption: "I don't assume a cover will capture it. I create.",
-    outcome: 'Your love story, translated into sound.',
+    action: 'I compose',
+    quote: 'Then I disappear into the music.',
+    details: 'Your walk-down song — composed from our conversation, not selected from a catalogue.',
+    assumption: 'A cover cannot hold what is yours alone. So I write it.',
+    outcome: 'Your story, made audible.',
     annotation: 'note by note',
   },
   {
     numeral: 'III',
     name: 'THE REFINING',
     action: 'I refine',
-    quote: 'I send you a first draft—raw, unpolished, honest.',
-    details: "Not to impress you. To ask: 'Does this sound like you?' If something feels off, we course-correct. Your feedback is not inconvenient\u2014it is essential.",
-    assumption: "I don't assume I got it right. I check.",
-    outcome: 'We iterate until it sounds exactly like you imagined.',
-    annotation: 'until it feels right',
+    quote: 'I send a first draft — unpolished, honest, yours to shape.',
+    details: 'Not to impress you — to ask: does this sound like us? Your feedback is not inconvenient. It is the whole point.',
+    assumption: 'I would rather revise ten times than settle once.',
+    outcome: 'We refine until it sounds exactly as you imagined.',
+    annotation: "until it's right",
   },
   {
     numeral: 'IV',
     name: 'THE COMPLETING',
     action: 'We complete',
-    quote: 'Now we fill the rest of the air together.',
-    details: "Prelude. Procession. Cocktails. Dinner. You brainstorm, or I suggest—either way, we decide together. Communication all the way through. No one left wondering. No silence where there should be sound.",
-    assumption: "I don't assume you know what you need. I guide, and I ask.",
-    outcome: 'Every note intentional. Every decision yours.',
+    quote: 'Now we shape the rest of the day — together.',
+    details: 'Prelude. Procession. Cocktails. Dinner. You suggest, or I guide — either way, every decision is shared. No one left wondering. No silence where there should be sound.',
+    assumption: 'You lead. I follow. And when you need direction, I offer it.',
+    outcome: 'Every note chosen. Every moment accounted for.',
     annotation: 'together',
   },
 ];
@@ -103,10 +103,10 @@ export function ProcessSection() {
           <span className="exhale-emphasis">It happens now.</span>
         </p>
         <p className="process-intro__bridge">
-          This is how I prepare for the moment that matters most.
+          This is how I prepare — so the moment you've imagined is the moment you live.
         </p>
         <h3 className="process-intro__statement">
-          Because there are no second chances for <span className="exhale-emphasis">First Moments</span>
+          Because there are no second takes on a <span className="exhale-emphasis">First Moment</span>
         </h3>
       </div>
 
