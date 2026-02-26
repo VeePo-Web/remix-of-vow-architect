@@ -4114,8 +4114,21 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   100% { transform: scale(1.04); }
 }
 
+/* Transformation section Ken Burns */
+@keyframes transform-fear-kb {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.05); }
+}
+
+@keyframes transform-life-kb {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.04); }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  img[style*="sound-ken-burns"] {
+  img[style*="sound-ken-burns"],
+  img[style*="transform-fear-kb"],
+  img[style*="transform-life-kb"] {
     animation: none !important;
   }
 }
