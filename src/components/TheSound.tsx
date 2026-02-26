@@ -460,17 +460,24 @@ export function TheSound() {
                   : "inset 0 2px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.3), 0 24px 80px rgba(0,0,0,0.5)",
                 backdropFilter: "blur(12px)",
                 transition: "box-shadow 0.7s cubic-bezier(0.22, 0.61, 0.36, 1)",
+                animation: !isPlaying && !reducedMotion ? "sound-card-breathe 6s cubic-bezier(0.4,0,0.6,1) infinite" : "none",
               }}
             >
               {/* Card header — "Repertoire" label with piano keys strip */}
               <div className="relative h-12 overflow-hidden">
                 <img src={soundKeysIntimate} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.08]" loading="lazy" aria-hidden="true" />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, transparent 0%, hsl(var(--rich-black)) 100%)" }} aria-hidden="true" />
-                <div className="relative z-10 h-full flex items-center justify-center">
-                  <span className="text-[10px] uppercase tracking-[0.25em] text-foreground/25 font-sans">
+                <div className="relative z-10 h-full flex flex-col items-center justify-center">
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-foreground/35 font-sans">
                     Repertoire
                   </span>
                 </div>
+                {/* Golden rule "lid seal" */}
+                <div
+                  className="absolute bottom-0 left-1/2 -translate-x-1/2 w-12 h-px"
+                  style={{ background: "linear-gradient(to right, transparent, hsl(var(--vow-yellow) / 0.2), transparent)" }}
+                  aria-hidden="true"
+                />
               </div>
 
               <PianoStrings visible={isVisible} />
@@ -491,13 +498,13 @@ export function TheSound() {
                         onClick={() => hasSrc ? handleTrackClick(thisGlobalIndex) : undefined}
                         className={cn(
                           "track-button group w-full flex items-center gap-3 h-11 px-4 sm:px-5",
-                          "font-display text-[15px] font-light tracking-tight",
+                          "font-display text-[15px] font-light tracking-normal",
                           "transition-all duration-[180ms]",
                           isActive
                             ? "text-[hsl(var(--vow-yellow))] track-button--active"
                             : hasSrc
                             ? "text-foreground/70 hover:text-foreground hover:bg-[hsl(var(--vow-yellow)/0.03)] hover:shadow-[inset_2px_0_8px_hsl(var(--vow-yellow)/0.04)]"
-                            : "text-foreground/30 cursor-default"
+                            : "text-foreground/35 cursor-default"
                         )}
                         style={{
                           background: isActive
@@ -625,6 +632,11 @@ export function TheSound() {
                 <p className="text-lg font-display font-light italic text-foreground/80">
                   Every piece I play begins the same way — with someone in mind.
                 </p>
+                <footer className="mt-3">
+                  <cite className="text-[11px] uppercase tracking-[0.2em] text-foreground/25 not-italic font-sans">
+                    — Parker Allard
+                  </cite>
+                </footer>
               </blockquote>
             </div>
           </div>
