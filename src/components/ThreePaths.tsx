@@ -58,7 +58,7 @@ export function ThreePaths() {
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.2 });
 
   return (
-    <section ref={sectionRef} className="section--dark section-grain relative py-24 px-4 overflow-hidden min-h-[500px]">
+    <section id="three-paths" ref={sectionRef} className="section--dark section-grain piano-section-target relative py-24 px-4 overflow-hidden min-h-[500px]">
       {/* Top fade from TheWitness warm */}
       <div
         className="section-fade-top"

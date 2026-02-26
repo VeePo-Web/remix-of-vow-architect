@@ -10,9 +10,10 @@ export function TheInvitation() {
 
   return (
     <section
+      id="the-invitation"
       ref={sectionRef}
       data-theme="life"
-      className="relative py-24 md:py-32 overflow-hidden invitation-texture min-h-[400px]"
+      className="relative py-24 md:py-32 overflow-hidden invitation-texture piano-section-target min-h-[400px]"
       style={{
         background: 'linear-gradient(180deg, hsl(45 25% 96%) 0%, hsl(45 20% 93%) 100%)',
       }}

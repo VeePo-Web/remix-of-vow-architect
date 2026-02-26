@@ -129,7 +129,7 @@ export function ProcessSection() {
     <section
       id="process"
       ref={sectionRef}
-      className="process-section"
+      className="process-section piano-section-target"
       aria-label="My preparation process"
       style={{ position: 'relative' }}
     >

@@ -16,9 +16,23 @@ import { ThreePaths } from "@/components/ThreePaths";
 
 import { TheWitnesses } from "@/components/TheWitnesses";
 import { CrossOver } from "@/components/CrossOver";
+import { PianoKeyNav } from "@/components/PianoKeyNav";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { useVigilSequence } from "@/hooks/useVigilSequence";
 import heroImage from "@/assets/hero-wedding.jpg";
+
+const pianoSections = [
+  { id: "the-exhale",         label: "The Exhale",         isBlackKey: false },
+  { id: "process",            label: "Our Process",        isBlackKey: true  },
+  { id: "vow-moment",         label: "The Vow",            isBlackKey: false },
+  { id: "the-invitation",     label: "The Invitation",     isBlackKey: true  },
+  { id: "the-sound",          label: "Hear Me Play",       isBlackKey: false },
+  { id: "the-transformation", label: "The Transformation", isBlackKey: false },
+  { id: "the-witness",        label: "The Witness",        isBlackKey: true  },
+  { id: "three-paths",        label: "Three Paths",        isBlackKey: false },
+  { id: "the-witnesses",      label: "Testimonials",       isBlackKey: true  },
+  { id: "the-crossing",       label: "The Crossing",       isBlackKey: false },
+];
 
 export default function Index() {
   usePageTheme();
@@ -27,6 +41,7 @@ export default function Index() {
   return (
     <div className="min-h-screen flex flex-col">
       <MinimalHeader />
+      <PianoKeyNav sections={pianoSections} />
       
       {/* SECTION 1 — Hero: Ultra-Minimal Fantasy.co Style with Vigil Sequence */}
       <section className="vigil-hero relative h-screen flex items-center justify-center overflow-hidden">

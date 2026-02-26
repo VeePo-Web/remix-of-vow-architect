@@ -28,7 +28,7 @@ export function TheTransformation() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="section-grain relative min-h-[500px] overflow-hidden">
+    <section id="the-transformation" ref={sectionRef} className="section-grain piano-section-target relative min-h-[500px] overflow-hidden">
       {/* Top fade — seamless transition from The Sound's dark exit */}
       <div
         className="section-fade-top"
