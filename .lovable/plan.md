@@ -1,158 +1,105 @@
 
 
-# Round 25 — "Hear Me Play" Listening Room: Hover Choreography, Scroll-Linked Thread Glow, and Spatial Audio Cues
+# Round 26 — "Hear Me Play" Listening Room: Keyboard Accessibility, Focus Choreography, and Semantic Audio Feedback
 
-## Critical Audit of Current State (Post-Round 24)
+## Critical Audit of Current State (Post-Round 25)
 
-Rounds 20-24 delivered: atmospheric depth (bokeh, cathedral, dust motes), card identity (Repertoire header with golden lid seal), idle breathing glow, category emotional context, graceful "Coming Soon" degradation, refined typography, blockquote attribution, two-zone scroll reveal, card surfacing with scale, category stagger cascade, live reduced-motion listener, golden thread playback response (height/glow/pulse), in-card track progress underline, active border warmth, category divider stagger participation, and diamond micro-rotation.
+Rounds 20-25 delivered atmospheric depth, card identity, two-zone scroll reveal, card surfacing, category stagger cascade, golden thread playback response, in-card progress underline, active border warmth, divider stagger, diamond micro-rotation, track hover accent bar preview, Coming Soon dimming, NowPlayingBar glass material, warm floor parallax, and blockquote hover warmth.
 
-The section has reached substantial depth. However, five gaps remain before it meets Fantasy.co's standard of "every interaction feels considered":
+The visual and interaction layer is now deeply considered. However, five gaps remain in the accessibility, keyboard, and semantic feedback layers — areas that Fantasy.co treats as non-negotiable craft:
 
-### Issue 1: Track Hover Has No Accent Bar Preview
+### Issue 1: Track Buttons Have No Visible Focus Ring
 
-The accent bar (`track-bar`) uses `scaleY(0)` when inactive, making it completely invisible until a track is clicked. On hover over a playable track, the bar should "hint" at `scaleY(0.5)` with reduced opacity -- giving the visitor a preview of the interaction before committing. Currently the hover state only changes text color and adds a faint background gradient. The accent bar remains invisible, breaking the principle that every interactive element should telegraph its affordance on hover.
+Tab-navigating through tracks shows no visible focus indicator. The buttons rely on browser defaults which are invisible against the dark background. At Fantasy.co quality, focused track buttons would show a subtle golden outline matching the brand's accent color — ensuring keyboard users have the same considered experience as mouse users.
 
-### Issue 2: The "Coming Soon" Tracks Have No Hover Differentiation
+### Issue 2: The NowPlayingBar Toggle Has No Keyboard Shortcut Hint
 
-Tracks without audio (`!hasSrc`) have `cursor-default` but no visual signal on hover that explicitly says "not yet available." At Fantasy.co quality, hovering over a Coming Soon track would subtly desaturate the text further and perhaps show a very faint strikethrough effect -- communicating unavailability through visual language, not just the small label.
+The play/pause button in the NowPlayingBar has an `aria-label` but no tooltip or visual hint that spacebar or the button itself toggles playback. At Fantasy.co quality, a subtle `title` attribute and focus ring would reinforce discoverability.
 
-### Issue 3: The NowPlayingBar Lacks Backdrop Blur in its Styles
+### Issue 3: Active Track Has No `aria-current` Semantic
 
-The plan for Round 23/24 mentioned adding `backdropFilter: "blur(12px)"` to the NowPlayingBar, but the current inline implementation in the component does not include it. The bar renders with a class-based approach (`now-playing-bar`) whose CSS may or may not include the blur. The component itself should enforce the glass material standard from the brand's design system.
+Screen readers cannot distinguish the currently playing track from others. The active track button uses visual styling (golden color, waveform) but has no `aria-current="true"` attribute. This is a WCAG gap that should be addressed.
 
-### Issue 4: The Section Has No "Scroll Depth" Atmospheric Response
+### Issue 4: The Card Container Lacks a Descriptive `aria-label`
 
-The atmospheric layers (bokeh, vignette, warm floor) are completely static. At Fantasy.co quality, the vignette would subtly tighten as the user scrolls deeper into the section and the warm floor glow would shift slightly downward -- creating a parallax-like depth response without any JavaScript scroll listeners (achievable via a single CSS `background-attachment: fixed` on the warm floor layer).
+The repertoire card is a complex interactive region but has no `role="region"` or `aria-label`. Screen readers encounter it as an anonymous div. Adding `role="group"` with `aria-label="Repertoire — browse and play tracks"` would provide context.
 
-### Issue 5: The Closing Blockquote Has No Hover State on the Quote Itself
+### Issue 5: Category Headers Are Not Semantic
 
-The blockquote is entirely static. At Fantasy.co quality, hovering over the quote would create an extremely subtle text-shadow warmth (0 0 20px at 3% opacity) -- suggesting that the words themselves carry warmth. This is a micro-detail that separates good from exceptional.
+Category labels (Hymns, Worship, Pop, etc.) render as `<span>` elements rather than heading-level elements. While visually styled as section headers, they provide no navigational landmarks for screen readers. Using `role="heading" aria-level="3"` would add semantic structure without changing visual hierarchy.
 
 ---
 
 ## 5-Step Implementation Plan
 
-### Step 1: Track Hover Accent Bar Preview
-
-**File:** `src/components/TheSound.tsx`
-
-On the accent bar (`track-bar` span, lines 531-541), change the inactive `transform` from `scaleY(0)` to a hover-aware state:
-
-- Default inactive: `transform: scaleY(0)` (hidden)
-- Hover on playable track (via parent `group`): `group-hover:scaleY(0.5)` with `opacity: 0.4`
-- Active: `scaleY(1)` with full opacity (unchanged)
-
-Since the bar uses inline styles, convert the transform to use a CSS approach: add a Tailwind class `group-hover:scale-y-50 group-hover:opacity-40` and keep the active override via inline style. Alternatively, use CSS custom properties on the button's hover state.
-
-The simplest approach: change the inactive bar's `transform` to conditionally check via the button's group hover. Since we're using inline styles, add a CSS rule in `index.css`:
-
-```css
-.track-button:hover .track-bar {
-  transform: scaleY(0.5) !important;
-  opacity: 0.5;
-}
-.track-button--active .track-bar {
-  transform: scaleY(1) !important;
-  opacity: 1;
-}
-```
-
-This uses CSS specificity to create the hover preview without changing React logic.
-
-### Step 2: Coming Soon Track Hover Feedback
-
-**File:** `src/components/TheSound.tsx`
-
-For tracks without audio, add a hover state that reduces opacity further and adds a subtle visual cue:
-
-- Add to the `!hasSrc` className branch: `hover:text-foreground/20` (dims further on hover)
-- The "Coming Soon" label should slightly increase opacity on hover: from `text-foreground/20` to `group-hover:text-foreground/30`
-
-Add a CSS rule in `index.css`:
-
-```css
-.track-button:not(.track-button--active)[style*="cursor: default"]:hover {
-  opacity: 0.7;
-}
-```
-
-Or more cleanly, add a `track-button--disabled` class to Coming Soon tracks and style accordingly.
-
-### Step 3: NowPlayingBar Glass Material Enforcement
-
-**File:** `src/components/TheSound.tsx`
-
-In the `NowPlayingBar` component (lines 124-165), add inline styles to the container div to enforce the luxury glass material standard:
-
-```tsx
-style={{
-  backdropFilter: "blur(12px)",
-  WebkitBackdropFilter: "blur(12px)",
-  background: "hsl(var(--rich-black) / 0.92)",
-  borderTop: "1px solid hsl(var(--vow-yellow) / 0.1)",
-}}
-```
-
-This ensures the bar matches the brand's "Premium Glass" material specification regardless of what the CSS class provides.
-
-### Step 4: Warm Floor Parallax Depth
-
-**File:** `src/components/TheSound.tsx`
-
-On the "warm floor" atmospheric div (lines 319-325), add `backgroundAttachment: "fixed"` to create a subtle parallax depth effect as the user scrolls. This is pure CSS -- no JavaScript, no scroll listeners, no performance cost.
-
-```tsx
-style={{
-  background: "radial-gradient(ellipse 80% 50% at 50% 60%, hsl(30 40% 12% / 0.15) 0%, transparent 70%)",
-  backgroundAttachment: "fixed",
-}}
-```
-
-This makes the warm glow pool appear to stay fixed while the content scrolls over it, creating spatial depth.
-
-### Step 5: Blockquote Hover Warmth + Final Track Bar CSS
-
-**File:** `src/components/TheSound.tsx`
-
-Add a hover state to the blockquote `<p>` element (line 673):
-
-```tsx
-className="text-lg font-display font-light italic text-foreground/80 transition-all duration-300 hover:text-shadow-warm"
-```
+### Step 1: Golden Focus Rings on Track Buttons
 
 **File:** `src/index.css`
 
-Add the hover warmth utility, the track bar hover rule, and the Coming Soon hover rule:
+Add a focused state for track buttons that uses the brand's vow-yellow at low opacity:
 
 ```css
-/* Track bar hover preview */
-.track-button:hover .track-bar {
-  transform: scaleY(0.5) !important;
-  opacity: 0.5;
-}
-.track-button--active .track-bar {
-  transform: scaleY(1) !important;
-  opacity: 1;
-}
-
-/* Coming Soon track hover dimming */
-.track-button--coming-soon:hover {
-  opacity: 0.6;
-}
-
-/* Blockquote hover warmth */
-.blockquote-warm:hover {
-  text-shadow: 0 0 20px hsl(var(--vow-yellow) / 0.03);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .blockquote-warm:hover {
-    text-shadow: none;
-  }
+.track-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px hsl(var(--vow-yellow) / 0.3), inset 0 0 0 1px hsl(var(--vow-yellow) / 0.15);
 }
 ```
 
-In `TheSound.tsx`, add `track-button--coming-soon` class to the `!hasSrc` tracks and add `blockquote-warm` to the blockquote `<p>`.
+This replaces the browser default focus ring with a brand-consistent golden glow ring that is visible against the dark card background.
+
+### Step 2: aria-current on Active Track + Card Region Semantics
+
+**File:** `src/components/TheSound.tsx`
+
+On the track `<button>` element (line 517), add `aria-current={isActive ? "true" : undefined}` to semantically identify the playing track.
+
+On the card container div (line 466-467), add `role="group"` and `aria-label="Repertoire — browse and play tracks"` to create a named interactive region.
+
+### Step 3: Category Heading Semantics
+
+**File:** `src/components/TheSound.tsx`
+
+Change the category label `<span>` (line 605) to include `role="heading"` and `aria-level={3}` so screen readers can navigate between categories:
+
+```tsx
+<span
+  role="heading"
+  aria-level={3}
+  className="font-sans text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60"
+>
+  {category.label}
+</span>
+```
+
+### Step 4: NowPlayingBar Focus and Tooltip Polish
+
+**File:** `src/components/TheSound.tsx`
+
+On the NowPlayingBar toggle button (line 147):
+- Add `title={isPlaying ? "Pause playback" : "Resume playback"}` for tooltip hint
+- Add focus-visible styling via className: `focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)/0.4)] focus-visible:outline-none`
+
+### Step 5: Keyboard Navigation Enhancement — Escape to Stop
+
+**File:** `src/components/TheSound.tsx`
+
+Add a `useEffect` that listens for the Escape key when a track is playing, pausing playback. This matches common media player conventions and provides keyboard users a quick way to stop audio:
+
+```tsx
+useEffect(() => {
+  if (!isPlaying) return;
+  const handleEscape = (e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      audioRef.current?.pause();
+      setIsPlaying(false);
+    }
+  };
+  window.addEventListener("keydown", handleEscape);
+  return () => window.removeEventListener("keydown", handleEscape);
+}, [isPlaying]);
+```
+
+This is lightweight (only attached when playing) and uses no external dependencies.
 
 ---
 
@@ -160,29 +107,26 @@ In `TheSound.tsx`, add `track-button--coming-soon` class to the `!hasSrc` tracks
 
 | Step | File | Change |
 |------|------|--------|
-| 1 | `src/index.css` | Track bar hover preview CSS rule |
-| 2 | `src/components/TheSound.tsx` | Add `track-button--coming-soon` class to disabled tracks |
-| 2 | `src/index.css` | Coming Soon hover dimming rule |
-| 3 | `src/components/TheSound.tsx` | NowPlayingBar inline glass material styles |
-| 4 | `src/components/TheSound.tsx` | `backgroundAttachment: "fixed"` on warm floor layer |
-| 5 | `src/components/TheSound.tsx` | `blockquote-warm` class on closing quote |
-| 5 | `src/index.css` | Blockquote hover warmth + reduced-motion guard |
+| 1 | `src/index.css` | Golden focus-visible ring for `.track-button` |
+| 2 | `src/components/TheSound.tsx` | `aria-current` on active track, `role="group"` on card |
+| 3 | `src/components/TheSound.tsx` | Category labels get `role="heading" aria-level={3}` |
+| 4 | `src/components/TheSound.tsx` | NowPlayingBar button `title` + focus-visible ring |
+| 5 | `src/components/TheSound.tsx` | Escape key listener to pause playback |
 
 ---
 
 ## What This Achieves
 
-- **Hover telegraphing:** The accent bar previews on hover, teaching visitors "this element responds to clicks" before they commit -- the hallmark of considered interaction design
-- **Disabled state clarity:** Coming Soon tracks communicate unavailability through dimming on hover, not just a tiny label
-- **Glass material consistency:** The NowPlayingBar now matches the brand's Premium Glass specification across all browsers
-- **Spatial depth:** The fixed warm floor creates parallax depth without any JavaScript cost
-- **Quote warmth:** The closing words gain a barely perceptible golden warmth on hover, suggesting the words themselves carry meaning -- a micro-detail that separates world-class from merely good
+- **Keyboard parity:** Focus rings ensure keyboard users see the same golden accent language as mouse users — a non-negotiable at Fantasy.co quality
+- **Semantic completeness:** `aria-current`, `role="group"`, and heading semantics give screen readers the same navigational structure that sighted users experience visually
+- **Discoverability:** Tooltip on NowPlayingBar and Escape-to-stop provide power-user shortcuts without cluttering the interface
+- **WCAG compliance:** These changes address 2.4.7 (Focus Visible), 1.3.1 (Info and Relationships), and 4.1.2 (Name, Role, Value)
 
 ## Technical Notes
 
-- Track bar hover uses CSS specificity (`!important` on hover, overridden by active state) -- zero React re-renders
-- `backgroundAttachment: fixed` is GPU-composited on all modern browsers
-- `text-shadow` transition is compositable and costs near-zero
-- All new interactions respect `prefers-reduced-motion`
-- No new dependencies, no new images, no layout shifts
+- Focus-visible only activates on keyboard navigation, not mouse clicks (native browser behavior)
+- `aria-current` is the semantic standard for identifying the current item in a set
+- Escape listener is conditionally attached (only when playing) — zero cost when idle
+- No visual changes for mouse/touch users — all enhancements are accessibility-layer only
+- No new dependencies, no layout shifts, no performance impact
 
