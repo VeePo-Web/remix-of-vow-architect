@@ -11,8 +11,9 @@ export function WitnessOrigin() {
 
   return (
     <section 
+      id="witness-origin"
       ref={ref as React.RefObject<HTMLElement>}
-      className="relative py-[120px] px-4 bg-background overflow-hidden"
+      className="relative py-[120px] px-4 bg-background overflow-hidden piano-section-target"
     >
       {/* Grain overlay */}
       <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />

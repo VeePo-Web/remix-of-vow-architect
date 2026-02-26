@@ -1,6 +1,7 @@
 import { MinimalHeader } from "@/components/MinimalHeader";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
+import { PianoKeyNav } from "@/components/PianoKeyNav";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import {
   WitnessHero,
@@ -29,12 +30,22 @@ import {
  * 5. THE COVENANT — Personal promise certificate
  * 6. THE CROSSING — Final CTA with warm glow
  */
+const aboutSections = [
+  { id: "witness-hero",     label: "The Resonance", isBlackKey: false },
+  { id: "witness-origin",   label: "The Origin",    isBlackKey: true  },
+  { id: "witness-sustain",  label: "The Sustain",   isBlackKey: false },
+  { id: "witness-presence", label: "The Presence",  isBlackKey: true  },
+  { id: "witness-covenant", label: "The Covenant",  isBlackKey: false },
+  { id: "witness-crossing", label: "The Crossing",  isBlackKey: false },
+];
+
 export default function About() {
   usePageTheme();
 
   return (
     <div className="min-h-screen bg-background">
       <MinimalHeader />
+      <PianoKeyNav sections={aboutSections} />
       
       {/* ACT I: THE RESONANCE */}
       <WitnessHero />

@@ -1,6 +1,7 @@
 import { MinimalHeader } from "@/components/MinimalHeader";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
+import { PianoKeyNav } from "@/components/PianoKeyNav";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { InclusionBlock } from "@/components/InclusionBlock";
@@ -15,15 +16,28 @@ import { Check } from "lucide-react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import servicesHeroImg from "@/assets/services-hero.jpg";
 
+const pricingSections = [
+  { id: "pricing-hero",         label: "Overview",       isBlackKey: false },
+  { id: "pricing-inclusions",   label: "Inclusions",     isBlackKey: true  },
+  { id: "packages",             label: "Packages",       isBlackKey: false },
+  { id: "pricing-addons",       label: "Add-ons",        isBlackKey: true  },
+  { id: "compare",              label: "Compare",        isBlackKey: false },
+  { id: "pricing-testimonials", label: "Testimonials",   isBlackKey: false },
+  { id: "pricing-faq",          label: "FAQ",            isBlackKey: true  },
+  { id: "pricing-download",     label: "Download",       isBlackKey: false },
+  { id: "pricing-cta",          label: "Get Started",    isBlackKey: true  },
+];
+
 export default function Pricing() {
   usePageTheme();
 
   return (
     <div className="min-h-screen">
       <MinimalHeader />
+      <PianoKeyNav sections={pricingSections} />
 
       {/* Hero */}
-      <section className="relative section-padding bg-background">
+      <section id="pricing-hero" className="relative section-padding bg-background piano-section-target">
         <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
           <div 
             className="absolute inset-0 opacity-[0.08]"
@@ -62,16 +76,18 @@ export default function Pricing() {
           <div className="h-[1px] max-w-xs mx-auto mb-20" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
 
           {/* Section 2: What Every Package Includes */}
+          <div id="pricing-inclusions" className="piano-section-target">
           <RevealOnScroll variant="up">
             <InclusionBlock />
           </RevealOnScroll>
+          </div>
 
           {/* Golden thread */}
           <div className="h-[1px] max-w-xs mx-auto my-20" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
 
           {/* Section 3: Transparent Pricing Tiers */}
           <RevealOnScroll variant="up">
-            <div id="packages" className="max-w-6xl mx-auto mb-16 scroll-mt-24">
+            <div id="packages" className="max-w-6xl mx-auto mb-16 scroll-mt-24 piano-section-target">
               <div className="text-center mb-8">
                 <h2 className="h2 mb-3 mx-auto">
                   Choose your coverage tier
@@ -189,16 +205,18 @@ export default function Pricing() {
           <div className="h-[1px] max-w-xs mx-auto my-20" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
 
           {/* Section 4: Add-ons */}
+          <div id="pricing-addons" className="piano-section-target">
           <RevealOnScroll variant="up">
             <PricingAddOns />
           </RevealOnScroll>
+          </div>
 
           {/* Golden thread */}
           <div className="h-[1px] max-w-xs mx-auto my-20" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
 
           {/* Section 5: Compare Vendors */}
           <RevealOnScroll variant="up">
-            <div id="compare" className="max-w-5xl mx-auto mb-16 scroll-mt-24">
+            <div id="compare" className="max-w-5xl mx-auto mb-16 scroll-mt-24 piano-section-target">
               <div className="text-center mb-8">
                 <h2 className="h2 mb-3 mx-auto">
                   Compare me to the alternatives
@@ -215,30 +233,37 @@ export default function Pricing() {
           <div className="h-[1px] max-w-xs mx-auto my-20" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
 
           {/* Section 6: Testimonials */}
+          <div id="pricing-testimonials" className="piano-section-target">
           <RevealOnScroll variant="up">
             <PricingTestimonials />
           </RevealOnScroll>
+          </div>
 
           {/* Golden thread */}
           <div className="h-[1px] max-w-xs mx-auto my-20" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
 
           {/* Section 7: FAQs */}
+          <div id="pricing-faq" className="piano-section-target">
           <RevealOnScroll variant="up">
             <PricingFAQ />
           </RevealOnScroll>
+          </div>
 
           {/* Golden thread */}
           <div className="h-[1px] max-w-xs mx-auto my-20" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
 
           {/* Section 8: Download */}
+          <div id="pricing-download" className="piano-section-target">
           <RevealOnScroll variant="up">
             <PricingSampleDownload />
           </RevealOnScroll>
+          </div>
 
           {/* Golden thread */}
           <div className="h-[1px] max-w-xs mx-auto my-20" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
 
           {/* Section 9: Final CTA */}
+          <div id="pricing-cta" className="piano-section-target">
           <RevealOnScroll variant="up">
             <div className="max-w-2xl mx-auto text-center mb-8 space-y-6">
               <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light mx-auto">
@@ -252,6 +277,7 @@ export default function Pricing() {
               </Button>
             </div>
           </RevealOnScroll>
+          </div>
         </div>
       </section>
 

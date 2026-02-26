@@ -15,7 +15,7 @@ export function WitnessHero() {
   }, []);
 
   return (
-    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-background">
+    <section id="witness-hero" className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-background piano-section-target">
       {/* Background image with Ken Burns — overflow-hidden wrapper */}
       <div className="absolute inset-0 overflow-hidden">
         <div 

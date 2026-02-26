@@ -21,8 +21,9 @@ export function WitnessPresence() {
 
   return (
     <section 
+      id="witness-presence"
       ref={ref as React.RefObject<HTMLElement>}
-      className="relative py-[120px] px-4 bg-background overflow-hidden"
+      className="relative py-[120px] px-4 bg-background overflow-hidden piano-section-target"
     >
       {/* Background image — overflow-hidden wrapper */}
       <div className="absolute inset-0 overflow-hidden">

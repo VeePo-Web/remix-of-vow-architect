@@ -1,6 +1,7 @@
 import { MinimalHeader } from "@/components/MinimalHeader";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
+import { PianoKeyNav } from "@/components/PianoKeyNav";
 import { Button } from "@/components/ui/button";
 import { SPLTriptych } from "@/components/SPLTriptych";
 import { SetupPhotoGallery } from "@/components/SetupPhotoGallery";
@@ -12,15 +13,26 @@ import { usePageTheme } from "@/hooks/usePageTheme";
 import { Shield, Zap, Layers, Clock } from "lucide-react";
 import galleryHeroImg from "@/assets/gallery-hero.jpg";
 
+const proofSections = [
+  { id: "proof-hero",        label: "Sound You Can See",  isBlackKey: false },
+  { id: "proof-spl",         label: "SPL Logs",           isBlackKey: true  },
+  { id: "proof-setup",       label: "Setup Gallery",      isBlackKey: false },
+  { id: "proof-insurance",   label: "Insurance",          isBlackKey: true  },
+  { id: "proof-redundancy",  label: "Redundancy",         isBlackKey: false },
+  { id: "proof-downloads",   label: "Downloads",          isBlackKey: false },
+  { id: "proof-cta",         label: "Get Started",        isBlackKey: true  },
+];
+
 export default function Proof() {
   usePageTheme();
 
   return (
     <div className="min-h-screen">
       <MinimalHeader />
+      <PianoKeyNav sections={proofSections} />
       
       {/* Section 1 - Hero */}
-      <section className="relative section-padding bg-background overflow-hidden">
+      <section id="proof-hero" className="relative section-padding bg-background overflow-hidden piano-section-target">
         <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
           <div 
             className="absolute inset-0 opacity-[0.10]"
@@ -76,68 +88,80 @@ export default function Proof() {
       <div className="h-[1px] max-w-xs mx-auto my-0" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
 
       {/* Section 2 - SPL Log Triptych */}
-      <RevealOnScroll variant="up">
-        <SPLTriptych />
-      </RevealOnScroll>
+      <div id="proof-spl" className="piano-section-target">
+        <RevealOnScroll variant="up">
+          <SPLTriptych />
+        </RevealOnScroll>
+      </div>
 
       {/* Golden thread */}
       <div className="h-[1px] max-w-xs mx-auto" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
 
       {/* Section 3 - Setup Photos */}
-      <RevealOnScroll variant="up">
-        <SetupPhotoGallery />
-      </RevealOnScroll>
+      <div id="proof-setup" className="piano-section-target">
+        <RevealOnScroll variant="up">
+          <SetupPhotoGallery />
+        </RevealOnScroll>
+      </div>
 
       {/* Golden thread */}
       <div className="h-[1px] max-w-xs mx-auto" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
 
       {/* Section 4 - Insurance */}
-      <RevealOnScroll variant="up">
-        <InsuranceDocuments />
-      </RevealOnScroll>
+      <div id="proof-insurance" className="piano-section-target">
+        <RevealOnScroll variant="up">
+          <InsuranceDocuments />
+        </RevealOnScroll>
+      </div>
 
       {/* Golden thread */}
       <div className="h-[1px] max-w-xs mx-auto" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
 
       {/* Section 5 - Redundancy */}
-      <RevealOnScroll variant="up">
-        <RedundancyStack />
-      </RevealOnScroll>
+      <div id="proof-redundancy" className="piano-section-target">
+        <RevealOnScroll variant="up">
+          <RedundancyStack />
+        </RevealOnScroll>
+      </div>
 
       {/* Golden thread */}
       <div className="h-[1px] max-w-xs mx-auto" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
 
       {/* Section 6 - Downloadable Plans */}
-      <RevealOnScroll variant="up">
-        <DownloadablePlans />
-      </RevealOnScroll>
+      <div id="proof-downloads" className="piano-section-target">
+        <RevealOnScroll variant="up">
+          <DownloadablePlans />
+        </RevealOnScroll>
+      </div>
 
       {/* Golden thread */}
       <div className="h-[1px] max-w-xs mx-auto" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
 
       {/* Final CTA */}
-      <RevealOnScroll variant="up">
-        <section className="section--dark section-padding">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl mx-auto text-center space-y-6">
-              <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light text-foreground">
-                I don't just say it—I log it, show it, and guarantee it.
-              </h2>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" variant="primary-dark" className="hover-scale">
-                  Hold my date & receive my ceremony-audio plan
-                </Button>
-                <Button variant="ghost-dark" size="lg" className="hover-scale">
-                  Download a full SPL report & timeline sample →
-                </Button>
+      <div id="proof-cta" className="piano-section-target">
+        <RevealOnScroll variant="up">
+          <section className="section--dark section-padding">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto text-center space-y-6">
+                <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light text-foreground">
+                  I don't just say it—I log it, show it, and guarantee it.
+                </h2>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button size="lg" variant="primary-dark" className="hover-scale">
+                    Hold my date & receive my ceremony-audio plan
+                  </Button>
+                  <Button variant="ghost-dark" size="lg" className="hover-scale">
+                    Download a full SPL report & timeline sample →
+                  </Button>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Response in 24 hours. Your trust starts with proof.
+                </p>
               </div>
-              <p className="text-sm text-muted-foreground">
-                Response in 24 hours. Your trust starts with proof.
-              </p>
             </div>
-          </div>
-        </section>
-      </RevealOnScroll>
+          </section>
+        </RevealOnScroll>
+      </div>
 
       {/* Footer Microcopy */}
       <section className="section--surface py-8">

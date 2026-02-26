@@ -736,13 +736,50 @@ All colors MUST be HSL.
 .piano-key--black {
   width: 32px;
   height: 28px;
-  background: hsl(var(--rich-black));
+  background: linear-gradient(
+    to bottom,
+    hsl(var(--foreground) / 0.08) 0%,
+    hsl(var(--rich-black)) 15%,
+    hsl(var(--rich-black)) 85%,
+    hsl(0 0% 3%) 100%
+  );
   border-color: hsl(var(--foreground) / 0.12);
+  border-top-color: hsl(var(--foreground) / 0.18);
   z-index: 1;
+  margin-top: -4px;
+  margin-bottom: -4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3), inset 0 1px 0 hsl(var(--foreground) / 0.06);
 }
 
 .piano-key--black:hover {
   background: hsl(var(--foreground) / 0.08);
+}
+
+.piano-key--pressed {
+  transform: translateX(3px) !important;
+  transition: transform 60ms cubic-bezier(0.22, 0.61, 0.36, 1) !important;
+  background: hsl(var(--vow-yellow) / 0.2) !important;
+}
+
+.piano-key-thread {
+  position: absolute;
+  right: 24px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: hsl(var(--foreground) / 0.04);
+  z-index: -1;
+}
+
+.piano-key-thread-fill {
+  width: 100%;
+  background: linear-gradient(
+    to bottom,
+    hsl(var(--vow-yellow) / 0.3),
+    hsl(var(--vow-yellow) / 0.15)
+  );
+  transition: height 450ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  box-shadow: 0 0 6px hsl(var(--vow-yellow) / 0.06);
 }
 
 .piano-key--active {
