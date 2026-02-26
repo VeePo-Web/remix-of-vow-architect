@@ -3750,10 +3750,20 @@ All colors MUST be HSL.
   overflow: hidden;
 }
 
+@keyframes witness-ken-burns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.04); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .invitation-ken-burns {
     animation: none;
     transform: scale(1);
+  }
+
+  [style*="witness-ken-burns"] {
+    animation: none !important;
+    transform: scale(1) !important;
   }
 }
 

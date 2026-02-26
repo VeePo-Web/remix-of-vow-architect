@@ -1,4 +1,3 @@
-import { Music, Copy, Volume2, FileText, Shield, Umbrella } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import witnessCeremony from "@/assets/witness-setup-ai.jpg";
@@ -10,12 +9,12 @@ const declarations = [
 ];
 
 const standardKit = [
-  { icon: Music, label: "Piano" },
-  { icon: Copy, label: "Backup piano" },
-  { icon: Volume2, label: "Speakers" },
-  { icon: FileText, label: "Cue sheet" },
-  { icon: Shield, label: "Insurance" },
-  { icon: Umbrella, label: "Rain cover" },
+  "Piano",
+  "Backup Piano",
+  "Speakers",
+  "Cue Sheet",
+  "Insurance",
+  "Rain Cover",
 ];
 
 export function TheWitness() {
@@ -31,20 +30,50 @@ export function TheWitness() {
         minHeight: '400px',
       }}
     >
-      {/* Background image layer */}
-      <img
-        src={witnessCeremony}
-        alt=""
-        className="absolute inset-0 w-full h-full object-cover opacity-[0.08] pointer-events-none"
-        loading="lazy"
+      {/* Background image layer with Ken Burns */}
+      <div className="absolute inset-0 overflow-hidden">
+        <img
+          src={witnessCeremony}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover opacity-[0.08] pointer-events-none"
+          style={{
+            animation: 'witness-ken-burns 25s ease-in-out infinite alternate',
+            filter: 'saturate(0.85) contrast(1.05)',
+            willChange: 'transform',
+          }}
+          loading="lazy"
+          aria-hidden="true"
+        />
+      </div>
+
+      {/* Film grain overlay */}
+      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
+
+      {/* Cinematic vignette */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at center, transparent 40%, hsl(45 20% 93% / 0.7) 100%)',
+        }}
         aria-hidden="true"
       />
-      {/* Top fade from TheTransformation dark */}
+
+      {/* Warm atmospheric fog */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.025) 0%, transparent 60%)',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Top fade from TheTransformation warm exit */}
       <div
         className="section-fade-top"
-        style={{ background: 'linear-gradient(to top, transparent, hsl(240 12% 3%))' }}
+        style={{ background: 'linear-gradient(to top, transparent, hsl(42 28% 91%))' }}
         aria-hidden="true"
       />
+
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <div className="max-w-2xl mx-auto text-center">
@@ -58,7 +87,7 @@ export function TheWitness() {
               THE WITNESS
             </p>
 
-            {/* Headline with golden vow underline on "witness" */}
+            {/* Headline with golden vow underline on "pianist" */}
             <h2
               className={cn(
                 "text-[clamp(28px,4vw,40px)] font-display font-light leading-tight mb-10 text-center transition-all duration-700",
@@ -74,6 +103,7 @@ export function TheWitness() {
                   className="absolute left-0 right-0 -bottom-1 h-[2px]"
                   style={{
                     background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.6), hsl(var(--vow-yellow) / 0.2))",
+                    boxShadow: "0 0 8px hsl(var(--vow-yellow) / 0.3)",
                   }}
                   aria-hidden="true"
                 />
@@ -110,7 +140,7 @@ export function TheWitness() {
               aria-hidden="true"
             />
 
-            {/* Standard Kit */}
+            {/* Standard Kit — Editorial Credentials */}
             <div
               className={cn(
                 "transition-all duration-700",
@@ -121,27 +151,23 @@ export function TheWitness() {
               <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-5">
                 What I bring
               </p>
-              <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 justify-center">
-                {standardKit.map((item, index) => {
-                  const Icon = item.icon;
-                  return (
-                    <div 
-                      key={index} 
-                      className="flex items-center gap-2 group cursor-default px-3 py-2 rounded-full border border-border/20 hover:border-primary/30 transition-all duration-[180ms]"
-                      style={{ transitionTimingFunction: 'var(--easing-std)' }}
-                    >
-                      <Icon size={14} className="text-muted-foreground transition-all duration-[180ms] group-hover:text-primary group-hover:scale-105" strokeWidth={1.5} />
-                      <span className="text-sm text-foreground/70 transition-colors duration-[180ms] group-hover:text-foreground">
-                        {item.label}
-                      </span>
-                    </div>
-                  );
-                })}
+              <div className="flex flex-wrap justify-center gap-x-3 gap-y-1">
+                {standardKit.map((item, index) => (
+                  <span key={index} className="flex items-center gap-x-3">
+                    <span className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                      {item}
+                    </span>
+                    {index < standardKit.length - 1 && (
+                      <span className="text-primary/50">·</span>
+                    )}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </div>
+
       {/* Bottom fade into ThreePaths dark */}
       <div
         className="section-fade-bottom"
