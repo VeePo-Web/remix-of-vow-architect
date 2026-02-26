@@ -1,9 +1,9 @@
 import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
-import { Navigation } from "@/components/Navigation";
+import { MinimalHeader } from "@/components/MinimalHeader";
+import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
-import { Button } from "@/components/ui/button";
-import { Search, Home, DollarSign, Phone, HelpCircle } from "lucide-react";
+import { DirectionalLink } from "@/components/DirectionalLink";
 import { usePageTheme } from "@/hooks/usePageTheme";
 
 const NotFound = () => {
@@ -15,58 +15,55 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <Navigation />
+    <div className="min-h-screen flex flex-col bg-background relative">
+      <MinimalHeader />
+
+      {/* Grain overlay */}
+      <div className="grain opacity-[0.04] pointer-events-none fixed inset-0 z-[1]" style={{ willChange: "opacity" }} aria-hidden="true" />
+
+      {/* Warm fog */}
+      <div
+        className="fixed inset-0 pointer-events-none z-[1]"
+        style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)" }}
+        aria-hidden="true"
+      />
       
-      <main className="flex-1 flex items-center justify-center">
-        <div className="container mx-auto px-4 py-16 text-center">
-          <h1 className="text-6xl md:text-8xl font-bold mb-4">404</h1>
-          <h2 className="text-2xl md:text-3xl font-semibold mb-4">
-            This page can't be found — but your ceremony-audio plan can.
-          </h2>
-          <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto">
-            The page you're looking for doesn't exist. Try one of these popular pages instead.
+      <main className="flex-1 flex items-center justify-center relative z-[2]">
+        <div className="container mx-auto px-4 py-16 text-center max-w-2xl">
+          {/* Brand-aligned 404 */}
+          <p className="text-sm font-sans uppercase tracking-[0.22em] text-muted-foreground mb-6">
+            404
+          </p>
+          <h1 className="text-3xl md:text-4xl font-display font-light mb-6 leading-snug">
+            This page has wandered beyond the threshold.
+          </h1>
+          <p className="text-base text-muted-foreground mb-12 leading-relaxed">
+            The page you are looking for no longer exists—or perhaps it never did. Let me guide you back.
           </p>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto mb-12">
-            <Button asChild variant="outline" size="lg" className="h-auto py-4 flex-col gap-2">
-              <Link to="/">
-                <Home className="w-6 h-6" />
-                <span>Home</span>
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="h-auto py-4 flex-col gap-2">
-              <Link to="/pricing">
-                <DollarSign className="w-6 h-6" />
-                <span>Pricing</span>
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="h-auto py-4 flex-col gap-2">
-              <Link to="/contact">
-                <Phone className="w-6 h-6" />
-                <span>Contact</span>
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="h-auto py-4 flex-col gap-2">
-              <Link to="/faq">
-                <HelpCircle className="w-6 h-6" />
-                <span>FAQ</span>
-              </Link>
-            </Button>
-          </div>
+          {/* Navigation links */}
+          <nav className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
+            <DirectionalLink to="/">Return home</DirectionalLink>
+            <DirectionalLink to="/pricing">View pricing</DirectionalLink>
+            <DirectionalLink to="/contact">Hold my date</DirectionalLink>
+          </nav>
 
-          <div className="bg-card border border-border rounded-lg p-6 max-w-md mx-auto">
-            <h3 className="text-lg font-semibold mb-4">What makes ceremony audio reliable?</h3>
-            <ul className="text-sm text-muted-foreground space-y-2">
-              <li>✓ Officiant mic included</li>
-              <li>✓ Silent battery power</li>
-              <li>✓ Banff Mode compliant</li>
-            </ul>
-          </div>
+          {/* Golden thread separator */}
+          <div
+            className="mx-auto h-[1px] w-24 mb-8"
+            style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)" }}
+            aria-hidden="true"
+          />
+
+          {/* Covenant whisper */}
+          <p className="text-xs text-muted-foreground/50 font-display italic">
+            'Til Death; Unto Life.
+          </p>
         </div>
       </main>
 
       <Footer />
+      <MobileStickyBar />
     </div>
   );
 };
