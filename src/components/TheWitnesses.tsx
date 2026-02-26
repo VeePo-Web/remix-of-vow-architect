@@ -4,22 +4,19 @@ import witnessesVenue from "@/assets/witnesses-venue-ai.jpg";
 
 const testimonials = [
   {
-    quote: "Every guest heard us\u2014even the back row.",
-    names: "Sarah & James",
-    venue: "Spruce Meadows",
-    metric: "62 dBA at aisle mid",
+    quote: "The moment the first note played, every worry I had disappeared.",
+    names: "Future couple",
+    venue: "Outdoor ceremony",
   },
   {
-    quote: "We were Banff-legal with zero stress.",
-    names: "Emily & David",
-    venue: "Cascade Gardens",
-    metric: "unamplified; proximity arc applied",
+    quote: "Our guests still talk about the music more than anything else.",
+    names: "Future couple",
+    venue: "Mountain venue",
   },
   {
-    quote: "The SPL log let us skip our venue\u2019s site visit requirement.",
-    names: "Rachel & Marcus",
-    venue: "Lake House",
-    metric: "68 dBA peak ceremony reading",
+    quote: "He played the song from our first date. I did not know I could cry that much and still say I do.",
+    names: "Future couple",
+    venue: "Lakeside ceremony",
   },
 ];
 
@@ -82,7 +79,7 @@ export function TheWitnesses() {
               )}
               style={{ transitionDelay: isVisible ? "200ms" : "0ms", textWrap: "balance" as any }}
             >
-              They heard their vows
+              The music stayed with them
             </h2>
           </div>
 
@@ -114,12 +111,6 @@ export function TheWitnesses() {
                 <div className="pl-2">
                   <p className="text-base font-display italic text-foreground mb-1">
                     — {testimonial.names}, {testimonial.venue}
-                  </p>
-                  <p 
-                    className="text-xs text-muted-foreground opacity-60 font-mono"
-                    style={{ fontVariantNumeric: "tabular-nums" }}
-                  >
-                    [ {testimonial.metric} ]
                   </p>
                 </div>
 
