@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { cn } from '@/lib/utils';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface PianoSection {
   id: string;
@@ -19,6 +20,7 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
   const [reducedMotion, setReducedMotion] = useState(false);
   const [hasAnimated, setHasAnimated] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const isMobile = useIsMobile();
 
   // Reduced motion
   useEffect(() => {
@@ -29,7 +31,7 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
     return () => mql.removeEventListener('change', handler);
   }, []);
 
-  // Show/hide based on scroll past hero; reset activeIndex on hide
+  // Show/hide based on scroll past hero
   useEffect(() => {
     const handleScroll = () => {
       const visible = window.scrollY > window.innerHeight * 0.8;
@@ -80,14 +82,52 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
     setTimeout(() => {
       setPressedIndex(null);
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 80);
-  }, []);
+    }, isMobile ? 200 : 80);
+  }, [isMobile]);
 
   // Golden thread progress
   const scrollProgress = activeIndex >= 0
     ? ((activeIndex + 1) / sections.length) * 100
     : 0;
 
+  // Mobile: compact dots
+  if (isMobile) {
+    return (
+      <nav
+        role="navigation"
+        aria-label="Page sections"
+        className={cn(
+          'fixed right-2 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-2',
+          'transition-opacity duration-[260ms]',
+          isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        )}
+      >
+        {sections.map((section, i) => {
+          const isActive = i === activeIndex;
+          const isPressed = pressedIndex === i;
+
+          return (
+            <button
+              key={section.id}
+              onClick={() => handleKeyPress(section.id, i)}
+              aria-label={section.label}
+              aria-current={isActive ? 'true' : undefined}
+              className="w-[6px] h-[6px] rounded-full transition-all duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
+              style={{
+                background: isActive
+                  ? 'hsl(var(--vow-yellow))'
+                  : 'hsl(var(--foreground) / 0.25)',
+                transform: isPressed ? 'scale(1.4)' : 'scale(1)',
+                transition: 'transform 200ms cubic-bezier(0.22,0.61,0.36,1), background 180ms ease',
+              }}
+            />
+          );
+        })}
+      </nav>
+    );
+  }
+
+  // Desktop: full piano keys
   return (
     <nav
       role="navigation"

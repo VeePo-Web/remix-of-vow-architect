@@ -1,17 +1,41 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+
+const pageConfig: Record<string, string> = {
+  "/": "I would be honored to be there",
+  "/weddings": "I would be honored to be there",
+  "/services": "Find the right presence",
+  "/about": "The witness behind the keys",
+  "/gallery": "200+ ceremonies witnessed",
+  "/faq": "Every question, answered",
+  "/listen": "Hear what your day could sound like",
+};
 
 export function MobileStickyBar() {
   const [isVisible, setIsVisible] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const location = useLocation();
+
+  // Hide entirely on contact page
+  const isContact = location.pathname === "/contact";
 
   useEffect(() => {
     const handleScroll = () => {
       setIsVisible(window.scrollY > 420);
+
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight > 0) {
+        setScrollProgress(Math.min(window.scrollY / docHeight, 1));
+      }
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  if (isContact) return null;
+
+  const leftText = pageConfig[location.pathname] || "I would be honored to be there";
 
   return (
     <div 
@@ -24,15 +48,25 @@ export function MobileStickyBar() {
         paddingBottom: "env(safe-area-inset-bottom)",
       }}
     >
-      {/* Grain overlay — properly positioned */}
+      {/* Golden scroll progress thread */}
+      <div
+        className="absolute top-0 left-0 h-[2px] pointer-events-none"
+        style={{
+          width: `${scrollProgress * 100}%`,
+          background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.6), hsl(var(--vow-yellow)))",
+          transition: "width 100ms linear",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Grain overlay */}
       <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
 
       <div className="relative flex items-center justify-between gap-3 p-3">
         <span className="text-sm font-display text-muted-foreground">
-          I would be honored to be there
+          {leftText}
         </span>
         <div className="relative">
-          {/* Ambient radial glow behind CTA */}
           <div
             className="absolute inset-0 -inset-x-6 -inset-y-3 rounded-full pointer-events-none"
             style={{
