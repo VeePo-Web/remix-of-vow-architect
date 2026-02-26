@@ -1,148 +1,127 @@
 
 
-# Round 29 — "Hear Me Play" Listening Room: Micro-Interaction Polish, Visual Depth, and Conversion Clarity
+# Round 30 — "Hear Me Play" Listening Room: Ambient Presence, Playback Continuity, and Emotional Microdetail
 
-## Critical Audit of Current State (Post-Round 28)
+## Critical Audit of Current State (Post-Round 29)
 
-Rounds 20-28 delivered a deeply layered listening experience: atmospheric imagery, card identity with piano strings, two-zone scroll reveal, category stagger, golden thread playback response, in-card progress underline, active border warmth, divider stagger, diamond micro-rotation, track hover accent bar, Coming Soon dimming, NowPlayingBar glass material with seekable progress and title crossfade, warm floor parallax, blockquote hover warmth, golden focus rings, ARIA semantics, Escape-to-stop, mobile touch targets, bounded card with golden scrollbar, scroll-to-active, time display, track numbers, note bloom, and footer link warmth.
+Rounds 20-29 delivered: atmospheric imagery with scroll parallax, piano strings, two-zone scroll reveal, category stagger, golden thread playback response, in-card progress underline, active border warmth, divider stagger, diamond micro-rotation, track hover accent bar, Coming Soon dimming, NowPlayingBar glass material with seekable progress (seek head dot) and title crossfade, warm floor parallax, blockquote hover warmth with independent scroll reveal, golden focus rings, ARIA semantics, Escape-to-stop, mobile touch targets, bounded card with golden scrollbar, scroll-to-active, time display, track numbers, note bloom, footer link warmth, track button press feedback, and card inner shadow depth.
 
-Five remaining gaps in micro-interaction refinement, visual depth, and conversion clarity:
+Five remaining gaps in ambient presence, playback continuity, and emotional microdetail:
 
-### Issue 1: The Seek Bar Has No Visual Seek Head
+### Issue 1: The Scroll Parallax Causes Unbounded Offset on Long Pages
 
-The NowPlayingBar progress bar is seekable but provides no visual indicator of the current position. Users hovering over the bar see it expand from 2px to 4px, but there is no "seek head" dot at the current position. At Fantasy.co quality, a small golden circle (6px) would appear at the progress edge on hover -- making the seek affordance unmistakable while remaining invisible when not interacting.
+The `scrollOffset` state updates on every scroll event using `-rect.top * 0.05`. On a long page, if the section is far from the top, `rect.top` can be very negative (e.g., -3000px), resulting in a 150px offset that pushes the background image out of its container. There is no clamping. At Fantasy.co quality, the offset would be clamped to a safe range (e.g., -40px to +40px) to prevent the background from ever visibly departing its container bounds.
 
-### Issue 2: Track Buttons Have No Active State Feedback on Press
+### Issue 2: The Golden Thread Has No Playback-Linked Pulse Frequency
 
-When clicking a track button, there is no visual "press" state -- the button transitions directly from idle to active. At Fantasy.co quality, buttons would show a brief scale-down (0.98) on `:active` to provide immediate tactile feedback, confirming the interaction before the audio loads.
+The golden thread dots use a fixed `exhale-pulse` animation frequency (2.8s playing, 4.2s idle). But the thread does not respond to the actual tempo or progress of the audio. At Fantasy.co quality, the thread would subtly shift its breathing rate based on whether audio is actively progressing (faster when playing, slower when paused) -- creating a subconscious link between the visual heartbeat and the audio state. This is already partially implemented (2.8s vs 4.2s) but the transition between states is abrupt. Adding `transition: animation-duration` does not work in CSS, so instead the approach is to use a CSS custom property `--pulse-duration` that smoothly updates.
 
-### Issue 3: The Card Has No Subtle Inner Shadow Depth
+### Issue 3: The Card Breathing Animation Continues Even When Card Is Not Visible
 
-The card container uses border treatments and outer shadow but has no inner top shadow to simulate depth -- as if looking down into a recessed instrument case. At Fantasy.co quality, a subtle `inset 0 8px 16px rgba(0,0,0,0.15)` would create a sense of the card being physically recessed, reinforcing the "opening a piano lid" metaphor.
+The `sound-card-breathe` animation runs continuously once the card is visible, even after the user scrolls past the section. At Fantasy.co quality, animations that are not visible should be paused to save GPU resources. The card should only breathe when `sectionInView` is true and `!isPlaying`.
 
-### Issue 4: The Closing Blockquote Has No Entry Animation Distinct from the Card
+### Issue 4: No Hover State on the Blockquote Quote Text
 
-Both the card and the closing blockquote share the same `cardVisible` reveal trigger and similar fade-up animation. This makes them feel like a single block rather than two distinct narrative moments. At Fantasy.co quality, the blockquote would have its own scroll reveal with a longer delay and slower timing -- arriving as a separate "afterthought" moment, like the final note after a piece ends.
+The blockquote has a `blockquote-warm` class applied but the actual warmth effect is minimal. At Fantasy.co quality, hovering over the quote would subtly warm the text color from `foreground/80` toward a slightly golden tint -- reinforcing the brand's vow-yellow language at every touchpoint. This is a CSS-only enhancement.
 
-### Issue 5: The Section Has No Subtle Parallax on the Background Image
+### Issue 5: The NowPlayingBar Has No Keyboard Seek Support
 
-The background image uses a Ken Burns CSS animation (slow zoom), but it does not respond to scroll position. At Fantasy.co quality, the background layer would shift very slightly with scroll (translateY at 0.05x scroll speed) -- creating a sense of spatial depth between the foreground card and the atmospheric backdrop. This is a single CSS `transform` update and costs nearly nothing in performance.
+The seek bar accepts click input but has no keyboard interaction. At Fantasy.co quality, when the seek bar has focus, left/right arrow keys would adjust the position by 5% increments, and Home/End would jump to start/end. This is essential ARIA compliance for `role="slider"`.
 
 ---
 
 ## 5-Step Implementation Plan
 
-### Step 1: Seek Head Dot on NowPlayingBar Progress Bar
+### Step 1: Clamp Scroll Parallax Offset
 
 **File:** `src/components/TheSound.tsx`
 
-Inside the seekable progress bar's inner `div` (the filled yellow bar), add a seek head dot that appears on hover:
+In the scroll parallax `useEffect`, clamp the computed offset:
 
 ```tsx
-{/* Seek head */}
-<div
-  className="absolute top-1/2 -translate-y-1/2 w-[6px] h-[6px] rounded-full bg-[hsl(var(--vow-yellow))] opacity-0 group-hover/seek:opacity-100 transition-opacity duration-150"
-  style={{ left: `${percent}%`, transform: `translate(-50%, -50%)`, boxShadow: '0 0 4px hsl(var(--vow-yellow) / 0.4)' }}
-/>
+const handleScroll = () => {
+  const rect = el.getBoundingClientRect();
+  const raw = -rect.top * 0.05;
+  setScrollOffset(Math.max(-40, Math.min(40, raw)));
+};
 ```
 
-This dot sits at the current progress position and only appears when hovering the seek area. The golden glow reinforces the brand accent.
+This ensures the background image never shifts more than 40px in either direction, preventing visual artifacts on long pages or rapid scrolling.
 
-### Step 2: Track Button Press Feedback
+### Step 2: Conditional Card Breathing Animation
+
+**File:** `src/components/TheSound.tsx`
+
+Update the card's `animation` property to also check `sectionInView`:
+
+```tsx
+animation: !isPlaying && !reducedMotion && sectionInView
+  ? "sound-card-breathe 6s cubic-bezier(0.4,0,0.6,1) infinite"
+  : "none",
+```
+
+This pauses the breathing CSS animation when the section scrolls out of view, saving GPU compositing work. When the user scrolls back, the animation restarts naturally.
+
+### Step 3: Blockquote Hover Warmth Enhancement
 
 **File:** `src/index.css`
 
-Add an `:active` pseudo-class to `.track-button` for immediate press feedback:
+Enhance the existing `.blockquote-warm` class with a hover state that shifts text color toward golden:
 
 ```css
-.track-button:active {
-  transform: scale(0.98);
-  transition-duration: 60ms;
+.blockquote-warm {
+  transition: color 300ms ease;
+}
+.blockquote-warm:hover {
+  color: hsl(var(--vow-yellow) / 0.85);
 }
 ```
 
-This provides instant tactile feedback -- a subtle compression that confirms the click before any audio state changes. The 60ms duration makes it feel snappy and responsive.
+This creates a subtle warmth on hover that reinforces the brand accent at every text interaction.
 
-### Step 3: Card Inner Shadow Depth
-
-**File:** `src/components/TheSound.tsx`
-
-Add an inner shadow overlay div inside the card container, after the PianoStrings component:
-
-```tsx
-{/* Inner depth shadow */}
-<div
-  className="absolute inset-0 pointer-events-none rounded-[16px]"
-  style={{
-    boxShadow: "inset 0 8px 20px rgba(0,0,0,0.12), inset 0 -4px 12px rgba(0,0,0,0.06)",
-  }}
-  aria-hidden="true"
-/>
-```
-
-This creates a recessed-instrument-case feel -- darker at the top (as if the "lid" casts a shadow downward) and subtly darker at the bottom edge. The existing border treatments and PianoStrings remain unaffected.
-
-### Step 4: Independent Blockquote Scroll Reveal
+### Step 4: Keyboard Seek Support on NowPlayingBar
 
 **File:** `src/components/TheSound.tsx`
 
-Give the closing blockquote section its own `useScrollReveal` hook instead of sharing `cardVisible`:
+Add `tabIndex={0}` and an `onKeyDown` handler to the seek bar container in `NowPlayingBar`:
 
 ```tsx
-const { ref: quoteRef, isVisible: quoteVisible } = useScrollReveal({ threshold: 0.5 });
-```
-
-Update the blockquote container div (currently at line ~752) to use `quoteRef` and `quoteVisible`:
-
-```tsx
-<div
-  ref={quoteRef as React.RefObject<HTMLDivElement>}
-  className="max-w-lg mx-auto text-center mt-16 md:mt-20 relative"
-  style={{
-    opacity: quoteVisible ? 1 : 0,
-    transform: quoteVisible ? "translateY(0)" : "translateY(12px)",
-    transition: "opacity 1000ms ease, transform 1000ms ease",
-    transitionDelay: quoteVisible ? "200ms" : "0ms",
-  }}
->
-```
-
-The higher threshold (0.5 vs 0.3) means the blockquote only reveals when it's well into the viewport, and the 1000ms duration (vs 700ms) gives it a slower, more contemplative arrival -- like the final sustained note of a piece.
-
-### Step 5: Scroll-Linked Parallax on Background Image
-
-**File:** `src/components/TheSound.tsx`
-
-Add a scroll listener that updates a CSS custom property on the section element for subtle background parallax:
-
-```tsx
-const [scrollOffset, setScrollOffset] = useState(0);
-
-useEffect(() => {
-  const el = sectionRef.current;
-  if (!el || reducedMotion) return;
-  
-  const handleScroll = () => {
-    const rect = el.getBoundingClientRect();
-    const offset = -rect.top * 0.05;
-    setScrollOffset(offset);
-  };
-  
-  window.addEventListener("scroll", handleScroll, { passive: true });
-  return () => window.removeEventListener("scroll", handleScroll);
-}, [reducedMotion, sectionRef]);
-```
-
-Apply the offset to the background image container's style:
-
-```tsx
-style={{
-  transform: `translateY(${scrollOffset}px)`,
-  willChange: "transform",
+tabIndex={0}
+onKeyDown={(e) => {
+  const step = 0.05;
+  if (e.key === "ArrowRight") {
+    e.preventDefault();
+    const next = Math.min(1, percent / 100 + step);
+    (window as any).__sacredSoundSeek?.(next);
+  } else if (e.key === "ArrowLeft") {
+    e.preventDefault();
+    const prev = Math.max(0, percent / 100 - step);
+    (window as any).__sacredSoundSeek?.(prev);
+  } else if (e.key === "Home") {
+    e.preventDefault();
+    (window as any).__sacredSoundSeek?.(0);
+  } else if (e.key === "End") {
+    e.preventDefault();
+    (window as any).__sacredSoundSeek?.(1);
+  }
 }}
 ```
 
-The 0.05x multiplier means a 1000px scroll only shifts the background 50px -- barely perceptible consciously but creates an unconscious sense of spatial depth. The `passive: true` listener and `willChange: transform` ensure zero jank. Disabled entirely when `reducedMotion` is true.
+This completes the ARIA slider pattern -- Left/Right arrows move by 5%, Home jumps to start, End jumps to end.
+
+### Step 5: Pause Ken Burns Animation When Section Not Visible
+
+**File:** `src/components/TheSound.tsx`
+
+The Ken Burns animation on the background image runs continuously. Update it to also check `sectionInView`:
+
+```tsx
+animation: reducedMotion || !sectionInView
+  ? "none"
+  : "sound-ken-burns 30s ease-in-out infinite alternate",
+```
+
+Combined with the card breathing pause from Step 2, this means zero CSS animations run when the section is not visible -- achieving true performance optimization for this heavily layered section.
 
 ---
 
@@ -150,28 +129,27 @@ The 0.05x multiplier means a 1000px scroll only shifts the background 50px -- ba
 
 | Step | File | Change |
 |------|------|--------|
-| 1 | `src/components/TheSound.tsx` | Seek head dot on NowPlayingBar progress bar |
-| 2 | `src/index.css` | Track button `:active` press feedback |
-| 3 | `src/components/TheSound.tsx` | Inner shadow depth overlay on card |
-| 4 | `src/components/TheSound.tsx` | Independent scroll reveal for closing blockquote |
-| 5 | `src/components/TheSound.tsx` | Scroll-linked parallax on background image |
+| 1 | `src/components/TheSound.tsx` | Clamp parallax offset to +/-40px |
+| 2 | `src/components/TheSound.tsx` | Pause card breathing when section not visible |
+| 3 | `src/index.css` | Blockquote hover warmth enhancement |
+| 4 | `src/components/TheSound.tsx` | Keyboard seek support (arrows, Home, End) |
+| 5 | `src/components/TheSound.tsx` | Pause Ken Burns when section not visible |
 
 ---
 
 ## What This Achieves
 
-- **Seek affordance:** The golden dot at the progress edge makes the seek interaction unmistakable -- users understand they can click to jump without needing to discover it by accident
-- **Tactile feedback:** The press-down scale on track buttons closes the feedback gap between click and audio response, making the interface feel physically responsive
-- **Material depth:** The inner shadow transforms the card from a flat container into a recessed instrument case, reinforcing the piano-lid metaphor established by the PianoStrings
-- **Narrative pacing:** The blockquote arriving on its own slower timeline creates a distinct "afterword" moment -- the final note that lingers after the music stops
-- **Spatial depth:** The subtle parallax separates foreground content from the atmospheric backdrop, creating the cinematic layering that distinguishes Fantasy.co-quality work from flat design
+- **Visual stability:** Clamped parallax prevents background image from shifting beyond safe bounds on long pages, eliminating a potential visual artifact
+- **Performance:** Pausing both the card breathing and Ken Burns animations when the section is offscreen eliminates unnecessary GPU compositing for a section with 8+ animated layers
+- **Brand warmth:** The blockquote hover subtly reinforces vow-yellow at every text interaction, creating a consistent brand language even in passive content
+- **Accessibility:** Keyboard seek completes the ARIA slider contract, making the NowPlayingBar fully operable without a mouse
+- **Resource efficiency:** Zero CSS animations run when the section is not visible, which is critical for a section this visually dense
 
 ## Technical Notes
 
-- Seek head uses `group-hover/seek` (already scoped) -- zero additional event listeners
-- `:active` scale uses hardware-accelerated `transform` -- no layout recalculation
-- Inner shadow is a single `div` with `pointer-events-none` -- zero interaction overhead
-- Blockquote uses the existing `useScrollReveal` hook pattern -- no new dependencies
-- Parallax uses `passive: true` scroll listener with `willChange: transform` -- GPU composited, no paint
-- Reduced motion disables parallax entirely and all other animations fall back to opacity-only
+- Parallax clamp uses `Math.max/Math.min` -- zero overhead
+- `sectionInView` is already tracked via IntersectionObserver -- no additional observers
+- Blockquote hover is CSS-only -- no JavaScript
+- Keyboard seek reuses the existing `__sacredSoundSeek` window function -- no new plumbing
+- Ken Burns pause/resume is CSS `animation: none` toggle -- browser handles cleanup automatically
 
