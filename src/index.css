@@ -4514,8 +4514,13 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 }
 
 @keyframes divider-diamond-breathe {
-  0%, 100% { opacity: 0.6; transform: rotate(45deg) scale(1); }
-  50% { opacity: 1; transform: rotate(45deg) scale(1.15); }
+  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) rotate(45deg) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) rotate(45deg) scale(1.15); }
+}
+
+@keyframes diamond-turn {
+  0%, 100% { transform: translate(-50%, -50%) rotate(44deg); }
+  50% { transform: translate(-50%, -50%) rotate(46deg); }
 }
 
 /* Track button hover — piano key depression hint */
