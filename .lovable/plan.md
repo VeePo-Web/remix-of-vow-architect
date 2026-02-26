@@ -1,55 +1,47 @@
 
 
-# TheTransformation Section — Copy Rewrite
+# TheWitness Section — Copy Rewrite
 
-## Problem with Current Copy
-The current fears and resolutions position Parker as a sound engineer ("SPL logs," "generators," "sound readings," "audio plan"). In reality, Parker is a pianist who brings a piano and a small PA system. The copy overpromises technical capabilities and misrepresents the service.
+## Current Problems
 
-## New Direction
-Based on your input, the core fear couples have is **no emotional connection** — that the music will feel generic, forgettable, or like background noise. The resolutions should reflect what you actually deliver: a custom, emotionally resonant piano experience built through your listening-first process.
+The copy positions Parker as a sound engineer: "I test every microphone myself," "2 mics," "Battery," "SPL meter." This misrepresents the service. Parker is a pianist who brings a keyboard, backup keyboard, speakers, a cue sheet, insurance, and a piano cover for weather protection.
 
 ## Copy Changes (No Design Changes)
 
-### File: `src/components/TheTransformation.tsx`
+### File: `src/components/TheWitness.tsx`
 
-**Fears array** (lines 7-12):
-```
-Current:
-- "Guests in the back can't hear our vows"
-- "Generators hum through the ceremony"
-- "No proof the sound reached every seat"
-- "The musician arrives with no plan for your ceremony"
+**Headline (lines 69-81):** Change from sound-tech framing to pianist identity.
 
-Proposed:
-- "The pianist plays the same songs as every other wedding"
-- "The music feels like background noise — not your story"
-- "No one asked what songs actually mean something to you"
-- "The musician shows up, plays, and leaves — no connection"
-```
+| Element | Current | Proposed |
+|---------|---------|----------|
+| Headline | "Not a musician — your ceremony **witness**." | "Not a performer — your ceremony **pianist**." |
 
-**Resolutions array** (lines 14-19):
-```
-Current:
-- "Every guest hears every word—documented"
-- "Silent power. No generators. No hum."
-- "Three sound readings logged and time-stamped"
-- "Your ceremony audio plan—delivered within 24 hours"
+**Declarations array (lines 6-10):** Replace microphone/sound references with what Parker actually does.
 
-Proposed:
-- "Every arrangement is built from a conversation — yours"
-- "Your walk-down song, composed note by note for you"
-- "A full ceremony plan — sent before you ever have to ask"
-- "A pianist who stays until the last guest leaves the room"
-```
+| Current | Proposed |
+|---------|----------|
+| "I arrive before anyone else." | "I arrive before anyone else." (keep — it's true and strong) |
+| "I test every microphone myself." | "I sound-check every note before your guests arrive." |
+| "I walk your cue sheet until it is second nature." | "I walk your cue sheet until it is second nature." (keep — accurate) |
 
-## Rationale
+**Standard Kit array (lines 12-19):** Replace with actual equipment.
 
-The fears now mirror real anxieties couples feel when hiring musicians: generic playlists, emotional disconnect, no personalisation, no care. The resolutions map directly to Parker's actual process (The Listening, The Crafting, The Refining) and real deliverables — without claiming sound engineering capabilities. Each resolution answers its corresponding fear in sequence, maintaining the left-right visual contrast of the split panel.
+| Current | Proposed |
+|---------|----------|
+| 2 mics | Piano |
+| Battery | Backup piano |
+| SPL meter | Speakers |
+| Cue sheet | Cue sheet |
+| $4M ins. | Insurance |
+| 24h plan | Rain cover |
+
+**Icon updates:** Swap icons to match new items. Use `Piano` (from lucide — or `Music`), `Copy` (backup), `Volume2` (speakers), `FileText` (cue sheet), `Shield` (insurance), `Umbrella` (rain cover).
 
 ## What Stays Unchanged
-- All design: split-panel layout, dark/light gradient backgrounds, background images, center divider with breathing glow, bottom fade
-- Section label "THE TRANSFORMATION"
-- X and Check icons with hover animations
-- Scroll reveal timing and stagger delays
-- All CSS classes, transitions, and z-index layering
+
+- All design: layout, background image, gradients, golden thread separator, scroll reveal animations
+- Section label "THE WITNESS"
+- "What I bring" sub-label
+- Grid layout (3x2 on mobile, 6 across on desktop)
+- All CSS classes, transitions, hover states, and timing
 
