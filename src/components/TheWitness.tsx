@@ -30,7 +30,7 @@ export function TheWitness() {
       }}
     >
       {/* Background image layer with Ken Burns */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
         <img
           src={witnessCeremony}
           alt=""

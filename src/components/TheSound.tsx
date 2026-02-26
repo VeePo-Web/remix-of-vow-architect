@@ -465,7 +465,7 @@ export function TheSound() {
                 "max-w-lg mx-auto text-center mt-16 transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
-              style={{ transitionDelay: isVisible ? "600ms" : "0ms" }}
+              style={{ transitionDelay: isVisible ? "700ms" : "0ms" }}
             >
               {/* Golden thread */}
               <div
