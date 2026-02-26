@@ -1,105 +1,155 @@
 
 
-# Round 26 — "Hear Me Play" Listening Room: Keyboard Accessibility, Focus Choreography, and Semantic Audio Feedback
+# Round 27 — "Hear Me Play" Listening Room: Mobile Touch Refinement, Track Typography Hierarchy, and Scroll-to-Active Intelligence
 
-## Critical Audit of Current State (Post-Round 25)
+## Critical Audit of Current State (Post-Round 26)
 
-Rounds 20-25 delivered atmospheric depth, card identity, two-zone scroll reveal, card surfacing, category stagger cascade, golden thread playback response, in-card progress underline, active border warmth, divider stagger, diamond micro-rotation, track hover accent bar preview, Coming Soon dimming, NowPlayingBar glass material, warm floor parallax, and blockquote hover warmth.
+Rounds 20-26 delivered: atmospheric depth, card identity, two-zone scroll reveal, card surfacing, category stagger, golden thread playback response, in-card progress underline, active border warmth, divider stagger, diamond micro-rotation, track hover accent bar preview, Coming Soon dimming, NowPlayingBar glass material, warm floor parallax, blockquote hover warmth, golden focus rings, aria-current, heading semantics, NowPlayingBar tooltip, and Escape-to-stop.
 
-The visual and interaction layer is now deeply considered. However, five gaps remain in the accessibility, keyboard, and semantic feedback layers — areas that Fantasy.co treats as non-negotiable craft:
+The section is now deeply considered visually and semantically. Five gaps remain in the mobile experience, typographic hierarchy, and intelligent scroll behavior layers:
 
-### Issue 1: Track Buttons Have No Visible Focus Ring
+### Issue 1: Track Touch Targets Are Below 44px on Mobile
 
-Tab-navigating through tracks shows no visible focus indicator. The buttons rely on browser defaults which are invisible against the dark background. At Fantasy.co quality, focused track buttons would show a subtle golden outline matching the brand's accent color — ensuring keyboard users have the same considered experience as mouse users.
+The track buttons use `h-11` (44px) which technically meets the minimum, but the actual tappable area is compressed by the `px-4` padding on small screens. The accent bar, waveform, and "Coming Soon" label consume horizontal space, leaving the text truncated on narrow viewports. At Fantasy.co quality, mobile tracks would have slightly taller touch targets (`h-12`, 48px) and the "Coming Soon" label would collapse to a single icon or be hidden entirely on screens below 360px.
 
-### Issue 2: The NowPlayingBar Toggle Has No Keyboard Shortcut Hint
+### Issue 2: No Visual Distinction Between Category Groups on Mobile
 
-The play/pause button in the NowPlayingBar has an `aria-label` but no tooltip or visual hint that spacebar or the button itself toggles playback. At Fantasy.co quality, a subtle `title` attribute and focus ring would reinforce discoverability.
+On desktop, the emotional context phrases ("sacred tradition," "contemporary devotion," etc.) provide visual separation between categories. On mobile, these are hidden (`hidden sm:block`), leaving only the thin golden divider and the small uppercase category label. The categories blend together visually. At Fantasy.co quality, mobile would show a subtle background tint shift per category group or a slightly stronger divider treatment.
 
-### Issue 3: Active Track Has No `aria-current` Semantic
+### Issue 3: The Section Has No "Scroll to Active" Behavior
 
-Screen readers cannot distinguish the currently playing track from others. The active track button uses visual styling (golden color, waveform) but has no `aria-current="true"` attribute. This is a WCAG gap that should be addressed.
+When a track is playing and the user scrolls through the category list, the active track can scroll out of view within the card. There is no auto-scroll behavior to bring the playing track back into view. At Fantasy.co quality, when the active track index changes (via the NowPlayingBar or by clicking a track in a different category), the card's scroll container would smoothly scroll to reveal the active track.
 
-### Issue 4: The Card Container Lacks a Descriptive `aria-label`
+### Issue 4: The Card Has No Maximum Height Constraint
 
-The repertoire card is a complex interactive region but has no `role="region"` or `aria-label`. Screen readers encounter it as an anonymous div. Adding `role="group"` with `aria-label="Repertoire — browse and play tracks"` would provide context.
+On very long screens or when many categories are displayed, the card grows unbounded. At Fantasy.co quality, the card would have a `max-h-[60vh]` with a subtle `overflow-y: auto` and custom scrollbar styling (thin, golden-tinted thumb) to maintain the premium aesthetic even when scrolling within the card.
 
-### Issue 5: Category Headers Are Not Semantic
+### Issue 5: The NowPlayingBar Progress Bar Has No Time Display
 
-Category labels (Hymns, Worship, Pop, etc.) render as `<span>` elements rather than heading-level elements. While visually styled as section headers, they provide no navigational landmarks for screen readers. Using `role="heading" aria-level="3"` would add semantic structure without changing visual hierarchy.
+The NowPlayingBar shows a progress bar but no elapsed/remaining time. While minimalism is the goal, a single `elapsed / total` time display in the same `text-[9px]` size would add utility without breaking the aesthetic. At Fantasy.co quality, even the most minimal media players show time.
 
 ---
 
 ## 5-Step Implementation Plan
 
-### Step 1: Golden Focus Rings on Track Buttons
+### Step 1: Mobile Touch Target Enhancement
+
+**File:** `src/components/TheSound.tsx`
+
+Change track button height from `h-11` to `h-11 sm:h-11 min-h-[48px]` to ensure 48px minimum on all devices. On screens below `sm`, hide the "Coming Soon" text entirely and replace with a subtle opacity reduction only (the `track-button--coming-soon` class already handles this). This recovers horizontal space for track titles.
+
+```tsx
+className={cn(
+  "track-button group w-full flex items-center gap-3 min-h-[48px] sm:h-11 px-4 sm:px-5 relative",
+  // ... rest unchanged
+)}
+```
+
+For the "Coming Soon" label, wrap it with `hidden sm:inline`:
+```tsx
+{!hasSrc && !isActive && (
+  <span className="hidden sm:inline text-[9px] uppercase tracking-[0.2em] text-foreground/20 shrink-0">
+    Coming Soon
+  </span>
+)}
+```
+
+### Step 2: Mobile Category Visual Separation
+
+**File:** `src/components/TheSound.tsx`
+
+Strengthen the mobile category divider by adding a subtle background tint to the category header row on mobile. Currently the category header `div` has no background. Add a very faint background:
+
+```tsx
+style={{
+  opacity: cardVisible ? 1 : 0,
+  transition: "opacity 500ms ease, transform 500ms ease",
+  transitionDelay: cardVisible ? `${100 + catIdx * 80}ms` : "0ms",
+  background: "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.02), transparent)",
+}}
+```
+
+This creates a barely perceptible warm wash at each category header, providing visual rhythm on mobile where the context phrases are hidden.
+
+### Step 3: Card Max-Height with Custom Scrollbar
+
+**File:** `src/components/TheSound.tsx`
+
+On the track list container (`div` with `className="relative z-10 py-2"`), add a max-height and overflow:
+
+```tsx
+className="relative z-10 py-2 max-h-[55vh] overflow-y-auto sound-card-scroll"
+```
 
 **File:** `src/index.css`
 
-Add a focused state for track buttons that uses the brand's vow-yellow at low opacity:
+Add custom scrollbar styling:
 
 ```css
-.track-button:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px hsl(var(--vow-yellow) / 0.3), inset 0 0 0 1px hsl(var(--vow-yellow) / 0.15);
+/* Custom scrollbar for sound card track list */
+.sound-card-scroll::-webkit-scrollbar {
+  width: 3px;
+}
+.sound-card-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sound-card-scroll::-webkit-scrollbar-thumb {
+  background: hsl(var(--vow-yellow) / 0.15);
+  border-radius: 2px;
+}
+.sound-card-scroll::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--vow-yellow) / 0.3);
+}
+/* Firefox */
+.sound-card-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--vow-yellow) / 0.15) transparent;
 }
 ```
 
-This replaces the browser default focus ring with a brand-consistent golden glow ring that is visible against the dark card background.
-
-### Step 2: aria-current on Active Track + Card Region Semantics
+### Step 4: Scroll-to-Active Track Behavior
 
 **File:** `src/components/TheSound.tsx`
 
-On the track `<button>` element (line 517), add `aria-current={isActive ? "true" : undefined}` to semantically identify the playing track.
-
-On the card container div (line 466-467), add `role="group"` and `aria-label="Repertoire — browse and play tracks"` to create a named interactive region.
-
-### Step 3: Category Heading Semantics
-
-**File:** `src/components/TheSound.tsx`
-
-Change the category label `<span>` (line 605) to include `role="heading"` and `aria-level={3}` so screen readers can navigate between categories:
+Add a `useEffect` that scrolls the active track into view when `activeTrackIndex` changes:
 
 ```tsx
-<span
-  role="heading"
-  aria-level={3}
-  className="font-sans text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60"
->
-  {category.label}
+const trackListRef = useRef<HTMLDivElement>(null);
+
+useEffect(() => {
+  if (activeTrackIndex === null || !trackListRef.current) return;
+  const activeButton = trackListRef.current.querySelector('[aria-current="true"]');
+  if (activeButton) {
+    activeButton.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+}, [activeTrackIndex]);
+```
+
+Attach `trackListRef` to the scrollable track list container from Step 3. The `block: "nearest"` ensures it only scrolls if the element is out of view, preventing jarring jumps.
+
+### Step 5: NowPlayingBar Time Display
+
+**File:** `src/components/TheSound.tsx`
+
+In the `NowPlayingBar` component, add a formatted time display after the progress bar. Use a simple `formatTime` helper:
+
+```tsx
+const formatTime = (s: number) => {
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return `${m}:${sec.toString().padStart(2, "0")}`;
+};
+```
+
+Add after the progress bar div:
+
+```tsx
+<span className="text-[9px] text-foreground/30 font-mono tabular-nums shrink-0 ml-1">
+  {formatTime(progress)}/{formatTime(duration)}
 </span>
 ```
 
-### Step 4: NowPlayingBar Focus and Tooltip Polish
-
-**File:** `src/components/TheSound.tsx`
-
-On the NowPlayingBar toggle button (line 147):
-- Add `title={isPlaying ? "Pause playback" : "Resume playback"}` for tooltip hint
-- Add focus-visible styling via className: `focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)/0.4)] focus-visible:outline-none`
-
-### Step 5: Keyboard Navigation Enhancement — Escape to Stop
-
-**File:** `src/components/TheSound.tsx`
-
-Add a `useEffect` that listens for the Escape key when a track is playing, pausing playback. This matches common media player conventions and provides keyboard users a quick way to stop audio:
-
-```tsx
-useEffect(() => {
-  if (!isPlaying) return;
-  const handleEscape = (e: KeyboardEvent) => {
-    if (e.key === "Escape") {
-      audioRef.current?.pause();
-      setIsPlaying(false);
-    }
-  };
-  window.addEventListener("keydown", handleEscape);
-  return () => window.removeEventListener("keydown", handleEscape);
-}, [isPlaying]);
-```
-
-This is lightweight (only attached when playing) and uses no external dependencies.
+This sits at the right edge of the bar, using monospace for stable width as numbers change, and at 30% opacity to remain subordinate to the track title.
 
 ---
 
@@ -107,26 +157,29 @@ This is lightweight (only attached when playing) and uses no external dependenci
 
 | Step | File | Change |
 |------|------|--------|
-| 1 | `src/index.css` | Golden focus-visible ring for `.track-button` |
-| 2 | `src/components/TheSound.tsx` | `aria-current` on active track, `role="group"` on card |
-| 3 | `src/components/TheSound.tsx` | Category labels get `role="heading" aria-level={3}` |
-| 4 | `src/components/TheSound.tsx` | NowPlayingBar button `title` + focus-visible ring |
-| 5 | `src/components/TheSound.tsx` | Escape key listener to pause playback |
+| 1 | `src/components/TheSound.tsx` | Mobile touch targets 48px, hide "Coming Soon" on small screens |
+| 2 | `src/components/TheSound.tsx` | Category header warm background tint for mobile rhythm |
+| 3 | `src/components/TheSound.tsx` | Track list max-height with overflow scroll |
+| 3 | `src/index.css` | Custom golden scrollbar styling |
+| 4 | `src/components/TheSound.tsx` | Scroll-to-active track on index change |
+| 5 | `src/components/TheSound.tsx` | Time display in NowPlayingBar |
 
 ---
 
 ## What This Achieves
 
-- **Keyboard parity:** Focus rings ensure keyboard users see the same golden accent language as mouse users — a non-negotiable at Fantasy.co quality
-- **Semantic completeness:** `aria-current`, `role="group"`, and heading semantics give screen readers the same navigational structure that sighted users experience visually
-- **Discoverability:** Tooltip on NowPlayingBar and Escape-to-stop provide power-user shortcuts without cluttering the interface
-- **WCAG compliance:** These changes address 2.4.7 (Focus Visible), 1.3.1 (Info and Relationships), and 4.1.2 (Name, Role, Value)
+- **Mobile parity:** 48px touch targets and hidden "Coming Soon" labels give mobile users a comfortable, uncluttered tap experience
+- **Visual rhythm:** The subtle category header tint provides mobile users the same sense of group separation that desktop users get from the context phrases
+- **Bounded card:** The max-height constraint with a custom golden scrollbar prevents the card from dominating the viewport while maintaining the premium aesthetic
+- **Intelligent scroll:** Active tracks are always visible within the card, eliminating the frustration of losing the playing track in a long list
+- **Time feedback:** The NowPlayingBar gains a minimal time display that respects the brand's restrained aesthetic while providing essential playback context
 
 ## Technical Notes
 
-- Focus-visible only activates on keyboard navigation, not mouse clicks (native browser behavior)
-- `aria-current` is the semantic standard for identifying the current item in a set
-- Escape listener is conditionally attached (only when playing) — zero cost when idle
-- No visual changes for mouse/touch users — all enhancements are accessibility-layer only
-- No new dependencies, no layout shifts, no performance impact
+- `scrollIntoView({ block: "nearest" })` only scrolls when needed -- no unnecessary motion
+- Custom scrollbar uses CSS-only approach (webkit + Firefox) -- no JavaScript
+- `min-h-[48px]` ensures WCAG 2.5.8 target size compliance on all devices
+- `formatTime` is a pure function with zero overhead
+- Time display uses `tabular-nums` to prevent layout shifts as digits change
+- No new dependencies, no performance impact
 
