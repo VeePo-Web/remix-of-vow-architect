@@ -39,14 +39,14 @@ export function TheExhale() {
 
       {/* Step 1: Film grain overlay — consistent with hero */}
       <div 
-        className="absolute inset-0 grain opacity-[0.08] pointer-events-none will-change-[opacity]"
+        className="absolute inset-0 grain opacity-[0.08] pointer-events-none"
         style={{ zIndex: 1 }}
         aria-hidden="true"
       />
 
       {/* Step 1: Subtle warm fog — atmospheric depth */}
       <div 
-        className="absolute inset-0 pointer-events-none will-change-[opacity]"
+        className="absolute inset-0 pointer-events-none"
         style={{
           background: `radial-gradient(ellipse 60% 50% at 50% 50%, hsl(var(--vow-yellow) / 0.02) 0%, transparent 70%)`,
           zIndex: 1,
