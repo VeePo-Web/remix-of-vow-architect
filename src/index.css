@@ -4548,7 +4548,8 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
     animation: none !important;
   }
 
-  [style*="divider-diamond-breathe"] {
+  [style*="divider-diamond-breathe"],
+  [style*="sound-card-breathe"] {
     animation: none !important;
   }
 }
