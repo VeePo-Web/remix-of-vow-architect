@@ -1,91 +1,92 @@
 
 
-# The Exhale — 7-Step Design Elevation to Fantasy.co Quality
+# Process Section — 7-Step Design Elevation to Fantasy.co Quality
 
 ## Current State Critique
 
-The Exhale is the most critical transitional section on the entire page. It sits between the cinematic hero (which creates awe) and the Process section (which builds understanding). Its job: make the visitor feel *seen* before being sold to. The current implementation has strong narrative bones but falls short of Fantasy.co standards in these ways:
+The Process Section ("The Score") is the storytelling heart of the homepage — it walks visitors through how Parker prepares their ceremony music in four movements: Listening, Crafting, Refining, Completing. The structure is narratively excellent, but the visual execution falls short of Fantasy.co standards in several critical ways:
 
-1. **No visual texture or depth** -- The section is pure flat black (`hsl(--rich-black)`) with two radial glow layers. No grain, no subtle imagery, no materiality. Fantasy.co sections always have atmospheric depth -- grain, light fog, subtle particle effects.
+1. **The warm journal background lacks depth** -- GradientDawnBackground has a paper texture layer, candlelight pools, grain, and vignette, but the paper layer uses a low-contrast SVG noise pattern that reads as flat digital noise rather than warm handmade paper. The candlelight pools animate but feel disconnected from the content flow.
 
-2. **The golden dot anchor is tiny and invisible** -- At 8px with a pulsing animation, it's easily missed. It should be the emotional heartbeat of the section -- a sacred spark that catches the eye and anchors the scroll transition from the hero.
+2. **Movement images have no Ken Burns motion** -- The MovementImage component references "Ken Burns drift animation" in its JSDoc but the CSS for `.movement-image__photo` uses a static `animation` only when loaded. The images (listening.jpg, crafting.jpg, refining.jpg, completing.jpg) are desaturated but feel static and lifeless once revealed.
 
-3. **No film grain overlay** -- Every other premium section on the site (hero, CrossOver) uses a grain texture. The Exhale lacks this, creating a visual discontinuity.
+3. **No section-to-section transition from The Exhale** -- The Exhale fades to `hsl(45 30% 92%)` (warm cream) at its bottom, but the Process section's GradientDawnBackground starts with a dark warm gradient (`hsl(35 20% 8%)`). This creates a jarring color discontinuity between the two sections.
 
-4. **The bottom fade gradient targets the wrong color** -- It fades to `hsl(45 30% 92%)` (warm cream), which is correct for transitioning to the Process section's warm palette, but the hardcoded HSL value breaks if theme tokens change.
+4. **The card design is functional but not luxurious** -- `.process-card` uses a flat `hsl(40 30% 96%)` background with a `1px solid hsl(40 20% 88%)` border. This reads as clean but generic -- it lacks the tactile, letterpress quality the brand demands. The gold accent border on the left is a good touch but is thin and easy to miss.
 
-5. **Typography could be more refined** -- The recognition statement at `clamp(24px, 4.5vw, 36px)` is good, but the declaration text at `clamp(18px, 3.5vw, 24px)` feels small for such a pivotal moment. The "sound" emphasis word needs a more visible underline reveal.
+5. **Stagger timing is too fast** -- Movement content phases stagger at 150ms intervals (0, 150, 280, 400, 520, 640ms). For a section about careful, deliberate preparation, the speed undermines the narrative. Fantasy.co would slow this to feel more considered.
 
-6. **No ambient motion** -- The section is static once revealed. Fantasy.co sections breathe continuously -- a subtle background shift, a slow radial pulse, something that rewards lingering.
+6. **The closing block ceremony image is underleveraged** -- `ceremony.jpg` sits behind the closing text at very low opacity with no atmospheric treatment beyond a simple overlay. It should create a cinematic moment that ties the preparation narrative to its destination: the ceremony itself.
 
-7. **The transition from hero to Exhale is abrupt** -- There's no top gradient fade from the hero's dark atmosphere into The Exhale's void. The seam between sections feels hard-cut.
+7. **No ambient continuity between movements** -- Each movement card reveals independently with no visual thread connecting them. The weaving thread SVG exists in CSS but is not rendered by the current ProcessSection component. The diamond separators on mobile are functional but lack elegance.
 
 ---
 
 ## The 7-Step Transformation
 
-### Step 1: Add Film Grain and Atmospheric Depth
+### Step 1: Fix Section-to-Section Color Continuity
 
-Add a film grain overlay consistent with the hero section's grain aesthetic. Layer a very subtle radial fog element that creates depth -- not decoration but spatial awareness. This makes the void feel like a space you're entering, not a blank screen.
-
-**Technical changes in `TheExhale.tsx`:**
-- Add a `grain` div (same pattern as hero) with `opacity-[0.08]`
-- Add a subtle fog layer with warm-tinted radial gradient at 2% opacity
-
-### Step 2: Refine the Golden Anchor Dot
-
-Increase the golden dot from 8px to 6px (slightly smaller but sharper), add a sharper box-shadow for more glow presence, and ensure its breathing animation syncs with a 4s cycle that feels like a heartbeat. Add a secondary outer ring that pulses at a slower rate -- creating depth around the dot.
-
-**Technical changes in `src/index.css`:**
-- Refine `.exhale-anchor` sizing, box-shadow spread, and animation timing
-- Add a `::before` pseudo-element for the outer pulse ring
-
-### Step 3: Add Top Gradient Fade from Hero
-
-Create a seamless transition between the hero's bottom edge and The Exhale's top. Add a `section-fade-top` div that fades from the hero's dark atmosphere (black) into The Exhale's background. This removes the hard seam.
-
-**Technical changes in `TheExhale.tsx`:**
-- Add a top fade div mirroring the existing bottom fade pattern
-- Gradient from `transparent` to `hsl(var(--rich-black))`, positioned at the top of the section
-
-### Step 4: Elevate Typography Scale and Emphasis
-
-Increase the declaration text scale to `clamp(20px, 3.8vw, 28px)` for more presence. Refine the "sound" emphasis underline to be thicker (2px), with a more visible vow-yellow color, and a slower reveal (600ms instead of implicit). Add a very subtle text-shadow to the recognition statement for cinematic depth.
-
-**Technical changes in `TheExhale.tsx`:**
-- Update declaration font size clamp values
-- Add text-shadow to recognition statement: `0 2px 24px rgba(0,0,0,0.4)`
-
-**Technical changes in `src/index.css`:**
-- Update `.exhale-emphasis::after` to 2px height with 600ms transition
-
-### Step 5: Add Ambient Background Motion
-
-Add a continuous, ultra-subtle radial glow oscillation that makes the section feel alive while the visitor reads. This is a slow 8s breathing cycle on the main glow layer -- its opacity oscillates between 3% and 5%. This creates the "the page is breathing with me" sensation that Fantasy.co masters.
-
-**Technical changes in `src/index.css`:**
-- Add `@keyframes exhale-glow-breathe` animation
-- Apply to the inner core glow layer with `animation: exhale-glow-breathe 8s ease-in-out infinite`
-
-### Step 6: Improve the Golden Thread SVG
-
-The current SVG thread path is functional but could be more elegant. Increase the stroke width slightly, add a subtle glow filter to the SVG path itself, and slow the stroke-dashoffset animation to 1200ms (from the current implicit timing) for a more deliberate draw. This makes the thread feel like a golden filament being carefully placed.
-
-**Technical changes in `src/index.css`:**
-- Update `.exhale-thread-path` transition duration to 1200ms
-- Add an SVG feGaussianBlur glow filter to the thread gradient
-
-**Technical changes in `TheExhale.tsx`:**
-- Add `<feGaussianBlur>` filter to the SVG defs for thread glow
-
-### Step 7: Performance and Reduced Motion
-
-Ensure all new layers use `will-change: opacity` for GPU compositing. Verify the grain overlay uses the existing performant SVG-based approach. Add reduced-motion fallbacks: ambient breathing stops, grain remains static, all transitions become 120ms opacity-only fades. Test that the section renders at 60fps during scroll.
+The Exhale's bottom fade targets warm cream (`hsl(45 30% 92%)`), but the Process section opens with a dark warm gradient. This creates a visible seam. The fix: update the GradientDawnBackground's base to start from a warm cream at the top (matching The Exhale's exit) and gradually deepen into the walnut/espresso tones. This creates an organic "dawn" progression that feels like the light is slowly building.
 
 **Technical changes:**
-- Add `will-change-opacity` to new atmospheric layers
-- Add `@media (prefers-reduced-motion: reduce)` rules for new animations
-- Verify grain uses `pointer-events: none` and `z-index: 1`
+- `src/index.css` (gradient-dawn__base): Modify the top portion of the linear-gradient to start from `hsl(40 25% 90%)` (warm cream matching Exhale exit) and transition to the current warm dark by 30%
+- This ensures the seam between Exhale and Process is invisible
+
+### Step 2: Elevate Card Material Design
+
+The current flat cards need tactile depth. Add a subtle inner shadow for recessed feel, refine the gold accent border to 2px with a gradient that fades at top and bottom (like a measure line in sheet music), and add a very subtle warm paper texture to the card background.
+
+**Technical changes in `src/index.css`:**
+- `.process-card`: Add `box-shadow: inset 0 1px 0 hsl(40 30% 100% / 0.5), 0 2px 8px hsl(35 20% 10% / 0.08)` for depth
+- `.process-card__accent`: Increase width to 2px, apply a vertical gradient that fades at extremes
+- `.process-card`: Add a subtle warm tint to background: `hsl(40 28% 97%)`
+- `.process-card:hover`: Refine hover shadow to include a very subtle golden tint: `0 4px 16px hsl(var(--vow-yellow) / 0.06)`
+
+### Step 3: Slow Movement Reveal Timing
+
+The stagger phases at 150ms intervals feel rushed for a section about careful, deliberate preparation. Slow the timing to create a more contemplative cascade that honors the narrative weight.
+
+**Technical changes in `src/components/process/ProcessMovement.tsx`:**
+- Change timing array from `[0, 150, 280, 400, 520, 640]` to `[0, 200, 380, 560, 720, 880]`
+- This adds roughly 40% more breathing room between each phase reveal
+
+### Step 4: Add Ken Burns Motion to Movement Images
+
+The images should slowly drift to create the sense of living memory. Add a gentle CSS animation to `.movement-image__photo` that scales from 1.0 to 1.03 over 20 seconds with alternating direction. This ultra-subtle motion rewards lingering without distracting from the card content.
+
+**Technical changes in `src/index.css`:**
+- Add `@keyframes movement-ken-burns` with `0% { transform: scale(1) }` and `100% { transform: scale(1.03) }`
+- Apply to `.movement-image.is-revealed .movement-image__photo` with `animation: movement-ken-burns 20s ease-in-out infinite alternate`
+- Ensure the existing `filter: saturate(0.7) contrast(1.05)` is maintained
+- Add reduced-motion fallback (already covered by global rule)
+
+### Step 5: Elevate Closing Block Cinematography
+
+The closing block with `ceremony.jpg` needs a more cinematic treatment. Increase the image opacity slightly, add a warm vignette that frames the text, and add a film grain overlay for consistency. The text should feel like it's emerging from the ceremony image, not floating above it.
+
+**Technical changes in `src/index.css`:**
+- `.process-closing__backdrop-img`: Increase opacity from current low value to `0.15` and add `filter: saturate(0.6) contrast(1.1)` for film-like treatment
+- `.process-closing__backdrop-overlay`: Add a radial gradient that's transparent at center and dark at edges (cinematic vignette) instead of flat overlay
+- Add a film grain `::after` pseudo-element to `.process-closing__backdrop` with `opacity: 0.06`
+
+### Step 6: Add Subtle Golden Thread Between Movements
+
+Rather than the complex SVG weaving thread (which was removed), add a simpler visual continuity element: a thin vertical golden line that connects each movement card to the next, with diamond nodes at each junction. This creates the "conductor's score" metaphor without the complexity overhead.
+
+**Technical changes in `src/index.css`:**
+- Add `.process-score__movements::before` pseudo-element: a 1px vertical line centered horizontally with `hsl(var(--vow-yellow) / 0.15)` that runs the full height of the movements container
+- The existing diamond separators on mobile (`.process-movement::after`) get refined: increase to 8px, add a subtle box-shadow glow
+- On desktop, the vertical line replaces the need for per-card bar-lines
+
+### Step 7: Performance and Reduced Motion Audit
+
+Ensure all new animations use compositor-only properties (transform, opacity). Verify the Ken Burns on images doesn't cause repaints. Confirm that the gradient-dawn candlelight animations don't conflict with the new Ken Burns timing. Test the closing block grain pseudo-element for GPU compositing.
+
+**Technical changes:**
+- Add `will-change: transform` to `.movement-image__photo` (only when animated)
+- Verify all new animations are covered by the existing global `prefers-reduced-motion` rule at line 2737
+- Add `contain: layout paint` to `.process-card` for isolation
+- Add `loading="lazy"` verification on all movement images (already present)
 
 ---
 
@@ -93,13 +94,13 @@ Ensure all new layers use `will-change: opacity` for GPU compositing. Verify the
 
 | Step | File(s) | Change |
 |------|---------|--------|
-| 1 | `TheExhale.tsx` | Grain overlay + fog layer |
-| 2 | `index.css` | Anchor dot refinement + outer pulse ring |
-| 3 | `TheExhale.tsx` | Top gradient fade div |
-| 4 | `TheExhale.tsx`, `index.css` | Typography scale + emphasis refinement |
-| 5 | `index.css` | Ambient glow breathing animation |
-| 6 | `TheExhale.tsx`, `index.css` | Thread SVG glow + slower draw |
-| 7 | `TheExhale.tsx`, `index.css` | Performance + reduced motion |
+| 1 | `src/index.css` | Gradient dawn base color continuity |
+| 2 | `src/index.css` | Card material design (shadow, accent, texture) |
+| 3 | `src/components/process/ProcessMovement.tsx` | Slower stagger timing array |
+| 4 | `src/index.css` | Ken Burns keyframes + application |
+| 5 | `src/index.css` | Closing block cinematography |
+| 6 | `src/index.css` | Vertical golden thread + diamond refinement |
+| 7 | `src/index.css`, `ProcessMovement.tsx` | Performance + reduced motion |
 
-All changes are refinements to existing elements -- no new components, no layout restructuring. Pure atmospheric and typographic elevation.
+All changes are refinements to existing elements -- no new components, no new dependencies. Pure atmospheric and typographic elevation.
 
