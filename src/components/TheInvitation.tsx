@@ -101,7 +101,7 @@ export function TheInvitation() {
                 )}
                 style={{ transitionDelay: isVisible ? '400ms' : '0ms' }}
               >
-                A moment with me — before the moment with you.
+                A moment with me\u2014before the moment with you.
               </p>
             </div>
 

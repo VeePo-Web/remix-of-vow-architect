@@ -61,7 +61,7 @@ export function CrossOver() {
       {/* Top fade from TheWitnesses warm */}
       <div
         className="section-fade-top"
-        style={{ background: 'linear-gradient(to top, transparent, hsl(45 20% 93%))' }}
+        style={{ background: 'linear-gradient(to top, transparent, hsl(240 9% 2%))' }}
         aria-hidden="true"
       />
 

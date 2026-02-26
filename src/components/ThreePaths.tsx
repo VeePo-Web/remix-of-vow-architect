@@ -62,7 +62,7 @@ export function ThreePaths() {
       {/* Top fade from TheWitness warm */}
       <div
         className="section-fade-top"
-        style={{ background: 'linear-gradient(to top, transparent, hsl(45 20% 93%))' }}
+        style={{ background: 'linear-gradient(to top, transparent, hsl(240 9% 4%))' }}
         aria-hidden="true"
       />
 
