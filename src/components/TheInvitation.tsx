@@ -138,17 +138,23 @@ export function TheInvitation() {
               </h2>
 
               {/* Body */}
-              <div
-                className={cn(
-                  'space-y-4 transition-all duration-700',
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-                )}
-                style={{ transitionDelay: isVisible ? '450ms' : '0ms' }}
-              >
-                <p className="text-lg font-display font-light leading-relaxed text-rich-black/80">
+              <div className="space-y-4">
+                <p
+                  className={cn(
+                    'text-lg font-display font-light leading-relaxed text-rich-black/80 transition-all duration-700',
+                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+                  )}
+                  style={{ transitionDelay: isVisible ? '450ms' : '0ms' }}
+                >
                   The wind that steals a vow mid-sentence. The hum that bleeds through silence. The back row that leans in — and still cannot hear.
                 </p>
-                <p className="text-lg font-display font-light leading-relaxed text-rich-black/80">
+                <p
+                  className={cn(
+                    'text-lg font-display font-light leading-relaxed text-rich-black/80 transition-all duration-700',
+                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+                  )}
+                  style={{ transitionDelay: isVisible ? '550ms' : '0ms' }}
+                >
                   Every part of my process exists so that never happens to you.
                 </p>
               </div>

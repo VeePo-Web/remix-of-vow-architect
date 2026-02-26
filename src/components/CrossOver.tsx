@@ -129,9 +129,12 @@ export function CrossOver() {
         </div>
 
         {/* Trust Anchor */}
+        {/* Film grain overlay */}
+        <div className="absolute inset-0 grain opacity-[0.08] pointer-events-none" aria-hidden="true" />
+
         <p
           className={cn(
-            "text-sm text-foreground/50 mb-12 transition-all duration-700",
+            "text-sm text-foreground/60 mb-12 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
           style={{ transitionDelay: isVisible ? "450ms" : "0ms" }}

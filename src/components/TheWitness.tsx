@@ -1,3 +1,4 @@
+import React from "react";
 import { cn } from "@/lib/utils";
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import witnessCeremony from "@/assets/witness-setup-ai.jpg";
@@ -118,16 +119,28 @@ export function TheWitness() {
             {/* Three Declarations — generous spacing */}
             <div className="space-y-6 mb-12">
               {declarations.map((declaration, index) => (
-                <p 
-                  key={index}
-                  className={cn(
-                    "text-lg font-display font-light leading-relaxed text-foreground/90 text-center transition-all duration-700",
-                    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                <React.Fragment key={index}>
+                  <p 
+                    className={cn(
+                      "text-lg font-display font-light leading-relaxed text-foreground/90 text-center transition-all duration-700",
+                      isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                    )}
+                    style={{ transitionDelay: isVisible ? `${300 + index * 100}ms` : "0ms" }}
+                  >
+                    {declaration}
+                  </p>
+                  {index < declarations.length - 1 && (
+                    <div className="flex justify-center" aria-hidden="true">
+                      <span
+                        className="inline-block w-[4px] h-[4px] rotate-45"
+                        style={{
+                          background: 'hsl(var(--vow-yellow) / 0.4)',
+                          boxShadow: '0 0 6px hsl(var(--vow-yellow) / 0.15)',
+                        }}
+                      />
+                    </div>
                   )}
-                  style={{ transitionDelay: isVisible ? `${300 + index * 100}ms` : "0ms" }}
-                >
-                  {declaration}
-                </p>
+                </React.Fragment>
               ))}
             </div>
 
@@ -184,6 +197,17 @@ export function TheWitness() {
                 ))}
               </div>
             </div>
+
+            {/* Closing thought */}
+            <p
+              className={cn(
+                "text-sm font-display font-light italic text-muted-foreground text-center mt-10 transition-all duration-700",
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              )}
+              style={{ transitionDelay: isVisible ? "750ms" : "0ms" }}
+            >
+              Now — choose how deeply you want me there.
+            </p>
           </div>
         </div>
       </div>

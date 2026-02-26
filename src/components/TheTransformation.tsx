@@ -97,9 +97,10 @@ export function TheTransformation() {
                 key={index}
                 className={cn(
                   "flex items-start gap-3 transition-all duration-700 group",
-                  isVisible ? "opacity-70 hover:opacity-100 translate-x-0" : "opacity-0 -translate-x-6"
+                  isVisible ? "hover:opacity-100 translate-x-0" : "opacity-0 -translate-x-6"
                 )}
                 style={{
+                  opacity: isVisible ? (0.70 - index * 0.05) : undefined,
                   transitionDelay: isVisible ? `${200 + index * 200}ms` : "0ms",
                   transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
                 }}
@@ -197,9 +198,10 @@ export function TheTransformation() {
                 key={index}
                 className={cn(
                   "flex items-start gap-3 transition-all duration-700 group",
-                  isVisible ? "opacity-80 hover:opacity-100 translate-x-0" : "opacity-0 translate-x-6"
+                  isVisible ? "hover:opacity-100 translate-x-0" : "opacity-0 translate-x-6"
                 )}
                 style={{
+                  opacity: isVisible ? (0.80 - index * 0.05) : undefined,
                   transitionDelay: isVisible ? `${200 + index * 200}ms` : "0ms",
                   transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
                 }}
