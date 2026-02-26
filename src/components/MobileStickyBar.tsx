@@ -25,7 +25,7 @@ export function MobileStickyBar() {
       }}
     >
       {/* Grain overlay — properly positioned */}
-      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
+      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
 
       <div className="relative flex items-center justify-between gap-3 p-3">
         <span className="text-sm font-display text-muted-foreground">

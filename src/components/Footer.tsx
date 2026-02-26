@@ -151,12 +151,12 @@ export function Footer() {
               <li>Banff, Alberta</li>
               <li>Calgary Region</li>
               <li>
-                <a href="mailto:ParJorFraGaw@gmail.com" className="hover:text-primary transition-all duration-[180ms]">
+                <a href="mailto:ParJorFraGaw@gmail.com" className="hover:text-primary transition-all duration-[180ms]" aria-label="Email me at ParJorFraGaw@gmail.com">
                   ParJorFraGaw@gmail.com
                 </a>
               </li>
               <li>
-                <a href="tel:+14038308930" className="hover:text-primary transition-all duration-[180ms]">
+                <a href="tel:+14038308930" className="hover:text-primary transition-all duration-[180ms]" aria-label="Call me at +1-403-830-8930">
                   +1-403-830-8930
                 </a>
               </li>
