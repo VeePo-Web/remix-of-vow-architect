@@ -13,7 +13,7 @@ import { TheSound } from "@/components/TheSound";
 import { TheTransformation } from "@/components/TheTransformation";
 import { TheWitness } from "@/components/TheWitness";
 import { ThreePaths } from "@/components/ThreePaths";
-import { TheRecord } from "@/components/TheRecord";
+
 import { TheWitnesses } from "@/components/TheWitnesses";
 import { CrossOver } from "@/components/CrossOver";
 import { usePageTheme } from "@/hooks/usePageTheme";
@@ -117,8 +117,6 @@ export default function Index() {
       {/* SECTION 5 — Three Paths (Inhale - Dark) */}
       <ThreePaths />
 
-      {/* SECTION 7 — The Record (Inhale - Dark) */}
-      <TheRecord />
 
       {/* SECTION 8 — The Witnesses (Exhale - Surface) */}
       <TheWitnesses />
