@@ -480,7 +480,7 @@ export function TheSound() {
                 }}
                 aria-hidden="true"
               />
-              <p className="text-lg font-display font-light italic text-foreground/70">
+              <p className="text-lg font-display font-light italic text-foreground/80">
                 Every piece I play begins the same way — with someone in mind.
               </p>
             </div>

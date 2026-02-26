@@ -206,7 +206,7 @@ export function TheWitness() {
               )}
               style={{ transitionDelay: isVisible ? "750ms" : "0ms" }}
             >
-              Now — choose how deeply you want me there.
+              Now{"\u2014"}choose how deeply you want me there.
             </p>
           </div>
         </div>

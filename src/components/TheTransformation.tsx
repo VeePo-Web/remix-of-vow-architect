@@ -96,14 +96,16 @@ export function TheTransformation() {
               <div
                 key={index}
                 className={cn(
-                  "flex items-start gap-3 transition-all duration-700 group",
-                  isVisible ? "hover:opacity-100 translate-x-0" : "opacity-0 -translate-x-6"
+                  "flex items-start gap-3 transition-all duration-700 group hover:!opacity-100",
+                  isVisible ? "translate-x-0" : "opacity-0 -translate-x-6",
                 )}
                 style={{
                   opacity: isVisible ? (0.70 - index * 0.05) : undefined,
                   transitionDelay: isVisible ? `${200 + index * 200}ms` : "0ms",
                   transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
                 }}
+                onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
+                onMouseLeave={(e) => { if (isVisible) e.currentTarget.style.opacity = String(0.70 - index * 0.05); }}
               >
                 <X size={20} className="text-error shrink-0 mt-0.5 transition-transform duration-300 group-hover:scale-110" strokeWidth={2} />
                 <p className="text-base leading-relaxed text-foreground/80">{fear}</p>
@@ -197,14 +199,16 @@ export function TheTransformation() {
               <div
                 key={index}
                 className={cn(
-                  "flex items-start gap-3 transition-all duration-700 group",
-                  isVisible ? "hover:opacity-100 translate-x-0" : "opacity-0 translate-x-6"
+                  "flex items-start gap-3 transition-all duration-700 group hover:!opacity-100",
+                  isVisible ? "translate-x-0" : "opacity-0 translate-x-6",
                 )}
                 style={{
                   opacity: isVisible ? (0.80 - index * 0.05) : undefined,
                   transitionDelay: isVisible ? `${200 + index * 200}ms` : "0ms",
                   transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
                 }}
+                onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
+                onMouseLeave={(e) => { if (isVisible) e.currentTarget.style.opacity = String(0.80 - index * 0.05); }}
               >
                 <Check size={20} className="text-success shrink-0 mt-0.5 transition-transform duration-300 group-hover:scale-110" strokeWidth={2.5} />
                 <p className="text-base leading-relaxed text-rich-black font-medium">{resolution}</p>
