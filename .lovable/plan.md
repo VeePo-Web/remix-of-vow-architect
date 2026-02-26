@@ -1,99 +1,103 @@
 
 
-# The Footer — 7-Step Design Elevation to Fantasy.co Quality
+# Persistent UI — Header, Full-Screen Menu, Mobile Sticky Bar: 7-Step Elevation to Fantasy.co Quality
 
 ## Current State Critique
 
-The Footer is the absolute final impression a visitor carries away. In the brand's emotional funnel, it sits after CrossOver (the closing CTA) and serves as the quiet resolution — the last exhale. Currently it functions but lacks the cinematic atmospheric consistency now established across every other section of the homepage.
+The MinimalHeader, FullScreenMenu, and MobileStickyBar are the persistent frame surrounding every section. They are the first and last interactive elements visitors touch. While functional, they lack the atmospheric and typographic refinement now standard across all homepage sections.
 
-### Issues Identified
+### MinimalHeader
+1. **No atmospheric treatment when scrolled** -- The scrolled state uses `bg-[rgba(10,10,12,0.92)] backdrop-blur-md` which is functional but lacks the grain texture and warm glow present in dark sections. It feels like a utility bar floating above a cinematic experience.
+2. **Logo hover uses `text-accent`** -- This is vine-green, which is reserved for success/availability states per the brand covenant. Logo hover should use `text-primary` (vow-yellow) for warmth.
+3. **"Hold My Date" CTA in nav lacks golden glow** -- The `nav-link--cta` class is used but the button lacks the luminous box-shadow treatment applied to CTAs elsewhere (CrossOver, ThreePaths).
+4. **Border on scroll is `border-border/20`** -- A hard line. Should be a subtle golden gradient thread matching the footer and section separators.
+5. **Transition timing is `duration-500`** -- Brand standard for navigation transitions is `260ms`. This feels sluggish.
 
-1. **No atmospheric layers** -- Every other dark section (Hero, Exhale, Sound, ThreePaths, CrossOver) now has film grain, cinematic vignette, and warm fog. The Footer has none of these — just a flat `section--dark` background with a `border-t border-lines` top edge. This creates a jarring visual step-down from CrossOver's richly layered atmosphere into a flat, utilitarian zone.
+### FullScreenMenu
+6. **No atmospheric layers** -- Pure flat `vigil-void` background with no grain, no vignette, no warm fog. Every dark surface on the homepage now breathes with these layers. The menu feels like stepping out of the cinematic experience into a blank void.
+7. **No golden thread or brand accent** -- The menu items are plain text with no sacred visual anchors. No golden thread separator, no glowing semicolon, no brand covenant whisper.
+8. **Menu item hover uses `text-accent`** -- Same vine-green issue. Should be `text-primary` (vow-yellow).
+9. **Close button position is `top-8 right-8`** -- Does not match the header's button position (`px-[var(--hero-space-edge)]`). When menu opens, the close button should align exactly where the menu button was — a seamless swap.
+10. **No closing covenant** -- The menu has contact info at the bottom but no brand bookend. The footer now has "'Til Death ; Unto Life" — the menu should echo this.
 
-2. **No background image treatment** -- While a full Ken Burns image may be excessive for a footer, a very subtle ambient texture or radial glow would maintain depth consistency. The current flat void feels sterile compared to the cinematic sections above.
-
-3. **The `border-t border-lines` top edge is harsh** -- Every other section transition uses a gradient fade. The footer uses a hard 1px border, which reads as a structural divider rather than a narrative conclusion. It should transition seamlessly from CrossOver.
-
-4. **The name "Parker Gawryletz" may be inconsistent with brand** -- The brand document references "Parker Allard" in the covenant section. This needs verification but the footer should use whichever is the correct professional name. The current name display lacks the editorial refinement of other headline treatments.
-
-5. **Social icons are generic Lucide defaults** -- Four icons (Mail, Phone, Instagram, YouTube) sit in a basic flex row with no visual hierarchy. They lack the golden glow hover treatment applied to other interactive elements across the site. The transition is `duration-300` but the brand standard is `duration-[180ms]` for hover states.
-
-6. **"Quick Links" heading feels utilitarian** -- The label `Quick Links` reads as a generic website footer, not a sacred brand experience. The navigation links also use `story-link` class but lack the visual refinement of the main navigation.
-
-7. **The tagline covenant is missing** -- The CrossOver section ends with "'Til Death ; Unto Life" but the footer doesn't echo this. As the absolute last element, it should carry a whispered closing — a final breath of the brand covenant — reinforcing the bookend structure described in the brand document.
+### MobileStickyBar
+11. **CTA text "Check Availability" is vendor language** -- Brand voice uses "Hold my date" per the copywriting rules. This is inconsistent with the header CTA.
+12. **Microcopy "Dates fill quickly—check yours" uses urgency** -- This borders on pressure tactics. Brand voice is composed and reverent, never urgent. Should reframe.
+13. **No grain or atmospheric treatment** -- Just a flat `rich-black/0.95` background. Feels utilitarian.
 
 ---
 
 ## The 7-Step Transformation
 
-### Step 1: Add Atmospheric Consistency (Grain + Vignette + Fog)
+### Step 1: Header Atmospheric Refinement
 
-Apply the standard atmospheric layering to the footer: film grain at `opacity-[0.06]` (slightly less than dark sections), a subtle cinematic vignette, and a warm fog layer. This eliminates the flat void and creates visual continuity with CrossOver above.
+Update the scrolled header state with a subtle grain overlay, replace the hard border with a golden gradient thread, and correct the transition timing to 260ms.
 
-**Technical changes in `Footer.tsx`:**
-- Add `overflow-hidden relative` to the footer element
-- Add `grain` div: `opacity-[0.06]`
-- Add vignette div: `radial-gradient(ellipse at center, transparent 40%, hsl(240 9% 2%) 100%)`
-- Add warm fog div: `radial-gradient(ellipse at 50% 20%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)`
+**Technical changes in `MinimalHeader.tsx`:**
+- Change `duration-500` to `duration-[260ms]` on the header transition
+- Replace `border-b border-border/20` with a pseudo-element or child div: `linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.12), transparent)` at 1px height, positioned at bottom
+- Change logo `hover:text-accent` to `hover:text-primary`
+- Change menu button `group-hover:text-accent` to `group-hover:text-primary` (both label and icon)
 
-### Step 2: Replace Hard Border with Gradient Fade
+### Step 2: Header CTA Golden Glow
 
-Remove the `border-t border-lines` and replace it with a section-fade-top that transitions seamlessly from CrossOver's dark void. Since CrossOver is already dark, this fade should be very subtle — just enough to create a visual "breath" between sections rather than a hard line.
+Add the luminous golden glow treatment to the "Hold My Date" CTA in the scrolled navigation, matching the CrossOver and ThreePaths CTA styling.
 
-**Technical changes in `Footer.tsx`:**
-- Remove `border-t border-lines` from the footer element class
-- Add a top fade div: `linear-gradient(to top, transparent, hsl(240 9% 2%))` with reduced height (`h-16` instead of standard `h-32`) since both sections are dark
-- Alternatively, replace with a centered golden thread line at the very top — a 1px gradient line spanning ~200px centered, matching the sacred separators used elsewhere
+**Technical changes in `MinimalHeader.tsx`:**
+- Add inline style to the CTA link: subtle golden text-shadow on hover
+- Or wrap in a styled span with `hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)]`
+- Ensure transition timing is `duration-[180ms]` matching brand hover standards
 
-### Step 3: Elevate Typography and Name Treatment
+### Step 3: FullScreenMenu Atmospheric Layers
 
-Refine the name display to use `font-display` with proper luxury sizing. Add the brand tagline beneath. Update "Quick Links" to a more editorial label like "NAVIGATE" or simply remove the heading and let the links speak for themselves.
+Add film grain, cinematic vignette, and warm fog to the full-screen menu overlay — matching the atmospheric treatment of every dark section on the homepage.
 
-**Technical changes in `Footer.tsx`:**
-- Change `h3` name to use `font-display font-light text-[clamp(24px,3vw,32px)]` with proper letter-spacing
-- Add a whispered tagline beneath the name: `font-display italic text-sm text-foreground/40` — "Wedding Pianist"
-- Change "Quick Links" heading to "Navigate" or "Explore" in the same `text-xs uppercase tracking-[0.22em]` treatment
-- Change "Contact" column heading to "Reach Me" for first-person voice consistency
+**Technical changes in `FullScreenMenu.tsx`:**
+- Add `grain` div at `opacity-[0.06]`
+- Add vignette: `radial-gradient(ellipse at center, transparent 30%, hsl(240 9% 2%) 100%)`
+- Add warm fog: `radial-gradient(ellipse at 30% 40%, hsl(var(--vow-yellow) / 0.02) 0%, transparent 50%)`
+- All layers `pointer-events-none` and `aria-hidden="true"`
 
-### Step 4: Refine Social Icons with Golden Glow Hover
+### Step 4: FullScreenMenu Typography and Hover Polish
 
-Update the social icon hover states to use the brand's vow-yellow glow treatment instead of generic `hover:text-primary`. Add a subtle golden box-shadow on hover matching the interactive elements across the site. Correct transition timing to `180ms`.
+Fix the hover color from vine-green to vow-yellow. Add a golden thread separator between the navigation items and the contact info. Add a subtle numeral glow treatment.
 
-**Technical changes in `Footer.tsx`:**
-- Update all social icon links: change `transition-colors duration-300` to `transition-all duration-[180ms]`
-- Add hover style: `hover:text-[hsl(var(--vow-yellow))]` with `hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)]`
-- Reduce icon size from `20` to `18` for refinement
-- Add subtle separator dots between icons using vow-yellow middots matching the credential treatment
+**Technical changes in `FullScreenMenu.tsx`:**
+- Change `group-hover:text-accent` to `group-hover:text-primary` on menu item labels
+- Change contact links `hover:text-accent` to `hover:text-primary`
+- Add golden thread div between nav and contact: `h-[1px] w-12` with vow-yellow gradient
+- Add subtle `text-primary/30` color to the menu numerals on hover for golden warmth
+- Align close button position with header menu button: use `px-[var(--hero-space-edge,24px)] md:px-[var(--hero-space-edge,48px)]` and `py-6` matching the header
 
-### Step 5: Add Closing Covenant (Brand Bookend)
+### Step 5: FullScreenMenu Brand Covenant
 
-Add a final whispered covenant statement after the copyright line — the brand's closing breath. This echoes the "'Til Death ; Unto Life" tagline one final time, creating a full narrative bookend from the hero to the footer. The semicolon glows with the same vow-yellow treatment as in the hero.
+Add the closing covenant whisper at the bottom of the menu, matching the footer's bookend treatment. This creates brand consistency across all terminal UI states.
 
-**Technical changes in `Footer.tsx`:**
-- Add a centered closing element after the legal links row
-- Content: `'Til Death ; Unto Life.` in `font-display text-sm text-foreground/30`
-- The semicolon uses `text-[hsl(var(--vow-yellow)/0.5)]` for the golden accent
-- Add subtle `mt-8` spacing and a tiny golden dot above it (the final anchor point)
+**Technical changes in `FullScreenMenu.tsx`:**
+- Add covenant text after contact info: `'Til Death ; Unto Life.` in `font-display text-sm text-foreground/20`
+- Semicolon in `text-primary/40` for golden accent
+- Small golden dot above it matching footer treatment
 
-### Step 6: Refine Golden Thread Separators
+### Step 6: MobileStickyBar Voice and Atmosphere
 
-The existing golden thread separator between content and legal section is good but should match the refined treatment across the site. Add the luminous glow treatment. Make the top golden thread breath animation more subtle.
+Fix the CTA copy to match brand voice ("Hold my date" not "Check Availability"). Reframe the microcopy from urgency to reverence. Add subtle grain texture for atmospheric consistency.
 
-**Technical changes in `Footer.tsx`:**
-- Update the top golden thread: add `boxShadow: '0 0 8px hsl(var(--vow-yellow) / 0.1)'` for subtle luminosity
-- Update the full-width separator: add the same luminous glow
-- Ensure `footer-breathe` animation is defined in CSS (verify it exists in index.css)
+**Technical changes in `MobileStickyBar.tsx`:**
+- Change button text from "Check Availability" to "Hold my date"
+- Change microcopy from "Dates fill quickly—check yours" to "I would be honored to be there"
+- Add `grain` overlay at `opacity-[0.04]` inside the bar
+- Change `animate-fade-in` timing to ensure it respects brand motion standards
 
 ### Step 7: Performance and Accessibility Audit
 
-Ensure all links have proper `focus-visible` styles (already present on social icons, verify on nav links and legal links). Add `aria-label` to the footer for landmark navigation. Verify the footer renders correctly on mobile with proper spacing.
+Verify all hover transitions use `duration-[180ms]`, all focus-visible states work across header/menu/sticky bar, and the grain layers use `will-change: opacity` for GPU compositing.
 
-**Technical changes in `Footer.tsx`:**
-- Add `aria-label="Site footer"` to the footer element
-- Add `role="contentinfo"` (semantic HTML `footer` already implies this, but explicit is clearer)
-- Verify all `NavLink` elements have proper focus-visible styles
-- Add `will-change: opacity` to the grain layer for GPU compositing
-- Test that the MobileStickyBar doesn't overlap footer content (add `pb-16 md:pb-0` to footer on mobile to account for sticky bar height)
+**Technical changes across all three files:**
+- Verify `focus-visible:ring-2 focus-visible:ring-primary/70` on all interactive elements
+- Add `will-change: opacity` to grain layers
+- Ensure FullScreenMenu traps focus when open (tab cycling stays within menu)
+- Verify MobileStickyBar doesn't obscure footer content (already handled with `pb-16` in Footer)
+- Ensure `prefers-reduced-motion` disables all entrance animations
 
 ---
 
@@ -101,13 +105,13 @@ Ensure all links have proper `focus-visible` styles (already present on social i
 
 | Step | File(s) | Change |
 |------|---------|--------|
-| 1 | `Footer.tsx` | Film grain + vignette + warm fog |
-| 2 | `Footer.tsx` | Replace hard border with golden thread top separator |
-| 3 | `Footer.tsx` | Typography refinement + column heading voice |
-| 4 | `Footer.tsx` | Social icon golden glow hover + timing correction |
-| 5 | `Footer.tsx` | Closing covenant bookend statement |
-| 6 | `Footer.tsx` | Golden thread luminous glow refinement |
-| 7 | `Footer.tsx` | Accessibility + mobile spacing for sticky bar |
+| 1 | `MinimalHeader.tsx` | Transition timing + golden thread border + hover color fix |
+| 2 | `MinimalHeader.tsx` | CTA golden glow treatment |
+| 3 | `FullScreenMenu.tsx` | Grain + vignette + warm fog layers |
+| 4 | `FullScreenMenu.tsx` | Hover colors + golden thread + close button alignment |
+| 5 | `FullScreenMenu.tsx` | Closing covenant bookend |
+| 6 | `MobileStickyBar.tsx` | Brand voice copy + grain texture |
+| 7 | All three files | Performance + accessibility audit |
 
-All changes are atmospheric and typographic refinements — no new components, no new dependencies, no layout restructuring.
+All changes are atmospheric, typographic, and voice refinements. No new components or dependencies.
 
