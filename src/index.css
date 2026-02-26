@@ -1322,18 +1322,74 @@ All colors MUST be HSL.
     background: hsl(var(--rich-black));
   }
 
-  /* Golden Anchor Dot — Heartbeat of the section */
+  /* Golden Anchor Dot — Step 2: refined heartbeat with outer ring */
   .exhale-anchor {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: hsl(var(--vow-yellow));
+    position: relative;
     box-shadow: 
-      0 0 12px hsl(var(--vow-yellow) / 0.6),
-      0 0 24px hsl(var(--vow-yellow) / 0.3);
-    animation: 
-      exhale-pulse 4.2s cubic-bezier(0.4, 0, 0.6, 1) infinite,
-      exhale-float 6s ease-in-out infinite;
+      0 0 8px hsl(var(--vow-yellow) / 0.7),
+      0 0 20px hsl(var(--vow-yellow) / 0.4),
+      0 0 40px hsl(var(--vow-yellow) / 0.15);
+    animation: exhale-pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Outer pulse ring — slower, more expansive */
+  .exhale-anchor::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid hsl(var(--vow-yellow) / 0.2);
+    transform: translate(-50%, -50%) scale(0.5);
+    animation: exhale-ring-pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation-delay: 0.2s;
+  }
+
+  @keyframes exhale-ring-pulse {
+    0%, 100% {
+      transform: translate(-50%, -50%) scale(0.5);
+      opacity: 0;
+    }
+    30% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.6;
+    }
+    70% {
+      transform: translate(-50%, -50%) scale(1.4);
+      opacity: 0.2;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1.6);
+      opacity: 0;
+    }
+  }
+
+  /* Step 5: Ambient glow breathing layer */
+  .exhale-glow-breathe-layer {
+    animation: exhale-glow-breathe 8s ease-in-out infinite;
+    will-change: opacity;
+  }
+
+  @keyframes exhale-glow-breathe {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  /* Step 3: Top fade from hero */
+  .section-fade-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    pointer-events: none;
+    z-index: 2;
   }
 
   /* Organic 4-step pulse — mimics heartbeat rhythm */
@@ -1430,7 +1486,7 @@ All colors MUST be HSL.
     );
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 550ms var(--ease-covenant);
+    transition: transform 600ms var(--ease-covenant);
     transition-delay: 600ms;
   }
 
