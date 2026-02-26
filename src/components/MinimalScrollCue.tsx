@@ -7,10 +7,12 @@ export function MinimalScrollCue() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Show after covenant complete (extended timing)
+    const hasPlayed = sessionStorage.getItem('vigil-complete') === 'true';
+    const delay = hasPlayed ? 800 : 7500;
+
     const showTimer = setTimeout(() => {
       setIsVisible(true);
-    }, 9000);
+    }, delay);
 
     const handleScroll = () => {
       if (window.scrollY > 100) {
@@ -28,7 +30,10 @@ export function MinimalScrollCue() {
   return (
     <div
       className={cn(
-        "absolute bottom-[var(--hero-space-bottom,48px)] right-[var(--hero-space-edge,24px)] md:right-[var(--hero-space-edge,48px)] z-20 flex flex-col items-center gap-2 transition-opacity duration-500",
+        "absolute bottom-[var(--hero-space-bottom,64px)] z-20",
+        // Mobile: centered. Desktop: bottom-right
+        "left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-[var(--hero-space-edge,48px)]",
+        "flex flex-col items-center gap-2 transition-opacity duration-500",
         isVisible && !hasScrolled ? "opacity-100" : "opacity-0",
         hasScrolled && "pointer-events-none"
       )}
@@ -44,7 +49,7 @@ export function MinimalScrollCue() {
         }}
       />
       
-      {/* Chevron Only - Maximum Restraint */}
+      {/* Chevron Only */}
       <ChevronDown 
         size={14} 
         className="text-[hsl(var(--vow-yellow))]" 

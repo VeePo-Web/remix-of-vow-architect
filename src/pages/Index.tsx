@@ -18,7 +18,7 @@ import { TheWitnesses } from "@/components/TheWitnesses";
 import { CrossOver } from "@/components/CrossOver";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { useVigilSequence } from "@/hooks/useVigilSequence";
-import heroImage from "@/assets/hero-piano.jpg";
+import heroImage from "@/assets/hero-wedding.jpg";
 
 export default function Index() {
   usePageTheme();
@@ -36,7 +36,10 @@ export default function Index() {
           aria-hidden="true"
         />
 
-        {/* Layer 2: Hero Image with Gradient + Ken Burns (Vigil Reveal Wrapper) */}
+        {/* Preload hero image for LCP */}
+        <link rel="preload" as="image" href={heroImage} />
+
+        {/* Layer 2: Hero Image with Bottom-Weighted Gradient + Ken Burns */}
         <VigilReveal 
           isRevealing={vigilPhase.isKindling} 
           isComplete={vigilPhase.isRevealing || vigilPhase.isComplete}
@@ -44,28 +47,28 @@ export default function Index() {
           <div
             className="absolute inset-0 bg-cover bg-center will-change-transform"
             style={{
-              backgroundImage: `linear-gradient(rgba(10, 10, 12, 0.65), rgba(10, 10, 12, 0.85)), url(${heroImage})`,
-              filter: "brightness(0.65) contrast(1.1) saturate(0.85)",
+              backgroundImage: `linear-gradient(rgba(10, 10, 12, 0.35) 0%, rgba(10, 10, 12, 0.75) 100%), url(${heroImage})`,
+              filter: "brightness(0.75) contrast(1.08) saturate(0.9)",
               animation: vigilPhase.isRevealing || vigilPhase.isComplete ? "ken-burns 60s var(--ease-sacred) infinite" : undefined,
             }}
             aria-hidden="true"
           />
         </VigilReveal>
 
-        {/* Layer 3: Vignette (Fades in during Revelation) */}
+        {/* Layer 3: Vignette (Reduced opacity for breathing room) */}
         <div
-          className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 ${
+          className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 will-change-opacity ${
             vigilPhase.isRevealing || vigilPhase.isComplete ? "opacity-100" : "opacity-0"
           }`}
           style={{
-            background: "radial-gradient(circle at center, transparent 0%, rgba(10, 10, 12, 0.6) 100%)",
+            background: "radial-gradient(circle at center, transparent 0%, rgba(10, 10, 12, 0.45) 100%)",
           }}
           aria-hidden="true"
         />
 
-        {/* Layer 4: Fog Overlay (Fades in during Revelation) */}
+        {/* Layer 4: Fog Overlay */}
         <div
-          className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 ${
+          className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 will-change-opacity ${
             vigilPhase.isRevealing || vigilPhase.isComplete ? "opacity-100" : "opacity-0"
           }`}
           style={{
@@ -74,21 +77,21 @@ export default function Index() {
           aria-hidden="true"
         />
 
-        {/* Layer 5: Film Grain (Fades in during Revelation) — Reduced */}
+        {/* Layer 5: Film Grain — Reduced, GPU-composited */}
         <div 
-          className={`absolute inset-0 grain transition-opacity duration-1000 ${
+          className={`absolute inset-0 grain transition-opacity duration-1000 will-change-opacity ${
             vigilPhase.isRevealing || vigilPhase.isComplete ? "opacity-[0.15]" : "opacity-0"
           }`}
           aria-hidden="true" 
         />
 
-        {/* Vigil Flame (Centered, breathes during Stillness, dissolves during Revelation) */}
+        {/* Vigil Flame */}
         <VigilFlame 
           isVisible={vigilPhase.isStillness || vigilPhase.isKindling}
           isDissolving={vigilPhase.isRevealing}
         />
 
-        {/* Only Three Elements: Tagline (bottom-left) + Scroll Cue (bottom-right) */}
+        {/* Tagline (bottom-left) + Scroll Cue (bottom-center on mobile, bottom-right on desktop) */}
         <HeroTagline />
         <MinimalScrollCue />
       </section>
@@ -116,7 +119,6 @@ export default function Index() {
 
       {/* SECTION 5 — Three Paths (Inhale - Dark) */}
       <ThreePaths />
-
 
       {/* SECTION 8 — The Witnesses (Exhale - Surface) */}
       <TheWitnesses />
