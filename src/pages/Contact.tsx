@@ -1,4 +1,5 @@
-import { Navigation } from "@/components/Navigation";
+import { MinimalHeader } from "@/components/MinimalHeader";
+import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -74,25 +75,31 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen">
-      <Navigation />
+      <MinimalHeader />
 
       {/* Section 1: Hero with atmospheric background */}
       <section className="relative section-padding bg-background overflow-hidden">
-        {/* Background image */}
-        <div 
-          className="absolute inset-0 opacity-[0.10]"
-          style={{
-            backgroundImage: `url(${contactHeroImg})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            maskImage: "linear-gradient(to bottom, black 0%, transparent 50%)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 50%)",
-            animation: "ken-burns 25s ease-in-out infinite alternate",
-          }}
-          aria-hidden="true"
-        />
+        {/* Background image with overflow-hidden wrapper */}
+        <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+          <div 
+            className="absolute inset-0 opacity-[0.10]"
+            style={{
+              backgroundImage: `url(${contactHeroImg})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              maskImage: "linear-gradient(to bottom, black 0%, transparent 50%)",
+              WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 50%)",
+              animation: "ken-burns 25s ease-in-out infinite alternate",
+              willChange: "transform",
+            }}
+          />
+        </div>
+        {/* Warm fog */}
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)" }} aria-hidden="true" />
+        {/* Cinematic vignette */}
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 100%)" }} aria-hidden="true" />
         {/* Film grain */}
-        <div className="absolute inset-0 grain opacity-20 pointer-events-none" aria-hidden="true" />
+        <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-5xl mx-auto animate-fade-in">
@@ -420,6 +427,7 @@ export default function Contact() {
       )}
 
       <Footer />
+      <MobileStickyBar />
     </div>
   );
 }

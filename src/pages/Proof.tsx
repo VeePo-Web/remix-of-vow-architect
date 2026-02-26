@@ -1,4 +1,5 @@
-import { Navigation } from "@/components/Navigation";
+import { MinimalHeader } from "@/components/MinimalHeader";
+import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { SPLTriptych } from "@/components/SPLTriptych";
@@ -16,21 +17,25 @@ export default function Proof() {
 
   return (
     <div className="min-h-screen">
-      <Navigation />
+      <MinimalHeader />
       
       {/* Section 1 - Hero with atmospheric background */}
       <section className="relative section-padding bg-background overflow-hidden">
         {/* Background image */}
-        <div 
-          className="absolute inset-0 opacity-[0.10]"
-          style={{
-            backgroundImage: `url(${galleryHeroImg})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            animation: "ken-burns 30s ease-in-out infinite alternate",
-          }}
-          aria-hidden="true"
-        />
+        <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+          <div 
+            className="absolute inset-0 opacity-[0.10]"
+            style={{
+              backgroundImage: `url(${galleryHeroImg})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              animation: "ken-burns 30s ease-in-out infinite alternate",
+              willChange: "transform",
+            }}
+          />
+        </div>
+        {/* Warm fog */}
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)" }} aria-hidden="true" />
         {/* Vignette */}
         <div 
           className="absolute inset-0 pointer-events-none"
@@ -40,7 +45,7 @@ export default function Proof() {
           aria-hidden="true"
         />
         {/* Film grain */}
-        <div className="absolute inset-0 grain opacity-30 pointer-events-none" aria-hidden="true" />
+        <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center space-y-6 animate-fade-in">
@@ -132,6 +137,7 @@ export default function Proof() {
 
       <MobileTrustBar />
       <Footer />
+      <MobileStickyBar />
     </div>
   );
 }

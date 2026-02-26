@@ -1,4 +1,5 @@
 import { MinimalHeader } from "@/components/MinimalHeader";
+import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -22,24 +23,27 @@ export default function Pricing() {
 
       <section className="relative section-padding bg-background">
         {/* Atmospheric background on hero area */}
-        <div 
-          className="absolute inset-0 opacity-[0.08]"
-          style={{
-            backgroundImage: `url(${servicesHeroImg})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            maskImage: "linear-gradient(to bottom, black 0%, transparent 40%)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 40%)",
-            animation: "ken-burns 25s ease-in-out infinite alternate",
-          }}
-          aria-hidden="true"
-        />
+        <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+          <div 
+            className="absolute inset-0 opacity-[0.08]"
+            style={{
+              backgroundImage: `url(${servicesHeroImg})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              maskImage: "linear-gradient(to bottom, black 0%, transparent 40%)",
+              WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 40%)",
+              animation: "ken-burns 25s ease-in-out infinite alternate",
+              willChange: "transform",
+            }}
+          />
+        </div>
         {/* Film grain */}
         <div 
-          className="absolute inset-0 grain opacity-20 pointer-events-none"
+          className="absolute inset-0 grain opacity-[0.06] pointer-events-none"
           style={{
             maskImage: "linear-gradient(to bottom, black 0%, transparent 40%)",
             WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 40%)",
+            willChange: "opacity",
           }}
           aria-hidden="true" 
         />
@@ -212,6 +216,7 @@ export default function Pricing() {
       </section>
 
       <Footer />
+      <MobileStickyBar />
     </div>
   );
 }
