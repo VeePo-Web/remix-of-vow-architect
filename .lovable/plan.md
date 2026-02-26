@@ -1,73 +1,82 @@
 
 
-# Round 16 — Process Intro Audit and Bug Fixes
+# Round 17 -- Process Intro: Second Refinement Pass
 
-## Audit Findings
+## Critique of Current State
 
-After reviewing the Round 15 implementation, I found two CSS bugs that break intended behavior and one structural issue:
+After Rounds 15-16, the Process intro has a warm gradient dawn background, flame-ignite anchor dot, golden thread, parallax candlelight pools, and a "First Moment" underline draw. The CSS bugs from Round 16 are fixed. However, viewing the implementation critically against Fantasy.co standards, five issues remain:
 
-### Bug 1: Candlelight Parallax Is Completely Broken
+### Issue 1: The Top Fade Color Does Not Match the New Gradient
 
-The candlelight glow pools have `transform: translateY(calc(var(--process-scroll-y, 0) * 0.05))` applied via the CSS rule at line 3368. However, the `candlelight-flicker` keyframes animation (line 3401-3410) sets `transform: scale(1)` and `transform: scale(1.1)` -- CSS animation keyframes **override** any static `transform` property. The parallax translateY is being clobbered every frame by the animation.
+The `process-section__fade-top` uses `hsl(20 20% 5%)` -- a warm brown-black. But in Round 15, the gradient dawn base was changed to start at `hsl(220 15% 6%)` -- a cool blue-black. This creates a visible color mismatch at the very top of the section where the fade overlay sits on top of the gradient. The fade needs to match the gradient's starting color.
 
-**Fix**: Combine the parallax translateY into the keyframes themselves, or use a wrapper approach. The simplest fix: change the candlelight `transform` property to use `translate` (the individual property) instead of the shorthand, and change the keyframes to use `scale` (individual property) instead of the shorthand `transform`. Modern CSS supports individual transform properties (`translate`, `scale`, `rotate`) that compose independently.
+### Issue 2: The Intro Block Has Competing Opacity Transitions
 
-### Bug 2: Duplicate Paper Selector Creates Ambiguity
+The `.process-intro` container itself has `opacity: 0 -> 1` with `transform: translateY(24px) -> 0` on scroll reveal. But each child element *also* has its own `opacity: 0 -> 1` with `translateY` transitions. This means during reveal, the container fades in (making children partially visible immediately) while children have their own staggered fade-ins. The result: children appear at reduced opacity during the container's transition, then pop to full. The container-level transition should be removed -- let the children handle their own reveals independently.
 
-There are two `.gradient-dawn--journal .gradient-dawn__paper` blocks:
-- Lines 3341-3353: Original with `position: absolute; inset: 0; background: ...; opacity: 0.5`
-- Lines 3372-3375: Added in Round 15 with only `transform` and `transition`
+### Issue 3: The Parallax Multiplier Is Too Subtle
 
-While CSS cascade means the second block adds to the first (no override conflict here), it is poor practice and could cause confusion. These should be merged into a single rule.
+The `--process-scroll-y` variable tracks `-rect.top` in pixels. With a multiplier of `0.05` for candlelight and `0.02` for paper, a 1000px scroll produces only 50px and 20px of movement respectively. Since the candlelight pools are 400x400px positioned at corners, 50px is barely perceptible. Increase to `0.08` and `0.04` for noticeable but still elegant depth.
 
-### Bug 3: Candlelight Flicker Keyframes Reset Scale During Parallax
+### Issue 4: No Ambient Warmth Shift During Scroll
 
-Even after fixing the transform composition, the `candlelight-flicker` keyframes use `transform: scale()` which means on browsers that don't support individual transform properties (older Safari), the parallax will still break. Need a fallback.
+The background is static once rendered -- the warm tones don't evolve as the user scrolls deeper into the process. At Fantasy.co quality, the background should subtly warm as the user progresses (the "dawn" metaphor -- darkness at entry, warmth deepening as preparation unfolds). This can be achieved by using the existing `--process-scroll-y` variable to shift the gradient's opacity or warmth layer.
+
+### Issue 5: The Golden Thread Tip Dot Lacks Glow Coherence
+
+The thread's `::after` tip dot uses a simple `box-shadow` with `0 0 8px` spread. This is too small and dim compared to the flame-ignite anchor dot above. The tip should have a matching triple-layer glow that creates visual continuity -- the thread appears to "carry" the flame's light downward.
 
 ---
 
-## The 5-Step Fix Plan
+## 5-Step Refinement Plan
 
-### Step 1: Fix Candlelight Parallax with Individual Transform Properties
+### Step 1: Fix Top Fade Color to Match Gradient Entry
 
-Change the candlelight elements to use `translate` (individual CSS property) for parallax and `scale` (individual CSS property) for the flicker animation, so they compose independently without overriding each other.
+**File:** `src/index.css` (lines 3867-3881)
 
-**File:** `src/index.css` (lines 3355-3370)
-- Change `transform: translateY(...)` to `translate: 0 calc(var(--process-scroll-y, 0) * 0.05)`
-- Remove `transition: transform 0ms` (unnecessary with individual properties)
+Change the `.process-section__fade-top` gradient from `hsl(20 20% 5%)` to `hsl(220 15% 6%)` to match the gradient dawn base's starting color. This eliminates the warm/cool color seam at the section's top edge.
 
-**File:** `src/index.css` (lines 3401-3410)
-- Change `candlelight-flicker` keyframes from `transform: scale(1)` / `transform: scale(1.1)` to `scale: 1` / `scale: 1.1`
+### Step 2: Remove Container-Level Opacity/Transform Transition
 
-### Step 2: Merge Duplicate Paper Selector
+**File:** `src/index.css` (lines 1741-1760)
 
-Combine the two `.gradient-dawn--journal .gradient-dawn__paper` blocks (lines 3341-3353 and 3372-3375) into a single rule with all properties.
+Remove the `opacity: 0`, `transform: translateY(24px)`, and the associated transition from `.process-intro`. Set it to `opacity: 1` and `transform: none` by default. The `.process-intro.is-visible` rule can be removed entirely. This lets the per-element stagger timings (anchor at T+200ms, label at T+400ms, etc.) work cleanly without a competing container-level fade.
+
+The `is-visible` class is still needed for child selectors (`.process-intro.is-visible .process-intro__label`) -- only the container's own opacity/transform is removed.
+
+### Step 3: Increase Parallax Multipliers
+
+**File:** `src/index.css` (lines 3360, 3376)
+
+- Change paper parallax from `0.02` to `0.04`
+- Change candlelight parallax from `0.05` to `0.08`
+
+This makes the depth effect clearly perceptible as a subtle layer separation without being distracting.
+
+### Step 4: Add Scroll-Linked Warmth Layer
+
+**File:** `src/components/process/GradientDawnBackground.tsx`
+
+Add a new div `<div className="gradient-dawn__warmth" />` between the paper and candlelight layers. This is a full-section radial gradient in warm amber that starts at `opacity: 0` and increases to `opacity: 0.06` as `--process-scroll-y` increases.
 
 **File:** `src/index.css`
-- Add `translate: 0 calc(var(--process-scroll-y, 0) * 0.02)` to the first paper selector block at line 3341
-- Delete the duplicate second block at lines 3372-3375
 
-### Step 3: Add will-change Hint for Active Parallax
+Style `.gradient-dawn--journal .gradient-dawn__warmth`:
+- `position: absolute; inset: 0`
+- `background: radial-gradient(ellipse 60% 40% at 50% 50%, hsl(35 70% 50% / 0.12), transparent 70%)`
+- `opacity: calc(clamp(0, var(--process-scroll-y, 0) / 3000, 0.08))`
+- `pointer-events: none`
 
-The parallax elements should use `will-change: translate` only when the section is in viewport to hint the browser to promote to a compositing layer.
+This creates a subtle warming effect as users scroll deeper into the Process section -- the "dawn" brightens.
 
-**File:** `src/index.css`
-- Add `.process-section .gradient-dawn__candlelight, .process-section .gradient-dawn__paper { will-change: translate; }` scoped to when section is visible
+### Step 5: Enhance Golden Thread Tip Glow
 
-### Step 4: Verify Flame Ignition Animation Chain
+**File:** `src/index.css` (lines 1979-2003)
 
-The flame-ignite keyframes use `transform: scale()` shorthand. Since the anchor dot does not have parallax, this is fine -- but for consistency and future-proofing, change to individual `scale` property.
-
-**File:** `src/index.css` (lines 1795-1814)
-- Change `flame-ignite` keyframes from `transform: scale(0)` etc. to `scale: 0` etc.
-- Update the anchor dot's initial `transform: scale(0)` to `scale: 0`
-
-### Step 5: Add Reduced Motion Guard for Parallax
-
-The scroll-linked parallax in ProcessSection.tsx already checks `prefers-reduced-motion`, but the CSS should also have a fallback that resets `translate` to `none` under reduced motion.
-
-**File:** `src/index.css` (in the existing `@media (prefers-reduced-motion: reduce)` block around line 2005)
-- Add rules to reset `translate` and `scale` for candlelight and paper elements
+Upgrade the thread's `::after` tip dot:
+- Increase size from 4px to 6px
+- Add triple-layer `box-shadow` matching the anchor dot's glow signature: `0 0 6px hsl(var(--vow-yellow) / 0.5), 0 0 14px hsl(var(--vow-yellow) / 0.25), 0 0 24px hsl(var(--vow-yellow) / 0.1)`
+- Add a subtle `exhale-pulse` animation (same 4.2s cycle as the anchor dot) so the tip breathes in sync, creating visual continuity -- the flame's light travels down the thread.
 
 ---
 
@@ -75,12 +84,12 @@ The scroll-linked parallax in ProcessSection.tsx already checks `prefers-reduced
 
 | Step | File | Change |
 |------|------|--------|
-| 1 | `src/index.css` | Fix candlelight parallax: individual `translate` + `scale` properties |
-| 1 | `src/index.css` | Fix `candlelight-flicker` keyframes to use `scale` property |
-| 2 | `src/index.css` | Merge duplicate paper selector |
-| 3 | `src/index.css` | Add `will-change: translate` for parallax layers |
-| 4 | `src/index.css` | Fix `flame-ignite` keyframes to use individual `scale` property |
-| 5 | `src/index.css` | Add reduced-motion guards for parallax properties |
+| 1 | `src/index.css` | Fix fade-top color to `hsl(220 15% 6%)` |
+| 2 | `src/index.css` | Remove container opacity/transform; keep `is-visible` for children |
+| 3 | `src/index.css` | Increase parallax multipliers (0.04 paper, 0.08 candlelight) |
+| 4 | `src/components/process/GradientDawnBackground.tsx` | Add warmth layer div |
+| 4 | `src/index.css` | Style warmth layer with scroll-linked opacity |
+| 5 | `src/index.css` | Enhance thread tip glow and add breathing animation |
 
-Single file change. No copy changes. No new dependencies. Pure bug fixes to make Round 15 animations work as intended.
+No copy changes. No new dependencies. Pure visual polish to close the gap to Fantasy.co-level cinematic quality.
 
