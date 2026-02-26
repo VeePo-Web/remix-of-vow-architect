@@ -23,38 +23,74 @@ export function TheTransformation() {
 
   return (
     <section ref={sectionRef} className="section-grain relative min-h-[500px] overflow-hidden" style={{ minHeight: '500px' }}>
-      {/* Section Label — standard positioning above split */}
-      <div className="container mx-auto px-4 pt-12 md:pt-16 pb-6 relative z-30">
-        <p
-          className={cn(
-            "text-xs uppercase tracking-[0.22em] text-foreground/50 text-center transition-all duration-700",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          )}
-        >
-          THE TRANSFORMATION
-        </p>
-      </div>
+      {/* Top fade — seamless transition from The Sound's dark exit */}
+      <div
+        className="section-fade-top"
+        style={{ background: 'linear-gradient(to top, transparent, hsl(220 15% 8%))' }}
+        aria-hidden="true"
+      />
+
+      {/* Floating Section Label — centered on divider */}
+      <p
+        className={cn(
+          "absolute left-1/2 -translate-x-1/2 top-6 md:top-10 z-40 text-xs uppercase tracking-[0.22em] text-foreground/50 transition-all duration-700",
+          "bg-background/40 backdrop-blur-sm px-5 py-1.5 rounded-full",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        )}
+      >
+        THE TRANSFORMATION
+      </p>
 
       {/* Full-Width Split Screen */}
       <div className="grid md:grid-cols-2 min-h-[600px]">
         {/* LEFT PANEL — DEATH (Fears) */}
         <div
-          className="relative px-8 py-16 md:py-24 flex flex-col items-center justify-center"
+          className="relative px-8 py-16 md:py-24 flex flex-col items-center justify-center overflow-hidden"
           style={{ background: "linear-gradient(135deg, hsl(220 15% 8%) 0%, hsl(240 12% 3%) 100%)" }}
         >
-          <img
-            src={transformationFear}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover opacity-[0.15] pointer-events-none"
-            loading="lazy"
+          {/* Ken Burns background image */}
+          <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+            <img
+              src={transformationFear}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover opacity-[0.15] pointer-events-none will-change-transform"
+              style={{
+                animation: 'transform-fear-kb 35s ease-in-out infinite alternate',
+                filter: 'saturate(0.6) contrast(1.1)',
+              }}
+              loading="lazy"
+            />
+          </div>
+
+          {/* Film grain */}
+          <div className="absolute inset-0 grain opacity-[0.08] pointer-events-none" aria-hidden="true" />
+
+          {/* Cinematic vignette */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{ background: "radial-gradient(ellipse at center, transparent 40%, hsl(240 12% 3%) 100%)" }}
             aria-hidden="true"
           />
+
+          {/* Decorative blue glow */}
           <div
             className="absolute inset-0 opacity-20 pointer-events-none"
             style={{ background: "radial-gradient(circle at 30% 40%, hsl(220 80% 20% / 0.15) 0%, transparent 60%)" }}
             aria-hidden="true"
           />
+
           <div className="relative z-10 max-w-md mx-auto space-y-6 mt-8">
+            {/* Panel heading */}
+            <h3
+              className={cn(
+                "font-display text-lg font-light italic text-foreground/40 mb-8 transition-all duration-700",
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              )}
+              style={{ transitionDelay: "0ms" }}
+            >
+              What keeps you up at night
+            </h3>
+
             {fears.map((fear, index) => (
               <div
                 key={index}
@@ -73,22 +109,52 @@ export function TheTransformation() {
 
         {/* RIGHT PANEL — LIFE (Resolutions) */}
         <div
-          className="relative px-8 py-16 md:py-24 flex items-center justify-center"
+          className="relative px-8 py-16 md:py-24 flex items-center justify-center overflow-hidden"
           style={{ background: "linear-gradient(135deg, hsl(45 30% 95%) 0%, hsl(42 28% 91%) 100%)" }}
         >
-          <img
-            src={transformationLife}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover opacity-[0.12] pointer-events-none"
-            loading="lazy"
+          {/* Ken Burns background image */}
+          <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+            <img
+              src={transformationLife}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover opacity-[0.12] pointer-events-none will-change-transform"
+              style={{
+                animation: 'transform-life-kb 25s ease-in-out infinite alternate',
+                filter: 'saturate(0.85) contrast(1.05)',
+              }}
+              loading="lazy"
+            />
+          </div>
+
+          {/* Film grain */}
+          <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
+
+          {/* Cinematic vignette */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{ background: "radial-gradient(ellipse at center, transparent 40%, hsl(42 28% 91% / 0.6) 100%)" }}
             aria-hidden="true"
           />
+
+          {/* Warm golden glow */}
           <div
             className="absolute inset-0 opacity-30 pointer-events-none"
             style={{ background: "radial-gradient(circle at 70% 40%, hsl(var(--vow-yellow) / 0.15) 0%, transparent 60%)" }}
             aria-hidden="true"
           />
+
           <div className="relative z-10 max-w-md mx-auto space-y-6">
+            {/* Panel heading */}
+            <h3
+              className={cn(
+                "font-display text-lg font-light italic text-rich-black/50 mb-8 transition-all duration-700",
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              )}
+              style={{ transitionDelay: "0ms" }}
+            >
+              What I promise instead
+            </h3>
+
             {resolutions.map((resolution, index) => (
               <div
                 key={index}
@@ -106,7 +172,7 @@ export function TheTransformation() {
         </div>
       </div>
 
-      {/* CENTER DIVIDER — breathing glow (outside grid for proper overlay) */}
+      {/* CENTER DIVIDER — breathing glow with diamond focal point */}
       <div
         className="absolute left-1/2 top-0 bottom-0 w-[3px] -translate-x-1/2 pointer-events-none hidden md:block z-30"
         style={{
@@ -114,8 +180,18 @@ export function TheTransformation() {
           boxShadow: "0 0 50px 12px hsl(var(--vow-yellow) / 0.25), 0 0 100px 24px hsl(var(--vow-yellow) / 0.12)",
           animation: "divider-breathe 4s ease-in-out infinite",
         }}
-      aria-hidden="true"
-      />
+        aria-hidden="true"
+      >
+        {/* Golden diamond focal point */}
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[8px] h-[8px] rotate-45"
+          style={{
+            background: 'hsl(var(--vow-yellow))',
+            boxShadow: '0 0 12px 4px hsl(var(--vow-yellow) / 0.5), 0 0 30px 8px hsl(var(--vow-yellow) / 0.2)',
+            animation: 'divider-breathe 4s ease-in-out infinite',
+          }}
+        />
+      </div>
 
       {/* Bottom fade into TheWitness warm */}
       <div
