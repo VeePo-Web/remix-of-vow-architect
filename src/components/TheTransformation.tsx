@@ -5,17 +5,17 @@ import transformationFear from "@/assets/transformation-fear-ai.jpg";
 import transformationLife from "@/assets/transformation-life-ai.jpg";
 
 const fears = [
-  "Guests in the back can't hear our vows",
-  "Generators hum through the ceremony",
-  "No proof the sound reached every seat",
-  "The musician arrives with no plan for your ceremony",
+  "The pianist plays the same songs as every other wedding",
+  "The music feels like background noise — not your story",
+  "No one asked what songs actually mean something to you",
+  "The musician shows up, plays, and leaves — no connection",
 ];
 
 const resolutions = [
-  "Every guest hears every word\u2014documented",
-  "Silent power. No generators. No hum.",
-  "Three sound readings logged and time-stamped",
-  "Your ceremony audio plan\u2014delivered within 24 hours",
+  "Every arrangement is built from a conversation — yours",
+  "Your walk-down song, composed note by note for you",
+  "A full ceremony plan — sent before you ever have to ask",
+  "A pianist who stays until the last guest leaves the room",
 ];
 
 export function TheTransformation() {
