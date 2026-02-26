@@ -1,21 +1,21 @@
-import { Mic, Battery, FileText, Shield, Clock, Activity } from "lucide-react";
+import { Music, Copy, Volume2, FileText, Shield, Umbrella } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import witnessCeremony from "@/assets/witness-setup-ai.jpg";
 
 const declarations = [
   "I arrive before anyone else.",
-  "I test every microphone myself.",
+  "I sound-check every note before your guests arrive.",
   "I walk your cue sheet until it is second nature.",
 ];
 
 const standardKit = [
-  { icon: Mic, label: "2 mics" },
-  { icon: Battery, label: "Battery" },
-  { icon: Activity, label: "SPL meter" },
+  { icon: Music, label: "Piano" },
+  { icon: Copy, label: "Backup piano" },
+  { icon: Volume2, label: "Speakers" },
   { icon: FileText, label: "Cue sheet" },
-  { icon: Shield, label: "$4M ins." },
-  { icon: Clock, label: "24h plan" },
+  { icon: Shield, label: "Insurance" },
+  { icon: Umbrella, label: "Rain cover" },
 ];
 
 export function TheWitness() {
@@ -66,10 +66,10 @@ export function TheWitness() {
               )}
               style={{ transitionDelay: isVisible ? "150ms" : "0ms", textWrap: "balance" as any }}
             >
-              Not a musician—<br />
-              your ceremony{" "}
+            Not a performer—<br />
+            your ceremony{" "}
               <span className="relative inline-block">
-                witness
+                pianist
                 <span
                   className="absolute left-0 right-0 -bottom-1 h-[2px]"
                   style={{
