@@ -266,7 +266,6 @@ export function TheSound() {
       <section
         ref={sectionRef}
         className="section--dark section-grain relative min-h-[400px] py-24 md:py-32 overflow-hidden"
-        style={{ minHeight: '400px' }}
         aria-labelledby="sound-heading"
       >
         {/* Top fade */}

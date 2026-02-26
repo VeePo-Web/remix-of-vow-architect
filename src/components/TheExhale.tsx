@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 /**
@@ -8,6 +8,9 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 export function TheExhale() {
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.3, rootMargin: '-40px 0px' });
   const [purposeVisible, setPurposeVisible] = useState(false);
+  const uid = useId();
+  const gradientId = `threadGradient${uid}`;
+  const glowId = `threadGlow${uid}`;
 
   useEffect(() => {
     if (!isVisible) return;
@@ -157,7 +160,7 @@ export function TheExhale() {
             preserveAspectRatio="none"
           >
             <defs>
-              <linearGradient id="threadGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0" />
                 <stop offset="15%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0.8" />
                 <stop offset="50%" stopColor="hsl(var(--vow-yellow))" stopOpacity="1" />
@@ -165,7 +168,7 @@ export function TheExhale() {
                 <stop offset="100%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0" />
               </linearGradient>
               {/* Step 6: Glow filter for thread */}
-              <filter id="threadGlow" x="-20%" y="-100%" width="140%" height="300%">
+              <filter id={glowId} x="-20%" y="-100%" width="140%" height="300%">
                 <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur" />
                 <feMerge>
                   <feMergeNode in="blur" />
@@ -176,11 +179,11 @@ export function TheExhale() {
             <path 
               d="M 0,3 Q 50,1 100,3 Q 150,5 200,3" 
               fill="none" 
-              stroke="url(#threadGradient)" 
+              stroke={`url(#${gradientId})`} 
               strokeWidth="1.8"
               strokeLinecap="round"
               className="exhale-thread-path"
-              filter="url(#threadGlow)"
+              filter={`url(#${glowId})`}
             />
           </svg>
         </div>

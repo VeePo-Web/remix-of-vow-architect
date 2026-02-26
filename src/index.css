@@ -4352,5 +4352,13 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
     animation: none !important;
     transform: scale(1) !important;
   }
+
+  /* Continuous ambient animations */
+  .divider-breathe,
+  .exhale-glow-breathe-layer,
+  .crossover-dust,
+  .vigil-pulse {
+    animation: none !important;
+  }
 }
 
