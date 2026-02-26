@@ -151,6 +151,13 @@ export function CrossOver() {
           Response within <span className="text-primary font-normal not-italic">24 hours</span>. Always.
         </p>
       </div>
+
+      {/* Bottom fade into Footer dark */}
+      <div
+        className="section-fade-bottom"
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(240 9% 4%))' }}
+        aria-hidden="true"
+      />
     </section>
   );
 }

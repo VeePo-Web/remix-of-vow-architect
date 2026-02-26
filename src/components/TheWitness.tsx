@@ -151,14 +151,21 @@ export function TheWitness() {
               <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-5">
                 What I bring
               </p>
-              <div className="flex flex-wrap justify-center gap-x-3 gap-y-1">
+              <div className="flex flex-wrap justify-center gap-x-3 gap-y-2">
                 {standardKit.map((item, index) => (
                   <span key={index} className="flex items-center gap-x-3">
-                    <span className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                    <span className="text-xs uppercase tracking-[0.18em] font-display text-muted-foreground transition-colors duration-[180ms] hover:text-foreground">
                       {item}
                     </span>
                     {index < standardKit.length - 1 && (
-                      <span className="text-primary/50">·</span>
+                      <span
+                        className="witness-kit-diamond inline-block w-[4px] h-[4px] rotate-45"
+                        style={{
+                          background: 'hsl(var(--vow-yellow) / 0.5)',
+                          boxShadow: '0 0 6px hsl(var(--vow-yellow) / 0.2)',
+                        }}
+                        aria-hidden="true"
+                      />
                     )}
                   </span>
                 ))}

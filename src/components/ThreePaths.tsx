@@ -149,41 +149,13 @@ export function ThreePaths() {
             <div
               key={index}
               className={cn(
-                "relative rounded-lg p-10 md:p-12 transition-all duration-300 group flex flex-col",
-                path.isChosen 
-                  ? "md:-translate-y-2" 
-                  : "hover:-translate-y-1",
+                "three-paths-card relative rounded-lg p-10 md:p-12 group flex flex-col",
+                path.isChosen && "three-paths-card--chosen md:-translate-y-2",
+                !path.isChosen && "hover:-translate-y-1",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               )}
               style={{ 
                 transitionDelay: isVisible ? `${450 + index * 150}ms` : "0ms",
-                transitionTimingFunction: "var(--easing-std)",
-                background: path.isChosen 
-                  ? 'radial-gradient(ellipse at 50% 0%, hsl(var(--vow-yellow) / 0.06) 0%, hsl(var(--ebon-charcoal) / 0.95) 70%)'
-                  : 'hsl(var(--ebon-charcoal) / 0.9)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                border: path.isChosen
-                  ? '1px solid hsl(var(--vow-yellow) / 0.25)'
-                  : '1px solid hsl(var(--border) / 0.2)',
-                borderTop: path.isChosen
-                  ? '1px solid hsl(var(--vow-yellow) / 0.3)'
-                  : undefined,
-                boxShadow: path.isChosen
-                  ? 'inset 0 1px 0 rgba(255,255,255,0.05), 0 16px 48px rgba(0,0,0,0.4), 0 8px 40px rgba(255,224,138,0.12)'
-                  : 'inset 0 1px 0 rgba(255,255,255,0.05), 0 16px 48px rgba(0,0,0,0.4)',
-              }}
-              onMouseEnter={(e) => {
-                if (!path.isChosen) {
-                  (e.currentTarget as HTMLElement).style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.05), 0 16px 48px rgba(0,0,0,0.4), 0 0 24px rgba(255,224,138,0.06)';
-                  (e.currentTarget as HTMLElement).style.borderColor = 'hsl(var(--vow-yellow) / 0.25)';
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (!path.isChosen) {
-                  (e.currentTarget as HTMLElement).style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,0.05), 0 16px 48px rgba(0,0,0,0.4)';
-                  (e.currentTarget as HTMLElement).style.borderColor = 'hsl(var(--border) / 0.2)';
-                }
               }}
             >
               {/* Chosen Badge */}

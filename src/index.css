@@ -4214,6 +4214,88 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   }
 }
 
+/* ─── Sound wave keyframes (moved from inline <style>) ─── */
+@keyframes sound-wave-0 { 0% { height: 3px; } 100% { height: 6px; } }
+@keyframes sound-wave-1 { 0% { height: 3px; } 100% { height: 10px; } }
+@keyframes sound-wave-2 { 0% { height: 3px; } 100% { height: 8px; } }
+@keyframes sound-wave-3 { 0% { height: 3px; } 100% { height: 5px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  [style*="sound-wave"] {
+    animation: none !important;
+    height: 3px !important;
+  }
+}
+
+/* ─── ThreePaths Card — CSS-only hover ─── */
+.three-paths-card {
+  background: hsl(var(--ebon-charcoal) / 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid hsl(var(--border) / 0.2);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 16px 48px rgba(0,0,0,0.4);
+  transition:
+    box-shadow 180ms var(--ease-sacred),
+    border-color 180ms var(--ease-sacred),
+    transform 260ms var(--ease-covenant),
+    opacity 700ms ease,
+    translate 700ms ease;
+  will-change: transform;
+}
+
+.three-paths-card:hover {
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 16px 48px rgba(0,0,0,0.4), 0 0 24px rgba(255,224,138,0.06);
+  border-color: hsl(var(--vow-yellow) / 0.25);
+}
+
+.three-paths-card--chosen {
+  background: radial-gradient(ellipse at 50% 0%, hsl(var(--vow-yellow) / 0.06) 0%, hsl(var(--ebon-charcoal) / 0.95) 70%);
+  border: 1px solid hsl(var(--vow-yellow) / 0.25);
+  border-top: 1px solid hsl(var(--vow-yellow) / 0.3);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 16px 48px rgba(0,0,0,0.4), 0 8px 40px rgba(255,224,138,0.12);
+}
+
+/* ─── TheWitnesses Testimonial Card — frosted glass ─── */
+.witnesses-testimonial-card {
+  background: hsl(45 28% 95% / 0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-left: 2px solid hsl(var(--vow-yellow) / 0.25);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.1),
+    -1px 0 6px hsl(var(--vow-yellow) / 0.15),
+    0 4px 16px rgba(0,0,0,0.04);
+  padding: 2rem;
+  transition:
+    box-shadow 180ms var(--ease-sacred),
+    opacity 700ms ease,
+    translate 700ms ease;
+}
+
+.witnesses-testimonial-card:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.1),
+    -1px 0 6px hsl(var(--vow-yellow) / 0.15),
+    0 0 20px rgba(255,224,138,0.06),
+    0 4px 16px rgba(0,0,0,0.04);
+}
+
+/* ─── Witness Kit breathing diamonds ─── */
+.witness-kit-diamond {
+  animation: exhale-pulse 4.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .three-paths-card,
+  .witnesses-testimonial-card {
+    transition: opacity 120ms ease !important;
+    will-change: auto;
+  }
+  .witness-kit-diamond {
+    animation: none;
+  }
+}
+
 /* Sound section Ken Burns */
 @keyframes sound-ken-burns {
   0% { transform: scale(1); }

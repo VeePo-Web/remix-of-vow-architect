@@ -260,12 +260,6 @@ export function TheSound() {
 
   return (
     <>
-      <style>{`
-        @keyframes sound-wave-0 { 0% { height: 3px; } 100% { height: 6px; } }
-        @keyframes sound-wave-1 { 0% { height: 3px; } 100% { height: 10px; } }
-        @keyframes sound-wave-2 { 0% { height: 3px; } 100% { height: 8px; } }
-        @keyframes sound-wave-3 { 0% { height: 3px; } 100% { height: 5px; } }
-      `}</style>
 
       <audio ref={audioRef} preload="none" />
 

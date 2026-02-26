@@ -130,13 +130,11 @@ export function TheWitnesses() {
               <div
                 key={index}
                 className={cn(
-                  "relative transition-all duration-700 border-l-2 pl-8",
+                  "witnesses-testimonial-card relative transition-all pl-8 rounded-lg",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
                 )}
                 style={{
                   transitionDelay: isVisible ? `${400 + index * 300}ms` : "0ms",
-                  borderColor: "hsl(var(--vow-yellow) / 0.2)",
-                  boxShadow: '-1px 0 6px hsl(var(--vow-yellow) / 0.15)',
                 }}
               >
                 {/* Quote */}
