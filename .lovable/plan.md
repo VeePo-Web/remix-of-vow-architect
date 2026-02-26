@@ -1,102 +1,100 @@
 
+# Homepage Final Craft Pass — Performance, Usability, and Visual Cohesion
 
-# Homepage Cross-Cutting Polish — The Final Craft Pass
+## Critical Issue Discovered
 
-## Assessment
+**The non-chosen ThreePaths card buttons are invisible.** The `ghost-dark` variant uses `text-ink-inverse border border-ink-inverse`, which in the default dark theme resolves to `--rich-black` (dark text on dark background). This is a usability-breaking bug — visitors cannot see two of three pricing CTAs.
 
-All individual homepage sections have now been elevated through four prior transformation rounds. The hero has its Vigil Sequence, the Process section has frosted glass cards and breathing golden thread, the post-Process sections have CSS-only hovers, frosted testimonials, section fades, and corrected animations. What remains are the **cross-cutting quality gaps** — the connective tissue, micro-interaction consistency, and accessibility details that separate "very good" from "Fantasy.co world-class."
+## Additional Issues
 
-### Issues Identified
+1. **Performance: 3.3 seconds of style recalculation** across 3,147 recalcs. FCP is 4.1s. The proliferation of `will-change` properties across dozens of elements forces the browser to create GPU layers unnecessarily, consuming memory and triggering excessive composite operations. Many `will-change` declarations are on elements that only animate once (scroll-reveals).
 
-1. **MobileStickyBar is unstyled and jarring** -- Returns `null` when not visible (no exit animation), uses generic `Button` with no `primary-dark` variant or `cta-breathe-glow`, has no ambient glow behind CTA, and the `animate-fade-in` entrance is abrupt. The grain overlay div has no `absolute inset-0` positioning so it renders inline.
+2. **`will-change` overuse** — Elements with scroll-triggered `transition-all` that fire once should not have persistent `will-change`. Only continuously animated elements (breathing, Ken Burns, pulses) should retain it.
 
-2. **Footer lacks scroll-reveal animations** -- Every other section on the homepage uses `useScrollReveal` with staggered reveals. The Footer renders all content instantly with no entrance animation, breaking the cinematic rhythm. The dual golden thread separators (one above footer, one inside) create redundancy.
+3. **TheWitnesses section heading is left-aligned** but the section label and golden rule are centered — a typography alignment inconsistency. The header block has `text-center` on the container but the testimonial `blockquote` uses left alignment via the card's `pl-8`. This creates a jarring center-to-left shift.
 
-3. **TheInvitation credential separators are plain text dots** -- Uses `<span className="text-vow-gold mx-3">·</span>` instead of the breathing golden diamond system now used in TheWitness kit list. Inconsistent separator treatment across the page.
+4. **Footer social icon separators are plain text dots** (`·`) while the rest of the site now uses breathing golden diamonds. Inconsistent separator vocabulary.
 
-4. **CrossOver CTA button uses generic `default` variant on non-chosen paths** -- ThreePaths non-chosen cards use `variant="outline"` which appears light on dark backgrounds. Should use `variant="ghost-dark"` or a dark-appropriate style for better contrast.
+5. **TheTransformation section lacks `loading="lazy"` with proper `fetchpriority`** — The two background images load eagerly, competing with above-fold resources.
 
-5. **Missing `prefers-reduced-motion` fallback on TheWitnesses Ken Burns** -- The image uses the generic `ken-burns` keyframe name but the reduced-motion media query only targets specific keyframe names via `[style*="..."]` selectors. This Ken Burns animation will still run for users who prefer reduced motion.
+6. **Vow Moment backdrop image is NOT lazy-loaded** — It uses a bare `<img>` with `loading="lazy"` but sits directly in the DOM as a full-screen element. Should be wrapped in an overflow-hidden container for Ken Burns future-proofing and have consistent treatment with other sections.
 
-6. **TheExhale golden thread SVG has duplicate filter IDs** -- If two instances of this component ever render (unlikely but defensive), the `id="threadGradient"` and `id="threadGlow"` will conflict. More critically, the SVG path stroke-dasharray animation is not defined — the `exhale-thread-path` class likely has no corresponding CSS animation, meaning the thread appears instantly rather than drawing in.
-
-7. **MinimalHeader nav CTA lacks the golden glow treatment** -- The "Hold My Date" link in the scrolled nav uses `nav-link--cta` class but has no ambient radial glow behind it like the CrossOver CTA does. The header is the persistent conversion touchpoint and deserves the same atmospheric treatment.
+7. **Reassurance text in ThreePaths is left-aligned** (`text-left` implied) but should be centered to match the section's centered layout.
 
 ---
 
 ## The 7-Step Transformation
 
-### Step 1: MobileStickyBar Elevation
+### Step 1: Fix Invisible ThreePaths Buttons (Critical)
 
-Upgrade the mobile sticky bar from generic to atmospheric with proper entrance/exit animations.
-
-**Changes in `MobileStickyBar.tsx`:**
-- Replace conditional `return null` with CSS-driven visibility (`translate-y-full` when hidden, `translate-y-0` when visible) so the bar slides in/out smoothly instead of popping
-- Add `absolute inset-0` to the grain overlay div so it actually covers the bar
-- Change the Button to `variant="primary-dark"` with `cta-breathe-glow` class
-- Add ambient radial glow div behind the CTA button matching CrossOver's pattern
-- Add `pb-[env(safe-area-inset-bottom)]` padding for notched devices
-
-### Step 2: Footer Scroll-Reveal Animations
-
-Add staggered entrance animations to the Footer using `useScrollReveal`.
-
-**Changes in `Footer.tsx`:**
-- Import and use `useScrollReveal` with `threshold: 0.15`
-- Add `transition-all duration-700` with conditional `opacity/translate-y` classes to each major block: name/tagline, nav column, contact column, bottom bar, covenant bookend
-- Stagger delays: name (0ms), nav (150ms), contact (300ms), bottom bar (450ms), covenant (600ms)
-- Remove the redundant first golden thread at the very top of the footer (keep only the one inside the container)
-- Add `will-change: opacity` to the closing covenant dot animation
-
-### Step 3: TheInvitation Credential Diamond Separators
-
-Replace plain text dot separators with breathing golden diamonds matching TheWitness kit pattern.
-
-**Changes in `TheInvitation.tsx`:**
-- Replace `<span className="text-vow-gold mx-3">·</span>` with the same `witness-kit-diamond` styled `<span>` pattern: `w-[4px] h-[4px] rotate-45` with `background: hsl(var(--vow-yellow) / 0.5)` and `box-shadow: 0 0 6px hsl(var(--vow-yellow) / 0.2)`
-- Add the `witness-kit-diamond` class for breathing animation consistency
-
-### Step 4: ThreePaths Non-Chosen Button Variant Fix
-
-Ensure non-chosen path card CTAs have proper dark-background contrast.
+The non-chosen card buttons use `variant="ghost-dark"` which resolves to invisible dark-on-dark colors. Fix by using `variant="outline"` with explicit styling overrides for the dark card context.
 
 **Changes in `ThreePaths.tsx`:**
-- Change non-chosen card Button from `variant="outline"` to `variant="ghost-dark"` for better visibility on the dark card background
-- Add `cta-breathe-glow` class to the chosen card's CTA button only (the "Most Selected" one)
+- Change non-chosen button from `variant="ghost-dark"` to `variant="outline"` with an explicit className override: `text-foreground/80 border-foreground/20 hover:bg-foreground/10 hover:text-foreground hover:border-foreground/30`
+- This ensures visible white text and white border on the dark card background, with proper hover states
 
-### Step 5: TheWitnesses Ken Burns Reduced-Motion Fix
+### Step 2: Performance — Remove Unnecessary `will-change`
 
-Fix the generic `ken-burns` keyframe name so reduced-motion queries target it correctly.
+The 3.3s style recalculation is caused by excessive GPU layer promotion. Remove `will-change` from elements that animate only once (scroll-reveals) and keep it only on continuously animated elements.
+
+**Changes in `src/index.css`:**
+- Remove `will-change: transform` from `.three-paths-card` (only transforms once on scroll)
+- Remove `will-change: opacity` from scroll-reveal divs in TheExhale, TheWitnesses
+- Keep `will-change: transform` only on Ken Burns images, breathing animations, and the CTA glow pulse
+- Add `contain: layout style` to section containers to reduce style recalculation scope
+
+**Changes in component files (TheExhale.tsx, TheWitnesses.tsx, Footer.tsx):**
+- Remove inline `will-change` styles from one-time transition elements
+- Keep `will-change` only on elements with `animation:` (continuous)
+
+### Step 3: TheWitnesses Typography Alignment Fix
+
+Fix the jarring center-to-left alignment shift between the section header and testimonial content.
 
 **Changes in `TheWitnesses.tsx`:**
-- Rename the animation from `ken-burns` to `witnesses-ken-burns` to match the section-specific naming convention
+- Center-align the testimonials by removing `pl-8` from testimonial cards and setting `text-center` on the blockquote
+- Move the attribution text to center alignment
+- Change the `border-left` frosted glass treatment to a `border-top` or remove it entirely (the frosted glass background, inset shadow, and hover glow are sufficient visual differentiation)
+- Update `witnesses-testimonial-card` in `src/index.css` to use `border-left: none` and add a subtle `border-top: 1px solid hsl(var(--vow-yellow) / 0.15)` instead
+
+### Step 4: Footer Social Icon Diamond Separators
+
+Replace plain text dot separators between social icons with the standardized breathing golden diamonds.
+
+**Changes in `Footer.tsx`:**
+- Replace `<span className="text-foreground/20 text-xs select-none" aria-hidden="true">·</span>` with `<span className="witness-kit-diamond inline-block w-[3px] h-[3px] rotate-45" style={{ background: 'hsl(var(--vow-yellow) / 0.3)', boxShadow: '0 0 4px hsl(var(--vow-yellow) / 0.15)' }} aria-hidden="true" />`
+- Slightly smaller (3px) than the credential diamonds (4px) to maintain hierarchical proportion
+
+### Step 5: VowMoment Image Containment
+
+Wrap the VowMoment backdrop image in an overflow-hidden container for Ken Burns future-proofing and visual consistency with other sections.
+
+**Changes in `VowMoment.tsx`:**
+- Wrap the `<img>` in a `<div className="absolute inset-0 overflow-hidden">` container
+- Add Ken Burns animation to the image: `animation: 'vow-ken-burns 30s ease-in-out infinite alternate'`
+- Add `filter: 'saturate(0.7) contrast(1.08)'` for cinematic consistency with other sections
 
 **Changes in `src/index.css`:**
-- Add `@keyframes witnesses-ken-burns` with the standard `scale(1) -> scale(1.04)` pattern
-- Add `witnesses-ken-burns` to the `prefers-reduced-motion` media query selector list
+- Add `@keyframes vow-ken-burns { 0% { transform: scale(1); } 100% { transform: scale(1.03); } }`
+- Add to `prefers-reduced-motion` query
 
-### Step 6: TheExhale Thread Draw Animation
+### Step 6: ThreePaths Reassurance Text Centering
 
-Add the missing stroke-dasharray draw animation for the golden thread SVG.
+Fix the left-aligned reassurance text to match the section's centered layout.
+
+**Changes in `ThreePaths.tsx`:**
+- The reassurance paragraph already has `text-center` class, but verify it renders centered
+- Add `max-w-2xl mx-auto` to constrain width for better readability on wide screens
+
+### Step 7: CSS Containment and Final Audit
+
+Add CSS containment to reduce style recalculation scope, and perform final consistency audit.
 
 **Changes in `src/index.css`:**
-- Add `.exhale-thread-path` styles with `stroke-dasharray` and `stroke-dashoffset` properties
-- Add `.exhale-thread-svg--visible .exhale-thread-path` transition that animates `stroke-dashoffset` from full length to 0 over 900ms with `var(--ease-covenant)` easing
-- Add `prefers-reduced-motion` fallback that shows the thread at full opacity without draw animation
-
-### Step 7: MinimalHeader CTA Glow and Performance Audit
-
-Add subtle ambient glow to the scrolled-nav CTA and perform final consistency audit.
-
-**Changes in `MinimalHeader.tsx`:**
-- Wrap the "Hold My Date" link in a relative container with a subtle radial glow pseudo-element or sibling div (smaller than CrossOver's — just a hint of warmth)
-
-**Performance audit across all files:**
-- Verify every Ken Burns animation has a corresponding keyframe and reduced-motion fallback
-- Verify all `will-change` properties are present on animated elements
-- Verify all hover transitions use `180ms` brand standard duration
-- Verify golden diamond separators use the `witness-kit-diamond` class consistently
-- Verify no orphaned or duplicate CSS keyframe names
+- Add `contain: layout style paint` to major section selectors (`.section--dark`, `.section--surface`, `.exhale-section`) to limit recalculation scope
+- Remove any duplicate `transition-all` declarations that may be overridden by more specific transitions
+- Verify all continuous animations have `will-change` and all one-shot transitions do not
+- Verify `prefers-reduced-motion` covers all remaining keyframe animations
 
 ---
 
@@ -104,13 +102,12 @@ Add subtle ambient glow to the scrolled-nav CTA and perform final consistency au
 
 | Step | File(s) | Change |
 |------|---------|--------|
-| 1 | `MobileStickyBar.tsx` | Slide animation, CTA elevation, grain fix, safe-area |
-| 2 | `Footer.tsx` | Scroll-reveal stagger, remove duplicate thread |
-| 3 | `TheInvitation.tsx` | Diamond separators replacing text dots |
-| 4 | `ThreePaths.tsx` | Button variant fix for dark background |
-| 5 | `TheWitnesses.tsx`, `src/index.css` | Ken Burns rename + reduced-motion fix |
-| 6 | `src/index.css` | Exhale thread draw animation |
-| 7 | `MinimalHeader.tsx`, all files | CTA glow + final performance audit |
+| 1 | `ThreePaths.tsx` | Fix invisible non-chosen CTA buttons |
+| 2 | `src/index.css`, multiple `.tsx` | Remove unnecessary `will-change` |
+| 3 | `TheWitnesses.tsx`, `src/index.css` | Center-align testimonials, fix border direction |
+| 4 | `Footer.tsx` | Diamond separators for social icons |
+| 5 | `VowMoment.tsx`, `src/index.css` | Image containment + Ken Burns |
+| 6 | `ThreePaths.tsx` | Reassurance text centering |
+| 7 | `src/index.css` | CSS containment + performance audit |
 
-No content changes. No new dependencies. Copy remains identical. Pure micro-interaction, accessibility, and consistency refinement.
-
+No content changes. No new dependencies. Copy remains identical. Focus on usability fix, performance optimization, and visual consistency.
