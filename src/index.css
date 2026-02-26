@@ -4108,3 +4108,15 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   }
 }
 
+/* Sound section Ken Burns */
+@keyframes sound-ken-burns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.04); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  img[style*="sound-ken-burns"] {
+    animation: none !important;
+  }
+}
+

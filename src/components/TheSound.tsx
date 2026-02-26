@@ -278,18 +278,43 @@ export function TheSound() {
         {/* Top fade */}
         <div
           className="section-fade-top"
-          style={{ background: 'linear-gradient(to top, transparent, hsl(45 20% 93%))' }}
+          style={{ background: 'linear-gradient(to top, transparent, hsl(45 25% 96%))' }}
           aria-hidden="true"
         />
 
-        {/* Background image */}
-        <img
-          src={soundKeys}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover opacity-[0.15] pointer-events-none"
-          loading="lazy"
+        {/* Background image with Ken Burns */}
+        <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+          <img
+            src={soundKeys}
+            alt=""
+            className="w-full h-full object-cover opacity-[0.12] pointer-events-none"
+            loading="lazy"
+            style={{
+              filter: "saturate(0.6) contrast(1.1)",
+              animation: reducedMotion ? "none" : "sound-ken-burns 30s ease-in-out infinite alternate",
+              willChange: "transform",
+            }}
+          />
+        </div>
+
+        {/* Cinematic vignette */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse at center, transparent 30%, hsl(220 15% 4%) 100%)",
+          }}
           aria-hidden="true"
         />
+
+        {/* Warm atmospheric fog */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.025) 0%, transparent 60%)",
+          }}
+          aria-hidden="true"
+        />
+
         {/* Radial glow */}
         <div
           className="absolute inset-0 pointer-events-none"
@@ -343,8 +368,12 @@ export function TheSound() {
               style={{
                 transitionDelay: isVisible ? "450ms" : "0ms",
                 background: "hsl(var(--rich-black))",
-                border: "1px solid hsl(var(--vow-yellow) / 0.12)",
-                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), 0 24px 80px rgba(0,0,0,0.5)",
+                borderTop: "1px solid hsl(var(--vow-yellow) / 0.18)",
+                borderLeft: "1px solid hsl(var(--vow-yellow) / 0.10)",
+                borderRight: "1px solid hsl(var(--vow-yellow) / 0.10)",
+                borderBottom: "1px solid hsl(var(--vow-yellow) / 0.06)",
+                boxShadow: "inset 0 2px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.3), 0 24px 80px rgba(0,0,0,0.5)",
+                backdropFilter: "blur(12px)",
               }}
             >
               <PianoStrings visible={isVisible} />
@@ -363,7 +392,7 @@ export function TheSound() {
                         key={track.title}
                         onClick={() => hasSrc ? handleTrackClick(thisGlobalIndex) : undefined}
                         className={cn(
-                          "w-full flex items-center gap-3 h-9 px-5",
+                          "w-full flex items-center gap-3 h-10 px-5",
                           "font-display text-[15px] font-light tracking-tight",
                           "transition-colors duration-[180ms]",
                           isActive
@@ -402,8 +431,8 @@ export function TheSound() {
 
                   return (
                     <div key={category.id}>
-                      <div className="px-5 pt-4 pb-1.5">
-                        <span className="font-sans text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
+                      <div className="px-5 pt-5 pb-2">
+                        <span className="font-sans text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
                           {category.label}
                         </span>
                         <div
@@ -422,15 +451,27 @@ export function TheSound() {
             </div>
 
             {/* Closing Caption */}
-            <p
+            <div
               className={cn(
-                "text-sm text-muted-foreground max-w-lg mx-auto text-center mt-12 transition-all duration-700",
+                "max-w-lg mx-auto text-center mt-16 transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{ transitionDelay: isVisible ? "600ms" : "0ms" }}
             >
-              Every piece I play begins the same way — with someone in mind.
-            </p>
+              {/* Golden thread */}
+              <div
+                className="mx-auto mb-6"
+                style={{
+                  width: "48px",
+                  height: "1px",
+                  background: "linear-gradient(to right, transparent, hsl(var(--vow-yellow) / 0.5), transparent)",
+                }}
+                aria-hidden="true"
+              />
+              <p className="text-base font-display font-light italic text-muted-foreground">
+                Every piece I play begins the same way — with someone in mind.
+              </p>
+            </div>
           </div>
         </div>
 
