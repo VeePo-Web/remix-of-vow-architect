@@ -2,6 +2,8 @@ import { NavLink } from "@/components/NavLink";
 import { Mail, Phone, Instagram, Youtube } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 export function Footer() {
   const { ref: footerRef, isVisible } = useScrollReveal({ threshold: 0.15 });
@@ -9,9 +11,12 @@ export function Footer() {
   return (
     <footer
       ref={footerRef}
-      className="section--dark relative overflow-hidden pb-16 md:pb-0"
+      className="section--dark relative overflow-hidden pb-[env(safe-area-inset-bottom)]"
       aria-label="Site footer"
     >
+      {/* === Color bridge from CrossOver === */}
+      <div className="footer-fade-bridge" aria-hidden="true" />
+
       {/* === Atmospheric layers === */}
       <div
         className="grain pointer-events-none absolute inset-0 z-[1] opacity-[0.06]"
@@ -35,9 +40,9 @@ export function Footer() {
       />
 
       <div className="container mx-auto py-20 px-4 relative z-[2]">
-        {/* Golden thread above content */}
+        {/* Golden thread above content — widened to 48px */}
         <div
-          className="h-[1px] w-24 mx-auto mb-12 footer-breathe"
+          className="h-[1px] w-12 mx-auto mb-12 footer-breathe"
           style={{
             background:
               "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.25), transparent)",
@@ -66,34 +71,35 @@ export function Footer() {
             <p className="text-foreground/70 mb-8 max-w-md leading-relaxed">
               I carry your vows so they can carry your guests.
             </p>
-            <div className="flex items-center gap-2">
+            {/* Social icons with spotlight hover */}
+            <div className="group/icons flex items-center gap-4">
               <a
                 href="mailto:ParJorFraGaw@gmail.com"
-                className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] transition-all duration-[180ms] p-3 -m-3 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
+                className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] group-hover/icons:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] p-3.5 -m-3.5 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
                 aria-label="Send me an email"
               >
                 <Mail size={18} />
               </a>
-              <span className="witness-kit-diamond inline-block w-[3px] h-[3px] rotate-45" style={{ background: 'hsl(var(--vow-yellow) / 0.3)', boxShadow: '0 0 4px hsl(var(--vow-yellow) / 0.15)' }} aria-hidden="true" />
+              <span className="inline-block w-1 h-1 rotate-45" style={{ background: 'hsl(var(--vow-yellow) / 0.3)', boxShadow: '0 0 4px hsl(var(--vow-yellow) / 0.15)' }} aria-hidden="true" />
               <a
                 href="tel:+14038308930"
-                className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] transition-all duration-[180ms] p-3 -m-3 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
+                className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] group-hover/icons:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] p-3.5 -m-3.5 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
                 aria-label="Call me by phone"
               >
                 <Phone size={18} />
               </a>
-              <span className="witness-kit-diamond inline-block w-[3px] h-[3px] rotate-45" style={{ background: 'hsl(var(--vow-yellow) / 0.3)', boxShadow: '0 0 4px hsl(var(--vow-yellow) / 0.15)' }} aria-hidden="true" />
+              <span className="inline-block w-1 h-1 rotate-45" style={{ background: 'hsl(var(--vow-yellow) / 0.3)', boxShadow: '0 0 4px hsl(var(--vow-yellow) / 0.15)' }} aria-hidden="true" />
               <a
                 href="https://instagram.com"
-                className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] transition-all duration-[180ms] p-3 -m-3 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
+                className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] group-hover/icons:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] p-3.5 -m-3.5 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
                 aria-label="Follow me on Instagram"
               >
                 <Instagram size={18} />
               </a>
-              <span className="witness-kit-diamond inline-block w-[3px] h-[3px] rotate-45" style={{ background: 'hsl(var(--vow-yellow) / 0.3)', boxShadow: '0 0 4px hsl(var(--vow-yellow) / 0.15)' }} aria-hidden="true" />
+              <span className="inline-block w-1 h-1 rotate-45" style={{ background: 'hsl(var(--vow-yellow) / 0.3)', boxShadow: '0 0 4px hsl(var(--vow-yellow) / 0.15)' }} aria-hidden="true" />
               <a
                 href="https://youtube.com"
-                className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] transition-all duration-[180ms] p-3 -m-3 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
+                className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] group-hover/icons:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] p-3.5 -m-3.5 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
                 aria-label="Watch me on YouTube"
               >
                 <Youtube size={18} />
@@ -175,13 +181,36 @@ export function Footer() {
           aria-hidden="true"
         />
 
+        {/* === Subtle CTA — delay 400ms === */}
+        <div
+          className={cn(
+            "flex flex-col items-center gap-4 mb-10 transition-all duration-700",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          )}
+          style={{ transitionDelay: isVisible ? "400ms" : "0ms" }}
+        >
+          <div
+            className="pointer-events-none absolute w-[200px] h-[200px] rounded-full"
+            style={{
+              background: "radial-gradient(circle, hsl(var(--vow-yellow) / 0.04) 0%, transparent 70%)",
+            }}
+            aria-hidden="true"
+          />
+          <p className="font-display text-sm text-foreground/50">
+            Ready to begin?
+          </p>
+          <Button variant="ghost-dark" size="sm" asChild>
+            <Link to="/contact">Hold my date</Link>
+          </Button>
+        </div>
+
         {/* Bottom bar — delay 450ms */}
         <div
           className={cn(
             "flex flex-col md:flex-row justify-between items-center gap-4 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
-          style={{ transitionDelay: isVisible ? "450ms" : "0ms" }}
+          style={{ transitionDelay: isVisible ? "500ms" : "0ms" }}
         >
           <p className="text-sm text-foreground/40">
             © {new Date().getFullYear()} Parker Gawryletz. All rights reserved.
@@ -208,20 +237,43 @@ export function Footer() {
             "mt-10 flex flex-col items-center gap-3 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
-          style={{ transitionDelay: isVisible ? "600ms" : "0ms" }}
+          style={{ transitionDelay: isVisible ? "650ms" : "0ms" }}
         >
+          {/* Mini golden thread echo */}
           <div
-            className="w-1 h-1 rounded-full"
-            style={{ background: "hsl(var(--vow-yellow) / 0.4)" }}
+            className="h-[1px] w-8 footer-breathe"
+            style={{
+              background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.2), transparent)",
+            }}
             aria-hidden="true"
           />
-          <p className="font-display text-sm text-foreground/30 tracking-wide">
+          {/* Triple-glow dot */}
+          <div
+            className="w-1.5 h-1.5 rounded-full"
+            style={{
+              background: "hsl(var(--vow-yellow) / 0.5)",
+              boxShadow:
+                "0 0 6px hsl(var(--vow-yellow) / 0.5), 0 0 14px hsl(var(--vow-yellow) / 0.25), 0 0 24px hsl(var(--vow-yellow) / 0.1)",
+            }}
+            aria-hidden="true"
+          />
+          <p className="font-display text-sm text-foreground/40 tracking-wide">
             'Til Death
-            <span className="text-[hsl(var(--vow-yellow)/0.5)]">{" ; "}</span>
+            <span
+              className="text-[hsl(var(--vow-yellow)/0.6)]"
+              style={{
+                animation: "semicolon-heartbeat 2s ease-in-out infinite",
+              }}
+            >
+              {" ; "}
+            </span>
             Unto Life.
           </p>
         </div>
       </div>
+
+      {/* Mobile sticky bar spacer */}
+      <div className="h-16 md:h-0" aria-hidden="true" />
     </footer>
   );
 }

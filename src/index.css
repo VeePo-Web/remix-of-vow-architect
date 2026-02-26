@@ -4324,7 +4324,19 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 }
 
 .footer-breathe {
-  animation: footer-breathe 6s ease-in-out infinite;
+  animation: footer-breathe 8s ease-in-out infinite;
+}
+
+/* Footer color bridge from CrossOver */
+.footer-fade-bridge {
+  position: absolute;
+  top: -60px;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, hsl(240 9% 2%));
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* CrossOver particle dust drift */
