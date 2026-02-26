@@ -84,7 +84,7 @@ export function TheTransformation() {
             {/* Panel heading */}
             <h3
               className={cn(
-                "font-display text-xl font-light italic tracking-tight text-foreground/40 mb-8 transition-all duration-900",
+                "font-display text-xl font-light italic tracking-tight text-foreground/40 mb-8 transition-all duration-[900ms]",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{ transitionDelay: "0ms", transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)' }}
@@ -117,9 +117,14 @@ export function TheTransformation() {
           aria-hidden="true"
         >
           <div
-            className="w-12 h-[1px]"
+            className={cn(
+              "w-12 h-[1px] origin-center transition-transform duration-700",
+              isVisible ? "scale-x-100" : "scale-x-0"
+            )}
             style={{
               background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.4), transparent)",
+              transitionDelay: isVisible ? "500ms" : "0ms",
+              transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
             }}
           />
         </div>
@@ -165,7 +170,7 @@ export function TheTransformation() {
             {/* Panel heading */}
             <h3
               className={cn(
-                "font-display text-xl font-light italic tracking-tight text-rich-black/50 mb-8 transition-all duration-900 relative inline-block",
+                "font-display text-xl font-light italic tracking-tight text-rich-black/50 mb-8 transition-all duration-[900ms] relative inline-block",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{ transitionDelay: "0ms", transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)' }}
