@@ -3,26 +3,105 @@ import { cn } from "@/lib/utils";
 import { Play, Pause } from "lucide-react";
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import soundKeys from "@/assets/sound-cathedral-ai.jpg";
-import { AudioPlayer } from "./AudioPlayer";
+import { categories, allTracks } from "./PianoPanel";
 
-const tracks = [
-  { title: "Canon in D (reimagined)", context: "Processional", src: "/audio/canon-in-d.mp3" },
-  { title: "A Thousand Years", context: "Bride's Entrance", src: "/audio/a-thousand-years.mp3" },
-  { title: "Married Life", context: "Signing", src: "/audio/married-life.mp3" },
-  { title: "At Last", context: "Recession", src: "/audio/at-last.mp3" },
+/* ─── Mini waveform for active track ─── */
+const miniBarHeights = [6, 10, 8, 5];
+const miniBarOpacities = [0.6, 1, 0.8, 0.5];
+
+function MiniWaveform({ active }: { active: boolean }) {
+  return (
+    <div className="flex items-center gap-[1.5px] h-[12px]" aria-hidden="true">
+      {miniBarHeights.map((maxH, i) => (
+        <div
+          key={i}
+          className="w-[1.5px] rounded-full"
+          style={{
+            height: active ? undefined : "3px",
+            background: `hsl(var(--vow-yellow) / ${miniBarOpacities[i]})`,
+            animation: active
+              ? `sound-wave-${i} 1200ms ease-in-out ${i * 150}ms infinite alternate`
+              : "none",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+/* ─── Piano Strings (decorative) ─── */
+const stringPositions = [
+  8, 11, 14,
+  28, 31, 34,
+  50, 53, 56,
+  72, 75, 78,
+  92, 95,
 ];
 
+function PianoStrings({ visible }: { visible: boolean }) {
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-[16px]" aria-hidden="true">
+      {stringPositions.map((pct, i) => (
+        <div
+          key={i}
+          className="absolute top-0 bottom-0"
+          style={{
+            left: `${pct}%`,
+            width: "1px",
+            background: `linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.18), hsl(var(--vow-yellow) / 0.06))`,
+            opacity: visible ? 1 : 0,
+            transition: "opacity 180ms ease-out",
+            transitionDelay: visible ? `${100 + i * 12}ms` : "0ms",
+          }}
+        />
+      ))}
+      {/* Hammer rail */}
+      <div
+        className="absolute left-0 right-0"
+        style={{
+          top: "8px",
+          height: "1px",
+          background: `hsl(var(--vow-yellow) / 0.22)`,
+          opacity: visible ? 1 : 0,
+          transition: "opacity 180ms ease-out 120ms",
+        }}
+      />
+      {/* Felt damper strip */}
+      <div
+        className="absolute left-0 right-0"
+        style={{
+          top: "20px",
+          height: "2px",
+          background: "hsl(var(--vow-yellow) / 0.10)",
+          opacity: visible ? 1 : 0,
+          transition: "opacity 180ms ease-out 160ms",
+        }}
+      />
+      {/* Interior light gradient */}
+      <div
+        className="absolute inset-0 rounded-[16px]"
+        style={{
+          background: "radial-gradient(ellipse at 50% 0%, hsl(var(--vow-yellow) / 0.04) 0%, transparent 60%)",
+          opacity: visible ? 1 : 0,
+          transition: "opacity 260ms ease-out 80ms",
+        }}
+      />
+    </div>
+  );
+}
+
+/* ─── Now Playing Bar (sticky when scrolled away) ─── */
 function NowPlayingBar({
   visible,
   trackTitle,
-  trackContext,
+  categoryLabel,
   isPlaying,
   progress,
   duration,
 }: {
   visible: boolean;
   trackTitle: string;
-  trackContext: string;
+  categoryLabel: string;
   isPlaying: boolean;
   progress: number;
   duration: number;
@@ -42,14 +121,12 @@ function NowPlayingBar({
       aria-label="Now playing"
       role="region"
     >
-      {/* Progress track */}
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-foreground/5">
         <div
           className="h-full bg-[hsl(var(--vow-yellow))] transition-none"
           style={{ width: `${percent}%` }}
         />
       </div>
-
       <div className="container mx-auto px-4 h-full flex items-center justify-between gap-4">
         <div className="flex items-center gap-3 min-w-0">
           <button
@@ -67,7 +144,7 @@ function NowPlayingBar({
           </button>
           <div className="min-w-0">
             <span className="text-[10px] uppercase tracking-[0.15em] text-[hsl(var(--vow-yellow)/0.7)] block leading-none mb-0.5">
-              {trackContext}
+              {categoryLabel}
             </span>
             <span className="text-xs text-foreground/80 font-display truncate block">
               {trackTitle}
@@ -79,58 +156,133 @@ function NowPlayingBar({
   );
 }
 
+/* ─── Main Section ─── */
 export function TheSound() {
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.2 });
+  const audioRef = useRef<HTMLAudioElement>(null);
   const [sectionInView, setSectionInView] = useState(true);
-  const [playState, setPlayState] = useState({
-    playing: false,
-    trackIndex: null as number | null,
-    progress: 0,
-    duration: 0,
-  });
+  const [activeTrackIndex, setActiveTrackIndex] = useState<number | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [reducedMotion, setReducedMotion] = useState(false);
 
-  // Track whether section is in view for mini-bar
+  // Reduced motion
+  useEffect(() => {
+    setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }, []);
+
+  // Track section visibility for mini-bar
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
-
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setSectionInView(entry.isIntersecting);
-      },
+      ([entry]) => setSectionInView(entry.isIntersecting),
       { threshold: 0.05 }
     );
-
     observer.observe(el);
     return () => observer.disconnect();
   }, [sectionRef]);
 
-  const handlePlayStateChange = useCallback(
-    (playing: boolean, trackIndex: number | null, progress: number, duration: number) => {
-      setPlayState({ playing, trackIndex, progress, duration });
-    },
-    []
-  );
+  // Audio event listeners
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    const onTime = () => setProgress(audio.currentTime);
+    const onDur = () => setDuration(audio.duration);
+    const onEnd = () => setIsPlaying(false);
+    audio.addEventListener("timeupdate", onTime);
+    audio.addEventListener("durationchange", onDur);
+    audio.addEventListener("ended", onEnd);
+    return () => {
+      audio.removeEventListener("timeupdate", onTime);
+      audio.removeEventListener("durationchange", onDur);
+      audio.removeEventListener("ended", onEnd);
+    };
+  }, []);
 
-  const showMiniBar = playState.playing && !sectionInView && playState.trackIndex !== null;
-  const activeTrack = playState.trackIndex !== null ? tracks[playState.trackIndex] : null;
+  const togglePlayPause = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio || activeTrackIndex === null) return;
+    if (isPlaying) {
+      audio.pause();
+      setIsPlaying(false);
+    } else {
+      audio.play().catch(() => {});
+      setIsPlaying(true);
+    }
+  }, [activeTrackIndex, isPlaying]);
+
+  // Expose for mini-bar
+  useEffect(() => {
+    (window as any).__sacredSoundToggle = togglePlayPause;
+    return () => { delete (window as any).__sacredSoundToggle; };
+  }, [togglePlayPause]);
+
+  const handleTrackClick = useCallback((globalIndex: number) => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    const track = allTracks[globalIndex];
+    if (!track?.src) return; // no audio file yet
+
+    if (activeTrackIndex === globalIndex) {
+      togglePlayPause();
+    } else {
+      audio.pause();
+      audio.src = track.src;
+      audio.load();
+      setActiveTrackIndex(globalIndex);
+      setProgress(0);
+      setDuration(0);
+      audio.play().catch(() => {});
+      setIsPlaying(true);
+    }
+  }, [activeTrackIndex, togglePlayPause]);
+
+  // Find category label for active track
+  const getActiveCategoryLabel = () => {
+    if (activeTrackIndex === null) return "";
+    let idx = 0;
+    for (const cat of categories) {
+      if (activeTrackIndex >= idx && activeTrackIndex < idx + cat.tracks.length) {
+        return cat.label;
+      }
+      idx += cat.tracks.length;
+    }
+    return "";
+  };
+
+  const showMiniBar = isPlaying && !sectionInView && activeTrackIndex !== null;
+  const activeTrack = activeTrackIndex !== null ? allTracks[activeTrackIndex] : null;
+
+  // Build global index offset per category
+  let globalOffset = 0;
 
   return (
     <>
+      <style>{`
+        @keyframes sound-wave-0 { 0% { height: 3px; } 100% { height: 6px; } }
+        @keyframes sound-wave-1 { 0% { height: 3px; } 100% { height: 10px; } }
+        @keyframes sound-wave-2 { 0% { height: 3px; } 100% { height: 8px; } }
+        @keyframes sound-wave-3 { 0% { height: 3px; } 100% { height: 5px; } }
+      `}</style>
+
+      <audio ref={audioRef} preload="none" />
+
       <section
         ref={sectionRef}
         className="section--dark section-grain relative min-h-[400px] py-24 md:py-32 overflow-hidden"
         style={{ minHeight: '400px' }}
         aria-labelledby="sound-heading"
       >
-        {/* Top fade from TheInvitation warm */}
+        {/* Top fade */}
         <div
           className="section-fade-top"
           style={{ background: 'linear-gradient(to top, transparent, hsl(45 20% 93%))' }}
           aria-hidden="true"
         />
 
-        {/* Background image layer */}
+        {/* Background image */}
         <img
           src={soundKeys}
           alt=""
@@ -138,7 +290,7 @@ export function TheSound() {
           loading="lazy"
           aria-hidden="true"
         />
-        {/* Subtle radial glow behind content */}
+        {/* Radial glow */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -168,7 +320,7 @@ export function TheSound() {
               )}
               style={{ transitionDelay: isVisible ? "150ms" : "0ms", textWrap: "balance" as any }}
             >
-              Music that holds the room still.
+              Hear me play.
             </h2>
 
             {/* Subhead */}
@@ -179,34 +331,110 @@ export function TheSound() {
               )}
               style={{ transitionDelay: isVisible ? "300ms" : "0ms" }}
             >
-              The prelude. The procession. The vows. The walk into forever.
+              Browse. Listen. Imagine it at yours.
             </p>
 
-            {/* Interactive Audio Player */}
+            {/* Inline Listening Room */}
             <div
               className={cn(
-                "transition-all duration-700",
+                "max-w-md mx-auto rounded-[16px] relative overflow-hidden transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
-              style={{ transitionDelay: isVisible ? "450ms" : "0ms" }}
+              style={{
+                transitionDelay: isVisible ? "450ms" : "0ms",
+                background: "hsl(var(--rich-black))",
+                border: "1px solid hsl(var(--vow-yellow) / 0.12)",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), 0 24px 80px rgba(0,0,0,0.5)",
+              }}
             >
-              <AudioPlayer tracks={tracks} onPlayStateChange={handlePlayStateChange} />
+              <PianoStrings visible={isVisible} />
+
+              <div className="relative z-10 py-2">
+                {categories.map((category, catIdx) => {
+                  const startIndex = globalOffset;
+                  const trackElements = category.tracks.map((track, tIdx) => {
+                    const thisGlobalIndex = startIndex + tIdx;
+                    const isActive = activeTrackIndex === thisGlobalIndex;
+                    const isTrackPlaying = isActive && isPlaying;
+                    const hasSrc = !!track.src;
+
+                    return (
+                      <button
+                        key={track.title}
+                        onClick={() => hasSrc ? handleTrackClick(thisGlobalIndex) : undefined}
+                        className={cn(
+                          "w-full flex items-center gap-3 h-9 px-5",
+                          "font-display text-[15px] font-light tracking-tight",
+                          "transition-colors duration-[180ms]",
+                          isActive
+                            ? "text-[hsl(var(--vow-yellow))]"
+                            : hasSrc
+                            ? "text-foreground/70 hover:text-foreground hover:bg-[hsl(var(--vow-yellow)/0.03)]"
+                            : "text-foreground/30 cursor-default"
+                        )}
+                        style={{
+                          background: isActive
+                            ? "radial-gradient(ellipse at 20% 50%, hsl(var(--vow-yellow) / 0.06) 0%, transparent 70%)"
+                            : undefined,
+                        }}
+                        aria-label={isTrackPlaying ? `Pause ${track.title}` : `Play ${track.title}`}
+                      >
+                        {/* Accent bar */}
+                        <span
+                          className="flex-shrink-0"
+                          style={{
+                            width: "2px",
+                            height: isActive ? "16px" : "3px",
+                            borderRadius: "1px",
+                            background: isActive ? "hsl(var(--vow-yellow))" : "transparent",
+                            transform: isActive ? "scaleY(1)" : "scaleY(0)",
+                            transition: "transform 180ms cubic-bezier(0.22,0.61,0.36,1), height 180ms cubic-bezier(0.22,0.61,0.36,1), background 120ms",
+                          }}
+                        />
+                        <span className="flex-1 text-left truncate">
+                          {track.title}
+                        </span>
+                        {isActive && <MiniWaveform active={isTrackPlaying} />}
+                      </button>
+                    );
+                  });
+                  globalOffset = startIndex + category.tracks.length;
+
+                  return (
+                    <div key={category.id}>
+                      <div className="px-5 pt-4 pb-1.5">
+                        <span className="font-sans text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
+                          {category.label}
+                        </span>
+                        <div
+                          className="mt-1.5"
+                          style={{
+                            height: "1px",
+                            background: "linear-gradient(to right, transparent 0%, hsl(var(--vow-yellow) / 0.14) 40%, hsl(var(--vow-yellow) / 0.14) 60%, transparent 100%)",
+                          }}
+                        />
+                      </div>
+                      {trackElements}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Closing Caption */}
             <p
               className={cn(
-                "text-sm text-muted-foreground max-w-lg mx-auto text-center transition-all duration-700",
+                "text-sm text-muted-foreground max-w-lg mx-auto text-center mt-12 transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{ transitionDelay: isVisible ? "600ms" : "0ms" }}
             >
-              Every arrangement begins with a conversation—and ends with a sound that belongs only to you.
+              Every piece I play begins the same way — with someone in mind.
             </p>
           </div>
         </div>
 
-        {/* Bottom fade into Transformation dark */}
+        {/* Bottom fade */}
         <div
           className="section-fade-bottom"
           style={{ background: 'linear-gradient(to bottom, transparent, hsl(220 15% 8%))' }}
@@ -218,10 +446,10 @@ export function TheSound() {
       <NowPlayingBar
         visible={showMiniBar}
         trackTitle={activeTrack?.title ?? ""}
-        trackContext={activeTrack?.context ?? ""}
-        isPlaying={playState.playing}
-        progress={playState.progress}
-        duration={playState.duration}
+        categoryLabel={getActiveCategoryLabel()}
+        isPlaying={isPlaying}
+        progress={progress}
+        duration={duration}
       />
     </>
   );
