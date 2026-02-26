@@ -91,7 +91,7 @@ export function TheInvitation() {
                     ? 'opacity-100 translate-y-0'
                     : 'opacity-0 translate-y-6'
                 )}
-                style={{ transitionDelay: isVisible ? '300ms' : '0ms', textWrap: "balance" as any }}
+                style={{ transitionDelay: isVisible ? '300ms' : '0ms', textWrap: "balance" as any, marginInline: 0 }}
               >
                I have been at 200 ceremonies.
                 <br />
