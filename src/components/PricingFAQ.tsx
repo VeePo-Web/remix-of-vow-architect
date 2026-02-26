@@ -29,7 +29,7 @@ export function PricingFAQ() {
   return (
     <section id="faqs" className="py-16 px-4">
       <div className="container mx-auto max-w-3xl">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+        <h2 className="h2 text-center mb-12">
           Frequently Asked Pricing Questions
         </h2>
 
@@ -47,8 +47,7 @@ export function PricingFAQ() {
         </Accordion>
 
         <div className="flex flex-wrap justify-center gap-4 mt-8">
-          <DirectionalLink to="/faq">More FAQs</DirectionalLink>
-          <DirectionalLink to="/proof">View SPL Logs</DirectionalLink>
+          <DirectionalLink to="/gallery">View SPL Logs</DirectionalLink>
           <DirectionalLink to="/contact">Hold Your Date</DirectionalLink>
         </div>
       </div>

@@ -1,17 +1,14 @@
-import { Navigation } from "@/components/Navigation";
+import { MinimalHeader } from "@/components/MinimalHeader";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { InclusionBlock } from "@/components/InclusionBlock";
 import { ComparisonTable } from "@/components/ComparisonTable";
-import { PricingJumpNav } from "@/components/PricingJumpNav";
 import { PricingAddOns } from "@/components/PricingAddOns";
 import { PricingTestimonials } from "@/components/PricingTestimonials";
 import { PricingFAQ } from "@/components/PricingFAQ";
 import { PricingSampleDownload } from "@/components/PricingSampleDownload";
 import { MostSelectedPill } from "@/components/MostSelectedPill";
-import { StarBar } from "@/components/StarBar";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Check } from "lucide-react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import servicesHeroImg from "@/assets/services-hero.jpg";
@@ -21,10 +18,7 @@ export default function Pricing() {
 
   return (
     <div className="min-h-screen">
-      <Navigation />
-      
-      {/* Section 1: Jump Navigation */}
-      <PricingJumpNav />
+      <MinimalHeader />
 
       <section className="relative section-padding bg-background">
         {/* Atmospheric background on hero area */}
@@ -51,12 +45,7 @@ export default function Pricing() {
         />
 
         <div className="container mx-auto px-4 relative z-10">
-          <Breadcrumbs items={[
-            { label: "Home", path: "/" },
-            { label: "Pricing & Packages" }
-          ]} />
-
-          <div className="text-center mb-12 animate-fade-in">
+          <div className="text-center mb-12 animate-fade-in pt-24">
             <div className="overline mb-2">Assured Ceremony Audio™</div>
             <h1 className="h1 mx-auto mb-4">Pricing & Packages</h1>
             <div className="chapter-rule mx-auto" />
@@ -82,10 +71,7 @@ export default function Pricing() {
             <div className="grid md:grid-cols-3 gap-6">
               {/* Ceremony Only — $650 */}
               <Card className="relative p-6 card-keyline bg-card border-border card-lift">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-3 h-3 rounded-full bg-green-500" />
-                  <h3 className="h3">Ceremony Only</h3>
-                </div>
+                <h3 className="h3 mb-4">Ceremony Only</h3>
                 
                 <div className="text-4xl font-bold text-primary mb-2 price-numeral font-display">$650</div>
                 <p className="p-body text-muted-foreground mb-6">
@@ -107,10 +93,6 @@ export default function Pricing() {
                   ))}
                 </ul>
 
-                <div className="mb-4">
-                  <StarBar rating={5} />
-                </div>
-
                 <Button className="w-full hover-scale mb-3">Hold my date</Button>
 
                 <div className="space-y-2 text-xs text-muted-foreground">
@@ -123,10 +105,7 @@ export default function Pricing() {
               <Card className="relative p-6 card-keyline bg-card border-primary/20 border-2 card-lift" style={{ boxShadow: "0 0 40px hsl(var(--vow-yellow) / 0.08)" }}>
                 <MostSelectedPill />
                 
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-3 h-3 rounded-full bg-blue-500" />
-                  <h3 className="h3">Ceremony + Prelude/Cocktails</h3>
-                </div>
+                <h3 className="h3 mb-4">Ceremony + Prelude/Cocktails</h3>
                 
                 <div className="text-4xl font-bold text-primary mb-2 price-numeral font-display">$750</div>
                 <p className="p-body text-muted-foreground mb-6">
@@ -148,10 +127,6 @@ export default function Pricing() {
                   ))}
                 </ul>
 
-                <div className="mb-4">
-                  <StarBar rating={5} />
-                </div>
-
                 <Button className="w-full hover-scale mb-3">Hold my date</Button>
 
                 <p className="text-xs text-muted-foreground italic">
@@ -161,10 +136,7 @@ export default function Pricing() {
 
               {/* Full Day — $1,200 */}
               <Card className="relative p-6 card-keyline bg-card border-border card-lift">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-3 h-3 rounded-full bg-purple-500" />
-                  <h3 className="h3">Full Day</h3>
-                </div>
+                <h3 className="h3 mb-4">Full Day</h3>
                 
                 <div className="text-4xl font-bold text-primary mb-2 price-numeral font-display">$1,200</div>
                 <p className="p-body text-muted-foreground mb-6">
@@ -185,10 +157,6 @@ export default function Pricing() {
                     </li>
                   ))}
                 </ul>
-
-                <div className="mb-4">
-                  <StarBar rating={5} />
-                </div>
 
                 <Button className="w-full hover-scale mb-3">Hold my date</Button>
 

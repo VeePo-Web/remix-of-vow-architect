@@ -47,7 +47,7 @@ export function InclusionBlock() {
   return (
     <div className="bg-card border border-border rounded-lg p-8 mb-8">
       <div className="text-center mb-8">
-        <h2 className="text-2xl md:text-3xl font-bold mb-3">
+        <h2 className="h2 text-center mb-3">
           All Packages Include Ceremony-Proof Clarity
         </h2>
         <p className="text-muted-foreground max-w-3xl mx-auto">
@@ -62,7 +62,7 @@ export function InclusionBlock() {
               <item.icon size={20} className="text-primary" />
             </div>
             <div>
-              <h3 className="font-semibold mb-1">{item.label}</h3>
+              <h3 className="h4 mb-1">{item.label}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 {item.description}
               </p>

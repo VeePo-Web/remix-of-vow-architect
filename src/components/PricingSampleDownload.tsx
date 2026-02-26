@@ -7,10 +7,10 @@ export function PricingSampleDownload() {
     <section id="download" className="py-16 px-4 bg-muted/30">
       <div className="container mx-auto max-w-4xl">
         <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="h2 text-center mb-4">
             Still comparing?
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="p-lead text-muted-foreground max-w-2xl mx-auto">
             Download a real SPL log, cue sheet, and plan summary from a recent $750 package—see exactly how I document power, mic placement, and legal clarity.
           </p>
         </div>
