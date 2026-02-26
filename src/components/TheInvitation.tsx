@@ -12,10 +12,9 @@ export function TheInvitation() {
     <section
       ref={sectionRef}
       data-theme="life"
-      className="relative py-24 md:py-32 overflow-hidden invitation-texture"
+      className="relative py-24 md:py-32 overflow-hidden invitation-texture min-h-[400px]"
       style={{
         background: 'linear-gradient(180deg, hsl(45 25% 96%) 0%, hsl(45 20% 93%) 100%)',
-        minHeight: '400px',
       }}
     >
       {/* Top fade from VowMoment dark */}
