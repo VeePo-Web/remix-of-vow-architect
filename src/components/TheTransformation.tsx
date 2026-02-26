@@ -182,13 +182,13 @@ export function TheTransformation() {
         }}
         aria-hidden="true"
       >
-        {/* Golden diamond focal point */}
+        {/* Golden diamond focal point — offset timing to avoid double-pulse */}
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[8px] h-[8px] rotate-45"
           style={{
             background: 'hsl(var(--vow-yellow))',
             boxShadow: '0 0 12px 4px hsl(var(--vow-yellow) / 0.5), 0 0 30px 8px hsl(var(--vow-yellow) / 0.2)',
-            animation: 'divider-breathe 4s ease-in-out infinite',
+            animation: 'divider-breathe 4s ease-in-out 2s infinite',
           }}
         />
       </div>
