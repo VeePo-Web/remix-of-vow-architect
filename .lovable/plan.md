@@ -1,130 +1,107 @@
 
 
-# About Page ("The Witness") — 7-Step Elevation to Fantasy.co Quality
+# Remaining Subpages — Navigation Unification and Atmospheric Consistency
 
-## Current State Critique
+## Current State
 
-The About page has strong conceptual architecture — six acts structured as a sacred journey (Resonance, Origin, Sustain, Presence, Covenant, Crossing). However, every section lacks the atmospheric depth, material refinement, and cinematic polish now standard across the homepage. The page also uses a completely different navigation component (`Navigation.tsx`) that feels like a generic SaaS nav compared to the elevated `MinimalHeader` on the homepage.
+Four subpages still use the old generic `Navigation.tsx` instead of the elevated `MinimalHeader`: **Contact**, **FAQ**, **Listen**, and **Proof**. These pages also have inconsistent atmospheric treatments (grain at `opacity-20` or `opacity-30` instead of the brand standard `opacity-[0.06]`, missing `will-change`, missing `overflow-hidden` on Ken Burns images, no `MobileStickyBar`).
 
-### Critical Issues
-
-1. **Navigation inconsistency** — The About page uses `Navigation.tsx`, a generic fixed nav with `text-xl font-bold` logo, `hover:text-foreground` links, and an `outline` CTA button. This is visually jarring compared to the homepage's `MinimalHeader` with its golden gradient thread, 260ms transitions, and vow-yellow hover states. Every subpage should share the same elevated persistent UI.
-
-2. **WitnessHero lacks atmospheric depth** — Uses `opacity-[0.12]` background image with Ken Burns but has no `overflow-hidden` wrapper (Ken Burns overflow risk), no warm fog layer, and no bottom-weighted gradient on the image. The vibrating string SVG animation is clever but the center glow point uses a hard `bg-primary` circle with no breathing cycle.
-
-3. **WitnessOrigin is atmospherically flat** — No grain, no vignette on the section itself (only on the image). The `border-t border-border/30` separator is a hard line. The Ken Burns image lacks `overflow-hidden` wrapper and `will-change: transform`.
-
-4. **WitnessSustain lacks material refinement** — The SVG visualization (three connected nodes) is functional but feels like a wireframe diagram, not a sacred object. No breathing animation on the nodes. The section grain is at `opacity-15` (inconsistent with the `opacity-[0.06]` standard for warm sections).
-
-5. **WitnessPresence has overflow risk** — Background image uses `backgroundImage` CSS with Ken Burns but no `overflow-hidden` wrapper. The witness moment cards use `bg-card/30 backdrop-blur-sm` which is the old un-elevated card treatment (no inset shadows, no frosted glass).
-
-6. **WitnessCovenant is well-crafted but needs polish** — Certificate design is strong but corner ornaments use `border-primary/40` which could be more refined. Grain at `opacity-20` is heavy. The signature path is simple — could benefit from a more fluid stroke.
-
-7. **WitnessCrossing lacks Ken Burns on background** — Static background image. No grain overlay. The CTA button uses inline classes instead of the brand's `cta-breathe-glow` pattern. Hard `border-t border-white/10` separator instead of golden gradient thread.
+**Pricing** and **Gateway** are already correct — Pricing uses `MinimalHeader`, Gateway has its own bespoke layout.
 
 ---
 
 ## The 7-Step Transformation
 
-### Step 1: Replace Navigation with MinimalHeader
+### Step 1: Contact Page — Navigation Swap
 
-The single most impactful change. Replace the generic `Navigation.tsx` import on the About page with `MinimalHeader` and `MobileStickyBar`, matching the homepage's elevated persistent UI. This immediately brings the golden gradient thread, 260ms transitions, vow-yellow hover states, and full-screen menu overlay to the About page.
+Replace `Navigation` with `MinimalHeader` and add `MobileStickyBar`. This is the highest-traffic subpage (the booking funnel endpoint) and must feel seamless with the homepage.
 
-**Technical changes in `About.tsx`:**
+**Changes in `Contact.tsx`:**
 - Replace `import { Navigation }` with `import { MinimalHeader }` and `import { MobileStickyBar }`
 - Replace `<Navigation />` with `<MinimalHeader />`
 - Add `<MobileStickyBar />` before closing div
-- The MinimalHeader vigil delay should detect non-homepage context and skip the vigil timing (show immediately) — verify `sessionStorage` behavior
 
-### Step 2: WitnessHero Atmospheric Elevation
+### Step 2: Contact Page — Atmospheric Fixes
 
-Add the standard atmospheric layers, fix the Ken Burns overflow, and add a breathing cycle to the center glow point. Add a warm fog layer and bottom-weighted gradient.
+Fix the hero atmospheric layers to match brand standards.
 
-**Technical changes in `WitnessHero.tsx`:**
-- Wrap background image div in `overflow-hidden` container
-- Add `will-change: transform` and `filter: 'saturate(0.85) contrast(1.05)'` to the background image
-- Add warm fog layer: `radial-gradient(ellipse at 50% 60%, hsl(var(--vow-yellow) / 0.02) 0%, transparent 50%)`
-- Add breathing animation to center glow point: `animation: 'vigil-pulse 4s ease-in-out infinite'`
-- Add bottom fade: `linear-gradient(to bottom, transparent, hsl(var(--background)))` with `h-32`
-- Increase background opacity from `0.12` to `0.15` for slightly more presence
+**Changes in `Contact.tsx`:**
+- Wrap Ken Burns background image in `overflow-hidden` container, add `will-change: transform`
+- Change grain from `opacity-20` to `opacity-[0.06]`
+- Add warm fog layer: `radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)`
+- Add cinematic vignette: `radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 100%)`
 
-### Step 3: WitnessOrigin Cinematic Polish
+### Step 3: FAQ Page — Navigation Swap and Atmosphere
 
-Add grain and vignette to the section. Replace the hard border with a golden thread. Fix Ken Burns overflow and add `will-change: transform`. Add the standard warm fog layer.
+Replace `Navigation` with `MinimalHeader` and add `MobileStickyBar`. Fix atmospheric consistency.
 
-**Technical changes in `WitnessOrigin.tsx`:**
-- Add `overflow-hidden` to the section element
-- Add `grain` div at `opacity-[0.04]` (warm section standard)
-- Add warm fog: `radial-gradient(ellipse at 70% 40%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)` (positioned towards the image)
-- Wrap Ken Burns image in `overflow-hidden` container with `will-change: transform`
-- Replace `border-t border-border/30` with golden thread: `h-[1px]` div with `linear-gradient(90deg, hsl(var(--vow-yellow) / 0.3), transparent)`
-- Add `filter: 'saturate(0.85) contrast(1.05)'` to the image
+**Changes in `FAQ.tsx`:**
+- Replace `import { Navigation }` with `import { MinimalHeader }` and `import { MobileStickyBar }`
+- Replace `<Navigation />` with `<MinimalHeader />`
+- Add `<MobileStickyBar />` before closing div
+- Wrap Ken Burns image in `overflow-hidden`, add `will-change: transform`
+- Change grain from `opacity-20` to `opacity-[0.06]`
+- Add warm fog and vignette layers matching brand standard
 
-### Step 4: WitnessSustain Visualization Refinement
+### Step 4: Listen Page — Navigation Swap and Atmosphere
 
-Elevate the SVG visualization from wireframe to sacred object. Add breathing animations to nodes, refine grain opacity, and add subtle glow to the connecting line.
+Replace `Navigation` with `MinimalHeader`. The Listen page already has a bespoke dark environment but uses the old nav.
 
-**Technical changes in `WitnessSustain.tsx`:**
-- Change grain `opacity-15` to `opacity-[0.04]` (warm section standard)
-- Add breathing animation to SVG circles: `animate-pulse` with staggered delays (200ms apart)
-- Add `filter="url(#nodeGlow)"` SVG filter definition for soft golden glow on nodes
-- Change connecting line opacity from `0.3` to `0.15` and add `stroke-dasharray` pattern for a more elegant dashed line
-- Add a subtle shimmer animation to the connecting line
-- Add `boxShadow: '0 0 12px hsl(var(--vow-yellow) / 0.15)'` to the glowing dots below each key
+**Changes in `Listen.tsx`:**
+- Replace `import { Navigation }` with `import { MinimalHeader }`
+- Replace `<Navigation />` with `<MinimalHeader />`
+- Change the global grain layer from `opacity: 0.12` to `opacity-[0.06]` with `will-change: opacity`
+- Add `will-change: transform` to the hero `<img>` Ken Burns element
+- Add `overflow-hidden` to the hero section (already has it, verify)
 
-### Step 5: WitnessPresence Card Elevation and Overflow Fix
+### Step 5: Proof Page — Navigation Swap and Atmosphere
 
-Fix Ken Burns overflow, elevate the witness moment cards to match the homepage's frosted glass standard, and add atmospheric depth.
+Replace `Navigation` with `MinimalHeader` and add `MobileStickyBar`. Fix heavy grain.
 
-**Technical changes in `WitnessPresence.tsx`:**
-- Wrap background image in `overflow-hidden` container
-- Add `will-change: transform` to background image
-- Upgrade cards from `bg-card/30 backdrop-blur-sm` to `backdrop-blur-[12px]` with inset shadows: `inset 0 1px 0 rgba(255,255,255,0.05), 0 8px 32px rgba(0,0,0,0.15)`
-- Add `hover:shadow-[0_0_24px_rgba(255,224,138,0.06)]` for golden hover glow
-- Change card border from `border-primary/10` to `border-primary/8` for subtlety
-- Add `grain` overlay at `opacity-[0.04]`
+**Changes in `Proof.tsx`:**
+- Replace `import { Navigation }` with `import { MinimalHeader }` and `import { MobileStickyBar }`
+- Replace `<Navigation />` with `<MinimalHeader />`
+- Move `<MobileTrustBar />` before Footer, add `<MobileStickyBar />` before closing div (or keep MobileTrustBar if it serves a different purpose — verify it doesn't conflict)
+- Wrap Ken Burns background in `overflow-hidden`, add `will-change: transform`
+- Change grain from `opacity-30` to `opacity-[0.06]`
+- Add warm fog and vignette layers
 
-### Step 6: WitnessCrossing Cinematic Consistency
+### Step 6: Grain and Ken Burns Consistency Audit
 
-Add Ken Burns drift to the static background image. Add grain overlay. Replace hard border with golden gradient thread. Use `cta-breathe-glow` class on CTA button.
+Verify all subpages now use consistent atmospheric values:
+- Dark sections: grain `opacity-[0.06]`
+- Warm/light sections: grain `opacity-[0.04]`
+- All Ken Burns: `will-change: transform`, wrapped in `overflow-hidden`
+- All grain layers: `will-change: opacity`
+- Pricing page: verify its grain (currently `opacity-20` with mask) is corrected to `opacity-[0.06]`
 
-**Technical changes in `WitnessCrossing.tsx`:**
-- Add Ken Burns animation to background: `animation: 'ken-burns 30s ease-in-out infinite alternate'`
-- Add `will-change: transform` to background image
-- Add `grain` overlay at `opacity-[0.06]` (dark section standard)
-- Replace `border-t border-white/10` with golden gradient thread: `h-[1px]` div with `linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.2), transparent)`
-- Add `cta-breathe-glow` class to Button
-- Add warm fog: `radial-gradient(ellipse at 50% 80%, hsl(var(--vow-yellow) / 0.02) 0%, transparent 50%)`
+**Changes in `Pricing.tsx`:**
+- Fix grain from `opacity-20` to `opacity-[0.06]`
+- Add `will-change: transform` to Ken Burns background
+- Add `will-change: opacity` to grain layer
+- Add `MobileStickyBar` (currently missing)
 
-### Step 7: WitnessCovenant Final Polish and Performance Audit
+### Step 7: Performance and Accessibility Audit
 
-Refine the certificate's grain, corner ornaments, and add the luminous glow to golden thread separators. Verify all `will-change` properties, reduced-motion fallbacks, and section fade continuity across all six acts.
-
-**Technical changes in `WitnessCovenant.tsx`:**
-- Reduce grain from `opacity-20` to `opacity-[0.08]` (warm section, on card)
-- Add `boxShadow: '0 0 8px hsl(var(--vow-yellow) / 0.08)'` to the golden rule separator
-- Corner ornaments: change from `border-primary/40` to `border-primary/25` for subtlety
-- Add `motion-reduce:animate-none` to the breathing glow behind signature
-
-**Performance audit across all witness components:**
-- Verify all Ken Burns animations have `will-change: transform`
-- Verify all grain layers have `will-change: opacity`
-- Verify all `transition-all` on scroll-reveal elements work with `prefers-reduced-motion`
-- Verify section fade colors match between adjacent sections (Hero bottom -> Origin top, Origin bottom -> Sustain top, etc.)
+Across all modified pages:
+- Verify `focus-visible:ring-primary/70` on all interactive elements
+- Verify `prefers-reduced-motion` disables Ken Burns and entrance animations
+- Verify `MobileStickyBar` doesn't overlap footer content (Footer already has `pb-16 md:pb-0`)
+- Verify MinimalHeader `sessionStorage` vigil detection works correctly on subpages (should skip vigil delay and show immediately)
 
 ---
 
 ## Summary of Files Modified
 
-| Step | File(s) | Change |
-|------|---------|--------|
-| 1 | `About.tsx` | Replace Navigation with MinimalHeader + MobileStickyBar |
-| 2 | `WitnessHero.tsx` | Overflow fix + fog + breathing glow + bottom fade |
-| 3 | `WitnessOrigin.tsx` | Grain + fog + Ken Burns fix + golden thread separator |
-| 4 | `WitnessSustain.tsx` | SVG refinement + grain fix + node breathing + glow |
-| 5 | `WitnessPresence.tsx` | Overflow fix + card elevation + grain |
-| 6 | `WitnessCrossing.tsx` | Ken Burns + grain + golden thread + cta-breathe-glow |
-| 7 | `WitnessCovenant.tsx` | Grain fix + corner refinement + performance audit |
+| Step | File | Change |
+|------|------|--------|
+| 1 | `Contact.tsx` | Nav swap to MinimalHeader + MobileStickyBar |
+| 2 | `Contact.tsx` | Grain fix, overflow fix, fog + vignette |
+| 3 | `FAQ.tsx` | Nav swap + atmospheric fixes |
+| 4 | `Listen.tsx` | Nav swap + grain fix + will-change |
+| 5 | `Proof.tsx` | Nav swap + grain fix + atmospheric layers |
+| 6 | `Pricing.tsx` | Grain fix + will-change + MobileStickyBar |
+| 7 | All files | Performance + accessibility audit |
 
-All changes are atmospheric refinements and navigation unification. No new dependencies, no content changes, no layout restructuring.
+No new components, no new dependencies, no content or pricing changes. Pure navigation unification and atmospheric consistency.
 
