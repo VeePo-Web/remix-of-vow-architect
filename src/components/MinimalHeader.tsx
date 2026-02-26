@@ -15,6 +15,7 @@ export function MinimalHeader() {
   const headerDelay = hasPlayed ? '0ms' : '6200ms';
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAtFooter, setIsAtFooter] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +25,20 @@ export function MinimalHeader() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Footer proximity detection via IntersectionObserver
+  useEffect(() => {
+    const bookend = document.querySelector('[data-footer-bookend]');
+    if (!bookend) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsAtFooter(entry.isIntersecting),
+      { threshold: 0.5 }
+    );
+    observer.observe(bookend);
+    return () => observer.disconnect();
+  }, []);
+
+  const isArrival = isAtFooter && isScrolled;
 
   return (
     <>
@@ -38,33 +53,55 @@ export function MinimalHeader() {
           background: isScrolled ? "rgba(10,10,12,0.92)" : undefined,
         }}
       >
-        {/* Golden gradient thread at bottom (replaces hard border) */}
+        {/* Golden gradient thread at bottom — intensifies during arrival */}
         {isScrolled && (
           <div
-            className="absolute bottom-0 left-0 right-0 h-[1px] pointer-events-none"
+            className="absolute bottom-0 left-0 right-0 h-[1px] pointer-events-none transition-opacity duration-[450ms]"
             style={{
-              background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.12), transparent)",
+              background: `linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / ${isArrival ? '0.25' : '0.12'}), transparent)`,
             }}
             aria-hidden="true"
           />
         )}
 
-        <div className="flex items-center justify-between h-full px-[var(--hero-space-edge,24px)] md:px-[var(--hero-space-edge,48px)] py-6">
-          {/* Logo - Top Left */}
+        <div className={cn(
+          "flex items-center h-full px-[var(--hero-space-edge,24px)] md:px-[var(--hero-space-edge,48px)] py-6 relative",
+          isArrival ? "justify-center" : "justify-between"
+        )}>
+          {/* Logo — centers during arrival */}
           <Link 
             to="/"
-            className="font-display text-base tracking-wide text-foreground opacity-0 animate-fade-in hover:text-primary transition-colors duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
+            className={cn(
+              "relative font-display text-base tracking-wide text-foreground opacity-0 animate-fade-in hover:text-primary transition-all duration-[260ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm",
+            )}
             style={{ 
               animationDelay: headerDelay,
               animationFillMode: "forwards"
             }}
           >
             Parker Gawryletz
+            {/* Vow-yellow underline draw — only during arrival */}
+            <span
+              className={cn(
+                "absolute -bottom-1 left-0 w-full h-[1px] origin-center transition-transform duration-[450ms]",
+                isArrival ? "scale-x-100" : "scale-x-0"
+              )}
+              style={{
+                background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.4), transparent)",
+                transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
+              }}
+              aria-hidden="true"
+            />
           </Link>
 
-          {/* Navigation Links - Staggered Reveal on Scroll */}
+          {/* Navigation Links — fade out during arrival */}
           {isScrolled && (
-            <nav className="hidden md:flex items-center gap-8">
+            <nav
+              className={cn(
+                "hidden md:flex items-center gap-8 transition-all duration-[260ms]",
+                isArrival && "opacity-0 w-0 overflow-hidden pointer-events-none"
+              )}
+            >
               {navLinks.map((link, i) => (
                 <Link
                   key={link.to}
@@ -79,7 +116,6 @@ export function MinimalHeader() {
                 </Link>
               ))}
               <span className="relative opacity-0 animate-fade-in" style={{ animationDelay: `${navLinks.length * 60}ms`, animationFillMode: "forwards" }}>
-                {/* Subtle ambient glow behind CTA */}
                 <span
                   className="absolute inset-0 -inset-x-4 -inset-y-2 rounded-full pointer-events-none"
                   style={{
@@ -97,10 +133,13 @@ export function MinimalHeader() {
             </nav>
           )}
 
-          {/* Menu Button - Top Right */}
+          {/* Menu Button — always visible, absolute-positioned during arrival */}
           <button
             onClick={() => setIsMenuOpen(true)}
-            className="flex items-center gap-2 opacity-0 animate-fade-in group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
+            className={cn(
+              "flex items-center gap-2 opacity-0 animate-fade-in group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm transition-all duration-[260ms]",
+              isArrival && "absolute right-[var(--hero-space-edge,24px)] md:right-[var(--hero-space-edge,48px)] top-1/2 -translate-y-1/2"
+            )}
             style={{ 
               animationDelay: headerDelay,
               animationFillMode: "forwards"

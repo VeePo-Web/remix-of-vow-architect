@@ -233,6 +233,7 @@ export function Footer() {
 
         {/* === Closing Covenant Bookend — delay 600ms === */}
         <div
+          data-footer-bookend
           className={cn(
             "mt-10 flex flex-col items-center gap-3 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
