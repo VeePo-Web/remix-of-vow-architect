@@ -1,65 +1,58 @@
 
 
-# Round 34 — Fix Broken Navigation Routes and Menu Alignment
+# Round 35 — Mobile Navigation: Page-Aware Sticky Bar and Touch Piano Keys
 
-## Problem
+## Current State
 
-Round 33 introduced a full-screen menu with 7 items, but 3 of those items link to routes that **redirect away** instead of serving their actual pages:
+The desktop navigation is now world-class: header with active page indicators, full-screen menu with spotlight hover, and piano key section nav with golden thread progress. However, mobile users (likely 60%+ of wedding site traffic) get a minimal experience:
 
-- `/faq` redirects to `/weddings` (but `FAQ.tsx` component exists)
-- `/listen` redirects to `/weddings` (but `Listen.tsx` component exists)  
-- `/proof` redirects to `/gallery` (but menu should use `/gallery` directly)
+1. **MobileStickyBar** shows the same "I would be honored to be there" + "Hold my date" CTA on every page, with no page awareness
+2. **PianoKeyNav** is hidden on mobile (`hidden md:flex`) -- mobile users have no section navigation at all
+3. On `/contact`, the sticky bar still says "Hold my date" -- redundant when already on the contact page
 
-This means clicking "FAQ", "Listen", or "Proof" in the menu sends users to the wrong page.
+## 4-Step Implementation
 
-Additionally, the header `navLinks` still show the old set (Services, About, Case Studies) rather than aligning with the updated menu structure.
+### Step 1: Page-Aware Mobile Sticky Bar
 
-## 3-Step Fix
+**File:** `src/components/MobileStickyBar.tsx`
 
-### Step 1: Fix Router to Serve FAQ and Listen Pages
+Use `useLocation()` to detect the current page and adapt the bar contextually:
 
-**File:** `src/App.tsx`
+| Page | Left text | CTA label | CTA link |
+|------|-----------|-----------|----------|
+| Home (`/`, `/weddings`) | "I would be honored to be there" | "Hold my date" | `/contact` |
+| Pricing (`/services`) | "Find the right presence" | "Hold my date" | `/contact` |
+| About (`/about`) | "The witness behind the keys" | "Hold my date" | `/contact` |
+| Proof (`/gallery`) | "200+ ceremonies witnessed" | "Hold my date" | `/contact` |
+| FAQ (`/faq`) | "Every question, answered" | "Hold my date" | `/contact` |
+| Listen (`/listen`) | "Hear what your day could sound like" | "Hold my date" | `/contact` |
+| Contact (`/contact`) | Hide the bar entirely (already on the page) | -- | -- |
 
-Change the `/faq` and `/listen` routes from redirects to actual page renders:
+This gives each page a unique emotional hook while maintaining the single conversion CTA.
 
-```
-/faq    -> <FAQ />         (was: Navigate to /weddings)
-/listen -> <Listen />      (was: Navigate to /weddings)
-```
+### Step 2: Mobile Section Progress Indicator
 
-These components already exist and are imported. The redirects were likely placeholders from an earlier build.
+**File:** `src/components/MobileStickyBar.tsx`
 
-### Step 2: Fix FullScreenMenu Route References
+Add a thin (2px) golden progress bar at the top edge of the sticky bar that fills based on scroll depth through the page. This gives mobile users the same "golden thread" orientation that desktop users get from the piano key nav -- without taking extra screen space.
 
-**File:** `src/components/FullScreenMenu.tsx`
+Implementation: Use a scroll listener to calculate `scrollY / (documentHeight - viewportHeight)` as a 0-1 percentage. Render a `div` with `width: ${percentage}%` and the vow-yellow gradient. Transition: `width 100ms linear` for smooth tracking.
 
-Update `menuItems` to use routes that actually resolve:
+### Step 3: Mobile Section Dots (Compact Piano Keys)
 
-| Current href | Fix to | Reason |
-|---|---|---|
-| `/weddings` | `/weddings` | Correct (keep) |
-| `/services` | `/services` | Correct (keep) |
-| `/about` | `/about` | Correct (keep) |
-| `/proof` | `/gallery` | `/proof` redirects to `/gallery` -- use the canonical route |
-| `/faq` | `/faq` | Now serves FAQ page (after Step 1) |
-| `/listen` | `/listen` | Now serves Listen page (after Step 1) |
-| `/contact` | `/contact` | Correct (keep) |
+**File:** `src/components/PianoKeyNav.tsx`
 
-Also update the active-page matching to handle the home route correctly. Currently `location.pathname === item.href` won't match `/` against `/weddings`. Add a check: if on `/weddings`, also consider `Home` active.
+On mobile (below `md` breakpoint), replace the hidden piano keys with a compact vertical dot indicator on the right edge. Each section gets a small dot (6px diameter). Active dot gets vow-yellow fill. Tapping a dot scrolls to that section.
 
-### Step 3: Align Header NavLinks with Site Structure
+This preserves the section navigation concept on mobile without the visual weight of full piano keys. The dots appear at `right: 8px` to stay within thumb reach on large phones.
 
-**File:** `src/components/MinimalHeader.tsx`
+CSS changes: Replace `hidden md:flex` with responsive sizing. On mobile, keys become dots via media query or a `useIsMobile()` hook check.
 
-Update `navLinks` to reflect the complete site structure more accurately. The current set (Services, About, Case Studies) is reasonable for the compact header bar -- no change needed to the labels themselves, but ensure `/gallery` label says "Proof" to match the menu, since that's the actual page name.
+### Step 4: Haptic-Style Tap Feedback on Mobile
 
-```
-{ to: "/services", label: "Pricing" }     // was "Services"
-{ to: "/about",    label: "About" }        // keep
-{ to: "/gallery",  label: "Proof" }        // was "Case Studies"
-```
+**File:** `src/components/PianoKeyNav.tsx`
 
-This aligns the header labels with the full-screen menu labels for consistency.
+On mobile dot tap, add a brief scale pulse (1.0 to 1.4 to 1.0 over 200ms) on the tapped dot to provide visual "haptic" feedback since CSS cannot trigger actual device haptics. This mirrors the desktop key press depression effect in a touch-appropriate way.
 
 ---
 
@@ -67,13 +60,15 @@ This aligns the header labels with the full-screen menu labels for consistency.
 
 | Step | File | Change |
 |------|------|--------|
-| 1 | `src/App.tsx` | Serve FAQ and Listen pages instead of redirecting |
-| 2 | `src/components/FullScreenMenu.tsx` | Fix `/proof` to `/gallery`, add home route matching |
-| 3 | `src/components/MinimalHeader.tsx` | Rename nav labels to match menu (Pricing, Proof) |
+| 1 | `MobileStickyBar.tsx` | Page-aware text and contact-page hiding |
+| 2 | `MobileStickyBar.tsx` | Golden scroll progress bar at top edge |
+| 3 | `PianoKeyNav.tsx` | Mobile dot indicators replacing hidden keys |
+| 4 | `PianoKeyNav.tsx` | Tap pulse animation on mobile dots |
 
 ## What This Achieves
 
-- All 7 menu items navigate to their correct pages -- no broken redirects
-- Header labels match full-screen menu labels -- consistent navigation language
-- FAQ and Listen pages become accessible for the first time via navigation
+- Mobile users gain section navigation (dots) and scroll orientation (progress bar) -- matching desktop parity
+- Each page feels contextual rather than generic -- the sticky bar speaks to where you are
+- Contact page hides the redundant CTA -- respecting the user's current intent
+- Zero new dependencies; all changes use existing CSS animation patterns and hooks
 
