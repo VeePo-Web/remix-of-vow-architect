@@ -40,7 +40,7 @@ export function VowMoment() {
 
       {/* Step 2: Warm Fog Layer */}
       <div
-        className="absolute inset-0 pointer-events-none will-change-[opacity]"
+        className="absolute inset-0 pointer-events-none"
         style={{
           background: "radial-gradient(circle at 50% 40%, hsl(40 60% 50% / 0.025) 0%, transparent 60%)",
         }}
