@@ -1,103 +1,125 @@
 
 
-# Final Navigation Unification — NotFound, Legal, and PolicyLayout
+# Pricing and Proof Pages — Deep Design Elevation
 
 ## Current State
 
-Three remaining files still import the old generic `Navigation.tsx`:
+Navigation unification is complete across the entire site. The **Pricing** (`/services`) and **Proof** (`/proof`) pages now use `MinimalHeader` + `MobileStickyBar` with correct grain and atmospheric hero treatments. However, the internal content of both pages remains at a generic SaaS quality level — far below the homepage's Fantasy.co standard.
 
-1. **`NotFound.tsx`** — The 404 page uses `Navigation` and has generic SaaS styling (bold `text-6xl` heading, lucide icons in outline buttons, a card with checkmarks). No atmospheric treatment, no brand voice.
-2. **`Legal.tsx`** — The legal hub page uses `Navigation` directly. No grain, no atmospheric layers.
-3. **`PolicyLayout.tsx`** — The shared layout wrapper for PrivacyPolicy, Terms, CookiePolicy, and Accessibility pages. Uses `Navigation`. Fixing this one file fixes four pages at once.
+### Critical Issues
 
-The Gateway page (`/`) has its own bespoke full-screen layout and does not need `MinimalHeader` — it is correct as-is.
+**Pricing Page (`Pricing.tsx`):**
+1. **Typography inconsistency** — Uses `font-bold` (Inter weight 700) on pricing card headings instead of `font-display font-light` (Cormorant). The `text-4xl font-bold text-primary` price numerals are heavy and aggressive, violating the brand's "whisper, never shout" principle.
+2. **No scroll-reveal animations** — Every section appears instantly with no staggered entrance. The homepage uses `RevealOnScroll` and `StaggerChildren` throughout; this page has none beyond the hero `animate-fade-in`.
+3. **Generic card styling** — Cards use basic `bg-card border-border` with no frosted glass, no inset shadows, no golden hover glow. The "Most Selected" card has a hardcoded `boxShadow` instead of the brand's atmospheric glow pattern.
+4. **Missing section breathing** — All content sits in a single `section-padding` block with no inhale/exhale rhythm. No golden thread separators between major content areas.
+5. **CTA buttons lack brand treatment** — "Hold my date" buttons use default `Button` variant instead of `primary-dark` with `cta-breathe-glow`. No ambient radial glow behind CTAs.
+6. **Final CTA section** — Uses generic `space-y-6` layout with no atmospheric layering (no grain, no fog, no vignette).
 
-The `/listen` and `/faq` routes now redirect to `/weddings` in the router, so those page files are effectively unused, but their nav swaps were already completed in the previous step.
+**Proof Page (`Proof.tsx`):**
+1. **SPLTriptych uses `font-bold`** — Heading "Clarity. Documented." uses `text-3xl font-bold` instead of `h2` class with `font-display`. Card titles use `font-bold text-lg`.
+2. **No scroll-reveal on sections** — Content appears instantly. No `RevealOnScroll` wrapping.
+3. **Section transitions are crude** — Uses inline-styled `div` elements for fades instead of the established `section-fade-top`/`section-fade-bottom` CSS classes.
+4. **SetupPhotoGallery, InsuranceDocuments, RedundancyStack** — These sub-components likely have similar generic styling issues.
+5. **Final CTA** — Uses `text-3xl font-bold text-ink-inverse` instead of `font-display font-light`.
+6. **`MobileTrustBar` placement** — Placed before `Footer` which may conflict with `MobileStickyBar`.
 
 ---
 
 ## The 7-Step Transformation
 
-### Step 1: PolicyLayout Navigation Swap
+### Step 1: Pricing Page — Typography and Card Elevation
 
-Replace `Navigation` with `MinimalHeader` in the shared `PolicyLayout.tsx`. This single change fixes **four pages** (PrivacyPolicy, Terms, CookiePolicy, Accessibility) at once.
+Upgrade all typography to the Fitzgerald system. Elevate pricing cards to frosted glass standard.
 
-**Changes in `PolicyLayout.tsx`:**
-- Replace `import { Navigation }` with `import { MinimalHeader }` and `import { MobileStickyBar }`
-- Replace `<Navigation />` with `<MinimalHeader />`
-- Add `<MobileStickyBar />` before closing div
+**Changes in `Pricing.tsx`:**
+- Change price numerals from `text-4xl font-bold` to `font-display text-[clamp(32px,4vw,48px)] font-light`
+- Add `backdrop-blur-[8px]` and inset shadows to pricing cards: `shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.15)]`
+- Add `hover:shadow-[0_0_24px_rgba(255,224,138,0.06)]` for golden hover glow on cards
+- Replace "Most Selected" card border with subtle `border-primary/15` and add breathing glow via class
+- Change "Hold my date" buttons to `variant="primary-dark"` with `cta-breathe-glow` class
+- Final CTA: change to `font-display font-light` with atmospheric layering (grain, fog, vignette)
 
-### Step 2: Legal Page Navigation Swap
+### Step 2: Pricing Page — Scroll Reveal and Section Rhythm
 
-Replace `Navigation` with `MinimalHeader` in `Legal.tsx` and add `MobileStickyBar`.
+Add `RevealOnScroll` animations to all content blocks and golden thread separators between sections.
 
-**Changes in `Legal.tsx`:**
-- Replace `import { Navigation }` with `import { MinimalHeader }` and `import { MobileStickyBar }`
-- Replace `<Navigation />` with `<MinimalHeader />`
-- Add `<MobileStickyBar />` before closing div
+**Changes in `Pricing.tsx`:**
+- Wrap `InclusionBlock`, pricing grid, `PricingAddOns`, comparison table, testimonials, FAQ, download, and final CTA in `RevealOnScroll` components
+- Add golden thread separators (`h-[1px]` with gradient) between major sections
+- Add `80px` vertical spacing between sections (matching homepage `section-gap` standard)
+- Wrap the pricing card grid in `StaggerChildren` with `staggerDelay={120}`
 
-### Step 3: NotFound Page Navigation Swap
+### Step 3: InclusionBlock Component Elevation
 
-Replace `Navigation` with `MinimalHeader` in `NotFound.tsx`. Add `MobileStickyBar`.
+Upgrade the inclusion block from generic card to atmospheric component.
 
-**Changes in `NotFound.tsx`:**
-- Replace `import { Navigation }` with `import { MinimalHeader }` and `import { MobileStickyBar }`
-- Replace `<Navigation />` with `<MinimalHeader />`
-- Add `<MobileStickyBar />` before closing div/Footer
+**Changes in `InclusionBlock.tsx`:**
+- Change heading from `font-bold` (via `h2` class) to `font-display font-light text-[clamp(28px,3.5vw,40px)]`
+- Add `backdrop-blur-[8px]` and border `border-primary/10` to the container
+- Icon containers: change from `bg-primary/10` to `bg-primary/[0.06]` with `border border-primary/10`
+- Item labels: change from `h4` to `font-display text-base font-medium`
+- Add `StaggerChildren` wrapper around the grid with `staggerDelay={80}`
 
-### Step 4: NotFound Page Brand Voice and Atmosphere
+### Step 4: SPLTriptych Component Elevation
 
-The 404 page currently uses generic SaaS copy and styling. Elevate it to match the brand's composed, reverent voice and add atmospheric treatment.
+Upgrade the SPL section from generic to atmospheric.
 
-**Changes in `NotFound.tsx`:**
-- Add grain overlay at `opacity-[0.04]` (warm section)
-- Change the heading from bold `text-6xl` to `font-display font-light` with brand typography
-- Rewrite copy to match brand voice: "This page has wandered beyond the threshold" or similar composed language (no exclamation marks, no urgency)
-- Replace generic lucide icon buttons with simpler, brand-aligned text links using `DirectionalLink` or styled `Link` components
-- Remove the "What makes ceremony audio reliable?" card — it's off-brand for a 404 page
-- Add a golden thread separator and the covenant whisper at the bottom
+**Changes in `SPLTriptych.tsx`:**
+- Change heading from `text-3xl font-bold` to `h2` class (which maps to `font-display`)
+- Card titles: change from `font-bold text-lg` to `font-display text-lg font-medium`
+- SPL range values: change from `text-3xl font-bold text-primary` to `font-display text-[clamp(24px,3vw,32px)] font-light text-primary`
+- Progress bars: add `overflow-hidden rounded-full` and subtle glow: `shadow-[0_0_8px_hsl(var(--vow-yellow)/0.1)]`
+- Add `RevealOnScroll` wrapper
+- Testimonial card: add frosted glass treatment
 
-### Step 5: Legal Page Atmospheric Polish
+### Step 5: Proof Page — Section Transitions and Typography
 
-Add subtle atmospheric treatment to the Legal hub page.
+Fix section transitions and typography across the Proof page.
 
-**Changes in `Legal.tsx`:**
-- Add grain overlay at `opacity-[0.04]`
-- Add warm fog layer matching brand standard
-- Ensure card hover states use `hover:border-primary/20` instead of default border treatment
-- Change card icons from `text-primary` (which is fine) but verify hover transitions use `duration-[180ms]`
+**Changes in `Proof.tsx`:**
+- Replace inline-styled fade divs with `section-fade-bottom` / `section-fade-top` CSS classes
+- Final CTA heading: change from `text-3xl font-bold text-ink-inverse` to `font-display text-[clamp(28px,3.5vw,40px)] font-light text-foreground`
+- Add `cta-breathe-glow` to CTA buttons
+- Add golden thread separator above final CTA
+- Fix `MobileTrustBar` placement — move after `MobileStickyBar` or remove if redundant
+- Wrap all content sections in `RevealOnScroll`
 
-### Step 6: PolicyLayout Atmospheric Polish
+### Step 6: Sub-Component Polish (SetupPhotoGallery, InsuranceDocuments, RedundancyStack)
 
-Add subtle grain and warm fog to the policy layout wrapper so all four policy pages inherit atmospheric consistency.
+Audit and fix typography and card styling in the three sub-components.
 
-**Changes in `PolicyLayout.tsx`:**
-- Add a grain overlay at `opacity-[0.04]` to the main content area
-- Verify the breadcrumb styling uses `text-primary` for active links (not vine-green)
+**Changes across sub-components:**
+- Replace any `font-bold` headings with `font-display font-medium` or `font-display font-light`
+- Add `backdrop-blur` and golden hover glow to cards
+- Ensure all sections use `RevealOnScroll` or `StaggerChildren`
+- Verify `transition-all duration-[180ms]` on hover states (not default `duration-300`)
 
-### Step 7: Performance and Accessibility Audit
+### Step 7: Performance and Consistency Audit
 
-Verify all changes across the three files.
+Verify all changes maintain performance and visual consistency.
 
 **Across all modified files:**
-- Verify `focus-visible:ring-primary/70` on interactive elements
-- Verify `MobileStickyBar` doesn't overlap footer content
-- Verify `MinimalHeader` shows immediately on subpages (no vigil delay)
-- Confirm the old `Navigation.tsx` component is no longer imported anywhere (can be deprecated)
+- Verify `will-change: transform` on any Ken Burns animations
+- Verify `prefers-reduced-motion` fallbacks on all new `RevealOnScroll` instances
+- Verify golden thread separator colors are consistent (`hsl(var(--vow-yellow) / 0.3)`)
+- Verify card hover transitions use `duration-[180ms]` (brand standard)
+- Verify `focus-visible:ring-primary/70` on all interactive elements
+- Test on mobile viewport: verify no horizontal overflow from frosted glass blur
 
 ---
 
 ## Summary of Files Modified
 
-| Step | File | Change |
-|------|------|--------|
-| 1 | `PolicyLayout.tsx` | Nav swap (fixes 4 policy pages) |
-| 2 | `Legal.tsx` | Nav swap + MobileStickyBar |
-| 3 | `NotFound.tsx` | Nav swap + MobileStickyBar |
-| 4 | `NotFound.tsx` | Brand voice + atmosphere + remove generic SaaS elements |
-| 5 | `Legal.tsx` | Grain + fog + hover polish |
-| 6 | `PolicyLayout.tsx` | Grain + fog atmospheric layer |
-| 7 | All three files | Performance + accessibility audit |
+| Step | File(s) | Change |
+|------|---------|--------|
+| 1 | `Pricing.tsx` | Typography + card elevation + CTA treatment |
+| 2 | `Pricing.tsx` | Scroll reveal + section rhythm + golden threads |
+| 3 | `InclusionBlock.tsx` | Typography + atmospheric container + stagger |
+| 4 | `SPLTriptych.tsx` | Typography + card elevation + progress glow |
+| 5 | `Proof.tsx` | Section transitions + typography + CTA polish |
+| 6 | `SetupPhotoGallery.tsx`, `InsuranceDocuments.tsx`, `RedundancyStack.tsx` | Typography + card + animation fixes |
+| 7 | All modified files | Performance + consistency audit |
 
-No new components or dependencies. After this step, `Navigation.tsx` will have zero imports across the entire codebase and can be considered deprecated.
+No new components or dependencies. All changes are typography upgrades, atmospheric refinements, and scroll animation additions. Content and pricing details remain unchanged.
 
