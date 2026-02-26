@@ -130,7 +130,7 @@ export function TheWitnesses() {
               <div
                 key={index}
                 className={cn(
-                  "witnesses-testimonial-card relative transition-all pl-8 rounded-lg",
+                  "witnesses-testimonial-card relative transition-all rounded-lg text-center",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
                 )}
                 style={{

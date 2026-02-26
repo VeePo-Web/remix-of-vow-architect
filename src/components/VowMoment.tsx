@@ -23,14 +23,20 @@ export function VowMoment() {
         minHeight: '100vh',
       }}
     >
-      {/* Step 1: Cinematic Ceremony Backdrop at 8% opacity */}
-      <img
-        src={vowMomentAltar}
-        alt=""
-        className="absolute inset-0 w-full h-full object-cover opacity-[0.08] pointer-events-none"
-        loading="lazy"
-        aria-hidden="true"
-      />
+      {/* Step 1: Cinematic Ceremony Backdrop at 8% opacity with Ken Burns */}
+      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+        <img
+          src={vowMomentAltar}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover opacity-[0.08] pointer-events-none"
+          style={{
+            animation: 'vow-ken-burns 30s ease-in-out infinite alternate',
+            filter: 'saturate(0.7) contrast(1.08)',
+            willChange: 'transform',
+          }}
+          loading="lazy"
+        />
+      </div>
 
       {/* Step 2: Warm Fog Layer */}
       <div

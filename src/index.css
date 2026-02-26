@@ -4246,7 +4246,7 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
     transform 260ms var(--ease-covenant),
     opacity 700ms ease,
     translate 700ms ease;
-  will-change: transform;
+  contain: layout paint;
 }
 
 .three-paths-card:hover {
@@ -4266,10 +4266,10 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   background: hsl(45 28% 95% / 0.7);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  border-left: 2px solid hsl(var(--vow-yellow) / 0.25);
+  border-left: none;
+  border-top: 1px solid hsl(var(--vow-yellow) / 0.15);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.1),
-    -1px 0 6px hsl(var(--vow-yellow) / 0.15),
     0 4px 16px rgba(0,0,0,0.04);
   padding: 2rem;
   transition:
@@ -4281,7 +4281,6 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 .witnesses-testimonial-card:hover {
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.1),
-    -1px 0 6px hsl(var(--vow-yellow) / 0.15),
     0 0 20px rgba(255,224,138,0.06),
     0 4px 16px rgba(0,0,0,0.04);
 }
@@ -4331,12 +4330,19 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   100% { transform: scale(1.04); }
 }
 
+/* VowMoment Ken Burns */
+@keyframes vow-ken-burns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.03); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   img[style*="sound-ken-burns"],
   img[style*="transform-fear-kb"],
   img[style*="transform-life-kb"],
   img[style*="paths-ken-burns"],
-  img[style*="crossover-ken-burns"] {
+  img[style*="crossover-ken-burns"],
+  img[style*="vow-ken-burns"] {
     animation: none !important;
     transform: scale(1) !important;
   }

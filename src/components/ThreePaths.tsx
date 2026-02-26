@@ -196,8 +196,12 @@ export function ThreePaths() {
 
               {/* CTA */}
               <Button 
-                className={cn("w-full mt-auto", path.isChosen && "cta-breathe-glow")} 
-                variant={path.isChosen ? "default" : "ghost-dark"}
+                className={cn(
+                  "w-full mt-auto",
+                  path.isChosen && "cta-breathe-glow",
+                  !path.isChosen && "text-foreground/80 border-foreground/20 hover:bg-foreground/10 hover:text-foreground hover:border-foreground/30"
+                )} 
+                variant={path.isChosen ? "default" : "outline"}
                 asChild
               >
                 <Link to="/contact">{path.ctaText}</Link>
@@ -209,7 +213,7 @@ export function ThreePaths() {
         {/* Reassurance */}
         <p
           className={cn(
-            "text-center text-sm text-muted-foreground/70 transition-all duration-700",
+            "text-center text-sm text-muted-foreground/70 max-w-2xl mx-auto transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
           style={{ transitionDelay: isVisible ? "900ms" : "0ms" }}

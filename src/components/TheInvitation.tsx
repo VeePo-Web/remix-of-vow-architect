@@ -27,7 +27,7 @@ export function TheInvitation() {
 
       {/* Atmospheric radial glow behind portrait */}
       <div
-        className="absolute inset-0 pointer-events-none will-change-[opacity]"
+        className="absolute inset-0 pointer-events-none"
         style={{
           background: 'radial-gradient(ellipse at 30% 50%, hsla(38, 60%, 60%, 0.02) 0%, transparent 60%)',
         }}
