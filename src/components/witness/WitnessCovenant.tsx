@@ -47,8 +47,14 @@ export function WitnessCovenant() {
             THE COVENANT
           </p>
 
-          {/* Golden rule separator */}
-          <div className="w-12 h-px mx-auto mb-8" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.6), transparent)" }} />
+          {/* Golden rule separator with luminous glow */}
+          <div 
+            className="w-12 h-px mx-auto mb-8" 
+            style={{ 
+              background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.6), transparent)",
+              boxShadow: "0 0 8px hsl(var(--vow-yellow) / 0.08)",
+            }} 
+          />
 
           {/* Certificate Container */}
           <div 
@@ -61,14 +67,14 @@ export function WitnessCovenant() {
               boxShadow: "0 20px 60px rgba(0,0,0,0.08), inset 0 0 80px hsl(var(--vow-yellow) / 0.03)"
             }}
           >
-            {/* Film grain texture on certificate */}
-            <div className="absolute inset-0 grain opacity-20 rounded-sm pointer-events-none" aria-hidden="true" />
+            {/* Film grain texture on certificate — refined opacity */}
+            <div className="absolute inset-0 grain opacity-[0.08] rounded-sm pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
 
-            {/* Corner ornaments */}
-            <div className="absolute top-6 left-6 w-10 h-10 border-l border-t border-primary/40" />
-            <div className="absolute top-6 right-6 w-10 h-10 border-r border-t border-primary/40" />
-            <div className="absolute bottom-6 left-6 w-10 h-10 border-l border-b border-primary/40" />
-            <div className="absolute bottom-6 right-6 w-10 h-10 border-r border-b border-primary/40" />
+            {/* Corner ornaments — subtler */}
+            <div className="absolute top-6 left-6 w-10 h-10 border-l border-t border-primary/25" />
+            <div className="absolute top-6 right-6 w-10 h-10 border-r border-t border-primary/25" />
+            <div className="absolute bottom-6 left-6 w-10 h-10 border-l border-b border-primary/25" />
+            <div className="absolute bottom-6 right-6 w-10 h-10 border-r border-b border-primary/25" />
 
             {/* Certificate Header */}
             <div className="text-center mb-10 relative">
@@ -98,7 +104,7 @@ export function WitnessCovenant() {
             <div className="relative text-center pt-8 border-t border-border/20">
               {/* Breathing golden glow behind signature */}
               <div 
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-32 rounded-full pointer-events-none"
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-32 rounded-full pointer-events-none motion-reduce:animate-none"
                 style={{
                   background: "radial-gradient(ellipse, hsl(var(--vow-yellow) / 0.06) 0%, transparent 70%)",
                   animation: signatureDrawn ? "vigil-pulse 8s ease-in-out infinite" : "none",

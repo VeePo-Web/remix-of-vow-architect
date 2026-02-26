@@ -34,7 +34,7 @@ export function WitnessSustain() {
       }}
     >
       {/* Film grain */}
-      <div className="absolute inset-0 grain opacity-15 pointer-events-none" aria-hidden="true" />
+      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
 
       {/* Ambient golden glow behind visualization */}
       <div 
@@ -67,7 +67,7 @@ export function WitnessSustain() {
             I hold your ceremony.
           </h2>
 
-          {/* Abstract Visualization — Three connected golden nodes */}
+          {/* Abstract Visualization — Three connected golden nodes with glow filter */}
           <div 
             className={cn(
               "relative flex justify-center items-center mb-16 h-20 transition-all duration-1000",
@@ -76,19 +76,35 @@ export function WitnessSustain() {
             style={{ transitionDelay: "400ms" }}
           >
             <svg viewBox="0 0 400 40" className="w-full max-w-md h-auto" aria-hidden="true">
-              {/* Connecting line */}
+              <defs>
+                <filter id="nodeGlow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="3" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              {/* Connecting line — elegant dashed */}
               <line 
                 x1="60" y1="20" x2="340" y2="20" 
                 stroke="hsl(45 80% 75%)" 
                 strokeWidth="1" 
-                opacity="0.3"
+                opacity="0.15"
+                strokeDasharray="4 8"
               />
-              {/* Three nodes with glow */}
+              {/* Three nodes with glow filter */}
               {[60, 200, 340].map((cx, i) => (
-                <g key={i}>
-                  <circle cx={cx} cy="20" r="12" fill="hsl(45 80% 75%)" opacity="0.08" />
-                  <circle cx={cx} cy="20" r="6" fill="hsl(45 80% 75%)" opacity="0.15" />
-                  <circle cx={cx} cy="20" r="3" fill="hsl(45 80% 75%)" opacity="0.8" />
+                <g key={i} filter="url(#nodeGlow)">
+                  <circle cx={cx} cy="20" r="12" fill="hsl(45 80% 75%)" opacity="0.08">
+                    <animate attributeName="opacity" values="0.06;0.12;0.06" dur={`${3 + i * 0.5}s`} repeatCount="indefinite" />
+                  </circle>
+                  <circle cx={cx} cy="20" r="6" fill="hsl(45 80% 75%)" opacity="0.15">
+                    <animate attributeName="opacity" values="0.12;0.22;0.12" dur={`${3 + i * 0.5}s`} repeatCount="indefinite" />
+                  </circle>
+                  <circle cx={cx} cy="20" r="3" fill="hsl(45 80% 75%)" opacity="0.8">
+                    <animate attributeName="opacity" values="0.7;1;0.7" dur={`${3 + i * 0.5}s`} repeatCount="indefinite" />
+                  </circle>
                 </g>
               ))}
             </svg>
@@ -108,7 +124,7 @@ export function WitnessSustain() {
                 {/* Glowing dot */}
                 <div 
                   className="w-3 h-3 rounded-full bg-primary mx-auto mb-4"
-                  style={{ boxShadow: "0 0 20px hsl(var(--vow-yellow) / 0.5)" }}
+                  style={{ boxShadow: "0 0 12px hsl(var(--vow-yellow) / 0.15), 0 0 20px hsl(var(--vow-yellow) / 0.1)" }}
                 />
                 
                 {/* Label */}

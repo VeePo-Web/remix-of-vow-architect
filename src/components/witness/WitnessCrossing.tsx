@@ -19,16 +19,23 @@ export function WitnessCrossing() {
         background: "linear-gradient(180deg, hsl(var(--rich-black)) 0%, hsl(240 12% 6%) 100%)"
       }}
     >
-      {/* Background image */}
-      <div 
-        className="absolute inset-0 opacity-[0.10]"
-        style={{
-          backgroundImage: `url(${crossingImg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-        aria-hidden="true"
-      />
+      {/* Background image with Ken Burns */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div 
+          className="absolute inset-0 opacity-[0.10]"
+          style={{
+            backgroundImage: `url(${crossingImg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            animation: "ken-burns 30s ease-in-out infinite alternate",
+            willChange: "transform",
+          }}
+          aria-hidden="true"
+        />
+      </div>
+
+      {/* Grain overlay */}
+      <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
 
       {/* Vignette */}
       <div 
@@ -44,6 +51,15 @@ export function WitnessCrossing() {
         className="absolute inset-0 opacity-[0.04]"
         style={{
           background: "radial-gradient(ellipse at 50% 80%, hsl(var(--vow-yellow)) 0%, transparent 60%)"
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Warm fog */}
+      <div 
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse at 50% 80%, hsl(var(--vow-yellow) / 0.02) 0%, transparent 50%)"
         }}
         aria-hidden="true"
       />
@@ -112,14 +128,18 @@ export function WitnessCrossing() {
             Response within 24 hours. Always.
           </p>
 
-          {/* Tagline */}
+          {/* Golden gradient thread (replaces hard border) */}
           <div 
             className={cn(
-              "mt-16 pt-8 border-t border-white/10 transition-all duration-700",
+              "mt-16 transition-all duration-700",
               isVisible ? "opacity-100" : "opacity-0"
             )}
             style={{ transitionDelay: "1000ms" }}
           >
+            <div 
+              className="h-[1px] w-full mb-8"
+              style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.2), transparent)" }}
+            />
             <p className="font-display text-xl text-white/80 italic">
               'Til Death<span className="text-primary">;</span> Unto Life.
             </p>

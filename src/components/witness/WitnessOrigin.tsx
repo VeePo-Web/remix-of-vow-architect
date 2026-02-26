@@ -12,8 +12,18 @@ export function WitnessOrigin() {
   return (
     <section 
       ref={ref as React.RefObject<HTMLElement>}
-      className="relative py-[120px] px-4 bg-background"
+      className="relative py-[120px] px-4 bg-background overflow-hidden"
     >
+      {/* Grain overlay */}
+      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
+
+      {/* Warm fog */}
+      <div 
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse at 70% 40%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)" }}
+        aria-hidden="true"
+      />
+
       <div className="container mx-auto">
         <div className="grid md:grid-cols-5 gap-12 max-w-6xl mx-auto items-center">
           {/* LEFT: Text Column (40%) */}
@@ -61,14 +71,18 @@ export function WitnessOrigin() {
               </p>
             </div>
 
-            {/* The Vow */}
+            {/* The Vow — golden thread separator */}
             <div 
               className={cn(
-                "pt-8 border-t border-border/30 transition-all duration-700",
+                "pt-8 transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               )}
               style={{ transitionDelay: "800ms" }}
             >
+              <div 
+                className="h-[1px] w-full mb-8"
+                style={{ background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.3), transparent)" }}
+              />
               <p className="font-display text-xl italic text-primary">
                 "No couple should ever wonder if their guests heard their vows."
               </p>
@@ -78,18 +92,22 @@ export function WitnessOrigin() {
           {/* RIGHT: Atmospheric Image (60%) */}
           <div 
             className={cn(
-              "md:col-span-3 relative transition-all duration-1000 overflow-hidden rounded-sm",
+              "md:col-span-3 relative transition-all duration-1000 rounded-sm",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             )}
             style={{ transitionDelay: "400ms" }}
           >
-            <div className="relative aspect-[3/4] max-h-[560px]">
+            <div className="relative aspect-[3/4] max-h-[560px] overflow-hidden rounded-sm">
               <img 
                 src={aboutOriginImg} 
                 alt="Empty wedding ceremony chairs at twilight with scattered petals"
                 className="w-full h-full object-cover"
                 loading="lazy"
-                style={{ animation: "ken-burns 30s ease-in-out infinite alternate" }}
+                style={{ 
+                  animation: "ken-burns 30s ease-in-out infinite alternate",
+                  willChange: "transform",
+                  filter: "saturate(0.85) contrast(1.05)",
+                }}
               />
               {/* Cinematic vignette overlay */}
               <div 
@@ -100,7 +118,7 @@ export function WitnessOrigin() {
                 aria-hidden="true"
               />
               {/* Film grain */}
-              <div className="absolute inset-0 grain opacity-30 pointer-events-none" aria-hidden="true" />
+              <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
             </div>
           </div>
         </div>
