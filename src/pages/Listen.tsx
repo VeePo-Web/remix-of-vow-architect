@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
-import { Navigation } from "@/components/Navigation";
+import { MinimalHeader } from "@/components/MinimalHeader";
 import { Footer } from "@/components/Footer";
 import { ListeningMovement } from "@/components/ListeningMovement";
 import { Button } from "@/components/ui/button";
@@ -174,11 +174,11 @@ export default function Listen() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navigation />
+      <MinimalHeader />
       <audio ref={audioRef} preload="none" />
 
       {/* Film grain */}
-      <div className="grain" style={{ opacity: 0.12 }} />
+      <div className="grain opacity-[0.06]" style={{ willChange: "opacity" }} />
 
       {/* ── HERO ── */}
       <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
@@ -187,7 +187,7 @@ export default function Listen() {
           src={listenHero}
           alt=""
           className="absolute inset-0 w-full h-full object-cover opacity-[0.08] pointer-events-none"
-          style={{ animation: "ken-burns 25s ease-in-out infinite alternate" }}
+          style={{ animation: "ken-burns 25s ease-in-out infinite alternate", willChange: "transform" }}
           loading="eager"
           aria-hidden="true"
         />
