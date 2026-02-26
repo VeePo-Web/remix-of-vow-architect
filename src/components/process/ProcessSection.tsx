@@ -1,4 +1,5 @@
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { ProcessMovement } from './ProcessMovement';
@@ -70,6 +71,51 @@ const movements: Movement[] = [
 export function ProcessSection() {
   const { ref: introRef, isVisible: introVisible } = useScrollReveal({ threshold: 0.2 });
   const { ref: closingRef, isVisible: closingVisible } = useScrollReveal({ threshold: 0.2 });
+  const sectionRef = useRef<HTMLElement>(null);
+  const rafRef = useRef<number | null>(null);
+
+  // Scroll-linked parallax for background layers
+  const updateParallax = useCallback(() => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    const scrollY = -rect.top;
+    sectionRef.current.style.setProperty('--process-scroll-y', `${scrollY}px`);
+  }, []);
+
+  useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
+
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const onScroll = () => {
+            if (rafRef.current) cancelAnimationFrame(rafRef.current);
+            rafRef.current = requestAnimationFrame(updateParallax);
+          };
+          window.addEventListener('scroll', onScroll, { passive: true });
+          updateParallax();
+          (section as any).__scrollHandler = onScroll;
+        } else {
+          const handler = (section as any).__scrollHandler;
+          if (handler) window.removeEventListener('scroll', handler);
+          if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        }
+      },
+      { threshold: 0, rootMargin: '100px 0px' }
+    );
+
+    observer.observe(section);
+    return () => {
+      observer.disconnect();
+      const handler = (section as any).__scrollHandler;
+      if (handler) window.removeEventListener('scroll', handler);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [updateParallax]);
 
   // Simple background CSS vars (static warm tone)
   const cssVars = {
@@ -82,6 +128,7 @@ export function ProcessSection() {
   return (
     <section
       id="process"
+      ref={sectionRef}
       className="process-section"
       aria-label="My preparation process"
       style={{ position: 'relative' }}
@@ -112,6 +159,9 @@ export function ProcessSection() {
           Because there are no second takes on a <span className="exhale-emphasis">First Moment</span>
         </h3>
       </div>
+
+      {/* Golden Thread — visual continuity from intro to movements */}
+      <div className="process-intro__thread" aria-hidden="true" />
 
       {/* Movement Cards */}
       <div className="process-score">
