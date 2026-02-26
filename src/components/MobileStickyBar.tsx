@@ -17,19 +17,22 @@ export function MobileStickyBar() {
 
   return (
     <div 
-      className="md:hidden fixed bottom-0 left-0 right-0 z-40 backdrop-blur-md p-3 animate-fade-in motion-reduce:animate-none"
+      className="md:hidden fixed bottom-0 left-0 right-0 z-40 backdrop-blur-md p-3 animate-fade-in motion-reduce:animate-none overflow-hidden"
       style={{
         background: "hsl(var(--rich-black) / 0.95)",
         borderTop: "1px solid hsl(var(--vow-yellow) / 0.15)",
       }}
     >
-      <div className="flex items-center justify-between gap-3">
+      {/* Grain overlay */}
+      <div className="grain opacity-[0.04] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
+
+      <div className="relative flex items-center justify-between gap-3">
         <span className="text-sm font-display text-muted-foreground">
-          Dates fill quickly—check yours
+          I would be honored to be there
         </span>
-        <Link to="/contact">
+        <Link to="/contact" className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm">
           <Button size="sm" className="hover-scale">
-            Check Availability
+            Hold my date
           </Button>
         </Link>
       </div>
