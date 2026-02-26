@@ -15,8 +15,10 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [pressedIndex, setPressedIndex] = useState<number | null>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const hasAnimated = useRef(false);
 
   // Reduced motion
   useEffect(() => {
@@ -36,6 +38,18 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Track first animation
+  useEffect(() => {
+    if (isVisible && !hasAnimated.current) {
+      // Mark as animated after the stagger completes
+      const totalDuration = sections.length * 40 + 260;
+      const timer = setTimeout(() => {
+        hasAnimated.current = true;
+      }, totalDuration);
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible, sections.length]);
 
   // IntersectionObserver for active section
   useEffect(() => {
@@ -60,9 +74,18 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
     return () => observerRef.current?.disconnect();
   }, [sections]);
 
-  const scrollTo = useCallback((id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const handleKeyPress = useCallback((id: string, index: number) => {
+    setPressedIndex(index);
+    setTimeout(() => {
+      setPressedIndex(null);
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 80);
   }, []);
+
+  // Golden thread progress
+  const scrollProgress = activeIndex >= 0
+    ? ((activeIndex + 1) / sections.length) * 100
+    : 0;
 
   return (
     <nav
@@ -70,17 +93,27 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
       aria-label="Page sections"
       className={cn(
         'fixed right-0 top-1/2 -translate-y-1/2 z-40 flex-col gap-[2px] hidden md:flex',
-        'transition-opacity duration-300',
+        hasAnimated.current
+          ? 'transition-opacity duration-[260ms]'
+          : 'transition-opacity duration-300',
         isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
       )}
     >
+      {/* Golden thread progress */}
+      <div className="piano-key-thread" aria-hidden="true">
+        <div
+          className="piano-key-thread-fill"
+          style={{ height: `${scrollProgress}%` }}
+        />
+      </div>
+
       {sections.map((section, i) => {
         const isActive = i === activeIndex;
         const isBlack = section.isBlackKey;
         const isHovered = hoveredIndex === i;
-
-        // Stagger entrance delay
+        const isPressed = pressedIndex === i;
         const enterDelay = reducedMotion ? 0 : i * 40;
+        const animated = hasAnimated.current;
 
         return (
           <div key={section.id} className="relative flex items-center justify-end">
@@ -97,7 +130,7 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
 
             {/* Key */}
             <button
-              onClick={() => scrollTo(section.id)}
+              onClick={() => handleKeyPress(section.id, i)}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
               onFocus={() => setHoveredIndex(i)}
@@ -108,16 +141,20 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
                 'piano-key',
                 isBlack && 'piano-key--black',
                 isActive && 'piano-key--active',
+                isPressed && 'piano-key--pressed',
                 'focus-visible:outline-none focus-visible:ring-2'
               )}
-              style={{
-                animationDelay: isVisible ? `${enterDelay}ms` : '0ms',
-                animation: isVisible
-                  ? `piano-key-enter 260ms cubic-bezier(0.22,0.61,0.36,1) ${enterDelay}ms both`
-                  : reducedMotion
-                    ? 'none'
-                    : `piano-key-exit 200ms ease-in ${enterDelay}ms both`,
-              }}
+              style={
+                animated
+                  ? undefined
+                  : {
+                      animation: isVisible
+                        ? `piano-key-enter 260ms cubic-bezier(0.22,0.61,0.36,1) ${enterDelay}ms both`
+                        : reducedMotion
+                          ? 'none'
+                          : `piano-key-exit 200ms ease-in ${enterDelay}ms both`,
+                    }
+              }
             />
           </div>
         );

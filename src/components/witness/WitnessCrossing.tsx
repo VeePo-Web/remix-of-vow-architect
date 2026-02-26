@@ -13,8 +13,9 @@ export function WitnessCrossing() {
 
   return (
     <section 
+      id="witness-crossing"
       ref={ref as React.RefObject<HTMLElement>}
-      className="relative py-[120px] px-4 overflow-hidden"
+      className="relative py-[120px] px-4 overflow-hidden piano-section-target"
       style={{
         background: "linear-gradient(180deg, hsl(var(--rich-black)) 0%, hsl(240 12% 6%) 100%)"
       }}
