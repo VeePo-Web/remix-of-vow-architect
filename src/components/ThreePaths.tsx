@@ -19,37 +19,37 @@ const paths: PathCardProps[] = [
     price: "$650",
     description: "Ceremony only",
     features: [
-      "Officiant/vow microphones",
-      "Silent battery power",
-      "3 SPL readings logged",
+      "Live piano for your ceremony",
+      "Processional and recessional pieces",
+      "Custom arrangement consultation",
       "Run-of-show cue sheet",
     ],
-    ctaText: "Choose this presence",
+    ctaText: "Hold my date",
   },
   {
     name: "The Hour",
     price: "$750",
-    description: "Prelude + Ceremony + Cocktails",
+    description: "Prelude + Ceremony",
     features: [
       "Everything in The Vow",
-      "Live piano prelude (30 min)",
-      "Cocktail hour music",
-      "Extended SPL monitoring",
+      "30-minute piano prelude as guests arrive",
+      "Backup piano and speakers included",
+      "Rain cover for outdoor ceremonies",
     ],
     isChosen: true,
-    ctaText: "Choose this presence",
+    ctaText: "Hold my date",
   },
   {
     name: "The Story",
     price: "$1,200",
-    description: "Full wedding day",
+    description: "Prelude + Ceremony + Reception",
     features: [
       "Everything in The Hour",
-      "Reception DJ & MC",
-      "Full-day SPL documentation",
-      "Timeline consultation",
+      "Live piano through dinner and reception",
+      "Full-day timeline consultation",
+      "Insurance and all equipment included",
     ],
-    ctaText: "Choose this presence",
+    ctaText: "Hold my date",
   },
 ];
 
@@ -82,7 +82,7 @@ export function ThreePaths() {
             )}
             style={{ transitionDelay: isVisible ? "150ms" : "0ms", textWrap: "balance" as any }}
           >
-            How deeply do you want me there?
+            Choose the moment that matters most.
           </h2>
           <p
             className={cn(
@@ -91,7 +91,7 @@ export function ThreePaths() {
             )}
             style={{ transitionDelay: isVisible ? "300ms" : "0ms" }}
           >
-            Three ways I can be present on your day.
+            Three ways I can shape the music of your day.
           </p>
         </div>
 
