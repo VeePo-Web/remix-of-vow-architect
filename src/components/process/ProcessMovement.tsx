@@ -67,7 +67,7 @@ export function ProcessMovement({
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) { setRevealPhase(6); return; }
 
-    const timings = [0, 150, 280, 400, 520, 640];
+    const timings = [0, 200, 380, 560, 720, 880];
     const timers: NodeJS.Timeout[] = [];
 
     timings.forEach((delay, phase) => {
