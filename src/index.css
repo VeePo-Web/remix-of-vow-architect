@@ -1743,20 +1743,11 @@ All colors MUST be HSL.
     z-index: 10;
     text-align: center;
     max-width: 680px;
-    opacity: 0;
-    transform: translateY(24px);
-    transition: 
-      opacity 800ms var(--ease-sacred), 
-      transform 800ms var(--ease-sacred);
+    opacity: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: var(--space-8);
-  }
-
-  .process-intro.is-visible {
-    opacity: 1;
-    transform: translateY(0);
   }
 
   /* ═══════════════════════════════════════
@@ -1979,17 +1970,22 @@ All colors MUST be HSL.
   .process-intro__thread::after {
     content: '';
     position: absolute;
-    bottom: -2px;
+    bottom: -3px;
     left: 50%;
     transform: translateX(-50%);
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
-    background: hsl(var(--vow-yellow) / 0.3);
-    box-shadow: 0 0 8px hsl(var(--vow-yellow) / 0.15);
+    background: hsl(var(--vow-yellow) / 0.5);
+    box-shadow: 
+      0 0 6px hsl(var(--vow-yellow) / 0.5),
+      0 0 14px hsl(var(--vow-yellow) / 0.25),
+      0 0 24px hsl(var(--vow-yellow) / 0.1);
     opacity: 0;
     transition: opacity 600ms ease-out;
     transition-delay: 0ms;
+    animation: exhale-pulse 4.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation-play-state: paused;
   }
 
   .process-intro.is-visible ~ .process-intro__thread {
@@ -2000,6 +1996,7 @@ All colors MUST be HSL.
   .process-intro.is-visible ~ .process-intro__thread::after {
     opacity: 1;
     transition-delay: 3200ms;
+    animation-play-state: running;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -3357,7 +3354,7 @@ All colors MUST be HSL.
         hsl(40 30% 96% / 0.01) 4px
       );
     opacity: 0.5;
-    translate: 0 calc(var(--process-scroll-y, 0) * 0.02);
+    translate: 0 calc(var(--process-scroll-y, 0) * 0.04);
   }
 
   .gradient-dawn--journal .gradient-dawn__candlelight {
@@ -3373,7 +3370,19 @@ All colors MUST be HSL.
     );
     pointer-events: none;
     animation: candlelight-flicker 8s ease-in-out infinite;
-    translate: 0 calc(var(--process-scroll-y, 0) * 0.05);
+    translate: 0 calc(var(--process-scroll-y, 0) * 0.08);
+  }
+
+  .gradient-dawn--journal .gradient-dawn__warmth {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 60% 40% at 50% 50%,
+      hsl(35 70% 50% / 0.12),
+      transparent 70%
+    );
+    opacity: calc(clamp(0, var(--process-scroll-y, 0) / 3000, 0.08));
+    pointer-events: none;
   }
 
   /* will-change hint for parallax layers */
@@ -3872,8 +3881,8 @@ All colors MUST be HSL.
     height: 120px;
     background: linear-gradient(
       180deg,
-      hsl(20 20% 5%) 0%,
-      hsl(20 20% 5% / 0.6) 40%,
+      hsl(220 15% 6%) 0%,
+      hsl(220 15% 6% / 0.6) 40%,
       transparent 100%
     );
     pointer-events: none;
