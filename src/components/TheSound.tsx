@@ -147,13 +147,14 @@ function NowPlayingBar({
           <button
             onClick={handleToggle}
             className={cn(
-              "w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all",
+              "w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)/0.4)]",
               isPlaying
                 ? "bg-[hsl(var(--vow-yellow))] text-black"
                 : "bg-foreground/10 text-foreground/70"
             )}
             style={{ transition: "all 180ms cubic-bezier(.22,.61,.36,1)" }}
             aria-label={isPlaying ? "Pause" : "Play"}
+            title={isPlaying ? "Pause playback" : "Resume playback"}
           >
             {isPlaying ? <Pause size={12} strokeWidth={2} /> : <Play size={12} strokeWidth={2} className="ml-0.5" />}
           </button>
@@ -182,6 +183,19 @@ export function TheSound() {
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
+
+  // Escape key to stop playback
+  useEffect(() => {
+    if (!isPlaying) return;
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        audioRef.current?.pause();
+        setIsPlaying(false);
+      }
+    };
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [isPlaying]);
 
   // Reduced motion — live listener
   useEffect(() => {
@@ -464,6 +478,8 @@ export function TheSound() {
 
             {/* ── Step 2: Wider card with category context ── */}
             <div
+              role="group"
+              aria-label="Repertoire — browse and play tracks"
               className="max-w-lg mx-4 sm:mx-auto rounded-[16px] relative overflow-hidden"
               style={{
                 opacity: cardVisible ? 1 : 0,
@@ -533,6 +549,7 @@ export function TheSound() {
                             : undefined,
                         }}
                         aria-label={isTrackPlaying ? `Pause ${track.title}` : `Play ${track.title}`}
+                        aria-current={isActive ? "true" : undefined}
                       >
                         {/* Accent bar */}
                         <span
@@ -602,7 +619,11 @@ export function TheSound() {
                           transitionDelay: cardVisible ? `${100 + catIdx * 80}ms` : "0ms",
                         }}
                       >
-                        <span className="font-sans text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
+                        <span
+                          role="heading"
+                          aria-level={3}
+                          className="font-sans text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/60"
+                        >
                           {category.label}
                         </span>
                         {/* Emotional context phrase — hidden on mobile */}

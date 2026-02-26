@@ -4559,6 +4559,12 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   }
 }
 
+/* ── Round 26: Golden focus ring on track buttons ── */
+.track-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px hsl(var(--vow-yellow) / 0.3), inset 0 0 0 1px hsl(var(--vow-yellow) / 0.15);
+}
+
 /* ── Round 25: Track bar hover preview ── */
 .track-button:hover .track-bar {
   transform: scaleY(0.5) !important;
