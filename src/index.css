@@ -1776,14 +1776,14 @@ All colors MUST be HSL.
       0 0 40px hsl(var(--vow-yellow) / 0.15);
     margin-bottom: var(--space-6);
     opacity: 0;
-    transform: scale(0);
+    scale: 0;
     transition: opacity 200ms ease-out;
     transition-delay: 0ms;
   }
 
   .process-intro.is-visible .process-intro__anchor {
     opacity: 1;
-    transform: scale(1);
+    scale: 1;
     animation: 
       flame-ignite 900ms var(--ease-sacred) 200ms both,
       exhale-pulse 4.2s cubic-bezier(0.4, 0, 0.6, 1) 1100ms infinite;
@@ -1791,21 +1791,21 @@ All colors MUST be HSL.
 
   @keyframes flame-ignite {
     0% {
-      transform: scale(0);
+      scale: 0;
       box-shadow: 
         0 0 4px hsl(var(--vow-yellow) / 0.3),
         0 0 8px hsl(var(--vow-yellow) / 0.1),
         0 0 12px hsl(var(--vow-yellow) / 0.05);
     }
     50% {
-      transform: scale(1.8);
+      scale: 1.8;
       box-shadow: 
         0 0 14px hsl(var(--vow-yellow) / 0.9),
         0 0 35px hsl(var(--vow-yellow) / 0.5),
         0 0 60px hsl(var(--vow-yellow) / 0.2);
     }
     100% {
-      transform: scale(1);
+      scale: 1;
       box-shadow: 
         0 0 8px hsl(var(--vow-yellow) / 0.7),
         0 0 20px hsl(var(--vow-yellow) / 0.4),
@@ -2014,7 +2014,14 @@ All colors MUST be HSL.
     }
 
     @keyframes flame-ignite {
-      0%, 100% { transform: scale(1); }
+      0%, 100% { scale: 1; }
+    }
+
+    .gradient-dawn__candlelight,
+    .gradient-dawn__paper {
+      translate: none !important;
+      scale: none !important;
+      will-change: auto;
     }
   }
 
@@ -3350,6 +3357,7 @@ All colors MUST be HSL.
         hsl(40 30% 96% / 0.01) 4px
       );
     opacity: 0.5;
+    translate: 0 calc(var(--process-scroll-y, 0) * 0.02);
   }
 
   .gradient-dawn--journal .gradient-dawn__candlelight {
@@ -3365,13 +3373,13 @@ All colors MUST be HSL.
     );
     pointer-events: none;
     animation: candlelight-flicker 8s ease-in-out infinite;
-    transform: translateY(calc(var(--process-scroll-y, 0) * 0.05));
-    transition: transform 0ms;
+    translate: 0 calc(var(--process-scroll-y, 0) * 0.05);
   }
 
-  .gradient-dawn--journal .gradient-dawn__paper {
-    transform: translateY(calc(var(--process-scroll-y, 0) * 0.02));
-    transition: transform 0ms;
+  /* will-change hint for parallax layers */
+  .process-section .gradient-dawn__candlelight,
+  .process-section .gradient-dawn__paper {
+    will-change: translate;
   }
 
   .gradient-dawn--journal .gradient-dawn__candlelight--tl {
@@ -3401,11 +3409,11 @@ All colors MUST be HSL.
   @keyframes candlelight-flicker {
     0%, 100% {
       opacity: 0.6;
-      transform: scale(1);
+      scale: 1;
     }
     50% {
       opacity: 1;
-      transform: scale(1.1);
+      scale: 1.1;
     }
   }
 
