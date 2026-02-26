@@ -4451,6 +4451,39 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   100% { transform: scale(1.04); }
 }
 
+/* Sound dust mote drift */
+@keyframes sound-dust-drift {
+  0% { transform: translate(0, 0); opacity: 0.02; }
+  50% { transform: translate(3%, -2%); opacity: 0.04; }
+  100% { transform: translate(-1%, 1%); opacity: 0.02; }
+}
+
+.sound-dust {
+  animation: sound-dust-drift 40s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Sound golden thread breathing */
+@keyframes sound-thread-breathe {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.5; }
+}
+
+.sound-thread {
+  animation: sound-thread-breathe 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sound-dust {
+    animation: none !important;
+    opacity: 0.03;
+  }
+  .sound-thread {
+    animation: none !important;
+    opacity: 0.4;
+  }
+}
+
 /* Transformation section Ken Burns */
 @keyframes transform-fear-kb {
   0% { transform: scale(1); }
