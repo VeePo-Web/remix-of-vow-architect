@@ -1,212 +1,86 @@
 
 
-# Round 31 — Piano Key Navigator: Deep Refinement and Multi-Page Extension
+# Round 32 — Piano Key Navigator: Micro-Polish and Interaction Integrity
 
-## Critical Audit of Current Implementation
+## Audit of Current State (Post-Round 31)
 
-The PianoKeyNav component (built in the previous round) establishes the foundation: fixed right-edge keys, IntersectionObserver active tracking, hover tooltips, staggered entrance/exit, reduced motion support, and ARIA semantics. However, several gaps remain before this reaches Fantasy.co caliber:
+The PianoKeyNav now includes: first-impression stagger, key press depression, golden thread progress, 3D black keys, tooltips, ARIA semantics, reduced motion, and multi-page integration (About, Pricing, Proof). Five remaining refinements to reach true Fantasy.co caliber:
 
-### Issue 1: Animation Re-triggers on Every Visibility Toggle
+### Issue 1: `hasAnimated` Ref Does Not Trigger Re-render
 
-The current implementation assigns a fresh `animation` CSS string on every render based on `isVisible`. When the user scrolls back to the hero and then past it again, all keys re-run their entrance animation from scratch. This creates a jarring "pop-in" effect on repeat visits. At Fantasy.co quality, the keys should animate in once, then simply toggle opacity on subsequent show/hide cycles -- the stagger entrance is a first-impression moment only.
+The `hasAnimated.current` ref is read during render to conditionally apply `transition-opacity` classes on the `<nav>` element (lines 96-98). However, changing a ref does not cause a re-render. After the stagger completes and `hasAnimated.current` becomes `true`, the nav element still has the old className from the previous render. The conditional `hasAnimated.current ? 'transition-opacity duration-[260ms]' : 'transition-opacity duration-300'` never actually switches. This means the "first-impression only" logic is silently broken -- keys may still re-animate on subsequent scroll toggles because the component never re-renders after the ref flips.
 
-### Issue 2: No Key Press Depression Effect
+**Fix:** Convert `hasAnimated` from a ref to state, or force a re-render after the timeout fires. Using a state `const [hasAnimated, setHasAnimated] = useState(false)` is the cleanest approach. The timeout in the effect would call `setHasAnimated(true)` instead of mutating a ref.
 
-Clicking a piano key scrolls to the section but provides no visual feedback that the key was "pressed." A real piano key depresses when struck. At Fantasy.co quality, clicking a key would briefly translate it 2px to the right (into the viewport edge) with a 60ms spring, simulating a physical key press before the scroll begins.
+### Issue 2: Active Key Glow Bleeds Into Adjacent Keys Via Negative Margins
 
-### Issue 3: No Progress Indicator Between Keys
+Black keys use `margin-top: -4px; margin-bottom: -4px` for depth overlap. When a black key is active, its `box-shadow: -4px 0 12px hsl(var(--vow-yellow) / 0.08)` bleeds visually into the overlapping white keys above and below. On a real piano, the active glow should be contained to the key itself, not leak through the overlap zone. Adding `overflow: hidden` on the parent wrapper `<div>` for each key would clip the glow -- but this would also clip the tooltip.
 
-The active key illuminates, but there is no visual indication of scroll progress between sections. At Fantasy.co quality, a thin golden line would connect the keys vertically, with a fill that tracks scroll progress -- like a golden thread running through the keyboard, filling downward as the user journeys through the page. This reinforces the brand's "golden thread" motif.
+**Fix:** Apply `isolation: isolate` on each key button to create a new stacking context, preventing box-shadow bleed without clipping tooltips (which are in the parent div, not the button).
 
-### Issue 4: Black Keys Have No Visual Depth
+### Issue 3: Tooltip Appears Behind Other Keys on Black Key Hover
 
-Black keys on a real piano sit slightly above and in front of white keys, creating a layered, three-dimensional effect. Currently, black keys are merely narrower with a darker background. At Fantasy.co quality, black keys would have a subtle top highlight (1px lighter border-top), a bottom shadow, and a slight negative margin overlapping adjacent white keys -- creating the illusion of depth.
+Black keys have `z-index: 1` to overlap white keys. But the tooltip is rendered in the parent `<div>` which has no z-index. When hovering a black key near the bottom of the stack, the tooltip can appear behind a white key above it. The tooltip needs a higher stacking context.
 
-### Issue 5: No Extension to About, Pricing, or Proof Pages
+**Fix:** Add `z-index: 10` to `.piano-key-tooltip` to ensure it always renders above all keys.
 
-The piano nav only exists on the weddings page. The plan specified extending it to all major pages. Each page has its own section structure that needs IDs and a page-specific section array.
+### Issue 4: No Smooth Scroll Offset Accounting
+
+`scrollIntoView({ block: 'start' })` scrolls the section's top edge to the viewport top. The `.piano-section-target` class adds `scroll-margin-top: 64px` which offsets for the header. But some sections (like wrapper `<div>` elements on Pricing/Proof) may not have this class applied directly to the element with the matching `id`. If the `id` is on a wrapper div but `piano-section-target` is on a child, the scroll offset won't apply.
+
+**Fix:** Ensure every element with a piano-nav `id` also has the `piano-section-target` class. Audit all wrapper divs added in Round 31.
+
+### Issue 5: Golden Thread Progress Doesn't Reset When Scrolling Back to Top
+
+When the user scrolls back above the hero and the nav hides, `activeIndex` remains at its last value. If the user scrolls down again, the golden thread immediately shows progress from the previous position rather than starting empty. At Fantasy.co quality, the thread should reset to 0 when the nav becomes invisible.
+
+**Fix:** Reset `activeIndex` to -1 when `isVisible` transitions to `false`.
 
 ---
 
 ## 5-Step Implementation Plan
 
-### Step 1: First-Impression-Only Stagger Animation
+### Step 1: Convert `hasAnimated` Ref to State
 
 **File:** `src/components/PianoKeyNav.tsx`
 
-Add a `hasAnimated` ref that tracks whether the entrance stagger has already played:
+Replace `const hasAnimated = useRef(false)` with `const [hasAnimated, setHasAnimated] = useState(false)`. Update the tracking effect to call `setHasAnimated(true)` instead of `hasAnimated.current = true`. Update all references from `hasAnimated.current` to `hasAnimated`. This ensures the component re-renders after the stagger completes, correctly switching to opacity-only transitions for subsequent visibility toggles.
 
-```tsx
-const hasAnimated = useRef(false);
-
-useEffect(() => {
-  if (isVisible && !hasAnimated.current) {
-    hasAnimated.current = true;
-  }
-}, [isVisible]);
-```
-
-Update the button's `style` to use the stagger animation only on the first appearance. On subsequent show/hide cycles, use a simple opacity fade (no translateX, no stagger):
-
-```tsx
-style={{
-  animation: isVisible
-    ? hasAnimated.current
-      ? 'none'  // Already animated once -- just show via className opacity
-      : `piano-key-enter 260ms cubic-bezier(0.22,0.61,0.36,1) ${enterDelay}ms both`
-    : hasAnimated.current
-      ? 'none'  // Just hide via className opacity
-      : reducedMotion ? 'none' : `piano-key-exit 200ms ease-in ${enterDelay}ms both`,
-  opacity: hasAnimated.current ? (isVisible ? 1 : 0) : undefined,
-  transform: hasAnimated.current ? 'translateX(0)' : undefined,
-  transition: hasAnimated.current ? 'opacity 260ms ease' : undefined,
-}}
-```
-
-This ensures the beautiful staggered entrance plays exactly once (the first scroll past the hero), and all subsequent visibility toggles are smooth, non-distracting opacity fades.
-
-### Step 2: Key Press Depression Animation
-
-**File:** `src/components/PianoKeyNav.tsx` and `src/index.css`
-
-Add a `pressedIndex` state and a brief timeout to simulate key depression:
-
-```tsx
-const [pressedIndex, setPressedIndex] = useState<number | null>(null);
-
-const handleKeyPress = useCallback((id: string, index: number) => {
-  setPressedIndex(index);
-  setTimeout(() => {
-    setPressedIndex(null);
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 80);
-}, []);
-```
-
-Add a CSS class for the pressed state:
-
-```css
-.piano-key--pressed {
-  transform: translateX(3px);
-  transition: transform 60ms cubic-bezier(0.22, 0.61, 0.36, 1);
-  background: hsl(var(--vow-yellow) / 0.2);
-}
-```
-
-Apply `piano-key--pressed` when `pressedIndex === i`. This creates a brief 80ms "key depression" -- the key slides 3px into the viewport edge (simulating being pushed in), then springs back as the scroll begins. Subtle but unmistakably tactile.
-
-### Step 3: Golden Thread Progress Line
-
-**File:** `src/components/PianoKeyNav.tsx` and `src/index.css`
-
-Add a vertical golden thread line behind the keys that fills based on scroll progress. Inside the `<nav>`, before the key map, render:
-
-```tsx
-{/* Golden thread progress */}
-<div className="piano-key-thread" aria-hidden="true">
-  <div
-    className="piano-key-thread-fill"
-    style={{ height: `${scrollProgress}%` }}
-  />
-</div>
-```
-
-Calculate `scrollProgress` from the active index relative to total sections:
-
-```tsx
-const scrollProgress = activeIndex >= 0
-  ? ((activeIndex + 1) / sections.length) * 100
-  : 0;
-```
-
-CSS for the thread:
-
-```css
-.piano-key-thread {
-  position: absolute;
-  right: 24px;  /* Center of white key width */
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: hsl(var(--foreground) / 0.04);
-  z-index: -1;
-}
-
-.piano-key-thread-fill {
-  width: 100%;
-  background: linear-gradient(
-    to bottom,
-    hsl(var(--vow-yellow) / 0.3),
-    hsl(var(--vow-yellow) / 0.15)
-  );
-  transition: height 450ms cubic-bezier(0.22, 0.61, 0.36, 1);
-  box-shadow: 0 0 6px hsl(var(--vow-yellow) / 0.06);
-}
-```
-
-This golden thread fills downward as the user progresses through the page -- a visual echo of the brand's golden thread motif that connects all sections. The transition duration (450ms) matches the brand's "sacred reveal" timing.
-
-### Step 4: Black Key Three-Dimensional Depth
+### Step 2: Add Stacking Context Isolation to Keys
 
 **File:** `src/index.css`
 
-Update `.piano-key--black` with depth cues:
+Add `isolation: isolate` to `.piano-key` base styles and `z-index: 10` to `.piano-key-tooltip`. This prevents active-key box-shadow glow from bleeding through negative-margin overlaps and ensures tooltips always render above all keys regardless of black/white key z-index layering.
+
+### Step 3: Reset Active Index on Nav Hide
+
+**File:** `src/components/PianoKeyNav.tsx`
+
+In the scroll handler effect, when `isVisible` transitions to `false`, reset `activeIndex` to -1. This ensures the golden thread progress resets to empty when the user scrolls back to the hero, providing a clean "fresh start" when re-entering the page content.
+
+### Step 4: Audit and Fix Section ID/Class Pairing
+
+**Files:** `src/pages/Pricing.tsx`, `src/pages/Proof.tsx`
+
+Verify that every wrapper `<div>` with a piano-nav `id` also has `piano-section-target` class (which provides `scroll-margin-top: 64px`). Several wrapper divs were added in Round 31 -- confirm they all include both the `id` and the class. Fix any that are missing the class.
+
+### Step 5: Black Key Hover Gradient Consistency
+
+**File:** `src/index.css`
+
+The `.piano-key--black:hover` currently sets `background: hsl(var(--foreground) / 0.08)` which is a flat color, losing the 3D gradient effect on hover. Update it to use a lighter version of the gradient to maintain the depth illusion even during hover interaction:
 
 ```css
-.piano-key--black {
-  width: 32px;
-  height: 28px;
+.piano-key--black:hover {
   background: linear-gradient(
     to bottom,
-    hsl(var(--foreground) / 0.08) 0%,
-    hsl(var(--rich-black)) 15%,
-    hsl(var(--rich-black)) 85%,
-    hsl(0 0% 3%) 100%
+    hsl(var(--foreground) / 0.12) 0%,
+    hsl(var(--foreground) / 0.06) 15%,
+    hsl(var(--foreground) / 0.06) 85%,
+    hsl(var(--foreground) / 0.03) 100%
   );
-  border-color: hsl(var(--foreground) / 0.12);
-  border-top-color: hsl(var(--foreground) / 0.18);
-  z-index: 1;
-  margin-top: -4px;
-  margin-bottom: -4px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3), inset 0 1px 0 hsl(var(--foreground) / 0.06);
 }
 ```
-
-The negative margins make the black keys overlap adjacent white keys slightly (as on a real piano). The gradient from lighter top to darker bottom simulates light hitting the raised surface. The inset highlight at the top and the drop shadow at the bottom complete the dimensional illusion. Combined with the existing `z-index: 1`, this creates a convincing layered keyboard effect.
-
-### Step 5: Extend PianoKeyNav to About, Pricing, and Proof Pages
-
-**About page** (`src/pages/About.tsx`):
-- Import `PianoKeyNav`
-- Define sections array:
-  ```
-  { id: "witness-hero",      label: "The Resonance",  isBlackKey: false }
-  { id: "witness-origin",    label: "The Origin",     isBlackKey: true  }
-  { id: "witness-sustain",   label: "The Sustain",    isBlackKey: false }
-  { id: "witness-presence",  label: "The Presence",   isBlackKey: true  }
-  { id: "witness-covenant",  label: "The Covenant",   isBlackKey: false }
-  { id: "witness-crossing",  label: "The Crossing",   isBlackKey: false }
-  ```
-- Add IDs to each witness component's root `<section>`:
-  - `WitnessHero.tsx` -- `id="witness-hero"`
-  - `WitnessOrigin.tsx` -- `id="witness-origin"`
-  - `WitnessSustain.tsx` -- `id="witness-sustain"`
-  - `WitnessPresence.tsx` -- `id="witness-presence"`
-  - `WitnessCovenant.tsx` -- `id="witness-covenant"`
-  - `WitnessCrossing.tsx` -- `id="witness-crossing"`
-- Add `piano-section-target` class to each
-
-**Pricing page** (`src/pages/Pricing.tsx`):
-- Import `PianoKeyNav`
-- Define sections array for hero, packages, add-ons, comparison, testimonials, FAQ, download, and CTA sections
-- Add IDs and `piano-section-target` class to each major `<section>` or wrapper `<div>` that serves as a landmark
-
-**Proof page** (`src/pages/Proof.tsx`):
-- Import `PianoKeyNav`
-- Define sections array for hero, SPL triptych, setup gallery, insurance, redundancy, downloadable plans, and final CTA
-- Add IDs and `piano-section-target` class to each section
-
-Each page gets its own white/black key pattern reflecting its unique section count and narrative arc. The component is reusable -- only the `sections` prop changes per page.
 
 ---
 
@@ -214,28 +88,16 @@ Each page gets its own white/black key pattern reflecting its unique section cou
 
 | Step | File(s) | Change |
 |------|---------|--------|
-| 1 | `src/components/PianoKeyNav.tsx` | First-impression-only stagger with `hasAnimated` ref |
-| 2 | `src/components/PianoKeyNav.tsx`, `src/index.css` | Key press depression animation with 80ms delay |
-| 3 | `src/components/PianoKeyNav.tsx`, `src/index.css` | Golden thread progress line behind keys |
-| 4 | `src/index.css` | Black key 3D depth (gradient, shadow, negative margins) |
-| 5 | `src/pages/About.tsx`, `src/pages/Pricing.tsx`, `src/pages/Proof.tsx`, 6+ witness components | Multi-page extension with section IDs |
-
----
+| 1 | `src/components/PianoKeyNav.tsx` | `hasAnimated` ref converted to state for proper re-render |
+| 2 | `src/index.css` | `isolation: isolate` on keys, `z-index: 10` on tooltip |
+| 3 | `src/components/PianoKeyNav.tsx` | Reset `activeIndex` to -1 when nav hides |
+| 4 | `src/pages/Pricing.tsx`, `src/pages/Proof.tsx` | Verify all ID'd elements have `piano-section-target` |
+| 5 | `src/index.css` | Black key hover retains 3D gradient |
 
 ## What This Achieves
 
-- **First-impression magic:** The staggered entrance plays once to create wonder, then subsequent toggles are smooth and non-distracting -- respecting the user's time on repeat interactions
-- **Tactile identity:** The key press depression makes each click feel like playing a note on a real piano -- deepening the instrument metaphor from visual to kinesthetic
-- **Narrative progression:** The golden thread progress line creates a visual journey indicator that echoes the brand's golden thread motif across all sections
-- **Material realism:** Three-dimensional black keys with gradients and shadows transform flat rectangles into a convincing keyboard cross-section
-- **Site-wide cohesion:** Extending to About, Pricing, and Proof pages makes the piano key nav a signature interaction pattern -- a bespoke navigation language unique to this brand
-
-## Technical Notes
-
-- `hasAnimated` ref persists across re-renders without causing them -- zero performance cost
-- Key press uses `setTimeout` (80ms) which is imperceptible as delay but creates clear visual feedback
-- Golden thread `height` transition uses CSS `transition` (GPU-composited) -- no JS animation loop
-- Black key negative margins only affect the visual layer (keys are in a flex column with `gap: 2px`) -- touch targets remain correctly sized
-- All new section IDs follow the `kebab-case` convention established in Round 31
-- `piano-section-target` class provides consistent `scroll-margin-top: 64px` across all pages
+- **Correctness:** The first-impression stagger logic actually works now -- React re-renders when the flag flips, switching to opacity-only transitions
+- **Visual integrity:** No glow bleed between keys, tooltips always visible above all keys, and black keys maintain their 3D depth even during hover
+- **Scroll UX:** Golden thread resets cleanly when revisiting the page from the top, and all sections scroll to the correct offset
+- **Zero performance cost:** All fixes are CSS properties or state corrections -- no new observers, no new animation loops
 
