@@ -152,7 +152,7 @@ export function ProcessSection() {
           <p className="process-closing__assurance">
             <span className="exhale-emphasis">And it will be right.</span>
           </p>
-          <Link to="/contact" className="process-closing__cta cta-breathe-glow">
+          <Link to="/contact" className="process-closing__cta cta-commitment cta-breathe-glow">
             <span className="process-closing__cta-text">Begin the conversation</span>
             <span className="process-closing__cta-glow" aria-hidden="true" />
           </Link>

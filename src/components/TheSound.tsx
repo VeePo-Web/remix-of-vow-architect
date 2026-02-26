@@ -9,7 +9,7 @@ import { categories, allTracks } from "./PianoPanel";
 const miniBarHeights = [6, 10, 8, 5];
 const miniBarOpacities = [0.6, 1, 0.8, 0.5];
 
-function MiniWaveform({ active }: { active: boolean }) {
+function MiniWaveform({ active, reducedMotion = false }: { active: boolean; reducedMotion?: boolean }) {
   return (
     <div className="flex items-center gap-[1.5px] h-[12px]" aria-hidden="true">
       {miniBarHeights.map((maxH, i) => (
@@ -17,9 +17,9 @@ function MiniWaveform({ active }: { active: boolean }) {
           key={i}
           className="w-[1.5px] rounded-full"
           style={{
-            height: active ? undefined : "3px",
+            height: active && !reducedMotion ? undefined : "3px",
             background: `hsl(var(--vow-yellow) / ${miniBarOpacities[i]})`,
-            animation: active
+            animation: active && !reducedMotion
               ? `sound-wave-${i} 1200ms ease-in-out ${i * 150}ms infinite alternate`
               : "none",
           }}
@@ -435,7 +435,7 @@ export function TheSound() {
                         <span className="flex-1 text-left truncate">
                           {track.title}
                         </span>
-                        {isActive && <MiniWaveform active={isTrackPlaying} />}
+                        {isActive && <MiniWaveform active={isTrackPlaying} reducedMotion={reducedMotion} />}
                       </button>
                     );
                   });
