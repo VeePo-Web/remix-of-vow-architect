@@ -24,17 +24,24 @@ export function WitnessPresence() {
       ref={ref as React.RefObject<HTMLElement>}
       className="relative py-[120px] px-4 bg-background overflow-hidden"
     >
-      {/* Background image */}
-      <div 
-        className="absolute inset-0 opacity-[0.10]"
-        style={{
-          backgroundImage: `url(${aboutPresenceImg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          animation: "ken-burns 30s ease-in-out infinite alternate",
-        }}
-        aria-hidden="true"
-      />
+      {/* Background image — overflow-hidden wrapper */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div 
+          className="absolute inset-0 opacity-[0.10]"
+          style={{
+            backgroundImage: `url(${aboutPresenceImg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            animation: "ken-burns 30s ease-in-out infinite alternate",
+            willChange: "transform",
+          }}
+          aria-hidden="true"
+        />
+      </div>
+
+      {/* Grain */}
+      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
+
       {/* Vignette */}
       <div 
         className="absolute inset-0 pointer-events-none"
@@ -104,7 +111,7 @@ export function WitnessPresence() {
             </p>
           </div>
 
-          {/* Floating Witness Moments */}
+          {/* Floating Witness Moments — elevated frosted glass cards */}
           <div 
             className={cn(
               "mt-20 grid md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-700",
@@ -116,10 +123,14 @@ export function WitnessPresence() {
               <div 
                 key={index}
                 className={cn(
-                  "p-6 rounded-lg border border-primary/10 bg-card/30 backdrop-blur-sm transition-all duration-500 hover:border-primary/30 hover:bg-card/50",
+                  "p-6 rounded-lg border border-primary/[0.08] backdrop-blur-[12px] transition-all duration-500 hover:border-primary/20 hover:shadow-[0_0_24px_rgba(255,224,138,0.06)]",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 )}
-                style={{ transitionDelay: `${900 + index * 100}ms` }}
+                style={{ 
+                  transitionDelay: `${900 + index * 100}ms`,
+                  background: "hsl(var(--card) / 0.3)",
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05), 0 8px 32px rgba(0,0,0,0.15)",
+                }}
               >
                 <p className="text-sm text-muted-foreground leading-relaxed italic">
                   {moment}

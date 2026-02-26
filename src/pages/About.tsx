@@ -1,4 +1,5 @@
-import { Navigation } from "@/components/Navigation";
+import { MinimalHeader } from "@/components/MinimalHeader";
+import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import {
@@ -33,7 +34,7 @@ export default function About() {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navigation />
+      <MinimalHeader />
       
       {/* ACT I: THE RESONANCE */}
       <WitnessHero />
@@ -54,6 +55,7 @@ export default function About() {
       <WitnessCrossing />
 
       <Footer />
+      <MobileStickyBar />
     </div>
   );
 }

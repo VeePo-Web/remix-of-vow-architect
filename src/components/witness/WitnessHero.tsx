@@ -4,7 +4,7 @@ import aboutHeroImg from "@/assets/about-hero.jpg";
 /**
  * THE RESONANCE — Hero Section
  * A single vibrating golden string that resonates like a struck piano key
- * Background image with cinematic vignette and film grain
+ * Background image with cinematic vignette, film grain, warm fog
  */
 export function WitnessHero() {
   const [isVisible, setIsVisible] = useState(false);
@@ -16,26 +16,39 @@ export function WitnessHero() {
 
   return (
     <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-background">
-      {/* Background image with Ken Burns */}
-      <div 
-        className="absolute inset-0 opacity-[0.12]"
-        style={{
-          backgroundImage: `url(${aboutHeroImg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          animation: "ken-burns 25s ease-in-out infinite alternate",
-        }}
-        aria-hidden="true"
-      />
+      {/* Background image with Ken Burns — overflow-hidden wrapper */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div 
+          className="absolute inset-0 opacity-[0.15]"
+          style={{
+            backgroundImage: `url(${aboutHeroImg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            animation: "ken-burns 25s ease-in-out infinite alternate",
+            willChange: "transform",
+            filter: "saturate(0.85) contrast(1.05)",
+          }}
+          aria-hidden="true"
+        />
+      </div>
 
       {/* Film grain overlay */}
-      <div className="absolute inset-0 grain opacity-40 pointer-events-none" aria-hidden="true" />
+      <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
 
       {/* Cinematic vignette */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
           background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 100%)"
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Warm fog layer */}
+      <div 
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse at 50% 60%, hsl(var(--vow-yellow) / 0.02) 0%, transparent 50%)"
         }}
         aria-hidden="true"
       />
@@ -70,10 +83,13 @@ export function WitnessHero() {
           >
             <div className="absolute inset-0 bg-primary/40 vibrating-string" />
             <div className="absolute inset-0 bg-primary blur-sm vibrating-string" style={{ animationDelay: "50ms" }} />
-            {/* Center glow point */}
+            {/* Center glow point with breathing */}
             <div 
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-primary"
-              style={{ boxShadow: "0 0 20px hsl(var(--vow-yellow)), 0 0 40px hsl(var(--vow-yellow) / 0.5)" }}
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-primary motion-reduce:animate-none"
+              style={{ 
+                boxShadow: "0 0 20px hsl(var(--vow-yellow)), 0 0 40px hsl(var(--vow-yellow) / 0.5)",
+                animation: "vigil-pulse 4s ease-in-out infinite",
+              }}
             />
           </div>
 
@@ -103,7 +119,7 @@ export function WitnessHero() {
             }`}
             style={{ transitionDelay: "1500ms" }}
           >
-          <div className="w-px h-12 bg-gradient-to-b from-primary/50 to-transparent mx-auto animate-pulse" />
+          <div className="w-px h-12 bg-gradient-to-b from-primary/50 to-transparent mx-auto animate-pulse motion-reduce:animate-none" />
           </div>
         </div>
       </div>
