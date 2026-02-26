@@ -3714,10 +3714,24 @@ All colors MUST be HSL.
     animation: cta-breathe 4s ease-in-out infinite;
   }
 
+  /* Vow Moment — Breathing glow (Step 5) */
+  @keyframes vow-glow-breathe {
+    0% { opacity: 0.03; }
+    100% { opacity: 0.06; }
+  }
+
+  .vow-glow-breathe {
+    animation: vow-glow-breathe 6s ease-in-out infinite alternate;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .cta-breathe-glow {
       animation: none;
       box-shadow: 0 0 30px rgba(255, 224, 138, 0.2);
+    }
+    .vow-glow-breathe {
+      animation: none;
+      opacity: 0.05;
     }
   }
 }
