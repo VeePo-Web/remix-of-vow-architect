@@ -406,7 +406,7 @@ export function TheSound() {
               Browse. Listen. Imagine it at yours.
             </p>
 
-            {/* ── Step 3: Living golden thread with breathing anchor dots ── */}
+            {/* ── Golden thread — responds to playback state ── */}
             <div
               className={cn(
                 "mx-auto mb-8 relative transition-all duration-700",
@@ -414,9 +414,10 @@ export function TheSound() {
               )}
               style={{
                 width: "1px",
-                height: "48px",
+                height: isPlaying ? "56px" : "48px",
                 transformOrigin: "top",
                 transitionDelay: isVisible ? "380ms" : "0ms",
+                transition: "opacity 700ms ease, transform 700ms ease, height 400ms ease",
               }}
               aria-hidden="true"
             >
@@ -424,25 +425,29 @@ export function TheSound() {
               <div
                 className="absolute -top-[2px] left-1/2 -translate-x-1/2 w-[4px] h-[4px] rounded-full"
                 style={{
-                  background: "hsl(var(--vow-yellow) / 0.7)",
-                  animation: reducedMotion ? "none" : "exhale-pulse 4.2s cubic-bezier(0.4,0,0.6,1) infinite",
+                  background: `hsl(var(--vow-yellow) / ${isPlaying ? 1 : 0.7})`,
+                  animation: reducedMotion ? "none" : `exhale-pulse ${isPlaying ? "2.8s" : "4.2s"} cubic-bezier(0.4,0,0.6,1) infinite`,
+                  transition: "background 700ms ease",
                 }}
               />
               {/* Thread line */}
               <div
                 className="absolute inset-0 sound-thread"
                 style={{
-                  background: "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.4), hsl(var(--vow-yellow) / 0.08))",
-                  opacity: isPlaying ? 0.6 : undefined,
-                  transition: "opacity 700ms ease",
+                  background: isPlaying
+                    ? "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.7), hsl(var(--vow-yellow) / 0.2))"
+                    : "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.4), hsl(var(--vow-yellow) / 0.08))",
+                  filter: isPlaying ? "drop-shadow(0 0 3px hsl(var(--vow-yellow) / 0.15))" : "none",
+                  transition: "background 700ms ease, filter 700ms ease",
                 }}
               />
               {/* Bottom anchor dot */}
               <div
                 className="absolute -bottom-[2px] left-1/2 -translate-x-1/2 w-[4px] h-[4px] rounded-full"
                 style={{
-                  background: "hsl(var(--vow-yellow) / 0.4)",
-                  animation: reducedMotion ? "none" : "exhale-pulse 4.2s cubic-bezier(0.4,0,0.6,1) infinite 2.1s",
+                  background: `hsl(var(--vow-yellow) / ${isPlaying ? 0.7 : 0.4})`,
+                  animation: reducedMotion ? "none" : `exhale-pulse ${isPlaying ? "2.8s" : "4.2s"} cubic-bezier(0.4,0,0.6,1) infinite 2.1s`,
+                  transition: "background 700ms ease",
                 }}
               />
             </div>
@@ -456,12 +461,12 @@ export function TheSound() {
               style={{
                 opacity: cardVisible ? 1 : 0,
                 transform: cardVisible ? "translateY(0) scale(1)" : "translateY(16px) scale(0.98)",
-                transition: "opacity 800ms cubic-bezier(0.22, 0.61, 0.36, 1), transform 800ms cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 0.7s cubic-bezier(0.22, 0.61, 0.36, 1)",
+                transition: "opacity 800ms cubic-bezier(0.22, 0.61, 0.36, 1), transform 800ms cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 0.7s cubic-bezier(0.22, 0.61, 0.36, 1), border-color 700ms ease",
                 background: "hsl(var(--rich-black))",
-                borderTop: "1px solid hsl(var(--vow-yellow) / 0.18)",
-                borderLeft: "1px solid hsl(var(--vow-yellow) / 0.10)",
-                borderRight: "1px solid hsl(var(--vow-yellow) / 0.10)",
-                borderBottom: "1px solid hsl(var(--vow-yellow) / 0.06)",
+                borderTop: `1px solid hsl(var(--vow-yellow) / ${isPlaying ? 0.28 : 0.18})`,
+                borderLeft: `1px solid hsl(var(--vow-yellow) / ${isPlaying ? 0.16 : 0.10})`,
+                borderRight: `1px solid hsl(var(--vow-yellow) / ${isPlaying ? 0.16 : 0.10})`,
+                borderBottom: `1px solid hsl(var(--vow-yellow) / ${isPlaying ? 0.10 : 0.06})`,
                 boxShadow: isPlaying
                   ? "inset 0 2px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.3), 0 24px 80px rgba(0,0,0,0.5), 0 0 40px hsl(var(--vow-yellow) / 0.08)"
                   : "inset 0 2px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.3), 0 24px 80px rgba(0,0,0,0.5)",
@@ -499,12 +504,14 @@ export function TheSound() {
                     const isTrackPlaying = isActive && isPlaying;
                     const hasSrc = !!track.src;
 
+                    const pct = isActive && duration > 0 ? (progress / duration) * 100 : 0;
+
                     return (
                       <button
                         key={track.title}
                         onClick={() => hasSrc ? handleTrackClick(thisGlobalIndex) : undefined}
                         className={cn(
-                          "track-button group w-full flex items-center gap-3 h-11 px-4 sm:px-5",
+                          "track-button group w-full flex items-center gap-3 h-11 px-4 sm:px-5 relative",
                           "font-display text-[15px] font-light tracking-normal",
                           "transition-all duration-[180ms]",
                           isActive
@@ -542,6 +549,16 @@ export function TheSound() {
                             Coming Soon
                           </span>
                         )}
+                        {/* Progress underline */}
+                        {isActive && hasSrc && (
+                          <div
+                            className="absolute bottom-0 left-0 right-0 h-[1px]"
+                            style={{
+                              background: `linear-gradient(to right, hsl(var(--vow-yellow) / 0.4) ${pct}%, transparent ${pct}%)`,
+                            }}
+                            aria-hidden="true"
+                          />
+                        )}
                       </button>
                     );
                   });
@@ -551,7 +568,15 @@ export function TheSound() {
                     <div key={category.id}>
                       {/* Category divider between groups */}
                       {catIdx > 0 && (
-                        <div className="flex justify-center py-2" aria-hidden="true">
+                        <div
+                          className="flex justify-center py-2"
+                          style={{
+                            opacity: cardVisible ? 1 : 0,
+                            transition: "opacity 400ms ease",
+                            transitionDelay: cardVisible ? `${100 + (catIdx - 0.5) * 80}ms` : "0ms",
+                          }}
+                          aria-hidden="true"
+                        >
                           <div
                             style={{
                               width: "32px",
@@ -640,8 +665,7 @@ export function TheSound() {
                     width: "3px",
                     height: "3px",
                     background: "hsl(var(--vow-yellow) / 0.6)",
-                    transform: "translate(-50%, -50%) rotate(45deg)",
-                    animation: reducedMotion ? "none" : "divider-diamond-breathe 4.2s cubic-bezier(0.4,0,0.6,1) infinite",
+                    animation: reducedMotion ? "none" : "divider-diamond-breathe 4.2s cubic-bezier(0.4,0,0.6,1) infinite, diamond-turn 4.2s ease-in-out infinite",
                   }}
                 />
               </div>
