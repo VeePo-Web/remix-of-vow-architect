@@ -165,6 +165,23 @@ function NowPlayingBar({
         aria-valuenow={Math.round(percent)}
         aria-valuemin={0}
         aria-valuemax={100}
+        tabIndex={0}
+        onKeyDown={(e) => {
+          const step = 0.05;
+          if (e.key === "ArrowRight") {
+            e.preventDefault();
+            (window as any).__sacredSoundSeek?.(Math.min(1, percent / 100 + step));
+          } else if (e.key === "ArrowLeft") {
+            e.preventDefault();
+            (window as any).__sacredSoundSeek?.(Math.max(0, percent / 100 - step));
+          } else if (e.key === "Home") {
+            e.preventDefault();
+            (window as any).__sacredSoundSeek?.(0);
+          } else if (e.key === "End") {
+            e.preventDefault();
+            (window as any).__sacredSoundSeek?.(1);
+          }
+        }}
       >
         <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-foreground/5 group-hover/seek:h-[4px] transition-all duration-150 relative">
           <div
@@ -271,7 +288,8 @@ export function TheSound() {
     if (!el || reducedMotion) return;
     const handleScroll = () => {
       const rect = el.getBoundingClientRect();
-      setScrollOffset(-rect.top * 0.05);
+      const raw = -rect.top * 0.05;
+      setScrollOffset(Math.max(-40, Math.min(40, raw)));
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -410,7 +428,7 @@ export function TheSound() {
             loading="lazy"
             style={{
               filter: "saturate(0.6) contrast(1.1)",
-              animation: reducedMotion ? "none" : "sound-ken-burns 30s ease-in-out infinite alternate",
+              animation: reducedMotion || !sectionInView ? "none" : "sound-ken-burns 30s ease-in-out infinite alternate",
               willChange: "transform",
             }}
           />
@@ -601,7 +619,7 @@ export function TheSound() {
                   ? "inset 0 2px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.3), 0 24px 80px rgba(0,0,0,0.5), 0 0 40px hsl(var(--vow-yellow) / 0.08)"
                   : "inset 0 2px 0 rgba(255,255,255,0.06), inset 0 -1px 0 rgba(0,0,0,0.3), 0 24px 80px rgba(0,0,0,0.5)",
                 backdropFilter: "blur(12px)",
-                animation: !isPlaying && !reducedMotion ? "sound-card-breathe 6s cubic-bezier(0.4,0,0.6,1) infinite" : "none",
+                animation: !isPlaying && !reducedMotion && sectionInView ? "sound-card-breathe 6s cubic-bezier(0.4,0,0.6,1) infinite" : "none",
                 animationDelay: cardVisible ? "900ms" : "0ms",
               }}
             >

@@ -4589,8 +4589,10 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 /* Blockquote hover warmth */
 .blockquote-warm {
   cursor: default;
+  transition: color 300ms ease, text-shadow 300ms ease;
 }
 .blockquote-warm:hover {
+  color: hsl(var(--vow-yellow) / 0.85);
   text-shadow: 0 0 20px hsl(var(--vow-yellow) / 0.03);
 }
 
