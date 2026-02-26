@@ -1,86 +1,83 @@
 
 
-# Homepage Round 13 — Final Audit and Edge-Case Hardening
+# Homepage Round 14 — Section Fade Color Mismatch Fix and Final Typography Pass
 
-After 12 rounds, the seven final sections achieve cinematic quality. This round addresses the remaining edge cases, a missed implementation from Round 12, and two subtle interaction issues that would be caught in a Fantasy.co QA pass.
+## Critical Bug Found
+
+Round 12 introduced a bottom fade to TheInvitation (`hsl(220 15% 8%)` — dark), but TheSound's top fade still references `hsl(45 25% 96%)` (warm). This creates a visible warm-dark-warm seam at the junction between sections. The same class of issue may exist at other junctions where fades were added in later rounds without updating adjacent sections.
 
 ---
 
-## Audit Findings
+## Audit — Section Junction Color Map
 
-### NowPlayingBar — Missing Reduced-Motion on Progress Bar (Missed in R12)
-The Round 12 plan noted that the NowPlayingBar progress bar animates continuously without respecting `prefers-reduced-motion`, but no fix was implemented. The progress bar at line 126 uses `transition-none` — this is correct (it tracks audio position, not decorative motion). However, the sound-wave animations in MiniWaveform ARE decorative and while the CSS selector `[style*="sound-wave"]` at line 4236 targets them, it relies on attribute matching which may not work reliably across browsers since the animation name is set via inline `animation` style property, not a `style` attribute containing that string literally. A more robust approach: check `reducedMotion` state in the component itself.
+Tracing the exit/entry color at every junction across the 7 sections:
 
-### TheTransformation — Hover Opacity Fix Incomplete
-The Round 12 fix used `onMouseEnter`/`onMouseLeave` event handlers to toggle opacity. This works but creates a problem: on touch devices, `mouseEnter` fires but `mouseLeave` may not fire reliably, leaving items stuck at full opacity. Need to add `onTouchEnd` handler or use CSS-only approach via `@media (hover: hover)`.
+| From Section | Exit Fade Color | To Section | Entry Fade Color | Match? |
+|---|---|---|---|---|
+| VowMoment | `hsl(45 25% 96%)` (warm) | TheInvitation | `hsl(240 9% 4%)` (dark) | YES — VowMoment exits warm, Invitation enters from dark (VowMoment side). Correct. |
+| TheInvitation | `hsl(220 15% 8%)` (dark) | TheSound | `hsl(45 25% 96%)` (warm) | **BUG** — Invitation exits dark but Sound expects warm at top. |
+| TheSound | `hsl(220 15% 8%)` (dark) | TheTransformation | `hsl(220 15% 8%)` (dark) | YES |
+| TheTransformation | `hsl(45 25% 96%)` (warm) | TheWitness | `hsl(42 28% 91%)` (warm) | Close enough — both warm tones |
+| TheWitness | `hsl(240 9% 4%)` (dark) | ThreePaths | `hsl(45 20% 93%)` (warm) | **BUG** — Witness exits dark but ThreePaths expects warm at top. |
+| ThreePaths | `hsl(45 20% 93%)` (warm) | TheWitnesses | `hsl(240 9% 4%)` (dark) | **MISMATCH** — ThreePaths exits warm but Witnesses expects dark at top. Wait — ThreePaths is dark, so its bottom fade goes TO warm (for Witnesses). Witnesses top fade goes FROM dark (ThreePaths dark). Actually ThreePaths bottom = `hsl(45 20% 93%)` and TheWitnesses top = `hsl(240 9% 4%)`. One says warm, other says dark. **BUG.** |
+| TheWitnesses | `hsl(240 9% 2%)` (dark) | CrossOver | `hsl(45 20% 93%)` (warm) | **BUG** — Witnesses exits dark, CrossOver expects warm at top. |
 
-### TheSound — NowPlayingBar Slide Transition
-The NowPlayingBar uses `transform: translateY(100%)` to hide and `translateY(0)` to show (in CSS). The transition timing is not explicitly set in the CSS — it inherits from whatever the browser default is. Should have explicit `transition` property matching the site's 260ms navigation timing standard.
+Four mismatches total. These create thin visible color seams between sections.
 
-### CrossOver — Trust Anchor Spacing
-After relocating the film grain in Round 12, the trust anchor text (`mb-12`) creates a large gap before the golden thread below it. The visual rhythm feels disconnected. The `mb-4` on the CTA stack was also changed, creating a tight CTA-to-trust gap. The spacing sequence should be: CTA -> 16px -> trust text -> 32px -> golden thread -> 32px -> commitment.
+---
 
-### ProcessSection — Closing CTA Button Variant
-The closing CTA in ProcessSection uses class `cta-breathe-glow` on a `<Link>` element (line 128). This should match CrossOver's `cta-commitment cta-breathe-glow` pattern for visual consistency across the two primary CTAs on the page.
+## Additional Finding — Typography Consistency
 
-### VowMoment — Missing Film Grain Layer
-VowMoment uses `section-grain` class on the section element but does NOT have an explicit grain div overlay like every other dark section. If `section-grain` applies grain via CSS pseudo-element, this is fine. But other sections all use explicit `<div className="grain opacity-[0.08]">`. Need to verify consistency.
-
-### Global — Section Fade Height Consistency
-Some section fades use the default `section-fade-top` / `section-fade-bottom` CSS class height, while some set inline backgrounds. The height of these fade overlays should be verified as consistent (typically 120-160px) so transitions feel uniform.
+TheInvitation caption line 104 uses `—` (keyboard dash surrounded by spaces) instead of proper em-dash `\u2014`, inconsistent with the fix applied to TheWitness in Round 12.
 
 ---
 
 ## The 7-Step Plan
 
-### Step 1: TheSound — Robust Reduced-Motion for MiniWaveform
-Pass the `reducedMotion` state from TheSound down to MiniWaveform as a prop. When true, disable the sound-wave animations directly in the component rather than relying on CSS attribute selectors.
+### Step 1: Fix TheSound Top Fade
+Change TheSound's top fade from `hsl(45 25% 96%)` to `hsl(220 15% 8%)` to match TheInvitation's dark exit.
 
-**File:** `src/components/TheSound.tsx`
+**File:** `src/components/TheSound.tsx` (line 274)
 
-### Step 2: TheTransformation — Touch-Safe Hover Opacity
-Wrap the `onMouseEnter`/`onMouseLeave` handlers in a `@media (hover: hover)` check. Use a ref or state to detect if the device supports hover. On non-hover devices, items remain at their base opacity without the hover interaction. This prevents touch-device sticking.
+### Step 2: Fix ThreePaths Top Fade
+Change ThreePaths' top fade from `hsl(45 20% 93%)` to match TheWitness's dark exit color `hsl(240 9% 4%)`.
 
-**File:** `src/components/TheTransformation.tsx`
+**File:** `src/components/ThreePaths.tsx` (line 65)
 
-### Step 3: NowPlayingBar — Explicit Transition Timing
-Add explicit `transition: transform 260ms cubic-bezier(0.22, 0.61, 0.36, 1), opacity 260ms ease` to the `.now-playing-bar` CSS class to match the site's navigation timing standard.
+### Step 3: Fix ThreePaths Bottom Fade Direction
+ThreePaths is a dark section exiting to TheWitnesses (warm). Its bottom fade `hsl(45 20% 93%)` is warm — correct direction. But TheWitnesses' top fade is `hsl(240 9% 4%)` (dark) which assumes dark above. These two overlap correctly: ThreePaths blends dark-to-warm at bottom, Witnesses blends dark-to-transparent at top. The dark color in Witnesses' top fade should match ThreePaths' dark body, not conflict. This is actually correct — no change needed.
 
-**File:** `src/index.css`
+Revised: Only fix ThreePaths' TOP fade (Step 2).
 
-### Step 4: CrossOver — Normalize Spacing Rhythm
-Adjust the spacing between CTA stack, trust text, golden thread, and commitment statement to create an even visual cadence: CTA (`mb-6`) -> trust text (`mb-10`) -> golden thread (`mb-8`) -> commitment.
+### Step 4: Fix CrossOver Top Fade
+CrossOver's top fade uses `hsl(45 20% 93%)` (warm) but TheWitnesses exits to `hsl(240 9% 2%)` (dark). Change CrossOver's top fade to match TheWitnesses' dark exit.
 
-**File:** `src/components/CrossOver.tsx`
+**File:** `src/components/CrossOver.tsx` (line 64)
 
-### Step 5: ProcessSection — Match CTA Class Pattern
-Add `cta-commitment` class to the ProcessSection closing CTA to match CrossOver's dual-class pattern, ensuring visual consistency between the two primary page CTAs.
+### Step 5: TheInvitation Caption Em-Dash
+Replace the plain dashes in "A moment with me — before the moment with you" with proper em-dashes for typographic consistency.
 
-**File:** `src/components/process/ProcessSection.tsx`
+**File:** `src/components/TheInvitation.tsx` (line 104)
 
-### Step 6: VowMoment — Verify/Add Explicit Grain Overlay
-Check if `section-grain` class applies grain via pseudo-element. If not, add an explicit grain div matching other dark sections' pattern.
+### Step 6: Verify TheWitness Bottom Fade to ThreePaths
+TheWitness exits to `hsl(240 9% 4%)` and ThreePaths is dark (`section--dark`). After Step 2 fix, ThreePaths' top fade will come FROM this same dark color. Verify alignment — should be seamless now.
 
-**File:** `src/components/VowMoment.tsx` (if needed)
+**File:** Verification only, no change expected.
 
-### Step 7: CSS — Verify Section Fade Heights
-Audit the `section-fade-top` and `section-fade-bottom` class heights in CSS. Ensure they provide 120-160px of gradient space for all section transitions.
-
-**File:** `src/index.css` (verification, fix if needed)
+### Step 7: Visual Smoke Test
+After applying the four color fixes, scroll through all seven sections to confirm no visible seams remain at any junction.
 
 ---
 
 ## Files Modified Summary
 
 | Step | File | Change |
-|------|------|--------|
-| 1 | `TheSound.tsx` | Pass reducedMotion prop to MiniWaveform |
-| 2 | `TheTransformation.tsx` | Touch-safe hover with media query check |
-| 3 | `src/index.css` | NowPlayingBar transition timing |
-| 4 | `CrossOver.tsx` | Normalize spacing rhythm |
-| 5 | `ProcessSection.tsx` | Add cta-commitment class |
-| 6 | `VowMoment.tsx` | Verify/add grain overlay |
-| 7 | `src/index.css` | Verify section fade heights |
+|---|---|---|
+| 1 | `TheSound.tsx` | Top fade color: warm to dark |
+| 2 | `ThreePaths.tsx` | Top fade color: warm to dark |
+| 3 | Removed (was redundant) | |
+| 4 | `CrossOver.tsx` | Top fade color: warm to dark |
+| 5 | `TheInvitation.tsx` | Caption em-dash fix |
 
-No copy changes. No pricing changes. No new dependencies. Edge-case hardening and interaction reliability.
+Four files, four color fixes, one typography fix. No copy changes. No pricing changes. No new dependencies.
 
