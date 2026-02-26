@@ -271,7 +271,7 @@ export function TheSound() {
         {/* Top fade */}
         <div
           className="section-fade-top"
-          style={{ background: 'linear-gradient(to top, transparent, hsl(45 25% 96%))' }}
+          style={{ background: 'linear-gradient(to top, transparent, hsl(220 15% 8%))' }}
           aria-hidden="true"
         />
 
