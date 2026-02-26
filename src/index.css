@@ -4135,11 +4135,26 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   100% { transform: scale(1.04); }
 }
 
+/* ThreePaths Ken Burns */
+@keyframes paths-ken-burns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.03); }
+}
+
+/* CrossOver Ken Burns */
+@keyframes crossover-ken-burns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.04); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   img[style*="sound-ken-burns"],
   img[style*="transform-fear-kb"],
-  img[style*="transform-life-kb"] {
+  img[style*="transform-life-kb"],
+  img[style*="paths-ken-burns"],
+  img[style*="crossover-ken-burns"] {
     animation: none !important;
+    transform: scale(1) !important;
   }
 }
 
