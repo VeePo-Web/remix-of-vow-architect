@@ -1,47 +1,73 @@
 
 
-# TheWitness Section — Copy Rewrite
+# ThreePaths Section — Copy Rewrite
 
-## Current Problems
+## Problems Identified
 
-The copy positions Parker as a sound engineer: "I test every microphone myself," "2 mics," "Battery," "SPL meter." This misrepresents the service. Parker is a pianist who brings a keyboard, backup keyboard, speakers, a cue sheet, insurance, and a piano cover for weather protection.
+1. **Headline feels arrogant.** "How deeply do you want me there?" centres Parker's importance rather than the couple's day. Needs to be reframed around the couple's choice.
+2. **Features reference sound engineering.** "Officiant/vow microphones," "Silent battery power," "3 SPL readings logged," "Extended SPL monitoring," "Full-day SPL documentation," "Reception DJ & MC" — Parker is a pianist, not a sound tech or DJ.
+3. **Descriptions need accuracy.** The Vow = ceremony only. The Hour = prelude + ceremony. The Story = prelude + ceremony + reception.
 
 ## Copy Changes (No Design Changes)
 
-### File: `src/components/TheWitness.tsx`
+### File: `src/components/ThreePaths.tsx`
 
-**Headline (lines 69-81):** Change from sound-tech framing to pianist identity.
+**Headline (line 85):**
+
+| Current | Proposed |
+|---------|----------|
+| "How deeply do you want me there?" | "Choose the moment that matters most." |
+
+**Subheadline (line 94):**
+
+| Current | Proposed |
+|---------|----------|
+| "Three ways I can be present on your day." | "Three ways I can shape the music of your day." |
+
+**The Vow — features (lines 21-25):**
+
+| Current | Proposed |
+|---------|----------|
+| "Officiant/vow microphones" | "Live piano for your ceremony" |
+| "Silent battery power" | "Processional and recessional pieces" |
+| "3 SPL readings logged" | "Custom arrangement consultation" |
+| "Run-of-show cue sheet" | "Run-of-show cue sheet" |
+
+**The Hour — description and features (lines 32-37):**
 
 | Element | Current | Proposed |
 |---------|---------|----------|
-| Headline | "Not a musician — your ceremony **witness**." | "Not a performer — your ceremony **pianist**." |
+| Description | "Prelude + Ceremony + Cocktails" | "Prelude + Ceremony" |
+| Feature 1 | "Everything in The Vow" | "Everything in The Vow" |
+| Feature 2 | "Live piano prelude (30 min)" | "30-minute piano prelude as guests arrive" |
+| Feature 3 | "Cocktail hour music" | "Backup piano and speakers included" |
+| Feature 4 | "Extended SPL monitoring" | "Rain cover for outdoor ceremonies" |
 
-**Declarations array (lines 6-10):** Replace microphone/sound references with what Parker actually does.
+**The Story — description and features (lines 44-51):**
+
+| Element | Current | Proposed |
+|---------|---------|----------|
+| Description | "Full wedding day" | "Prelude + Ceremony + Reception" |
+| Feature 1 | "Everything in The Hour" | "Everything in The Hour" |
+| Feature 2 | "Reception DJ & MC" | "Live piano through dinner and reception" |
+| Feature 3 | "Full-day SPL documentation" | "Full-day timeline consultation" |
+| Feature 4 | "Timeline consultation" | "Insurance and all equipment included" |
+
+**CTA text — all three cards (lines 27, 40, 52):**
 
 | Current | Proposed |
 |---------|----------|
-| "I arrive before anyone else." | "I arrive before anyone else." (keep — it's true and strong) |
-| "I test every microphone myself." | "I sound-check every note before your guests arrive." |
-| "I walk your cue sheet until it is second nature." | "I walk your cue sheet until it is second nature." (keep — accurate) |
+| "Choose this presence" | "Hold my date" |
 
-**Standard Kit array (lines 12-19):** Replace with actual equipment.
-
-| Current | Proposed |
-|---------|----------|
-| 2 mics | Piano |
-| Battery | Backup piano |
-| SPL meter | Speakers |
-| Cue sheet | Cue sheet |
-| $4M ins. | Insurance |
-| 24h plan | Rain cover |
-
-**Icon updates:** Swap icons to match new items. Use `Piano` (from lucide — or `Music`), `Copy` (backup), `Volume2` (speakers), `FileText` (cue sheet), `Shield` (insurance), `Umbrella` (rain cover).
+This aligns with the brand voice rule: verb-forward CTAs, never "Submit."
 
 ## What Stays Unchanged
 
-- All design: layout, background image, gradients, golden thread separator, scroll reveal animations
-- Section label "THE WITNESS"
-- "What I bring" sub-label
-- Grid layout (3x2 on mobile, 6 across on desktop)
-- All CSS classes, transitions, hover states, and timing
+- All design: card layout, dark backgrounds, radial gradients, box shadows, border styles
+- Section label "YOUR PRESENCE"
+- Prices ($650, $750, $1,200)
+- Card names (The Vow, The Hour, The Story)
+- "MOST SELECTED" badge on middle card
+- Reassurance line at bottom
+- All CSS classes, scroll reveal animations, stagger timing
 
