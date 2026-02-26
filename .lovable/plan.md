@@ -1,120 +1,132 @@
 
 
-# Round 20 — "Hear Me Play" Listening Room: Fantasy.co-Level Elevation
+# Round 21 — "Hear Me Play" Listening Room: Cinematic Imagery + Interaction Polish
 
-## Critical Audit of Current State
+## Critical Audit of Current State (Post-Round 20)
 
-The "Hear Me Play" section (TheSound.tsx) currently renders as a dark section with a background image (sound-cathedral-ai.jpg at 12% opacity), a heading cluster, a golden thread connector, and a single compact track listing card with five categories of three tracks each. A NowPlayingBar floats at the bottom when users scroll away. Here is what falls short of Fantasy.co standards:
+Round 20 successfully added atmospheric depth layers, category emotional context phrases, breathing golden thread with anchor dots, graceful "Coming Soon" empty state, and a closing bookend with diamond and blockquote semantics. The section is structurally improved. However, these remaining gaps prevent it from reaching Fantasy.co quality:
 
-### Issue 1: The Section Feels Like a Feature List, Not an Emotional Experience
+### Issue 1: No Imagery — The Section Still Feels Like a Dark UI Card in a Void
 
-The track listing card is a flat, utilitarian playlist. At 15 tracks in a single scrollable card, it resembles a Spotify embed more than a bespoke listening room. There is no emotional context for why these pieces matter — no imagery, no narrative framing per category, no sense of ceremony. A couple browsing this should feel the goosebumps of imagining "Clair de Lune" playing as they walk down the aisle. Instead they see a text list.
+Despite the warm floor gradient and dust motes, the section has exactly one image: `sound-cathedral-ai.jpg` at 18% opacity, barely perceptible. Fantasy.co sections are rich with layered photographic depth. A couple should feel like they are sitting in an intimate candlelit piano room. The background image is desaturated and Ken Burns-animated, but it is not enough. The card itself has zero visual richness — it is a text-only dark rectangle. Adding a subtle second image layer (e.g., blurred bokeh lights, piano keys close-up) behind or around the card would create the emotional depth the brand demands.
 
-### Issue 2: No Visual Depth or Atmosphere
+**Recommendation:** Generate two AI images — one atmospheric bokeh/candlelight overlay for the section background (to layer on top of the cathedral image), and one intimate close-up of piano keys or hands for use as a subtle card header or section accent. Both rendered at very low opacity (5-12%) and blurred for atmosphere, not detail.
 
-The background image sits at 12% opacity with a desaturated filter — it is barely perceptible. The section feels like a dark void with a floating card. There is no layered depth: no candlelight warmth, no bokeh, no sense of being inside a cathedral or intimate piano space. Fantasy.co would create atmospheric depth through multiple translucent layers that make the viewer feel physically present.
+### Issue 2: The Track Card Lacks a Visual "Lid" or Header
 
-### Issue 3: Track Categories Lack Visual Differentiation
+The track listing card jumps directly into category labels. There is no visual introduction — no card header that says "this is a bespoke listening instrument." At Fantasy.co quality, the card would have a slim header with either a subtle image strip, a title ("Listening Room" or "Repertoire"), or a thin decorative element that visually frames the content below. The PianoStrings decoration exists but is invisible at normal viewing — it needs either more opacity or a complementary visual.
 
-All five categories (Hymns, Worship, Pop, Classical, Film) are rendered identically — a tiny uppercase label and a 1px separator. There is no visual cue to help users understand the emotional character of each category. At Fantasy.co quality, each category would have a subtle visual identity — even just a shift in the ambient glow color or a single evocative word.
+**Recommendation:** Add a slim card header area (40-48px) with a centered "Repertoire" label in the brand typography, a subtle golden rule beneath it, and optionally a blurred piano image strip at 8% opacity as background.
 
-### Issue 4: No Audio Files Exist
+### Issue 3: Track Buttons Have No Hover Micro-interaction Beyond Color
 
-Every track has `src: ""` — nothing is playable. The entire listening room is a non-functional shell. This is the single biggest gap. Without audio, the section is a promise without delivery. However, since we cannot create audio files, we should design the section to gracefully handle this state and make the visual/emotional experience compelling even without playback.
+Currently tracks change text color on hover (`hover:text-foreground hover:bg-[hsl(var(--vow-yellow)/0.03)]`). This is functionally correct but lacks the tactile feedback Fantasy.co would provide. There is no scale shift, no accent bar hint, no subtle glow emergence. The hover state should feel like touching a piano key — a slight depression or illumination.
 
-### Issue 5: The Golden Thread Connector Feels Orphaned
+**Recommendation:** Add a 2px accent bar "hint" on hover (currently only shows on active state), a subtle left-side golden glow emergence, and ensure the transition timing follows the brand standard (180ms cubic-bezier).
 
-The 48px golden thread between the heading and the card is visually thin and disconnected. It should feel like a physical golden wire connecting the invitation ("Hear me play") to the listening instrument below — not a floating dash.
+### Issue 4: The Section Transition Into TheTransformation Is Abrupt
+
+The bottom fade gradient (`hsl(220 15% 8%)`) ends the section, but TheTransformation section following it may have a different color temperature. The transition should feel like one continuous breath — exhale from the listening room into the transformation space.
+
+**Recommendation:** Verify and align the bottom fade color with TheTransformation's entry color for seamless flow.
+
+### Issue 5: Mobile Category Spacing Is Too Dense
+
+On mobile viewports, the `px-5 pt-5 pb-1` category headers and `h-11` track buttons create a dense list that may feel cramped. The emotional context phrases add visual noise at small sizes. Mobile needs breathing room.
+
+**Recommendation:** On mobile, increase category vertical padding, consider hiding the context phrases below 640px, and ensure adequate spacing between the card edge and content.
 
 ---
 
 ## 5-Step Implementation Plan
 
-### Step 1: Atmospheric Depth — Create a Cinematic Interior Space
+### Step 1: Generate and Add Atmospheric Imagery
+
+Generate two AI images using the Nano banana model:
+
+**Image A — "Golden Bokeh Veil":** A soft, warm bokeh pattern of golden candlelight circles on a dark background. Prompt: "Soft warm golden bokeh circles on pure black background, out of focus candlelight, intimate wedding ceremony atmosphere, cinematic, no people, abstract light pattern." This will be used as a semi-transparent overlay (`opacity-[0.06]`) on top of the cathedral image to add warmth and depth.
+
+**Image B — "Piano Keys Intimate":** An intimate close-up of piano keys with warm side lighting. Prompt: "Extreme close-up of grand piano keys, warm golden side light, shallow depth of field, dark moody atmosphere, cinematic lighting, no hands visible." This will be used as the card header strip image at very low opacity.
+
+**Files:**
+- Save Image A as `src/assets/sound-bokeh-ai.jpg`
+- Save Image B as `src/assets/sound-keys-intimate-ai.jpg`
+- Modify `src/components/TheSound.tsx` to import and layer both images
+
+**Image A placement:** New `<div>` layer after the cathedral image, `absolute inset-0`, `opacity-[0.06]`, `mix-blend-mode: screen`, with `loading="lazy"`. This creates golden warmth over the cool cathedral base.
+
+**Image B placement:** Inside the card, before the `<PianoStrings>`, as a 48px-tall header strip with `overflow-hidden rounded-t-[16px]`, `opacity-[0.08]`, and a bottom gradient fade to `hsl(var(--rich-black))`.
+
+### Step 2: Add Card Header with "Repertoire" Label
 
 **File:** `src/components/TheSound.tsx`
 
-Transform the background from a single faint image into a layered atmospheric space that evokes being inside a candlelit cathedral or intimate piano room:
+Inside the track card (after opening `<div>` and before `<PianoStrings>`), add a card header:
 
-- Increase background image opacity from 0.12 to 0.18 for more visual presence
-- Add a second atmospheric layer: a warm radial gradient pool centered at 50% 60% (below center) using `hsl(30 40% 12% / 0.15)` — this creates a "warm floor" effect, as if candlelight is pooling on the ground
-- Add a subtle top-edge "light leak" gradient: `linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.03) 0%, transparent 20%)` — mimicking light entering from above
-- Enhance the existing vignette to be slightly tighter: change the transparent center from 30% to 25% for more cinematic framing
-- Add a very subtle animated "dust mote" layer using a CSS radial gradient with a slow drift animation (40s cycle, translateX 3%, opacity 0.02-0.04) — this creates living atmosphere without performance cost
+```
+<div className="relative h-12 overflow-hidden rounded-t-[16px]">
+  {/* Piano keys strip image */}
+  <img src={pianoKeysIntimate} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.08]" loading="lazy" aria-hidden="true" />
+  {/* Gradient fade to card base */}
+  <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, transparent 0%, hsl(var(--rich-black)) 100%)" }} aria-hidden="true" />
+  {/* Label */}
+  <div className="relative z-10 h-full flex items-center justify-center">
+    <span className="text-[10px] uppercase tracking-[0.25em] text-foreground/25 font-sans">
+      Repertoire
+    </span>
+  </div>
+</div>
+```
 
-**File:** `src/index.css`
+This gives the card a visual "lid" — a slim header that frames the content and provides the bespoke instrument feel.
 
-Add a `@keyframes sound-dust-drift` animation:
+### Step 3: Enhance Track Hover Micro-interactions
+
+**File:** `src/components/TheSound.tsx`
+
+For tracks with `hasSrc` (playable) AND currently non-active tracks on hover:
+
+- Add a hover accent bar hint: the 2px accent bar transitions from `scaleY(0)` to `scaleY(0.5)` with `height: 8px` on hover (currently only shows on active). This creates a "key depression" preview effect.
+- Add a subtle left-edge glow on hover: `hover:shadow-[inset_2px_0_8px_hsl(var(--vow-yellow)/0.04)]`
+- For tracks WITHOUT `hasSrc` (Coming Soon), no hover effect — they remain inert.
+
+The accent bar needs a CSS group hover approach. Wrap each button in a group and use `group-hover:` for the bar transition. Since we're using inline styles for the bar, we'll move the hover logic to use a state-based approach or add a CSS class in index.css.
+
+**Simpler approach:** Add a `.track-bar-hint` CSS class in `src/index.css`:
 ```css
-@keyframes sound-dust-drift {
-  0% { transform: translate(0, 0); opacity: 0.02; }
-  50% { transform: translate(3%, -2%); opacity: 0.04; }
-  100% { transform: translate(-1%, 1%); opacity: 0.02; }
+.track-button:not(.track-button--active):hover .track-bar {
+  transform: scaleY(1);
+  height: 8px;
+  background: hsl(var(--vow-yellow) / 0.3);
 }
 ```
 
-With reduced-motion guard.
+This keeps the component lean and uses CSS for hover states rather than React state.
 
-### Step 2: Restructure Track Listing with Category Context Cards
-
-**File:** `src/components/TheSound.tsx`
-
-Replace the single monolithic track card with a more spacious, category-aware layout:
-
-- Each category gets its own visual group with more breathing room (py-5 instead of py-2)
-- Add a subtle emotional context line beneath each category label — a single italic phrase that helps the couple imagine the moment:
-  - Hymns: "For the weight of what is sacred"
-  - Worship: "For the praise that carries you"
-  - Pop: "For the love song that is yours"
-  - Classical: "For the timeless and the elegant"
-  - Film: "For the story you are writing"
-- These are rendered in `font-display text-xs italic text-foreground/30` — barely visible but emotionally resonant
-- Increase track item height from h-10 to h-11 for better touch targets and breathing room
-- Add a subtle category divider between groups: a 1px line with 32px width centered, using the golden gradient
-
-The card container itself gets slightly wider: change from `max-w-md` to `max-w-lg` to give tracks more horizontal breathing room on desktop.
-
-### Step 3: Enhance the Golden Thread + Add Breathing Anchor Dot
+### Step 4: Mobile Responsive Refinements
 
 **File:** `src/components/TheSound.tsx`
 
-Transform the golden thread connector from a static line into a living element:
-
-- Add a small (4px) golden dot at the top of the thread with a breathing animation (reuse `exhale-pulse` at 4.2s)
-- Add a matching dot at the bottom of the thread
-- The thread itself gets a subtle breathing opacity cycle (0.3 to 0.5 over 6s)
-- When a track is playing, the thread brightens slightly (opacity 0.6) — creating a visual "current flowing" effect
+- Hide category emotional context phrases on screens below `sm` (640px): wrap the context `<span>` with `className="hidden sm:block ..."`
+- Increase category padding on mobile: change `px-5 pt-5 pb-1` to `px-4 sm:px-5 pt-4 sm:pt-5 pb-1`
+- Track buttons: change `px-5` to `px-4 sm:px-5` for mobile breathing room
+- Card container: ensure `max-w-lg` doesn't cause horizontal overflow — add `mx-4 sm:mx-auto` wrapper behavior
 
 **File:** `src/index.css`
 
-Add `@keyframes sound-thread-breathe`:
-```css
-@keyframes sound-thread-breathe {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.5; }
-}
-```
+No additional CSS needed for responsive — Tailwind handles this.
 
-### Step 4: Add "Graceful Empty State" for Non-Playable Tracks
+### Step 5: Section Transition Alignment + Final Polish
 
 **File:** `src/components/TheSound.tsx`
 
-Since all tracks currently have `src: ""`, the section needs to handle this gracefully:
+- Verify the bottom fade gradient color matches TheTransformation's entry. Check TheTransformation's top fade and align both to `hsl(220 15% 8%)`.
+- Add a subtle ambient pulsing glow behind the card that breathes at 6s (reuse the existing warm floor gradient but constrain it to the card area) — this creates a "the instrument is alive" feeling even without audio.
+- Increase the closing blockquote's `mt-16` to `mt-20` on desktop for more breathing room between the card and the closing thought.
 
-- Tracks without audio get a small "Coming Soon" indicator — a tiny `text-[9px] uppercase tracking-[0.2em] text-foreground/20` label to the right of the title, replacing the waveform area
-- Add a subtle footer note inside the card: "Recordings arriving soon. Request a live preview at your consultation." in `text-[11px] text-foreground/25 italic font-display` — this turns the limitation into a conversion driver
-- This note links to `/contact` with a subtle underline hover effect
+**File:** `src/components/TheTransformation.tsx` (read-only check)
 
-### Step 5: Refine the Closing Caption + Add Visual Bookend
-
-**File:** `src/components/TheSound.tsx`
-
-The closing caption ("Every piece I play begins the same way — with someone in mind.") is strong copy but visually underwhelming:
-
-- Add a subtle warm glow behind the text: `radial-gradient(ellipse 50% 40% at 50% 50%, hsl(var(--vow-yellow) / 0.03) 0%, transparent 70%)`
-- Increase the golden thread separator above the caption from 48px to 64px wide for more visual weight
-- Add a micro breathing diamond (3px, rotated 45deg) centered on the separator line — matching the footer's diamond motif
-- Wrap the closing quote in proper `<blockquote>` semantics with `cite` attribute for accessibility
+- Verify the top fade of TheTransformation section to ensure color continuity. If mismatched, align in the plan.
 
 ---
 
@@ -122,30 +134,30 @@ The closing caption ("Every piece I play begins the same way — with someone in
 
 | Step | File | Change |
 |------|------|--------|
-| 1 | `src/components/TheSound.tsx` | Enhanced atmospheric layers, dust mote div |
-| 1 | `src/index.css` | `sound-dust-drift` keyframe + reduced-motion guard |
-| 2 | `src/components/TheSound.tsx` | Category context phrases, wider card, better spacing |
-| 3 | `src/components/TheSound.tsx` | Breathing thread with anchor dots, play-state reactivity |
-| 3 | `src/index.css` | `sound-thread-breathe` keyframe |
-| 4 | `src/components/TheSound.tsx` | Graceful empty state for tracks without audio |
-| 5 | `src/components/TheSound.tsx` | Enhanced closing caption with glow and bookend diamond |
+| 1 | Generate 2 AI images | `sound-bokeh-ai.jpg`, `sound-keys-intimate-ai.jpg` |
+| 1 | `src/components/TheSound.tsx` | Import and layer both images |
+| 2 | `src/components/TheSound.tsx` | Add card header with "Repertoire" label and image strip |
+| 3 | `src/components/TheSound.tsx` | Add track-button CSS classes for hover bar hint |
+| 3 | `src/index.css` | `.track-button` hover styles for accent bar |
+| 4 | `src/components/TheSound.tsx` | Mobile responsive padding and context phrase visibility |
+| 5 | `src/components/TheSound.tsx` | Bottom fade alignment, ambient card glow, spacing refinement |
 
 ---
 
 ## What This Achieves
 
-- **Atmospheric depth**: The section transforms from a dark void into a cinematic, candlelit interior — creating emotional presence even without playback
-- **Emotional framing**: Category context lines help couples imagine each song in their ceremony context — selling the feeling, not the track list
-- **Graceful degradation**: Empty audio state becomes a conversion opportunity rather than a broken promise
-- **Visual coherence**: Breathing thread, anchor dots, and diamond motifs connect this section to the Process and Footer design language
-- **Performance-safe**: All additions are CSS-only animations on opacity/transform (compositable), no new images, no new dependencies
+- **Photographic depth:** Two AI-generated atmospheric images create the feeling of being inside a candlelit piano room — warmth, intimacy, and ceremony
+- **Card identity:** The "Repertoire" header transforms the track listing from a generic dark card into a bespoke instrument interface
+- **Tactile hover:** Track buttons now feel like piano keys — a subtle bar "depression" on hover creates physical feedback
+- **Mobile comfort:** Reduced density on small screens, hidden context phrases that add value on desktop but create noise on mobile
+- **Seamless flow:** Color-matched transitions into the next section eliminate visual seams
 
 ## Technical Notes
 
-- No new dependencies required
-- All animations use compositable CSS properties only (opacity, transform)
-- Reduced-motion guards for all new animations
-- Touch targets increased to 44px minimum (h-11 = 44px)
-- Semantic `<blockquote>` for closing quote
-- Zero layout shift risk (all new elements are positioned within existing containers)
+- AI images generated at modest resolution, served with `loading="lazy"`, compressed
+- All new CSS uses compositable properties only
+- Reduced-motion: bokeh overlay is static (no animation), card glow breathing respects `prefers-reduced-motion`
+- No new dependencies
+- Zero layout shift: all new elements are absolutely positioned within existing containers
+- Touch targets remain at 44px minimum (h-11 unchanged)
 
