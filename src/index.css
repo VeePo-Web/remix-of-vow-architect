@@ -3736,6 +3736,27 @@ All colors MUST be HSL.
   }
 }
 
+/* Invitation Portrait — Ken Burns drift */
+@keyframes invitation-ken-burns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.04); }
+}
+
+.invitation-ken-burns {
+  animation: invitation-ken-burns 25s ease-in-out infinite alternate;
+}
+
+.invitation-portrait-frame {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .invitation-ken-burns {
+    animation: none;
+    transform: scale(1);
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════════
    CRITICAL LAYOUT FALLBACKS — Outside @layer for resilience
    These rules guarantee section layout even if @layer utilities
