@@ -74,7 +74,7 @@ export function Footer() {
             {/* Social icons with spotlight hover */}
             <div className="group/icons flex items-center gap-4">
               <a
-                href="mailto:ParJorFraGaw@gmail.com"
+                href="mailto:parker@parkergawryletz.com"
                 className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] group-hover/icons:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] p-3.5 -m-3.5 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
                 aria-label="Send me an email"
               >
@@ -121,7 +121,7 @@ export function Footer() {
             <ul className="space-y-3">
               <li>
                 <NavLink to="/services" className="text-foreground/50 hover:text-primary transition-all duration-[180ms] story-link">
-                  Services
+                  Pricing
                 </NavLink>
               </li>
               <li>
@@ -131,7 +131,17 @@ export function Footer() {
               </li>
               <li>
                 <NavLink to="/gallery" className="text-foreground/50 hover:text-primary transition-all duration-[180ms] story-link">
-                  Case Studies
+                  Proof
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/faq" className="text-foreground/50 hover:text-primary transition-all duration-[180ms] story-link">
+                  FAQ
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/listen" className="text-foreground/50 hover:text-primary transition-all duration-[180ms] story-link">
+                  Listen
                 </NavLink>
               </li>
               <li>
@@ -154,11 +164,10 @@ export function Footer() {
               Reach Me
             </h4>
             <ul className="space-y-3 text-foreground/50">
-              <li>Banff, Alberta</li>
-              <li>Calgary Region</li>
+              <li>Calgary, Cochrane, Canmore and Banff</li>
               <li>
-                <a href="mailto:ParJorFraGaw@gmail.com" className="hover:text-primary transition-all duration-[180ms]" aria-label="Email me at ParJorFraGaw@gmail.com">
-                  ParJorFraGaw@gmail.com
+                <a href="mailto:parker@parkergawryletz.com" className="hover:text-primary transition-all duration-[180ms]" aria-label="Email me at parker@parkergawryletz.com">
+                  parker@parkergawryletz.com
                 </a>
               </li>
               <li>
