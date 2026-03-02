@@ -1,66 +1,70 @@
 
 
-# Elevate "The Sound" Section — Final Fantasy.co Polish Pass
+# The Sound Section — Remaining Precision Refinements
 
 ## Current State
 
-The previous round successfully implemented: rounded-lg (8px) across all components, breathing golden dots replacing play icons, film grain + breathing glow layers in the section, updated copy ("Five rooms. One instrument. Your ceremony"), removed "Coming Soon" labels, and aligned animation timings.
+Three rounds of upgrades have brought the section to a strong place: rounded-lg everywhere, breathing golden dots, film grain, breathing glow layers, updated copy, breathing golden thread, 900ms quote reveal, sr-only narrative, and reduced-motion fallbacks.
 
-The section is now structurally correct. What remains is the **material refinement** — the difference between "well-built" and "sacred instrument."
+However, a close audit reveals several remaining violations of the Sacred Sound design system that prevent this from reaching true Fantasy.co quality.
 
 ---
 
-## What Still Needs Attention
+## Issues Found
 
-### 1. GenreCard — Refine the Sacred Instrument Feel
+### 1. GenreCard — Inline `window.matchMedia` Calls on Every Render
 
-The card is close but several details need tightening:
+Lines 79 and 114 of GenreCard.tsx call `window.matchMedia("(prefers-reduced-motion: reduce)").matches` directly inline during render. This is a synchronous DOM query that fires on every React render cycle — a performance anti-pattern. TheSound.tsx already tracks `reducedMotion` in state via a `useEffect` listener, but never passes it down to GenreCard as a prop.
 
-- **The context phrase font should be Inter (body sans), not font-display italic.** Per the typography system, Cormorant italic is reserved for a single sacred word, not descriptive phrases. Context like "For the weight of what is sacred" is body copy.
-- **The genre label should use Cormorant (font-display)** — this is correct as-is, but the `font-medium` weight (500) violates the 300-400 weight rule for display type. Should be `font-light`.
-- **The golden dot should have a subtle idle state** even when not active — currently it uses accent color at 0.3 opacity with no animation, which reads as a static dot. Add a very slow breathe (6s cycle) at reduced intensity so the cards feel alive even at rest.
-- **Missing reduced-motion fallback** on the inner glow `exhale-pulse` animation and the Ken Burns drift. Need `@media (prefers-reduced-motion)` handling.
+**Fix:** Add `reducedMotion` prop to GenreCard and use it instead of inline matchMedia calls.
 
-### 2. GenreTrackPanel — Add Breathing Golden Thread
+### 2. GenreTrackPanel Header — `font-medium` Violates Weight Rule
 
-The plan called for "a breathing golden thread along the left edge of the panel that connects to the genre card above." This was not implemented. The golden thread connector between card and panel (lines 459-470 in TheSound.tsx) is a simple static gradient line. It should breathe with the 4s material cycle.
+Line 89 of GenreTrackPanel.tsx uses `font-medium` (500) on the category label heading. Per the design system, Cormorant display type must be weight 300-400 only. This was fixed on the genre card labels but missed on the panel header.
 
-Additionally:
-- The panel lacks an **atmospheric inner glow when a track is active** — the track row has a radial gradient, but the panel itself should have a subtle ambient glow shift when any track is playing.
+**Fix:** Change `font-medium` to `font-light` on the panel header label.
 
-### 3. Now Playing Bar — Seek Dot Should Breathe When Idle
+### 3. Subhead Uses Display Italic for a Full Sentence
 
-Per the plan: "The seek dot should breathe when idle." Currently the seek dot only appears on hover. When playback is paused and the bar is visible, the dot should breathe subtly at the current position to maintain material presence.
+Line 412 of TheSound.tsx uses `font-display font-light italic` on "Five rooms. One instrument. Your ceremony." — a full descriptive sentence. Per the typography rules, Cormorant italic is reserved for a single sacred word, not descriptive phrases. A full sentence in display italic reads as editorial decoration, not sacred emphasis.
 
-### 4. TheSound Section — Closing Quote Spacing
+**Fix:** Change to `font-sans text-muted-foreground` (Inter body) — this is a descriptive subhead, not a sacred utterance. The heading "Hear me play." already carries the display weight.
 
-The plan called for "wider spacing, slower reveal" on the closing quote. The current `mt-28 md:mt-40` is good but the reveal timing is 700ms with 150ms delay — this should be extended to 900ms (breath-length transformation) with 300ms delay for a more ceremonial entrance, given this is the sacred closing of the section.
+### 4. Missing Keyboard Focus Ring on Genre Cards When Active
 
-### 5. Missing `sr-only` Screen Reader Narrative
+The genre cards have `focus-visible:ring-2` but when a card is active (pressed), the visual state relies solely on border color and shadow. There is no distinct focus-visible state differentiation between "active" and "active + focused" — a WCAG keyboard navigation concern.
 
-Per accessibility standards, every decorative section needs a `sr-only` span narrating meaning. TheSound section has `aria-labelledby="sound-heading"` but no screen reader narrative explaining the section's purpose for visitors using assistive technology.
+**Fix:** Ensure the focus ring remains visible and distinct even when the card is in its active state, using `ring-offset` to separate the focus indicator from the active border.
+
+### 5. Closing Quote — `blockquote-warm` Class May Not Exist
+
+Line 524 references a `blockquote-warm` class on the closing quote paragraph. If this class is not defined in CSS, it is a dead class that adds no styling but creates noise.
+
+**Fix:** Verify the class exists; if not, remove it.
+
+### 6. Now Playing Bar — Toggle Button Has Mixed Transition Patterns
+
+Lines 129-133 of TheSound.tsx define the toggle button with both a `transition-all` className and an inline `style={{ transition: "all 180ms..." }}`. The className transition and inline style may conflict. The inline style should take precedence, but this is fragile.
+
+**Fix:** Remove the `transition-all` from the className since the inline style already handles the timing precisely at 180ms with the sacred easing curve.
 
 ---
 
 ## Technical Changes
 
 ### File: `src/components/GenreCard.tsx`
-- Change `font-medium` to `font-light` on the genre label (line 140)
-- Change context phrase from `font-display italic` to `font-sans` (line 147)
-- Add slow idle breathe animation to the golden dot when not active (6s cycle, subtle opacity shift)
-- Wrap Ken Burns and exhale-pulse animations with reduced motion check
+- Add `reducedMotion?: boolean` prop to the interface
+- Replace both inline `window.matchMedia(...)` calls with the prop value
+- This eliminates two synchronous DOM queries per render per card (10 queries per render cycle across 5 cards)
 
 ### File: `src/components/GenreTrackPanel.tsx`
-- Add a `position: relative` wrapper with a breathing golden thread (1px left border with 4s opacity animation)
-- Add subtle panel-level ambient glow when any track is playing
+- Change `font-medium` to `font-light` on the category label (line 89)
 
 ### File: `src/components/TheSound.tsx`
-- Update golden thread connector (lines 459-470) to use breathing animation instead of static gradient
-- Extend closing quote reveal from 700ms to 900ms with 300ms delay
-- Add `sr-only` narrative span to the section
-
-### File: `src/components/ListeningMovement.tsx`
-- No further changes needed — already updated to rounded-lg
+- Pass `reducedMotion={reducedMotion}` prop to each GenreCard instance
+- Change subhead from `font-display font-light italic` to `font-sans text-muted-foreground` (Inter body copy)
+- Verify `blockquote-warm` class; remove if undefined
+- Clean up now-playing toggle button transition conflict
 
 ---
 
@@ -68,14 +72,12 @@ Per accessibility standards, every decorative section needs a `sr-only` span nar
 
 | Area | Current | After |
 |------|---------|-------|
-| Genre label weight | font-medium (500) | font-light (300) |
-| Context phrase font | Cormorant italic | Inter (font-sans) |
-| Idle golden dot | Static | 6s subtle breathe |
-| Golden thread connector | Static gradient | 4s breathing opacity |
-| Panel ambient glow | None | Subtle when playing |
-| Closing quote reveal | 700ms / 150ms delay | 900ms / 300ms delay |
-| Screen reader narrative | Missing | Added sr-only span |
-| Reduced motion on cards | Partial | Complete fallbacks |
+| GenreCard matchMedia | Inline DOM query per render | Prop from parent state |
+| Panel header weight | font-medium (500) | font-light (300) |
+| Subhead font | Cormorant italic (display) | Inter (body sans) |
+| Focus ring on active cards | Indistinct from active border | ring-offset separation |
+| blockquote-warm class | Possibly undefined | Verified or removed |
+| Toggle button transitions | Conflicting className + inline | Single inline source of truth |
 
-These are precision refinements — the kind of detail that separates "good" from "Fantasy.co quality." Each change serves comprehension, emotional pacing, or accessibility. None draws attention to itself.
+These are the final precision details — removing DOM query waste, enforcing the typography covenant, and eliminating code noise. Each serves either performance, accessibility, or brand discipline.
 
