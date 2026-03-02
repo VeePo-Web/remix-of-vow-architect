@@ -1,80 +1,101 @@
 
 
-# Round 58 — "The Invitation": Final Polish and Semantic Completeness
+# Round 58.5 — "The Transformation": Copy Elevation
 
-## Current State
+## Philosophy
 
-Rounds 53-57 have built a comprehensive, accessible, performant section with atmospheric depth layers, cinematic double-frame with hover glow, fluid typography, consistent contrast tiers, touch-friendly CTA, reduced-motion fallbacks, ARIA semantics, focus states, and `will-change` optimizations. The section is near-complete.
+The current copy is functional but reads like a feature comparison chart. The brand identity demands first-person, composed, reverent language that reads minds without pointing fingers. The visitor should feel understood --- not sold to. Each "fear" should echo an internal monologue the couple has already had, and each "resolution" should feel like a quiet, confident answer they didn't know they needed.
 
-## Critique: Remaining Items Below Fantasy.co Standard
+The structure stays identical: left panel (fears/dark), right panel (resolutions/light), split screen, all animations preserved. Only the text strings change.
 
-### 1. Section Lacks `role="region"` and `aria-labelledby`
-The `<section>` has an `id` but no ARIA landmark label. Screen readers announce it as a generic section. Adding `aria-labelledby` pointing to the headline gives assistive technology users meaningful context when navigating by landmarks.
+## Current vs. Proposed Copy
 
-### 2. Ken Burns Animation `will-change` Is Persistent
-The `.invitation-ken-burns` class has `will-change-transform` applied permanently via Tailwind on the `<img>`. For a 25s infinite animation this is acceptable, but the class is on the element alongside other layout classes. Moving `will-change: transform` into the CSS animation rule itself (`.invitation-ken-burns`) keeps concern separation clean and avoids the Tailwind utility being redundant.
+### Section Label
+- **Current**: "THE TRANSFORMATION"
+- **Proposed**: "THE TRANSFORMATION" (unchanged --- brand naming convention)
 
-### 3. Credential Values Lack Tabindex for Keyboard Discovery
-The credential stats (500+, SOCAN, $4M) are purely visual `<div>`s with no interactive affordance. While they don't need to be focusable buttons, adding `tabindex="0"` to each credential cell would allow keyboard users to discover them --- especially since the plaque already has `focus-within` styling from Round 57.
+### Left Panel Heading
+- **Current**: "What keeps you up at night"
+- **Proposed**: "The quiet worries no one talks about"
 
-### 4. Bottom Fade Color Mismatch Risk
-The bottom fade uses `hsl(220 15% 6%)` which has a blue hue, while the section background uses `hsl(25 6% 10%)` which is warm. If the next section's background shifts, this creates a visible seam. The bottom fade should match the next section's actual background for seamless stitching.
+*Rationale*: Shifts from accusatory ("what keeps YOU up") to empathetic observation. "Quiet worries" mirrors the internal monologue. "No one talks about" validates that these fears are real but unspoken --- making the visitor feel seen.
 
-### 5. Outline Frame `outlineOffset` Should Respect Reduced Motion
-The outer outline frame (`outlineOffset: '6px'`) on the portrait is always visible. This is fine, but the hover glow transition on `.invitation-portrait-frame:hover` should be suppressed under `prefers-reduced-motion` to avoid drawing attention through motion for sensitive users.
+### Fear Lines (4 items)
+- **Current 1**: "The pianist plays the same songs as every other wedding"
+- **Proposed 1**: "What if the music sounds like every other ceremony you've attended"
 
----
+- **Current 2**: "The music feels like background noise --- not your story"
+- **Proposed 2**: "What if the piano becomes background noise --- pleasant, but forgettable"
 
-## 5-Step Implementation Plan
+- **Current 3**: "No one asked what songs actually mean something to you"
+- **Proposed 3**: "What if no one asks which songs carry the weight of your story"
 
-### Step 1: Add Semantic Landmark to Section
+- **Current 4**: "The musician shows up, plays, and leaves --- no connection"
+- **Proposed 4**: "What if the musician treats your ceremony as just another booking"
 
-Add an `id` to the `<h2>` headline (e.g., `id="invitation-heading"`) and add `aria-labelledby="invitation-heading"` to the `<section>`. This gives screen readers a meaningful label when users navigate by landmarks, transforming "region" into "region: I have played at over 500 events..."
+*Rationale*: Reframing as "What if..." mirrors the couple's internal 3 AM thought pattern. These are not accusations --- they are the exact phrases running through a bride's or groom's mind. The language is softer, more intimate, and positions the fears as universal rather than personal failings.
 
-**File**: `TheInvitation.tsx` --- add `id` to `<h2>` and `aria-labelledby` to `<section>`.
+### Right Panel Heading
+- **Current**: "What I promise instead"
+- **Proposed**: "So here is what I do"
 
-### Step 2: Move `will-change` from Tailwind to CSS Rule
+*Rationale*: "Promise" is a strong word that can feel like a sales tactic. "So here is what I do" is quieter, more confident --- it implies the answer was always there, waiting. The "So" creates narrative continuity from the fears panel.
 
-Remove `will-change-transform` from the `<img>` className in the component, and add `will-change: transform` to the `.invitation-ken-burns` CSS rule. This keeps the performance hint co-located with the animation it serves.
+### Resolution Lines (4 items)
+- **Current 1**: "Every arrangement is built from a conversation --- yours"
+- **Proposed 1**: "I begin with a conversation --- not a playlist. Your story shapes every note"
 
-**File**: `TheInvitation.tsx` --- remove `will-change-transform` from img className.
-**File**: `index.css` --- add `will-change: transform` to `.invitation-ken-burns`.
+- **Current 2**: "Your walk-down song, composed note by note for you"
+- **Proposed 2**: "Your walk-down song is composed from scratch --- written for the two of you alone"
 
-### Step 3: Make Credential Cells Keyboard-Discoverable
+- **Current 3**: "A full ceremony plan --- sent before you ever have to ask"
+- **Proposed 3**: "A complete ceremony plan arrives in your inbox before you think to ask for one"
 
-Add `tabindex="0"` to each credential `<div>` so keyboard users can tab into individual stats. This activates the `focus-within` glow added in Round 57 and gives keyboard users parity with mouse users who can hover.
+- **Current 4**: "A pianist who stays until the last guest leaves the room"
+- **Proposed 4**: "I stay until the last guest has left and the final note has settled"
 
-**File**: `TheInvitation.tsx` --- add `tabindex={0}` to each credential cell div.
+*Rationale*: Each resolution now mirrors its corresponding fear without referencing it directly. The language is first-person ("I begin," "I stay"), warmer, more specific, and avoids the staccato bullet-point feel. "Written for the two of you alone" is more emotionally resonant than "for you." "The final note has settled" adds poetic closure.
 
-### Step 4: Harmonize Bottom Fade with Next Section
+## Implementation
 
-Review the next section's background color (The Sound section) and update the bottom fade gradient to match it precisely. If the next section uses a different hue, the fade target color must be updated to prevent a visible seam.
+### File: `src/components/TheTransformation.tsx`
 
-**File**: `TheInvitation.tsx` --- update the bottom fade `hsl()` value if needed.
+**Lines 8-13** --- Replace `fears` array:
+```typescript
+const fears = [
+  "What if the music sounds like every other ceremony you've attended",
+  "What if the piano becomes background noise — pleasant, but forgettable",
+  "What if no one asks which songs carry the weight of your story",
+  "What if the musician treats your ceremony as just another booking",
+];
+```
 
-### Step 5: Suppress Frame Hover Under Reduced Motion
+**Lines 15-20** --- Replace `resolutions` array:
+```typescript
+const resolutions = [
+  "I begin with a conversation — not a playlist. Your story shapes every note",
+  "Your walk-down song is composed from scratch — written for the two of you alone",
+  "A complete ceremony plan arrives in your inbox before you think to ask for one",
+  "I stay until the last guest has left and the final note has settled",
+];
+```
 
-Add `.invitation-portrait-frame` to the existing `prefers-reduced-motion` media query block, disabling the hover transition so the frame remains static for motion-sensitive users.
+**Line 98** --- Replace left heading:
+```
+The quiet worries no one talks about
+```
 
-**File**: `index.css` --- add rule inside the existing `@media (prefers-reduced-motion: reduce)` block.
+**Line 187** --- Replace right heading:
+```
+So here is what I do
+```
 
----
-
-## Files Modified
-
-| Step | File | Change |
-|------|------|--------|
-| 1 | `TheInvitation.tsx` | ARIA landmark labeling |
-| 2 | `TheInvitation.tsx`, `index.css` | Move `will-change` to CSS |
-| 3 | `TheInvitation.tsx` | Keyboard-discoverable credentials |
-| 4 | `TheInvitation.tsx` | Bottom fade color harmonization |
-| 5 | `index.css` | Reduced-motion for frame hover |
+### No other files are modified. No design, layout, animation, or styling changes.
 
 ## What This Achieves
 
-- Screen reader users get meaningful landmark navigation through the section
-- Performance hints are co-located with the animations they serve (clean separation of concerns)
-- Keyboard users can discover and focus individual credential stats
-- Section transitions are seamless with no visible color seams
-- Motion-sensitive users see no hover transitions on the image frame
-
+- Fears read like the couple's own internal monologue, not a sales comparison chart
+- Resolutions answer each fear without naming it --- the visitor connects the dots themselves
+- First-person voice throughout ("I begin," "I stay") reinforces the brand's intimate, composed identity
+- "What if..." framing is universally relatable and non-confrontational
+- The copy makes the visitor think "This person already understands me" without ever saying so
