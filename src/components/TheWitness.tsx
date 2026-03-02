@@ -85,7 +85,7 @@ export function TheWitness() {
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
             >
-              THE WITNESS
+              THE PREPARATION
             </p>
 
             {/* Step 5: Headline with animated golden vow underline on "pianist" */}
