@@ -4,17 +4,17 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 import witnessCeremony from "@/assets/witness-setup-ai.jpg";
 
 const declarations = [
-  "I arrive before anyone else.",
-  "I sound-check every note before your guests arrive.",
-  "I walk your cue sheet until it is second nature.",
+  "I arrive before anyone else\u2014and I leave after everyone.",
+  "Every note is tested before your first guest walks in.",
+  "Your cue sheet is rehearsed until it feels like memory.",
 ];
 
 const standardKit = [
   "Piano",
   "Backup Piano",
-  "Speakers",
-  "Cue Sheet",
-  "Insurance",
+  "Sound System",
+  "Printed Cue Sheet",
+  "Liability Insurance",
   "Rain Cover",
 ];
 
@@ -167,7 +167,7 @@ export function TheWitness() {
               style={{ transitionDelay: isVisible ? "600ms" : "0ms" }}
             >
               <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-5">
-                What I bring
+                What arrives with me
               </p>
               <div className="flex flex-wrap justify-center gap-x-3 gap-y-2">
                 {standardKit.map((item, index) => (
@@ -207,7 +207,7 @@ export function TheWitness() {
               )}
               style={{ transitionDelay: isVisible ? "750ms" : "0ms" }}
             >
-              Now{"\u2014"}choose how deeply you want me there.
+              Now{"\u2014"}choose how long you want me there.
             </p>
           </div>
         </div>
