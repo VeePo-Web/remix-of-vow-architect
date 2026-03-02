@@ -6,7 +6,7 @@ export function ContactTestimonials() {
       <MicroTestimonial
         quote="We submitted the form and got a full plan the next morning. Clearer than anything our DJ offered in 3 weeks."
         author="Sandra & Leo"
-        venue="Banff"
+        venue="Cochrane"
       />
       <MicroTestimonial
         quote="The SPL plan let us skip a site visit. Parker mapped everything—even chair placement."

@@ -6,7 +6,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 const chips = [
   {
     question: "Do I need a mic for vows?",
-    answer: "Yes—unless guest count is under ~10 and you're in Banff Mode. I include lapel + handheld, both live-mixed for clarity.",
+    answer: "Yes. I include lapel + handheld, both live-mixed for clarity.",
     link: { to: "/proof", label: "See proof (SPL logs)" }
   },
   {

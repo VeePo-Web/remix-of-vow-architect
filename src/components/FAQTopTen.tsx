@@ -14,8 +14,8 @@ const topTenFAQs = [
   },
   {
     question: "What if the venue has no power or PA?",
-    answer: "My rig is silent battery—no generators, no permits, no hum. Banff-legal when amplification is prohibited.",
-    link: { to: "/faq", label: "FAQ — Banff Mode™ Explained" }
+    answer: "My rig is silent battery — no generators, no permits, no hum.",
+    link: { to: "/faq", label: "FAQ — Power & Battery" }
   },
   {
     question: "What happens if your gear fails?",

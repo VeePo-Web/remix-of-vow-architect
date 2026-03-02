@@ -46,7 +46,7 @@ export function SoundSystemDiagram() {
           <p className="text-sm text-muted-foreground">documented, insured, and remedy-backed.</p>
           
           <div className="flex flex-wrap gap-4 justify-center mt-4">
-            <DirectionalLink to="/faq">See Banff Mode™ FAQ</DirectionalLink>
+            <DirectionalLink to="/faq">See full FAQ</DirectionalLink>
             <DirectionalLink to="/proof">See Proof & Trust</DirectionalLink>
           </div>
         </div>

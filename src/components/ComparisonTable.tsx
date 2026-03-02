@@ -20,12 +20,6 @@ const comparisonData = [
     parker: { value: true, label: "Logged and delivered" } 
   },
   { 
-    feature: "Banff Mode compatibility", 
-    dj: { value: false, label: "Not allowed" }, 
-    band: { value: false, label: "" }, 
-    parker: { value: true, label: "Bylaw compliant (no PA/generators)" } 
-  },
-  { 
     feature: "Refund policy", 
     dj: { value: false, label: "Vague" }, 
     band: { value: false, label: "Limited" }, 

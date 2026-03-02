@@ -7,7 +7,7 @@ const pageConfig: Record<string, string> = {
   "/weddings": "I would be honored to be there",
   "/services": "Find the right presence",
   "/about": "The witness behind the keys",
-  "/gallery": "200+ ceremonies witnessed",
+  "/gallery": "500+ events performed",
   "/faq": "Every question, answered",
   "/listen": "Hear what your day could sound like",
 };

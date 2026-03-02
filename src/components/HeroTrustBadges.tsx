@@ -1,16 +1,15 @@
-import { Check, Mic, Battery, Activity, Mountain, ShieldCheck } from "lucide-react";
+import { Check, Mic, Battery, Activity, ShieldCheck } from "lucide-react";
 
 const badges = [
   { icon: Mic, label: "Officiant/vow mic included" },
   { icon: Battery, label: "Silent battery (no generators)" },
   { icon: Activity, label: "SPL log with 3 readings" },
-  { icon: Mountain, label: "Banff Mode™ compliant" },
   { icon: ShieldCheck, label: "Insurance: $2M professional + $2M general liability + $25k equipment" },
 ];
 
 export function HeroTrustBadges() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 max-w-6xl mx-auto">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
       {badges.map((badge, index) => (
         <div
           key={index}

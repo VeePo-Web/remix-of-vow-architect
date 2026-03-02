@@ -7,7 +7,7 @@ import { StaggerChildren } from "@/components/animation";
 const samplePlans = [
   {
     title: "SPL Report + Cue Sheet",
-    venue: "Cascade Gardens (Banff Mode)",
+    venue: "Cascade Gardens",
     description: "Complete acoustic protocol with dBA readings",
   },
   {

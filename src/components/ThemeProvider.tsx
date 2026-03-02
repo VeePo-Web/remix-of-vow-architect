@@ -12,7 +12,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
       attribute="data-theme"
       defaultTheme="death"
       themes={["death", "life"]}
-      storageKey="parker-allard-theme"
+      storageKey="parker-gawryletz-theme"
       enableSystem={false}
     >
       {children}

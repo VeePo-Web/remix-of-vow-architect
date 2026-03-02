@@ -3,7 +3,7 @@ export function ContactSLATimeline() {
     {
       time: "0–24 hours",
       description:
-        "I send your ceremony-audio plan: SPL overview, proximity seating arc, mic/power (or Banff Mode) notes, and a cue-sheet starter.",
+        "I send your ceremony-audio plan: SPL overview, proximity seating arc, mic/power notes, and a cue-sheet starter.",
     },
     {
       time: "24–48 hours",
