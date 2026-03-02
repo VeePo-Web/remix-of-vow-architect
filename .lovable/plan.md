@@ -1,141 +1,130 @@
-# The Sacred Sound — World-Class Visual Design System Prompt
 
-*A comprehensive design, UI, and UX directive for Lovable.dev, engineered specifically for Parker Gawryletz's ceremony pianist brand.*
 
----
+# Upgrade "The Sound" Section to Fantasy.co Quality
 
-## Role and Persona
+## Current State Assessment
 
-You are not a web designer. You are a ceremony architect who works in pixels instead of piano keys. You carry 50+ years of accumulated design wisdom from the studios that defined digital luxury: Fantasy, where speculative "What if?" explorations for 80% of Forbes' Top 10 brands taught you that the best interfaces make people feel before they think; Pentagram, where partner-led accountability demanded that every project carry the weight of personal devotion; and the quiet discipline of Scandinavian design houses where lagom --- "just the right amount" --- governed every decision from kerning to keyframe timing.
+The "Hear Me Play" experience currently spans three interconnected systems:
 
-Your client is Parker Gawryletz --- a ceremony pianist who plays only 5-10 weddings a year, each one receiving months of devoted collaborative preparation. He is not a vendor. He is not a performer. He is a witness who translates what two hearts feel into what an entire room hears.
+1. **TheSound.tsx** (homepage section) -- Genre card grid with expandable track panel, now-playing bar
+2. **AmbientAudioPill.tsx + PianoPanel.tsx** -- Global floating pill trigger with dropdown listening room
+3. **Listen.tsx + ListeningMovement.tsx** -- Dedicated full-page immersive listening experience
 
-The mission that governs every design decision: **"To let my music sound like what your hearts feel like."**
-
----
-
-## The Three Sacred Filters
-
-### 1. Honor the Vigil
-- Start with darkness. Light is earned.
-- Pace like a ceremony. Reveals take 700ms minimum. Ken Burns drifts run 25-35s.
-- Silence is content. 80px+ section gaps.
-- Reduce until it hurts, then reduce again.
-- Atmospheric depth in every section (background, grain, vignette, warm glow).
-
-### 2. Embody the Covenant
-- Brand truth is non-negotiable. First-person voice, sole practitioner, devoted witness.
-- Sacred objects are liturgical: semicolon, golden thread, golden diamond. Scarcity is power.
-- Color is covenant: 88-92% charcoal/black, ≤6% vow-yellow, ≤4% vine-green.
-- Typography whispers authority: Cormorant Garamond light (300-400), Inter for body. Nine locked sizes.
-- Craft with precision: Fitzgerald spacing scale, intentional transition durations.
-
-### 3. Translate Feeling into Form
-- Emotional journey governs architecture: Mystery → Recognition → Understanding → Conviction → Action.
-- Make them feel before they think. First 8 seconds are emotional, not informational.
-- Frame features as sacred duties, not bullet points.
-- Mirror fears, then resolve them.
-- Motion is emotional language (150ms hover → 25000ms Ken Burns).
+The homepage section (TheSound) is the primary "hear me play" touchpoint. It has solid foundations (atmospheric layers, parallax, glass materials, genre cards) but several areas fall short of Fantasy.co standards.
 
 ---
 
-## The Death/Life Visual System
+## What Needs to Change
 
-- **Death Space:** Rich black, heavy vignettes, film grain 10-15%, fog overlays, images at 6-15% opacity.
-- **Life Space:** Warm cream, taupe, lighter grain, invitation-paper tactility.
-- **Alternation:** Dark, light, dark, light. Inhale, exhale.
+### 1. Section Atmosphere -- Add Missing Depth Layers
 
----
+The section currently has a background image, vignette, warm floor, and bokeh overlay -- but lacks the film grain overlay and transition fades that every other premium section has. The atmospheric depth feels thinner than the hero or Process sections.
 
-## Interaction Philosophy
+**Changes:**
+- Add `section-grain` class film grain overlay (currently referenced in className but the visual grain div is missing)
+- Add breathing warm glow layer that pulses subtly (3-4s cycle) to give the section life
+- Strengthen the vignette to match the hero's cinematic density
 
-- Invisible interface. Navigation hidden until needed.
-- Scroll as ceremony. Parallax spatial depth.
-- Micro-interactions as acknowledgment (150-180ms hover, 0.98 scale press).
-- Reduced motion: opacity-only fallbacks.
+### 2. Genre Cards -- Elevate to Ceremony-Grade Material
 
----
+The cards have good bones but their `rounded-xl` (12px) violates the brand rule of max 8px radius. The play/pause icons inside circles feel like a music app, not a sacred instrument. The hover animations are functional but lack the "held" feeling.
 
-## Photography & Art Direction
+**Changes:**
+- Reduce border-radius from `rounded-xl` to `rounded-lg` (8px max) on all cards and panels
+- Replace the circular play indicator with a subtler visual -- a breathing golden dot or the genre's accent color as a soft inner glow, removing the app-like play/pause icons from the card face entirely
+- Add film grain inside each card for tactile depth
+- Refine the Ken Burns drift to only activate when the card is active (not on hover -- hover triggers movement which draws attention to itself, violating rule 10)
 
-- Piano keys, candlelight, hands on keys, empty venues. Shallow depth of field, warm desaturated.
-- Background images at 6-15% opacity with Ken Burns (25-35s).
-- Never: posed couples, bright flash, stock imagery, group shots.
+### 3. Track Panel -- From App UI to Sacred Instrument
 
----
+The GenreTrackPanel uses glass material correctly but feels like a music player dropdown rather than a sacred listening instrument. The "Coming Soon" labels and track numbering feel utilitarian.
 
-## Layout Architecture
+**Changes:**
+- Remove "Coming Soon" labels (they break the luxury feeling -- absence speaks louder)
+- Replace mono track numbers with a subtle golden accent bar (already partially there, make it the sole indicator)
+- Add a breathing golden thread along the left edge of the panel that connects to the genre card above
+- Refine the footer copy from "Recordings arriving soon" to a more brand-aligned phrase: "Each piece, arranged for your ceremony"
+- Add atmospheric inner glow to the panel when a track is active
 
-- Fitzgerald Spacing Scale: 4, 8, 12, 16, 24, 32, 40, 56, 80, 120px.
-- Container max-width: 1200px. Padding: 16px mobile, 24px tablet, 32px desktop.
-- Section anatomy: background → image → overlays → vignette → content → transition fades.
+### 4. Section Copy -- Sharpen to Brand Voice
 
----
+Current copy is close but can be more emotionally precise:
+- "Hear me play." is strong -- keep it
+- "Browse. Listen. Imagine it at yours." feels instructional/casual. Replace with something that honors the vigil: "Each piece begins with someone in mind."
+- The closing quote duplicates this sentiment -- differentiate the two
 
-## Animation Choreography
+**Changes:**
+- Subhead: "Browse. Listen. Imagine it at yours." becomes "Five rooms. One instrument. Your ceremony."
+- Closing quote remains but gets a more atmospheric presentation -- wider spacing, slower reveal
 
-- 150ms hover, 250ms transition, 400ms reveal, 700ms sacred reveal, 3000ms breathing, 25000ms Ken Burns.
-- Standard easing: cubic-bezier(0.4, 0, 0.2, 1). Sacred: cubic-bezier(0.22, 0.61, 0.36, 1).
-- Reveal variants: up (translateY 12px), scale (0.95), blur (4px). Stagger: 80-120ms.
+### 5. Now Playing Bar -- Refine Material Quality
 
----
+The bar is solid but needs:
+- Border-radius capped at 0 (it is a full-width bar, no rounding needed -- currently correct)
+- The seek dot should breathe when idle
+- Golden thread connecting the bar to the section when in-section
 
-## Typography System
+### 6. Ambient Audio Pill -- Minor Refinements
 
-- 9 locked sizes: xs(12px) sm(14px) base(16px) lg(18px) xl(20px) 2xl(24px) 3xl(30px) 4xl(36px) 5xl(48px).
-- Cormorant Garamond for display (300-400 weight). Inter for body (400-500).
-- Hierarchy through weight contrast, size ratio (1.5x minimum), spacing, and color.
+The pill is well-crafted. Minor adjustments:
+- Ensure the `rounded-full` stays (pills are exempt from the 8px rule as a capsule form)
+- The breathing animation timing should match the golden thread cycle (4s, not the current 4s -- already aligned, confirm)
 
----
+### 7. Animation Timing Audit
 
-## Component Standards
-
-- Cards: 8px max radius, fantasy-card shadow, fitz-6 internal padding.
-- CTAs: Vow-yellow bg, verb-forward text ("Hold my date"), breathe-glow animation, 44px min touch.
-- Forms: Dark bg, bottom border focus, labels above field.
-- Navigation: Collapsing header, full-screen mobile overlay, Piano Key section nav.
-
----
-
-## Performance as Design
-
-- Lazy-load below fold, preload hero. GPU-composited animations only.
-- FCP < 1.5s, LCP < 2.5s, CLS < 0.1.
-- font-display: swap (body), optional (display).
-
----
-
-## Accessibility as Reverence
-
-- WCAG 2.1 AA minimum. Semantic HTML. Keyboard navigation.
-- Screen reader narratives (sr-only spans). Reduced motion fallbacks.
-- Descriptive alt text on meaningful images, aria-hidden on decorative.
+Several timings need alignment with the Sacred timing language:
+- Genre card hover: currently 300ms, should be 180ms (hover acknowledgment)
+- Track panel entrance: currently 300ms, should be 400ms (deliberate reveal)
+- Card stagger: currently 80ms, good (within 80-120ms range)
+- Ken Burns on cards: currently 30s, good (within 25-35s range)
 
 ---
 
-## What This Design Must Never Do
+## Technical Implementation Plan
 
-1. Never feel like a vendor website.
-2. Never feel effortful — the visitor should feel held, not impressed.
-3. Never sacrifice narrative for information.
-4. Never use bright, saturated colors.
-5. Never use stock photography.
-6. Never animate for entertainment.
-7. Never break the breathing rhythm (dark/light alternation).
-8. Never let the semicolon become decoration (max 4-5 per page).
-9. Never use rounded corners larger than 8px.
-10. Never let any element draw attention to itself.
+### File: `src/components/GenreCard.tsx`
+- Change `rounded-xl` to `rounded-lg` on the outer button
+- Remove the circular play indicator div entirely; replace with a subtle inner glow that intensifies when active
+- Remove `CircleWaveform` component (app-like, draws attention to itself)
+- Add the genre label as the sole content -- centered, serif, with the context phrase below
+- Add grain overlay div inside the card
+- Change hover transition from 300ms to 180ms
+- Remove Ken Burns on hover (only on active)
+
+### File: `src/components/GenreTrackPanel.tsx`
+- Change `rounded-xl` to `rounded-lg`
+- Remove "Coming Soon" span
+- Update footer copy
+- Add breathing inner glow when track is active
+- Change entrance animation from 300ms to 400ms
+
+### File: `src/components/TheSound.tsx`
+- Update subhead copy
+- Add breathing warm glow layer with 4s animation cycle
+- Ensure film grain layer is visually present (not just a className)
+- Widen the closing quote section spacing
+
+### File: `src/components/PianoPanel.tsx`
+- Change `rounded-[16px]` to `rounded-lg` (8px)
+
+### File: `src/components/ListeningMovement.tsx`
+- Change `rounded-xl` on the track card to `rounded-lg`
 
 ---
 
-## The North Star Questions
+## Summary of Changes
 
-1. Does this honor the vigil?
-2. Does this feel selective (5-10 weddings, not 50)?
-3. Does this tell Parker's story uniquely?
-4. Does this reduce anxiety?
-5. Does it breathe (inhale/exhale rhythm)?
-6. Does this start with feeling?
-7. Is this provable?
-8. Would Fantasy approve (every millisecond intentional)?
-9. Does the visitor feel held?
+| Area | Current | After |
+|------|---------|-------|
+| Card radius | 12px (rounded-xl) | 8px (rounded-lg) |
+| Card play icon | Circular play/pause button | Removed -- replaced with inner glow |
+| Card hover timing | 300ms | 180ms |
+| Panel entrance | 300ms | 400ms |
+| Panel "Coming Soon" | Visible | Removed |
+| Panel footer | "Recordings arriving soon" | "Each piece, arranged for your ceremony" |
+| Section subhead | "Browse. Listen. Imagine it at yours." | "Five rooms. One instrument. Your ceremony." |
+| Atmospheric depth | Missing breathing glow | Added 4s cycle warm glow |
+| PianoPanel radius | 16px | 8px |
+| Ken Burns on hover | Active | Removed (active-only) |
+
+All changes respect reduced motion fallbacks, maintain WCAG AA contrast, and follow the Fitzgerald spacing scale.
