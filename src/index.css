@@ -5143,12 +5143,24 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   animation: witness-ken-burns 30s ease-in-out infinite alternate;
 }
 
-/* Image frame warm border + depth */
+/* Image frame warm border + directional inner glow */
 .witness-image-frame {
   box-shadow:
     0 8px 32px -8px hsl(45 25% 50% / 0.08),
-    0 2px 8px -2px hsl(45 25% 50% / 0.06);
+    0 2px 8px -2px hsl(45 25% 50% / 0.06),
+    inset 2px 2px 12px -4px hsl(var(--vow-yellow) / 0.08),
+    inset -1px -1px 8px -4px hsl(45 20% 50% / 0.04);
   background: hsl(45 20% 93% / 0.3);
+  transition: box-shadow 180ms cubic-bezier(0.4, 0, 0.2, 1),
+              transform 180ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.witness-image-frame:hover {
+  box-shadow:
+    0 12px 40px -8px hsl(45 25% 50% / 0.12),
+    0 2px 8px -2px hsl(45 25% 50% / 0.08),
+    inset 2px 2px 16px -4px hsl(var(--vow-yellow) / 0.12),
+    inset -1px -1px 8px -4px hsl(45 20% 50% / 0.06);
+  transform: translateY(-2px);
 }
 
 /* Step 3: Candlelight shimmer inside frame — GPU-composited transform */
@@ -5162,7 +5174,7 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   height: 200%;
   top: -50%;
   left: -50%;
-  background: radial-gradient(ellipse at center, hsl(var(--vow-yellow) / 0.06) 0%, transparent 60%);
+  background: radial-gradient(ellipse at center, hsl(var(--vow-yellow) / 0.08) 0%, transparent 60%);
   animation: witness-shimmer-drift 8s ease-in-out infinite;
   will-change: transform;
 }
@@ -5295,6 +5307,12 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 @media (prefers-reduced-motion: reduce) {
   .witness-bg-drift {
     animation: none !important;
+  }
+  .witness-image-frame {
+    transition: none !important;
+  }
+  .witness-image-frame:hover {
+    transform: none !important;
   }
   .witness-image-frame img {
     animation: none !important;
