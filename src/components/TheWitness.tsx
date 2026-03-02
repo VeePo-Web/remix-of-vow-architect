@@ -465,8 +465,25 @@ export function TheWitness() {
               </div>
             </div>
 
+            {/* Step 6: Breathing diamond separator — silence between kit and closing */}
+            <div
+              className={cn(
+                "flex justify-center my-10 transition-all duration-700",
+                isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
+              )}
+              style={{ transitionDelay: isVisible ? "900ms" : "0ms" }}
+              aria-hidden="true"
+            >
+              <div
+                className="witness-threshold-diamond w-[5px] h-[5px] rotate-45"
+                style={{
+                  background: 'hsl(var(--vow-yellow) / 0.4)',
+                }}
+              />
+            </div>
+
             {/* Step 7: Closing threshold with weight */}
-            <div className="relative mt-12">
+            <div className="relative">
               {/* Warm glow behind closing */}
               <div
                 className="absolute -inset-8 pointer-events-none"
@@ -490,10 +507,10 @@ export function TheWitness() {
                 aria-hidden="true"
               />
 
-              {/* Closing thought with blur-to-sharp */}
+              {/* Closing thought — sacred invitation in display serif */}
               <p
                 className={cn(
-                  "text-sm md:text-[15px] font-display font-light italic text-muted-foreground relative z-10",
+                  "witness-closing-quote text-lg md:text-xl font-display font-light text-foreground/80 relative z-10 leading-relaxed",
                   "transition-[opacity,transform,filter] duration-700",
                   isVisible
                     ? "opacity-100 translate-y-0 blur-0"
@@ -504,11 +521,11 @@ export function TheWitness() {
                 Now{"\u2014"}choose how long you want me there.
               </p>
 
-              {/* Step 10: Ghost CTA into ThreePaths */}
+              {/* Ghost CTA into ThreePaths — warm threshold ember */}
               <a
                 href="#three-paths"
                 className={cn(
-                  "witness-ghost-cta inline-flex items-center gap-2 mt-4 text-xs uppercase tracking-[0.18em] font-display",
+                  "witness-ghost-cta inline-flex items-center gap-2 mt-5 text-xs uppercase tracking-[0.18em] font-display",
                   "text-muted-foreground hover:text-foreground relative z-10",
                   "transition-[opacity,transform,color] duration-700",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
