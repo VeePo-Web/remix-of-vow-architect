@@ -1,7 +1,7 @@
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-import { useEffect, useRef } from 'react';
 import invitationPortrait from '@/assets/invitation-portrait-ai.jpg';
 
 const credentials = [
@@ -11,32 +11,7 @@ const credentials = [
 ];
 
 export function TheInvitation() {
-  const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.15 });
-  const portraitRef = useRef<HTMLDivElement>(null);
-
-  // Scroll-linked parallax on portrait
-  useEffect(() => {
-    const portrait = portraitRef.current;
-    if (!portrait) return;
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
-
-    let rafId: number;
-    const onScroll = () => {
-      rafId = requestAnimationFrame(() => {
-        const rect = portrait.getBoundingClientRect();
-        const center = rect.top + rect.height / 2;
-        const viewCenter = window.innerHeight / 2;
-        const offset = (center - viewCenter) * 0.02;
-        portrait.style.transform = `translateZ(0) translateY(${offset}px)`;
-      });
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      cancelAnimationFrame(rafId);
-    };
-  }, []);
+  const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.1 });
 
   return (
     <section
@@ -49,47 +24,22 @@ export function TheInvitation() {
       }}
     >
       {/* === ATMOSPHERIC DEPTH LAYERS === */}
-
-      {/* Faint background image — atmospheric wash */}
       <div
-        className="absolute inset-0 pointer-events-none invitation-ken-burns"
+        className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage: `url(${invitationPortrait})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           opacity: 0.03,
           filter: 'saturate(0.5) contrast(1.1) blur(1px)',
-          animation: 'invitation-ken-burns 40s ease-in-out infinite alternate',
         }}
         aria-hidden="true"
       />
-
-      {/* Top fade from VowMoment dark */}
       <div
         className="absolute top-0 left-0 right-0 h-[120px] z-10 pointer-events-none"
         style={{ background: 'linear-gradient(to top, transparent, hsl(240 9% 4%))' }}
         aria-hidden="true"
       />
-
-      {/* Warm elliptical fog behind portrait */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse 50% 60% at 30% 50%, hsla(35, 50%, 50%, 0.06) 0%, transparent 70%)',
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Cold-to-warm sweep */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'linear-gradient(90deg, hsl(220 12% 10% / 0.3) 0%, hsl(30 12% 14% / 0.4) 50%, hsl(25 8% 11% / 0.2) 100%)',
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Candlelight pooling at center */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -97,17 +47,6 @@ export function TheInvitation() {
         }}
         aria-hidden="true"
       />
-
-      {/* Ember glow — warm firelight from above */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse 60% 40% at 50% 40%, hsla(30, 80%, 40%, 0.04) 0%, transparent 70%)',
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Vignette — spotlight effect */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -116,12 +55,14 @@ export function TheInvitation() {
         aria-hidden="true"
       />
 
+      {/* === CONTENT === */}
       <div className="container mx-auto px-4 relative z-20">
-        <div className="max-w-6xl mx-auto">
-          {/* Section Label */}
+        <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
+
+          {/* Label */}
           <p
             className={cn(
-              'text-xs uppercase tracking-[0.22em] text-white/40 mb-16 text-center w-full',
+              'text-xs uppercase tracking-[0.22em] text-white/40 mb-12',
               'transition-all duration-700',
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             )}
@@ -129,250 +70,221 @@ export function TheInvitation() {
             The Invitation
           </p>
 
-          {/* Main Grid */}
-          <div className="relative grid md:grid-cols-[2fr_3fr] gap-12 md:gap-20 items-center">
-            {/* Desktop Golden Thread */}
-            <span
-              className={cn(
-                'hidden md:block absolute left-[40%] top-[20%] w-px h-[60%] origin-top transition-transform duration-[800ms]',
-                isVisible ? 'scale-y-100' : 'scale-y-0'
-              )}
-              style={{
-                background: 'linear-gradient(to bottom, transparent, hsl(var(--vow-yellow) / 0.15), transparent)',
-                transitionDelay: isVisible ? '800ms' : '0ms',
-              }}
-              aria-hidden="true"
-            />
+          {/* Epigraph */}
+          <p
+            className={cn(
+              'invitation-epigraph max-w-xl mx-auto transition-all duration-700',
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            )}
+            style={{ transitionDelay: isVisible ? '150ms' : '0ms' }}
+          >
+            "You deserve someone who has stood where you are about to stand — and knows what it takes."
+          </p>
 
-            {/* Portrait Column */}
-            <div
-              ref={portraitRef}
-              className={cn(
-                'will-change-transform',
-                'transition-all duration-700',
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-              )}
-              style={{ transitionDelay: isVisible ? '150ms' : '0ms' }}
-            >
-              {/* Cinematic portrait frame with ambient light bleed */}
-              <div className="relative">
-                {/* Ambient light bleed — portrait as light source */}
-                <div
-                  className="absolute -inset-[60px] pointer-events-none"
-                  style={{
-                    background: 'radial-gradient(ellipse at center, hsla(40, 50%, 50%, 0.035) 0%, transparent 70%)',
-                  }}
-                  aria-hidden="true"
-                />
-                <div
-                  className="invitation-portrait-frame aspect-[4/5] overflow-hidden relative"
-                  style={{
-                    border: '1px solid hsl(var(--vow-yellow) / 0.2)',
-                    boxShadow: 'inset 0 0 40px hsl(var(--vow-yellow) / 0.12), 0 40px 100px -20px rgba(0,0,0,0.5)',
-                  }}
-                >
-                  <img
-                    src={invitationPortrait}
-                    alt="Pianist's hands on grand piano keys in warm candlelight"
-                    className="w-full h-full object-cover will-change-transform invitation-ken-burns"
-                    loading="lazy"
-                  />
-                  {/* Film grain at 4% */}
-                  <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
-                  {/* Cinematic vignette */}
-                  <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                      background: 'radial-gradient(ellipse at center, transparent 40%, hsl(240 12% 3% / 0.4) 100%)',
-                    }}
-                    aria-hidden="true"
-                  />
-                </div>
-              </div>
+          {/* Golden Rule 1 */}
+          <span
+            className={cn(
+              'block w-16 h-px my-12 transition-all duration-700',
+              isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
+            )}
+            style={{
+              background: 'hsl(var(--vow-yellow) / 0.2)',
+              transitionDelay: isVisible ? '250ms' : '0ms',
+            }}
+            aria-hidden="true"
+          />
 
-              {/* Caption with golden rule */}
+          {/* Portrait — wide cinematic crop */}
+          <div
+            className={cn(
+              'w-full transition-all duration-700',
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+            )}
+            style={{ transitionDelay: isVisible ? '350ms' : '0ms' }}
+          >
+            <div className="relative">
               <div
-                className={cn(
-                  'flex flex-col items-center md:items-start mt-5 transition-all duration-700',
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
-                )}
-                style={{ transitionDelay: isVisible ? '400ms' : '0ms' }}
-              >
-                <span
-                  className="block w-10 h-px mb-3"
-                  style={{ background: 'hsl(var(--vow-yellow) / 0.5)' }}
-                  aria-hidden="true"
-                />
-                <p className="text-sm font-display italic text-white/40 text-center md:text-left">
-                  A moment with me — before the moment with you.
-                </p>
-              </div>
-            </div>
-
-            {/* Mobile golden thread */}
-            <div className="flex md:hidden justify-center py-2">
-              <span
-                className={cn(
-                  'block w-px h-12 origin-top transition-transform duration-[800ms]',
-                  isVisible ? 'scale-y-100' : 'scale-y-0'
-                )}
+                className="absolute -inset-[40px] pointer-events-none"
                 style={{
-                  background: 'hsl(var(--vow-yellow) / 0.15)',
-                  transitionDelay: isVisible ? '500ms' : '0ms',
+                  background: 'radial-gradient(ellipse at center, hsla(40, 50%, 50%, 0.035) 0%, transparent 70%)',
                 }}
                 aria-hidden="true"
               />
-            </div>
-
-            {/* Content Column */}
-            <div className="space-y-10">
-              {/* Epigraph — whispered serif intro */}
-              <p
-                className={cn(
-                  'invitation-epigraph max-w-lg transition-all duration-700',
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                )}
-                style={{ transitionDelay: isVisible ? '200ms' : '0ms' }}
-              >
-                "You deserve someone who has stood where you are about to stand — and knows what it takes."
-              </p>
-
-              {/* Headline */}
-              <h2
-                className={cn(
-                  'text-[clamp(32px,5vw,48px)] font-display font-light leading-tight text-white',
-                  'transition-all duration-700',
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-                )}
-                style={{ transitionDelay: isVisible ? '300ms' : '0ms', textWrap: 'balance' as any }}
-              >
-                I have played at over 500 events — I know what can go{' '}
-                <span className="relative inline-block italic">
-                  wrong
-                  <span
-                    className={cn(
-                      'absolute bottom-0 left-0 h-[2px] bg-vow-gold origin-left transition-all duration-700',
-                      isVisible ? 'scale-x-100' : 'scale-x-0'
-                    )}
-                    style={{
-                      transitionDelay: isVisible ? '800ms' : '0ms',
-                      transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
-                      width: '100%',
-                      boxShadow: isVisible ? '0 0 8px hsl(45 90% 65% / 0.3)' : 'none',
-                    }}
-                  />
-                </span>
-                .
-              </h2>
-
-              {/* Body — pull-quote style with left border */}
               <div
-                className={cn(
-                  'pl-5 border-l-2 space-y-4 transition-all duration-700',
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-                )}
+                className="invitation-portrait-frame aspect-[16/9] overflow-hidden relative rounded-sm"
                 style={{
-                  borderColor: 'hsl(var(--vow-yellow) / 0.25)',
-                  transitionDelay: isVisible ? '450ms' : '0ms',
+                  border: '1px solid hsl(var(--vow-yellow) / 0.15)',
+                  boxShadow: 'inset 0 0 40px hsl(var(--vow-yellow) / 0.1), 0 40px 100px -20px rgba(0,0,0,0.5)',
                 }}
               >
-                <p className="text-lg font-display font-light leading-[1.85] text-white/60">
-                  The wind that steals a vow mid-sentence. The hum that bleeds through silence. The back row that leans in — and still cannot hear.
-                </p>
-              </div>
-
-              {/* Assurance — standalone serif statement */}
-              <p
-                className={cn(
-                  'invitation-assurance transition-all duration-700',
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-                )}
-                style={{ transitionDelay: isVisible ? '550ms' : '0ms' }}
-              >
-                Every part of my process exists so that never happens to you.
-              </p>
-
-              {/* CTA — "Meet the witness" */}
-              <div
-                className={cn(
-                  'pt-1 transition-all duration-700',
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-                )}
-                style={{ transitionDelay: isVisible ? '650ms' : '0ms' }}
-              >
-                  <Link
-                    to="/about"
-                    className={cn('invitation-cta', isVisible && 'is-visible')}
-                  >
-                    Meet the witness
-                    <span className="invitation-cta-rule" aria-hidden="true" />
-                  </Link>
-                </div>
-
-              {/* Golden separator between CTA and credentials */}
-              <div
-                className={cn(
-                  'pt-4 transition-all duration-700',
-                  isVisible ? 'opacity-100' : 'opacity-0'
-                )}
-                style={{ transitionDelay: isVisible ? '700ms' : '0ms' }}
-              >
-                <span
-                  className="block w-10 h-px"
-                  style={{ background: 'hsl(var(--vow-yellow) / 0.15)' }}
+                <img
+                  src={invitationPortrait}
+                  alt="Pianist's hands on grand piano keys in warm candlelight"
+                  className="w-full h-full object-cover will-change-transform invitation-ken-burns"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background: 'radial-gradient(ellipse at center, transparent 40%, hsl(240 12% 3% / 0.4) 100%)',
+                  }}
                   aria-hidden="true"
                 />
               </div>
+            </div>
 
-              {/* Credential Strip — frosted glass */}
-              <div
+            {/* Caption */}
+            <p
+              className={cn(
+                'text-sm font-display italic text-white/40 mt-5 transition-all duration-700',
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
+              )}
+              style={{ transitionDelay: isVisible ? '500ms' : '0ms' }}
+            >
+              A moment with me — before the moment with you.
+            </p>
+          </div>
+
+          {/* Golden Rule 2 */}
+          <span
+            className={cn(
+              'block w-10 h-px my-12 transition-all duration-700',
+              isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
+            )}
+            style={{
+              background: 'hsl(var(--vow-yellow) / 0.2)',
+              transitionDelay: isVisible ? '550ms' : '0ms',
+            }}
+            aria-hidden="true"
+          />
+
+          {/* Headline */}
+          <h2
+            className={cn(
+              'text-[clamp(28px,4.5vw,44px)] font-display font-light leading-tight text-white max-w-2xl mx-auto',
+              'transition-all duration-700',
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+            )}
+            style={{ transitionDelay: isVisible ? '600ms' : '0ms', textWrap: 'balance' as any }}
+          >
+            I have played at over 500 events — I know what can go{' '}
+            <span className="relative inline-block italic">
+              wrong
+              <span
                 className={cn(
-                  'pt-8 transition-all duration-700',
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+                  'absolute bottom-0 left-0 h-[2px] bg-vow-gold origin-left transition-all duration-700',
+                  isVisible ? 'scale-x-100' : 'scale-x-0'
                 )}
-                style={{ transitionDelay: isVisible ? '750ms' : '0ms' }}
-              >
-                <div className="flex items-center max-w-md gap-0">
-                  {credentials.map((cred, i) => (
-                    <>
-                      <div
-                        key={cred.value}
-                        className={cn(
-                          'invitation-credential text-center flex-1 px-6 py-4 rounded-[2px] transition-all duration-700',
-                          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                        )}
-                        style={{
-                          transitionDelay: isVisible ? `${850 + i * 100}ms` : '0ms',
-                          background: 'hsl(0 0% 100% / 0.03)',
-                          backdropFilter: 'blur(8px)',
-                          border: '1px solid hsl(var(--vow-yellow) / 0.08)',
-                        }}
-                      >
-                        <span className="block font-display text-xl text-white/75">
-                          {cred.value}
-                        </span>
-                        <span className="block text-[10px] uppercase tracking-[0.22em] text-white/35 mt-1">
-                          {cred.label}
-                        </span>
-                      </div>
-                      {i < credentials.length - 1 && (
-                        <span
-                          key={`div-${i}`}
-                          className="block w-px h-8 flex-shrink-0 mx-3"
-                          style={{ background: 'hsl(var(--vow-yellow) / 0.3)' }}
-                          aria-hidden="true"
-                        />
-                      )}
-                    </>
-                  ))}
-                </div>
-              </div>
+                style={{
+                  transitionDelay: isVisible ? '1000ms' : '0ms',
+                  transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+                  width: '100%',
+                  boxShadow: isVisible ? '0 0 8px hsl(45 90% 65% / 0.3)' : 'none',
+                }}
+              />
+            </span>
+            .
+          </h2>
+
+          {/* Body */}
+          <p
+            className={cn(
+              'text-lg font-display font-light leading-[1.85] text-white/50 max-w-lg mx-auto mt-10 transition-all duration-700',
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+            )}
+            style={{ transitionDelay: isVisible ? '750ms' : '0ms' }}
+          >
+            The wind that steals a vow mid-sentence. The hum that bleeds through silence. The back row that leans in — and still cannot hear.
+          </p>
+
+          {/* Assurance */}
+          <p
+            className={cn(
+              'invitation-assurance max-w-lg mx-auto mt-8 transition-all duration-700',
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+            )}
+            style={{ transitionDelay: isVisible ? '850ms' : '0ms' }}
+          >
+            Every part of my process exists so that never happens to you.
+          </p>
+
+          {/* CTA */}
+          <div
+            className={cn(
+              'mt-10 transition-all duration-700',
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+            )}
+            style={{ transitionDelay: isVisible ? '950ms' : '0ms' }}
+          >
+            <Link
+              to="/about"
+              className={cn('invitation-cta', isVisible && 'is-visible')}
+            >
+              Meet the witness
+              <span className="invitation-cta-rule" aria-hidden="true" />
+            </Link>
+          </div>
+
+          {/* Golden Rule 3 */}
+          <span
+            className={cn(
+              'block w-10 h-px my-10 transition-all duration-700',
+              isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
+            )}
+            style={{
+              background: 'hsl(var(--vow-yellow) / 0.15)',
+              transitionDelay: isVisible ? '1000ms' : '0ms',
+            }}
+            aria-hidden="true"
+          />
+
+          {/* Credentials */}
+          <div
+            className={cn(
+              'transition-all duration-700',
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+            )}
+            style={{ transitionDelay: isVisible ? '1100ms' : '0ms' }}
+          >
+            <div className="flex items-center justify-center gap-0">
+              {credentials.map((cred, i) => (
+                <Fragment key={cred.value}>
+                  <div
+                    className={cn(
+                      'invitation-credential text-center px-8 py-4 rounded-[2px] transition-all duration-700',
+                      isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                    )}
+                    style={{
+                      transitionDelay: isVisible ? `${1100 + i * 100}ms` : '0ms',
+                      background: 'hsl(0 0% 100% / 0.03)',
+                      backdropFilter: 'blur(8px)',
+                      border: '1px solid hsl(var(--vow-yellow) / 0.08)',
+                    }}
+                  >
+                    <span className="block font-display text-xl text-white/75">
+                      {cred.value}
+                    </span>
+                    <span className="block text-[10px] uppercase tracking-[0.22em] text-white/35 mt-1">
+                      {cred.label}
+                    </span>
+                  </div>
+                  {i < credentials.length - 1 && (
+                    <span
+                      className="block w-px h-8 flex-shrink-0 mx-3"
+                      style={{ background: 'hsl(var(--vow-yellow) / 0.3)' }}
+                      aria-hidden="true"
+                    />
+                  )}
+                </Fragment>
+              ))}
             </div>
           </div>
+
         </div>
       </div>
 
-      {/* Bottom fade into TheSound dark */}
+      {/* Bottom fade */}
       <div
         className="absolute bottom-0 left-0 right-0 h-[120px] z-10 pointer-events-none"
         style={{ background: 'linear-gradient(to bottom, transparent, hsl(220 15% 8%))' }}
