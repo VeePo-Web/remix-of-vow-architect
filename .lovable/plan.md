@@ -1,73 +1,65 @@
 
 
-# The Invitation — Fantasy.co Final Detail Pass
+# The Invitation — Final Micro-Detail Pass
 
 ## Current State
 
-The section has strong foundations: asymmetric two-column layout, intimate first-person copy, warm atmospheric gradient, Ken Burns portrait, and staggered scroll reveals. The previous polish pass fixed the CTA radius, text contrast, and image framing. However, several details still fall short of Fantasy.co-level craft.
+After three successive elevation passes (layout restructure, polish, and detail pass), the section is 95% ceremony-grade. The two-column layout, atmospheric depth, breathing golden elements, portrait hover warmth, and vow-yellow accents are all in place. What remains are the kinds of details that separate "very good" from "every millisecond is intentional."
 
-## Issues Identified
+## Remaining Issues
 
-### 1. Portrait frame class not applied
-The CSS defines `.invitation-portrait-frame` with hover states (border warmth, shadow expansion on hover) but the component uses a raw `div` with inline styles. The hover interaction — where the frame subtly warms when the visitor's cursor passes over — is missing entirely. This is a lost micro-interaction that acknowledges the visitor's attention.
+### 1. Dead CSS: `.invitation-credential-plaque` (lines 1494-1505)
+The old glassmorphism credential container was removed in a previous pass, but its CSS rules (hover shadow, focus-within state) still exist. Dead code signals incomplete work — a Fantasy studio ships clean.
 
-### 2. Focus ring uses `border-radius: 100px`
-Line 1571 of index.css: `.invitation-cta:focus-visible` has `border-radius: 100px`. This contradicts the brand system's 8px maximum rule and creates a pill-shaped focus ring on keyboard navigation.
+### 2. No `role="region"` or screen reader narrative
+TheExhale has `role="region"` and `aria-label`. TheInvitation has `aria-labelledby` but lacks `role="region"` and has no `sr-only` span narrating the section's purpose for screen reader users. The brand covenant includes "reverence for every person who might visit."
 
-### 3. Golden rule has no breathing animation
-The horizontal golden rule between the epigraph and heading is static. Every golden element in the brand system breathes — the golden thread has a 4s opacity cycle, the golden diamond pulses. This rule should breathe with a subtle opacity shift to feel alive rather than painted on.
+### 3. Mobile gap between image and text is too generous
+The grid uses `gap-16` (64px) on mobile. When the image stacks above the copy, 64px of empty space between them feels like a disconnect rather than breathing room. `gap-10` (40px) on mobile preserves intimacy while `md:gap-20` (80px) on desktop keeps the luxury spacing.
 
-### 4. Credentials use plain middot separators
-The `·` separators between credentials are generic. Other sections use golden dot or diamond separators for brand consistency. These should be styled as subtle vow-yellow dots.
+### 4. Top/bottom fade colors create temperature mismatch
+The top fade goes to `hsl(240 9% 4%)` — a cool blue-black. But the section background starts at `hsl(28 12% 16%)` — a warm brown. The cool-to-warm seam is visible. The top fade should blend from the VowMoment's dark color space (which is also cool `hsl(240 12% 5%)`), so this is actually correct. However, the bottom fade also goes to `hsl(240 9% 4%)` while TheSound below starts at approximately `hsl(220 15% 8%)`. The bottom fade should match TheSound's color temperature for a seamless transition.
 
-### 5. No golden thread between sections
-Adjacent sections (VowMoment above, TheSound below) transition via simple gradient fades. A golden thread — the brand's visual sacrament — positioned at the section boundary would create a threshold moment, signaling the visitor is crossing from one emotional space to another.
+### 5. The heading `text-balance` may cause uneven line breaks
+The `text-balance` utility on the heading can cause unexpected wrapping at certain viewport widths, pushing "could be one of them." to a third line. Replacing with `text-pretty` (or removing it and relying on max-width) gives the browser more freedom to wrap naturally at the longest-line-first strategy, which reads better for this copy.
 
-### 6. Background image lacks Ken Burns on the bg layer
-The portrait image has Ken Burns drift (25s), but the background texture layer (the same image at 10% opacity behind everything) is static. Adding a very slow counter-drift would create parallax depth between the atmospheric layer and the foreground portrait.
+### 6. CTA rule (en-dash) lacks `will-change` for smooth hover
+The extending en-dash rule animates `width` on hover — a layout property. This triggers reflow and can jank on lower-end devices. Switching to a `scaleX` transform on hover with a fixed width container would be GPU-composited and silky smooth.
 
-### 7. The assurance text could use a sacred em-dash accent
-The assurance line "Every arrangement I write begins with a single question — what was playing when you knew" ends without emphasis. The phrase "what was playing when you knew" is the emotional payload — it deserves a subtle vow-yellow tint on the em-dash or the final clause to draw the eye.
+### 7. Portrait image `decoding="async"` should pair with `fetchpriority="low"`
+The image is lazy-loaded and below the fold, but lacks `fetchpriority="low"` to signal the browser that this image can yield to above-the-fold resources. Minor performance detail but consistent with "performance as design."
 
 ## Technical Changes
 
 ### File: `src/components/TheInvitation.tsx`
 
-1. **Add `invitation-portrait-frame` class to image container** — Add this class to the frame div (line 95) alongside the existing `rounded-sm` class. This enables the CSS hover interaction where the border warms and shadows expand when the visitor hovers over the portrait.
+1. **Add `role="region"` to section** — Add this attribute alongside the existing `aria-labelledby`. Also add a `sr-only` span inside the section that narrates: "Parker's personal invitation — he plays only five weddings a year and devotes months of preparation to each one."
 
-2. **Add breathing animation to golden rule** — Add a CSS animation to the golden rule span that cycles opacity between 0.15 and 0.30 over 4 seconds, matching the brand's breathing rhythm. Use inline style with `animation: invitation-rule-breathe 4s ease-in-out infinite`.
+2. **Fix mobile gap** — Change `gap-16 md:gap-20` to `gap-10 md:gap-20` on the grid container (line 74). 40px on mobile, 80px on desktop.
 
-3. **Style credential separators** — Change the `·` characters to `<span>` elements with vow-yellow color at low opacity, creating subtle golden dot separators instead of plain text middots.
+3. **Fix bottom fade color** — Change the bottom fade from `hsl(240 9% 4%)` to `hsl(220 15% 8%)` to match TheSound's color space for seamless transition.
 
-4. **Add golden thread at section bottom** — Before the bottom fade, add a centered 1px vertical golden thread (40px tall) with the brand's breathing opacity cycle, positioned at the bottom boundary. This marks the threshold between The Invitation and TheSound.
+4. **Replace `text-balance` with `text-pretty`** on the heading (line 170) for more natural line breaking.
 
-5. **Add em-dash accent in assurance** — Split the assurance text so the em-dash and final clause "what was playing when you knew" are wrapped in a span with subtle vow-yellow tint (`text-[hsl(var(--vow-yellow))]` at reduced opacity).
-
-6. **Add Ken Burns to background layer** — Add a `invitation-bg-ken-burns` class to the background image div with a 35s drift animation in the opposite direction of the portrait (scale 1 to 1.02), creating subtle parallax depth.
+5. **Add `fetchpriority="low"`** to the portrait `img` element (line 106-111).
 
 ### File: `src/index.css`
 
-7. **Add golden rule breathing keyframe** — New `@keyframes invitation-rule-breathe` that cycles opacity between 0.15 and 0.30 over 4 seconds.
+6. **Remove dead `.invitation-credential-plaque` CSS** (lines 1494-1505) — These styles are orphaned from the removed glassmorphism container.
 
-8. **Add background Ken Burns keyframe** — New `@keyframes invitation-bg-ken-burns` with 35s `scale(1)` to `scale(1.02)` drift.
-
-9. **Fix focus ring border-radius** — Change `.invitation-cta:focus-visible` `border-radius` from `100px` to `4px`.
-
-10. **Add golden thread styles** — `.invitation-golden-thread` with 1px width, 40px height, vow-yellow background at 0.15 opacity, and a 4s breathing animation matching the brand's golden thread pattern.
-
-11. **Add reduced motion fallbacks** — Disable the rule breathing, background Ken Burns, and golden thread animations under `prefers-reduced-motion: reduce`.
+7. **Fix CTA rule animation to use transform** — Change `.invitation-cta-rule` from animating `width` to using a fixed width with `scaleX` transform. Set `width: 24px` with `transform: scaleX(0.5)` as default, and `transform: scaleX(1)` on hover. This eliminates layout-triggered reflow.
 
 ## What This Achieves
 
-Every detail in the section now participates in the brand's visual language:
+| Detail | Before | After |
+|--------|--------|-------|
+| Dead CSS | 12 lines of orphaned credential plaque styles | Clean, no dead rules |
+| Screen reader | No section narrative | Full sr-only description |
+| Mobile gap | 64px (disconnected) | 40px (intimate) |
+| Bottom fade | Cool blue-black seam against TheSound | Matched color temperature |
+| Heading wrap | `text-balance` (unpredictable) | `text-pretty` (natural) |
+| CTA rule hover | Layout reflow (`width`) | GPU transform (`scaleX`) |
+| Image priority | No priority signal | `fetchpriority="low"` |
 
-- The portrait frame responds to attention (hover warmth)
-- The golden rule breathes like a living material
-- Credential separators are golden, not generic
-- A golden thread marks the sacred threshold between sections
-- The assurance line draws the eye to its emotional payload
-- Background and foreground layers drift at different rates (parallax depth)
-- Keyboard accessibility uses brand-consistent radii
-
-The section moves from "polished" to "every millisecond is intentional."
+These are the final 1% details. After this pass, the section is complete — every pixel, every transition, every accessibility consideration is intentional.
 
