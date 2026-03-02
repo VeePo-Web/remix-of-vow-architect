@@ -5,7 +5,7 @@ const testimonials = [
   {
     quote: "I had a nightmare about our DJ bailing. Parker showed up with three amps.",
     name: "Kaitlyn",
-    location: "Banff",
+    location: "Okotoks",
     initials: "K"
   },
   {

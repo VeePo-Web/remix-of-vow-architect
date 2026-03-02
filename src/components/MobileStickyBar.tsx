@@ -9,7 +9,7 @@ const pageConfig: Record<string, string> = {
   "/about": "The witness behind the keys",
   "/gallery": "500+ events performed",
   "/faq": "Every question, answered",
-  "/listen": "Hear what your day could sound like",
+  "/listen": "Hear what your ceremony could sound like",
 };
 
 export function MobileStickyBar() {

@@ -147,7 +147,7 @@ export function ProcessSection() {
         <div className="process-intro__anchor" aria-hidden="true" />
         <span className="process-intro__label">The Process</span>
         <h2 className="process-intro__headline">
-          Excellence on the big day doesn't happen on the big day.
+          Excellence on the day of your ceremony doesn't happen the day of your ceremony.
         </h2>
         <p className="process-intro__highlight">
           <span className="exhale-emphasis">It happens now.</span>
@@ -219,7 +219,7 @@ export function ProcessSection() {
         Second, The Crafting, where I compose custom arrangements from our discussion.
         Third, The Refining, where we iterate on drafts until the music sounds exactly right.
         Fourth, The Completing, where we collaboratively fill in the remaining music for your ceremony.
-        Excellence on the big day happens through careful preparation now.
+        Excellence on the day of your ceremony happens through careful preparation now.
       </span>
     </section>
   );
