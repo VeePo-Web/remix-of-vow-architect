@@ -307,7 +307,7 @@ export default function Contact() {
                                 ✨ Surprise Me
                               </span>
                               <span className="text-xs text-muted-foreground">
-                                I'll craft the perfect vibe for your venue
+                                I'll shape the sound to suit your venue
                               </span>
                             </Label>
                           </div>

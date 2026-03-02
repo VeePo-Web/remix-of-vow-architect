@@ -25,7 +25,7 @@ const pricingSections = [
   { id: "pricing-testimonials", label: "Testimonials",   isBlackKey: false },
   { id: "pricing-faq",          label: "FAQ",            isBlackKey: true  },
   { id: "pricing-download",     label: "Download",       isBlackKey: false },
-  { id: "pricing-cta",          label: "Get Started",    isBlackKey: true  },
+  { id: "pricing-cta",          label: "Begin",          isBlackKey: true  },
 ];
 
 export default function Pricing() {

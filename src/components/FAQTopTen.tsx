@@ -25,7 +25,7 @@ const topTenFAQs = [
   {
     question: "Can I cancel or downgrade after booking?",
     answer: "Yes. 14-day full refund on deposit, then transferable credit. Clear timelines in your policy PDF.",
-    link: { to: "/pricing", label: "Pricing & Packages › Terms" }
+    link: { to: "/pricing", label: "Pricing & Paths › Terms" }
   },
   {
     question: "How do I know my officiant will be coordinated?",
@@ -55,7 +55,7 @@ const topTenFAQs = [
   {
     question: "How do I compare this to a DJ or band?",
     answer: "Ask them for a SPL log, a battery/no-generator plan, and backup stack details. Then see my chart.",
-    link: { to: "/pricing", label: "Pricing › Compare Vendors" }
+    link: { to: "/pricing", label: "Pricing › Compare" }
   }
 ];
 

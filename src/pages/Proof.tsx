@@ -20,7 +20,7 @@ const proofSections = [
   { id: "proof-insurance",   label: "Insurance",          isBlackKey: true  },
   { id: "proof-redundancy",  label: "Redundancy",         isBlackKey: false },
   { id: "proof-downloads",   label: "Downloads",          isBlackKey: false },
-  { id: "proof-cta",         label: "Get Started",        isBlackKey: true  },
+  { id: "proof-cta",         label: "Begin",              isBlackKey: true  },
 ];
 
 export default function Proof() {

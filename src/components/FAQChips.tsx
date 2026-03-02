@@ -15,7 +15,7 @@ const chips = [
     link: { to: "/faq", label: "See FAQ" }
   },
   {
-    question: "Can I change my package later?",
+    question: "Can I change my path later?",
     answer: "Yes. Upgrade up to 2 weeks before your date.",
     link: { to: "/pricing", label: "See Pricing" }
   },
