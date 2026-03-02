@@ -376,7 +376,7 @@ export function TheSound() {
                     className={cn(
                       "transition-all duration-500",
                       gridVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
-                      i === 4 && "col-span-2 md:col-span-1"
+                      i === 4 && "col-span-2 md:col-span-1 justify-self-center max-w-[calc(50%-0.375rem)] md:max-w-none"
                     )}
                     style={{
                       transitionDelay: gridVisible ? `${300 + i * 80}ms` : "0ms",
@@ -422,7 +422,7 @@ export function TheSound() {
                 transitionDelay: quoteVisible ? "200ms" : "0ms",
               }}
             >
-              <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 50% 40% at 50% 50%, hsl(var(--vow-yellow) / 0.03) 0%, transparent 70%)" }} aria-hidden="true" />
+              <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 50% 40% at 50% 50%, hsl(var(--vow-yellow) / 0.05) 0%, transparent 70%)" }} aria-hidden="true" />
               <div className="relative mx-auto mb-6" style={{ width: "64px", height: "1px" }} aria-hidden="true">
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to right, transparent, hsl(var(--vow-yellow) / 0.5), transparent)" }} />
                 <div
