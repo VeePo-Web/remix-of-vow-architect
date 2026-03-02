@@ -157,7 +157,8 @@ export function TheSound() {
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
-  const [scrollOffset, setScrollOffset] = useState(0);
+  const parallaxBgRef = useRef<HTMLDivElement>(null);
+  const parallaxLeakRef = useRef<HTMLDivElement>(null);
 
   // Reduced motion
   useEffect(() => {
@@ -168,13 +169,21 @@ export function TheSound() {
     return () => mql.removeEventListener("change", handler);
   }, []);
 
-  // Scroll parallax
+  // Scroll parallax — direct DOM mutation, zero re-renders
   useEffect(() => {
     const el = sectionRef.current;
     if (!el || reducedMotion) return;
+    let ticking = false;
     const handleScroll = () => {
-      const rect = el.getBoundingClientRect();
-      setScrollOffset(Math.max(-40, Math.min(40, -rect.top * 0.05)));
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const rect = el.getBoundingClientRect();
+        const offset = Math.max(-40, Math.min(40, -rect.top * 0.05));
+        if (parallaxBgRef.current) parallaxBgRef.current.style.transform = `translateY(${offset}px)`;
+        if (parallaxLeakRef.current) parallaxLeakRef.current.style.transform = `translateY(${offset * 0.6}px)`;
+        ticking = false;
+      });
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -306,7 +315,7 @@ export function TheSound() {
         <div className="section-fade-top" style={{ background: "linear-gradient(to top, transparent, hsl(220 15% 8%))" }} aria-hidden="true" />
 
         {/* Background image */}
-        <div className="absolute inset-0 overflow-hidden" aria-hidden="true" style={{ transform: reducedMotion ? "none" : `translateY(${scrollOffset}px)` }}>
+        <div ref={parallaxBgRef} className="absolute inset-0 overflow-hidden" aria-hidden="true" style={{ willChange: "transform" }}>
           <img
             src={soundKeys}
             alt=""
@@ -329,10 +338,11 @@ export function TheSound() {
 
         {/* Warm light leak layer — secondary parallax */}
         <div
+          ref={parallaxLeakRef}
           className="absolute inset-0 pointer-events-none"
           style={{
             background: "radial-gradient(ellipse 60% 50% at 40% 30%, hsl(35 50% 50% / 0.03) 0%, transparent 70%)",
-            transform: reducedMotion ? "none" : `translateY(${scrollOffset * 0.6}px)`,
+            willChange: "transform",
           }}
           aria-hidden="true"
         />

@@ -83,7 +83,7 @@ export function GenreCard({
         boxShadow: isActive
           ? "0 0 30px hsl(var(--vow-yellow) / 0.12), inset 0 1px 0 rgba(255,255,255,0.06)"
           : "inset 0 1px 0 rgba(255,255,255,0.06)",
-        transition: "all 300ms cubic-bezier(0.22, 0.61, 0.36, 1)",
+        transition: "transform 300ms cubic-bezier(0.22,0.61,0.36,1), box-shadow 300ms cubic-bezier(0.22,0.61,0.36,1), border-color 300ms cubic-bezier(0.22,0.61,0.36,1)",
       }}
       aria-label={`${label} — ${trackCount} tracks`}
       aria-pressed={isActive}
@@ -96,7 +96,7 @@ export function GenreCard({
         style={{
           opacity: isActive ? 0.35 : 0.2,
           filter: "blur(4px) saturate(0.6)",
-          animation: "ken-burns-drift 30s ease-in-out infinite alternate",
+          animation: (isActive || isHovered) ? "ken-burns-drift 30s ease-in-out infinite alternate" : "none",
         }}
         loading="lazy"
         aria-hidden="true"

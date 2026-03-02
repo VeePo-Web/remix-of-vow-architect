@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
+import { useRef, useEffect } from "react";
 import type { Category } from "./PianoPanel";
 
 /* ─── Mini waveform for active track ─── */
@@ -45,9 +46,21 @@ export function GenreTrackPanel({
   duration,
   onTrackClick,
   reducedMotion,
-}: GenreTrackPanelProps) {
+} : GenreTrackPanelProps) {
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = panelRef.current;
+    if (!el) return;
+    requestAnimationFrame(() => {
+      el.style.opacity = "1";
+      el.style.transform = "translateY(0)";
+    });
+  }, []);
+
   return (
     <div
+      ref={panelRef}
       className="w-full max-w-2xl mx-auto mt-6 rounded-xl overflow-hidden"
       style={{
         background: "hsl(var(--rich-black) / 0.85)",
@@ -55,18 +68,9 @@ export function GenreTrackPanel({
         WebkitBackdropFilter: "blur(16px)",
         border: "1px solid hsl(var(--vow-yellow) / 0.12)",
         boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 16px 60px rgba(0,0,0,0.4), 0 0 20px hsl(var(--vow-yellow) / 0.04)",
-        animation: "none",
         opacity: 0,
         transform: "translateY(-8px)",
         transition: reducedMotion ? "none" : "opacity 300ms ease-out, transform 300ms cubic-bezier(0.22,0.61,0.36,1)",
-      }}
-      ref={(el) => {
-        if (el) {
-          requestAnimationFrame(() => {
-            el.style.opacity = "1";
-            el.style.transform = "translateY(0)";
-          });
-        }
       }}
     >
       {/* Header */}
