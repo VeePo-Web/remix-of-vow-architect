@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-import invitationPortrait from '@/assets/invitation-portrait-ai.jpg';
+import invitationPortrait from '@/assets/invitation-landscape-ai.jpg';
 
 const credentials = [
   { value: '500+', label: 'Ceremonies' },
@@ -119,7 +119,7 @@ export function TheInvitation() {
               >
                 <img
                   src={invitationPortrait}
-                  alt="Pianist's hands on grand piano keys in warm candlelight"
+                  alt="Grand piano keys stretching into soft bokeh with a single candle flame reflected in polished black lacquer"
                   className="w-full h-full object-cover will-change-transform invitation-ken-burns"
                   loading="lazy"
                 />
