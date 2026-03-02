@@ -4888,10 +4888,16 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   }
 }
 
-/* Transformation section Ken Burns */
+/* Transformation section Ken Burns — death image */
 @keyframes transform-fear-kb {
   0% { transform: scale(1); }
   100% { transform: scale(1.05); }
+}
+
+/* Transformation section Ken Burns — life image */
+@keyframes transform-life-kb {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.03); }
 }
 
 /* ThreePaths Ken Burns */
