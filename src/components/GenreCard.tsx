@@ -79,7 +79,7 @@ export function GenreCard({
         border: isActive
           ? "1px solid hsl(var(--vow-yellow) / 0.35)"
           : `1px solid hsl(var(--vow-yellow) / ${isHovered ? 0.2 : 0.08})`,
-        transform: isActive ? "scale(1.02)" : "scale(1)",
+        transform: isActive ? "scale(1.02)" : isHovered ? "translateY(-2px)" : "scale(1)",
         boxShadow: isActive
           ? "0 0 30px hsl(var(--vow-yellow) / 0.12), inset 0 1px 0 rgba(255,255,255,0.06)"
           : "inset 0 1px 0 rgba(255,255,255,0.06)",
@@ -92,10 +92,11 @@ export function GenreCard({
       <img
         src={image}
         alt=""
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-all duration-500 group-hover:opacity-[0.4]"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-500 group-hover:opacity-[0.4]"
         style={{
           opacity: isActive ? 0.35 : 0.2,
           filter: "blur(4px) saturate(0.6)",
+          animation: "ken-burns-drift 30s ease-in-out infinite alternate",
         }}
         loading="lazy"
         aria-hidden="true"

@@ -327,6 +327,16 @@ export function TheSound() {
           <img src={soundBokeh} alt="" className="w-full h-full object-cover opacity-[0.05] pointer-events-none" loading="lazy" style={{ mixBlendMode: "screen" }} />
         </div>
 
+        {/* Warm light leak layer — secondary parallax */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse 60% 50% at 40% 30%, hsl(35 50% 50% / 0.03) 0%, transparent 70%)",
+            transform: reducedMotion ? "none" : `translateY(${scrollOffset * 0.6}px)`,
+          }}
+          aria-hidden="true"
+        />
+
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-5xl mx-auto text-center">
             {/* Label */}
@@ -406,6 +416,20 @@ export function TheSound() {
                   </div>
                 ))}
               </div>
+
+              {/* ── Golden Thread Connector ── */}
+              {activeCat && (
+                <div
+                  className="mx-auto"
+                  style={{
+                    width: "1px",
+                    height: "24px",
+                    background: "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.15), transparent)",
+                    animation: reducedMotion ? "none" : "fade-in 300ms ease-out",
+                  }}
+                  aria-hidden="true"
+                />
+              )}
 
               {/* ── Expandable Track Panel ── */}
               {activeCat && (
