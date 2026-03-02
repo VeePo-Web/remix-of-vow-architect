@@ -50,15 +50,17 @@ export function GenreTrackPanel({
     <div
       className="w-full max-w-2xl mx-auto mt-6 rounded-xl overflow-hidden"
       style={{
-        background: "hsl(var(--rich-black))",
+        background: "hsl(var(--rich-black) / 0.85)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
         border: "1px solid hsl(var(--vow-yellow) / 0.12)",
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04), 0 16px 60px rgba(0,0,0,0.4)",
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 16px 60px rgba(0,0,0,0.4), 0 0 20px hsl(var(--vow-yellow) / 0.04)",
         animation: reducedMotion ? "none" : "fade-in 260ms ease-out",
       }}
     >
       {/* Header */}
       <div className="px-5 pt-4 pb-2 flex items-center justify-between">
-        <span className="text-[11px] uppercase tracking-[0.2em] text-foreground/40 font-sans font-medium">
+        <span className="text-[11px] uppercase tracking-[0.2em] text-foreground/40 font-display font-medium">
           {category.label}
         </span>
         <span className="text-[10px] text-foreground/20 font-mono">
@@ -111,7 +113,7 @@ export function GenreTrackPanel({
                 height: isActive ? "16px" : "8px",
                 borderRadius: "1px",
                 background: isActive ? "hsl(var(--vow-yellow))" : "hsl(var(--vow-yellow) / 0.3)",
-                transform: isActive ? "scaleY(1)" : "scaleY(0)",
+                transform: isActive ? "scaleY(1)" : "scaleY(0.6)",
                 transition: "transform 180ms cubic-bezier(0.22,0.61,0.36,1), height 180ms, background 120ms",
               }}
             />
