@@ -4276,11 +4276,20 @@ All colors MUST be HSL.
     transform: scale(1);
   }
 
+  #the-invitation [class*="transition-all"] {
+    transition-duration: 0ms !important;
+    transform: none !important;
+  }
+
   [style*="witness-ken-burns"],
   [style*="witnesses-ken-burns"] {
     animation: none !important;
     transform: scale(1) !important;
   }
+}
+
+.text-balance {
+  text-wrap: balance;
 }
 
 /* ═══════════════════════════════════════════════════════════════

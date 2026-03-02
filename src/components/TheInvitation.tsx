@@ -93,7 +93,7 @@ export function TheInvitation() {
           {/* Label */}
           <p
             className={cn(
-              'text-xs uppercase tracking-[0.22em] text-white/40 mb-12',
+              'text-xs uppercase tracking-[0.22em] text-white/50 mb-12',
               'transition-all duration-500',
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             )}
@@ -121,6 +121,7 @@ export function TheInvitation() {
             style={{
               background: 'hsl(var(--vow-yellow) / 0.25)',
               transitionDelay: isVisible ? '200ms' : '0ms',
+              willChange: 'transform',
             }}
             aria-hidden="true"
           />
@@ -198,6 +199,7 @@ className="w-full h-full object-cover will-change-transform invitation-ken-burns
             style={{
               background: 'hsl(var(--vow-yellow) / 0.25)',
               transitionDelay: isVisible ? '500ms' : '0ms',
+              willChange: 'transform',
             }}
             aria-hidden="true"
           />
@@ -207,11 +209,11 @@ className="w-full h-full object-cover will-change-transform invitation-ken-burns
           {/* Headline */}
           <h2
             className={cn(
-              'text-[clamp(28px,4.5vw,44px)] font-display font-light leading-tight text-white max-w-2xl mx-auto',
+              'text-[clamp(28px,4.5vw,44px)] font-display font-light leading-tight text-white max-w-2xl mx-auto text-balance',
               'transition-all duration-700',
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             )}
-            style={{ transitionDelay: isVisible ? '300ms' : '0ms', textWrap: 'balance' as any }}
+            style={{ transitionDelay: isVisible ? '300ms' : '0ms' }}
           >
             I have played at over 500 events — I know what can go{' '}
             <span className="relative inline-block italic">
@@ -282,6 +284,7 @@ className="w-full h-full object-cover will-change-transform invitation-ken-burns
             style={{
               background: 'hsl(var(--vow-yellow) / 0.25)',
               transitionDelay: isVisible ? '800ms' : '0ms',
+              willChange: 'transform',
             }}
             aria-hidden="true"
           />
@@ -295,6 +298,8 @@ className="w-full h-full object-cover will-change-transform invitation-ken-burns
             style={{ transitionDelay: isVisible ? '900ms' : '0ms' }}
           >
             <div
+              role="group"
+              aria-label="Professional credentials"
               className="invitation-credential-plaque flex flex-col sm:flex-row items-center justify-center"
               style={{
                 background: 'hsl(0 0% 100% / 0.03)',
@@ -310,7 +315,7 @@ className="w-full h-full object-cover will-change-transform invitation-ken-burns
                     <span className="block font-display text-xl sm:text-2xl text-white/80">
                       {cred.value}
                     </span>
-                    <span className="block text-[11px] uppercase tracking-[0.22em] text-white/40 mt-1">
+                    <span className="block text-[11px] uppercase tracking-[0.22em] text-white/50 mt-1">
                       {cred.label}
                     </span>
                   </div>
