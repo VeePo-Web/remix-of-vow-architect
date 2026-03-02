@@ -4938,6 +4938,18 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   50% { box-shadow: 0 0 60px hsl(var(--vow-yellow) / 0.08); }
 }
 
+/* Golden dot idle breathe — 6s subtle presence */
+@keyframes golden-dot-idle {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.5; }
+}
+
+/* Golden thread breathing — 4s material cycle */
+@keyframes golden-thread-breathe {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.4; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   img[style*="sound-ken-burns"],
   img[style*="transform-fear-kb"],
@@ -4958,7 +4970,11 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   }
 
   [style*="divider-diamond-breathe"],
-  [style*="sound-card-breathe"] {
+  [style*="sound-card-breathe"],
+  [style*="golden-dot-idle"],
+  [style*="golden-thread-breathe"],
+  [style*="ken-burns-drift"],
+  [style*="exhale-pulse"] {
     animation: none !important;
   }
 }

@@ -61,18 +61,27 @@ export function GenreTrackPanel({
   return (
     <div
       ref={panelRef}
-      className="w-full max-w-2xl mx-auto mt-6 rounded-lg overflow-hidden"
+      className="w-full max-w-2xl mx-auto mt-6 rounded-lg overflow-hidden relative"
       style={{
         background: "hsl(var(--rich-black) / 0.85)",
         backdropFilter: "blur(16px)",
         WebkitBackdropFilter: "blur(16px)",
         border: "1px solid hsl(var(--vow-yellow) / 0.12)",
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 16px 60px rgba(0,0,0,0.4), 0 0 20px hsl(var(--vow-yellow) / 0.04)",
+        boxShadow: `inset 0 1px 0 rgba(255,255,255,0.06), 0 16px 60px rgba(0,0,0,0.4), 0 0 20px hsl(var(--vow-yellow) / 0.04)${isPlaying ? ", inset 0 0 40px hsl(var(--vow-yellow) / 0.03)" : ""}`,
         opacity: 0,
         transform: "translateY(-8px)",
-        transition: reducedMotion ? "none" : "opacity 400ms ease-out, transform 400ms cubic-bezier(0.22,0.61,0.36,1)",
+        transition: reducedMotion ? "none" : "opacity 400ms ease-out, transform 400ms cubic-bezier(0.22,0.61,0.36,1), box-shadow 700ms ease",
       }}
     >
+      {/* Breathing golden thread — left edge */}
+      <div
+        className="absolute top-0 left-0 bottom-0 w-[1px] pointer-events-none"
+        style={{
+          background: "linear-gradient(to bottom, transparent, hsl(var(--vow-yellow) / 0.25), transparent)",
+          animation: reducedMotion ? "none" : "golden-thread-breathe 4s cubic-bezier(0.4,0,0.6,1) infinite",
+        }}
+        aria-hidden="true"
+      />
       {/* Header */}
       <div className="px-5 pt-4 pb-3" style={{ borderBottom: "1px solid hsl(var(--vow-yellow) / 0.06)" }}>
         <div className="flex items-center justify-between">

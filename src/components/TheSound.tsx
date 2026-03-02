@@ -109,8 +109,16 @@ function NowPlayingBar({
         <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-foreground/5 group-hover/seek:h-[4px] transition-all duration-150 relative">
           <div className="h-full bg-[hsl(var(--vow-yellow))] transition-none" style={{ width: `${percent}%` }} />
           <div
-            className="absolute top-1/2 w-[6px] h-[6px] rounded-full bg-[hsl(var(--vow-yellow))] opacity-0 group-hover/seek:opacity-100 transition-opacity duration-150"
-            style={{ left: `${percent}%`, transform: "translate(-50%, -50%)", boxShadow: "0 0 4px hsl(var(--vow-yellow) / 0.4)" }}
+            className={cn(
+              "absolute top-1/2 w-[6px] h-[6px] rounded-full bg-[hsl(var(--vow-yellow))] transition-opacity duration-150",
+              isPlaying ? "opacity-0 group-hover/seek:opacity-100" : "opacity-80"
+            )}
+            style={{
+              left: `${percent}%`,
+              transform: "translate(-50%, -50%)",
+              boxShadow: "0 0 4px hsl(var(--vow-yellow) / 0.4)",
+              animation: !isPlaying ? "golden-dot-idle 6s cubic-bezier(0.4,0,0.6,1) infinite" : undefined,
+            }}
           />
         </div>
       </div>
@@ -361,6 +369,10 @@ export function TheSound() {
         />
 
         <div className="container mx-auto px-4 relative z-10">
+          {/* Screen reader narrative */}
+          <span className="sr-only">
+            Listen to sample recordings across five genres — hymns, worship, pop, classical, and film score — each arranged specifically for wedding ceremonies. Select a genre to explore tracks.
+          </span>
           <div className="max-w-5xl mx-auto text-center">
             {/* Label */}
             <span
@@ -455,15 +467,15 @@ export function TheSound() {
                 ))}
               </div>
 
-              {/* ── Golden Thread Connector ── */}
+              {/* ── Breathing Golden Thread Connector ── */}
               {activeCat && (
                 <div
                   className="mx-auto"
                   style={{
                     width: "1px",
                     height: "24px",
-                    background: "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.15), transparent)",
-                    animation: reducedMotion ? "none" : "fade-in 300ms ease-out",
+                    background: "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.2), transparent)",
+                    animation: reducedMotion ? "none" : "golden-thread-breathe 4s cubic-bezier(0.4,0,0.6,1) infinite",
                   }}
                   aria-hidden="true"
                 />
@@ -484,15 +496,15 @@ export function TheSound() {
               )}
             </div>
 
-            {/* ── Closing Quote ── */}
+            {/* ── Closing Quote — 900ms breath-length reveal ── */}
             <div
               ref={quoteRef as React.RefObject<HTMLDivElement>}
               className="max-w-lg mx-auto text-center mt-28 md:mt-40 relative"
               style={{
                 opacity: quoteVisible ? 1 : 0,
                 transform: quoteVisible ? "translateY(0)" : "translateY(12px)",
-                transition: "opacity 700ms ease, transform 700ms ease",
-                transitionDelay: quoteVisible ? "150ms" : "0ms",
+                transition: "opacity 900ms ease, transform 900ms cubic-bezier(0.22,0.61,0.36,1)",
+                transitionDelay: quoteVisible ? "300ms" : "0ms",
               }}
             >
               <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 50% 40% at 50% 50%, hsl(var(--vow-yellow) / 0.05) 0%, transparent 70%)" }} aria-hidden="true" />
