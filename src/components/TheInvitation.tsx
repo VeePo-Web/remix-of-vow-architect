@@ -14,7 +14,7 @@ export function TheInvitation() {
       aria-labelledby="invitation-heading"
       className="relative py-28 md:py-40 overflow-hidden invitation-texture piano-section-target"
       style={{
-        background: 'linear-gradient(180deg, hsl(30 10% 14%) 0%, hsl(28 8% 9%) 100%)',
+        background: 'linear-gradient(180deg, hsl(28 12% 16%) 0%, hsl(25 8% 8%) 100%)',
       }}
     >
       {/* === ATMOSPHERIC DEPTH LAYERS === */}
@@ -26,8 +26,8 @@ export function TheInvitation() {
           backgroundImage: `url(${invitationPortrait})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          opacity: 0.08,
-          filter: 'saturate(0.5) contrast(1.1) blur(1px)',
+          opacity: 0.10,
+          filter: 'saturate(0.5) contrast(1.1)',
         }}
         aria-hidden="true"
       />
@@ -101,8 +101,6 @@ export function TheInvitation() {
                     '0 0 40px hsl(var(--vow-yellow) / 0.06)',
                     '0 40px 100px -20px rgba(0,0,0,0.5)',
                   ].join(', '),
-                  outline: '1px solid hsl(var(--vow-yellow) / 0.10)',
-                  outlineOffset: '6px',
                 }}
               >
                 <img
@@ -130,7 +128,7 @@ export function TheInvitation() {
             {/* Label */}
             <p
               className={cn(
-                'text-xs uppercase tracking-[0.22em] text-white/50 mb-8',
+                'text-xs uppercase tracking-[0.22em] text-[hsl(45_60%_70%_/_0.5)] mb-8',
                 'transition-all duration-500',
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               )}
@@ -196,7 +194,7 @@ export function TheInvitation() {
             {/* Body */}
             <p
               className={cn(
-                'text-lg font-sans font-light leading-[1.8] text-white/55 max-w-lg mt-8 transition-all duration-700',
+                'text-lg font-sans font-light leading-[1.8] text-white/65 max-w-lg mt-8 transition-all duration-700',
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               )}
               style={{ transitionDelay: isVisible ? '500ms' : '0ms' }}
@@ -206,7 +204,7 @@ export function TheInvitation() {
 
             <p
               className={cn(
-                'text-lg font-sans font-light leading-[1.8] text-white/55 max-w-lg mt-6 transition-all duration-700',
+                'text-lg font-sans font-light leading-[1.8] text-white/65 max-w-lg mt-6 transition-all duration-700',
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               )}
               style={{ transitionDelay: isVisible ? '600ms' : '0ms' }}
