@@ -6,16 +6,16 @@ import transformationFear from "@/assets/transformation-fear-ai.jpg";
 import transformationLife from "@/assets/transformation-life-ai.jpg";
 
 const fears = [
-  "What if it sounds the same as every ceremony you have ever sat through",
-  "What if the music disappears into the room — and no one remembers a single note",
-  "What if no one ever asks what song was playing when you knew",
-  "What if the person behind the piano never asks what this day means to you",
+  "What if the music sounds like every other ceremony your guests have sat through",
+  "What if the back row never hears the song you chose for your walk down",
+  "What if no one asks what was playing when you knew",
+  "What if the person behind the piano treats your ceremony like another Saturday",
 ];
 
 const resolutions = [
-  "I ask what song was playing when you knew — and I build from there",
-  "Your walk-down song is written note by note — for the two of you, and no one else",
-  "A complete ceremony plan lands in your inbox before you think to ask for one",
+  "I ask what was playing when you knew — and I build your ceremony from there",
+  "Your walk-down arrangement is written note by note — for the two of you, and no one else",
+  "A printed ceremony plan lands in your inbox before you think to ask for one",
   "I stay until the last guest has gone and the final note has found its silence",
 ];
 
@@ -95,7 +95,7 @@ export function TheTransformation() {
               )}
               style={{ transitionDelay: "0ms", transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)' }}
             >
-              The thoughts that surface at 2 AM
+              The questions no one else thinks to ask
             </h3>
 
             {fears.map((fear, index) => (
@@ -184,7 +184,7 @@ export function TheTransformation() {
               )}
               style={{ transitionDelay: "0ms", transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)' }}
             >
-              So here is how I work
+              So here is what I do about it
               {/* Golden vow underline */}
               <span
                 className={cn(
