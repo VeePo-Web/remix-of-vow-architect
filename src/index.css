@@ -5333,9 +5333,39 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   100% { box-shadow: 0 0 6px hsl(var(--vow-yellow) / 0.25); }
 }
 
-/* Step 7: Ghost CTA hover */
+/* Step 6: Closing quote candlelight glow */
+.witness-closing-quote {
+  text-shadow: 0 0 24px hsl(var(--vow-yellow) / 0.06);
+}
+
+/* Step 6: Threshold diamond breathing */
+.witness-threshold-diamond {
+  position: relative;
+  animation: witness-thread-breathe 4s ease-in-out infinite;
+}
+.witness-threshold-diamond::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, hsl(var(--vow-yellow) / 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Step 7: Ghost CTA hover with threshold energy */
 .witness-ghost-cta {
   text-decoration: none;
+  position: relative;
+}
+.witness-ghost-cta::before {
+  content: '';
+  position: absolute;
+  inset: -8px -16px;
+  border-radius: 4px;
+  background: radial-gradient(ellipse at center, hsl(var(--vow-yellow) / 0.04) 0%, transparent 70%);
+  opacity: calc(0.5 + var(--witness-warmth, 0) * 0.5);
+  animation: witness-thread-breathe 4s ease-in-out infinite;
+  pointer-events: none;
 }
 .witness-ghost-cta::after {
   content: '';
@@ -5344,14 +5374,17 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   left: 0;
   right: 0;
   height: 1px;
-  background: currentColor;
+  background: linear-gradient(90deg, hsl(var(--vow-yellow) / 0.4), hsl(var(--vow-yellow) / 0.15));
   opacity: 0;
   transform: scaleX(0);
   transform-origin: left;
   transition: opacity 180ms ease, transform 180ms ease;
 }
+.witness-ghost-cta:hover::before {
+  opacity: 0.8;
+}
 .witness-ghost-cta:hover::after {
-  opacity: 0.3;
+  opacity: 0.5;
   transform: scaleX(1);
 }
 
@@ -5418,5 +5451,18 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   }
   .witness-ghost-cta::after {
     transition: none !important;
+  }
+  .witness-ghost-cta::before {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+  .witness-closing-quote {
+    text-shadow: none !important;
+  }
+  .witness-threshold-diamond {
+    animation: none !important;
+  }
+  .witness-threshold-diamond::after {
+    display: none;
   }
 }
