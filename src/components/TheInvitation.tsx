@@ -18,7 +18,7 @@ export function TheInvitation() {
       id="the-invitation"
       ref={sectionRef}
       data-theme="life"
-      className="relative py-28 md:py-40 overflow-hidden invitation-texture piano-section-target min-h-[400px]"
+      className="relative py-28 md:py-40 overflow-hidden invitation-texture piano-section-target"
       style={{
         background: 'linear-gradient(180deg, hsl(30 8% 12%) 0%, hsl(25 6% 10%) 100%)',
       }}
@@ -84,11 +84,11 @@ export function TheInvitation() {
           {/* Golden Rule 1 */}
           <span
             className={cn(
-              'block w-16 h-px my-12 transition-all duration-700',
+              'block w-12 h-px my-12 transition-all duration-700',
               isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
             )}
             style={{
-              background: 'hsl(var(--vow-yellow) / 0.2)',
+              background: 'hsl(var(--vow-yellow) / 0.25)',
               transitionDelay: isVisible ? '250ms' : '0ms',
             }}
             aria-hidden="true"
@@ -111,7 +111,7 @@ export function TheInvitation() {
                 aria-hidden="true"
               />
               <div
-                className="invitation-portrait-frame aspect-[16/9] overflow-hidden relative rounded-sm"
+                className="invitation-portrait-frame aspect-[3/2] overflow-hidden relative rounded-sm"
                 style={{
                   border: '1px solid hsl(var(--vow-yellow) / 0.15)',
                   boxShadow: 'inset 0 0 40px hsl(var(--vow-yellow) / 0.1), 0 40px 100px -20px rgba(0,0,0,0.5)',
@@ -149,11 +149,11 @@ export function TheInvitation() {
           {/* Golden Rule 2 */}
           <span
             className={cn(
-              'block w-10 h-px my-12 transition-all duration-700',
+              'block w-12 h-px my-12 transition-all duration-700',
               isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
             )}
             style={{
-              background: 'hsl(var(--vow-yellow) / 0.2)',
+              background: 'hsl(var(--vow-yellow) / 0.25)',
               transitionDelay: isVisible ? '550ms' : '0ms',
             }}
             aria-hidden="true"
@@ -190,7 +190,7 @@ export function TheInvitation() {
           {/* Body */}
           <p
             className={cn(
-              'text-lg font-display font-light leading-[1.85] text-white/50 max-w-lg mx-auto mt-10 transition-all duration-700',
+              'text-lg font-sans font-light leading-[1.9] text-white/45 max-w-lg mx-auto mt-10 transition-all duration-700',
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             )}
             style={{ transitionDelay: isVisible ? '750ms' : '0ms' }}
@@ -229,11 +229,11 @@ export function TheInvitation() {
           {/* Golden Rule 3 */}
           <span
             className={cn(
-              'block w-10 h-px my-10 transition-all duration-700',
+              'block w-12 h-px my-10 transition-all duration-700',
               isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
             )}
             style={{
-              background: 'hsl(var(--vow-yellow) / 0.15)',
+              background: 'hsl(var(--vow-yellow) / 0.25)',
               transitionDelay: isVisible ? '1000ms' : '0ms',
             }}
             aria-hidden="true"
@@ -262,10 +262,10 @@ export function TheInvitation() {
                       border: '1px solid hsl(var(--vow-yellow) / 0.08)',
                     }}
                   >
-                    <span className="block font-display text-xl text-white/75">
+                    <span className="block font-display text-2xl text-white/80">
                       {cred.value}
                     </span>
-                    <span className="block text-[10px] uppercase tracking-[0.22em] text-white/35 mt-1">
+                    <span className="block text-[11px] uppercase tracking-[0.22em] text-white/40 mt-1">
                       {cred.label}
                     </span>
                   </div>
