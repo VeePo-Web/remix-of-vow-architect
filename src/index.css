@@ -1596,19 +1596,29 @@ All colors MUST be HSL.
     will-change: transform, opacity;
   }
   @keyframes invitation-light-breathe {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.05); opacity: 1.4; }
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.05); opacity: 1; }
   }
 
-  /* Invitation Candlelight Shimmer — reflected firelight on piano lacquer */
+  /* Invitation Candlelight Shimmer — reflected firelight on piano lacquer (GPU-composited) */
   .invitation-candlelight-shimmer {
-    background: radial-gradient(ellipse 40% 50% at 30% 30%, hsla(40, 60%, 55%, 0.04) 0%, transparent 70%);
+    position: relative;
+    overflow: hidden;
+  }
+  .invitation-candlelight-shimmer::before {
+    content: '';
+    position: absolute;
+    inset: -30% -30%;
+    width: 160%;
+    height: 160%;
+    background: radial-gradient(ellipse 40% 50% at center, hsla(40, 60%, 55%, 0.04) 0%, transparent 70%);
     animation: invitation-candlelight-drift 8s ease-in-out infinite;
-    will-change: background-position;
+    will-change: transform;
+    pointer-events: none;
   }
   @keyframes invitation-candlelight-drift {
-    0%, 100% { background: radial-gradient(ellipse 40% 50% at 30% 30%, hsla(40, 60%, 55%, 0.03) 0%, transparent 70%); }
-    50% { background: radial-gradient(ellipse 40% 50% at 60% 50%, hsla(40, 60%, 55%, 0.05) 0%, transparent 70%); }
+    0%, 100% { transform: translate(-15%, -15%); opacity: 0.75; }
+    50% { transform: translate(15%, 10%); opacity: 1; }
   }
 
   /* Invitation "Yours" underline — trailing glow pulse (single-fire) */
@@ -1644,10 +1654,12 @@ All colors MUST be HSL.
     }
     .invitation-light-bleed {
       animation: none;
+      opacity: 0.85;
     }
-    .invitation-candlelight-shimmer {
+    .invitation-candlelight-shimmer::before {
       animation: none;
-      opacity: 0;
+      transform: translate(0, 0);
+      opacity: 0.5;
     }
     .invitation-cta-breathe {
       animation: none;
