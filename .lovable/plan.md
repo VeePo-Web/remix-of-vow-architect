@@ -1,66 +1,66 @@
 
 
-# Round 48 --- "Hear Me Play": Track Panel Elevation and Mobile Polish
+# Round 49 — "Hear Me Play": Final Craft Audit and Micro-Detail Elevation
 
-## Current State
+## Current State After Rounds 45-48
 
-Rounds 45-47 have delivered: per-genre atmospheric gradients, Cormorant typography, 56px tactile play circles with accent gradients, `exhale-pulse` breathing animation (confirmed existing), hover border warmth, increased whitespace, and brand-voice copy. The genre cards now have meaningful visual differentiation and the section reads as premium.
+The section has achieved: per-genre atmospheric gradients, Cormorant typography throughout, 56px tactile play circles with accent gradients, exhale-pulse breathing animation, hover border warmth, premium glass track panel with backdrop blur, resting accent bars, increased luxury whitespace, mobile 5th-card constraint, warmer closing quote glow, and brand-voice copy. The foundation is strong.
 
-Two areas remain below Fantasy.co caliber:
+Three remaining opportunities to reach true Fantasy.co finish:
 
-### 1. GenreTrackPanel Material Quality
+### 1. Now Playing Mini-Bar Material Consistency
 
-The expandable track panel uses `hsl(var(--rich-black))` as a flat solid background with a single border. Compared to the genre cards (which have layered gradients, grain, and glass effects), the panel feels like a generic dropdown. It needs the same "Premium Glass" material treatment: backdrop blur, subtle inner glow, and a top-edge light catch to match the luxury glass standard established across the site.
+The `NowPlayingBar` uses `bg hsl(var(--rich-black) / 0.92)` with `blur(12px)`. This is close to the premium glass standard but lacks the golden outer glow and inner light-catch shadow that the track panel now has. The play button transitions between a flat `bg-foreground/10` (paused) and solid `bg-[hsl(var(--vow-yellow))]` (playing) --- the paused state feels generic. It should use the same subtle accent gradient treatment as the genre card circles.
 
-### 2. Track Panel Header Typography
+### 2. Track Panel Footer Link Warmth
 
-The category label in the panel header uses `font-sans` while the rest of the section uses `font-display` (Cormorant). This inconsistency breaks the typographic harmony. The header should use the brand serif.
+The "Hear me play for you" link uses `decoration-foreground/10` which is barely visible. The hover state warms to yellow, but the resting underline should start with a hint of warmth (`vow-yellow / 0.15`) to signal interactivity, matching the brand's golden thread motif.
 
-### 3. Mobile Grid Layout (5th Card)
+### 3. Section Heading Vow-Underline
 
-The 5th genre card ("Film") spans `col-span-2` on mobile (2-column grid), making it wider than the others. This breaks visual rhythm. On mobile, it should be centered at the same width as the other cards using `justify-self-center` or a max-width constraint.
+The "Hear me play." heading has no decorative treatment. Throughout the site, key headings receive a subtle vow-yellow underline or golden rule beneath them. Adding a thin animated underline (64px wide, vow-yellow at 40% opacity) beneath "Hear me play." would connect this section visually to the rest of the page's heading treatment.
 
-### 4. Track Panel Accent Bar Visibility
+### 4. Blockquote Cite Font Inconsistency
 
-The accent bar next to each track starts at `scaleY(0)` for inactive tracks, making it invisible. A subtle resting state (e.g., `scaleY(0.5)` at lower opacity) would create visual rhythm in the track list, similar to a music staff.
+The closing quote attribution uses `font-sans` for "-- Parker Allard" while the quote itself uses `font-display`. The cite should use `font-display` with slightly increased letter-spacing for typographic harmony.
 
-### 5. Closing Quote Glow Intensity
+### 5. Active Genre Card Scale Polish
 
-The radial glow behind the closing quote (`vow-yellow / 0.03`) is barely perceptible. Increasing to `0.05` would create a warmer halo around the quote without violating the 6% yellow rule.
+Active genre cards scale to `1.02` which is subtle but the transition uses a generic `all 300ms` on the style object. The scale should use the brand's established easing: `cubic-bezier(0.22, 0.61, 0.36, 1)` for the tactile "press and lift" feel documented in the motion standards.
 
 ---
 
 ## 5-Step Implementation Plan
 
-### Step 1: Upgrade Track Panel to Premium Glass Material
+### Step 1: Upgrade Now Playing Bar to Premium Glass
 
-Replace the flat `hsl(var(--rich-black))` background with the site's established glass material: `background: hsl(var(--rich-black) / 0.85)` with `backdropFilter: blur(16px)` and an updated box-shadow that includes a golden outer glow at 4% opacity.
+Update the NowPlayingBar's style to match the premium glass standard: add `inset 0 1px 0 rgba(255,255,255,0.06)` to the box-shadow, add a subtle golden outer glow at `0 0 20px hsl(var(--vow-yellow) / 0.03)`, and update the paused play button background to use the accent gradient pattern: `linear-gradient(135deg, hsl(0 0% 100% / 0.06), hsl(var(--vow-yellow) / 0.04))`.
 
-**File**: `GenreTrackPanel.tsx` --- update the panel's style object.
+**File**: `TheSound.tsx` -- update NowPlayingBar styles (lines 77-85 and 121-123).
 
-### Step 2: Fix Track Panel Header Typography
+### Step 2: Warm the Footer Link Underline
 
-Change the category label from `font-sans` to `font-display` to match the rest of the section's Cormorant serif usage.
+Change the track panel footer link's resting underline from `decoration-foreground/10` to `decoration-[hsl(var(--vow-yellow)/0.15)]` so it carries a hint of the brand's golden warmth even before hover.
 
-**File**: `GenreTrackPanel.tsx` --- update className on header span.
+**File**: `GenreTrackPanel.tsx` -- update footer link className (line 153).
 
-### Step 3: Constrain 5th Card Width on Mobile
+### Step 3: Add Heading Vow-Underline
 
-Add `max-w-[calc(50%-0.375rem)]` (matching the natural width of a single grid column) and `justify-self-center` to the 5th card's wrapper div when it has `col-span-2`, so it remains the same size as the others but centered.
+Add a decorative golden rule beneath the "Hear me play." heading: a 64px-wide div with a centered gradient from transparent to `vow-yellow / 0.4` to transparent, with a 450ms reveal animation triggered by scroll visibility. This matches the heading treatment pattern used in other sections.
 
-**File**: `TheSound.tsx` --- update the 5th card wrapper classes.
+**File**: `TheSound.tsx` -- add a decorative div after the h2 element (after line 351).
 
-### Step 4: Add Resting State to Track Accent Bars
+### Step 4: Fix Blockquote Cite Typography
 
-Change inactive track accent bars from `scaleY(0)` to `scaleY(0.6)` with reduced opacity (`vow-yellow / 0.12`), creating a subtle visual rhythm in the track list. Active tracks remain at full `scaleY(1)` with full yellow.
+Change the closing quote attribution from `font-sans` to `font-display` for typographic consistency. Keep the uppercase tracking and small size.
 
-**File**: `GenreTrackPanel.tsx` --- update accent bar default styles.
+**File**: `TheSound.tsx` -- update cite className (line 443).
 
-### Step 5: Increase Closing Quote Glow
+### Step 5: Refine Active Card Easing
 
-Change the quote's background glow from `vow-yellow / 0.03` to `vow-yellow / 0.05` for a warmer, more perceptible halo.
+Update GenreCard's inline transition from the generic `all 300ms cubic-bezier(0.4,0,0.2,1)` to the brand's established tactile easing: `all 300ms cubic-bezier(0.22, 0.61, 0.36, 1)`. This produces a slightly snappier attack with a softer settle, matching the motion timing standards.
 
-**File**: `TheSound.tsx` --- update quote radial gradient opacity.
+**File**: `GenreCard.tsx` -- update the transition property in the button's style object (line 88).
 
 ---
 
@@ -68,17 +68,17 @@ Change the quote's background glow from `vow-yellow / 0.03` to `vow-yellow / 0.0
 
 | Step | File | Change |
 |------|------|--------|
-| 1 | `GenreTrackPanel.tsx` | Premium glass material with backdrop blur |
-| 2 | `GenreTrackPanel.tsx` | Header font-sans to font-display |
-| 3 | `TheSound.tsx` | Constrain 5th card width on mobile |
-| 4 | `GenreTrackPanel.tsx` | Resting accent bar visibility |
-| 5 | `TheSound.tsx` | Warmer closing quote glow |
+| 1 | `TheSound.tsx` | Premium glass + accent button on NowPlayingBar |
+| 2 | `GenreTrackPanel.tsx` | Golden warmth on footer link underline |
+| 3 | `TheSound.tsx` | Golden vow-underline beneath heading |
+| 4 | `TheSound.tsx` | Cite font-sans to font-display |
+| 5 | `GenreCard.tsx` | Brand-standard easing on card transition |
 
 ## What This Achieves
 
-- Track panel matches the premium glass material standard used across all floating components
-- Typographic consistency with Cormorant serif throughout the entire section
-- Mobile grid maintains visual rhythm without an oversized 5th card
-- Track list gains subtle visual structure through resting accent bars
-- Closing quote earns the warm sacred halo it deserves
+- Every floating component in the section (track panel, now playing bar, play circles) uses consistent premium glass material
+- Typography is 100% harmonized with Cormorant serif throughout
+- The heading receives the same golden rule treatment as other sections, creating visual continuity
+- Micro-interactions use the brand's precise easing curve for tactile consistency
+- The footer link carries warmth even at rest, reinforcing the golden thread motif
 
