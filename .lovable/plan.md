@@ -1,61 +1,62 @@
 
 
-# Round 54 — "The Invitation": Final Polish and Mobile Refinement
+# Round 55 — "The Invitation": Typographic Fluidity, Accessibility, and Performance Polish
 
 ## Current State
 
-Round 53 added atmospheric depth layers, cinematic double-frame, unified credential plaque, semantic reveal choreography, and CTA glass pill. The section is now structurally complete and visually rich on desktop.
+Rounds 53-54 delivered atmospheric depth, cinematic framing, responsive credential plaque, unified grain, and fluid epigraph typography. The section is visually rich and structurally sound. This round addresses the remaining craft-level details that separate "very good" from "Fantasy.co standard."
 
 ## Critique: What Still Falls Below Fantasy.co Standard
 
-### 1. Mobile Credential Plaque Breaks Layout
-The credential plaque uses fixed `px-8` horizontal padding per cell. On viewports below 380px, the three cells overflow or compress text awkwardly. The plaque needs responsive padding and a stacked layout for very small screens.
+### 1. Assurance Text Is Not Fluid
+The `.invitation-assurance` uses a fixed `22px` font-size. On mobile viewports (320-375px), this creates awkward line breaks. It should use `clamp()` like the epigraph and headline already do.
 
-### 2. Image Frame Outer Outline Invisible on Some Displays
-The `outline: 1px solid hsl(var(--vow-yellow) / 0.06)` with `outlineOffset: 4px` is so faint it registers on retina displays but vanishes on standard monitors. This creates inconsistent perceived quality. The opacity should increase slightly to 0.10.
+### 2. Low-Contrast Caption and Body Text
+The caption uses `text-white/40` (roughly 3:1 contrast on dark backgrounds) and the body text uses `text-white/45`. Both fall below WCAG AA minimum (4.5:1 for normal text). While this is an intentional design choice for the "whispered" aesthetic, increasing to `/50` and `/55` respectively maintains the quiet feel while improving readability.
 
-### 3. Section Transition Seams Are Visible
-The top fade uses `hsl(240 9% 4%)` and the bottom fade uses `hsl(220 15% 8%)`, but the section body uses `hsl(30 8% 12%)`. These hue mismatches create subtle visible seams where the gradient doesn't blend perfectly into neighboring sections. The fade colors should sample from the actual adjacent section backgrounds.
+### 3. Missing `decoding="async"` on Image
+The portrait image has `loading="lazy"` but lacks `decoding="async"`, which allows the browser to decode the image off the main thread. A small but meaningful performance optimization for a large hero image.
 
-### 4. Epigraph Line-Height Feels Cramped at Mobile Sizes
-The `.invitation-epigraph` uses a fixed `18px` font-size. On mobile, this doesn't scale and the `line-height: 1.7` feels tight when the text wraps to 4+ lines. A fluid `clamp()` size and slightly increased mobile line-height would improve readability.
+### 4. CTA Underline Positioning Conflict
+The `.invitation-cta::after` pseudo-element sets `bottom: -2px` and `left/right: 28px`, but `.invitation-cta--pill::after` overrides to `bottom: 10px`. The `left/right` values are also set in the base rule, meaning the pill variant relies on cascade order. This should be cleaned up so the pill variant is self-contained.
 
-### 5. No Grain Layer on Section Background
-The image frame has a grain overlay, but the section background itself has no grain. This creates a material discontinuity --- the image feels textured and physical while the surrounding space feels digitally flat. A very subtle full-section grain (1-2% opacity) would unify the material language.
+### 5. Body Text Line-Height Could Be Tighter on Desktop
+The body paragraph uses `leading-[1.9]` which is generous. At `text-lg` (18px) on desktop, this creates 34px line-height --- slightly too airy for a single paragraph. `leading-[1.8]` would tighten the paragraph into a more cohesive block while still being comfortable.
 
 ---
 
 ## 5-Step Implementation Plan
 
-### Step 1: Make Credential Plaque Responsive
+### Step 1: Make Assurance Typography Fluid
 
-Add a responsive breakpoint so that on screens below `sm` (640px), the plaque cells reduce padding from `px-8` to `px-5` and the stat font-size drops from `text-2xl` to `text-xl`. Below 380px, stack the cells vertically with horizontal golden dividers instead of vertical ones. This ensures the plaque never overflows.
+Change `.invitation-assurance` font-size from fixed `22px` to `clamp(18px, 3vw, 22px)`. This scales gracefully from mobile to desktop without breaking lines awkwardly.
 
-**File**: `TheInvitation.tsx` --- update credential cell classes with responsive variants (`px-5 sm:px-8`, `text-xl sm:text-2xl`). Add a `flex-col sm:flex-row` on the plaque container. Change dividers to render as `w-10 h-px` on mobile vs `w-px h-10` on desktop using responsive classes.
+**File**: `index.css` --- update `.invitation-assurance` font-size value.
 
-### Step 2: Strengthen Outer Frame Outline
+### Step 2: Improve Text Contrast for Accessibility
 
-Increase the outer outline opacity from `0.06` to `0.10` and adjust the `outlineOffset` from `4px` to `6px` for slightly more breathing room. This makes the double-frame treatment perceptible across all display types without being heavy.
+- Update caption from `text-white/40` to `text-white/50` in `TheInvitation.tsx`
+- Update body text from `text-white/45` to `text-white/55` in `TheInvitation.tsx`
 
-**File**: `TheInvitation.tsx` --- update the `outline` and `outlineOffset` style values on the image frame div.
+These are minimal increases that preserve the whispered aesthetic while meaningfully improving readability.
 
-### Step 3: Fix Section Fade Seams
+### Step 3: Add `decoding="async"` to Portrait Image
 
-Update the top gradient to sample from the actual previous section's background color (the VowMoment section uses near-black `hsl(240 9% 4%)`). Update the bottom gradient to match the next section (TheSound, which uses `hsl(220 15% 6%)`). Verify these match by checking the adjacent components.
+Add `decoding="async"` attribute to the `<img>` element for the portrait. This is a one-line performance improvement that prevents image decoding from blocking the main thread.
 
-**File**: `TheInvitation.tsx` --- update the `background` values on the top and bottom fade divs.
+**File**: `TheInvitation.tsx` --- add attribute to the img tag.
 
-### Step 4: Make Epigraph Typography Fluid
+### Step 4: Clean Up CTA Underline Cascade
 
-Change `.invitation-epigraph` from fixed `18px` to `clamp(16px, 2.5vw, 18px)` and increase `line-height` to `1.8` for better mobile readability. Also add `text-wrap: balance` to prevent orphaned words.
+Consolidate the `::after` positioning so the base `.invitation-cta::after` only sets shared properties (height, background, transform, transition), and the `--pill` variant sets its own `bottom`, `left`, `right` values. Remove the duplicate `left/right: 28px` from the base rule that only applies to the pill variant.
 
-**File**: `index.css` --- update `.invitation-epigraph` font-size and line-height.
+**File**: `index.css` --- restructure the `::after` rules.
 
-### Step 5: Add Full-Section Grain Layer
+### Step 5: Tighten Body Text Line-Height
 
-Add a grain overlay to the entire section background at 2% opacity, using the existing `.grain` class that is already applied inside the image frame. Position it as an additional absolute layer beneath the content but above the atmospheric glows. This unifies the material feel.
+Change `leading-[1.9]` to `leading-[1.8]` on the body paragraph. This creates a slightly more cohesive text block on desktop while remaining comfortable for reading.
 
-**File**: `TheInvitation.tsx` --- add one more `div` with `className="absolute inset-0 grain opacity-[0.02] pointer-events-none"` after the atmospheric layers.
+**File**: `TheInvitation.tsx` --- update the className on the body paragraph.
 
 ---
 
@@ -63,17 +64,17 @@ Add a grain overlay to the entire section background at 2% opacity, using the ex
 
 | Step | File | Change |
 |------|------|--------|
-| 1 | `TheInvitation.tsx` | Responsive credential plaque layout |
-| 2 | `TheInvitation.tsx` | Stronger outer frame outline |
-| 3 | `TheInvitation.tsx` | Corrected fade seam colors |
-| 4 | `index.css` | Fluid epigraph typography |
-| 5 | `TheInvitation.tsx` | Full-section grain layer |
+| 1 | `index.css` | Fluid assurance font-size |
+| 2 | `TheInvitation.tsx` | Improved text contrast |
+| 3 | `TheInvitation.tsx` | `decoding="async"` on image |
+| 4 | `index.css` | Clean CTA underline cascade |
+| 5 | `TheInvitation.tsx` | Tighter body line-height |
 
 ## What This Achieves
 
-- The credential plaque is usable and elegant on all screen sizes down to 320px
-- The double-frame treatment is visible on all display types, not just retina
-- Section transitions are seamless with no hue-shift seams
-- Epigraph text is comfortable to read on mobile with balanced line breaks
-- The entire section shares a unified physical "paper" material feel, not just the image
+- All typographic elements are now fluid across all viewport sizes
+- Text contrast meets a higher accessibility bar while preserving the whispered design language
+- Image decoding is offloaded from the main thread for smoother scroll performance
+- CSS cascade is clean and maintainable with no positional overrides relying on source order
+- Body paragraph reads as a cohesive unit rather than floating lines
 
