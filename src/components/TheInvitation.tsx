@@ -162,8 +162,9 @@ export function TheInvitation() {
                 <img
                   src={invitationPortrait}
                   alt="Grand piano keys stretching into soft bokeh with a single candle flame reflected in polished black lacquer"
-                  className="w-full h-full object-cover will-change-transform invitation-ken-burns"
+className="w-full h-full object-cover will-change-transform invitation-ken-burns"
                   loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
                 <div
@@ -179,7 +180,7 @@ export function TheInvitation() {
             {/* Caption */}
             <p
               className={cn(
-                'text-sm font-display italic text-white/40 mt-5 transition-all duration-700',
+                'text-sm font-display italic text-white/50 mt-5 transition-all duration-700',
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
               )}
               style={{ transitionDelay: isVisible ? '600ms' : '0ms' }}
@@ -234,7 +235,7 @@ export function TheInvitation() {
           {/* Body */}
           <p
             className={cn(
-              'text-lg font-sans font-light leading-[1.9] text-white/45 max-w-lg mx-auto mt-10 transition-all duration-700',
+              'text-lg font-sans font-light leading-[1.8] text-white/55 max-w-lg mx-auto mt-10 transition-all duration-700',
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             )}
             style={{ transitionDelay: isVisible ? '450ms' : '0ms' }}
