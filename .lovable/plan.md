@@ -1,57 +1,73 @@
 
 
-# The Invitation — Ceremony-Grade Polish Pass
+# The Invitation — Fantasy.co Final Detail Pass
 
-## Current Assessment
+## Current State
 
-The two-column asymmetric layout, rewritten copy, and atmospheric layers from the previous plan are solid. However, several details still undercut the section's ceremony quality:
+The section has strong foundations: asymmetric two-column layout, intimate first-person copy, warm atmospheric gradient, Ken Burns portrait, and staggered scroll reveals. The previous polish pass fixed the CTA radius, text contrast, and image framing. However, several details still fall short of Fantasy.co-level craft.
 
-### Issues Found
+## Issues Identified
 
-1. **CTA pill uses `border-radius: 100px`** — a fully rounded pill shape. The brand system explicitly prohibits rounded corners larger than 8px. This reads as a consumer SaaS button, not a sacred invitation. The pill also has `backdrop-filter: blur(8px)` which is glassmorphism.
+### 1. Portrait frame class not applied
+The CSS defines `.invitation-portrait-frame` with hover states (border warmth, shadow expansion on hover) but the component uses a raw `div` with inline styles. The hover interaction — where the frame subtly warms when the visitor's cursor passes over — is missing entirely. This is a lost micro-interaction that acknowledges the visitor's attention.
 
-2. **Image double-border effect** — The `outline: 1px solid ... / 0.10` with `outlineOffset: 6px` creates a visible double-frame that reads as a CSS demo effect rather than a considered photographic frame. The inner `boxShadow` already provides the frame quality; the outline is redundant.
+### 2. Focus ring uses `border-radius: 100px`
+Line 1571 of index.css: `.invitation-cta:focus-visible` has `border-radius: 100px`. This contradicts the brand system's 8px maximum rule and creates a pill-shaped focus ring on keyboard navigation.
 
-3. **The warm gradient is nearly invisible.** The gradient runs from `hsl(30 10% 14%)` to `hsl(28 8% 9%)` — a 5% lightness shift on a very dark base. The section should feel like a warm exhale between two dark sections (VowMoment above, TheSound below), but it reads as another dark void. The background image at 8% opacity with a 1px blur is also barely contributing.
+### 3. Golden rule has no breathing animation
+The horizontal golden rule between the epigraph and heading is static. Every golden element in the brand system breathes — the golden thread has a 4s opacity cycle, the golden diamond pulses. This rule should breathe with a subtle opacity shift to feel alive rather than painted on.
 
-4. **Text opacity is too low.** The epigraph sits at `opacity: 0.5` via CSS class. Body text at `text-white/55`. These are below the WCAG AA contrast threshold on a dark background. The text should be readable without straining — `text-white/65` for body, epigraph at 0.6 minimum.
+### 4. Credentials use plain middot separators
+The `·` separators between credentials are generic. Other sections use golden dot or diamond separators for brand consistency. These should be styled as subtle vow-yellow dots.
 
-5. **The label "THE INVITATION"** is fine but could benefit from a subtle vow-yellow accent to distinguish it from generic meta text.
+### 5. No golden thread between sections
+Adjacent sections (VowMoment above, TheSound below) transition via simple gradient fades. A golden thread — the brand's visual sacrament — positioned at the section boundary would create a threshold moment, signaling the visitor is crossing from one emotional space to another.
+
+### 6. Background image lacks Ken Burns on the bg layer
+The portrait image has Ken Burns drift (25s), but the background texture layer (the same image at 10% opacity behind everything) is static. Adding a very slow counter-drift would create parallax depth between the atmospheric layer and the foreground portrait.
+
+### 7. The assurance text could use a sacred em-dash accent
+The assurance line "Every arrangement I write begins with a single question — what was playing when you knew" ends without emphasis. The phrase "what was playing when you knew" is the emotional payload — it deserves a subtle vow-yellow tint on the em-dash or the final clause to draw the eye.
 
 ## Technical Changes
 
 ### File: `src/components/TheInvitation.tsx`
 
-1. **Remove image outline/outlineOffset** (lines 104-105) — delete the `outline` and `outlineOffset` properties from the frame style. The existing `border` and `boxShadow` provide sufficient framing.
+1. **Add `invitation-portrait-frame` class to image container** — Add this class to the frame div (line 95) alongside the existing `rounded-sm` class. This enables the CSS hover interaction where the border warms and shadows expand when the visitor hovers over the portrait.
 
-2. **Increase body text opacity** — Change `text-white/55` to `text-white/65` on both body paragraphs (lines 199, 209) for better readability.
+2. **Add breathing animation to golden rule** — Add a CSS animation to the golden rule span that cycles opacity between 0.15 and 0.30 over 4 seconds, matching the brand's breathing rhythm. Use inline style with `animation: invitation-rule-breathe 4s ease-in-out infinite`.
 
-3. **Warm the background gradient** — Shift the gradient to create a more visible warm atmosphere: from `hsl(30 10% 14%)` to `hsl(28 12% 16%)` at 0%, and `hsl(25 8% 8%)` at 100%. This widens the lightness range and adds perceptible warmth.
+3. **Style credential separators** — Change the `·` characters to `<span>` elements with vow-yellow color at low opacity, creating subtle golden dot separators instead of plain text middots.
 
-4. **Increase background image opacity** — From 0.08 to 0.10, and reduce blur from 1px to 0px. The image should provide subtle texture, not just a vague smudge.
+4. **Add golden thread at section bottom** — Before the bottom fade, add a centered 1px vertical golden thread (40px tall) with the brand's breathing opacity cycle, positioned at the bottom boundary. This marks the threshold between The Invitation and TheSound.
 
-5. **Add a label accent** — Change the label color from `text-white/50` to include a subtle vow-yellow tint: `text-[hsl(45_60%_70%_/_0.5)]` to subtly signal this is a section name, not generic metadata.
+5. **Add em-dash accent in assurance** — Split the assurance text so the em-dash and final clause "what was playing when you knew" are wrapped in a span with subtle vow-yellow tint (`text-[hsl(var(--vow-yellow))]` at reduced opacity).
+
+6. **Add Ken Burns to background layer** — Add a `invitation-bg-ken-burns` class to the background image div with a 35s drift animation in the opposite direction of the portrait (scale 1 to 1.02), creating subtle parallax depth.
 
 ### File: `src/index.css`
 
-6. **Fix CTA pill border-radius** — Change `.invitation-cta--pill` `border-radius` from `100px` to `4px`. Remove `backdrop-filter: blur(8px)`. This transforms it from a SaaS pill into a quiet, considered invitation button.
+7. **Add golden rule breathing keyframe** — New `@keyframes invitation-rule-breathe` that cycles opacity between 0.15 and 0.30 over 4 seconds.
 
-7. **Fix CTA pill after pseudo-element** — Update `.invitation-cta--pill::after` positioning to match the new border-radius (adjust bottom/left/right to sit flush with the 4px radius).
+8. **Add background Ken Burns keyframe** — New `@keyframes invitation-bg-ken-burns` with 35s `scale(1)` to `scale(1.02)` drift.
 
-8. **Increase epigraph opacity** — Change `.invitation-epigraph` `opacity` from `0.5` to `0.6`.
+9. **Fix focus ring border-radius** — Change `.invitation-cta:focus-visible` `border-radius` from `100px` to `4px`.
 
-9. **Increase epigraph font size** — Nudge from `clamp(16px, 2.5vw, 18px)` to `clamp(17px, 2.5vw, 20px)` so the opening quote has more presence.
+10. **Add golden thread styles** — `.invitation-golden-thread` with 1px width, 40px height, vow-yellow background at 0.15 opacity, and a 4s breathing animation matching the brand's golden thread pattern.
+
+11. **Add reduced motion fallbacks** — Disable the rule breathing, background Ken Burns, and golden thread animations under `prefers-reduced-motion: reduce`.
 
 ## What This Achieves
 
-| Before | After |
-|--------|-------|
-| CTA pill with 100px radius (SaaS) | CTA with 4px radius (considered) |
-| Image double-border outline effect | Single warm border frame |
-| Background barely warm (14% to 9% lightness) | Visible warm gradient (16% to 8%) |
-| Body text at 55% opacity (hard to read) | Body text at 65% opacity (comfortable) |
-| Epigraph at 50% opacity, 16-18px | Epigraph at 60% opacity, 17-20px |
-| Glassmorphism blur on CTA | No blur, clean surface |
+Every detail in the section now participates in the brand's visual language:
 
-The section moves from "implemented correctly" to "ceremony-grade" — every detail passes the North Star test without requiring structural changes.
+- The portrait frame responds to attention (hover warmth)
+- The golden rule breathes like a living material
+- Credential separators are golden, not generic
+- A golden thread marks the sacred threshold between sections
+- The assurance line draws the eye to its emotional payload
+- Background and foreground layers drift at different rates (parallax depth)
+- Keyboard accessibility uses brand-consistent radii
+
+The section moves from "polished" to "every millisecond is intentional."
 
