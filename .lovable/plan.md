@@ -1,70 +1,70 @@
 
 
-# Round 51 — "Hear Me Play": Final Performance Audit and Structural Polish
+# Round 52 — "Hear Me Play": Interaction Polish and Accessibility Hardening
 
-## Current State After Rounds 45-50
+## Current State Assessment
 
-The section has accumulated 6 rounds of refinements: atmospheric gradients, Cormorant typography, premium glass materials, Ken Burns image drift, warm light leak parallax, golden thread connector, staggered track panel reveal, hover lift, heading vow-underline, and cite font harmony. The craft is now layered and rich.
+After Rounds 45-51, the section has achieved: ref-based parallax (zero re-renders), scoped Ken Burns animations, premium glass materials on all floating components, staggered track panel reveals, brand-standard easing, golden thread connector, Cormorant typography consistency, heading vow-underline, and will-change compositor hints. The visual craft and performance are both strong.
 
-However, this density of animation and decoration introduces two risks: **performance drag** and **visual noise**. A Fantasy.co-caliber section must feel effortless, not heavy. This round focuses on performance optimization, reducing unnecessary re-renders, and cleaning up animation conflicts.
+Two remaining areas fall short of a true Fantasy.co finish: **interaction feedback clarity** and **accessibility gaps**.
 
 ---
 
 ## Critique: What Remains Below Fantasy.co Standard
 
-### 1. Scroll Listener Performance
+### 1. Genre Card Click Response Feels Ambiguous
 
-The parallax effect in `TheSound.tsx` attaches a `scroll` listener that calls `setState` on every frame. With two parallax layers now (background image at `1x` and light leak at `0.6x`), this triggers re-renders of the entire component tree (including all 5 genre cards) on every scroll event. Fantasy.co would use `requestAnimationFrame` throttling or CSS `transform` via a ref to avoid React re-renders entirely.
+When clicking a genre card, the only feedback is the border brightening and scale shifting to 1.02. There is no momentary "press" state --- the card jumps directly from resting to active. Fantasy.co interactions include a brief depression (scale 0.98 for 80ms) before the active state, giving tactile confirmation that the click registered. This is the "key depression" feel documented in the motion standards.
 
-### 2. Ken Burns Animation on 5 Images Simultaneously
+### 2. Track Panel Header Is Missing
 
-All 5 genre card images run a 30-second CSS `ken-burns-drift` animation simultaneously. While CSS animations are GPU-composited, 5 blurred images with `filter: blur(4px)` each being animated creates unnecessary GPU texture pressure. The blur should be baked into the image opacity/overlay approach rather than applied as a live filter during animation, OR the animation should only run on the hovered/active card.
+The `GenreTrackPanel.tsx` renders `{/* Header */}` followed by `...` --- the header section appears to be collapsed or missing in the view. Looking at the rendered screenshot, the panel shows three dots (...) at the top instead of a proper genre label header. This is a content gap --- the panel should clearly show which genre is displayed and include a track count.
 
-### 3. GenreTrackPanel `ref` Callback Re-mounting
+### 3. Track Buttons for Empty Sources Need Better Affordance
 
-The track panel uses a `ref` callback with `requestAnimationFrame` to trigger its slide-in. This works but fires on every React reconciliation, not just mount. If the parent re-renders (e.g., from scroll state changes), the ref callback fires again. It should use a `useEffect` with a ref instead.
+Tracks with no `src` (marked "Coming Soon") still render as `<button>` elements but with `cursor-default` and muted styling. This creates a misleading interactive affordance --- screen readers announce them as buttons, but clicking does nothing. They should render as `<div>` elements or have `aria-disabled="true"` and `role="listitem"`.
 
-### 4. `transition: all` on Genre Cards
+### 4. Genre Card Grid Keyboard Navigation
 
-The genre cards use `transition: all 300ms` in their inline styles. This is a performance anti-pattern --- it transitions *every* CSS property change (including layout properties). It should be scoped to `transform, box-shadow, border-color` only.
+Genre cards are `<button>` elements (good), but there is no arrow-key navigation between them. When a user tabs to a card and presses ArrowRight, nothing happens. For an audio browsing interface, arrow-key navigation between cards would match expected keyboard patterns.
 
-### 5. Missing `will-change` Hints
+### 5. Closing Quote Transition Feels Disconnected
 
-The parallax background image and light leak layer are transformed on scroll but lack `will-change: transform` hints, forcing the browser to re-composite on each frame rather than promoting the layers to their own compositor layer upfront.
+The closing quote uses `transition: opacity 1000ms ease, transform 1000ms ease` --- a full second for a simple fade-and-rise. This is slower than any other reveal in the section (which use 500-700ms). The sluggish timing breaks the section's rhythm and feels indulgent rather than composed. It should match the 700ms standard.
 
 ---
 
 ## 5-Step Implementation Plan
 
-### Step 1: Optimize Scroll Parallax to Avoid React Re-renders
+### Step 1: Add Press State to Genre Cards
 
-Replace the `useState` + `setScrollOffset` approach with a `useRef` that directly mutates the DOM element's `transform` style. This eliminates React re-renders on scroll entirely. The background image div and light leak div will each get their own ref, and the scroll handler will update `ref.current.style.transform` directly.
+Add a momentary scale(0.98) press effect using `onMouseDown` / `onMouseUp` state. When the user presses the card, it scales to 0.98 for the duration of the press, then transitions to the active scale (1.02) or resting (1.0) on release. This takes 80ms for the press and uses the brand easing curve.
 
-**File**: `TheSound.tsx` --- refactor the scroll parallax from `useState(scrollOffset)` to direct DOM manipulation via refs.
+**File**: `GenreCard.tsx` --- add `isPressed` state via `onMouseDown`/`onMouseUp`, incorporate into `transform` logic.
 
-### Step 2: Scope Ken Burns to Active/Hovered Cards Only
+### Step 2: Restore Track Panel Header
 
-Change the Ken Burns animation to only run on cards that are active or hovered. Inactive, non-hovered cards will have `animation: none` (or `animation-play-state: paused`). This reduces GPU texture work from 5 simultaneous blur+transform animations to at most 2.
+Add a proper header to `GenreTrackPanel` showing the genre label and track count. The header should use `font-display` uppercase tracking, muted foreground color, with a thin separator line beneath it --- matching the PianoPanel's category header treatment.
 
-**File**: `GenreCard.tsx` --- conditionally apply the `ken-burns-drift` animation based on `isActive` or `isHovered` state.
+**File**: `GenreTrackPanel.tsx` --- replace the `{/* Header */} ...` block with a proper genre header div.
 
-### Step 3: Fix Track Panel Ref Callback
+### Step 3: Fix Empty Track Accessibility
 
-Replace the `ref` callback approach with a proper `useEffect` + `useRef` pattern that only fires on mount. The panel container gets a stable ref, and a `useEffect` sets `opacity: 1` and `transform: translateY(0)` after the first frame.
+Change tracks with no `src` from `<button>` to `<div role="listitem">` or add `aria-disabled="true"` and `tabIndex={-1}` to prevent them from being interactive targets. Remove the `onClick` handler entirely when `!hasSrc`.
 
-**File**: `GenreTrackPanel.tsx` --- replace the `ref` callback with `useRef` + `useEffect`.
+**File**: `GenreTrackPanel.tsx` --- conditionally render non-interactive element for tracks without sources.
 
-### Step 4: Scope Card Transitions
+### Step 4: Add Arrow-Key Navigation to Genre Grid
 
-Replace `transition: "all 300ms ..."` on the genre card button with `transition: "transform 300ms ..., box-shadow 300ms ..., border-color 300ms ..."`. This prevents unintended transitions on layout properties and reduces compositor work.
+Add `onKeyDown` handler to genre cards that supports `ArrowRight` / `ArrowLeft` for horizontal navigation. When a card is focused and ArrowRight is pressed, focus moves to the next card. This uses `ref` array or `document.querySelector` to find sibling cards.
 
-**File**: `GenreCard.tsx` --- update the inline `transition` property.
+**File**: `TheSound.tsx` --- add keyboard navigation logic to the genre card grid container.
 
-### Step 5: Add `will-change` Hints to Parallax Layers
+### Step 5: Tighten Closing Quote Timing
 
-Add `willChange: "transform"` to the background image wrapper and the light leak layer div styles. This promotes them to their own compositor layers, enabling smooth GPU-accelerated transforms during scroll.
+Reduce the closing quote's transition duration from 1000ms to 700ms, matching the section's established reveal rhythm. Also reduce the `transitionDelay` from 200ms to 150ms for a crisper entrance.
 
-**File**: `TheSound.tsx` --- add `willChange` to the two parallax div styles.
+**File**: `TheSound.tsx` --- update the quote container's transition timing.
 
 ---
 
@@ -72,18 +72,18 @@ Add `willChange: "transform"` to the background image wrapper and the light leak
 
 | Step | File | Change |
 |------|------|--------|
-| 1 | `TheSound.tsx` | Ref-based parallax (no re-renders) |
-| 2 | `GenreCard.tsx` | Ken Burns only on active/hovered cards |
-| 3 | `GenreTrackPanel.tsx` | Stable useRef + useEffect for entrance |
-| 4 | `GenreCard.tsx` | Scoped transition properties |
-| 5 | `TheSound.tsx` | will-change hints on parallax layers |
+| 1 | `GenreCard.tsx` | Press state (scale 0.98) on mousedown |
+| 2 | `GenreTrackPanel.tsx` | Proper genre header with label + count |
+| 3 | `GenreTrackPanel.tsx` | Accessible non-interactive empty tracks |
+| 4 | `TheSound.tsx` | Arrow-key navigation on genre grid |
+| 5 | `TheSound.tsx` | Quote reveal timing tightened to 700ms |
 
 ## What This Achieves
 
-- Zero React re-renders during scroll (parallax via direct DOM mutation)
-- GPU workload reduced from 5 simultaneous blur animations to 1-2
-- Track panel entrance fires exactly once, not on every parent re-render
-- Card transitions scoped to only the properties that actually change
-- Parallax layers promoted to compositor layers for 60fps scrolling
-- The section feels lighter and faster while maintaining all visual richness
+- Genre cards have tactile "key press" feedback matching the piano metaphor
+- Track panel clearly communicates which genre is displayed
+- Screen readers and keyboard users get correct semantics for non-playable tracks
+- Arrow-key navigation enables efficient genre browsing without mouse
+- Section rhythm is consistent --- no element reveals slower than 700ms
+- The section meets WCAG 2.1 AA interaction standards
 
