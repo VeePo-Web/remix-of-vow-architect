@@ -1,71 +1,66 @@
 
 
-# Round 47 — "Hear Me Play": Precision Polish Pass
+# Round 48 --- "Hear Me Play": Track Panel Elevation and Mobile Polish
 
-## Current State (Live Audit)
+## Current State
 
-The genre card grid is now live with atmospheric backgrounds, per-genre gradients, Cormorant labels, and 56px play circles. The section has achieved meaningful visual differentiation between genres. However, several issues remain:
+Rounds 45-47 have delivered: per-genre atmospheric gradients, Cormorant typography, 56px tactile play circles with accent gradients, `exhale-pulse` breathing animation (confirmed existing), hover border warmth, increased whitespace, and brand-voice copy. The genre cards now have meaningful visual differentiation and the section reads as premium.
 
-### Issue 1: Subhead Still Left-Aligned
+Two areas remain below Fantasy.co caliber:
 
-Despite `w-full text-center` being applied, "Browse. Listen. Imagine it at yours." renders left-aligned. The root cause: the parent `max-w-5xl mx-auto text-center` should center block children, but the `<p>` element inherits its text alignment from the parent only if the parent applies `text-center` AND the child doesn't override it. Since the stagger animation wrapper or some other parent element may be causing this, the fix is to ensure `text-align: center` is applied directly via inline style as a guaranteed override.
+### 1. GenreTrackPanel Material Quality
 
-### Issue 2: Cards Lack Vertical Breathing Room
+The expandable track panel uses `hsl(var(--rich-black))` as a flat solid background with a single border. Compared to the genre cards (which have layered gradients, grain, and glass effects), the panel feels like a generic dropdown. It needs the same "Premium Glass" material treatment: backdrop blur, subtle inner glow, and a top-edge light catch to match the luxury glass standard established across the site.
 
-The grid sits too close to the subhead (only `mb-16`) and the closing quote (only `mt-24`). On a 1440px viewport, the cards feel compressed between content. Increasing the gap above and below the grid would create the "luxury whitespace" the brand demands.
+### 2. Track Panel Header Typography
 
-### Issue 3: Play Circles Could Be More Refined
+The category label in the panel header uses `font-sans` while the rest of the section uses `font-display` (Cormorant). This inconsistency breaks the typographic harmony. The header should use the brand serif.
 
-The current circles show Play/Pause icons but lack the subtle gradient background treatment specified in the plan. Adding a very subtle radial gradient using the genre's accent color at 3-6% opacity would give depth.
+### 3. Mobile Grid Layout (5th Card)
 
-### Issue 4: The Context Phrases Are Too Dim
+The 5th genre card ("Film") spans `col-span-2` on mobile (2-column grid), making it wider than the others. This breaks visual rhythm. On mobile, it should be centered at the same width as the other cards using `justify-self-center` or a max-width constraint.
 
-The hover-revealed context phrases ("For the weight of what is sacred") are at `text-foreground/30` which is nearly invisible on the dark cards. Increasing to `text-foreground/40` for better readability while maintaining subtlety.
+### 4. Track Panel Accent Bar Visibility
 
-### Issue 5: No `exhale-pulse` Keyframe Exists
+The accent bar next to each track starts at `scaleY(0)` for inactive tracks, making it invisible. A subtle resting state (e.g., `scaleY(0.5)` at lower opacity) would create visual rhythm in the track list, similar to a music staff.
 
-The GenreCard references `exhale-pulse` animation for active+playing state, but this keyframe may not be defined in `index.css`. Need to verify and add if missing.
+### 5. Closing Quote Glow Intensity
+
+The radial glow behind the closing quote (`vow-yellow / 0.03`) is barely perceptible. Increasing to `0.05` would create a warmer halo around the quote without violating the 6% yellow rule.
 
 ---
 
 ## 5-Step Implementation Plan
 
-### Step 1: Force Subhead Center Alignment
+### Step 1: Upgrade Track Panel to Premium Glass Material
 
-Add `style={{ textAlign: 'center' }}` directly to the subhead `<p>` element in `TheSound.tsx` as a guaranteed override. This bypasses any CSS specificity issues.
+Replace the flat `hsl(var(--rich-black))` background with the site's established glass material: `background: hsl(var(--rich-black) / 0.85)` with `backdropFilter: blur(16px)` and an updated box-shadow that includes a golden outer glow at 4% opacity.
 
-**File**: `TheSound.tsx` -- add inline `textAlign: 'center'` to the subhead.
+**File**: `GenreTrackPanel.tsx` --- update the panel's style object.
 
-### Step 2: Increase Breathing Room Around Grid
+### Step 2: Fix Track Panel Header Typography
 
-Change the subhead `mb-16` to `mb-20` and the closing quote container `mt-24 md:mt-32` to `mt-28 md:mt-40`. This adds ~64px more vertical whitespace on desktop, creating the luxury breathing room the brand requires.
+Change the category label from `font-sans` to `font-display` to match the rest of the section's Cormorant serif usage.
 
-**File**: `TheSound.tsx` -- adjust spacing classes.
+**File**: `GenreTrackPanel.tsx` --- update className on header span.
 
-### Step 3: Add Accent Gradient to Play Circles
+### Step 3: Constrain 5th Card Width on Mobile
 
-In `GenreCard.tsx`, update the circle's background to include the genre's accent color at very low opacity. Currently the non-active state uses `hsl(0 0% 100% / 0.04)`. Change to a gradient that uses the genre's accent: `linear-gradient(135deg, hsl(0 0% 100% / 0.04), ${accent} at 3% opacity)`.
+Add `max-w-[calc(50%-0.375rem)]` (matching the natural width of a single grid column) and `justify-self-center` to the 5th card's wrapper div when it has `col-span-2`, so it remains the same size as the others but centered.
 
-**File**: `GenreCard.tsx` -- update circle background style.
+**File**: `TheSound.tsx` --- update the 5th card wrapper classes.
 
-### Step 4: Increase Context Phrase Visibility
+### Step 4: Add Resting State to Track Accent Bars
 
-Change context phrase text color from `text-foreground/30` to `text-foreground/40` for improved readability on dark card backgrounds.
+Change inactive track accent bars from `scaleY(0)` to `scaleY(0.6)` with reduced opacity (`vow-yellow / 0.12`), creating a subtle visual rhythm in the track list. Active tracks remain at full `scaleY(1)` with full yellow.
 
-**File**: `GenreCard.tsx` -- update context phrase className.
+**File**: `GenreTrackPanel.tsx` --- update accent bar default styles.
 
-### Step 5: Add `exhale-pulse` Keyframe
+### Step 5: Increase Closing Quote Glow
 
-Verify and add the `exhale-pulse` keyframe to `index.css` if it doesn't exist. This is a subtle scale/opacity breathing animation for the active play circle:
+Change the quote's background glow from `vow-yellow / 0.03` to `vow-yellow / 0.05` for a warmer, more perceptible halo.
 
-```css
-@keyframes exhale-pulse {
-  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 transparent; }
-  50% { transform: scale(1.04); box-shadow: 0 0 12px hsl(var(--vow-yellow) / 0.1); }
-}
-```
-
-**File**: `index.css` -- add keyframe if missing.
+**File**: `TheSound.tsx` --- update quote radial gradient opacity.
 
 ---
 
@@ -73,17 +68,17 @@ Verify and add the `exhale-pulse` keyframe to `index.css` if it doesn't exist. T
 
 | Step | File | Change |
 |------|------|--------|
-| 1 | `TheSound.tsx` | Force subhead center via inline style |
-| 2 | `TheSound.tsx` | Increase spacing above/below grid |
-| 3 | `GenreCard.tsx` | Add accent gradient to play circles |
-| 4 | `GenreCard.tsx` | Increase context phrase opacity |
-| 5 | `index.css` | Add `exhale-pulse` keyframe |
+| 1 | `GenreTrackPanel.tsx` | Premium glass material with backdrop blur |
+| 2 | `GenreTrackPanel.tsx` | Header font-sans to font-display |
+| 3 | `TheSound.tsx` | Constrain 5th card width on mobile |
+| 4 | `GenreTrackPanel.tsx` | Resting accent bar visibility |
+| 5 | `TheSound.tsx` | Warmer closing quote glow |
 
 ## What This Achieves
 
-- Subhead is definitively centered regardless of CSS cascade
-- Luxury whitespace frames the genre grid properly
-- Play circles gain subtle material depth through accent gradients
-- Context phrases become readable while remaining understated
-- Active play state breathing animation works correctly
+- Track panel matches the premium glass material standard used across all floating components
+- Typographic consistency with Cormorant serif throughout the entire section
+- Mobile grid maintains visual rhythm without an oversized 5th card
+- Track list gains subtle visual structure through resting accent bars
+- Closing quote earns the warm sacred halo it deserves
 
