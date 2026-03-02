@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Play, Pause } from "lucide-react";
+import { useState } from "react";
 
 /* ─── Genre accent colors (muted, warm) ─── */
 const genreAccents: Record<string, string> = {
@@ -8,6 +9,15 @@ const genreAccents: Record<string, string> = {
   pop: "hsl(350 50% 55%)",
   classical: "hsl(40 30% 70%)",
   film: "hsl(200 30% 55%)",
+};
+
+/* ─── Per-genre atmospheric gradients ─── */
+const genreGradients: Record<string, string> = {
+  hymns: "radial-gradient(ellipse at 50% 40%, hsl(35 60% 20% / 0.4) 0%, transparent 70%)",
+  worship: "radial-gradient(ellipse at 50% 40%, hsl(45 50% 18% / 0.35) 0%, transparent 70%)",
+  pop: "radial-gradient(ellipse at 50% 40%, hsl(350 40% 18% / 0.3) 0%, transparent 70%)",
+  classical: "radial-gradient(ellipse at 50% 40%, hsl(40 25% 16% / 0.3) 0%, transparent 70%)",
+  film: "radial-gradient(ellipse at 50% 40%, hsl(200 30% 15% / 0.35) 0%, transparent 70%)",
 };
 
 /* ─── Mini waveform inside circle ─── */
@@ -50,10 +60,14 @@ export function GenreCard({
   onClick,
 }: GenreCardProps) {
   const accent = genreAccents[id] || "hsl(var(--vow-yellow))";
+  const gradient = genreGradients[id] || genreGradients.hymns;
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <button
       onClick={onClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       className={cn(
         "genre-card group relative overflow-hidden rounded-xl",
         "aspect-[4/5] w-full",
@@ -64,7 +78,7 @@ export function GenreCard({
       style={{
         border: isActive
           ? "1px solid hsl(var(--vow-yellow) / 0.35)"
-          : "1px solid hsl(var(--vow-yellow) / 0.08)",
+          : `1px solid hsl(var(--vow-yellow) / ${isHovered ? 0.2 : 0.08})`,
         transform: isActive ? "scale(1.02)" : "scale(1)",
         boxShadow: isActive
           ? "0 0 30px hsl(var(--vow-yellow) / 0.12), inset 0 1px 0 rgba(255,255,255,0.06)"
@@ -78,12 +92,22 @@ export function GenreCard({
       <img
         src={image}
         alt=""
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-all duration-500 group-hover:opacity-[0.3]"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-all duration-500 group-hover:opacity-[0.4]"
         style={{
           opacity: isActive ? 0.35 : 0.2,
-          filter: "blur(6px) saturate(0.6)",
+          filter: "blur(4px) saturate(0.6)",
         }}
         loading="lazy"
+        aria-hidden="true"
+      />
+
+      {/* Per-genre atmospheric gradient */}
+      <div
+        className="absolute inset-0 pointer-events-none transition-opacity duration-500 group-hover:opacity-100"
+        style={{
+          background: gradient,
+          opacity: isActive ? 1 : 0.7,
+        }}
         aria-hidden="true"
       />
 
@@ -91,7 +115,7 @@ export function GenreCard({
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "linear-gradient(180deg, hsl(220 15% 6% / 0.55) 0%, hsl(220 15% 4% / 0.65) 100%)",
+          background: "linear-gradient(180deg, hsl(220 15% 6% / 0.40) 0%, hsl(220 15% 4% / 0.50) 100%)",
         }}
         aria-hidden="true"
       />
