@@ -146,8 +146,8 @@ export function GenreCard({
               ? "hsl(var(--vow-yellow) / 0.35)"
               : "hsl(0 0% 100% / 0.15)",
             background: isActive
-              ? `linear-gradient(135deg, hsl(var(--vow-yellow) / 0.1), ${accent.replace(')', ' / 0.06)')})`
-              : `linear-gradient(135deg, hsl(0 0% 100% / 0.04), ${accent.replace(')', ' / 0.03)')})`,
+              ? `linear-gradient(135deg, hsl(var(--vow-yellow) / 0.12), ${accent.replace(')', ' / 0.08)')})`
+              : `linear-gradient(135deg, hsl(0 0% 100% / 0.05), ${accent.replace(')', ' / 0.04)')})`,
             boxShadow: isActive
               ? `inset 0 2px 4px rgba(0,0,0,0.3), 0 0 16px ${accent.replace(')', ' / 0.15)')}`
               : "inset 0 2px 4px rgba(0,0,0,0.3)",
@@ -175,7 +175,7 @@ export function GenreCard({
         {/* Context phrase — visible on hover or when active */}
         <span
           className={cn(
-            "text-[11px] font-display italic text-foreground/30 mt-1.5 text-center leading-tight",
+            "text-[11px] font-display italic text-foreground/40 mt-1.5 text-center leading-tight",
             "transition-opacity duration-300",
             isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
           )}
