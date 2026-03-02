@@ -85,9 +85,15 @@ export function TheWitness() {
           textCol.style.transform = `translateY(${(progress - 0.5) * -8}px)`;
         }
 
-        // C. Background image parallax: ±3px (slowest layer, maintains Ken Burns scale)
+        // C. Background image: composite Ken Burns oscillation + scroll parallax
         if (bgImage) {
-          bgImage.style.transform = `translateY(${(progress - 0.5) * 6}px) scale(1.05)`;
+          const elapsed = (Date.now() % 30000) / 30000;
+          const kbProgress = (Math.sin(elapsed * Math.PI * 2 - Math.PI / 2) + 1) / 2;
+          const kbScale = 1 + kbProgress * 0.06;
+          const kbX = -kbProgress * 1;
+          const kbY = kbProgress * 1;
+          const parallaxY = (progress - 0.5) * 6;
+          bgImage.style.transform = `translateY(${parallaxY}px) scale(${kbScale}) translate(${kbX}%, ${kbY}%)`;
         }
 
         // D. Primary fog vertical drift: light source appears overhead
@@ -137,7 +143,7 @@ export function TheWitness() {
           src={witnessKeys}
           alt=""
           ref={bgImageRef}
-          className="absolute inset-0 w-full h-full object-cover witness-bg-drift"
+          className="absolute inset-0 w-full h-full object-cover"
           style={{
             opacity: 0.10,
             filter: 'saturate(0.4) sepia(0.2) contrast(1.15) brightness(0.85)',
