@@ -1484,7 +1484,7 @@ All colors MUST be HSL.
   /* Invitation Assurance — standalone serif statement */
   .invitation-assurance {
     font-family: var(--font-display);
-    font-size: 22px;
+    font-size: clamp(18px, 3vw, 22px);
     line-height: 1.5;
     font-weight: 400;
     color: hsl(0 0% 100% / 0.8);
@@ -1533,9 +1533,8 @@ All colors MUST be HSL.
     content: '';
     position: absolute;
     bottom: -2px;
-    left: 28px;
-    right: 28px;
-    width: auto;
+    left: 0;
+    right: 0;
     height: 1px;
     background: hsl(var(--vow-yellow) / 0.5);
     transform: scaleX(0);
