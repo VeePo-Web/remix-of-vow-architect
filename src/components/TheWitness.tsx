@@ -351,7 +351,7 @@ export function TheWitness() {
               <div
                 className="witness-golden-thread absolute left-4 md:left-5 top-4 bottom-4 w-[1px] pointer-events-none"
                 style={{
-                  background: 'linear-gradient(180deg, transparent, hsl(var(--vow-yellow) / 0.15), hsl(var(--vow-yellow) / 0.15), transparent)',
+                  background: 'linear-gradient(180deg, transparent 2%, hsl(var(--vow-yellow) / 0.3) 15%, hsl(var(--vow-yellow) / 0.3) 85%, transparent 98%)',
                 }}
                 aria-hidden="true"
               />
@@ -366,10 +366,9 @@ export function TheWitness() {
                     )}
                     style={{
                       transitionDelay: isVisible ? `${350 + index * 150}ms` : "0ms",
-                      background: 'linear-gradient(135deg, hsl(45 22% 93% / 0.6), hsl(45 18% 91% / 0.45))',
+                      background: 'linear-gradient(180deg, hsl(45 25% 96% / 0.7) 0%, hsl(42 18% 90% / 0.5) 100%)',
                       border: '1px solid hsl(45 20% 85% / 0.25)',
-                      borderTop: '1px solid hsl(45 25% 88% / 0.4)',
-                      boxShadow: 'inset 3px 0 8px -3px hsl(var(--vow-yellow) / 0.06), inset 0 1px 0 hsl(0 0% 100% / 0.04)',
+                      borderTop: '1px solid hsl(45 30% 92% / 0.5)',
                     }}
                   >
                     {/* Thread node diamond */}
