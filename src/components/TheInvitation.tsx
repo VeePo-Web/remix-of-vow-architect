@@ -121,7 +121,7 @@ export function TheInvitation() {
           {/* Section Label */}
           <p
             className={cn(
-              'text-xs uppercase tracking-[0.22em] text-white/40 mb-16 text-center',
+              'text-xs uppercase tracking-[0.22em] text-white/40 mb-16 text-center w-full',
               'transition-all duration-700',
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             )}
@@ -130,7 +130,7 @@ export function TheInvitation() {
           </p>
 
           {/* Main Grid */}
-          <div className="relative grid md:grid-cols-[2fr_3fr] gap-12 md:gap-20 items-start">
+          <div className="relative grid md:grid-cols-[2fr_3fr] gap-12 md:gap-20 items-center">
             {/* Desktop Golden Thread */}
             <span
               className={cn(
@@ -229,7 +229,7 @@ export function TheInvitation() {
               {/* Epigraph — whispered serif intro */}
               <p
                 className={cn(
-                  'invitation-epigraph transition-all duration-700',
+                  'invitation-epigraph max-w-lg transition-all duration-700',
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                 )}
                 style={{ transitionDelay: isVisible ? '200ms' : '0ms' }}
@@ -300,13 +300,28 @@ export function TheInvitation() {
                 )}
                 style={{ transitionDelay: isVisible ? '650ms' : '0ms' }}
               >
-                <Link
-                  to="/about"
-                  className={cn('invitation-cta', isVisible && 'is-visible')}
-                >
-                  Meet the witness
-                  <span className="invitation-cta-rule" aria-hidden="true" />
-                </Link>
+                  <Link
+                    to="/about"
+                    className={cn('invitation-cta', isVisible && 'is-visible')}
+                  >
+                    Meet the witness
+                    <span className="invitation-cta-rule" aria-hidden="true" />
+                  </Link>
+                </div>
+
+              {/* Golden separator between CTA and credentials */}
+              <div
+                className={cn(
+                  'pt-4 transition-all duration-700',
+                  isVisible ? 'opacity-100' : 'opacity-0'
+                )}
+                style={{ transitionDelay: isVisible ? '700ms' : '0ms' }}
+              >
+                <span
+                  className="block w-10 h-px"
+                  style={{ background: 'hsl(var(--vow-yellow) / 0.15)' }}
+                  aria-hidden="true"
+                />
               </div>
 
               {/* Credential Strip — frosted glass */}
@@ -317,10 +332,11 @@ export function TheInvitation() {
                 )}
                 style={{ transitionDelay: isVisible ? '750ms' : '0ms' }}
               >
-                <div className="flex items-center max-w-md justify-between">
+                <div className="flex items-center max-w-md gap-0">
                   {credentials.map((cred, i) => (
-                    <div key={cred.value} className="flex items-center gap-3 flex-1">
+                    <>
                       <div
+                        key={cred.value}
                         className={cn(
                           'invitation-credential text-center flex-1 px-6 py-4 rounded-[2px] transition-all duration-700',
                           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
@@ -341,12 +357,13 @@ export function TheInvitation() {
                       </div>
                       {i < credentials.length - 1 && (
                         <span
-                          className="block w-px h-8 flex-shrink-0"
+                          key={`div-${i}`}
+                          className="block w-px h-8 flex-shrink-0 mx-3"
                           style={{ background: 'hsl(var(--vow-yellow) / 0.3)' }}
                           aria-hidden="true"
                         />
                       )}
-                    </div>
+                    </>
                   ))}
                 </div>
               </div>
