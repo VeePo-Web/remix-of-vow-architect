@@ -32,7 +32,7 @@ export function SPLTriptych() {
           <RevealOnScroll variant="up">
             <h2 className="h2 mb-4 text-center">Clarity. Documented.</h2>
             <p className="text-muted-foreground text-center max-w-3xl mx-auto mb-12">
-              I measure and log sound pressure levels at three critical moments—Prelude, Vows, and Recessional—so you (and your venue) can verify both audibility and policy compliance. These logs are especially valuable for Parks Canada and other strict-sound venues.
+              I measure and log sound pressure levels at three critical moments — Prelude, Vows, and Recessional — so you (and your venue) can verify both audibility and policy compliance.
             </p>
           </RevealOnScroll>
 

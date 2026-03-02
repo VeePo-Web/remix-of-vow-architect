@@ -5,7 +5,7 @@ const milestones = [
   { year: "2017", description: "A DJ timing miss → I write my first cue sheet." },
   { year: "2018", description: "Test dual-mic + amp setups at three venues." },
   { year: "2020", description: "Add SPL metering → visual proof of audibility." },
-  { year: "2022", description: "Create Banff Mode™ for no-PA bylaws." },
+  { year: "2022", description: "Standardize run-of-show documentation and SPL logging." },
   { year: "2023–2024", description: "Approved at 40+ Alberta venues; plans standardized." },
 ];
 

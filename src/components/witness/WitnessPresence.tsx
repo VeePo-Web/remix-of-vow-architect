@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import aboutPresenceImg from "@/assets/about-presence.jpg";
 
 /**
- * THE PRESENCE — 200+ Ceremonies Witnessed
+ * THE PRESENCE — 500+ Events Performed
  * Large proclamation number with atmospheric background and floating witness moments
  */
 
@@ -96,7 +96,7 @@ export function WitnessPresence() {
                   textShadow: "0 0 80px hsl(var(--vow-yellow) / 0.2)"
                 }}
               >
-                200
+                500
               </span>
               <span className="font-display text-[clamp(40px,8vw,80px)] font-light text-primary align-top">+</span>
             </div>
@@ -108,7 +108,7 @@ export function WitnessPresence() {
               )}
               style={{ transitionDelay: "500ms" }}
             >
-              ceremonies witnessed
+              events performed
             </p>
           </div>
 

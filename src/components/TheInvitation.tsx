@@ -5,7 +5,7 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 import invitationPortrait from '@/assets/invitation-landscape-ai.jpg';
 
 const credentials = [
-  { value: '500+', label: 'Ceremonies' },
+  { value: '500+', label: 'Events' },
   { value: 'SOCAN', label: 'Licensed' },
   { value: '$4M', label: 'Insured' },
 ];

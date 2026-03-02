@@ -15,7 +15,7 @@ const setupImages = [
     icon: Zap,
     title: "Covered, Battery-Powered Amp",
     tooltip: "Generator-free; SPL-aware placement for distance and wind.",
-    alt: "Battery powered ceremony amplifier outdoor wedding Banff",
+    alt: "Battery powered ceremony amplifier outdoor wedding Alberta",
   },
   {
     icon: Users,
@@ -56,7 +56,7 @@ export function SetupPhotoGallery() {
 
           <Card className="p-6 bg-card/80 backdrop-blur-[8px] border-primary/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)]">
             <p className="italic text-foreground mb-3">
-              "Our planner called Parker the most prepared vendor she's worked with."
+              "Our planner called Parker the most prepared musician she's worked with."
             </p>
             <div className="flex items-center gap-3">
               <TestimonialAvatar
@@ -65,7 +65,7 @@ export function SetupPhotoGallery() {
               />
               <div className="text-sm">
                 <p className="font-semibold text-foreground">Miguel</p>
-                <p className="text-muted-foreground">Banff Centre</p>
+                <p className="text-muted-foreground">Deane House</p>
               </div>
             </div>
           </Card>

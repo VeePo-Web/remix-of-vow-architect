@@ -23,9 +23,8 @@ export default function Terms() {
 
       <PolicySection title="Services Overview">
         <p>
-          I provide wedding ceremony piano and ceremony-audio direction, including Banff Mode™ 
-          (acoustic-only protocol for no-PA venues). Service area: Calgary, Cochrane, Canmore, Banff. 
-          Availability is not guaranteed until confirmed in writing.
+          I provide wedding ceremony piano and ceremony-audio direction. Service area: Calgary, Cochrane, 
+          Canmore, Okotoks. Availability is not guaranteed until confirmed in writing.
         </p>
       </PolicySection>
 
@@ -74,10 +73,6 @@ export default function Terms() {
             <strong>Power:</strong> Many ceremonies run on my silent battery. For venues requiring mains 
             power (e.g., some indoor setups), please provide 110V/15A within ~25 ft.
           </li>
-          <li>
-            <strong>Banff Mode:</strong> At no-PA sites, I perform acoustic-only and coordinate proximity 
-            seating.
-          </li>
           <li>Follow venue and local regulations; I'll support with documentation.</li>
         </ul>
       </PolicySection>
@@ -100,8 +95,7 @@ export default function Terms() {
 
       <PolicySection title="Third-Party Links">
         <p>
-          I sometimes link to external sites (e.g., Parks Canada). I'm not responsible for their content 
-          or policies.
+          I sometimes link to external sites. I'm not responsible for their content or policies.
         </p>
       </PolicySection>
 

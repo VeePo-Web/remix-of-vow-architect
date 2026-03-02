@@ -11,10 +11,10 @@ const testimonials = [
     initials: "SJ",
   },
   {
-    quote: "We were Banff-legal with zero stress.",
+    quote: "Every guest heard our vows — even the back row.",
     author: "Emily & David",
-    venue: "Cascade Gardens",
-    metric: "Unamplified; proximity arc applied",
+    venue: "Cochrane Ranch",
+    metric: "SPL vow reading: 58 dBA at 25 m",
     initials: "ED",
   },
   {

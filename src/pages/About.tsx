@@ -26,7 +26,7 @@ import {
  * 1. THE RESONANCE — Hero with vibrating golden string
  * 2. THE ORIGIN — The single moment that started it all
  * 3. THE SUSTAIN — Piano keyboard with three illuminated keys
- * 4. THE PRESENCE — 200+ ceremonies witnessed
+ * 4. THE PRESENCE — 500+ events performed
  * 5. THE COVENANT — Personal promise certificate
  * 6. THE CROSSING — Final CTA with warm glow
  */

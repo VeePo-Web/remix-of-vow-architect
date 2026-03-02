@@ -1,5 +1,5 @@
 import { Card } from "./ui/card";
-import { Music, Clock, MapPin, Mountain } from "lucide-react";
+import { Music, Clock, MapPin } from "lucide-react";
 import { StaggerChildren } from "@/components/animation";
 
 const addOns = [
@@ -19,14 +19,7 @@ const addOns = [
     icon: MapPin,
     title: "Travel Fee",
     price: "Quoted per km",
-    description: "Applies to venues outside the Calgary–Cochrane–Canmore–Banff corridor. (No fee within 50 km of Cochrane.)",
-  },
-  {
-    icon: Mountain,
-    title: "Banff Mode™ Upgrade",
-    price: "$0",
-    description: "Included where required: acoustic set (no PA/generators) with proximity seating arc and a simple SPL chart in your plan.",
-    highlight: true,
+    description: "Applies to venues outside the Calgary–Cochrane–Canmore corridor. (No fee within 50 km of Cochrane.)",
   },
 ];
 
@@ -42,13 +35,11 @@ export function PricingAddOns() {
           {addOns.map((addon, index) => (
             <Card
               key={index}
-              className={`p-6 bg-card/80 backdrop-blur-[8px] border-border/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)] hover:shadow-[0_0_24px_rgba(255,224,138,0.06)] transition-all duration-[180ms] ${
-                addon.highlight ? "border-primary/30" : ""
-              }`}
+              className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)] hover:shadow-[0_0_24px_rgba(255,224,138,0.06)] transition-all duration-[180ms]"
             >
               <div className="flex items-start gap-4">
-                <div className={`p-3 rounded-lg ${addon.highlight ? "bg-primary/[0.06] border border-primary/10" : "bg-muted"}`}>
-                  <addon.icon size={24} className={addon.highlight ? "text-primary" : "text-foreground"} />
+                <div className="p-3 rounded-lg bg-muted">
+                  <addon.icon size={24} className="text-foreground" />
                 </div>
                 <div className="flex-1">
                   <h3 className="font-display text-lg font-medium mb-1">{addon.title}</h3>

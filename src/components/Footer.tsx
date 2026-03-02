@@ -164,7 +164,7 @@ export function Footer() {
               Reach Me
             </h4>
             <ul className="space-y-3 text-foreground/50">
-              <li>Calgary, Cochrane, Canmore and Banff</li>
+              <li>Calgary, Cochrane, Canmore and Okotoks</li>
               <li>
                 <a href="mailto:parker@parkergawryletz.com" className="hover:text-primary transition-all duration-[180ms]" aria-label="Email me at parker@parkergawryletz.com">
                   parker@parkergawryletz.com

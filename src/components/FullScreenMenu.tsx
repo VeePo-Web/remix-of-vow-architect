@@ -191,7 +191,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
             isOpen ? "opacity-100 translate-y-0 delay-700" : "opacity-0 translate-y-4"
           )}
         >
-          <p>Calgary, Cochrane, Canmore &amp; Banff</p>
+          <p>Calgary, Cochrane, Canmore &amp; Okotoks</p>
           <p>
             <a href="mailto:parker@parkergawryletz.com" className="hover:text-primary transition-colors duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm">
               parker@parkergawryletz.com

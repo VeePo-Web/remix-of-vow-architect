@@ -1,4 +1,4 @@
-import { Shield, Activity, MapPin, Mountain, FileDown } from "lucide-react";
+import { Shield, Activity, MapPin, FileDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
@@ -16,12 +16,7 @@ const credentials = [
   {
     icon: MapPin,
     label: "Venues (sample)",
-    description: "Banff Centre, Stewart Creek, Deane House, Fairmont properties",
-  },
-  {
-    icon: Mountain,
-    label: "Parks Canada",
-    description: "Acoustic-only compliance via Banff Mode™ (no PA, no generators)",
+    description: "Deane House, Stewart Creek, Cochrane Ranch, Spruce Meadows",
   },
 ];
 

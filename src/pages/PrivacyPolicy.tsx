@@ -16,7 +16,7 @@ export default function PrivacyPolicy() {
       <PolicySection title="Who I Am">
         <p>
           I'm Parker Wedding Piano (also operating as Assured Ceremony Audio™ by Parker Gawryletz). 
-          I serve Cochrane, Calgary, Canmore, and Banff.
+          I serve Cochrane, Calgary, Canmore, and Okotoks.
         </p>
         <p>
           Contact: <a href="mailto:ParJorFraGaw@gmail.com" className="text-primary hover:text-primary/80">ParJorFraGaw@gmail.com</a> • <a href="tel:+14038308930" className="text-primary hover:text-primary/80">+1-403-830-8930</a>
@@ -60,8 +60,7 @@ export default function PrivacyPolicy() {
       <PolicySection title="How I Use Your Data">
         <ul className="list-disc pl-6 space-y-2">
           <li>
-            To prepare and deliver your ceremony-audio plan (SPL overview, mic/power notes, Banff Mode 
-            guidance, cue integration).
+            To prepare and deliver your ceremony-audio plan (SPL overview, mic/power notes, cue integration).
           </li>
           <li>
             To coordinate bookings, timeline changes, weather moves, and vendor communication.
