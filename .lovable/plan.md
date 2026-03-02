@@ -1,67 +1,47 @@
 
 
-# Round 60.5 — "The Witness": Copy Elevation Pass 2
+# Round 61.0 — "The Witness": Copy Elevation Pass 3
 
-## Analysis
+## Assessment
 
-The Pass 1 edits strengthened the declarations and kit. But the section still reads as a list of operational reassurances. The mind-reading effect --- the "Oh, this is exactly who I need" reaction --- requires one more layer: each declaration should quietly answer a specific unspoken fear without naming it.
+After two passes, the declarations form a clean arc: presence ("I stay until the room is empty"), precision ("every note is tested"), and preparation ("instinct"). The headline is the strongest line in the section. The kit label and items are professional. The closing bridges cleanly to Three Paths.
 
-The three fears this section must silently address:
+The remaining opportunity is subtle but significant. The section currently reads as three parallel reassurances. Each is strong individually. But they lack a *cumulative* effect --- the feeling that each line builds on the last, creating momentum toward the closing line. The visitor should feel increasing certainty with each declaration, so that by the closing line, the decision feels inevitable rather than optional.
 
-1. "What if the musician shows up late or leaves early?" --- answered by Declaration 1
-2. "What if something sounds wrong and no one catches it?" --- answered by Declaration 2
-3. "What if they forget the timing or miss a cue?" --- answered by Declaration 3
+There are two micro-opportunities:
 
-The current declarations answer these, but they can be sharpened. The headline is strong. The kit is solid. The closing line works. The biggest opportunity is in the declarations themselves --- making them feel less like process statements and more like quiet vows.
+### 1. Declaration 2 can be more vivid
 
-## Proposed Changes
+**Current**: "Every note is tested before your first guest walks in."
 
-### Declarations (Lines 7-9)
+"Every note is tested" is outcome-focused but still abstract --- the couple cannot *see* it happening. The fear this answers ("What if something sounds wrong?") is best addressed with an image of the pianist alone in the room, already playing, already certain. The word "tested" is clinical. The word "heard" is experiential.
 
-**Current**:
-1. "I arrive before anyone else --- and I leave after everyone."
-2. "Every note is tested before your first guest walks in."
-3. "Your cue sheet is rehearsed until it feels like memory."
+**Proposed**: "Every note is heard in the room before your first guest walks in."
 
-**Proposed**:
-1. "I arrive before anyone else --- and I stay until the room is empty."
-2. "Every note is tested before your first guest walks in."
-3. "Your cue sheet is rehearsed until it feels like instinct."
+**Why**: "Heard in the room" does two things: (1) it implies the pianist is physically present, playing, listening to the acoustics --- not just running a technical check; (2) "heard" connects to the brand's core promise ("every vow spoken becomes sacred the moment it's heard"). The couple unconsciously recognises the echo. The fear of technical failure is answered not with process language but with the image of someone who has already *listened* to the space.
 
-**Rationale**:
-- Declaration 1: "I leave after everyone" is factual. "I stay until the room is empty" is visual and emotional --- the couple can *see* this. An empty room after a wedding is one of the most poignant images in the ceremony experience. It also implies dedication beyond obligation.
-- Declaration 2: No change. This line is already outcome-focused and vivid.
-- Declaration 3: "Memory" is good but passive --- you can forget a memory. "Instinct" is deeper. Instinct cannot fail. It answers the fear "What if they miss a cue?" with something that feels involuntary, automatic, certain. The pianist does not *remember* the cue sheet --- they *feel* it.
-
-### Headline (Lines 99-117)
-
-**Current**: "Not a performer --- your ceremony pianist."
-
-**Proposed**: No change. This is the strongest possible positioning line for the section.
-
-### Kit Label and Items
-
-No change. Pass 1 upgrades are working.
-
-### Closing Line (Line 210)
+### 2. The closing line can carry more emotional weight
 
 **Current**: "Now --- choose how long you want me there."
 
-**Proposed**: No change. Clean bridge to Three Paths.
+This is clean but purely functional. It bridges to Three Paths but does not leave an emotional residue. The visitor moves on without feeling anything. A slight reframe can make the transition feel like a natural continuation of the declarations' emotional arc rather than a navigation prompt.
 
-## Implementation
+**Proposed**: "Now --- choose how long you want me there."
+
+**No change.** On reflection, the functional clarity is more valuable than emotional flourish at this transition point. The declarations carry the emotion; the closing line carries the visitor forward. Adding weight here would slow the momentum into Three Paths.
+
+## Final Proposed Change
 
 ### File: `src/components/TheWitness.tsx`
 
-- **Line 7**: Replace "and I leave after everyone" with "and I stay until the room is empty"
-- **Line 9**: Replace "memory" with "instinct"
+- **Line 8**: Replace `"Every note is tested before your first guest walks in."` with `"Every note is heard in the room before your first guest walks in."`
 
-### No other files modified. No design, layout, animation, or styling changes.
+### No other changes. One word swap: "tested" becomes "heard in the room." No design, layout, animation, or styling modifications.
 
 ## What This Achieves
 
-- Declaration 1 shifts from factual ("I leave after everyone") to visual ("the room is empty") --- the couple sees the image, feels the dedication
-- Declaration 3 shifts from passive recall ("memory") to involuntary certainty ("instinct") --- eliminating the fear that cues could be missed
-- Only 2 words change across the entire section, preserving the integrity of Pass 1
-- The three declarations now form a complete arc: presence (I stay), precision (every note tested), and preparation (instinct-level rehearsal)
+- Shifts Declaration 2 from clinical process ("tested") to experiential image ("heard in the room")
+- Creates an unconscious echo of the brand's core promise about hearing vows
+- The three declarations now progress: physical presence ("I stay") → sensory presence ("heard in the room") → cognitive presence ("instinct") --- a complete arc from body to ear to mind
+- The visitor feels increasing intimacy across the three lines, building certainty that this pianist *inhabits* the ceremony rather than merely attending it
 
