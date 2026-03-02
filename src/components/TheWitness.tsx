@@ -395,7 +395,7 @@ export function TheWitness() {
             </p>
 
             {/* Step 4: Declaration Cards with Golden Thread Connector */}
-            <div className="relative mb-12">
+            <div className="witness-declarations-container relative mb-12">
               {/* Vertical golden thread behind declarations */}
               <div
                 className="witness-golden-thread absolute left-4 md:left-5 top-4 bottom-4 w-[1px] pointer-events-none"
