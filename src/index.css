@@ -4262,6 +4262,7 @@ All colors MUST be HSL.
 
 .invitation-ken-burns {
   animation: invitation-ken-burns 25s ease-in-out infinite alternate;
+  will-change: transform;
 }
 
 .invitation-portrait-frame {
@@ -4291,11 +4292,20 @@ All colors MUST be HSL.
   .invitation-ken-burns {
     animation: none;
     transform: scale(1);
+    will-change: auto;
   }
 
   #the-invitation [class*="transition-all"] {
     transition-duration: 0ms !important;
     transform: none !important;
+  }
+
+  .invitation-portrait-frame {
+    transition: none !important;
+  }
+  .invitation-portrait-frame:hover {
+    border-color: inherit !important;
+    box-shadow: none !important;
   }
 
   [style*="witness-ken-burns"],

@@ -18,6 +18,7 @@ export function TheInvitation() {
       id="the-invitation"
       ref={sectionRef}
       data-theme="life"
+      aria-labelledby="invitation-heading"
       className="relative py-28 md:py-40 overflow-hidden invitation-texture piano-section-target"
       style={{
         background: 'linear-gradient(180deg, hsl(30 8% 12%) 0%, hsl(25 6% 10%) 100%)',
@@ -163,7 +164,7 @@ export function TheInvitation() {
                 <img
                   src={invitationPortrait}
                   alt="Grand piano keys stretching into soft bokeh with a single candle flame reflected in polished black lacquer"
-className="w-full h-full object-cover will-change-transform invitation-ken-burns"
+className="w-full h-full object-cover invitation-ken-burns"
                   loading="lazy"
                   decoding="async"
                 />
@@ -208,6 +209,7 @@ className="w-full h-full object-cover will-change-transform invitation-ken-burns
 
           {/* Headline */}
           <h2
+            id="invitation-heading"
             className={cn(
               'text-[clamp(28px,4.5vw,44px)] font-display font-light leading-tight text-white max-w-2xl mx-auto text-balance',
               'transition-all duration-700',
@@ -311,7 +313,7 @@ className="w-full h-full object-cover will-change-transform invitation-ken-burns
             >
               {credentials.map((cred, i) => (
                 <Fragment key={cred.value}>
-                  <div className="text-center px-5 sm:px-8 py-4 sm:py-5">
+                  <div className="text-center px-5 sm:px-8 py-4 sm:py-5" tabIndex={0}>
                     <span className="block font-display text-xl sm:text-2xl text-white/80">
                       {cred.value}
                     </span>
@@ -337,7 +339,7 @@ className="w-full h-full object-cover will-change-transform invitation-ken-burns
       {/* Bottom fade */}
       <div
         className="absolute bottom-0 left-0 right-0 h-[120px] z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to bottom, transparent, hsl(220 15% 6%))' }}
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(240 9% 4%))' }}
         aria-hidden="true"
       />
     </section>
