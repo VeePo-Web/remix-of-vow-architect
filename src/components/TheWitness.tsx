@@ -383,6 +383,17 @@ export function TheWitness() {
               </h2>
             </div>
 
+            {/* Step 8: Introductory paragraph — Parker's voice */}
+            <p
+              className={cn(
+                "text-base md:text-lg leading-relaxed text-foreground/65 max-w-[42ch] mb-10 transition-all duration-700",
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              )}
+              style={{ transitionDelay: isVisible ? "350ms" : "0ms" }}
+            >
+              Excellence on the big day does not happen on the big day. It happens in the weeks before — in the conversations, the rehearsals, the quiet hours of preparation that no one sees.
+            </p>
+
             {/* Step 4: Declaration Cards with Golden Thread Connector */}
             <div className="relative mb-12">
               {/* Vertical golden thread behind declarations */}
@@ -443,6 +454,17 @@ export function TheWitness() {
               aria-hidden="true"
             />
 
+            {/* Step 8: Transitional sentence bridging declarations to kit */}
+            <p
+              className={cn(
+                "font-display text-sm md:text-base font-light italic text-foreground/50 mb-6 transition-all duration-700",
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              )}
+              style={{ transitionDelay: isVisible ? "750ms" : "0ms" }}
+            >
+              And this is what I carry with me.
+            </p>
+
             {/* Step 5: Sacred Inventory Kit Grid */}
             <div
               className={cn(
@@ -463,8 +485,8 @@ export function TheWitness() {
                 />
               </div>
 
-              <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-5 relative z-10">
-                What arrives with me
+              <p className="font-display text-sm md:text-base font-light text-foreground/55 mb-5 relative z-10">
+                Everything I bring.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 relative z-10">
                 {standardKit.map((item, index) => (
