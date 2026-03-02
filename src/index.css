@@ -1590,6 +1590,49 @@ All colors MUST be HSL.
     50% { opacity: 0.30; }
   }
 
+  /* Invitation Light Bleed — breathing candle glow behind portrait */
+  .invitation-light-bleed {
+    animation: invitation-light-breathe 6s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+  @keyframes invitation-light-breathe {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 1.4; }
+  }
+
+  /* Invitation Candlelight Shimmer — reflected firelight on piano lacquer */
+  .invitation-candlelight-shimmer {
+    background: radial-gradient(ellipse 40% 50% at 30% 30%, hsla(40, 60%, 55%, 0.04) 0%, transparent 70%);
+    animation: invitation-candlelight-drift 8s ease-in-out infinite;
+    will-change: background-position;
+  }
+  @keyframes invitation-candlelight-drift {
+    0%, 100% { background: radial-gradient(ellipse 40% 50% at 30% 30%, hsla(40, 60%, 55%, 0.03) 0%, transparent 70%); }
+    50% { background: radial-gradient(ellipse 40% 50% at 60% 50%, hsla(40, 60%, 55%, 0.05) 0%, transparent 70%); }
+  }
+
+  /* Invitation "Yours" underline — trailing glow pulse (single-fire) */
+  @keyframes invitation-yours-glow {
+    0% { box-shadow: 0 0 0px hsl(45 90% 65% / 0); }
+    40% { box-shadow: 0 0 16px hsl(45 90% 65% / 0.5); }
+    100% { box-shadow: 0 0 8px hsl(45 90% 65% / 0.3); }
+  }
+
+  /* Invitation CTA — breathing glow at rest */
+  .invitation-cta-breathe {
+    animation: invitation-cta-breathe 4s ease-in-out infinite;
+  }
+  @keyframes invitation-cta-breathe {
+    0%, 100% {
+      border-color: hsl(var(--vow-yellow) / 0.1);
+      box-shadow: 0 0 0px hsl(var(--vow-yellow) / 0);
+    }
+    50% {
+      border-color: hsl(var(--vow-yellow) / 0.18);
+      box-shadow: 0 0 12px hsl(var(--vow-yellow) / 0.08);
+    }
+  }
+
   /* Reduced motion fallbacks */
   @media (prefers-reduced-motion: reduce) {
     .invitation-bg-ken-burns {
@@ -1598,6 +1641,16 @@ All colors MUST be HSL.
     .invitation-golden-thread {
       animation: none;
       opacity: 0.15;
+    }
+    .invitation-light-bleed {
+      animation: none;
+    }
+    .invitation-candlelight-shimmer {
+      animation: none;
+      opacity: 0;
+    }
+    .invitation-cta-breathe {
+      animation: none;
     }
   }
 
