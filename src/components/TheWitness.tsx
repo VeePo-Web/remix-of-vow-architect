@@ -72,17 +72,20 @@ export function TheWitness() {
         // How far through the section (0 at top entering, 1 at bottom leaving)
         const progress = Math.max(0, Math.min(1, (viewH - rect.top) / (viewH + sectionH)));
 
+        // Step 10E: Edge damping — parallax only active in middle 80% of scroll range
+        const damp = progress < 0.15 ? progress / 0.15 : progress > 0.85 ? (1 - progress) / 0.15 : 1;
+
         // Warmth: 0 → 1 as visitor scrolls deeper
         section.style.setProperty('--witness-warmth', String(progress));
 
         // A. Image column parallax: ±15px (medium speed layer)
         if (imageCol) {
-          imageCol.style.transform = `translateY(${(progress - 0.5) * 30}px)`;
+          imageCol.style.transform = `translateY(${(progress - 0.5) * 30 * damp}px)`;
         }
 
         // B. Text column counter-parallax: ±4px (fastest layer, opposite direction)
         if (textCol) {
-          textCol.style.transform = `translateY(${(progress - 0.5) * -8}px)`;
+          textCol.style.transform = `translateY(${(progress - 0.5) * -8 * damp}px)`;
         }
 
         // C. Background image: composite Ken Burns oscillation + scroll parallax
@@ -92,7 +95,7 @@ export function TheWitness() {
           const kbScale = 1 + kbProgress * 0.06;
           const kbX = -kbProgress * 1;
           const kbY = kbProgress * 1;
-          const parallaxY = (progress - 0.5) * 6;
+          const parallaxY = (progress - 0.5) * 6 * damp;
           bgImage.style.transform = `translateY(${parallaxY}px) scale(${kbScale}) translate(${kbX}%, ${kbY}%)`;
         }
 
@@ -395,7 +398,7 @@ export function TheWitness() {
             </p>
 
             {/* Step 4: Declaration Cards with Golden Thread Connector */}
-            <div className="witness-declarations-container relative mb-12">
+            <div className="witness-declarations-container relative mb-8 md:mb-12">
               {/* Vertical golden thread behind declarations */}
               <div
                 className="witness-golden-thread absolute left-4 md:left-5 top-4 bottom-4 w-[1px] pointer-events-none"
@@ -444,7 +447,7 @@ export function TheWitness() {
             {/* Golden thread separator */}
             <div
               className={cn(
-                "h-[1px] w-16 mb-10 transition-all duration-700",
+                "h-[1px] w-16 mb-6 md:mb-10 transition-all duration-700",
                 isVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
               )}
               style={{
@@ -457,7 +460,7 @@ export function TheWitness() {
             {/* Step 8: Transitional sentence bridging declarations to kit */}
             <p
               className={cn(
-                "font-display text-sm md:text-base font-light italic text-foreground/50 mb-6 transition-all duration-700",
+                "font-display text-sm md:text-base font-light italic text-foreground/50 mb-4 md:mb-6 transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{ transitionDelay: isVisible ? "750ms" : "0ms" }}
@@ -484,6 +487,8 @@ export function TheWitness() {
                   decoding="async"
                 />
               </div>
+              {/* Step 10B: Kit grain overlay for tactile depth */}
+              <div className="absolute inset-0 -m-4 rounded-lg grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
 
               <p className="font-display text-sm md:text-base font-light text-foreground/55 mb-5 relative z-10">
                 Everything I bring.
@@ -493,7 +498,7 @@ export function TheWitness() {
                   <div
                     key={index}
                     className={cn(
-                      "witness-kit-cell group flex flex-col items-center gap-2 py-3 px-2 rounded-md cursor-default",
+                      "witness-kit-cell group flex flex-col items-center gap-2 py-3 px-2 rounded-sm cursor-default",
                       "transition-all duration-700",
                       isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
                     )}
@@ -528,7 +533,7 @@ export function TheWitness() {
             {/* Step 6: Breathing diamond separator — silence between kit and closing */}
             <div
               className={cn(
-                "flex justify-center my-10 transition-all duration-700",
+                "flex justify-center my-6 md:my-10 transition-all duration-700",
                 isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
               )}
               style={{ transitionDelay: isVisible ? "900ms" : "0ms" }}
@@ -554,14 +559,14 @@ export function TheWitness() {
                 aria-hidden="true"
               />
 
-              {/* Golden thread rule */}
+              {/* Step 10C: Micro-threshold golden rule — shorter, warmer */}
               <div
                 className={cn(
-                  "h-[1px] w-16 mb-6 transition-all duration-700",
+                  "h-[1px] w-10 mb-3 md:mb-4 transition-all duration-700",
                   isVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
                 )}
                 style={{
-                  background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.4), transparent)",
+                  background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.5), hsl(var(--vow-yellow) / 0.15))",
                   transitionDelay: isVisible ? "950ms" : "0ms",
                 }}
                 aria-hidden="true"
@@ -585,7 +590,7 @@ export function TheWitness() {
               <a
                 href="#three-paths"
                 className={cn(
-                  "witness-ghost-cta inline-flex items-center gap-2 mt-5 text-xs uppercase tracking-[0.18em] font-display",
+                  "witness-ghost-cta inline-flex items-center gap-2 mt-4 md:mt-5 text-xs uppercase tracking-[0.18em] font-display",
                   "text-muted-foreground hover:text-foreground relative z-10",
                   "transition-[opacity,transform,color] duration-700",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
