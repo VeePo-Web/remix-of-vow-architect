@@ -78,10 +78,11 @@ function NowPlayingBar({
     <div
       className={cn("now-playing-bar", visible ? "now-playing-bar--visible" : "")}
       style={{
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
         background: "hsl(var(--rich-black) / 0.92)",
         borderTop: "1px solid hsl(var(--vow-yellow) / 0.1)",
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 0 20px hsl(var(--vow-yellow) / 0.03)",
       }}
       aria-label="Now playing"
       role="region"
@@ -119,9 +120,9 @@ function NowPlayingBar({
             onClick={handleToggle}
             className={cn(
               "w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)/0.4)]",
-              isPlaying ? "bg-[hsl(var(--vow-yellow))] text-black" : "bg-foreground/10 text-foreground/70"
+              isPlaying ? "bg-[hsl(var(--vow-yellow))] text-black" : "text-foreground/70"
             )}
-            style={{ transition: "all 180ms cubic-bezier(.22,.61,.36,1)" }}
+            style={{ transition: "all 180ms cubic-bezier(.22,.61,.36,1)", background: isPlaying ? undefined : "linear-gradient(135deg, hsl(0 0% 100% / 0.06), hsl(var(--vow-yellow) / 0.04))" }}
             aria-label={isPlaying ? "Pause" : "Play"}
           >
             {isPlaying ? <Pause size={12} strokeWidth={2} /> : <Play size={12} strokeWidth={2} className="ml-0.5" />}
@@ -349,6 +350,16 @@ export function TheSound() {
             >
               Hear me play.
             </h2>
+            <div
+              className={cn(
+                "mx-auto mb-6 transition-all duration-[450ms]",
+                isVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
+              )}
+              style={{ width: "64px", height: "1px", transitionDelay: isVisible ? "350ms" : "0ms" }}
+              aria-hidden="true"
+            >
+              <div className="w-full h-full" style={{ background: "linear-gradient(to right, transparent, hsl(var(--vow-yellow) / 0.4), transparent)" }} />
+            </div>
 
             {/* Subhead */}
             <p
@@ -440,7 +451,7 @@ export function TheSound() {
                   Every piece I play begins the same way — with someone in mind.
                 </p>
                 <footer className="mt-3">
-                  <cite className="text-[11px] uppercase tracking-[0.2em] text-foreground/25 not-italic font-sans">
+                  <cite className="text-[11px] uppercase tracking-[0.22em] text-foreground/25 not-italic font-display">
                     — Parker Allard
                   </cite>
                 </footer>
