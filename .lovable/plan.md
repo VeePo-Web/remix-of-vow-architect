@@ -1,79 +1,71 @@
 
 
-# The Invitation — Million-Dollar Elevation
+# The Invitation — Technical Bugs + Final Polish
 
-## Vision
+## Discovery
 
-The current section is polished and correct. But "correct" is not "transcendent." A million-dollar section does not just display content with nice transitions — it makes the visitor feel like they are standing in a candlelit room, watching warm light shift across piano lacquer, breathing the same air as someone who is about to change their life. Every layer must be alive. Every element must respond.
+After a thorough code and visual audit of all 4 previous passes, the section's structure and design intent are excellent. However, **five technical bugs** prevent the intended effects from actually working as designed. These are not aesthetic nitpicks — they are broken implementations that make the "million-dollar" atmospheric effects silently fail.
 
-## What Separates This from World-Class
+## Bugs Found
 
-### 1. The portrait is static between scroll events
-The image drifts via Ken Burns, but the two columns have no scroll-linked relationship. At Fantasy, the image column would move at a slightly different rate than the text column — a subtle parallax that creates spatial depth, as if the portrait sits behind glass at a different focal plane.
+### Bug 1: Warmth intensification does nothing
+Lines 104 and 114 use `opacity: 'calc(1 + var(--warmth) * 0.4)'`. When `--warmth` goes from 0 to 1, opacity goes from 1.0 to 1.4. But CSS clamps opacity at 1.0 — so **the warmth scroll effect has zero visible impact**. The glow layers sit at `opacity: 1` regardless of scroll position.
 
-### 2. The warm light bleed behind the portrait is frozen
-The radial glow behind the portrait (line 90-96) is a static gradient. In a real candlelit space, light pools breathe — they expand and contract with the flame. This layer needs a slow 4s breathing animation.
+**Fix:** The parent divs should have a base opacity below 1 and the warmth calc should modulate within a visible range. Change to `opacity: calc(0.85 + var(--warmth) * 0.15)` so they go from 85% to 100% opacity as the user scrolls deeper, creating the subtle warmth intensification that was intended.
 
-### 3. No candlelight shimmer inside the portrait
-The portrait has a static vignette overlay. A million-dollar detail: a very slow-moving warm radial gradient inside the portrait that drifts position over 8s, simulating reflected candlelight on piano lacquer. Barely visible (3-4% opacity) but alive.
+### Bug 2: Candlelight drift animates entire gradient (forces repaint every frame)
+Lines 1609-1611 swap the *entire* `background` shorthand each keyframe (from `radial-gradient(... at 30% 30% ...)` to `radial-gradient(... at 60% 50% ...)`). CSS cannot interpolate between two different gradient definitions — the browser must recalculate the gradient every frame. The `will-change: background-position` on line 1607 is misleading because the animation doesn't use `background-position` at all.
 
-### 4. The epigraph reveal is ordinary
-It fades in and slides up — the same reveal as every other element. The epigraph is the section's opening line, the whispered quote that sets the emotional register. It deserves a blur-to-sharp reveal (4px blur dissolving to 0) to feel like a thought materializing from memory.
+**Fix:** Use a pseudo-element approach. Set a fixed radial gradient on `.invitation-candlelight-shimmer::before` and animate its `transform: translate()` instead. Transform is GPU-composited and silky smooth. Alternatively, set the gradient once and animate `background-position` (which can interpolate).
 
-### 5. The "Yours" underline lacks a trailing glow
-The underline draws left-to-right, but it draws dry — no warmth follows the stroke. Adding a trailing glow (box-shadow that intensifies as scaleX reaches 1) would make it feel like a pen leaving warm ink.
+### Bug 3: Light bleed breathing uses `opacity: 1.4` (clamped to 1.0)
+Line 1600: the `invitation-light-breathe` keyframe goes from `opacity: 1` to `opacity: 1.4`. Since opacity is clamped at 1.0, the breathing effect only comes from the `scale(1) to scale(1.05)` transform — a nearly imperceptible 5% size change on a blurred glow that's already at 6% opacity. The breathing is essentially invisible.
 
-### 6. The CTA has no breathing glow
-The brand system specifies that CTAs breathe with a slow glow cycle (3-4s). The invitation CTA pill is static — it only responds on hover. It should have a subtle border/shadow pulse at rest, signaling it is alive and waiting.
+**Fix:** Change the keyframe to animate opacity from `0.7` to `1.0` (a visible 30% brightness shift) while keeping the scale breathing. This makes the glow pool genuinely breathe.
 
-### 7. No scroll-triggered warmth intensification
-As the visitor scrolls deeper into the section, nothing changes. At Fantasy, the ambient warmth would subtly intensify — the vow-yellow glow pools would increase by 2-3% opacity as the user reaches the CTA, creating an unconscious pull toward the threshold.
+### Bug 4: Parallax transform conflicts with Tailwind reveal class
+The image column (line 133-139) has `isVisible ? 'translate-y-0' : 'translate-y-6'` applied via Tailwind, plus `transition-all duration-[900ms]`. The scroll listener (line 41) also sets `style.transform = translateY(${offset}px)`. These conflict: after the reveal transition, Tailwind's `translate-y-0` class generates a `transform: translateY(0)` that competes with the inline style. Because Tailwind utility classes use `--tw-translate-y` CSS variables, the inline `transform` override may work — but the `transition-all` means every scroll-frame parallax update triggers a 900ms transition animation, making the parallax feel sluggish instead of immediate.
+
+**Fix:** After the reveal completes (after ~1200ms), remove the `transition-all` class from the image column so the parallax transform applies instantly. Use a `useEffect` with a timeout to switch from transition mode to parallax mode. Alternatively, apply the reveal via opacity only and handle the parallax transform entirely via the scroll listener from the start.
+
+### Bug 5: Epigraph `transition-property` inline style is redundant
+Line 209 sets `transitionProperty: 'opacity, transform, filter'` inline, but the element also has the Tailwind class `transition-all` which sets `transition-property: all`. The inline `transitionProperty` is overridden by the higher-specificity Tailwind utility. The blur transition works anyway because `transition-all` covers everything — but the explicit property list was meant to be precise.
+
+**Fix:** Replace `transition-all` with a custom transition class or remove the inline `transitionProperty` since `transition-all` already handles it. Minor but reflects intentional craft.
+
+## Additional Polish
+
+### 6. Mobile: Label and epigraph pushed far above the fold
+On mobile (390px), the image stacks above the text at `aspect-[3/2]`, taking significant vertical space. The label "THE INVITATION" and epigraph are rendered between the image and the heading. When scrolling to the section, the visitor lands mid-section and misses the epigraph entirely. The mobile reveal sequence should ensure the epigraph is visible.
+
+**Fix:** On mobile, reduce the image aspect ratio slightly or ensure the scroll-reveal triggers when the text content (not the image top) enters the viewport.
 
 ## Technical Changes
 
 ### File: `src/components/TheInvitation.tsx`
 
-1. **Add scroll-linked parallax** — Use a simple scroll listener (or CSS `transform: translateY(calc(...))`) to offset the image column at 0.92x scroll rate relative to the text column. This creates a subtle depth separation without adding a heavy parallax library. Implement via a `useEffect` with `requestAnimationFrame` throttling on scroll, applying a CSS variable `--parallax-offset` to the image column.
+1. **Fix warmth calc** — Change the two warmth-linked glow layers from `calc(1 + var(--warmth) * 0.4)` and `calc(1 + var(--warmth) * 0.5)` to `calc(0.85 + var(--warmth) * 0.15)` and `calc(0.8 + var(--warmth) * 0.2)` respectively.
 
-2. **Animate the warm light bleed** — Add a class `invitation-light-bleed` to the radial glow div behind the portrait. Define a 6s keyframe that cycles the gradient's opacity from 0.04 to 0.08 and scales it from 1 to 1.05, simulating a breathing candle glow.
+2. **Fix parallax/transition conflict** — Remove `transition-all duration-[900ms]` from the image column after the reveal completes. Add a `revealDone` state that becomes true after 1500ms when `isVisible` first triggers. When `revealDone` is true, the column drops the `transition-all` class so the parallax applies immediately each frame.
 
-3. **Add candlelight shimmer overlay inside portrait** — Add a new `div` inside the portrait frame (after the vignette), with class `invitation-candlelight-shimmer`. This is an absolutely positioned layer with a small warm radial gradient (hsla 40, 60%, 55% at 4% opacity) that drifts position via an 8s keyframe animation (top-left to center-right and back). It creates the illusion of reflected firelight on piano lacquer.
-
-4. **Enhance epigraph reveal** — Add a blur component to the epigraph's hidden state: when `!isVisible`, apply `blur(4px)` via inline style alongside the existing `opacity-0 translate-y-4`. When visible, `blur(0)`. This makes the quote materialize from fog rather than simply appearing.
-
-5. **Enhance "Yours" underline glow** — The underline already has a conditional `boxShadow`. Intensify it: when fully drawn (isVisible), the shadow should pulse once via a keyframe (`invitation-yours-glow`) that flares to `0 0 16px hsl(45 90% 65% / 0.5)` then settles to `0 0 8px hsl(45 90% 65% / 0.3)`. Apply this animation with a 1000ms delay matching the underline draw timing.
-
-6. **Add CTA breathing glow** — Add a class `invitation-cta-breathe` to the CTA link when `isVisible`. Define a 4s keyframe that pulses the border-color and box-shadow between resting state and a subtle vow-yellow glow (matching the brand's CTA breathe-glow spec).
-
-7. **Scroll-linked warmth variable** — In the scroll listener (same one as parallax), calculate a `--warmth` CSS variable (0 to 1) based on how deep the user is in the section. Apply this to the candlelight glow layers via `opacity: calc(0.10 + var(--warmth) * 0.04)` — the warm glow pools intensify by ~4% as the user reaches the CTA.
+3. **Clean up epigraph transition** — Remove the inline `transitionProperty` and replace `transition-all` with explicit `transition-[opacity,transform,filter]` in the Tailwind className.
 
 ### File: `src/index.css`
 
-8. **Add `@keyframes invitation-light-breathe`** — 6s cycle: scale 1 to 1.05, opacity 0.04 to 0.08.
+4. **Fix light bleed breathing keyframe** — Change `invitation-light-breathe` from `opacity: 1 / 1.4` to `opacity: 0.7 / 1.0`.
 
-9. **Add `@keyframes invitation-candlelight-drift`** — 8s cycle: radial gradient shifts from `30% 30%` to `60% 50%` and back, with opacity 0.03 to 0.05.
+5. **Fix candlelight shimmer to use transform** — Refactor `.invitation-candlelight-shimmer` to use a `::before` pseudo-element with a fixed radial gradient, animated via `transform: translate()` (GPU-composited) instead of swapping the gradient definition each frame. Remove the misleading `will-change: background-position`.
 
-10. **Add `@keyframes invitation-yours-glow`** — Single-fire: `0%` box-shadow 0, `40%` box-shadow flare to 16px spread, `100%` settle to 8px.
-
-11. **Add `@keyframes invitation-cta-breathe`** — 4s cycle: border-color and box-shadow pulse between resting and `hsl(var(--vow-yellow) / 0.15)` glow.
-
-12. **Add `.invitation-candlelight-shimmer` styles** — Positioned absolute, inset 0, pointer-events none, with the drift animation.
-
-13. **Add `.invitation-light-bleed` styles** — The breathing animation class.
-
-14. **Add reduced-motion fallbacks** — Disable all new animations under `prefers-reduced-motion: reduce`. The light bleed, candlelight shimmer, CTA breathe, and Yours glow all fall back to their static default states.
+6. **Add `.invitation-candlelight-shimmer` and `::before` reduced-motion fallback** — Ensure the pseudo-element animation is also disabled under `prefers-reduced-motion: reduce`.
 
 ## What This Achieves
 
-The section transforms from a polished static layout into a living, breathing space:
+Every atmospheric effect that was designed but silently broken now actually works:
 
-- **Parallax depth**: The portrait exists at a different focal plane than the text, creating physical space
-- **Breathing light**: The warm glow behind the portrait expands and contracts like a candle flame
-- **Candlelight shimmer**: Reflected light drifts across the portrait surface, making it feel like real lacquer
-- **Materialized epigraph**: The opening quote dissolves from fog, not from a CSS slide
-- **Warm ink underline**: The "Yours" underline glows as it draws, like warm calligraphy
-- **Living CTA**: The button breathes at rest, signaling it is alive and waiting
-- **Scroll warmth**: The deeper the visitor goes, the warmer the section becomes — an unconscious pull toward commitment
+- The ambient warmth genuinely intensifies as visitors scroll deeper (was clamped at 1.0)
+- The portrait glow genuinely breathes between dim and bright (was stuck at opacity 1.0)
+- The candlelight shimmer drifts smoothly at 60fps (was forcing full gradient recalculation each frame)
+- The parallax responds instantly to scroll (was fighting a 900ms CSS transition)
 
-Every one of these details is invisible individually. Together, they create the sensation of being held in a warm, candlelit room — which is exactly what the visitor should feel when Parker says "Yours could be one of them."
+These are the invisible bugs that separate "looks fine in a screenshot" from "feels alive when you scroll through it."
 
