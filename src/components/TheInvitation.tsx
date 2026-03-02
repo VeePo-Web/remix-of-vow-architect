@@ -121,7 +121,7 @@ export function TheInvitation() {
           {/* Section Label */}
           <p
             className={cn(
-              'text-xs uppercase tracking-[0.22em] text-white/40 mb-12 text-center',
+              'text-xs uppercase tracking-[0.22em] text-white/40 mb-16 text-center',
               'transition-all duration-700',
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             )}
@@ -130,7 +130,20 @@ export function TheInvitation() {
           </p>
 
           {/* Main Grid */}
-          <div className="grid md:grid-cols-[2fr_3fr] gap-12 md:gap-20 items-start">
+          <div className="relative grid md:grid-cols-[2fr_3fr] gap-12 md:gap-20 items-start">
+            {/* Desktop Golden Thread */}
+            <span
+              className={cn(
+                'hidden md:block absolute left-[40%] top-[20%] w-px h-[60%] origin-top transition-transform duration-[800ms]',
+                isVisible ? 'scale-y-100' : 'scale-y-0'
+              )}
+              style={{
+                background: 'linear-gradient(to bottom, transparent, hsl(var(--vow-yellow) / 0.15), transparent)',
+                transitionDelay: isVisible ? '800ms' : '0ms',
+              }}
+              aria-hidden="true"
+            />
+
             {/* Portrait Column */}
             <div
               ref={portraitRef}
@@ -180,7 +193,7 @@ export function TheInvitation() {
               {/* Caption with golden rule */}
               <div
                 className={cn(
-                  'flex flex-col items-center mt-5 transition-all duration-700',
+                  'flex flex-col items-center md:items-start mt-5 transition-all duration-700',
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
                 )}
                 style={{ transitionDelay: isVisible ? '400ms' : '0ms' }}
@@ -190,7 +203,7 @@ export function TheInvitation() {
                   style={{ background: 'hsl(var(--vow-yellow) / 0.5)' }}
                   aria-hidden="true"
                 />
-                <p className="text-sm font-display italic text-white/40 text-center">
+                <p className="text-sm font-display italic text-white/40 text-center md:text-left">
                   A moment with me — before the moment with you.
                 </p>
               </div>
@@ -233,9 +246,7 @@ export function TheInvitation() {
                 )}
                 style={{ transitionDelay: isVisible ? '300ms' : '0ms', textWrap: 'balance' as any }}
               >
-                I have played at over 500 events —
-                <br />
-                I know what can go{' '}
+                I have played at over 500 events — I know what can go{' '}
                 <span className="relative inline-block italic">
                   wrong
                   <span
@@ -306,12 +317,12 @@ export function TheInvitation() {
                 )}
                 style={{ transitionDelay: isVisible ? '750ms' : '0ms' }}
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center max-w-md justify-between">
                   {credentials.map((cred, i) => (
-                    <div key={cred.value} className="flex items-center gap-3">
+                    <div key={cred.value} className="flex items-center gap-3 flex-1">
                       <div
                         className={cn(
-                          'invitation-credential text-center px-6 py-4 rounded-[2px] transition-all duration-700',
+                          'invitation-credential text-center flex-1 px-6 py-4 rounded-[2px] transition-all duration-700',
                           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                         )}
                         style={{

@@ -1471,7 +1471,7 @@ All colors MUST be HSL.
     line-height: 1.5;
     font-weight: 400;
     color: hsl(0 0% 100% / 0.8);
-    max-width: 480px;
+    text-wrap: balance;
   }
 
   /* Invitation Credential — hover lift + shadow bloom */
