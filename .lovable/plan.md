@@ -1,79 +1,87 @@
 
 
-# Step 9: The Living Surface — Micro-Interaction & Hover State Mastery
+# Step 10: The Final Audit — Fantasy.co Quality Certification
 
-## Current State
+## Purpose
 
-Steps 4-8 elevated the static composition of The Preparation: letterpress declarations, embossed kit tiles, sacred typography, narrative prose, and threshold closing. But the section is currently **dead on hover**. When the visitor's cursor moves across it, almost nothing responds. The kit cells have a basic `group-hover:text-foreground` color change. The ghost CTA has a CSS underline. The declaration cards have no hover state at all. The image frame sits inert.
+This is the capstone polish pass. Steps 4-9 built the individual elements to a high standard. Step 10 audits the entire section as a unified composition and fixes the remaining gaps between "very good" and "world-class."
 
-In the Fantasy.co standard, every surface acknowledges the visitor's presence — not with entertainment, but with the quiet responsiveness of a living material. When you hover over hand-laid invitation paper, the light catches differently. When your finger approaches a gilded edge, the gold seems to warm. This is the standard.
+After thorough review, five issues remain that prevent this section from meeting the Fantasy.co standard.
 
-## Five Deficiencies
+---
 
-### A: Declaration Cards Have No Hover Response
+## Deficiency A: Border-Radius Violations
 
-The three declaration cards are beautifully composed but completely inert. On hover, nothing shifts. In the brand system, cards lift subtly (translateY -2px) over 180ms with shadow expansion. These cards should feel like individual sheets of invitation stock — when the cursor approaches, the paper catches the light and lifts imperceptibly from the surface.
+The declaration cards and kit cells use `rounded-md` (6px). The image frame uses `rounded-lg` (8px). The brand standard specifies 8px maximum, and consistency matters. All interactive cards should share the same radius. The kit cells — smaller, tighter elements — should use `rounded-sm` (4px) to signal their subordinate role in the hierarchy, while declaration cards stay at `rounded-md` (6px) and the image frame at `rounded-lg` (8px). This creates a radius hierarchy: frame > declarations > kit.
 
-**Fix:** Add hover: translateY(-2px) with shadow deepening and a subtle warm border brightening. The golden thread diamond beside the hovered card should pulse its glow momentarily. Transition at 180ms with the standard mood curve.
+**Fix in TheWitness.tsx:** Change kit cell `rounded-md` to `rounded-sm`. Verify image frame is `rounded-lg` (already correct). Verify declaration cards are `rounded-md` (already correct).
 
-### B: Kit Cells Lack Material Response
+---
 
-The kit tiles have a text color change on hover, but the tile itself does not respond. The embossed paper stock should catch light on hover — the top border brightens, the inner shadow shifts, and the diamond icon intensifies its glow. The effect should feel like tilting a letterpress card under a warm lamp.
+## Deficiency B: Missing Atmospheric Grain Inside Kit Grid
 
-**Fix:** On hover, increase top border opacity, add a subtle inner glow (box-shadow inset), and scale the diamond icon to 1.15x with increased glow radius. The text tracking could loosen by 0.02em for a micro-expansion feel. All at 180ms.
+The section has grain at the full-section level (`opacity-[0.06]`). The image frame has its own inner grain. But the kit grid area — which has a keys texture behind it — lacks its own grain layer. This makes the kit feel slightly flatter than the declarations and image frame. Every sub-region with its own background texture needs its own grain.
 
-### C: Image Frame Has No Living Depth
+**Fix in TheWitness.tsx:** Add a grain overlay div inside the kit grid container (the `relative` wrapper around the kit), positioned `absolute inset-0 -m-4` matching the keys texture positioning, at `opacity-[0.04]` (lighter than section grain, just enough for tactile paper feel).
 
-The left column image frame sits at fixed opacity with Ken Burns drift. When the visitor hovers over it, nothing changes. A living photograph should respond to attention — the vignette could lighten slightly, revealing more of the image, as though the room's candlelight flared when someone drew near.
+---
 
-**Fix:** On hover, reduce the vignette opacity from 0.75 to 0.5 and increase the image opacity from 0.35 to 0.42 over 400ms (sacred reveal tempo). The warm border glow should intensify from 0.1 to 0.18. The effect is barely perceptible but creates the sensation of leaning closer into the frame.
+## Deficiency C: Closing Quote Lacks Atmospheric Backing
 
-### D: Ghost CTA Underline Draws Statically
+The closing quote ("Now — choose how long you want me there.") has a warm glow behind it, but it sits on the same surface as everything above. In the brand system, threshold moments — the moment before a CTA — deserve a subtle shift in surface temperature. The warm glow is there but the quote text itself has no material distinction from the declarations above.
 
-The closing CTA "See my three paths" has a dash line beside it, but the hover underline (from CSS) draws uniformly. In the brand system, underlines draw from left to right with vow-yellow gradient, not appear instantly. The CTA also lacks the breathing glow backdrop that threshold CTAs should carry.
+**Fix in TheWitness.tsx:** Add a subtle horizontal golden rule (`w-10`, `h-[1px]`, vow-yellow gradient) above the closing quote, matching the thread separator above the kit but shorter and warmer. This creates a micro-threshold: the visitor crosses from inventory into invitation. Remove the duplicate golden thread rule that currently sits above the closing (the one at line 558-568), since the breathing diamond already serves as separator — having both a diamond AND a rule is redundant. Replace the rule with a tighter spacing adjustment (`mb-4` instead of `mb-6`) to bring the quote closer to the diamond, creating intimacy.
 
-**Fix:** The existing `.witness-ghost-cta` CSS already has `::before` and `::after` pseudo-elements defined. Ensure the `::after` underline uses `transform: scaleX(0)` to `scaleX(1)` with `origin-left` on hover at 250ms. The `::before` glow backdrop should intensify from 0.03 to 0.06 opacity on hover.
+---
 
-### E: Golden Thread Does Not Respond to Proximity
+## Deficiency D: Mobile Spacing Needs Tightening
 
-The vertical golden thread beside the declarations breathes on a 4s cycle, but it does not respond to which card is being hovered. In a world-class implementation, the thread segment adjacent to the hovered card would brighten momentarily — as though the gold is warming near the point of attention.
+On mobile (< 768px), the section uses the same spacing as desktop. The `mb-12` on declarations, `mb-10` on separators, and `my-10` on the breathing diamond create excessive vertical distance on small screens. The Fitzgerald scale prescribes proportional reduction on mobile.
 
-**Fix:** Use CSS sibling selectors. When a declaration card is hovered, add a CSS rule that brightens the thread's opacity in that region. Since the thread is a single element, simulate this with a transition on the thread's overall opacity from 0.3 to 0.5 when any card within the container is hovered. This is achievable with a parent-level `:hover` on the declarations container targeting the thread child.
+**Fix in TheWitness.tsx:** Add responsive spacing variants:
+- Declarations container: `mb-8 md:mb-12`
+- Thread separator after declarations: `mb-6 md:mb-10`
+- Transitional sentence: `mb-4 md:mb-6`
+- Breathing diamond: `my-6 md:my-10`
+- Closing rule spacing: `mb-3 md:mb-4`
+- CTA margin-top: `mt-4 md:mt-5`
+
+---
+
+## Deficiency E: Parallax Cleanup on Section Exit
+
+When the section scrolls out of view, the parallax transforms remain applied to the image and text columns. If the visitor scrolls quickly, they may see the columns in a shifted state before the section is fully off-screen. The parallax calculation clamps progress between 0 and 1, but extreme values (near 0 or 1) create noticeable offset.
+
+**Fix in TheWitness.tsx:** Add bounds clamping to the parallax offsets — if `progress < 0.1` or `progress > 0.9`, reduce the transform magnitude to 0 using a smooth ease-out curve. This ensures the section enters and exits the viewport in a neutral position, with parallax only active in the middle 80% of the scroll range.
+
+---
 
 ## Technical Changes
 
 ### File: `src/components/TheWitness.tsx`
 
-1. **Declaration card hover classes** — Add `hover:-translate-y-[2px]` and `hover:shadow-[0_4px_16px_rgba(0,0,0,0.08)]` to each declaration card div. Add `hover:border-[hsl(45_25%_80%_/_0.4)]` for warm border brightening. Transition already set at 700ms for reveal; add a separate `duration-[180ms]` for hover by using the existing `transition-all` (which covers both).
+1. **Kit cell radius** — Change `rounded-md` to `rounded-sm` on kit cell divs (line 496 area).
 
-2. **Kit cell hover enhancement** — Add `hover:-translate-y-[1px]` and `hover:shadow-[inset_0_1px_4px_hsl(var(--vow-yellow)_/_0.08)]` to each kit cell. The diamond inside gets `group-hover:scale-[1.15]` and `group-hover:shadow-[0_0_10px_hsl(var(--vow-yellow)_/_0.25)]`.
+2. **Kit grain overlay** — Add `<div className="absolute inset-0 -m-4 rounded-lg grain opacity-[0.04] pointer-events-none" aria-hidden="true" />` inside the kit container, after the keys texture div.
 
-3. **Image frame hover** — Add a group class to the image frame container. On hover, the image opacity transitions from 0.35 to 0.42 and the vignette overlay reduces. Use inline style with a CSS class `.witness-image-frame:hover img` selector in index.css for clean separation.
+3. **Remove duplicate closing rule** — Remove the golden thread rule div at lines 558-568 (the one directly above the closing quote). The breathing diamond already serves this purpose. Tighten `mb-6` to `mb-4` on the closing quote wrapper.
 
-4. **Thread proximity response** — Add a hover rule on the declarations container that increases the golden thread opacity. CSS: `.witness-declarations-container:hover .witness-golden-thread { opacity: 0.6; }`.
+4. **Mobile responsive spacing** — Update spacing classes throughout to use responsive `md:` variants for proper mobile proportions.
+
+5. **Parallax edge damping** — In the scroll handler, multiply transform values by a damping factor: `const damp = progress < 0.15 ? progress / 0.15 : progress > 0.85 ? (1 - progress) / 0.15 : 1;` Apply `damp` as a multiplier to all translateY values.
 
 ### File: `src/index.css`
 
-5. **Declaration card hover** — Add `.witness-declaration-card:hover` with `transform: translateY(-2px)`, `box-shadow`, and `border-color` transitions at `180ms`.
+6. **No new CSS needed** — All fixes use existing utilities and inline adjustments. The CSS from Steps 4-9 is comprehensive and does not need additions for this audit pass.
 
-6. **Declaration card diamond glow on hover** — `.witness-declaration-card:hover .witness-thread-diamond` increases `box-shadow` glow radius from 6px to 12px.
-
-7. **Kit cell material response** — `.witness-kit-cell:hover` adds inner glow, top border brightening, and micro-lift. `.witness-kit-cell:hover .witness-kit-diamond` scales to 1.15 with expanded glow.
-
-8. **Image frame living depth** — `.witness-image-frame:hover` reduces vignette, warms border glow, over 400ms sacred tempo.
-
-9. **Thread proximity** — Parent container `:hover` brightens the golden thread from 0.3 to 0.5 opacity at 250ms.
-
-10. **Reduced motion fallbacks** — Under `prefers-reduced-motion: reduce`, disable all translateY hover lifts (keep only opacity/color changes). The surface still acknowledges the visitor but without spatial movement.
+---
 
 ## What This Achieves
 
-- Every surface in the section responds to the visitor's cursor with the quiet acknowledgment of a living material
-- Declaration cards lift like individual sheets of invitation paper catching candlelight
-- Kit tiles brighten at the edges like embossed letterpress stock tilted under a warm lamp
-- The image frame opens slightly on hover, as though the room's light flared when someone drew near
-- The golden thread warms when the visitor's attention is near the declarations, connecting spatial proximity to material response
-- The ghost CTA draws its underline with directional intention rather than appearing uniformly
-- All hover states use the brand's 180ms acknowledgment tempo — never slow enough to feel deliberate, never fast enough to feel mechanical
-- Reduced motion users still receive color and opacity acknowledgment without spatial movement
+- Border-radius hierarchy (8px > 6px > 4px) creates clear visual subordination from frame to declarations to kit
+- Inner grain on the kit grid gives it the same tactile paper depth as the image frame and section background
+- Removing the duplicate separator before the closing creates a cleaner threshold: diamond pause then intimate invitation
+- Mobile spacing follows the Fitzgerald scale's proportional reduction, preventing the section from feeling stretched on small screens
+- Parallax edge damping ensures the section enters and exits cleanly, with no jarring offset at the boundaries
+- The section passes all nine North Star Questions: it honors the vigil, feels selective, tells Parker's story, reduces anxiety, breathes, starts with feeling, is provable, would satisfy Fantasy, and holds the visitor
 
