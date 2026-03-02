@@ -9,6 +9,7 @@ export function TheInvitation() {
   const imageColRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [revealDone, setRevealDone] = useState(false);
 
   // Detect reduced motion
   useEffect(() => {
@@ -18,6 +19,14 @@ export function TheInvitation() {
     mql.addEventListener('change', handler);
     return () => mql.removeEventListener('change', handler);
   }, []);
+
+  // After reveal completes, drop transition so parallax applies instantly
+  useEffect(() => {
+    if (isVisible && !revealDone) {
+      const timer = setTimeout(() => setRevealDone(true), 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible, revealDone]);
 
   // Scroll-linked parallax + warmth intensification
   useEffect(() => {
@@ -101,7 +110,7 @@ export function TheInvitation() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background: 'radial-gradient(ellipse 70% 50% at 50% 55%, hsla(40, 50%, 55%, 0.10) 0%, transparent 70%)',
-          opacity: 'calc(1 + var(--warmth) * 0.4)',
+          opacity: 'calc(0.85 + var(--warmth) * 0.15)',
         }}
         aria-hidden="true"
       />
@@ -111,7 +120,7 @@ export function TheInvitation() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background: 'radial-gradient(ellipse 50% 60% at 30% 50%, hsla(38, 60%, 50%, 0.08) 0%, transparent 60%)',
-          opacity: 'calc(1 + var(--warmth) * 0.5)',
+          opacity: 'calc(0.8 + var(--warmth) * 0.2)',
         }}
         aria-hidden="true"
       />
@@ -133,10 +142,11 @@ export function TheInvitation() {
           <div
             ref={imageColRef}
             className={cn(
-              'transition-all duration-[900ms] will-change-transform',
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              'will-change-transform',
+              !revealDone && 'transition-all duration-[900ms]',
+              isVisible ? 'opacity-100' : 'opacity-0 translate-y-6'
             )}
-            style={{ transitionDelay: isVisible ? '300ms' : '0ms' }}
+            style={{ transitionDelay: !revealDone && isVisible ? '300ms' : '0ms' }}
           >
             <div className="relative">
               {/* Warm light bleed — breathing */}
@@ -200,13 +210,12 @@ export function TheInvitation() {
             {/* Epigraph — blur-to-sharp reveal */}
             <p
               className={cn(
-                'invitation-epigraph max-w-xl transition-all duration-[700ms]',
+                'invitation-epigraph max-w-xl transition-[opacity,transform,filter] duration-[700ms]',
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               )}
               style={{
                 transitionDelay: isVisible ? '120ms' : '0ms',
                 filter: isVisible ? 'blur(0px)' : 'blur(4px)',
-                transitionProperty: 'opacity, transform, filter',
               }}
             >
               "You deserve someone who has stood where you are about to stand — and knows what it takes."
