@@ -1473,9 +1473,9 @@ All colors MUST be HSL.
   .invitation-epigraph {
     font-family: var(--font-display);
     font-style: italic;
-    font-size: clamp(16px, 2.5vw, 18px);
+    font-size: clamp(17px, 2.5vw, 20px);
     line-height: 1.8;
-    opacity: 0.5;
+    opacity: 0.6;
     color: hsl(0 0% 100%);
     max-width: 520px;
     text-wrap: balance;
@@ -1531,10 +1531,9 @@ All colors MUST be HSL.
     min-height: 44px;
     display: inline-flex;
     align-items: center;
-    border-radius: 100px;
+    border-radius: 4px;
     background: hsl(0 0% 100% / 0.04);
     border: 1px solid hsl(var(--vow-yellow) / 0.1);
-    backdrop-filter: blur(8px);
   }
   .invitation-cta::after {
     content: '';
@@ -1549,7 +1548,7 @@ All colors MUST be HSL.
     transition: transform 450ms cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 300ms ease;
   }
   .invitation-cta--pill::after {
-    bottom: 10px;
+    bottom: 9px;
     left: 28px;
     right: 28px;
   }
