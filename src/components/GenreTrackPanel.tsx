@@ -86,7 +86,7 @@ export function GenreTrackPanel({
       <div className="px-5 pt-4 pb-3" style={{ borderBottom: "1px solid hsl(var(--vow-yellow) / 0.06)" }}>
         <div className="flex items-center justify-between">
           <span
-            className="text-[11px] uppercase tracking-[0.18em] font-display font-medium text-foreground/50"
+            className="text-[11px] uppercase tracking-[0.18em] font-display font-light text-foreground/50"
             role="heading"
             aria-level={3}
           >

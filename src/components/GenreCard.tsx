@@ -27,6 +27,7 @@ interface GenreCardProps {
   isActive: boolean;
   isPlaying: boolean;
   trackCount: number;
+  reducedMotion?: boolean;
   onClick: () => void;
 }
 
@@ -38,6 +39,7 @@ export function GenreCard({
   isActive,
   isPlaying,
   trackCount,
+  reducedMotion = false,
   onClick,
 }: GenreCardProps) {
   const accent = genreAccents[id] || "hsl(var(--vow-yellow))";
@@ -53,7 +55,7 @@ export function GenreCard({
         "genre-card group relative overflow-hidden rounded-lg",
         "aspect-[4/5] w-full",
         "transition-all duration-[180ms] ease-[cubic-bezier(0.4,0,0.2,1)]",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)/0.5)]",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)/0.5)] focus-visible:ring-offset-2 focus-visible:ring-offset-[hsl(var(--rich-black))]",
         isActive && "genre-card--active"
       )}
       style={{
@@ -76,7 +78,7 @@ export function GenreCard({
         style={{
           opacity: isActive ? 0.35 : 0.2,
           filter: "blur(4px) saturate(0.6)",
-          animation: isActive && !window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "ken-burns-drift 30s ease-in-out infinite alternate" : "none",
+          animation: isActive && !reducedMotion ? "ken-burns-drift 30s ease-in-out infinite alternate" : "none",
           transition: "opacity 400ms cubic-bezier(0.4,0,0.2,1)",
         }}
         loading="lazy"
@@ -111,7 +113,7 @@ export function GenreCard({
             ? `radial-gradient(circle at 50% 40%, ${accent.replace(")", " / 0.15)")} 0%, transparent 60%)`
             : `radial-gradient(circle at 50% 40%, ${accent.replace(")", " / 0.04)")} 0%, transparent 60%)`,
           transition: "background 400ms cubic-bezier(0.4,0,0.2,1)",
-          animation: isActive && isPlaying && !window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "exhale-pulse 3.2s cubic-bezier(0.4,0,0.6,1) infinite" : "none",
+          animation: isActive && isPlaying && !reducedMotion ? "exhale-pulse 3.2s cubic-bezier(0.4,0,0.6,1) infinite" : "none",
         }}
         aria-hidden="true"
       />
