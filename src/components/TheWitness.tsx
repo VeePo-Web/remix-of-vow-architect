@@ -4,9 +4,9 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 import witnessCeremony from "@/assets/witness-setup-ai.jpg";
 
 const declarations = [
-  "I arrive before anyone else\u2014and I leave after everyone.",
+  "I arrive before anyone else\u2014and I stay until the room is empty.",
   "Every note is tested before your first guest walks in.",
-  "Your cue sheet is rehearsed until it feels like memory.",
+  "Your cue sheet is rehearsed until it feels like instinct.",
 ];
 
 const standardKit = [
