@@ -76,7 +76,7 @@ export function GenreCard({
         style={{
           opacity: isActive ? 0.35 : 0.2,
           filter: "blur(4px) saturate(0.6)",
-          animation: isActive ? "ken-burns-drift 30s ease-in-out infinite alternate" : "none",
+          animation: isActive && !window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "ken-burns-drift 30s ease-in-out infinite alternate" : "none",
           transition: "opacity 400ms cubic-bezier(0.4,0,0.2,1)",
         }}
         loading="lazy"
@@ -111,7 +111,7 @@ export function GenreCard({
             ? `radial-gradient(circle at 50% 40%, ${accent.replace(")", " / 0.15)")} 0%, transparent 60%)`
             : `radial-gradient(circle at 50% 40%, ${accent.replace(")", " / 0.04)")} 0%, transparent 60%)`,
           transition: "background 400ms cubic-bezier(0.4,0,0.2,1)",
-          animation: isActive && isPlaying ? "exhale-pulse 3.2s cubic-bezier(0.4,0,0.6,1) infinite" : "none",
+          animation: isActive && isPlaying && !window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "exhale-pulse 3.2s cubic-bezier(0.4,0,0.6,1) infinite" : "none",
         }}
         aria-hidden="true"
       />
@@ -121,30 +121,32 @@ export function GenreCard({
 
       {/* Content — label and context only */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center px-3">
-        {/* Breathing golden dot — active indicator */}
+        {/* Breathing golden dot — active indicator, idle breathe when resting */}
         <div
           className="mb-4"
           style={{
             width: "6px",
             height: "6px",
             borderRadius: "50%",
-            background: isActive ? "hsl(var(--vow-yellow))" : `${accent.replace(")", " / 0.3)")}`,
+            background: isActive ? "hsl(var(--vow-yellow))" : `${accent.replace(")", " / 0.25)")}`,
             boxShadow: isActive ? "0 0 12px hsl(var(--vow-yellow) / 0.4)" : "none",
-            animation: isActive ? "divider-diamond-breathe 3s cubic-bezier(0.4,0,0.6,1) infinite" : "none",
+            animation: isActive
+              ? "divider-diamond-breathe 3s cubic-bezier(0.4,0,0.6,1) infinite"
+              : "golden-dot-idle 6s cubic-bezier(0.4,0,0.6,1) infinite",
             transition: "background 180ms, box-shadow 180ms",
           }}
           aria-hidden="true"
         />
 
-        {/* Genre label */}
-        <span className="text-[13px] uppercase tracking-[0.18em] font-display font-medium text-foreground/80">
+        {/* Genre label — Cormorant light (300-400 rule) */}
+        <span className="text-[13px] uppercase tracking-[0.18em] font-display font-light text-foreground/80">
           {label}
         </span>
 
-        {/* Context phrase */}
+        {/* Context phrase — Inter (body sans, not display italic) */}
         <span
           className={cn(
-            "text-[11px] font-display italic text-foreground/40 mt-1.5 text-center leading-tight",
+            "text-[11px] font-sans text-foreground/40 mt-1.5 text-center leading-tight",
             "transition-opacity duration-[180ms]",
             isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
           )}
