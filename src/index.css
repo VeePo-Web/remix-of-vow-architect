@@ -1568,7 +1568,47 @@ All colors MUST be HSL.
   .invitation-cta:focus-visible {
     outline: 2px solid hsl(var(--vow-yellow) / 0.5);
     outline-offset: 2px;
-    border-radius: 100px;
+    border-radius: 4px;
+  }
+
+  /* Invitation Golden Rule — breathing animation */
+  @keyframes invitation-rule-breathe {
+    0%, 100% { opacity: 0.15; }
+    50% { opacity: 0.30; }
+  }
+
+  /* Invitation Background Ken Burns — slow counter-drift */
+  @keyframes invitation-bg-ken-burns {
+    0% { transform: scale(1) translate(0, 0); }
+    50% { transform: scale(1.02) translate(-0.3%, 0.2%); }
+    100% { transform: scale(1) translate(0, 0); }
+  }
+  .invitation-bg-ken-burns {
+    animation: invitation-bg-ken-burns 35s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  /* Invitation Golden Thread — section threshold */
+  .invitation-golden-thread {
+    width: 1px;
+    height: 40px;
+    background: hsl(var(--vow-yellow) / 0.15);
+    animation: invitation-thread-breathe 4s ease-in-out infinite;
+  }
+  @keyframes invitation-thread-breathe {
+    0%, 100% { opacity: 0.10; }
+    50% { opacity: 0.30; }
+  }
+
+  /* Reduced motion fallbacks */
+  @media (prefers-reduced-motion: reduce) {
+    .invitation-bg-ken-burns {
+      animation: none;
+    }
+    .invitation-golden-thread {
+      animation: none;
+      opacity: 0.15;
+    }
   }
 
   /* ========================================
