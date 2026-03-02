@@ -1,3 +1,4 @@
+import { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
@@ -5,18 +6,67 @@ import invitationPortrait from '@/assets/invitation-landscape-ai.jpg';
 
 export function TheInvitation() {
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.1 });
+  const imageColRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number | null>(null);
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  // Detect reduced motion
+  useEffect(() => {
+    const mql = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(mql.matches);
+    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
+
+  // Scroll-linked parallax + warmth intensification
+  useEffect(() => {
+    if (reducedMotion) return;
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const onScroll = () => {
+      if (rafRef.current) return;
+      rafRef.current = requestAnimationFrame(() => {
+        rafRef.current = null;
+        const rect = section.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const scrolled = vh - rect.top;
+        const total = rect.height + vh;
+        const progress = Math.max(0, Math.min(1, scrolled / total));
+
+        // Parallax: image column moves at 0.92x rate (subtle depth)
+        if (imageColRef.current) {
+          const offset = (progress - 0.5) * 24; // ±12px range
+          imageColRef.current.style.transform = `translateY(${offset}px)`;
+        }
+
+        // Warmth intensification: CSS variable for glow layers
+        section.style.setProperty('--warmth', `${progress}`);
+      });
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [reducedMotion]);
 
   return (
     <section
       id="the-invitation"
-      ref={sectionRef}
+      ref={sectionRef as React.RefObject<HTMLElement>}
       data-theme="life"
       role="region"
       aria-labelledby="invitation-heading"
       className="relative py-28 md:py-40 overflow-hidden invitation-texture piano-section-target"
       style={{
         background: 'linear-gradient(180deg, hsl(28 12% 16%) 0%, hsl(25 8% 8%) 100%)',
-      }}
+        // @ts-ignore CSS custom property
+        '--warmth': '0',
+      } as React.CSSProperties}
     >
       {/* Screen reader narrative */}
       <span className="sr-only">Parker's personal invitation — he plays only five weddings a year and devotes months of preparation to each one.</span>
@@ -46,20 +96,22 @@ export function TheInvitation() {
       {/* Layer 2b: Film grain */}
       <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none z-[1]" aria-hidden="true" />
 
-      {/* Layer 3: Wide candlelight glow */}
+      {/* Layer 3: Wide candlelight glow — warmth-linked */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background: 'radial-gradient(ellipse 70% 50% at 50% 55%, hsla(40, 50%, 55%, 0.10) 0%, transparent 70%)',
+          opacity: 'calc(1 + var(--warmth) * 0.4)',
         }}
         aria-hidden="true"
       />
 
-      {/* Layer 4: Warm glow pool behind image column */}
+      {/* Layer 4: Warm glow pool behind image column — warmth-linked */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background: 'radial-gradient(ellipse 50% 60% at 30% 50%, hsla(38, 60%, 50%, 0.08) 0%, transparent 60%)',
+          opacity: 'calc(1 + var(--warmth) * 0.5)',
         }}
         aria-hidden="true"
       />
@@ -77,18 +129,19 @@ export function TheInvitation() {
       <div className="container mx-auto px-4 relative z-20">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 md:gap-20 items-center">
 
-          {/* ── Left Column: Portrait Image ── */}
+          {/* ── Left Column: Portrait Image (parallax-linked) ── */}
           <div
+            ref={imageColRef}
             className={cn(
-              'transition-all duration-[900ms]',
+              'transition-all duration-[900ms] will-change-transform',
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             )}
             style={{ transitionDelay: isVisible ? '300ms' : '0ms' }}
           >
             <div className="relative">
-              {/* Warm light bleed */}
+              {/* Warm light bleed — breathing */}
               <div
-                className="absolute -inset-[40px] pointer-events-none"
+                className="absolute -inset-[40px] pointer-events-none invitation-light-bleed"
                 style={{
                   background: 'radial-gradient(ellipse at center, hsla(40, 50%, 50%, 0.06) 0%, transparent 70%)',
                 }}
@@ -110,12 +163,13 @@ export function TheInvitation() {
                 <img
                   src={invitationPortrait}
                   alt="Grand piano keys stretching into soft bokeh with a single candle flame reflected in polished black lacquer"
-                className="w-full h-full object-cover invitation-ken-burns"
+                  className="w-full h-full object-cover invitation-ken-burns"
                   loading="lazy"
                   decoding="async"
                   fetchPriority="low"
                 />
                 <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
+                {/* Vignette */}
                 <div
                   className="absolute inset-0 pointer-events-none"
                   style={{
@@ -123,6 +177,8 @@ export function TheInvitation() {
                   }}
                   aria-hidden="true"
                 />
+                {/* Candlelight shimmer — drifting reflected light */}
+                <div className="absolute inset-0 pointer-events-none invitation-candlelight-shimmer" aria-hidden="true" />
               </div>
             </div>
           </div>
@@ -141,13 +197,17 @@ export function TheInvitation() {
               The Invitation
             </p>
 
-            {/* Epigraph */}
+            {/* Epigraph — blur-to-sharp reveal */}
             <p
               className={cn(
-                'invitation-epigraph max-w-xl transition-all duration-500',
+                'invitation-epigraph max-w-xl transition-all duration-[700ms]',
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               )}
-              style={{ transitionDelay: isVisible ? '120ms' : '0ms' }}
+              style={{
+                transitionDelay: isVisible ? '120ms' : '0ms',
+                filter: isVisible ? 'blur(0px)' : 'blur(4px)',
+                transitionProperty: 'opacity, transform, filter',
+              }}
             >
               "You deserve someone who has stood where you are about to stand — and knows what it takes."
             </p>
@@ -191,6 +251,7 @@ export function TheInvitation() {
                     transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
                     width: '100%',
                     boxShadow: isVisible ? '0 0 8px hsl(45 90% 65% / 0.3)' : 'none',
+                    animation: isVisible ? 'invitation-yours-glow 800ms cubic-bezier(0.22, 0.61, 0.36, 1) 1700ms both' : 'none',
                   }}
                 />
               </span>{' '}
@@ -230,7 +291,7 @@ export function TheInvitation() {
               <span className="text-[hsl(var(--vow-yellow))] opacity-60">— what was playing when you knew.</span>
             </p>
 
-            {/* CTA */}
+            {/* CTA — breathing glow */}
             <div
               className={cn(
                 'mt-10 transition-all duration-700',
@@ -240,7 +301,10 @@ export function TheInvitation() {
             >
               <Link
                 to="/about"
-                className={cn('invitation-cta invitation-cta--pill', isVisible && 'is-visible')}
+                className={cn(
+                  'invitation-cta invitation-cta--pill',
+                  isVisible && 'is-visible invitation-cta-breathe'
+                )}
               >
                 Meet the witness
                 <span className="invitation-cta-rule" aria-hidden="true" />
