@@ -1,73 +1,61 @@
 
 
-# Round 53 — "The Invitation": Fantasy.co-Level Visual Transformation
+# Round 54 — "The Invitation": Final Polish and Mobile Refinement
 
-## Current State Audit
+## Current State
 
-The Invitation section currently has solid architectural bones: scroll-reveal orchestration, Ken Burns image drift, golden rule dividers, credential cards with hover lift, CTA with extending en-dash, and invitation-texture paper overlay. The copy is strong and brand-aligned.
+Round 53 added atmospheric depth layers, cinematic double-frame, unified credential plaque, semantic reveal choreography, and CTA glass pill. The section is now structurally complete and visually rich on desktop.
 
-However, against a Fantasy.co benchmark, several issues prevent this section from reaching world-class status:
+## Critique: What Still Falls Below Fantasy.co Standard
 
----
+### 1. Mobile Credential Plaque Breaks Layout
+The credential plaque uses fixed `px-8` horizontal padding per cell. On viewports below 380px, the three cells overflow or compress text awkwardly. The plaque needs responsive padding and a stacked layout for very small screens.
 
-## Critique: What Falls Below Fantasy.co Standard
+### 2. Image Frame Outer Outline Invisible on Some Displays
+The `outline: 1px solid hsl(var(--vow-yellow) / 0.06)` with `outlineOffset: 4px` is so faint it registers on retina displays but vanishes on standard monitors. This creates inconsistent perceived quality. The opacity should increase slightly to 0.10.
 
-### 1. Flat, Single-Layer Visual Depth
-The section has a background gradient and a 3% opacity image texture, but the overall feel is flat. Fantasy.co sections use multiple atmospheric depth layers --- soft radial light sources, edge vignettes, and subtle warm light bleeds that create a sense of physical space. The current warm glow layer (`hsla(40, 50%, 55%, 0.05)`) is too faint to register emotionally. The section lacks a sense of "being inside a room."
+### 3. Section Transition Seams Are Visible
+The top fade uses `hsl(240 9% 4%)` and the bottom fade uses `hsl(220 15% 8%)`, but the section body uses `hsl(30 8% 12%)`. These hue mismatches create subtle visible seams where the gradient doesn't blend perfectly into neighboring sections. The fade colors should sample from the actual adjacent section backgrounds.
 
-### 2. Image Frame Lacks Cinematic Polish
-The portrait frame has a `1px solid` border and `inset box-shadow`, but the treatment feels CSS-basic rather than photographic. Fantasy.co image frames use double-border techniques (inner + outer), subtle corner emboss effects, and warm light bleeds around the frame edges that make images feel like they're printed on fine paper and lit by candlelight.
+### 4. Epigraph Line-Height Feels Cramped at Mobile Sizes
+The `.invitation-epigraph` uses a fixed `18px` font-size. On mobile, this doesn't scale and the `line-height: 1.7` feels tight when the text wraps to 4+ lines. A fluid `clamp()` size and slightly increased mobile line-height would improve readability.
 
-### 3. Credential Cards Feel Generic
-The three credential stat cards (`500+`, `SOCAN`, `$4M`) use basic glass-morphism (`bg white/3, backdrop-blur, border yellow/8`). They hover-lift individually but lack cohesion as a group. Fantasy.co credential displays would use a unified container with internal dividers, creating a more refined "engraved plaque" feel rather than three separate floating chips.
-
-### 4. Transition Timing Is Too Uniform
-Every element uses `duration-700` with linearly incrementing delays (150ms, 250ms, 350ms...). This creates a "waterfall" effect that feels mechanical. Fantasy.co choreography groups elements into semantic clusters (intro cluster, image cluster, copy cluster, CTA cluster) with varied timings --- faster for small elements, slower for the hero image.
-
-### 5. CTA Lacks Gravitas
-The "Meet the witness" CTA is styled as italic text with an extending en-dash. While the en-dash animation is a nice touch, the CTA itself lacks the visual weight needed for a primary action. It needs a subtle container or more defined hover state to signal interactivity without breaking the quiet luxury feel.
+### 5. No Grain Layer on Section Background
+The image frame has a grain overlay, but the section background itself has no grain. This creates a material discontinuity --- the image feels textured and physical while the surrounding space feels digitally flat. A very subtle full-section grain (1-2% opacity) would unify the material language.
 
 ---
 
 ## 5-Step Implementation Plan
 
-### Step 1: Deepen Atmospheric Lighting
+### Step 1: Make Credential Plaque Responsive
 
-Add a warm candlelight radial glow emanating from behind the image frame area (at roughly 60% vertical position). Increase the existing warm glow layer from 0.05 to 0.08 opacity. Add a second, tighter glow centered on the image that simulates reflected light from the piano keys in the photo. Add a very subtle horizontal light streak across the section at the image midpoint.
+Add a responsive breakpoint so that on screens below `sm` (640px), the plaque cells reduce padding from `px-8` to `px-5` and the stat font-size drops from `text-2xl` to `text-xl`. Below 380px, stack the cells vertically with horizontal golden dividers instead of vertical ones. This ensures the plaque never overflows.
 
-**File**: `TheInvitation.tsx` --- modify the atmospheric depth layers (lines 26-56). Add one additional radial gradient layer with warmer color temperature and tighter radius. Adjust existing glow layer opacity.
+**File**: `TheInvitation.tsx` --- update credential cell classes with responsive variants (`px-5 sm:px-8`, `text-xl sm:text-2xl`). Add a `flex-col sm:flex-row` on the plaque container. Change dividers to render as `w-10 h-px` on mobile vs `w-px h-10` on desktop using responsive classes.
 
-### Step 2: Elevate Image Frame to Cinematic Standard
+### Step 2: Strengthen Outer Frame Outline
 
-Replace the single `1px border` with a double-frame treatment: an outer 1px border at lower opacity and an inner inset shadow that creates a "matted" effect. Add a warm light bleed glow around the frame exterior (not just inset). Increase the Ken Burns scale range slightly from 1.025 to 1.035 for more perceptible drift.
+Increase the outer outline opacity from `0.06` to `0.10` and adjust the `outlineOffset` from `4px` to `6px` for slightly more breathing room. This makes the double-frame treatment perceptible across all display types without being heavy.
 
-**File**: `TheInvitation.tsx` --- update the image frame div styles (lines 113-134). Update `box-shadow` to include both inset and exterior glow.
-**File**: `index.css` --- update `invitation-ken-burns` keyframe scale from 1.025 to 1.035.
+**File**: `TheInvitation.tsx` --- update the `outline` and `outlineOffset` style values on the image frame div.
 
-### Step 3: Refine Credential Display
+### Step 3: Fix Section Fade Seams
 
-Replace the three separate credential cards with a single unified container that has internal golden dividers. The container gets the glass treatment; the individual items become cells within it. Remove individual card borders and backgrounds, applying them to the parent container instead. This creates the "engraved plaque" look.
+Update the top gradient to sample from the actual previous section's background color (the VowMoment section uses near-black `hsl(240 9% 4%)`). Update the bottom gradient to match the next section (TheSound, which uses `hsl(220 15% 6%)`). Verify these match by checking the adjacent components.
 
-**File**: `TheInvitation.tsx` --- restructure the credentials section (lines 250-282). Move the glass styling from individual `.invitation-credential` divs to the parent wrapper. Keep the golden vertical dividers but make them part of the unified container's internal structure.
+**File**: `TheInvitation.tsx` --- update the `background` values on the top and bottom fade divs.
 
-### Step 4: Choreograph Reveal Timing into Semantic Groups
+### Step 4: Make Epigraph Typography Fluid
 
-Reorganize transition delays into three clusters instead of a linear waterfall:
-- **Cluster 1 (Intro)**: Label + Epigraph + Rule 1 at 0ms, 120ms, 200ms (fast, light elements)
-- **Cluster 2 (Image)**: Image frame + Caption at 400ms, 600ms (slower, heavier element)  
-- **Cluster 3 (Copy + CTA)**: Headline + Body + Assurance + CTA at 300ms, 450ms, 550ms, 650ms (medium pace for reading flow)
-- **Cluster 4 (Credentials)**: Rule 3 + Credentials at 800ms, 900ms (final anchor)
+Change `.invitation-epigraph` from fixed `18px` to `clamp(16px, 2.5vw, 18px)` and increase `line-height` to `1.8` for better mobile readability. Also add `text-wrap: balance` to prevent orphaned words.
 
-Also vary durations: small elements at 500ms, image at 900ms, text at 700ms.
+**File**: `index.css` --- update `.invitation-epigraph` font-size and line-height.
 
-**File**: `TheInvitation.tsx` --- update all `transitionDelay` and `duration-*` values throughout the component.
+### Step 5: Add Full-Section Grain Layer
 
-### Step 5: Strengthen CTA with Subtle Container Treatment
+Add a grain overlay to the entire section background at 2% opacity, using the existing `.grain` class that is already applied inside the image frame. Position it as an additional absolute layer beneath the content but above the atmospheric glows. This unifies the material feel.
 
-Add a semi-transparent container behind the CTA text --- not a full button, but a subtle pill shape with the same glass material as the credentials. On hover, the container warms slightly and the text transitions to vow-yellow. The extending en-dash and underline animations remain. Add `focus-visible` ring for accessibility.
-
-**File**: `TheInvitation.tsx` --- wrap the CTA Link in an additional styled container (lines 220-227).
-**File**: `index.css` --- update `.invitation-cta` styles to include the container treatment and focus-visible state.
+**File**: `TheInvitation.tsx` --- add one more `div` with `className="absolute inset-0 grain opacity-[0.02] pointer-events-none"` after the atmospheric layers.
 
 ---
 
@@ -75,18 +63,17 @@ Add a semi-transparent container behind the CTA text --- not a full button, but 
 
 | Step | File | Change |
 |------|------|--------|
-| 1 | `TheInvitation.tsx` | Deeper atmospheric glow layers |
-| 2 | `TheInvitation.tsx`, `index.css` | Cinematic double-frame + Ken Burns 1.035 |
-| 3 | `TheInvitation.tsx` | Unified credential plaque container |
-| 4 | `TheInvitation.tsx` | Semantic cluster reveal choreography |
-| 5 | `TheInvitation.tsx`, `index.css` | CTA glass pill + focus-visible |
+| 1 | `TheInvitation.tsx` | Responsive credential plaque layout |
+| 2 | `TheInvitation.tsx` | Stronger outer frame outline |
+| 3 | `TheInvitation.tsx` | Corrected fade seam colors |
+| 4 | `index.css` | Fluid epigraph typography |
+| 5 | `TheInvitation.tsx` | Full-section grain layer |
 
 ## What This Achieves
 
-- The section gains physical depth through layered warm lighting, feeling like a candlelit room rather than a flat dark page
-- The image frame looks matted and gallery-printed, not CSS-bordered
-- Credentials read as a single refined plaque rather than three floating chips
-- Reveal choreography feels organic and intentional rather than mechanical
-- CTA has proper visual weight and accessibility without breaking quiet luxury
-- All changes use existing CSS custom properties and brand tokens --- no new dependencies
+- The credential plaque is usable and elegant on all screen sizes down to 320px
+- The double-frame treatment is visible on all display types, not just retina
+- Section transitions are seamless with no hue-shift seams
+- Epigraph text is comfortable to read on mobile with balanced line breaks
+- The entire section shares a unified physical "paper" material feel, not just the image
 
