@@ -22,9 +22,12 @@ const standardKit = [
 export function TheWitness() {
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.15 });
 
-  // Refs for parallax
+  // Refs for parallax (3-layer depth stack)
   const sectionElRef = useRef<HTMLElement | null>(null);
   const imageColRef = useRef<HTMLDivElement>(null);
+  const textColRef = useRef<HTMLDivElement>(null);
+  const bgImageRef = useRef<HTMLImageElement>(null);
+  const fogPrimaryRef = useRef<HTMLDivElement>(null);
 
   // Reduced motion detection
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -48,7 +51,7 @@ export function TheWitness() {
     (sectionRef as React.MutableRefObject<HTMLElement | null>).current = node;
   }, [sectionRef]);
 
-  // Step 2: Scroll-linked parallax + warmth variable
+  // Step 2: Scroll-linked parallax (3-layer depth) + warmth variable
   useEffect(() => {
     if (reducedMotion || !revealDone) return;
 
@@ -57,7 +60,10 @@ export function TheWitness() {
       rafId = requestAnimationFrame(() => {
         const section = sectionElRef.current;
         const imageCol = imageColRef.current;
-        if (!section || !imageCol) return;
+        const textCol = textColRef.current;
+        const bgImage = bgImageRef.current;
+        const fogPrimary = fogPrimaryRef.current;
+        if (!section) return;
 
         const rect = section.getBoundingClientRect();
         const viewH = window.innerHeight;
@@ -69,9 +75,25 @@ export function TheWitness() {
         // Warmth: 0 → 1 as visitor scrolls deeper
         section.style.setProperty('--witness-warmth', String(progress));
 
-        // Parallax offset for image column (slower scroll = moves up relative to text)
-        const offset = (progress - 0.5) * 40 * 0.08; // subtle ~±1.6px
-        imageCol.style.transform = `translateY(${offset}px)`;
+        // A. Image column parallax: ±15px (medium speed layer)
+        if (imageCol) {
+          imageCol.style.transform = `translateY(${(progress - 0.5) * 30}px)`;
+        }
+
+        // B. Text column counter-parallax: ±4px (fastest layer, opposite direction)
+        if (textCol) {
+          textCol.style.transform = `translateY(${(progress - 0.5) * -8}px)`;
+        }
+
+        // C. Background image parallax: ±3px (slowest layer, maintains Ken Burns scale)
+        if (bgImage) {
+          bgImage.style.transform = `translateY(${(progress - 0.5) * 6}px) scale(1.05)`;
+        }
+
+        // D. Primary fog vertical drift: light source appears overhead
+        if (fogPrimary) {
+          fogPrimary.style.backgroundPosition = `50% ${40 - progress * 5}%`;
+        }
       });
     };
 
@@ -80,6 +102,11 @@ export function TheWitness() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
       cancelAnimationFrame(rafId);
+      // Reset transforms on cleanup
+      if (imageColRef.current) imageColRef.current.style.transform = '';
+      if (textColRef.current) textColRef.current.style.transform = '';
+      if (bgImageRef.current) bgImageRef.current.style.transform = '';
+      if (fogPrimaryRef.current) fogPrimaryRef.current.style.backgroundPosition = '';
     };
   }, [reducedMotion, revealDone]);
 
@@ -109,8 +136,9 @@ export function TheWitness() {
         <img
           src={witnessKeys}
           alt=""
+          ref={bgImageRef}
           className="absolute inset-0 w-full h-full object-cover witness-bg-drift"
-           style={{
+          style={{
             opacity: 0.10,
             filter: 'saturate(0.4) sepia(0.2) contrast(1.15) brightness(0.85)',
             willChange: 'transform',
@@ -122,6 +150,7 @@ export function TheWitness() {
 
       {/* ── Layer 2a: Primary warm fog (amber cloud near image column) ── */}
       <div
+        ref={fogPrimaryRef}
         className="absolute inset-0 pointer-events-none"
         style={{
           background: 'radial-gradient(ellipse at 40% 40%, hsl(40 45% 80% / 0.08) 0%, transparent 80%)',
@@ -252,7 +281,7 @@ export function TheWitness() {
           </div>
 
           {/* ── RIGHT COLUMN: Text Content ── */}
-          <div className="flex flex-col pt-2 md:pt-0">
+          <div ref={textColRef} className="flex flex-col pt-2 md:pt-0">
             {/* Label */}
             <p
               className={cn(
