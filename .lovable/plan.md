@@ -1,115 +1,57 @@
 
 
-# The Invitation — Ceremony-Grade Elevation
+# The Invitation — Ceremony-Grade Polish Pass
 
-## Current State
+## Current Assessment
 
-The section sits between VowMoment (dark altar interstitial) and TheSound (dark listening environment) — correctly positioned as a warm "exhale" in the breathing rhythm. However, compared to the atmospheric depth achieved in TheTransformation, TheSound, and TheWitness, this section feels visually thin:
+The two-column asymmetric layout, rewritten copy, and atmospheric layers from the previous plan are solid. However, several details still undercut the section's ceremony quality:
 
-1. **Atmospheric layers are underweight.** The background image sits at 4% opacity (brand minimum is 6-15%). Grain is at 0.02 (standard is 0.10-0.15). The gradient range is nearly imperceptible (hsl 30 8% 12% to hsl 25 6% 10% — a 2% lightness shift).
+### Issues Found
 
-2. **Layout is monotonously centered.** Every element is stacked vertically in the center — label, epigraph, rule, image, rule, heading, body, assurance, CTA, rule, credentials. Eleven centered elements create a "vendor landing page" rhythm. No asymmetry, no visual surprise, no compositional tension.
+1. **CTA pill uses `border-radius: 100px`** — a fully rounded pill shape. The brand system explicitly prohibits rounded corners larger than 8px. This reads as a consumer SaaS button, not a sacred invitation. The pill also has `backdrop-filter: blur(8px)` which is glassmorphism.
 
-3. **The narrative is confused.** The heading "I have played at over 500 events — I know what can go wrong" and the body about wind stealing vows duplicate TheTransformation's fears-and-resolutions arc. This section should be about invitation — meeting Parker, establishing personal connection, signaling selectivity. Not about risk mitigation (that belongs in TheTransformation).
+2. **Image double-border effect** — The `outline: 1px solid ... / 0.10` with `outlineOffset: 6px` creates a visible double-frame that reads as a CSS demo effect rather than a considered photographic frame. The inner `boxShadow` already provides the frame quality; the outline is redundant.
 
-4. **The credential plaque uses glassmorphism** (`backdrop-filter: blur(12px)`, semi-transparent background) which reads as a UI widget, not a sacred object.
+3. **The warm gradient is nearly invisible.** The gradient runs from `hsl(30 10% 14%)` to `hsl(28 8% 9%)` — a 5% lightness shift on a very dark base. The section should feel like a warm exhale between two dark sections (VowMoment above, TheSound below), but it reads as another dark void. The background image at 8% opacity with a 1px blur is also barely contributing.
 
-5. **The CTA "Meet the witness"** links to `/about`, which is correct, but it is wrapped in a pill container that draws too much attention to itself.
+4. **Text opacity is too low.** The epigraph sits at `opacity: 0.5` via CSS class. Body text at `text-white/55`. These are below the WCAG AA contrast threshold on a dark background. The text should be readable without straining — `text-white/65` for body, epigraph at 0.6 minimum.
 
-## The Redesign — Two-Column Asymmetric Layout
-
-The section should shift from a centered vertical stack to an **asymmetric two-column layout** on desktop — image on one side, intimate personal copy on the other. This mirrors TheWitness section's approach and creates visual variety in the page rhythm.
-
-### Architecture
-
-```text
-Desktop (md+):
-+---------------------------+-----------------------------+
-|                           |                             |
-|   [Portrait Image]        |   THE INVITATION            |
-|   3:4 aspect ratio        |                             |
-|   with warm frame         |   Epigraph quote            |
-|   and Ken Burns drift     |   ---                       |
-|                           |   Personal narrative         |
-|                           |   (2-3 short paragraphs)    |
-|                           |                             |
-|                           |   CTA: Meet the witness     |
-|                           |                             |
-|                           |   Credentials (inline)      |
-+---------------------------+-----------------------------+
-
-Mobile:
-Stacked — image first (full-width, 3:2 crop), then copy below
-```
-
-### Content Rewrite
-
-Remove the "500 events / what can go wrong" copy (that belongs in TheTransformation). Replace with first-person intimate narrative that matches the section's purpose — inviting the visitor to meet Parker:
-
-- Epigraph stays: "You deserve someone who has stood where you are about to stand — and knows what it takes."
-- New body copy: Focus on Parker's approach — the months of preparation, the personal collaboration, the reason he plays only 5-10 weddings a year. Frame it as an invitation to begin a conversation, not a sales pitch about risk.
-- Assurance reframed: From "every part of my process exists so that never happens to you" to something that signals selectivity and devotion.
-
-### Atmospheric Depth Upgrade
-
-- Background image opacity from 0.04 to 0.08
-- Grain from 0.02 to 0.06
-- Gradient widened: from a 2% shift to a meaningful warm gradient (hsl 30 10% 14% to hsl 28 8% 9%)
-- Add a secondary warm candlelight glow pool positioned behind the image column
-- Add a subtle warm vignette for depth
-
-### Credential Treatment
-
-Replace the glassmorphism plaque with inline text credentials — three items separated by en-dashes or golden dots, rendered as a single line of small uppercase text. No container, no border, no blur. Just text with quiet authority.
+5. **The label "THE INVITATION"** is fine but could benefit from a subtle vow-yellow accent to distinguish it from generic meta text.
 
 ## Technical Changes
 
 ### File: `src/components/TheInvitation.tsx`
 
-1. **Layout restructure:** Replace the single centered `max-w-4xl` column with a two-column grid (`grid md:grid-cols-2 gap-16 md:gap-20 items-center`). Image in left column, copy in right column.
+1. **Remove image outline/outlineOffset** (lines 104-105) — delete the `outline` and `outlineOffset` properties from the frame style. The existing `border` and `boxShadow` provide sufficient framing.
 
-2. **Image treatment:** Change from centered `aspect-[3/2]` to left-column `aspect-[3/4]` portrait crop on desktop (more intimate, vertical framing). Keep `aspect-[3/2]` on mobile (full-width). Maintain Ken Burns drift, warm frame border, and inner vignette.
+2. **Increase body text opacity** — Change `text-white/55` to `text-white/65` on both body paragraphs (lines 199, 209) for better readability.
 
-3. **Copy restructure:** Right column contains: label, epigraph, golden rule, heading (rewritten), 2-3 body paragraphs (rewritten), CTA, and inline credentials. All left-aligned on desktop, centered on mobile.
+3. **Warm the background gradient** — Shift the gradient to create a more visible warm atmosphere: from `hsl(30 10% 14%)` to `hsl(28 12% 16%)` at 0%, and `hsl(25 8% 8%)` at 100%. This widens the lightness range and adds perceptible warmth.
 
-4. **Heading rewrite:** From "I have played at over 500 events — I know what can go wrong" to something that signals invitation and personal devotion — e.g., "I play five weddings a year. Yours could be one of them." with the italic underline on "yours."
+4. **Increase background image opacity** — From 0.08 to 0.10, and reduce blur from 1px to 0px. The image should provide subtle texture, not just a vague smudge.
 
-5. **Body rewrite:** Remove the fear-based copy (wind, hum, back row — that is TheTransformation's territory). Replace with intimate first-person narrative about the collaborative process, the months of preparation, the personal connection Parker builds with each couple.
+5. **Add a label accent** — Change the label color from `text-white/50` to include a subtle vow-yellow tint: `text-[hsl(45_60%_70%_/_0.5)]` to subtly signal this is a section name, not generic metadata.
 
-6. **Assurance rewrite:** Reframe from risk-mitigation to devotion — e.g., "Every arrangement I write begins with a single question — what was playing when you knew."
+### File: `src/index.css`
 
-7. **Credential treatment:** Replace the glassmorphism plaque `div` with a single `p` element: "500+ events · SOCAN licensed · $4M insured" in `text-xs uppercase tracking-[0.22em] text-white/40`.
+6. **Fix CTA pill border-radius** — Change `.invitation-cta--pill` `border-radius` from `100px` to `4px`. Remove `backdrop-filter: blur(8px)`. This transforms it from a SaaS pill into a quiet, considered invitation button.
 
-8. **Atmospheric layers:** Increase background image opacity to 0.08, grain to 0.06, widen gradient range, add warm glow pool behind image column.
+7. **Fix CTA pill after pseudo-element** — Update `.invitation-cta--pill::after` positioning to match the new border-radius (adjust bottom/left/right to sit flush with the 4px radius).
 
-9. **Remove caption** ("A moment with me — before the moment with you") — this is an unnecessary element that adds clutter. The image speaks for itself.
+8. **Increase epigraph opacity** — Change `.invitation-epigraph` `opacity` from `0.5` to `0.6`.
 
-10. **Remove the three golden rules** between clusters — reduce to a single rule between the epigraph and the main content. Fewer decorative elements creates more ceremony.
-
-### Stagger Choreography
-
-- Label: 0ms
-- Epigraph: 120ms
-- Golden rule: 200ms
-- Image (left column): 300ms, duration 900ms (heavy element, slow reveal)
-- Heading: 400ms
-- Body paragraphs: 500ms, 600ms
-- Assurance: 700ms
-- CTA: 800ms
-- Credentials: 900ms
+9. **Increase epigraph font size** — Nudge from `clamp(16px, 2.5vw, 18px)` to `clamp(17px, 2.5vw, 20px)` so the opening quote has more presence.
 
 ## What This Achieves
 
-| Current | Upgraded |
-|---------|----------|
-| Centered vertical stack (11 elements) | Asymmetric two-column (image + copy) |
-| Fear-based copy (duplicates TheTransformation) | Invitation-focused intimate narrative |
-| Background image at 4% opacity | Background at 8% with warm glow pool |
-| Grain at 0.02 | Grain at 0.06 |
-| Glassmorphism credential plaque | Inline text credentials |
-| Three golden rules between clusters | Single rule for cleaner rhythm |
-| Caption below image | Removed (image speaks for itself) |
-| Monotonous centered layout | Compositional tension and visual variety |
+| Before | After |
+|--------|-------|
+| CTA pill with 100px radius (SaaS) | CTA with 4px radius (considered) |
+| Image double-border outline effect | Single warm border frame |
+| Background barely warm (14% to 9% lightness) | Visible warm gradient (16% to 8%) |
+| Body text at 55% opacity (hard to read) | Body text at 65% opacity (comfortable) |
+| Epigraph at 50% opacity, 16-18px | Epigraph at 60% opacity, 17-20px |
+| Glassmorphism blur on CTA | No blur, clean surface |
 
-The section transforms from a centered vendor bio page into an intimate, asymmetric invitation — the visitor sees Parker's portrait on one side and reads his first-person promise on the other. The layout creates the feeling of sitting across from someone, not reading a brochure.
+The section moves from "implemented correctly" to "ceremony-grade" — every detail passes the North Star test without requiring structural changes.
 
