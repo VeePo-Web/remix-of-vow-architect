@@ -1,14 +1,7 @@
-import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import invitationPortrait from '@/assets/invitation-landscape-ai.jpg';
-
-const credentials = [
-  { value: '500+', label: 'Events' },
-  { value: 'SOCAN', label: 'Licensed' },
-  { value: '$4M', label: 'Insured' },
-];
 
 export function TheInvitation() {
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.1 });
@@ -21,7 +14,7 @@ export function TheInvitation() {
       aria-labelledby="invitation-heading"
       className="relative py-28 md:py-40 overflow-hidden invitation-texture piano-section-target"
       style={{
-        background: 'linear-gradient(180deg, hsl(30 8% 12%) 0%, hsl(25 6% 10%) 100%)',
+        background: 'linear-gradient(180deg, hsl(30 10% 14%) 0%, hsl(28 8% 9%) 100%)',
       }}
     >
       {/* === ATMOSPHERIC DEPTH LAYERS === */}
@@ -33,50 +26,41 @@ export function TheInvitation() {
           backgroundImage: `url(${invitationPortrait})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          opacity: 0.04,
+          opacity: 0.08,
           filter: 'saturate(0.5) contrast(1.1) blur(1px)',
         }}
         aria-hidden="true"
       />
 
-      {/* Layer 2: Top fade into previous section (matches VowMoment bg) */}
+      {/* Layer 2: Top fade */}
       <div
         className="absolute top-0 left-0 right-0 h-[120px] z-10 pointer-events-none"
         style={{ background: 'linear-gradient(to top, transparent, hsl(240 9% 4%))' }}
         aria-hidden="true"
       />
 
-      {/* Layer 2b: Full-section grain for unified material feel */}
-      <div className="absolute inset-0 grain opacity-[0.02] pointer-events-none z-[1]" aria-hidden="true" />
+      {/* Layer 2b: Film grain */}
+      <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none z-[1]" aria-hidden="true" />
 
-      {/* Layer 3: Primary warm candlelight glow — wider, behind the image */}
+      {/* Layer 3: Wide candlelight glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse 70% 50% at 50% 55%, hsla(40, 50%, 55%, 0.08) 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse 70% 50% at 50% 55%, hsla(40, 50%, 55%, 0.10) 0%, transparent 70%)',
         }}
         aria-hidden="true"
       />
 
-      {/* Layer 4: Secondary tight glow — simulates reflected light from piano keys */}
+      {/* Layer 4: Warm glow pool behind image column */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse 40% 30% at 50% 45%, hsla(38, 60%, 50%, 0.06) 0%, transparent 60%)',
+          background: 'radial-gradient(ellipse 50% 60% at 30% 50%, hsla(38, 60%, 50%, 0.08) 0%, transparent 60%)',
         }}
         aria-hidden="true"
       />
 
-      {/* Layer 5: Horizontal light streak at image midpoint */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'linear-gradient(180deg, transparent 40%, hsla(40, 40%, 50%, 0.025) 48%, hsla(40, 40%, 50%, 0.025) 52%, transparent 60%)',
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Layer 6: Edge vignette for depth */}
+      {/* Layer 5: Edge vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -85,70 +69,30 @@ export function TheInvitation() {
         aria-hidden="true"
       />
 
-      {/* === CONTENT === */}
+      {/* === CONTENT — Two-Column Asymmetric === */}
       <div className="container mx-auto px-4 relative z-20">
-        <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 md:gap-20 items-center">
 
-          {/* ── Cluster 1: Intro (fast, light) ── */}
-
-          {/* Label */}
-          <p
-            className={cn(
-              'text-xs uppercase tracking-[0.22em] text-white/50 mb-12',
-              'transition-all duration-500',
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            )}
-          >
-            The Invitation
-          </p>
-
-          {/* Epigraph */}
-          <p
-            className={cn(
-              'invitation-epigraph max-w-xl mx-auto transition-all duration-500',
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            )}
-            style={{ transitionDelay: isVisible ? '120ms' : '0ms' }}
-          >
-            "You deserve someone who has stood where you are about to stand — and knows what it takes."
-          </p>
-
-          {/* Golden Rule 1 */}
-          <span
-            className={cn(
-              'block w-12 h-px my-12 transition-all duration-500',
-              isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
-            )}
-            style={{
-              background: 'hsl(var(--vow-yellow) / 0.25)',
-              transitionDelay: isVisible ? '200ms' : '0ms',
-              willChange: 'transform',
-            }}
-            aria-hidden="true"
-          />
-
-          {/* ── Cluster 2: Image (slow, heavy) ── */}
-
-          {/* Portrait — wide cinematic crop */}
+          {/* ── Left Column: Portrait Image ── */}
           <div
             className={cn(
-              'w-full transition-all duration-[900ms]',
+              'transition-all duration-[900ms]',
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             )}
-            style={{ transitionDelay: isVisible ? '400ms' : '0ms' }}
+            style={{ transitionDelay: isVisible ? '300ms' : '0ms' }}
           >
             <div className="relative">
-              {/* Warm light bleed around frame exterior */}
+              {/* Warm light bleed */}
               <div
                 className="absolute -inset-[40px] pointer-events-none"
                 style={{
-                  background: 'radial-gradient(ellipse at center, hsla(40, 50%, 50%, 0.05) 0%, transparent 70%)',
+                  background: 'radial-gradient(ellipse at center, hsla(40, 50%, 50%, 0.06) 0%, transparent 70%)',
                 }}
                 aria-hidden="true"
               />
-              {/* Cinematic double-frame */}
+              {/* Frame */}
               <div
-                className="invitation-portrait-frame aspect-[3/2] overflow-hidden relative rounded-sm"
+                className="aspect-[3/2] md:aspect-[3/4] overflow-hidden relative rounded-sm"
                 style={{
                   border: '1px solid hsl(var(--vow-yellow) / 0.12)',
                   boxShadow: [
@@ -164,7 +108,7 @@ export function TheInvitation() {
                 <img
                   src={invitationPortrait}
                   alt="Grand piano keys stretching into soft bokeh with a single candle flame reflected in polished black lacquer"
-className="w-full h-full object-cover invitation-ken-burns"
+                  className="w-full h-full object-cover invitation-ken-burns"
                   loading="lazy"
                   decoding="async"
                 />
@@ -178,161 +122,138 @@ className="w-full h-full object-cover invitation-ken-burns"
                 />
               </div>
             </div>
+          </div>
 
-            {/* Caption */}
+          {/* ── Right Column: Copy ── */}
+          <div className="text-center md:text-left">
+
+            {/* Label */}
             <p
               className={cn(
-                'text-sm font-display italic text-white/50 mt-5 transition-all duration-700',
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
+                'text-xs uppercase tracking-[0.22em] text-white/50 mb-8',
+                'transition-all duration-500',
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              )}
+            >
+              The Invitation
+            </p>
+
+            {/* Epigraph */}
+            <p
+              className={cn(
+                'invitation-epigraph max-w-xl transition-all duration-500',
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              )}
+              style={{ transitionDelay: isVisible ? '120ms' : '0ms' }}
+            >
+              "You deserve someone who has stood where you are about to stand — and knows what it takes."
+            </p>
+
+            {/* Golden Rule */}
+            <span
+              className={cn(
+                'block w-12 h-px my-10 transition-all duration-500 mx-auto md:mx-0',
+                isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
+              )}
+              style={{
+                background: 'hsl(var(--vow-yellow) / 0.25)',
+                transitionDelay: isVisible ? '200ms' : '0ms',
+                willChange: 'transform',
+                transformOrigin: 'left',
+              }}
+              aria-hidden="true"
+            />
+
+            {/* Heading */}
+            <h2
+              id="invitation-heading"
+              className={cn(
+                'text-[clamp(26px,4vw,40px)] font-display font-light leading-tight text-white max-w-lg text-balance',
+                'transition-all duration-700',
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              )}
+              style={{ transitionDelay: isVisible ? '400ms' : '0ms' }}
+            >
+              I play five weddings a year.{' '}
+              <span className="relative inline-block italic">
+                Yours
+                <span
+                  className={cn(
+                    'absolute bottom-0 left-0 h-[2px] bg-vow-yellow origin-left transition-all duration-700',
+                    isVisible ? 'scale-x-100' : 'scale-x-0'
+                  )}
+                  style={{
+                    transitionDelay: isVisible ? '1000ms' : '0ms',
+                    transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+                    width: '100%',
+                    boxShadow: isVisible ? '0 0 8px hsl(45 90% 65% / 0.3)' : 'none',
+                  }}
+                />
+              </span>{' '}
+              could be one of them.
+            </h2>
+
+            {/* Body */}
+            <p
+              className={cn(
+                'text-lg font-sans font-light leading-[1.8] text-white/55 max-w-lg mt-8 transition-all duration-700',
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              )}
+              style={{ transitionDelay: isVisible ? '500ms' : '0ms' }}
+            >
+              Each ceremony I take on begins months before the day itself — with a conversation about the song that was playing when you knew, the silence you want to protect, and the words you need every guest to hear.
+            </p>
+
+            <p
+              className={cn(
+                'text-lg font-sans font-light leading-[1.8] text-white/55 max-w-lg mt-6 transition-all duration-700',
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               )}
               style={{ transitionDelay: isVisible ? '600ms' : '0ms' }}
             >
-              A moment with me — before the moment with you.
+              I limit my calendar so that every couple receives the preparation their ceremony deserves — not a template, but a score written for the two of you alone.
             </p>
-          </div>
 
-          {/* Golden Rule 2 */}
-          <span
-            className={cn(
-              'block w-12 h-px my-12 transition-all duration-500',
-              isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
-            )}
-            style={{
-              background: 'hsl(var(--vow-yellow) / 0.25)',
-              transitionDelay: isVisible ? '500ms' : '0ms',
-              willChange: 'transform',
-            }}
-            aria-hidden="true"
-          />
-
-          {/* ── Cluster 3: Copy + CTA (medium pace) ── */}
-
-          {/* Headline */}
-          <h2
-            id="invitation-heading"
-            className={cn(
-              'text-[clamp(28px,4.5vw,44px)] font-display font-light leading-tight text-white max-w-2xl mx-auto text-balance',
-              'transition-all duration-700',
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-            )}
-            style={{ transitionDelay: isVisible ? '300ms' : '0ms' }}
-          >
-            I have played at over 500 events — I know what can go{' '}
-            <span className="relative inline-block italic">
-              wrong
-              <span
-                className={cn(
-                  'absolute bottom-0 left-0 h-[2px] bg-vow-yellow origin-left transition-all duration-700',
-                  isVisible ? 'scale-x-100' : 'scale-x-0'
-                )}
-                style={{
-                  transitionDelay: isVisible ? '1000ms' : '0ms',
-                  transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
-                  width: '100%',
-                  boxShadow: isVisible ? '0 0 8px hsl(45 90% 65% / 0.3)' : 'none',
-                }}
-              />
-            </span>
-            .
-          </h2>
-
-          {/* Body */}
-          <p
-            className={cn(
-              'text-lg font-sans font-light leading-[1.8] text-white/55 max-w-lg mx-auto mt-10 transition-all duration-700',
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-            )}
-            style={{ transitionDelay: isVisible ? '450ms' : '0ms' }}
-          >
-            The wind that steals a vow mid-sentence. The hum that bleeds through silence. The back row that leans in — and still cannot hear.
-          </p>
-
-          {/* Assurance */}
-          <p
-            className={cn(
-              'invitation-assurance max-w-lg mx-auto mt-8 transition-all duration-700',
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-            )}
-            style={{ transitionDelay: isVisible ? '550ms' : '0ms' }}
-          >
-            Every part of my process exists so that never happens to you.
-          </p>
-
-          {/* CTA — glass pill container */}
-          <div
-            className={cn(
-              'mt-10 transition-all duration-700',
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-            )}
-            style={{ transitionDelay: isVisible ? '650ms' : '0ms' }}
-          >
-            <Link
-              to="/about"
-              className={cn('invitation-cta invitation-cta--pill', isVisible && 'is-visible')}
+            {/* Assurance */}
+            <p
+              className={cn(
+                'invitation-assurance max-w-lg mt-8 transition-all duration-700',
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              )}
+              style={{ transitionDelay: isVisible ? '700ms' : '0ms' }}
             >
-              Meet the witness
-              <span className="invitation-cta-rule" aria-hidden="true" />
-            </Link>
-          </div>
+              Every arrangement I write begins with a single question — what was playing when you knew.
+            </p>
 
-          {/* ── Cluster 4: Credentials (final anchor) ── */}
-
-          {/* Golden Rule 3 */}
-          <span
-            className={cn(
-              'block w-12 h-px my-10 transition-all duration-500',
-              isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
-            )}
-            style={{
-              background: 'hsl(var(--vow-yellow) / 0.25)',
-              transitionDelay: isVisible ? '800ms' : '0ms',
-              willChange: 'transform',
-            }}
-            aria-hidden="true"
-          />
-
-          {/* Credentials — unified plaque */}
-          <div
-            className={cn(
-              'transition-all duration-700',
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-            )}
-            style={{ transitionDelay: isVisible ? '900ms' : '0ms' }}
-          >
+            {/* CTA */}
             <div
-              role="group"
-              aria-label="Professional credentials"
-              className="invitation-credential-plaque flex flex-col sm:flex-row items-center justify-center"
-              style={{
-                background: 'hsl(0 0% 100% / 0.03)',
-                backdropFilter: 'blur(12px)',
-                border: '1px solid hsl(var(--vow-yellow) / 0.1)',
-                borderRadius: '3px',
-                padding: '0',
-              }}
+              className={cn(
+                'mt-10 transition-all duration-700',
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              )}
+              style={{ transitionDelay: isVisible ? '800ms' : '0ms' }}
             >
-              {credentials.map((cred, i) => (
-                <Fragment key={cred.value}>
-                  <div className="text-center px-5 sm:px-8 py-4 sm:py-5" tabIndex={0}>
-                    <span className="block font-display text-xl sm:text-2xl text-white/80">
-                      {cred.value}
-                    </span>
-                    <span className="block text-[11px] uppercase tracking-[0.22em] text-white/50 mt-1">
-                      {cred.label}
-                    </span>
-                  </div>
-                  {i < credentials.length - 1 && (
-                    <span
-                      className="block w-10 h-px sm:w-px sm:h-10 flex-shrink-0"
-                      style={{ background: 'hsl(var(--vow-yellow) / 0.15)' }}
-                      aria-hidden="true"
-                    />
-                  )}
-                </Fragment>
-              ))}
+              <Link
+                to="/about"
+                className={cn('invitation-cta invitation-cta--pill', isVisible && 'is-visible')}
+              >
+                Meet the witness
+                <span className="invitation-cta-rule" aria-hidden="true" />
+              </Link>
             </div>
-          </div>
 
+            {/* Inline Credentials */}
+            <p
+              className={cn(
+                'text-xs uppercase tracking-[0.22em] text-white/40 mt-10 transition-all duration-700',
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              )}
+              style={{ transitionDelay: isVisible ? '900ms' : '0ms' }}
+            >
+              500+ events · SOCAN licensed · $4M insured
+            </p>
+
+          </div>
         </div>
       </div>
 
