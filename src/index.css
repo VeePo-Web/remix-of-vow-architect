@@ -1473,11 +1473,12 @@ All colors MUST be HSL.
   .invitation-epigraph {
     font-family: var(--font-display);
     font-style: italic;
-    font-size: 18px;
-    line-height: 1.7;
+    font-size: clamp(16px, 2.5vw, 18px);
+    line-height: 1.8;
     opacity: 0.5;
     color: hsl(0 0% 100%);
     max-width: 520px;
+    text-wrap: balance;
   }
 
   /* Invitation Assurance — standalone serif statement */

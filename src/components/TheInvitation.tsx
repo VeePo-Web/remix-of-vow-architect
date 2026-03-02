@@ -38,12 +38,15 @@ export function TheInvitation() {
         aria-hidden="true"
       />
 
-      {/* Layer 2: Top fade into previous section */}
+      {/* Layer 2: Top fade into previous section (matches VowMoment bg) */}
       <div
         className="absolute top-0 left-0 right-0 h-[120px] z-10 pointer-events-none"
         style={{ background: 'linear-gradient(to top, transparent, hsl(240 9% 4%))' }}
         aria-hidden="true"
       />
+
+      {/* Layer 2b: Full-section grain for unified material feel */}
+      <div className="absolute inset-0 grain opacity-[0.02] pointer-events-none z-[1]" aria-hidden="true" />
 
       {/* Layer 3: Primary warm candlelight glow — wider, behind the image */}
       <div
@@ -152,8 +155,8 @@ export function TheInvitation() {
                     '0 0 40px hsl(var(--vow-yellow) / 0.06)',
                     '0 40px 100px -20px rgba(0,0,0,0.5)',
                   ].join(', '),
-                  outline: '1px solid hsl(var(--vow-yellow) / 0.06)',
-                  outlineOffset: '4px',
+                  outline: '1px solid hsl(var(--vow-yellow) / 0.10)',
+                  outlineOffset: '6px',
                 }}
               >
                 <img
@@ -291,7 +294,7 @@ export function TheInvitation() {
             style={{ transitionDelay: isVisible ? '900ms' : '0ms' }}
           >
             <div
-              className="invitation-credential-plaque flex items-center justify-center"
+              className="invitation-credential-plaque flex flex-col sm:flex-row items-center justify-center"
               style={{
                 background: 'hsl(0 0% 100% / 0.03)',
                 backdropFilter: 'blur(12px)',
@@ -302,8 +305,8 @@ export function TheInvitation() {
             >
               {credentials.map((cred, i) => (
                 <Fragment key={cred.value}>
-                  <div className="text-center px-8 py-5">
-                    <span className="block font-display text-2xl text-white/80">
+                  <div className="text-center px-5 sm:px-8 py-4 sm:py-5">
+                    <span className="block font-display text-xl sm:text-2xl text-white/80">
                       {cred.value}
                     </span>
                     <span className="block text-[11px] uppercase tracking-[0.22em] text-white/40 mt-1">
@@ -312,7 +315,7 @@ export function TheInvitation() {
                   </div>
                   {i < credentials.length - 1 && (
                     <span
-                      className="block w-px h-10 flex-shrink-0"
+                      className="block w-10 h-px sm:w-px sm:h-10 flex-shrink-0"
                       style={{ background: 'hsl(var(--vow-yellow) / 0.15)' }}
                       aria-hidden="true"
                     />
@@ -328,7 +331,7 @@ export function TheInvitation() {
       {/* Bottom fade */}
       <div
         className="absolute bottom-0 left-0 right-0 h-[120px] z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to bottom, transparent, hsl(220 15% 8%))' }}
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(220 15% 6%))' }}
         aria-hidden="true"
       />
     </section>
