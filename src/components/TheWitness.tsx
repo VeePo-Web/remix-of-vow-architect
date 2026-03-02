@@ -288,27 +288,65 @@ export function TheWitness() {
 
           {/* ── RIGHT COLUMN: Text Content ── */}
           <div ref={textColRef} className="flex flex-col pt-2 md:pt-0">
-            {/* Label */}
+            {/* Step 7: Label with diamond prefix */}
             <p
               className={cn(
-                "text-xs uppercase tracking-[0.22em] text-muted-foreground mb-4 transition-all duration-700",
+                "text-xs uppercase tracking-[0.28em] text-muted-foreground mb-0 transition-all duration-700 flex items-center gap-2",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
+              style={{
+                opacity: isVisible ? 'calc(0.55 + var(--witness-warmth, 0) * 0.15)' : undefined,
+              }}
             >
+              <span
+                className="witness-label-diamond w-[4px] h-[4px] rotate-45 inline-block flex-shrink-0"
+                style={{ background: 'hsl(var(--vow-yellow) / 0.45)' }}
+                aria-hidden="true"
+              />
               THE PREPARATION
             </p>
 
-            {/* Headline with ambient warm glow */}
+            {/* Step 7: Thread bridge — label to headline */}
+            <div
+              className={cn(
+                "flex justify-start my-3 transition-all duration-700",
+                isVisible ? "opacity-100 scale-y-100" : "opacity-0 scale-y-0"
+              )}
+              style={{ transitionDelay: isVisible ? "150ms" : "0ms" }}
+              aria-hidden="true"
+            >
+              <div
+                className="witness-label-thread w-[1px] h-[24px]"
+                style={{
+                  background: 'linear-gradient(180deg, hsl(var(--vow-yellow) / 0.35), hsl(var(--vow-yellow) / 0.08))',
+                }}
+              />
+            </div>
+
+            {/* Headline with upgraded warm glow */}
             <div className="relative mb-10">
-              {/* Glow behind "pianist" */}
+              {/* Step 7: Primary glow behind "pianist" — enlarged, warmth-responsive */}
               <div
                 className="witness-headline-glow absolute pointer-events-none"
                 style={{
-                  width: '200px',
-                  height: '120px',
-                  right: '10%',
-                  bottom: '20%',
-                  background: 'radial-gradient(ellipse at center, hsl(var(--vow-yellow) / 0.03) 0%, transparent 70%)',
+                  width: '300px',
+                  height: '160px',
+                  right: '5%',
+                  bottom: '10%',
+                  background: 'radial-gradient(ellipse at center, hsl(var(--vow-yellow) / 0.05) 0%, transparent 70%)',
+                  opacity: 'calc(0.7 + var(--witness-warmth, 0) * 0.3)',
+                }}
+                aria-hidden="true"
+              />
+              {/* Step 7: Secondary tight glow behind underline */}
+              <div
+                className="witness-breathing-glow absolute pointer-events-none"
+                style={{
+                  width: '100px',
+                  height: '60px',
+                  right: '12%',
+                  bottom: '0%',
+                  background: 'radial-gradient(ellipse at center, hsl(var(--vow-yellow) / 0.06) 0%, transparent 70%)',
                 }}
                 aria-hidden="true"
               />

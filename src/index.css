@@ -5321,16 +5321,22 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   100% { transform: scale(1.06) translate(-1%, 1%); }
 }
 
-/* Step 6: Pianist underline trailing glow */
+/* Step 6+7: Pianist underline trailing glow + persistent breathing halo */
 .witness-pianist-underline.scale-x-100 {
-  animation: witness-pianist-glow 800ms ease-out 600ms forwards;
+  animation: witness-pianist-glow 800ms ease-out 600ms forwards,
+             witness-pianist-halo 4s ease-in-out 1.4s infinite;
   will-change: box-shadow;
 }
 
 @keyframes witness-pianist-glow {
   0% { box-shadow: 0 0 0 transparent; }
   40% { box-shadow: 0 0 12px hsl(var(--vow-yellow) / 0.4); }
-  100% { box-shadow: 0 0 6px hsl(var(--vow-yellow) / 0.25); }
+  100% { box-shadow: 0 0 8px hsl(var(--vow-yellow) / 0.25); }
+}
+
+@keyframes witness-pianist-halo {
+  0%, 100% { box-shadow: 0 0 8px hsl(var(--vow-yellow) / 0.2); }
+  50% { box-shadow: 0 0 12px hsl(var(--vow-yellow) / 0.35); }
 }
 
 /* Step 6: Closing quote candlelight glow */
@@ -5465,4 +5471,23 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   .witness-threshold-diamond::after {
     display: none;
   }
+  .witness-label-diamond {
+    animation: none !important;
+  }
+  .witness-label-thread {
+    animation: none !important;
+  }
+  .witness-pianist-underline {
+    box-shadow: none !important;
+  }
+}
+
+/* Step 7: Label diamond breathing */
+.witness-label-diamond {
+  animation: witness-thread-breathe 4s ease-in-out infinite;
+}
+
+/* Step 7: Label-to-headline thread bridge */
+.witness-label-thread {
+  animation: witness-thread-breathe 4s ease-in-out infinite;
 }
