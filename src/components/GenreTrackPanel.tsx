@@ -61,7 +61,7 @@ export function GenreTrackPanel({
   return (
     <div
       ref={panelRef}
-      className="w-full max-w-2xl mx-auto mt-6 rounded-xl overflow-hidden"
+      className="w-full max-w-2xl mx-auto mt-6 rounded-lg overflow-hidden"
       style={{
         background: "hsl(var(--rich-black) / 0.85)",
         backdropFilter: "blur(16px)",
@@ -70,7 +70,7 @@ export function GenreTrackPanel({
         boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 16px 60px rgba(0,0,0,0.4), 0 0 20px hsl(var(--vow-yellow) / 0.04)",
         opacity: 0,
         transform: "translateY(-8px)",
-        transition: reducedMotion ? "none" : "opacity 300ms ease-out, transform 300ms cubic-bezier(0.22,0.61,0.36,1)",
+        transition: reducedMotion ? "none" : "opacity 400ms ease-out, transform 400ms cubic-bezier(0.22,0.61,0.36,1)",
       }}
     >
       {/* Header */}
@@ -153,11 +153,7 @@ export function GenreTrackPanel({
             )}
             <span className="flex-1 text-left truncate">{track.title}</span>
             {isActive && hasSrc && <MiniWaveform active={isTrackPlaying} reducedMotion={reducedMotion} />}
-            {!hasSrc && !isActive && (
-              <span className="hidden sm:inline text-[9px] uppercase tracking-[0.2em] text-foreground/20 shrink-0">
-                Coming Soon
-              </span>
-            )}
+            {/* Absence speaks louder than labels */}
             {/* Progress underline */}
             {isActive && hasSrc && (
               <div
@@ -175,7 +171,7 @@ export function GenreTrackPanel({
       {/* Footer */}
       <div className="px-5 pt-3 pb-4 text-center">
         <p className="text-[11px] text-foreground/25 italic font-display">
-          Recordings arriving soon.{" "}
+          Each piece, arranged for your ceremony.{" "}
           <Link
             to="/contact"
             className="underline decoration-[hsl(var(--vow-yellow)/0.15)] hover:decoration-[hsl(var(--vow-yellow)/0.3)] hover:text-[hsl(var(--vow-yellow)/0.6)] transition-all duration-[260ms]"

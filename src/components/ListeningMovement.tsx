@@ -162,7 +162,7 @@ export function ListeningMovement({
         {/* Track card */}
         <div
           className={cn(
-            "inline-flex flex-col items-center gap-5 rounded-xl p-6 md:p-8",
+            "inline-flex flex-col items-center gap-5 rounded-lg p-6 md:p-8",
             "border backdrop-blur-sm transition-all duration-300",
             isActive
               ? "bg-card/20 border-[hsl(var(--vow-yellow)/0.25)]"
