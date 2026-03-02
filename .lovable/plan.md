@@ -1,87 +1,140 @@
 
 
-# Step 10: The Final Audit — Fantasy.co Quality Certification
+# Complete Design Overhaul: Three Paths as Piano Keys
 
-## Purpose
+## Vision
 
-This is the capstone polish pass. Steps 4-9 built the individual elements to a high standard. Step 10 audits the entire section as a unified composition and fixes the remaining gaps between "very good" and "world-class."
+The current Three Paths section uses conventional pricing cards on a dark cinematic background. The redesign transforms the three tiers into literal piano keys — three tall white keys with two narrow black keys filling the gaps between them — creating a visual instrument the visitor reads like sheet music. The metaphor is immediate and uniquely Parker's: choosing a tier is choosing which keys to press.
 
-After thorough review, five issues remain that prevent this section from meeting the Fantasy.co standard.
+## The Piano Key Layout
 
----
+```text
+Desktop (md+):
 
-## Deficiency A: Border-Radius Violations
+  ┌──────────┐ ┌──┐ ┌──────────┐ ┌──┐ ┌──────────┐
+  │          │ │  │ │          │ │  │ │          │
+  │  WHITE   │ │BK│ │  WHITE   │ │BK│ │  WHITE   │
+  │  KEY 1   │ │  │ │  KEY 2   │ │  │ │  KEY 3   │
+  │          │ │  │ │          │ │  │ │          │
+  │  $650    │ └──┘ │  $750    │ └──┘ │  $1,200  │
+  │          │      │          │      │          │
+  │ Ceremony │      │ +Prelude │      │ +Cocktail│
+  │  Only    │      │  30 min  │      │  Hour    │
+  │          │      │          │      │          │
+  │  [CTA]   │      │  [CTA]   │      │  [CTA]   │
+  └──────────┘      └──────────┘      └──────────┘
+```
 
-The declaration cards and kit cells use `rounded-md` (6px). The image frame uses `rounded-lg` (8px). The brand standard specifies 8px maximum, and consistency matters. All interactive cards should share the same radius. The kit cells — smaller, tighter elements — should use `rounded-sm` (4px) to signal their subordinate role in the hierarchy, while declaration cards stay at `rounded-md` (6px) and the image frame at `rounded-lg` (8px). This creates a radius hierarchy: frame > declarations > kit.
+- **White keys** are tall, narrow rectangles with flat bottoms and very subtle rounded tops (4px). They are the three pricing tiers. Ivory/cream surface with subtle vertical grain texture, like real piano keys.
+- **Black keys** sit between the white keys, overlapping them slightly from the top. They are shorter (about 55-60% of white key height), narrower, and contain brief contextual details — small atmospheric copy or a sacred object. They use the rich-black/charcoal surface with a glossy sheen gradient.
+- The middle white key (The Hour, $750) is the "most chosen" — it gets a subtle vow-yellow top edge glow and the "MOST CHOSEN" badge, like a key being pressed with golden light escaping from beneath.
 
-**Fix in TheWitness.tsx:** Change kit cell `rounded-md` to `rounded-sm`. Verify image frame is `rounded-lg` (already correct). Verify declaration cards are `rounded-md` (already correct).
+## Content Changes
 
----
+### Header Copy (new)
+- Label: "THREE KEYS"
+- Headline: "How deeply do you want me there."
+- No subhead — the piano metaphor speaks for itself.
 
-## Deficiency B: Missing Atmospheric Grain Inside Kit Grid
+### White Key 1 — The Ceremony ($650)
+- Name: "The Ceremony"
+- Price: "$650"
+- One-line description: "I play your ceremony — processional through recessional."
+- A single composed sentence beneath: "Your vows, carried by piano. Nothing more, nothing less."
+- CTA: "Hold my date"
 
-The section has grain at the full-section level (`opacity-[0.06]`). The image frame has its own inner grain. But the kit grid area — which has a keys texture behind it — lacks its own grain layer. This makes the kit feel slightly flatter than the declarations and image frame. Every sub-region with its own background texture needs its own grain.
+### White Key 2 — The Prelude ($750) — Most Chosen
+- Name: "The Prelude"
+- Price: "$750"
+- One-line description: "30 minutes of piano as your guests arrive, then your full ceremony."
+- Composed sentence: "The room is already sacred before the first word is spoken."
+- CTA: "Hold my date"
 
-**Fix in TheWitness.tsx:** Add a grain overlay div inside the kit grid container (the `relative` wrapper around the kit), positioned `absolute inset-0 -m-4` matching the keys texture positioning, at `opacity-[0.04]` (lighter than section grain, just enough for tactile paper feel).
+### White Key 3 — The Story ($1,200)
+- Name: "The Story"
+- Price: "$1,200"
+- One-line description: "Prelude, ceremony, and live piano or curated DJ for cocktail hour."
+- Composed sentence: "From the first guest to the last glass raised — I am there."
+- CTA: "Hold my date"
 
----
+### Black Key Content (decorative, not interactive)
+- Black Key 1 (between Ceremony and Prelude): A small golden diamond icon. No text.
+- Black Key 2 (between Prelude and Story): A small golden diamond icon. No text.
 
-## Deficiency C: Closing Quote Lacks Atmospheric Backing
+### Reassurance Line (below)
+"You can move between these at any time — no penalty until two weeks before your ceremony."
 
-The closing quote ("Now — choose how long you want me there.") has a warm glow behind it, but it sits on the same surface as everything above. In the brand system, threshold moments — the moment before a CTA — deserve a subtle shift in surface temperature. The warm glow is there but the quote text itself has no material distinction from the declarations above.
+## Technical Implementation
 
-**Fix in TheWitness.tsx:** Add a subtle horizontal golden rule (`w-10`, `h-[1px]`, vow-yellow gradient) above the closing quote, matching the thread separator above the kit but shorter and warmer. This creates a micro-threshold: the visitor crosses from inventory into invitation. Remove the duplicate golden thread rule that currently sits above the closing (the one at line 558-568), since the breathing diamond already serves as separator — having both a diamond AND a rule is redundant. Replace the rule with a tighter spacing adjustment (`mb-4` instead of `mb-6`) to bring the quote closer to the diamond, creating intimacy.
+### File: `src/components/ThreePaths.tsx` — Full rewrite of content and layout
 
----
+1. **Data structure** — Replace `paths` array with three tier objects containing: `name`, `price`, `description`, `sentence`, `ctaText`, `isChosen`. Remove the `features` array (bullet points eliminated — each tier gets one composed sentence instead).
 
-## Deficiency D: Mobile Spacing Needs Tightening
+2. **Layout** — Replace the `grid grid-cols-3` with a custom flex layout that interleaves white and black keys:
+   - Container: `flex items-end` (keys align at bottom like a real piano)
+   - White keys: `flex-1` with tall aspect ratio (`min-h-[480px] md:min-h-[560px]`), vertical flex column layout with content pushed to bottom third
+   - Black keys: Fixed width (`w-[48px] md:w-[56px]`), shorter height (`h-[280px] md:h-[320px]`), positioned with negative horizontal margins (`-mx-3 md:-mx-4`) to overlap white keys, `z-10` to sit on top
+   - Mobile: Stack vertically — white keys only, full width, black keys hidden (`hidden md:flex`)
 
-On mobile (< 768px), the section uses the same spacing as desktop. The `mb-12` on declarations, `mb-10` on separators, and `my-10` on the breathing diamond create excessive vertical distance on small screens. The Fitzgerald scale prescribes proportional reduction on mobile.
+3. **White key surface** — CSS class `.piano-white-key`:
+   - Background: subtle ivory gradient (`linear-gradient(180deg, hsl(45 20% 96%) 0%, hsl(45 15% 92%) 100%)`)
+   - Very subtle side borders simulating key edges: left border `1px solid hsl(45 10% 85%)`, right border `1px solid hsl(45 10% 88%)`
+   - Bottom: flat (no border-radius). Top: `rounded-t-[4px]`
+   - Shadow: `0 8px 32px rgba(0,0,0,0.3)` — keys floating above the dark background
+   - Hover: `translateY(-4px)` like a key being released, shadow deepens
+   - Text: dark (`hsl(240 9% 12%)`) — inverted from the rest of the site since keys are light surfaces
 
-**Fix in TheWitness.tsx:** Add responsive spacing variants:
-- Declarations container: `mb-8 md:mb-12`
-- Thread separator after declarations: `mb-6 md:mb-10`
-- Transitional sentence: `mb-4 md:mb-6`
-- Breathing diamond: `my-6 md:my-10`
-- Closing rule spacing: `mb-3 md:mb-4`
-- CTA margin-top: `mt-4 md:mt-5`
+4. **Black key surface** — CSS class `.piano-black-key`:
+   - Background: `linear-gradient(180deg, hsl(222 12% 14%) 0%, hsl(240 9% 8%) 85%, hsl(240 9% 6%) 100%)` — glossy top to matte bottom
+   - Subtle highlight stripe across top 20%: `linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 20%)`
+   - Border-radius: `0 0 4px 4px` (rounded at bottom, flat at top where it meets the "piano body")
+   - Shadow: `0 4px 12px rgba(0,0,0,0.5)` — deeper shadow since they protrude
+   - Width: narrower than white keys
+   - Contains only a centered golden diamond icon
 
----
+5. **Chosen key (middle)** — Additional styling:
+   - Top border: `2px solid hsl(var(--vow-yellow) / 0.4)` — golden light escaping from the pressed key
+   - Subtle glow: `box-shadow` includes `0 -4px 20px rgba(255,224,138,0.12)` at top
+   - "MOST CHOSEN" badge positioned above with existing `paths-chosen-badge` styling
+   - The key sits `4px` lower than flanking keys (`translate-y-1`) to simulate being pressed
 
-## Deficiency E: Parallax Cleanup on Section Exit
+6. **Typography inside white keys** — Dark text on ivory:
+   - Name: `font-display text-xl font-light text-[hsl(240_9%_12%)]`
+   - Price: `font-display text-[clamp(32px,4vw,44px)] font-light text-[hsl(240_9%_8%)]`
+   - Description: `text-sm text-[hsl(240_9%_30%)]`
+   - Composed sentence: `font-display text-sm font-light italic text-[hsl(240_9%_40%)]`
+   - CTA button: Uses a new variant or inline override — dark background with ivory text, or outline with dark border
 
-When the section scrolls out of view, the parallax transforms remain applied to the image and text columns. If the visitor scrolls quickly, they may see the columns in a shifted state before the section is fully off-screen. The parallax calculation clamps progress between 0 and 1, but extreme values (near 0 or 1) create noticeable offset.
+7. **Scroll reveal** — Keep existing `useScrollReveal` pattern. White keys stagger at 450ms, 350ms, 550ms (center first). Black keys fade in at 500ms and 600ms.
 
-**Fix in TheWitness.tsx:** Add bounds clamping to the parallax offsets — if `progress < 0.1` or `progress > 0.9`, reduce the transform magnitude to 0 using a smooth ease-out curve. This ensures the section enters and exits the viewport in a neutral position, with parallax only active in the middle 80% of the scroll range.
+8. **Background** — Keep the existing cinematic background (pathsPianoCandle image, vignette, grain, warm spotlight). The dark atmospheric background makes the ivory white keys pop dramatically.
 
----
+### File: `src/index.css` — New piano key styles
 
-## Technical Changes
+9. **`.piano-white-key`** — Base styles for ivory surface, shadows, border simulation, hover lift at 180ms.
 
-### File: `src/components/TheWitness.tsx`
+10. **`.piano-white-key--chosen`** — Golden top glow, pressed position (translateY +2px relative to siblings).
 
-1. **Kit cell radius** — Change `rounded-md` to `rounded-sm` on kit cell divs (line 496 area).
+11. **`.piano-black-key`** — Glossy gradient, highlight stripe, deeper shadow, rounded bottom corners.
 
-2. **Kit grain overlay** — Add `<div className="absolute inset-0 -m-4 rounded-lg grain opacity-[0.04] pointer-events-none" aria-hidden="true" />` inside the kit container, after the keys texture div.
+12. **`.piano-white-key:hover`** — Lift -4px, shadow expansion, subtle warmth increase on border.
 
-3. **Remove duplicate closing rule** — Remove the golden thread rule div at lines 558-568 (the one directly above the closing quote). The breathing diamond already serves this purpose. Tighten `mb-6` to `mb-4` on the closing quote wrapper.
+13. **Reduced motion fallbacks** — Disable translateY hover on piano keys, keep only opacity/border-color changes.
 
-4. **Mobile responsive spacing** — Update spacing classes throughout to use responsive `md:` variants for proper mobile proportions.
+14. **Mobile layout** — On screens below `md`, white keys stack vertically at full width with reduced height (`min-h-[auto]`, padding-based sizing). Black keys are `hidden`. A thin golden thread separator appears between stacked keys instead.
 
-5. **Parallax edge damping** — In the scroll handler, multiply transform values by a damping factor: `const damp = progress < 0.15 ? progress / 0.15 : progress > 0.85 ? (1 - progress) / 0.15 : 1;` Apply `damp` as a multiplier to all translateY values.
+### File: `src/components/PricingPreview.tsx` — Update to match
 
-### File: `src/index.css`
-
-6. **No new CSS needed** — All fixes use existing utilities and inline adjustments. The CSS from Steps 4-9 is comprehensive and does not need additions for this audit pass.
-
----
+15. Update the `packages` data to match the new tier names ("The Ceremony", "The Prelude", "The Story") and descriptions. This component is a simplified preview used elsewhere — it should reflect the same naming convention but does not need the piano key visual treatment.
 
 ## What This Achieves
 
-- Border-radius hierarchy (8px > 6px > 4px) creates clear visual subordination from frame to declarations to kit
-- Inner grain on the kit grid gives it the same tactile paper depth as the image frame and section background
-- Removing the duplicate separator before the closing creates a cleaner threshold: diamond pause then intimate invitation
-- Mobile spacing follows the Fitzgerald scale's proportional reduction, preventing the section from feeling stretched on small screens
-- Parallax edge damping ensures the section enters and exits cleanly, with no jarring offset at the boundaries
-- The section passes all nine North Star Questions: it honors the vigil, feels selective, tells Parker's story, reduces anxiety, breathes, starts with feeling, is provable, would satisfy Fantasy, and holds the visitor
+- The section becomes a literal visual instrument — uniquely Parker's, impossible to confuse with any other vendor
+- Three ivory keys on a dark atmospheric background create dramatic contrast and immediate recognition
+- Black keys between the tiers add rhythmic visual punctuation without carrying content weight
+- The "pressed" middle key with golden glow naturally draws the eye to the $750 tier (the compromise-effect anchor)
+- Eliminating bullet-point feature lists in favor of single composed sentences maintains the narrative voice
+- Dark-text-on-ivory within the keys creates an inverted reading experience that signals "this is a different surface" — like reading sheet music placed on the piano
+- The bottom-aligned layout (keys sit on a shared baseline like a real keyboard) creates architectural stability
+- Mobile gracefully degrades to stacked cards with golden thread separators, maintaining the brand rhythm without forcing a horizontal piano on small screens
 
