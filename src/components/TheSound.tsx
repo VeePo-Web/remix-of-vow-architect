@@ -353,7 +353,7 @@ export function TheSound() {
             {/* Subhead */}
             <p
               className={cn(
-                "text-lg font-display font-light italic text-muted-foreground mb-16 text-center transition-all duration-700",
+                "w-full text-lg font-display font-light italic text-muted-foreground mb-16 text-center transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{ transitionDelay: isVisible ? "300ms" : "0ms" }}
