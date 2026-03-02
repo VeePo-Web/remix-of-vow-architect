@@ -63,7 +63,7 @@ export default function PrivacyPolicy() {
             To prepare and deliver your ceremony-audio plan (SPL overview, mic/power notes, cue integration).
           </li>
           <li>
-            To coordinate bookings, timeline changes, weather moves, and vendor communication.
+            To coordinate bookings, timeline changes, weather moves, and coordinator communication.
           </li>
           <li>
             To send resources (templates/checklists) if you opt in.

@@ -49,7 +49,7 @@ export function InclusionBlock() {
     <div className="bg-card/80 backdrop-blur-[8px] border border-primary/10 rounded-lg p-8 mb-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)]">
       <div className="text-center mb-8">
         <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light text-center mb-3">
-          All Packages Include Ceremony-Proof Clarity
+          All Paths Include Ceremony-Proof Clarity
         </h2>
         <p className="text-muted-foreground max-w-3xl mx-auto">
           I bring everything required to make vows heard, cues flawless, and plans compliant—without you managing gear, power, or bylaws.

@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     question: "What if I cancel?",
-    answer: "Your credit can be transferred to a new date or used toward a referred vendor—my contract lays out clear percentages by notice window.",
+    answer: "Your credit can be transferred to a new date or used toward a referred musician—my contract lays out clear percentages by notice window.",
   },
   {
     question: "How do I compare this to a DJ?",

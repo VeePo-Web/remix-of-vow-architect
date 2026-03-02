@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
 const navItems = [
-  { id: "packages", label: "Packages" },
-  { id: "compare", label: "Compare Vendors" },
+  { id: "packages", label: "Paths" },
+  { id: "compare", label: "Compare" },
   { id: "addons", label: "Add-ons" },
   { id: "faqs", label: "FAQs" },
   { id: "download", label: "Download Sample Plan" },
