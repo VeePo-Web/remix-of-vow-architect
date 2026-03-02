@@ -113,7 +113,6 @@ export function TheTransformation() {
             animation: !reducedMotion ? "transform-fear-kb 30s ease-in-out infinite alternate" : "none",
           }}
           loading="lazy"
-          fetchPriority="low"
         />
       </div>
 
@@ -132,7 +131,6 @@ export function TheTransformation() {
             animation: !reducedMotion ? "transform-life-kb 35s ease-in-out infinite alternate" : "none",
           }}
           loading="lazy"
-          fetchPriority="low"
         />
       </div>
 
@@ -197,7 +195,7 @@ export function TheTransformation() {
           {/* Heading */}
           <h2
             className={cn(
-              "font-display text-2xl md:text-3xl font-light tracking-tight text-foreground/90 mb-12 md:mb-16 transition-all duration-700",
+              "font-display text-2xl md:text-3xl font-light tracking-tight text-foreground/90 mb-8 md:mb-12 transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
             style={{
@@ -211,36 +209,20 @@ export function TheTransformation() {
           {/* Fears — whispered italic Cormorant with separators */}
           <div className="space-y-8 md:space-y-10">
             {fears.map((fear, i) => (
-              <div key={i}>
-                <p
-                  className={cn(
-                    "font-display text-lg md:text-xl font-light italic leading-relaxed transition-all duration-700",
-                    isVisible ? "opacity-[0.6] translate-y-0" : "opacity-0 translate-y-3"
-                  )}
-                  style={{
-                    color: "hsl(var(--foreground))",
-                    transitionDelay: isVisible ? `${280 + i * 120}ms` : "0ms",
-                    transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
-                  }}
-                >
-                  {fear}
-                </p>
-                {i < fears.length - 1 && (
-                  <div
-                    className={cn(
-                      "mx-auto mt-8 md:mt-10 transition-all duration-700",
-                      isVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
-                    )}
-                    style={{
-                      width: 40,
-                      height: 1,
-                      background: "hsl(var(--vow-yellow) / 0.08)",
-                      transitionDelay: isVisible ? `${340 + i * 120}ms` : "0ms",
-                    }}
-                    aria-hidden="true"
-                  />
+              <p
+                key={i}
+                className={cn(
+                  "font-display text-lg md:text-xl font-light italic leading-relaxed transition-all duration-700",
+                  isVisible ? "opacity-[0.6] translate-y-0" : "opacity-0 translate-y-3"
                 )}
-              </div>
+                style={{
+                  color: "hsl(var(--foreground))",
+                  transitionDelay: isVisible ? `${280 + i * 120}ms` : "0ms",
+                  transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
+                }}
+              >
+                {fear}
+              </p>
             ))}
           </div>
         </div>
@@ -334,7 +316,7 @@ export function TheTransformation() {
           {/* Heading */}
           <h3
             className={cn(
-              "font-display text-2xl md:text-3xl font-light tracking-tight mb-12 md:mb-16 transition-all duration-700",
+              "font-display text-2xl md:text-3xl font-light tracking-tight mb-8 md:mb-12 transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
             style={{
@@ -352,15 +334,12 @@ export function TheTransformation() {
               <div
                 key={i}
                 className={cn(
-                  "backdrop-blur-sm rounded-[4px] transition-all duration-700",
+                  "transition-all duration-700",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
                 )}
                 style={{
-                  background: "hsl(45 20% 95% / 0.6)",
-                  border: "1px solid hsl(var(--vow-yellow) / 0.08)",
                   borderLeft: "2px solid hsl(var(--vow-yellow) / 0.25)",
-                  boxShadow: "0 2px 12px hsl(35 20% 50% / 0.06)",
-                  padding: "20px 24px",
+                  padding: "0 0 0 24px",
                   transitionDelay: isVisible ? `${1100 + i * 120}ms` : "0ms",
                   transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
                 }}
