@@ -4795,50 +4795,105 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   PIANO WHITE KEY — Ivory pricing tier surface
+   PIANO WHITE KEY — Ivory pricing tier surface (Tactile Overhaul)
    ═══════════════════════════════════════════════════════════════ */
+
+/* Key gap container */
+.piano-keys-container {
+  background: hsl(240 9% 3%);
+  border-radius: 4px 4px 0 0;
+}
+
 .piano-white-key {
   position: relative;
   min-height: 520px;
   padding: 40px 32px 32px;
-  background: linear-gradient(180deg, hsl(45 20% 96%) 0%, hsl(45 15% 92%) 100%);
+  /* Convex surface: top highlight + ivory gradient + micro-texture */
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.35) 0%, transparent 15%),
+    repeating-linear-gradient(90deg, rgba(0,0,0,0.008) 0px, transparent 1px, transparent 8px),
+    linear-gradient(180deg, hsl(45 20% 96%) 0%, hsl(45 15% 92%) 100%);
   border-left: 1px solid hsl(45 10% 85%);
   border-right: 1px solid hsl(45 10% 88%);
   border-bottom: none;
   border-top: none;
   border-radius: 4px 4px 0 0;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  /* Side facets + keybed shadow */
+  box-shadow:
+    inset 2px 0 4px rgba(0,0,0,0.04),
+    inset -2px 0 4px rgba(0,0,0,0.04),
+    0 8px 32px rgba(0,0,0,0.3),
+    0 2px 0 rgba(0,0,0,0.08);
   transition:
-    transform 180ms var(--ease-sacred),
-    box-shadow 180ms var(--ease-sacred),
+    transform 120ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 120ms cubic-bezier(0.4, 0, 0.2, 1),
     opacity 700ms ease,
     translate 700ms ease;
   contain: layout paint;
 }
 
-.piano-white-key:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.38), 0 0 20px rgba(255,224,138,0.06);
+/* Key gaps — 2px dark gap between adjacent white keys */
+.piano-white-key + .piano-black-key + .piano-white-key,
+.piano-white-key:not(:first-child) {
+  margin-left: 2px;
 }
 
-/* ─── Chosen key: pressed + golden top glow ─── */
+/* Hover: warm underglow, NO lift */
+.piano-white-key:hover {
+  transform: translateY(0);
+  box-shadow:
+    inset 2px 0 4px rgba(0,0,0,0.04),
+    inset -2px 0 4px rgba(0,0,0,0.04),
+    0 8px 32px rgba(0,0,0,0.3),
+    0 4px 20px rgba(255,224,138,0.08),
+    0 2px 0 rgba(0,0,0,0.08);
+}
+
+/* Active: press DOWN 3px with shadow collapse */
+.piano-white-key:active {
+  transform: translateY(3px);
+  box-shadow:
+    inset 2px 0 4px rgba(0,0,0,0.04),
+    inset -2px 0 4px rgba(0,0,0,0.04),
+    0 2px 8px rgba(0,0,0,0.25);
+  transition-duration: 60ms;
+}
+
+/* ─── Chosen key: permanently pressed 6px + golden underglow ─── */
 .piano-white-key--chosen {
   border-top: 2px solid hsl(var(--vow-yellow) / 0.4);
   box-shadow:
-    0 8px 32px rgba(0,0,0,0.3),
-    0 -4px 20px rgba(255,224,138,0.12);
+    inset 2px 0 4px rgba(0,0,0,0.04),
+    inset -2px 0 4px rgba(0,0,0,0.04),
+    0 2px 12px rgba(255,224,138,0.15),
+    0 -4px 20px rgba(255,224,138,0.12),
+    0 2px 0 rgba(0,0,0,0.06);
 }
 
 @media (min-width: 768px) {
   .piano-white-key--chosen {
-    transform: translateY(4px);
+    transform: translateY(6px);
   }
   .piano-white-key--chosen:hover {
-    transform: translateY(0px);
+    transform: translateY(8px);
+    box-shadow:
+      inset 2px 0 4px rgba(0,0,0,0.04),
+      inset -2px 0 4px rgba(0,0,0,0.04),
+      0 2px 16px rgba(255,224,138,0.2),
+      0 -4px 24px rgba(255,224,138,0.15),
+      0 1px 0 rgba(0,0,0,0.04);
+  }
+  .piano-white-key--chosen:active {
+    transform: translateY(10px);
+    box-shadow:
+      inset 2px 0 4px rgba(0,0,0,0.04),
+      inset -2px 0 4px rgba(0,0,0,0.04),
+      0 1px 4px rgba(255,224,138,0.1);
+    transition-duration: 60ms;
   }
 }
 
-/* ─── Mobile: stacked, auto height ─── */
+/* ─── Mobile: stacked, auto height, active press ─── */
 .piano-white-key--mobile {
   min-height: auto;
   padding: 32px 24px;
@@ -4846,8 +4901,17 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   border: 1px solid hsl(45 10% 85%);
 }
 
+.piano-white-key--mobile:active {
+  transform: translateY(2px);
+  box-shadow:
+    inset 2px 0 4px rgba(0,0,0,0.04),
+    inset -2px 0 4px rgba(0,0,0,0.04),
+    0 2px 8px rgba(0,0,0,0.2);
+  transition-duration: 60ms;
+}
+
 /* ═══════════════════════════════════════════════════════════════
-   PIANO BLACK KEY — Glossy charcoal separator
+   PIANO BLACK KEY — Glossy charcoal separator (Enhanced depth)
    ═══════════════════════════════════════════════════════════════ */
 .piano-black-key {
   width: 48px;
@@ -4857,13 +4921,18 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   background:
     linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 20%),
     linear-gradient(180deg, hsl(222 12% 14%) 0%, hsl(240 9% 8%) 85%, hsl(240 9% 6%) 100%);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  box-shadow:
+    0 6px 16px rgba(0,0,0,0.6),
+    0 2px 4px rgba(0,0,0,0.4);
+  z-index: 10;
+  /* Subtle bottom-edge highlight */
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
 @media (min-width: 1024px) {
   .piano-black-key {
     width: 56px;
-    height: 320px;
+    height: 340px;
   }
 }
 
@@ -4994,13 +5063,25 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 @media (prefers-reduced-motion: reduce) {
   .piano-white-key,
   .piano-white-key--chosen,
+  .piano-white-key--mobile,
   .witnesses-testimonial-card {
     transition: opacity 120ms ease !important;
     will-change: auto;
     transform: none !important;
   }
-  .piano-white-key:hover {
+  .piano-white-key:hover,
+  .piano-white-key:active,
+  .piano-white-key--chosen:hover,
+  .piano-white-key--chosen:active,
+  .piano-white-key--mobile:active {
     transform: none !important;
+  }
+  .piano-white-key:hover {
+    box-shadow:
+      inset 2px 0 4px rgba(0,0,0,0.04),
+      inset -2px 0 4px rgba(0,0,0,0.04),
+      0 8px 32px rgba(0,0,0,0.3),
+      0 4px 20px rgba(255,224,138,0.08);
   }
   .witnesses-testimonial-card:hover {
     transform: none !important;

@@ -62,7 +62,7 @@ function BlackKey({ delay, isVisible }: { delay: number; isVisible: boolean }) {
   return (
     <div
       className={cn(
-        "piano-black-key hidden md:flex items-center justify-center z-10 -mx-3 lg:-mx-4 transition-all duration-700",
+        "piano-black-key hidden md:flex items-center justify-center -mx-3 lg:-mx-4 transition-all duration-700",
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
       )}
       style={{ transitionDelay: isVisible ? `${delay}ms` : "0ms" }}
@@ -136,7 +136,7 @@ export function ThreePaths() {
       />
 
       <div className="container mx-auto relative z-10">
-        {/* Header */}
+        {/* Header — centered */}
         <div className="text-center mb-16">
           <p
             className={cn(
@@ -148,7 +148,7 @@ export function ThreePaths() {
           </p>
           <h2
             className={cn(
-              "text-[clamp(28px,4vw,40px)] font-display font-light leading-tight text-foreground mb-4 text-center transition-all duration-700",
+              "text-[clamp(28px,4vw,40px)] font-display font-light leading-tight text-foreground transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
             style={{ transitionDelay: isVisible ? "150ms" : "0ms", textWrap: "balance" as any }}
@@ -170,23 +170,22 @@ export function ThreePaths() {
           />
         </div>
 
-        {/* ─── Piano Keys Layout ─── */}
-        {/* Desktop: flex row with interleaved white/black keys */}
-        <div className="hidden md:flex items-end max-w-5xl mx-auto mb-12">
+        {/* ─── Piano Keys Layout (Desktop) ─── */}
+        <div className="hidden md:flex items-end max-w-5xl mx-auto mb-12 piano-keys-container">
           {tiers.map((tier, i) => (
             <div key={tier.name} className="contents">
               {/* White Key */}
               <div
                 className={cn(
-                  "piano-white-key flex-1 flex flex-col justify-end transition-all duration-700",
+                  "piano-white-key flex-1 flex flex-col transition-all duration-700",
                   tier.isChosen && "piano-white-key--chosen",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
                 )}
                 style={{ transitionDelay: isVisible ? `${whiteKeyDelays[i]}ms` : "0ms" }}
               >
-                {/* MOST CHOSEN badge */}
+                {/* MOST CHOSEN badge — elevated with connecting thread */}
                 {tier.isChosen && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+                  <div className="absolute -top-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center">
                     <div className="paths-chosen-badge">
                       <span
                         className="inline-block"
@@ -212,8 +211,17 @@ export function ThreePaths() {
                         aria-hidden="true"
                       />
                     </div>
+                    {/* Connecting golden thread */}
+                    <div
+                      className="w-[1px] h-3"
+                      style={{ background: "hsl(var(--vow-yellow) / 0.3)" }}
+                      aria-hidden="true"
+                    />
                   </div>
                 )}
+
+                {/* Top spacer — clean ivory playing surface */}
+                <div className="flex-grow min-h-[80px]" />
 
                 {/* Name */}
                 <h3 className="piano-key__name">{tier.name}</h3>
@@ -237,7 +245,7 @@ export function ThreePaths() {
                 {/* CTA */}
                 <Button
                   className={cn(
-                    "w-full mt-auto",
+                    "w-full",
                     tier.isChosen
                       ? "piano-key__cta--chosen"
                       : "piano-key__cta--flanking"
@@ -270,7 +278,7 @@ export function ThreePaths() {
                 style={{ transitionDelay: isVisible ? `${whiteKeyDelays[i]}ms` : "0ms" }}
               >
                 {tier.isChosen && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+                  <div className="absolute -top-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center">
                     <div className="paths-chosen-badge">
                       <span
                         className="inline-block"
@@ -296,6 +304,11 @@ export function ThreePaths() {
                         aria-hidden="true"
                       />
                     </div>
+                    <div
+                      className="w-[1px] h-2"
+                      style={{ background: "hsl(var(--vow-yellow) / 0.3)" }}
+                      aria-hidden="true"
+                    />
                   </div>
                 )}
 
@@ -310,7 +323,7 @@ export function ThreePaths() {
                 <p className="piano-key__sentence">{tier.sentence}</p>
                 <Button
                   className={cn(
-                    "w-full mt-auto",
+                    "w-full",
                     tier.isChosen ? "piano-key__cta--chosen" : "piano-key__cta--flanking"
                   )}
                   variant={tier.isChosen ? "default" : "outline"}
