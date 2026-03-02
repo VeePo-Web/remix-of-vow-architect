@@ -127,7 +127,7 @@ function NowPlayingBar({
           <button
             onClick={handleToggle}
             className={cn(
-              "w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)/0.4)]",
+              "w-7 h-7 rounded-full flex items-center justify-center shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)/0.4)]",
               isPlaying ? "bg-[hsl(var(--vow-yellow))] text-black" : "text-foreground/70"
             )}
             style={{ transition: "all 180ms cubic-bezier(.22,.61,.36,1)", background: isPlaying ? undefined : "linear-gradient(135deg, hsl(0 0% 100% / 0.06), hsl(var(--vow-yellow) / 0.04))" }}
@@ -409,7 +409,7 @@ export function TheSound() {
             {/* Subhead */}
             <p
               className={cn(
-                "w-full text-lg font-display font-light italic text-muted-foreground mb-20 text-center transition-all duration-700",
+                "w-full text-lg font-sans text-muted-foreground mb-20 text-center transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{ transitionDelay: isVisible ? "300ms" : "0ms", textAlign: 'center' }}
@@ -461,6 +461,7 @@ export function TheSound() {
                       isActive={activeCategory === cat.id}
                       isPlaying={isCategoryPlaying(cat.id)}
                       trackCount={cat.tracks.length}
+                      reducedMotion={reducedMotion}
                       onClick={() => handleGenreClick(cat.id)}
                     />
                   </div>
