@@ -7,14 +7,14 @@ import transformationLife from "@/assets/transformation-life-ai.jpg";
 
 const fears = [
   "What if it sounds the same as every ceremony you have ever sat through",
-  "What if the music fades into the room and no one remembers a single note",
+  "What if the music disappears into the room — and no one remembers a single note",
   "What if no one ever asks what song was playing when you knew",
-  "What if the person behind the piano does not understand what this day means to you",
+  "What if the person behind the piano never asks what this day means to you",
 ];
 
 const resolutions = [
   "I ask what song was playing when you knew — and I build from there",
-  "Your walk-down song is written note by note — for the two of you alone",
+  "Your walk-down song is written note by note — for the two of you, and no one else",
   "A complete ceremony plan lands in your inbox before you think to ask for one",
   "I stay until the last guest has gone and the final note has found its silence",
 ];
