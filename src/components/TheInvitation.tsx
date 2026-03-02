@@ -45,50 +45,73 @@ export function TheInvitation() {
       data-theme="life"
       className="relative py-24 md:py-32 overflow-hidden invitation-texture piano-section-target min-h-[400px]"
       style={{
-        background: 'linear-gradient(180deg, hsl(45 25% 96%) 0%, hsl(45 20% 93%) 100%)',
+        background: 'linear-gradient(180deg, hsl(30 8% 12%) 0%, hsl(25 6% 10%) 100%)',
       }}
     >
       {/* === ATMOSPHERIC DEPTH LAYERS === */}
 
-      {/* Top fade from VowMoment dark — 120px luxurious emergence */}
+      {/* Faint background image — atmospheric wash */}
+      <div
+        className="absolute inset-0 pointer-events-none invitation-ken-burns"
+        style={{
+          backgroundImage: `url(${invitationPortrait})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          opacity: 0.03,
+          filter: 'saturate(0.5) contrast(1.1) blur(1px)',
+          animation: 'invitation-ken-burns 40s ease-in-out infinite alternate',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Top fade from VowMoment dark */}
       <div
         className="absolute top-0 left-0 right-0 h-[120px] z-10 pointer-events-none"
         style={{ background: 'linear-gradient(to top, transparent, hsl(240 9% 4%))' }}
         aria-hidden="true"
       />
 
-      {/* Layer 3: Warm elliptical fog behind portrait */}
+      {/* Warm elliptical fog behind portrait */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse 50% 60% at 30% 50%, hsla(38, 60%, 60%, 0.04) 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse 50% 60% at 30% 50%, hsla(35, 50%, 50%, 0.06) 0%, transparent 70%)',
         }}
         aria-hidden="true"
       />
 
-      {/* Layer 4: Cold-to-warm sweep */}
+      {/* Cold-to-warm sweep */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'linear-gradient(90deg, hsl(220 15% 92% / 0.3) 0%, hsl(42 30% 93% / 0.5) 50%, hsl(45 25% 96% / 0.2) 100%)',
+          background: 'linear-gradient(90deg, hsl(220 12% 10% / 0.3) 0%, hsl(30 12% 14% / 0.4) 50%, hsl(25 8% 11% / 0.2) 100%)',
         }}
         aria-hidden="true"
       />
 
-      {/* Layer 5: Candlelight pooling at bottom-center */}
+      {/* Candlelight pooling at center */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse 60% 40% at 50% 85%, hsla(40, 50%, 55%, 0.035) 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse 70% 50% at 50% 60%, hsla(40, 50%, 55%, 0.05) 0%, transparent 70%)',
         }}
         aria-hidden="true"
       />
 
-      {/* Layer 7: Vignette — subtle edge darkening */}
+      {/* Ember glow — warm firelight from above */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 50%, hsl(45 15% 88% / 0.5) 100%)',
+          background: 'radial-gradient(ellipse 60% 40% at 50% 40%, hsla(30, 80%, 40%, 0.04) 0%, transparent 70%)',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Vignette — spotlight effect */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at center, transparent 40%, hsl(25 8% 6% / 0.6) 100%)',
         }}
         aria-hidden="true"
       />
@@ -98,7 +121,7 @@ export function TheInvitation() {
           {/* Section Label */}
           <p
             className={cn(
-              'text-xs uppercase tracking-[0.22em] text-rich-black/50 mb-8 text-center',
+              'text-xs uppercase tracking-[0.22em] text-white/40 mb-8 text-center',
               'transition-all duration-700',
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             )}
@@ -118,30 +141,40 @@ export function TheInvitation() {
               )}
               style={{ transitionDelay: isVisible ? '150ms' : '0ms' }}
             >
-              {/* Cinematic portrait frame — sharp corners, editorial */}
-              <div
-                className="invitation-portrait-frame aspect-[4/5] overflow-hidden relative"
-                style={{
-                  border: '1px solid hsl(var(--vow-yellow) / 0.12)',
-                  boxShadow: 'inset 0 0 40px hsl(var(--vow-yellow) / 0.08), 0 32px 80px -16px rgba(0,0,0,0.25)',
-                }}
-              >
-                <img
-                  src={invitationPortrait}
-                  alt="Pianist's hands on grand piano keys in warm candlelight"
-                  className="w-full h-full object-cover will-change-transform invitation-ken-burns"
-                  loading="lazy"
-                />
-                {/* Film grain at 4% */}
-                <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
-                {/* Cinematic vignette */}
+              {/* Cinematic portrait frame with ambient light bleed */}
+              <div className="relative">
+                {/* Ambient light bleed — portrait as light source */}
                 <div
-                  className="absolute inset-0 pointer-events-none"
+                  className="absolute -inset-[60px] pointer-events-none"
                   style={{
-                    background: 'radial-gradient(ellipse at center, transparent 40%, hsl(240 12% 3% / 0.4) 100%)',
+                    background: 'radial-gradient(ellipse at center, hsla(40, 50%, 50%, 0.035) 0%, transparent 70%)',
                   }}
                   aria-hidden="true"
                 />
+                <div
+                  className="invitation-portrait-frame aspect-[4/5] overflow-hidden relative"
+                  style={{
+                    border: '1px solid hsl(var(--vow-yellow) / 0.2)',
+                    boxShadow: 'inset 0 0 40px hsl(var(--vow-yellow) / 0.12), 0 40px 100px -20px rgba(0,0,0,0.5)',
+                  }}
+                >
+                  <img
+                    src={invitationPortrait}
+                    alt="Pianist's hands on grand piano keys in warm candlelight"
+                    className="w-full h-full object-cover will-change-transform invitation-ken-burns"
+                    loading="lazy"
+                  />
+                  {/* Film grain at 4% */}
+                  <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
+                  {/* Cinematic vignette */}
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background: 'radial-gradient(ellipse at center, transparent 40%, hsl(240 12% 3% / 0.4) 100%)',
+                    }}
+                    aria-hidden="true"
+                  />
+                </div>
               </div>
 
               {/* Caption with golden rule */}
@@ -154,13 +187,49 @@ export function TheInvitation() {
               >
                 <span
                   className="block w-10 h-px mb-3"
-                  style={{ background: 'hsl(var(--vow-yellow) / 0.3)' }}
+                  style={{ background: 'hsl(var(--vow-yellow) / 0.5)' }}
                   aria-hidden="true"
                 />
-                <p className="text-sm font-display italic text-rich-black/45 text-center">
+                <p className="text-sm font-display italic text-white/40 text-center">
                   A moment with me — before the moment with you.
                 </p>
               </div>
+            </div>
+
+            {/* Golden Thread — desktop: horizontal, mobile: vertical */}
+            <div
+              className={cn(
+                'hidden md:flex items-center justify-center pointer-events-none',
+                'md:col-span-0 md:absolute md:left-[40%] md:top-1/2 md:w-[8%]'
+              )}
+              style={{ transform: 'translateY(-50%)' }}
+            >
+              <span
+                className={cn(
+                  'block h-px w-full origin-left transition-transform duration-[800ms]',
+                  isVisible ? 'scale-x-100' : 'scale-x-0'
+                )}
+                style={{
+                  background: 'hsl(var(--vow-yellow) / 0.15)',
+                  transitionDelay: isVisible ? '500ms' : '0ms',
+                  transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+                }}
+                aria-hidden="true"
+              />
+            </div>
+            {/* Mobile golden thread */}
+            <div className="flex md:hidden justify-center">
+              <span
+                className={cn(
+                  'block w-px h-10 origin-top transition-transform duration-[800ms]',
+                  isVisible ? 'scale-y-100' : 'scale-y-0'
+                )}
+                style={{
+                  background: 'hsl(var(--vow-yellow) / 0.15)',
+                  transitionDelay: isVisible ? '500ms' : '0ms',
+                }}
+                aria-hidden="true"
+              />
             </div>
 
             {/* Content Column */}
@@ -169,7 +238,7 @@ export function TheInvitation() {
               <p
                 className={cn(
                   'invitation-epigraph transition-all duration-700',
-                  isVisible ? 'opacity-[0.55] translate-y-0' : 'opacity-0 translate-y-4'
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                 )}
                 style={{ transitionDelay: isVisible ? '200ms' : '0ms' }}
               >
@@ -179,7 +248,7 @@ export function TheInvitation() {
               {/* Headline */}
               <h2
                 className={cn(
-                  'text-[clamp(32px,5vw,48px)] font-display font-light leading-tight text-rich-black',
+                  'text-[clamp(32px,5vw,48px)] font-display font-light leading-tight text-white',
                   'transition-all duration-700',
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
                 )}
@@ -213,11 +282,11 @@ export function TheInvitation() {
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
                 )}
                 style={{
-                  borderColor: 'hsl(var(--vow-yellow) / 0.15)',
+                  borderColor: 'hsl(var(--vow-yellow) / 0.25)',
                   transitionDelay: isVisible ? '450ms' : '0ms',
                 }}
               >
-                <p className="text-lg font-display font-light leading-[1.85] text-rich-black/70">
+                <p className="text-lg font-display font-light leading-[1.85] text-white/60">
                   The wind that steals a vow mid-sentence. The hum that bleeds through silence. The back row that leans in — and still cannot hear.
                 </p>
               </div>
@@ -250,7 +319,7 @@ export function TheInvitation() {
                 </Link>
               </div>
 
-              {/* Credential Strip */}
+              {/* Credential Strip — frosted glass */}
               <div
                 className={cn(
                   'pt-6 transition-all duration-700',
@@ -263,24 +332,27 @@ export function TheInvitation() {
                     <div key={cred.value} className="flex items-center">
                       <div
                         className={cn(
-                          'invitation-credential text-center px-5 py-3 transition-all duration-700',
+                          'invitation-credential text-center px-5 py-3 rounded-[2px] transition-all duration-700',
                           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                         )}
                         style={{
                           transitionDelay: isVisible ? `${850 + i * 100}ms` : '0ms',
+                          background: 'hsl(0 0% 100% / 0.03)',
+                          backdropFilter: 'blur(8px)',
+                          border: '1px solid hsl(var(--vow-yellow) / 0.08)',
                         }}
                       >
-                        <span className="block font-display text-xl text-rich-black/80">
+                        <span className="block font-display text-xl text-white/75">
                           {cred.value}
                         </span>
-                        <span className="block text-[10px] uppercase tracking-[0.22em] text-rich-black/45 mt-1">
+                        <span className="block text-[10px] uppercase tracking-[0.22em] text-white/35 mt-1">
                           {cred.label}
                         </span>
                       </div>
                       {i < credentials.length - 1 && (
                         <span
-                          className="block w-px h-5 flex-shrink-0"
-                          style={{ background: 'hsl(var(--vow-yellow) / 0.2)' }}
+                          className="block w-px h-5 flex-shrink-0 mx-1"
+                          style={{ background: 'hsl(var(--vow-yellow) / 0.3)' }}
                           aria-hidden="true"
                         />
                       )}
@@ -293,7 +365,7 @@ export function TheInvitation() {
         </div>
       </div>
 
-      {/* Bottom fade into TheSound dark — 120px */}
+      {/* Bottom fade into TheSound dark */}
       <div
         className="absolute bottom-0 left-0 right-0 h-[120px] z-10 pointer-events-none"
         style={{ background: 'linear-gradient(to bottom, transparent, hsl(220 15% 8%))' }}
