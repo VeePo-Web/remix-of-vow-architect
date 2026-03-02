@@ -67,8 +67,9 @@ export function GenreCard({
           : "1px solid hsl(var(--vow-yellow) / 0.08)",
         transform: isActive ? "scale(1.02)" : "scale(1)",
         boxShadow: isActive
-          ? "0 0 30px hsl(var(--vow-yellow) / 0.12), inset 0 1px 0 rgba(255,255,255,0.04)"
-          : "inset 0 1px 0 rgba(255,255,255,0.03)",
+          ? "0 0 30px hsl(var(--vow-yellow) / 0.12), inset 0 1px 0 rgba(255,255,255,0.06)"
+          : "inset 0 1px 0 rgba(255,255,255,0.06)",
+        transition: "all 300ms cubic-bezier(0.4,0,0.2,1)",
       }}
       aria-label={`${label} — ${trackCount} tracks`}
       aria-pressed={isActive}
@@ -77,20 +78,29 @@ export function GenreCard({
       <img
         src={image}
         alt=""
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-300"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-all duration-500 group-hover:opacity-[0.3]"
         style={{
-          opacity: isActive ? 0.18 : 0.1,
-          filter: "blur(8px) saturate(0.5)",
+          opacity: isActive ? 0.35 : 0.2,
+          filter: "blur(6px) saturate(0.6)",
         }}
         loading="lazy"
         aria-hidden="true"
       />
 
-      {/* Dark overlay */}
+      {/* Dark overlay — reduced to let imagery breathe */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "linear-gradient(180deg, hsl(220 15% 6% / 0.7) 0%, hsl(220 15% 4% / 0.85) 100%)",
+          background: "linear-gradient(180deg, hsl(220 15% 6% / 0.55) 0%, hsl(220 15% 4% / 0.65) 100%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Warm radial glow on hover */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{
+          background: `radial-gradient(circle at 50% 40%, ${accent.replace(')', ' / 0.08)')} 0%, transparent 70%)`,
         }}
         aria-hidden="true"
       />
@@ -103,17 +113,20 @@ export function GenreCard({
         {/* Circular play indicator */}
         <div
           className={cn(
-            "w-12 h-12 rounded-full flex items-center justify-center",
+            "w-14 h-14 rounded-full flex items-center justify-center",
             "border transition-all duration-[180ms]",
             "mb-4"
           )}
           style={{
             borderColor: isActive
               ? "hsl(var(--vow-yellow) / 0.35)"
-              : "hsl(0 0% 100% / 0.12)",
+              : "hsl(0 0% 100% / 0.15)",
             background: isActive
-              ? "hsl(var(--vow-yellow) / 0.08)"
-              : "hsl(0 0% 100% / 0.03)",
+              ? `linear-gradient(135deg, hsl(var(--vow-yellow) / 0.1), ${accent.replace(')', ' / 0.06)')})`
+              : `linear-gradient(135deg, hsl(0 0% 100% / 0.04), ${accent.replace(')', ' / 0.03)')})`,
+            boxShadow: isActive
+              ? `inset 0 2px 4px rgba(0,0,0,0.3), 0 0 16px ${accent.replace(')', ' / 0.15)')}`
+              : "inset 0 2px 4px rgba(0,0,0,0.3)",
             animation: isActive && isPlaying
               ? "exhale-pulse 2.8s cubic-bezier(0.4,0,0.6,1) infinite"
               : "none",
@@ -122,15 +135,15 @@ export function GenreCard({
           {isActive && isPlaying ? (
             <CircleWaveform color={accent} />
           ) : isActive ? (
-            <Pause size={16} style={{ color: accent }} />
+            <Pause size={18} style={{ color: accent }} />
           ) : (
-            <Play size={16} className="ml-0.5" style={{ color: accent, opacity: 0.7 }} />
+            <Play size={18} className="ml-0.5" style={{ color: accent, opacity: 0.7 }} />
           )}
         </div>
 
         {/* Genre label */}
         <span
-          className="text-[11px] uppercase tracking-[0.25em] font-sans font-medium text-foreground/80"
+          className="text-[13px] uppercase tracking-[0.18em] font-display font-medium text-foreground/80"
         >
           {label}
         </span>
@@ -138,7 +151,7 @@ export function GenreCard({
         {/* Context phrase — visible on hover or when active */}
         <span
           className={cn(
-            "text-[10px] font-display italic text-foreground/30 mt-1.5 text-center leading-tight",
+            "text-[11px] font-display italic text-foreground/30 mt-1.5 text-center leading-tight",
             "transition-opacity duration-300",
             isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
           )}

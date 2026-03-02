@@ -353,7 +353,7 @@ export function TheSound() {
             {/* Subhead */}
             <p
               className={cn(
-                "text-lg font-display font-light italic text-muted-foreground mb-16 transition-all duration-700",
+                "text-lg font-display font-light italic text-muted-foreground mb-16 text-center transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{ transitionDelay: isVisible ? "300ms" : "0ms" }}
@@ -374,7 +374,9 @@ export function TheSound() {
                   <div
                     key={cat.id}
                     className={cn(
-                      i === 4 && "col-span-2 md:col-span-1" // 5th card spans on mobile
+                      "transition-all duration-500",
+                      gridVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
+                      i === 4 && "col-span-2 md:col-span-1"
                     )}
                     style={{
                       transitionDelay: gridVisible ? `${300 + i * 80}ms` : "0ms",

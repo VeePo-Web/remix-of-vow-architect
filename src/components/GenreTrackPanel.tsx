@@ -150,7 +150,7 @@ export function GenreTrackPanel({
             to="/contact"
             className="underline decoration-foreground/10 hover:decoration-[hsl(var(--vow-yellow)/0.3)] hover:text-[hsl(var(--vow-yellow)/0.6)] transition-all duration-[260ms]"
           >
-            Request a live preview.
+            Hear me play for you.
           </Link>
         </p>
       </div>
