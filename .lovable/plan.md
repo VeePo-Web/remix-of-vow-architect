@@ -36,4 +36,3 @@ There are no further visual, performance, or accessibility issues to address in 
 ### Recommended Next Step
 
 Move to the **Three Paths** section on the weddings page and apply the same Fantasy.co-level elevation process -- compositional drama, cinematic imagery, material depth, scroll choreography, and atmospheric polish.
-
