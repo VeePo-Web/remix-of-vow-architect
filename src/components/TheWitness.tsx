@@ -439,10 +439,12 @@ export function TheWitness() {
                     )}
                     style={{
                       transitionDelay: isVisible ? `${900 + index * 80}ms` : "0ms",
-                      background: 'hsl(45 20% 93% / 0.5)',
-                      backdropFilter: 'blur(4px)',
-                      WebkitBackdropFilter: 'blur(4px)',
+                      background: 'linear-gradient(180deg, hsl(45 24% 95% / 0.6) 0%, hsl(42 18% 91% / 0.4) 100%)',
                       border: '1px solid hsl(45 20% 85% / 0.25)',
+                      borderTop: '1px solid hsl(45 28% 93% / 0.45)',
+                      boxShadow: index < 2
+                        ? '0 1px 2px -1px hsl(40 20% 50% / 0.05), inset 0 1px 0 hsl(0 0% 100% / 0.1), inset 2px 0 6px -2px hsl(var(--vow-yellow) / 0.06)'
+                        : undefined,
                     }}
                   >
                     {/* Diamond icon */}
@@ -451,6 +453,7 @@ export function TheWitness() {
                       style={{
                         background: 'hsl(var(--vow-yellow) / 0.45)',
                         boxShadow: '0 0 6px hsl(var(--vow-yellow) / 0.15)',
+                        animationDelay: `${index * 700}ms`,
                       }}
                       aria-hidden="true"
                     />
