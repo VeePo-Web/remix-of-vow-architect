@@ -336,6 +336,19 @@ export function TheSound() {
           <img src={soundBokeh} alt="" className="w-full h-full object-cover opacity-[0.05] pointer-events-none" loading="lazy" style={{ mixBlendMode: "screen" }} />
         </div>
 
+        {/* Film grain overlay */}
+        <div className="grain absolute inset-0 opacity-[0.08] pointer-events-none" aria-hidden="true" />
+
+        {/* Breathing warm glow — 4s cycle */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse 50% 40% at 50% 50%, hsl(var(--vow-yellow) / 0.04) 0%, transparent 70%)",
+            animation: reducedMotion ? "none" : "exhale-pulse 4s cubic-bezier(0.4,0,0.6,1) infinite",
+          }}
+          aria-hidden="true"
+        />
+
         {/* Warm light leak layer — secondary parallax */}
         <div
           ref={parallaxLeakRef}
@@ -389,7 +402,7 @@ export function TheSound() {
               )}
               style={{ transitionDelay: isVisible ? "300ms" : "0ms", textAlign: 'center' }}
             >
-              Browse. Listen. Imagine it at yours.
+              Five rooms. One instrument. Your ceremony.
             </p>
 
             {/* ── Genre Card Grid ── */}

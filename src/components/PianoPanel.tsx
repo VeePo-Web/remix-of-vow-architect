@@ -77,7 +77,7 @@ const stringPositions = [
 function PianoStrings({ visible }: { visible: boolean }) {
   return (
     <div
-      className="absolute inset-0 pointer-events-none overflow-hidden rounded-[16px]"
+      className="absolute inset-0 pointer-events-none overflow-hidden rounded-lg"
       aria-hidden="true"
     >
       {stringPositions.map((pct, i) => (
@@ -137,7 +137,7 @@ function PianoStrings({ visible }: { visible: boolean }) {
 
       {/* Interior light gradient — warm glow from open lid */}
       <div
-        className="absolute inset-0 rounded-[16px]"
+        className="absolute inset-0 rounded-lg"
         style={{
           background: "radial-gradient(ellipse at 50% 0%, hsl(var(--vow-yellow) / 0.04) 0%, transparent 60%)",
           opacity: visible ? 1 : 0,
@@ -265,7 +265,7 @@ export default function PianoPanel({
           // Desktop: above pill, left-aligned; Mobile: centered above pill
           "bottom-[calc(4.5rem)] left-1/2 -translate-x-1/2 md:bottom-[calc(3.5rem)] md:left-6 md:translate-x-0",
           "w-[calc(100vw-24px)] md:w-[320px]",
-          "rounded-[16px]",
+          "rounded-lg",
           "pointer-events-auto"
         )}
         style={{

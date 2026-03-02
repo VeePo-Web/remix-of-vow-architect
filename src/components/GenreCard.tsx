@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import { Play, Pause } from "lucide-react";
 import { useState } from "react";
 
 /* ─── Genre accent colors (muted, warm) ─── */
@@ -19,24 +18,6 @@ const genreGradients: Record<string, string> = {
   classical: "radial-gradient(ellipse at 50% 40%, hsl(40 25% 16% / 0.3) 0%, transparent 70%)",
   film: "radial-gradient(ellipse at 50% 40%, hsl(200 30% 15% / 0.35) 0%, transparent 70%)",
 };
-
-/* ─── Mini waveform inside circle ─── */
-function CircleWaveform({ color }: { color: string }) {
-  return (
-    <div className="flex items-center gap-[2px] h-[14px]" aria-hidden="true">
-      {[5, 9, 7, 4].map((h, i) => (
-        <div
-          key={i}
-          className="w-[2px] rounded-full"
-          style={{
-            background: color,
-            animation: `sound-wave-${i} 1200ms ease-in-out ${i * 150}ms infinite alternate`,
-          }}
-        />
-      ))}
-    </div>
-  );
-}
 
 interface GenreCardProps {
   id: string;
@@ -62,19 +43,16 @@ export function GenreCard({
   const accent = genreAccents[id] || "hsl(var(--vow-yellow))";
   const gradient = genreGradients[id] || genreGradients.hymns;
   const [isHovered, setIsHovered] = useState(false);
-  const [isPressed, setIsPressed] = useState(false);
 
   return (
     <button
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => { setIsHovered(false); setIsPressed(false); }}
-      onMouseDown={() => setIsPressed(true)}
-      onMouseUp={() => setIsPressed(false)}
+      onMouseLeave={() => setIsHovered(false)}
       className={cn(
-        "genre-card group relative overflow-hidden rounded-xl",
+        "genre-card group relative overflow-hidden rounded-lg",
         "aspect-[4/5] w-full",
-        "transition-all duration-300 ease-out",
+        "transition-all duration-[180ms] ease-[cubic-bezier(0.4,0,0.2,1)]",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)/0.5)]",
         isActive && "genre-card--active"
       )}
@@ -82,26 +60,24 @@ export function GenreCard({
         border: isActive
           ? "1px solid hsl(var(--vow-yellow) / 0.35)"
           : `1px solid hsl(var(--vow-yellow) / ${isHovered ? 0.2 : 0.08})`,
-        transform: isPressed ? "scale(0.98)" : isActive ? "scale(1.02)" : isHovered ? "translateY(-2px)" : "scale(1)",
+        transform: isActive ? "translateY(-2px)" : isHovered ? "translateY(-2px)" : "translateY(0)",
         boxShadow: isActive
-          ? "0 0 30px hsl(var(--vow-yellow) / 0.12), inset 0 1px 0 rgba(255,255,255,0.06)"
-          : "inset 0 1px 0 rgba(255,255,255,0.06)",
-        transition: isPressed
-          ? "transform 80ms cubic-bezier(0.22,0.61,0.36,1), box-shadow 80ms cubic-bezier(0.22,0.61,0.36,1), border-color 80ms cubic-bezier(0.22,0.61,0.36,1)"
-          : "transform 300ms cubic-bezier(0.22,0.61,0.36,1), box-shadow 300ms cubic-bezier(0.22,0.61,0.36,1), border-color 300ms cubic-bezier(0.22,0.61,0.36,1)",
+          ? "0 6px 30px rgba(0,0,0,0.35), 0 0 30px hsl(var(--vow-yellow) / 0.12), inset 0 1px 0 rgba(255,255,255,0.06)"
+          : "0 6px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06)",
       }}
       aria-label={`${label} — ${trackCount} tracks`}
       aria-pressed={isActive}
     >
-      {/* Background image — blurred atmospheric */}
+      {/* Background image — blurred atmospheric, Ken Burns only when active */}
       <img
         src={image}
         alt=""
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-500 group-hover:opacity-[0.4]"
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         style={{
           opacity: isActive ? 0.35 : 0.2,
           filter: "blur(4px) saturate(0.6)",
-          animation: (isActive || isHovered) ? "ken-burns-drift 30s ease-in-out infinite alternate" : "none",
+          animation: isActive ? "ken-burns-drift 30s ease-in-out infinite alternate" : "none",
+          transition: "opacity 400ms cubic-bezier(0.4,0,0.2,1)",
         }}
         loading="lazy"
         aria-hidden="true"
@@ -109,15 +85,16 @@ export function GenreCard({
 
       {/* Per-genre atmospheric gradient */}
       <div
-        className="absolute inset-0 pointer-events-none transition-opacity duration-500 group-hover:opacity-100"
+        className="absolute inset-0 pointer-events-none"
         style={{
           background: gradient,
           opacity: isActive ? 1 : 0.7,
+          transition: "opacity 400ms cubic-bezier(0.4,0,0.2,1)",
         }}
         aria-hidden="true"
       />
 
-      {/* Dark overlay — reduced to let imagery breathe */}
+      {/* Dark overlay */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -126,63 +103,49 @@ export function GenreCard({
         aria-hidden="true"
       />
 
-      {/* Warm radial glow on hover */}
+      {/* Inner glow — intensifies when active, replaces play icon */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          background: `radial-gradient(circle at 50% 40%, ${accent.replace(')', ' / 0.08)')} 0%, transparent 70%)`,
+          background: isActive
+            ? `radial-gradient(circle at 50% 40%, ${accent.replace(")", " / 0.15)")} 0%, transparent 60%)`
+            : `radial-gradient(circle at 50% 40%, ${accent.replace(")", " / 0.04)")} 0%, transparent 60%)`,
+          transition: "background 400ms cubic-bezier(0.4,0,0.2,1)",
+          animation: isActive && isPlaying ? "exhale-pulse 3.2s cubic-bezier(0.4,0,0.6,1) infinite" : "none",
         }}
         aria-hidden="true"
       />
 
       {/* Film grain */}
-      <div className="grain absolute inset-0 opacity-[0.04] pointer-events-none rounded-xl" aria-hidden="true" />
+      <div className="grain absolute inset-0 opacity-[0.04] pointer-events-none rounded-lg" aria-hidden="true" />
 
-      {/* Content */}
+      {/* Content — label and context only */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center px-3">
-        {/* Circular play indicator */}
+        {/* Breathing golden dot — active indicator */}
         <div
-          className={cn(
-            "w-14 h-14 rounded-full flex items-center justify-center",
-            "border transition-all duration-[180ms]",
-            "mb-4"
-          )}
+          className="mb-4"
           style={{
-            borderColor: isActive
-              ? "hsl(var(--vow-yellow) / 0.35)"
-              : "hsl(0 0% 100% / 0.15)",
-            background: isActive
-              ? `linear-gradient(135deg, hsl(var(--vow-yellow) / 0.12), ${accent.replace(')', ' / 0.08)')})`
-              : `linear-gradient(135deg, hsl(0 0% 100% / 0.05), ${accent.replace(')', ' / 0.04)')})`,
-            boxShadow: isActive
-              ? `inset 0 2px 4px rgba(0,0,0,0.3), 0 0 16px ${accent.replace(')', ' / 0.15)')}`
-              : "inset 0 2px 4px rgba(0,0,0,0.3)",
-            animation: isActive && isPlaying
-              ? "exhale-pulse 2.8s cubic-bezier(0.4,0,0.6,1) infinite"
-              : "none",
+            width: "6px",
+            height: "6px",
+            borderRadius: "50%",
+            background: isActive ? "hsl(var(--vow-yellow))" : `${accent.replace(")", " / 0.3)")}`,
+            boxShadow: isActive ? "0 0 12px hsl(var(--vow-yellow) / 0.4)" : "none",
+            animation: isActive ? "divider-diamond-breathe 3s cubic-bezier(0.4,0,0.6,1) infinite" : "none",
+            transition: "background 180ms, box-shadow 180ms",
           }}
-        >
-          {isActive && isPlaying ? (
-            <CircleWaveform color={accent} />
-          ) : isActive ? (
-            <Pause size={18} style={{ color: accent }} />
-          ) : (
-            <Play size={18} className="ml-0.5" style={{ color: accent, opacity: 0.7 }} />
-          )}
-        </div>
+          aria-hidden="true"
+        />
 
         {/* Genre label */}
-        <span
-          className="text-[13px] uppercase tracking-[0.18em] font-display font-medium text-foreground/80"
-        >
+        <span className="text-[13px] uppercase tracking-[0.18em] font-display font-medium text-foreground/80">
           {label}
         </span>
 
-        {/* Context phrase — visible on hover or when active */}
+        {/* Context phrase */}
         <span
           className={cn(
             "text-[11px] font-display italic text-foreground/40 mt-1.5 text-center leading-tight",
-            "transition-opacity duration-300",
+            "transition-opacity duration-[180ms]",
             isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
           )}
         >
@@ -192,11 +155,12 @@ export function GenreCard({
 
       {/* Bottom accent bar when active */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-[2px] transition-all duration-300"
+        className="absolute bottom-0 left-0 right-0 h-[2px]"
         style={{
           background: isActive
             ? `linear-gradient(to right, transparent, ${accent}, transparent)`
             : "transparent",
+          transition: "background 180ms cubic-bezier(0.4,0,0.2,1)",
         }}
         aria-hidden="true"
       />
