@@ -5138,12 +5138,59 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 
 /* ── The Witness: Fantasy.co-Level Visual Elevation ── */
 
+/* Full-section background Ken Burns drift */
+.witness-bg-drift {
+  animation: witness-ken-burns 30s ease-in-out infinite alternate;
+}
+
 /* Image frame warm border + depth */
 .witness-image-frame {
   box-shadow:
     0 8px 32px -8px hsl(45 25% 50% / 0.08),
     0 2px 8px -2px hsl(45 25% 50% / 0.06);
   background: hsl(45 20% 93% / 0.3);
+}
+
+/* Step 3: Candlelight shimmer inside frame — GPU-composited transform */
+.witness-frame-shimmer {
+  overflow: hidden;
+}
+.witness-frame-shimmer::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background: radial-gradient(ellipse at center, hsl(var(--vow-yellow) / 0.06) 0%, transparent 60%);
+  animation: witness-shimmer-drift 8s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes witness-shimmer-drift {
+  0% { transform: translate(-10%, -10%); }
+  50% { transform: translate(10%, 5%); }
+  100% { transform: translate(-10%, -10%); }
+}
+
+/* Step 3: Light bleed breathing */
+.witness-light-bleed {
+  animation: witness-light-breathe 4s ease-in-out infinite;
+}
+
+@keyframes witness-light-breathe {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.03); }
+}
+
+/* Step 4: Breathing glow pool */
+.witness-breathing-glow {
+  animation: witness-glow-breathe 4s ease-in-out infinite;
+}
+
+@keyframes witness-glow-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
 }
 
 /* Declaration card hover lift */
@@ -5156,14 +5203,28 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 .witness-declaration-card:hover {
   transform: translateY(-2px);
   box-shadow:
-    inset 0 1px 0 hsl(0 0% 100% / 0.03),
+    inset 3px 0 12px -3px hsl(var(--vow-yellow) / 0.08),
+    inset 0 1px 0 hsl(0 0% 100% / 0.04),
     0 4px 16px -4px hsl(45 25% 50% / 0.1);
 }
 
+/* Step 4: Thread diamond pulse on reveal */
+.witness-thread-diamond--active {
+  animation: witness-diamond-pulse 400ms ease-out forwards;
+}
+
 /* Kit cell hover */
+.witness-kit-cell {
+  transition: background 180ms cubic-bezier(0.22, 0.61, 0.36, 1),
+              box-shadow 180ms cubic-bezier(0.22, 0.61, 0.36, 1),
+              border-color 180ms cubic-bezier(0.22, 0.61, 0.36, 1),
+              opacity 700ms ease,
+              translate 700ms ease;
+}
 .witness-kit-cell:hover {
   background: hsl(45 20% 91% / 0.6) !important;
   box-shadow: 0 2px 8px -2px hsl(45 25% 50% / 0.08);
+  border-color: hsl(var(--vow-yellow) / 0.18) !important;
 }
 .witness-kit-cell:hover .witness-kit-diamond {
   animation: witness-diamond-pulse 400ms ease-out;
@@ -5196,9 +5257,57 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   100% { transform: scale(1.06) translate(-1%, 1%); }
 }
 
-/* Reduced motion fallbacks */
+/* Step 6: Pianist underline trailing glow */
+.witness-pianist-underline.scale-x-100 {
+  animation: witness-pianist-glow 800ms ease-out 600ms forwards;
+  will-change: box-shadow;
+}
+
+@keyframes witness-pianist-glow {
+  0% { box-shadow: 0 0 0 transparent; }
+  40% { box-shadow: 0 0 12px hsl(var(--vow-yellow) / 0.4); }
+  100% { box-shadow: 0 0 6px hsl(var(--vow-yellow) / 0.25); }
+}
+
+/* Step 7: Ghost CTA hover */
+.witness-ghost-cta {
+  text-decoration: none;
+}
+.witness-ghost-cta::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: currentColor;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+.witness-ghost-cta:hover::after {
+  opacity: 0.3;
+  transform: scaleX(1);
+}
+
+/* ── Reduced motion fallbacks ── */
 @media (prefers-reduced-motion: reduce) {
+  .witness-bg-drift {
+    animation: none !important;
+  }
   .witness-image-frame img {
+    animation: none !important;
+  }
+  .witness-frame-shimmer::before {
+    animation: none !important;
+    transform: translate(0, 0);
+  }
+  .witness-light-bleed {
+    animation: none !important;
+    opacity: 0.85;
+  }
+  .witness-breathing-glow {
     animation: none !important;
   }
   .witness-declaration-card {
@@ -5207,6 +5316,9 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   .witness-declaration-card:hover {
     transform: none;
   }
+  .witness-thread-diamond--active {
+    animation: none !important;
+  }
   .witness-golden-thread,
   .witness-headline-glow {
     animation: none !important;
@@ -5214,5 +5326,12 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   }
   .witness-kit-cell:hover .witness-kit-diamond {
     animation: none !important;
+  }
+  .witness-pianist-underline.scale-x-100 {
+    animation: none !important;
+    box-shadow: 0 0 6px hsl(var(--vow-yellow) / 0.25);
+  }
+  .witness-ghost-cta::after {
+    transition: none !important;
   }
 }
