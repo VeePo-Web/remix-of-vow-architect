@@ -3,9 +3,9 @@ import { DirectionalLink } from "./DirectionalLink";
 import { StaggerChildren } from "@/components/animation";
 
 const packages = [
-  { name: "Ceremony Only", price: 650 },
-  { name: "Essentials (Pre + Ceremony)", price: 750 },
-  { name: "Full Day (Pre, Ceremony, Cocktail, Dinner)", price: 1200 },
+  { name: "The Ceremony", price: 650 },
+  { name: "The Prelude", price: 750 },
+  { name: "The Story", price: 1200 },
 ];
 
 export function PricingPreview() {

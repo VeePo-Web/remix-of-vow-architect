@@ -4,68 +4,81 @@ import { cn } from "@/lib/utils";
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import pathsPianoCandle from "@/assets/paths-piano-candle.jpg";
 
-interface PathCardProps {
+interface KeyTier {
   name: string;
   price: string;
   description: string;
-  features: string[];
-  isChosen?: boolean;
+  sentence: string;
   ctaText: string;
+  isChosen?: boolean;
 }
 
-const paths: PathCardProps[] = [
+const tiers: KeyTier[] = [
   {
-    name: "The Vow",
+    name: "The Ceremony",
     price: "$650",
-    description: "Ceremony only",
-    features: [
-      "Live piano for your ceremony",
-      "Processional and recessional pieces",
-      "Custom arrangement consultation",
-      "Run-of-show cue sheet",
-    ],
+    description: "I play your ceremony — processional through recessional.",
+    sentence: "Your vows, carried by piano. Nothing more, nothing less.",
     ctaText: "Hold my date",
   },
   {
-    name: "The Hour",
+    name: "The Prelude",
     price: "$750",
-    description: "Prelude + Ceremony",
-    features: [
-      "Everything in The Vow",
-      "30-minute piano prelude as guests arrive",
-      "Backup piano and speakers included",
-      "Rain cover for outdoor ceremonies",
-    ],
-    isChosen: true,
+    description: "30 minutes of piano as your guests arrive, then your full ceremony.",
+    sentence: "The room is already sacred before the first word is spoken.",
     ctaText: "Hold my date",
+    isChosen: true,
   },
   {
     name: "The Story",
     price: "$1,200",
-    description: "Prelude + Ceremony + Reception",
-    features: [
-      "Everything in The Hour",
-      "Live piano through dinner and reception",
-      "Full-day timeline consultation",
-      "Insurance and all equipment included",
-    ],
+    description: "Prelude, ceremony, and live piano or curated DJ for cocktail hour.",
+    sentence: "From the first guest to the last glass raised — I am there.",
     ctaText: "Hold my date",
   },
 ];
 
-/* Step 7: Stagger order — chosen (center) first, then left, then right */
-const revealDelays = [550, 450, 650];
+/* Stagger: center first, then left, then right */
+const whiteKeyDelays = [550, 450, 650];
+const blackKeyDelays = [500, 600];
 
-function DiamondIcon({ chosen }: { chosen?: boolean }) {
+function GoldenDiamond() {
   return (
     <span
-      className="inline-block shrink-0 mt-[5px]"
+      className="inline-block"
       style={{
         width: 6,
         height: 6,
         transform: "rotate(45deg)",
-        background: `hsl(var(--vow-yellow) / ${chosen ? 0.7 : 0.45})`,
+        background: "hsl(var(--vow-yellow) / 0.55)",
         borderRadius: 1,
+      }}
+      aria-hidden="true"
+    />
+  );
+}
+
+function BlackKey({ delay, isVisible }: { delay: number; isVisible: boolean }) {
+  return (
+    <div
+      className={cn(
+        "piano-black-key hidden md:flex items-center justify-center z-10 -mx-3 lg:-mx-4 transition-all duration-700",
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+      )}
+      style={{ transitionDelay: isVisible ? `${delay}ms` : "0ms" }}
+      aria-hidden="true"
+    >
+      <GoldenDiamond />
+    </div>
+  );
+}
+
+function MobileGoldenThread() {
+  return (
+    <div
+      className="md:hidden h-[1px] w-16 mx-auto my-2"
+      style={{
+        background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.25), transparent)",
       }}
       aria-hidden="true"
     />
@@ -88,7 +101,7 @@ export function ThreePaths() {
         aria-hidden="true"
       />
 
-      {/* Step 1: Cinematic background image */}
+      {/* Cinematic background image */}
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
         <img
           src={pathsPianoCandle}
@@ -104,7 +117,7 @@ export function ThreePaths() {
         />
       </div>
 
-      {/* Step 2: Warm radial spotlight centered on cards */}
+      {/* Warm radial spotlight */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -131,7 +144,7 @@ export function ThreePaths() {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
           >
-            YOUR PRESENCE
+            THREE KEYS
           </p>
           <h2
             className={cn(
@@ -140,17 +153,8 @@ export function ThreePaths() {
             )}
             style={{ transitionDelay: isVisible ? "150ms" : "0ms", textWrap: "balance" as any }}
           >
-            Choose the moment that matters most.
+            How deeply do you want me there.
           </h2>
-          <p
-            className={cn(
-              "text-base text-muted-foreground max-w-2xl mx-auto text-center transition-all duration-700",
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            )}
-            style={{ transitionDelay: isVisible ? "300ms" : "0ms" }}
-          >
-            Three ways I can shape the music of your ceremony.
-          </p>
 
           {/* Golden thread separator */}
           <div
@@ -166,138 +170,161 @@ export function ThreePaths() {
           />
         </div>
 
-        {/* Step 9: Threshold line before cards */}
-        <div
-          className={cn(
-            "h-[1px] max-w-6xl mx-auto mb-12 transition-all duration-700",
-            isVisible ? "opacity-100" : "opacity-0"
-          )}
-          style={{
-            background: "linear-gradient(90deg, transparent 5%, hsl(var(--vow-yellow) / 0.06) 30%, hsl(var(--vow-yellow) / 0.06) 70%, transparent 95%)",
-            transitionDelay: isVisible ? "420ms" : "0ms",
-          }}
-          aria-hidden="true"
-        />
-
-        {/* Three Paths Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto mb-12 items-stretch">
-          {paths.map((path, index) => (
-            <div
-              key={index}
-              className={cn(
-                "three-paths-card relative rounded-lg group flex flex-col",
-                path.isChosen
-                  ? "three-paths-card--chosen md:-translate-y-3 p-10 md:p-14"
-                  : "three-paths-card--flanking hover:-translate-y-1 p-10 md:p-12",
-                isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-6 scale-[0.97]"
-              )}
-              style={{
-                transitionDelay: isVisible ? `${revealDelays[index]}ms` : "0ms",
-              }}
-            >
-              {/* Film grain overlay */}
-              <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none rounded-lg" aria-hidden="true" />
-
-              {/* Step 5: Elevated "MOST CHOSEN" Badge */}
-              {path.isChosen && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-                  <div className="paths-chosen-badge">
-                    <span
-                      className="inline-block"
-                      style={{
-                        width: 5,
-                        height: 5,
-                        transform: "rotate(45deg)",
-                        background: "hsl(var(--vow-yellow))",
-                        borderRadius: 1,
-                      }}
-                      aria-hidden="true"
-                    />
-                    <span className="text-[10px] font-semibold tracking-[0.18em] text-primary">
-                      MOST CHOSEN
-                    </span>
-                    <span
-                      className="inline-block"
-                      style={{
-                        width: 5,
-                        height: 5,
-                        transform: "rotate(45deg)",
-                        background: "hsl(var(--vow-yellow))",
-                        borderRadius: 1,
-                      }}
-                      aria-hidden="true"
-                    />
+        {/* ─── Piano Keys Layout ─── */}
+        {/* Desktop: flex row with interleaved white/black keys */}
+        <div className="hidden md:flex items-end max-w-5xl mx-auto mb-12">
+          {tiers.map((tier, i) => (
+            <div key={tier.name} className="contents">
+              {/* White Key */}
+              <div
+                className={cn(
+                  "piano-white-key flex-1 flex flex-col justify-end transition-all duration-700",
+                  tier.isChosen && "piano-white-key--chosen",
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+                )}
+                style={{ transitionDelay: isVisible ? `${whiteKeyDelays[i]}ms` : "0ms" }}
+              >
+                {/* MOST CHOSEN badge */}
+                {tier.isChosen && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+                    <div className="paths-chosen-badge">
+                      <span
+                        className="inline-block"
+                        style={{
+                          width: 5, height: 5,
+                          transform: "rotate(45deg)",
+                          background: "hsl(var(--vow-yellow))",
+                          borderRadius: 1,
+                        }}
+                        aria-hidden="true"
+                      />
+                      <span className="text-[10px] font-semibold tracking-[0.18em]" style={{ color: "hsl(var(--vow-yellow))" }}>
+                        MOST CHOSEN
+                      </span>
+                      <span
+                        className="inline-block"
+                        style={{
+                          width: 5, height: 5,
+                          transform: "rotate(45deg)",
+                          background: "hsl(var(--vow-yellow))",
+                          borderRadius: 1,
+                        }}
+                        aria-hidden="true"
+                      />
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              {/* Step 4a: Name zone with golden underline */}
-              <div className="mb-2">
-                <h3 className="text-2xl font-display font-light text-card-foreground">
-                  {path.name}
-                </h3>
+                {/* Name */}
+                <h3 className="piano-key__name">{tier.name}</h3>
+
+                {/* Golden underline */}
                 <div
-                  className="h-[1px] w-8 mt-2"
-                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${path.isChosen ? 0.5 : 0.2}), transparent)` }}
+                  className="h-[1px] w-8 mt-2 mb-6"
+                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.5 : 0.2}), transparent)` }}
                   aria-hidden="true"
                 />
-              </div>
 
-              {/* Step 4b: Price zone with breathing room */}
-              <div className="mb-8">
-                <span
-                  className="text-[clamp(36px,5vw,48px)] font-display font-light text-card-foreground"
-                  style={{ fontVariantNumeric: "tabular-nums" }}
+                {/* Price */}
+                <span className="piano-key__price">{tier.price}</span>
+
+                {/* Description */}
+                <p className="piano-key__description">{tier.description}</p>
+
+                {/* Composed sentence */}
+                <p className="piano-key__sentence">{tier.sentence}</p>
+
+                {/* CTA */}
+                <Button
+                  className={cn(
+                    "w-full mt-auto",
+                    tier.isChosen
+                      ? "piano-key__cta--chosen"
+                      : "piano-key__cta--flanking"
+                  )}
+                  variant={tier.isChosen ? "default" : "outline"}
+                  asChild
                 >
-                  {path.price}
-                </span>
+                  <Link to="/contact">{tier.ctaText}</Link>
+                </Button>
               </div>
 
-              {/* Description */}
-              <p className="text-[13px] font-display font-light italic text-muted-foreground mb-6 pb-6 border-b border-border/20">
-                {path.description}
-              </p>
-
-              {/* Step 3 & 4c: Features with golden diamonds */}
-              <ul className="space-y-3 mb-8 flex-1">
-                {path.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5 text-sm text-card-foreground/80">
-                    <DiamondIcon chosen={path.isChosen} />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-
-              {/* Step 4d & 8: CTA commitment zone */}
-              <Button
-                className={cn(
-                  "w-full mt-auto",
-                  path.isChosen && "cta-breathe-glow",
-                  !path.isChosen && "paths-cta-warm"
-                )}
-                variant={path.isChosen ? "default" : "outline"}
-                asChild
-              >
-                <Link to="/contact">{path.ctaText}</Link>
-              </Button>
+              {/* Black Key (between white keys, not after last) */}
+              {i < tiers.length - 1 && (
+                <BlackKey delay={blackKeyDelays[i]} isVisible={isVisible} />
+              )}
             </div>
           ))}
         </div>
 
-        {/* Step 10: Golden thread separator + diamond + reassurance */}
-        <div
-          className={cn(
-            "h-[1px] w-12 mx-auto mb-6 transition-all duration-700",
-            isVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
-          )}
-          style={{
-            background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)",
-            transitionDelay: isVisible ? "850ms" : "0ms",
-          }}
-          aria-hidden="true"
-        />
+        {/* ─── Mobile: Stacked white keys with golden thread separators ─── */}
+        <div className="md:hidden flex flex-col gap-0 max-w-sm mx-auto mb-12">
+          {tiers.map((tier, i) => (
+            <div key={tier.name}>
+              <div
+                className={cn(
+                  "piano-white-key piano-white-key--mobile flex flex-col justify-end transition-all duration-700",
+                  tier.isChosen && "piano-white-key--chosen",
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+                )}
+                style={{ transitionDelay: isVisible ? `${whiteKeyDelays[i]}ms` : "0ms" }}
+              >
+                {tier.isChosen && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+                    <div className="paths-chosen-badge">
+                      <span
+                        className="inline-block"
+                        style={{
+                          width: 5, height: 5,
+                          transform: "rotate(45deg)",
+                          background: "hsl(var(--vow-yellow))",
+                          borderRadius: 1,
+                        }}
+                        aria-hidden="true"
+                      />
+                      <span className="text-[10px] font-semibold tracking-[0.18em]" style={{ color: "hsl(var(--vow-yellow))" }}>
+                        MOST CHOSEN
+                      </span>
+                      <span
+                        className="inline-block"
+                        style={{
+                          width: 5, height: 5,
+                          transform: "rotate(45deg)",
+                          background: "hsl(var(--vow-yellow))",
+                          borderRadius: 1,
+                        }}
+                        aria-hidden="true"
+                      />
+                    </div>
+                  </div>
+                )}
 
-        {/* Centered diamond above reassurance */}
+                <h3 className="piano-key__name">{tier.name}</h3>
+                <div
+                  className="h-[1px] w-8 mt-2 mb-4"
+                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.5 : 0.2}), transparent)` }}
+                  aria-hidden="true"
+                />
+                <span className="piano-key__price">{tier.price}</span>
+                <p className="piano-key__description">{tier.description}</p>
+                <p className="piano-key__sentence">{tier.sentence}</p>
+                <Button
+                  className={cn(
+                    "w-full mt-auto",
+                    tier.isChosen ? "piano-key__cta--chosen" : "piano-key__cta--flanking"
+                  )}
+                  variant={tier.isChosen ? "default" : "outline"}
+                  asChild
+                >
+                  <Link to="/contact">{tier.ctaText}</Link>
+                </Button>
+              </div>
+              {i < tiers.length - 1 && <MobileGoldenThread />}
+            </div>
+          ))}
+        </div>
+
+        {/* Reassurance */}
         <div
           className={cn(
             "flex justify-center mb-4 transition-all duration-700",
@@ -306,19 +333,9 @@ export function ThreePaths() {
           style={{ transitionDelay: isVisible ? "900ms" : "0ms" }}
           aria-hidden="true"
         >
-          <span
-            className="inline-block"
-            style={{
-              width: 5,
-              height: 5,
-              transform: "rotate(45deg)",
-              background: "hsl(var(--vow-yellow) / 0.4)",
-              borderRadius: 1,
-            }}
-          />
+          <GoldenDiamond />
         </div>
 
-        {/* Reassurance */}
         <p
           className={cn(
             "text-center text-sm text-muted-foreground/80 max-w-2xl mx-auto transition-all duration-700",
@@ -329,11 +346,11 @@ export function ThreePaths() {
             textShadow: "0 1px 8px rgba(0,0,0,0.3)",
           }}
         >
-          You can move between these at any time—no penalty until two weeks before your ceremony.
+          You can move between these at any time — no penalty until two weeks before your ceremony.
         </p>
       </div>
 
-      {/* Bottom fade into TheWitnesses warm */}
+      {/* Bottom fade */}
       <div
         className="section-fade-bottom"
         style={{ background: 'linear-gradient(to bottom, transparent, hsl(45 20% 93%))' }}
