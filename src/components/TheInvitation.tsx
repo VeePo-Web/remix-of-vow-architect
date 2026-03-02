@@ -220,7 +220,7 @@ className="w-full h-full object-cover will-change-transform invitation-ken-burns
               wrong
               <span
                 className={cn(
-                  'absolute bottom-0 left-0 h-[2px] bg-vow-gold origin-left transition-all duration-700',
+                  'absolute bottom-0 left-0 h-[2px] bg-vow-yellow origin-left transition-all duration-700',
                   isVisible ? 'scale-x-100' : 'scale-x-0'
                 )}
                 style={{

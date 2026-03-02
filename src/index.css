@@ -1499,6 +1499,10 @@ All colors MUST be HSL.
     box-shadow: 0 8px 32px -8px hsl(var(--vow-yellow) / 0.1);
     border-color: hsl(var(--vow-yellow) / 0.18);
   }
+  .invitation-credential-plaque:focus-within {
+    box-shadow: 0 4px 20px -6px hsl(var(--vow-yellow) / 0.08);
+    border-color: hsl(var(--vow-yellow) / 0.15);
+  }
 
   /* Invitation CTA — extending en-dash */
   .invitation-cta-rule {
@@ -1524,6 +1528,9 @@ All colors MUST be HSL.
   }
   .invitation-cta--pill {
     padding: 10px 28px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
     border-radius: 100px;
     background: hsl(0 0% 100% / 0.04);
     border: 1px solid hsl(var(--vow-yellow) / 0.1);
@@ -1561,7 +1568,8 @@ All colors MUST be HSL.
   }
   .invitation-cta:focus-visible {
     outline: 2px solid hsl(var(--vow-yellow) / 0.5);
-    outline-offset: 3px;
+    outline-offset: 2px;
+    border-radius: 100px;
   }
 
   /* ========================================
@@ -4258,6 +4266,15 @@ All colors MUST be HSL.
 
 .invitation-portrait-frame {
   overflow: hidden;
+  transition: border-color 260ms var(--ease-smooth), box-shadow 260ms var(--ease-smooth);
+}
+.invitation-portrait-frame:hover {
+  border-color: hsl(var(--vow-yellow) / 0.2) !important;
+  box-shadow:
+    inset 0 0 60px hsl(var(--vow-yellow) / 0.12),
+    inset 0 1px 0 hsl(0 0% 100% / 0.08),
+    0 0 50px hsl(var(--vow-yellow) / 0.1),
+    0 40px 100px -20px rgba(0,0,0,0.5) !important;
 }
 
 @keyframes witness-ken-burns {
