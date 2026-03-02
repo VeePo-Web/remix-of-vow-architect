@@ -1491,31 +1491,21 @@ All colors MUST be HSL.
     text-wrap: balance;
   }
 
-  /* Invitation Credential Plaque — unified container */
-  .invitation-credential-plaque {
-    transition: box-shadow 260ms var(--ease-smooth), border-color 260ms var(--ease-smooth);
-  }
-  .invitation-credential-plaque:hover {
-    box-shadow: 0 8px 32px -8px hsl(var(--vow-yellow) / 0.1);
-    border-color: hsl(var(--vow-yellow) / 0.18);
-  }
-  .invitation-credential-plaque:focus-within {
-    box-shadow: 0 4px 20px -6px hsl(var(--vow-yellow) / 0.08);
-    border-color: hsl(var(--vow-yellow) / 0.15);
-  }
-
-  /* Invitation CTA — extending en-dash */
+  /* Invitation CTA — extending en-dash (GPU-composited) */
   .invitation-cta-rule {
     display: inline-block;
-    width: 12px;
+    width: 24px;
     height: 1px;
     background: currentColor;
     vertical-align: middle;
     margin-left: 8px;
-    transition: width 180ms var(--ease-smooth);
+    transform: scaleX(0.5);
+    transform-origin: left;
+    transition: transform 180ms var(--ease-smooth);
+    will-change: transform;
   }
   .invitation-cta:hover .invitation-cta-rule {
-    width: 24px;
+    transform: scaleX(1);
   }
   .invitation-cta {
     font-family: var(--font-display);

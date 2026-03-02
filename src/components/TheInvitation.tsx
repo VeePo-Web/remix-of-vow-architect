@@ -11,12 +11,16 @@ export function TheInvitation() {
       id="the-invitation"
       ref={sectionRef}
       data-theme="life"
+      role="region"
       aria-labelledby="invitation-heading"
       className="relative py-28 md:py-40 overflow-hidden invitation-texture piano-section-target"
       style={{
         background: 'linear-gradient(180deg, hsl(28 12% 16%) 0%, hsl(25 8% 8%) 100%)',
       }}
     >
+      {/* Screen reader narrative */}
+      <span className="sr-only">Parker's personal invitation — he plays only five weddings a year and devotes months of preparation to each one.</span>
+
       {/* === ATMOSPHERIC DEPTH LAYERS === */}
 
       {/* Layer 1: Background image texture */}
@@ -71,7 +75,7 @@ export function TheInvitation() {
 
       {/* === CONTENT — Two-Column Asymmetric === */}
       <div className="container mx-auto px-4 relative z-20">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 md:gap-20 items-center">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 md:gap-20 items-center">
 
           {/* ── Left Column: Portrait Image ── */}
           <div
@@ -106,9 +110,10 @@ export function TheInvitation() {
                 <img
                   src={invitationPortrait}
                   alt="Grand piano keys stretching into soft bokeh with a single candle flame reflected in polished black lacquer"
-                  className="w-full h-full object-cover invitation-ken-burns"
+                className="w-full h-full object-cover invitation-ken-burns"
                   loading="lazy"
                   decoding="async"
+                  fetchPriority="low"
                 />
                 <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
                 <div
@@ -167,7 +172,7 @@ export function TheInvitation() {
             <h2
               id="invitation-heading"
               className={cn(
-                'text-[clamp(26px,4vw,40px)] font-display font-light leading-tight text-white max-w-lg text-balance',
+                'text-[clamp(26px,4vw,40px)] font-display font-light leading-tight text-white max-w-lg text-pretty',
                 'transition-all duration-700',
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               )}
@@ -263,7 +268,7 @@ export function TheInvitation() {
       {/* Bottom fade */}
       <div
         className="absolute bottom-0 left-0 right-0 h-[120px] z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to bottom, transparent, hsl(240 9% 4%))' }}
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(220 15% 8%))' }}
         aria-hidden="true"
       />
     </section>
