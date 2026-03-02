@@ -1,88 +1,48 @@
 
 
-# Piano Keys Section — World-Class Tactile Overhaul
+# Piano Keys — Shadow & Press-Down Polish
 
-## Current Assessment
+## Current State
 
-The layout bones are correct — three white keys with two black keys between them, dark cinematic background. But the execution falls short of Fantasy.co quality in several critical ways:
+The Three Keys section already has the piano key layout with white and black keys, ivory gradients, content anchored to the bottom, and a press-down mechanic. However, the current shadow behavior when pressing keys is insufficient — the shadow collapses too aggressively on `:active`, making the press feel flat rather than satisfyingly tactile. The user wants a visible, rewarding shadow when the button is pressed down.
 
-1. **Keys look like flat cards, not piano keys.** No surface texture, no 3D depth, no material realism. Real piano keys have a subtle convex curvature, side facets that catch light differently, and visible gaps between them.
-2. **The press-down interaction is nearly invisible.** The chosen key only shifts 4px — it should feel like a genuine key depression with shadow changes that sell the physicality.
-3. **Hover lifts upward (-4px) which contradicts piano physics.** Piano keys do not lift — they press down. Hover should simulate a finger approaching (subtle warm glow beneath), and click/active should press the key DOWN.
-4. **No gap simulation between keys.** Real piano keys have thin dark gaps between adjacent white keys. Currently the keys butt against each other with only faint side borders.
-5. **Black keys lack proper z-depth.** They should sit visually ON TOP of the white keys with a visible drop shadow, not appear flush.
-6. **The "MOST CHOSEN" badge is nearly invisible** — it needs to sit clearly above the pressed key.
-7. **Too much empty space inside the keys** between the sentence and the CTA button — the content floats in the middle rather than being anchored.
-8. **Header alignment is off** — "THREE KEYS" label is left-aligned but should be centered to match the centered headline.
+## What Needs to Change
 
-## Plan: 8 Refinements
+### 1. Enhanced Press-Down Shadow (CSS)
 
-### 1. Key Surface Realism (CSS)
+The current `:active` state collapses the shadow from `0 8px 32px` to `0 2px 8px` — this is too aggressive. A real piano key being pressed down should retain a soft contact shadow that spreads slightly outward at the base, like the key is compressing against the keybed. The shadow should get warmer (vow-yellow tint) on press to reward the interaction.
 
-Add a subtle convex highlight to white keys — a top-to-bottom gradient that simulates the slight curvature of a real ivory key surface. Add a thin inner shadow at the left and right edges to create the illusion of beveled sides. Add a micro-texture using a subtle repeating linear gradient (1px hairlines at very low opacity) to simulate the grain of ivory.
+**Changes to `.piano-white-key:active` in `src/index.css`:**
+- Replace the current shadow collapse with a warmer, wider contact shadow: `0 1px 3px rgba(0,0,0,0.3), 0 4px 12px rgba(255,224,138,0.1)` — the key "lands" on a warm surface
+- Keep `translateY(3px)` and `60ms` duration
 
-CSS changes to `.piano-white-key`:
-- Background: add a third gradient layer — a top highlight (`rgba(255,255,255,0.4)` to transparent over the top 15%)
-- Inner shadow: `inset 2px 0 4px rgba(0,0,0,0.04), inset -2px 0 4px rgba(0,0,0,0.04)` for side facets
-- Subtle bottom shadow edge to sell the "key sitting on a keybed" illusion
+**Changes to `.piano-white-key--chosen:active` (desktop media query):**
+- Current: `0 1px 4px rgba(255,224,138,0.1)` — too faint
+- New: `0 1px 3px rgba(0,0,0,0.25), 0 6px 16px rgba(255,224,138,0.15), inset 0 2px 4px rgba(0,0,0,0.06)` — the chosen key presses into a golden pool with a subtle inset shadow showing compression
 
-### 2. Key Gap Simulation (CSS)
+### 2. Hover Underglow Enhancement (CSS)
 
-Add visible dark gaps between adjacent white keys. Currently the keys have only faint borders. Instead, add a `margin-left: 2px` gap between keys (except the first), and give the flex container a dark background so the gap reads as the space between real piano keys. The black keys' negative margins already overlap, so this gap only appears at the bottom where white keys are exposed.
+The current hover adds `0 4px 20px rgba(255,224,138,0.08)` — barely visible. Increase to `0 6px 24px rgba(255,224,138,0.12)` so the visitor sees a warm candlelight glow approach the key before pressing.
 
-### 3. Press-Down Physics (CSS)
+### 3. CTA Button Press Shadow (CSS)
 
-Completely rethink the interaction model:
-- **Default state (unchosen keys):** Flat, at rest position
-- **Hover:** Do NOT lift. Instead, add a warm underglow beneath the key (`box-shadow: 0 4px 20px rgba(255,224,138,0.08)`) as if candlelight is warming the underside. The key stays in place.
-- **Active (`:active`):** Key presses DOWN 3px with shadow collapse — `translateY(3px)` and shadow reduces from `0 8px 32px` to `0 2px 8px`. This is the tactile press.
-- **Chosen key (The Prelude):** Permanently pressed down 6px, with the golden underglow always visible and a subtle `box-shadow: 0 2px 12px rgba(255,224,138,0.15)` — as if this key is already being held down.
-- **Chosen key hover:** Presses down an additional 2px (total 8px) — the key pushes deeper.
-- Transition: 120ms for the press (faster than standard 180ms — mechanical action feels snappier).
+The "Hold my date" button inside the key currently has no dedicated press state. Add `:active` styling to both CTA variants so pressing the actual button also feels tactile:
+- `.piano-key__cta--chosen:active`: scale(0.98), shadow reduces to `0 2px 8px rgba(0,0,0,0.15)`
+- `.piano-key__cta--flanking:active`: scale(0.98), border darkens slightly
 
-### 4. Black Key Depth Enhancement (CSS)
+### 4. Mobile Press Enhancement (CSS)
 
-The black keys need to feel like they protrude FROM the keyboard:
-- Increase the height to `340px` on desktop (currently 320px) to extend further over the white keys
-- Add a stronger bottom shadow: `0 6px 16px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.4)`
-- Add a subtle rounded-bottom highlight: a 1px line of `rgba(255,255,255,0.06)` at the very bottom edge, simulating the light catching the underside of the ebony
-- Increase z-index to ensure they always visually overlap white keys
-
-### 5. Content Anchoring (TSX)
-
-Push all content to the bottom of the key using `justify-end` (already set), but add `mt-auto` spacing before the name to push everything into the bottom third. Add a `flex-grow` spacer at the top of each key so the name/price/description cluster sits at the bottom, leaving the top 40% as clean ivory surface — like the playing surface of a real key before the fallboard.
-
-### 6. "MOST CHOSEN" Badge Positioning (TSX + CSS)
-
-Reposition the badge from `-top-4` to `-top-8` so it floats clearly above the pressed key with visible breathing room. Add a subtle downward-pointing golden thread (4px tall, 1px wide) connecting the badge to the key top — visually linking the badge to the key it describes.
-
-### 7. Header Centering Fix (TSX)
-
-The "THREE KEYS" label currently has `text-center` but appears left-aligned in the screenshot due to the container. Ensure the header block is fully centered by wrapping in `text-center` on the container. Change the headline from two lines to a single flowing statement: "How deeply do you want me there." — remove the line break.
-
-### 8. Reduced Motion and Mobile (CSS)
-
-- Reduced motion: disable all translateY press effects, keep only opacity and color changes
-- Mobile: the stacked keys should still have the press-down effect on `:active` (touch feedback) — critical for mobile tactility. Each stacked key gets `active:translateY(2px)` with shadow collapse.
+The current mobile `:active` uses `translateY(2px)` with a basic shadow collapse. Enhance to match the desktop warmth — add the golden contact shadow on press so mobile users get the same rewarding feedback.
 
 ## Files Modified
 
 ### `src/index.css`
-- Rewrite `.piano-white-key` surface with convex highlight, inner side shadows, ivory texture
-- Rewrite `.piano-white-key:hover` — warm underglow instead of upward lift
-- Add `.piano-white-key:active` — 3px press-down with shadow collapse at 120ms
-- Rewrite `.piano-white-key--chosen` — 6px permanent press-down with golden underglow
-- Add `.piano-white-key--chosen:hover` — 8px press (deeper)
-- Add `.piano-white-key--chosen:active` — 10px (deepest press)
-- Update `.piano-black-key` with enhanced depth shadows and slightly taller height
-- Add key gap styling to the flex container
-- Update reduced motion fallbacks
-- Add mobile `:active` press states
+- Lines ~4842-4850: Update `.piano-white-key:hover` shadow — increase underglow opacity from 0.08 to 0.12
+- Lines ~4853-4860: Update `.piano-white-key:active` shadow — add warm contact shadow and subtle inset
+- Lines ~4886-4893: Update `.piano-white-key--chosen:active` — warmer golden pool shadow with inset
+- Lines ~4904-4910: Update `.piano-white-key--mobile:active` — add warm contact shadow
+- Lines ~4986-4999: Add `:active` states for both CTA button variants
 
 ### `src/components/ThreePaths.tsx`
-- Add flex container gap/background for key gap simulation
-- Adjust content spacing inside keys (spacer div for top-anchoring)
-- Fix "MOST CHOSEN" badge positioning (`-top-8` with connecting thread)
-- Ensure headline renders as single line
-- Add `:active` class support (CSS handles this, no JS needed)
+No changes needed — the component already has the correct structure. All improvements are CSS-only.
 
