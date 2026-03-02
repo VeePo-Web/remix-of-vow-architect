@@ -55,26 +55,22 @@ export function GenreTrackPanel({
         WebkitBackdropFilter: "blur(16px)",
         border: "1px solid hsl(var(--vow-yellow) / 0.12)",
         boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 16px 60px rgba(0,0,0,0.4), 0 0 20px hsl(var(--vow-yellow) / 0.04)",
-        animation: reducedMotion ? "none" : "fade-in 260ms ease-out",
+        animation: "none",
+        opacity: 0,
+        transform: "translateY(-8px)",
+        transition: reducedMotion ? "none" : "opacity 300ms ease-out, transform 300ms cubic-bezier(0.22,0.61,0.36,1)",
+      }}
+      ref={(el) => {
+        if (el) {
+          requestAnimationFrame(() => {
+            el.style.opacity = "1";
+            el.style.transform = "translateY(0)";
+          });
+        }
       }}
     >
       {/* Header */}
-      <div className="px-5 pt-4 pb-2 flex items-center justify-between">
-        <span className="text-[11px] uppercase tracking-[0.2em] text-foreground/40 font-display font-medium">
-          {category.label}
-        </span>
-        <span className="text-[10px] text-foreground/20 font-mono">
-          {category.tracks.length} tracks
-        </span>
-      </div>
-      <div
-        className="mx-5 mb-2"
-        style={{
-          height: "1px",
-          background: "linear-gradient(to right, transparent, hsl(var(--vow-yellow) / 0.14), transparent)",
-        }}
-      />
-
+...
       {/* Tracks */}
       {category.tracks.map((track, tIdx) => {
         const globalIdx = globalStartIndex + tIdx;
@@ -101,6 +97,9 @@ export function GenreTrackPanel({
               background: isActive
                 ? "radial-gradient(ellipse at 20% 50%, hsl(var(--vow-yellow) / 0.06) 0%, transparent 70%)"
                 : undefined,
+              opacity: reducedMotion ? 1 : undefined,
+              animation: reducedMotion ? "none" : undefined,
+              transitionDelay: reducedMotion ? "0ms" : `${tIdx * 40}ms`,
             }}
             aria-label={isTrackPlaying ? `Pause ${track.title}` : `Play ${track.title}`}
             aria-current={isActive ? "true" : undefined}

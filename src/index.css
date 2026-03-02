@@ -1403,6 +1403,22 @@ All colors MUST be HSL.
     }
   }
 
+  /* Ken Burns Drift — Genre card subtle movement */
+  @keyframes ken-burns-drift {
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+    100% {
+      transform: translate(3px, -2px) scale(1.02);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .genre-card img {
+      animation: none !important;
+    }
+  }
+
   .animate-ken-burns {
     animation: ken-burns 60s var(--ease-sacred) infinite alternate;
   }
