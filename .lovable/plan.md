@@ -1,140 +1,88 @@
 
 
-# Complete Design Overhaul: Three Paths as Piano Keys
+# Piano Keys Section — World-Class Tactile Overhaul
 
-## Vision
+## Current Assessment
 
-The current Three Paths section uses conventional pricing cards on a dark cinematic background. The redesign transforms the three tiers into literal piano keys — three tall white keys with two narrow black keys filling the gaps between them — creating a visual instrument the visitor reads like sheet music. The metaphor is immediate and uniquely Parker's: choosing a tier is choosing which keys to press.
+The layout bones are correct — three white keys with two black keys between them, dark cinematic background. But the execution falls short of Fantasy.co quality in several critical ways:
 
-## The Piano Key Layout
+1. **Keys look like flat cards, not piano keys.** No surface texture, no 3D depth, no material realism. Real piano keys have a subtle convex curvature, side facets that catch light differently, and visible gaps between them.
+2. **The press-down interaction is nearly invisible.** The chosen key only shifts 4px — it should feel like a genuine key depression with shadow changes that sell the physicality.
+3. **Hover lifts upward (-4px) which contradicts piano physics.** Piano keys do not lift — they press down. Hover should simulate a finger approaching (subtle warm glow beneath), and click/active should press the key DOWN.
+4. **No gap simulation between keys.** Real piano keys have thin dark gaps between adjacent white keys. Currently the keys butt against each other with only faint side borders.
+5. **Black keys lack proper z-depth.** They should sit visually ON TOP of the white keys with a visible drop shadow, not appear flush.
+6. **The "MOST CHOSEN" badge is nearly invisible** — it needs to sit clearly above the pressed key.
+7. **Too much empty space inside the keys** between the sentence and the CTA button — the content floats in the middle rather than being anchored.
+8. **Header alignment is off** — "THREE KEYS" label is left-aligned but should be centered to match the centered headline.
 
-```text
-Desktop (md+):
+## Plan: 8 Refinements
 
-  ┌──────────┐ ┌──┐ ┌──────────┐ ┌──┐ ┌──────────┐
-  │          │ │  │ │          │ │  │ │          │
-  │  WHITE   │ │BK│ │  WHITE   │ │BK│ │  WHITE   │
-  │  KEY 1   │ │  │ │  KEY 2   │ │  │ │  KEY 3   │
-  │          │ │  │ │          │ │  │ │          │
-  │  $650    │ └──┘ │  $750    │ └──┘ │  $1,200  │
-  │          │      │          │      │          │
-  │ Ceremony │      │ +Prelude │      │ +Cocktail│
-  │  Only    │      │  30 min  │      │  Hour    │
-  │          │      │          │      │          │
-  │  [CTA]   │      │  [CTA]   │      │  [CTA]   │
-  └──────────┘      └──────────┘      └──────────┘
-```
+### 1. Key Surface Realism (CSS)
 
-- **White keys** are tall, narrow rectangles with flat bottoms and very subtle rounded tops (4px). They are the three pricing tiers. Ivory/cream surface with subtle vertical grain texture, like real piano keys.
-- **Black keys** sit between the white keys, overlapping them slightly from the top. They are shorter (about 55-60% of white key height), narrower, and contain brief contextual details — small atmospheric copy or a sacred object. They use the rich-black/charcoal surface with a glossy sheen gradient.
-- The middle white key (The Hour, $750) is the "most chosen" — it gets a subtle vow-yellow top edge glow and the "MOST CHOSEN" badge, like a key being pressed with golden light escaping from beneath.
+Add a subtle convex highlight to white keys — a top-to-bottom gradient that simulates the slight curvature of a real ivory key surface. Add a thin inner shadow at the left and right edges to create the illusion of beveled sides. Add a micro-texture using a subtle repeating linear gradient (1px hairlines at very low opacity) to simulate the grain of ivory.
 
-## Content Changes
+CSS changes to `.piano-white-key`:
+- Background: add a third gradient layer — a top highlight (`rgba(255,255,255,0.4)` to transparent over the top 15%)
+- Inner shadow: `inset 2px 0 4px rgba(0,0,0,0.04), inset -2px 0 4px rgba(0,0,0,0.04)` for side facets
+- Subtle bottom shadow edge to sell the "key sitting on a keybed" illusion
 
-### Header Copy (new)
-- Label: "THREE KEYS"
-- Headline: "How deeply do you want me there."
-- No subhead — the piano metaphor speaks for itself.
+### 2. Key Gap Simulation (CSS)
 
-### White Key 1 — The Ceremony ($650)
-- Name: "The Ceremony"
-- Price: "$650"
-- One-line description: "I play your ceremony — processional through recessional."
-- A single composed sentence beneath: "Your vows, carried by piano. Nothing more, nothing less."
-- CTA: "Hold my date"
+Add visible dark gaps between adjacent white keys. Currently the keys have only faint borders. Instead, add a `margin-left: 2px` gap between keys (except the first), and give the flex container a dark background so the gap reads as the space between real piano keys. The black keys' negative margins already overlap, so this gap only appears at the bottom where white keys are exposed.
 
-### White Key 2 — The Prelude ($750) — Most Chosen
-- Name: "The Prelude"
-- Price: "$750"
-- One-line description: "30 minutes of piano as your guests arrive, then your full ceremony."
-- Composed sentence: "The room is already sacred before the first word is spoken."
-- CTA: "Hold my date"
+### 3. Press-Down Physics (CSS)
 
-### White Key 3 — The Story ($1,200)
-- Name: "The Story"
-- Price: "$1,200"
-- One-line description: "Prelude, ceremony, and live piano or curated DJ for cocktail hour."
-- Composed sentence: "From the first guest to the last glass raised — I am there."
-- CTA: "Hold my date"
+Completely rethink the interaction model:
+- **Default state (unchosen keys):** Flat, at rest position
+- **Hover:** Do NOT lift. Instead, add a warm underglow beneath the key (`box-shadow: 0 4px 20px rgba(255,224,138,0.08)`) as if candlelight is warming the underside. The key stays in place.
+- **Active (`:active`):** Key presses DOWN 3px with shadow collapse — `translateY(3px)` and shadow reduces from `0 8px 32px` to `0 2px 8px`. This is the tactile press.
+- **Chosen key (The Prelude):** Permanently pressed down 6px, with the golden underglow always visible and a subtle `box-shadow: 0 2px 12px rgba(255,224,138,0.15)` — as if this key is already being held down.
+- **Chosen key hover:** Presses down an additional 2px (total 8px) — the key pushes deeper.
+- Transition: 120ms for the press (faster than standard 180ms — mechanical action feels snappier).
 
-### Black Key Content (decorative, not interactive)
-- Black Key 1 (between Ceremony and Prelude): A small golden diamond icon. No text.
-- Black Key 2 (between Prelude and Story): A small golden diamond icon. No text.
+### 4. Black Key Depth Enhancement (CSS)
 
-### Reassurance Line (below)
-"You can move between these at any time — no penalty until two weeks before your ceremony."
+The black keys need to feel like they protrude FROM the keyboard:
+- Increase the height to `340px` on desktop (currently 320px) to extend further over the white keys
+- Add a stronger bottom shadow: `0 6px 16px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.4)`
+- Add a subtle rounded-bottom highlight: a 1px line of `rgba(255,255,255,0.06)` at the very bottom edge, simulating the light catching the underside of the ebony
+- Increase z-index to ensure they always visually overlap white keys
 
-## Technical Implementation
+### 5. Content Anchoring (TSX)
 
-### File: `src/components/ThreePaths.tsx` — Full rewrite of content and layout
+Push all content to the bottom of the key using `justify-end` (already set), but add `mt-auto` spacing before the name to push everything into the bottom third. Add a `flex-grow` spacer at the top of each key so the name/price/description cluster sits at the bottom, leaving the top 40% as clean ivory surface — like the playing surface of a real key before the fallboard.
 
-1. **Data structure** — Replace `paths` array with three tier objects containing: `name`, `price`, `description`, `sentence`, `ctaText`, `isChosen`. Remove the `features` array (bullet points eliminated — each tier gets one composed sentence instead).
+### 6. "MOST CHOSEN" Badge Positioning (TSX + CSS)
 
-2. **Layout** — Replace the `grid grid-cols-3` with a custom flex layout that interleaves white and black keys:
-   - Container: `flex items-end` (keys align at bottom like a real piano)
-   - White keys: `flex-1` with tall aspect ratio (`min-h-[480px] md:min-h-[560px]`), vertical flex column layout with content pushed to bottom third
-   - Black keys: Fixed width (`w-[48px] md:w-[56px]`), shorter height (`h-[280px] md:h-[320px]`), positioned with negative horizontal margins (`-mx-3 md:-mx-4`) to overlap white keys, `z-10` to sit on top
-   - Mobile: Stack vertically — white keys only, full width, black keys hidden (`hidden md:flex`)
+Reposition the badge from `-top-4` to `-top-8` so it floats clearly above the pressed key with visible breathing room. Add a subtle downward-pointing golden thread (4px tall, 1px wide) connecting the badge to the key top — visually linking the badge to the key it describes.
 
-3. **White key surface** — CSS class `.piano-white-key`:
-   - Background: subtle ivory gradient (`linear-gradient(180deg, hsl(45 20% 96%) 0%, hsl(45 15% 92%) 100%)`)
-   - Very subtle side borders simulating key edges: left border `1px solid hsl(45 10% 85%)`, right border `1px solid hsl(45 10% 88%)`
-   - Bottom: flat (no border-radius). Top: `rounded-t-[4px]`
-   - Shadow: `0 8px 32px rgba(0,0,0,0.3)` — keys floating above the dark background
-   - Hover: `translateY(-4px)` like a key being released, shadow deepens
-   - Text: dark (`hsl(240 9% 12%)`) — inverted from the rest of the site since keys are light surfaces
+### 7. Header Centering Fix (TSX)
 
-4. **Black key surface** — CSS class `.piano-black-key`:
-   - Background: `linear-gradient(180deg, hsl(222 12% 14%) 0%, hsl(240 9% 8%) 85%, hsl(240 9% 6%) 100%)` — glossy top to matte bottom
-   - Subtle highlight stripe across top 20%: `linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 20%)`
-   - Border-radius: `0 0 4px 4px` (rounded at bottom, flat at top where it meets the "piano body")
-   - Shadow: `0 4px 12px rgba(0,0,0,0.5)` — deeper shadow since they protrude
-   - Width: narrower than white keys
-   - Contains only a centered golden diamond icon
+The "THREE KEYS" label currently has `text-center` but appears left-aligned in the screenshot due to the container. Ensure the header block is fully centered by wrapping in `text-center` on the container. Change the headline from two lines to a single flowing statement: "How deeply do you want me there." — remove the line break.
 
-5. **Chosen key (middle)** — Additional styling:
-   - Top border: `2px solid hsl(var(--vow-yellow) / 0.4)` — golden light escaping from the pressed key
-   - Subtle glow: `box-shadow` includes `0 -4px 20px rgba(255,224,138,0.12)` at top
-   - "MOST CHOSEN" badge positioned above with existing `paths-chosen-badge` styling
-   - The key sits `4px` lower than flanking keys (`translate-y-1`) to simulate being pressed
+### 8. Reduced Motion and Mobile (CSS)
 
-6. **Typography inside white keys** — Dark text on ivory:
-   - Name: `font-display text-xl font-light text-[hsl(240_9%_12%)]`
-   - Price: `font-display text-[clamp(32px,4vw,44px)] font-light text-[hsl(240_9%_8%)]`
-   - Description: `text-sm text-[hsl(240_9%_30%)]`
-   - Composed sentence: `font-display text-sm font-light italic text-[hsl(240_9%_40%)]`
-   - CTA button: Uses a new variant or inline override — dark background with ivory text, or outline with dark border
+- Reduced motion: disable all translateY press effects, keep only opacity and color changes
+- Mobile: the stacked keys should still have the press-down effect on `:active` (touch feedback) — critical for mobile tactility. Each stacked key gets `active:translateY(2px)` with shadow collapse.
 
-7. **Scroll reveal** — Keep existing `useScrollReveal` pattern. White keys stagger at 450ms, 350ms, 550ms (center first). Black keys fade in at 500ms and 600ms.
+## Files Modified
 
-8. **Background** — Keep the existing cinematic background (pathsPianoCandle image, vignette, grain, warm spotlight). The dark atmospheric background makes the ivory white keys pop dramatically.
+### `src/index.css`
+- Rewrite `.piano-white-key` surface with convex highlight, inner side shadows, ivory texture
+- Rewrite `.piano-white-key:hover` — warm underglow instead of upward lift
+- Add `.piano-white-key:active` — 3px press-down with shadow collapse at 120ms
+- Rewrite `.piano-white-key--chosen` — 6px permanent press-down with golden underglow
+- Add `.piano-white-key--chosen:hover` — 8px press (deeper)
+- Add `.piano-white-key--chosen:active` — 10px (deepest press)
+- Update `.piano-black-key` with enhanced depth shadows and slightly taller height
+- Add key gap styling to the flex container
+- Update reduced motion fallbacks
+- Add mobile `:active` press states
 
-### File: `src/index.css` — New piano key styles
-
-9. **`.piano-white-key`** — Base styles for ivory surface, shadows, border simulation, hover lift at 180ms.
-
-10. **`.piano-white-key--chosen`** — Golden top glow, pressed position (translateY +2px relative to siblings).
-
-11. **`.piano-black-key`** — Glossy gradient, highlight stripe, deeper shadow, rounded bottom corners.
-
-12. **`.piano-white-key:hover`** — Lift -4px, shadow expansion, subtle warmth increase on border.
-
-13. **Reduced motion fallbacks** — Disable translateY hover on piano keys, keep only opacity/border-color changes.
-
-14. **Mobile layout** — On screens below `md`, white keys stack vertically at full width with reduced height (`min-h-[auto]`, padding-based sizing). Black keys are `hidden`. A thin golden thread separator appears between stacked keys instead.
-
-### File: `src/components/PricingPreview.tsx` — Update to match
-
-15. Update the `packages` data to match the new tier names ("The Ceremony", "The Prelude", "The Story") and descriptions. This component is a simplified preview used elsewhere — it should reflect the same naming convention but does not need the piano key visual treatment.
-
-## What This Achieves
-
-- The section becomes a literal visual instrument — uniquely Parker's, impossible to confuse with any other vendor
-- Three ivory keys on a dark atmospheric background create dramatic contrast and immediate recognition
-- Black keys between the tiers add rhythmic visual punctuation without carrying content weight
-- The "pressed" middle key with golden glow naturally draws the eye to the $750 tier (the compromise-effect anchor)
-- Eliminating bullet-point feature lists in favor of single composed sentences maintains the narrative voice
-- Dark-text-on-ivory within the keys creates an inverted reading experience that signals "this is a different surface" — like reading sheet music placed on the piano
-- The bottom-aligned layout (keys sit on a shared baseline like a real keyboard) creates architectural stability
-- Mobile gracefully degrades to stacked cards with golden thread separators, maintaining the brand rhythm without forcing a horizontal piano on small screens
+### `src/components/ThreePaths.tsx`
+- Add flex container gap/background for key gap simulation
+- Adjust content spacing inside keys (spacer div for top-anchoring)
+- Fix "MOST CHOSEN" badge positioning (`-top-8` with connecting thread)
+- Ensure headline renders as single line
+- Add `:active` class support (CSS handles this, no JS needed)
 
