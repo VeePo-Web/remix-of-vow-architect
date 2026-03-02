@@ -4712,7 +4712,8 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
     border-color 180ms var(--ease-sacred),
     transform 260ms var(--ease-covenant),
     opacity 700ms ease,
-    translate 700ms ease;
+    translate 700ms ease,
+    scale 700ms ease;
   contain: layout paint;
 }
 
@@ -4721,11 +4722,54 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   border-color: hsl(var(--vow-yellow) / 0.25);
 }
 
+/* Step 6: Flanking cards — subtle recede */
+.three-paths-card--flanking {
+  transform-origin: center bottom;
+}
+
+@media (min-width: 768px) {
+  .three-paths-card--flanking {
+    scale: 0.98;
+  }
+}
+
+/* Step 6: Chosen card — elevated spatial plane */
 .three-paths-card--chosen {
-  background: radial-gradient(ellipse at 50% 0%, hsl(var(--vow-yellow) / 0.06) 0%, hsl(var(--ebon-charcoal) / 0.95) 70%);
-  border: 1px solid hsl(var(--vow-yellow) / 0.25);
-  border-top: 1px solid hsl(var(--vow-yellow) / 0.3);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 16px 48px rgba(0,0,0,0.4), 0 8px 40px rgba(255,224,138,0.12);
+  background: radial-gradient(ellipse at 50% 0%, hsl(var(--vow-yellow) / 0.07) 0%, hsl(var(--ebon-charcoal) / 0.95) 65%);
+  border: 1px solid hsl(var(--vow-yellow) / 0.28);
+  border-top: 1px solid hsl(var(--vow-yellow) / 0.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    0 16px 48px rgba(0,0,0,0.4),
+    0 24px 64px rgba(255,224,138,0.08);
+}
+
+/* Step 5: "MOST CHOSEN" wax-seal badge */
+.paths-chosen-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: hsl(var(--ebon-charcoal) / 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid hsl(var(--vow-yellow) / 0.3);
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3), 0 0 20px rgba(255,224,138,0.06);
+}
+
+/* Step 8: Warm CTA for non-chosen cards */
+.paths-cta-warm {
+  border-color: hsl(var(--vow-yellow) / 0.15) !important;
+  color: hsl(45 20% 80%) !important;
+  background: transparent !important;
+  transition: border-color 180ms var(--ease-sacred), color 180ms var(--ease-sacred), background 180ms var(--ease-sacred);
+}
+
+.paths-cta-warm:hover {
+  border-color: hsl(var(--vow-yellow) / 0.3) !important;
+  color: hsl(45 30% 90%) !important;
+  background: hsl(var(--vow-yellow) / 0.04) !important;
 }
 
 /* ─── TheWitnesses Testimonial Card — frosted glass ─── */
@@ -4762,6 +4806,14 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   .witnesses-testimonial-card {
     transition: opacity 120ms ease !important;
     will-change: auto;
+    scale: 1 !important;
+    transform: none !important;
+  }
+  .three-paths-card--flanking {
+    scale: 1 !important;
+  }
+  .paths-chosen-badge {
+    backdrop-filter: none;
   }
   .witness-kit-diamond {
     animation: none;
