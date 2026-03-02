@@ -6,17 +6,17 @@ import transformationFear from "@/assets/transformation-fear-ai.jpg";
 import transformationLife from "@/assets/transformation-life-ai.jpg";
 
 const fears = [
-  "The pianist plays the same songs as every other wedding",
-  "The music feels like background noise — not your story",
-  "No one asked what songs actually mean something to you",
-  "The musician shows up, plays, and leaves — no connection",
+  "What if the music sounds like every other ceremony you've attended",
+  "What if the piano becomes background noise — pleasant, but forgettable",
+  "What if no one asks which songs carry the weight of your story",
+  "What if the musician treats your ceremony as just another booking",
 ];
 
 const resolutions = [
-  "Every arrangement is built from a conversation — yours",
-  "Your walk-down song, composed note by note for you",
-  "A full ceremony plan — sent before you ever have to ask",
-  "A pianist who stays until the last guest leaves the room",
+  "I begin with a conversation — not a playlist. Your story shapes every note",
+  "Your walk-down song is composed from scratch — written for the two of you alone",
+  "A complete ceremony plan arrives in your inbox before you think to ask for one",
+  "I stay until the last guest has left and the final note has settled",
 ];
 
 export function TheTransformation() {
@@ -95,7 +95,7 @@ export function TheTransformation() {
               )}
               style={{ transitionDelay: "0ms", transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)' }}
             >
-              What keeps you up at night
+              The quiet worries no one talks about
             </h3>
 
             {fears.map((fear, index) => (
@@ -184,7 +184,7 @@ export function TheTransformation() {
               )}
               style={{ transitionDelay: "0ms", transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)' }}
             >
-              What I promise instead
+              So here is what I do
               {/* Golden vow underline */}
               <span
                 className={cn(
