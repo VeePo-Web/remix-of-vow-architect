@@ -1,71 +1,140 @@
 
+# The Witness ("THE PREPARATION") — 10-Step Million-Dollar Elevation
 
-# The Invitation — Technical Bugs + Final Polish
+## Current State Assessment
 
-## Discovery
+The section works but feels like a first draft compared to the elevated sections (TheInvitation, ProcessSection). Specific problems:
 
-After a thorough code and visual audit of all 4 previous passes, the section's structure and design intent are excellent. However, **five technical bugs** prevent the intended effects from actually working as designed. These are not aesthetic nitpicks — they are broken implementations that make the "million-dollar" atmospheric effects silently fail.
+1. **No atmospheric depth.** The background is a flat CSS gradient with a single grain layer at 4% and a vow-yellow fog at 2%. No background image, no vignette, no warm glow pools. Compared to TheInvitation (7 atmospheric layers, breathing light, candlelight shimmer, scroll-linked warmth), this section is dead.
 
-## Bugs Found
+2. **The image is washed out.** The ceremony setup image sits at 28% opacity with a radial vignette that fades to the section background color. The result is a ghost of an image — no depth, no Ken Burns drift presence, no warm light interaction.
 
-### Bug 1: Warmth intensification does nothing
-Lines 104 and 114 use `opacity: 'calc(1 + var(--warmth) * 0.4)'`. When `--warmth` goes from 0 to 1, opacity goes from 1.0 to 1.4. But CSS clamps opacity at 1.0 — so **the warmth scroll effect has zero visible impact**. The glow layers sit at `opacity: 1` regardless of scroll position.
+3. **No scroll-linked effects.** Every elevated section (TheInvitation, TheSound, ProcessSection) has scroll-linked parallax creating spatial depth. This section is static — the image and text columns have no relationship to scroll position.
 
-**Fix:** The parent divs should have a base opacity below 1 and the warmth calc should modulate within a visible range. Change to `opacity: calc(0.85 + var(--warmth) * 0.15)` so they go from 85% to 100% opacity as the user scrolls deeper, creating the subtle warmth intensification that was intended.
+4. **Declaration cards are flat.** They have a hover lift (good) but their resting state is a semi-transparent wash with no material presence. No inner glow. No warm thread connection to the golden thread. The golden thread itself just breathes opacity — it has no spatial relationship to the cards.
 
-### Bug 2: Candlelight drift animates entire gradient (forces repaint every frame)
-Lines 1609-1611 swap the *entire* `background` shorthand each keyframe (from `radial-gradient(... at 30% 30% ...)` to `radial-gradient(... at 60% 50% ...)`). CSS cannot interpolate between two different gradient definitions — the browser must recalculate the gradient every frame. The `will-change: background-position` on line 1607 is misleading because the animation doesn't use `background-position` at all.
+5. **The kit grid is utilitarian.** Six cells with diamond icons and labels. No atmospheric context. No sense that these items are sacred tools rather than a gear list. The diamond pulse on hover is nice but the resting state is lifeless.
 
-**Fix:** Use a pseudo-element approach. Set a fixed radial gradient on `.invitation-candlelight-shimmer::before` and animate its `transform: translate()` instead. Transform is GPU-composited and silky smooth. Alternatively, set the gradient once and animate `background-position` (which can interpolate).
+6. **No "pianist" underline trailing glow.** TheInvitation's "Yours" underline has a warm ink glow that pulses once. This section's "pianist" underline draws but has no trailing warmth — it draws dry.
 
-### Bug 3: Light bleed breathing uses `opacity: 1.4` (clamped to 1.0)
-Line 1600: the `invitation-light-breathe` keyframe goes from `opacity: 1` to `opacity: 1.4`. Since opacity is clamped at 1.0, the breathing effect only comes from the `scale(1) to scale(1.05)` transform — a nearly imperceptible 5% size change on a blurred glow that's already at 6% opacity. The breathing is essentially invisible.
+7. **The closing line has no weight.** "Now — choose how long you want me there." is the threshold into ThreePaths (pricing). This is a pivotal moment in the narrative — the visitor is about to make a decision. But the line just fades in with no atmospheric support.
 
-**Fix:** Change the keyframe to animate opacity from `0.7` to `1.0` (a visible 30% brightness shift) while keeping the scale breathing. This makes the glow pool genuinely breathe.
+8. **No screen reader narrative.** The section has no `role="region"` and no `sr-only` narration of the section's purpose.
 
-### Bug 4: Parallax transform conflicts with Tailwind reveal class
-The image column (line 133-139) has `isVisible ? 'translate-y-0' : 'translate-y-6'` applied via Tailwind, plus `transition-all duration-[900ms]`. The scroll listener (line 41) also sets `style.transform = translateY(${offset}px)`. These conflict: after the reveal transition, Tailwind's `translate-y-0` class generates a `transform: translateY(0)` that competes with the inline style. Because Tailwind utility classes use `--tw-translate-y` CSS variables, the inline `transform` override may work — but the `transition-all` means every scroll-frame parallax update triggers a 900ms transition animation, making the parallax feel sluggish instead of immediate.
+9. **Missing top fade transition.** The section fades from TheTransformation (warm dark) into this Life-space section. The current top fade is `hsl(42 28% 91%)` — close but should be verified against TheTransformation's exit color.
 
-**Fix:** After the reveal completes (after ~1200ms), remove the `transition-all` class from the image column so the parallax transform applies instantly. Use a `useEffect` with a timeout to switch from transition mode to parallax mode. Alternatively, apply the reveal via opacity only and handle the parallax transform entirely via the scroll listener from the start.
+10. **No CTA or directional momentum.** The closing line says "choose how long you want me there" but there is no CTA button or arrow to carry the visitor into ThreePaths. The section just... ends.
 
-### Bug 5: Epigraph `transition-property` inline style is redundant
-Line 209 sets `transitionProperty: 'opacity, transform, filter'` inline, but the element also has the Tailwind class `transition-all` which sets `transition-property: all`. The inline `transitionProperty` is overridden by the higher-specificity Tailwind utility. The blur transition works anyway because `transition-all` covers everything — but the explicit property list was meant to be precise.
+---
 
-**Fix:** Replace `transition-all` with a custom transition class or remove the inline `transitionProperty` since `transition-all` already handles it. Minor but reflects intentional craft.
+## The 10-Step Elevation Plan
 
-## Additional Polish
+### Step 1: Add Atmospheric Depth Layers
 
-### 6. Mobile: Label and epigraph pushed far above the fold
-On mobile (390px), the image stacks above the text at `aspect-[3/2]`, taking significant vertical space. The label "THE INVITATION" and epigraph are rendered between the image and the heading. When scrolling to the section, the visitor lands mid-section and misses the epigraph entirely. The mobile reveal sequence should ensure the epigraph is visible.
+Add a full 5-layer atmospheric system matching the section anatomy standard:
+- **Layer 0 (base):** Keep the warm gradient but refine to `hsl(45 22% 95%)` to `hsl(42 18% 91%)`.
+- **Layer 1 (background image):** Add a secondary background image (the keys image `witness-keys-ai.jpg` already exists) at 4-6% opacity behind the entire section, with a 30s Ken Burns drift. Currently only used as a tiny texture behind the kit grid.
+- **Layer 2 (warm fog):** Intensify the radial fog from 2% to 4% opacity with a larger ellipse.
+- **Layer 3 (vignette):** Add a radial vignette that darkens the edges by 8-12%, giving the section spatial containment.
+- **Layer 4 (breathing glow):** Add a breathing warm glow pool (4s cycle) near the image column, creating the feeling of candlelight illuminating the scene.
 
-**Fix:** On mobile, reduce the image aspect ratio slightly or ensure the scroll-reveal triggers when the text content (not the image top) enters the viewport.
+**Files:** `src/components/TheWitness.tsx`, `src/index.css`
 
-## Technical Changes
+### Step 2: Scroll-Linked Parallax Between Columns
 
-### File: `src/components/TheInvitation.tsx`
+Add a scroll listener (same pattern as TheInvitation) using `requestAnimationFrame` that:
+- Offsets the image column at 0.92x scroll rate relative to the text column.
+- Calculates a `--witness-warmth` variable (0-1) based on scroll depth.
+- Applies the warmth variable to the breathing glow pool so it intensifies by 3-4% as the visitor scrolls toward the closing line.
 
-1. **Fix warmth calc** — Change the two warmth-linked glow layers from `calc(1 + var(--warmth) * 0.4)` and `calc(1 + var(--warmth) * 0.5)` to `calc(0.85 + var(--warmth) * 0.15)` and `calc(0.8 + var(--warmth) * 0.2)` respectively.
+**Files:** `src/components/TheWitness.tsx`
 
-2. **Fix parallax/transition conflict** — Remove `transition-all duration-[900ms]` from the image column after the reveal completes. Add a `revealDone` state that becomes true after 1500ms when `isVisible` first triggers. When `revealDone` is true, the column drops the `transition-all` class so the parallax applies immediately each frame.
+### Step 3: Elevate the Image Frame
 
-3. **Clean up epigraph transition** — Remove the inline `transitionProperty` and replace `transition-all` with explicit `transition-[opacity,transform,filter]` in the Tailwind className.
+Transform the image from a washed-out ghost into a cinematic presence:
+- Increase image opacity from 0.28 to 0.35 for more photographic presence.
+- Add a warm light bleed behind the frame (same breathing pattern as TheInvitation's portrait glow).
+- Add a candlelight shimmer inside the frame — a `::before` pseudo-element with a warm radial gradient that drifts via `transform: translate()` over 8s, simulating reflected light.
+- Ensure the Ken Burns animation timing is 30s (already correct).
 
-### File: `src/index.css`
+**Files:** `src/components/TheWitness.tsx`, `src/index.css`
 
-4. **Fix light bleed breathing keyframe** — Change `invitation-light-breathe` from `opacity: 1 / 1.4` to `opacity: 0.7 / 1.0`.
+### Step 4: Give Declaration Cards Material Presence
 
-5. **Fix candlelight shimmer to use transform** — Refactor `.invitation-candlelight-shimmer` to use a `::before` pseudo-element with a fixed radial gradient, animated via `transform: translate()` (GPU-composited) instead of swapping the gradient definition each frame. Remove the misleading `will-change: background-position`.
+Transform the cards from flat washes into warm invitation-paper cards:
+- Add a subtle inner glow along the left edge where the golden thread connects, using `box-shadow: inset 3px 0 8px -3px hsl(var(--vow-yellow) / 0.06)`.
+- Add a warm paper texture background (subtle linear gradient from slightly warmer to slightly cooler).
+- Make the golden thread diamonds pulse once when their corresponding card enters the viewport (staggered with the card reveal).
+- Add a 1px warm top border on each card that catches light.
 
-6. **Add `.invitation-candlelight-shimmer` and `::before` reduced-motion fallback** — Ensure the pseudo-element animation is also disabled under `prefers-reduced-motion: reduce`.
+**Files:** `src/components/TheWitness.tsx`, `src/index.css`
 
-## What This Achieves
+### Step 5: Transform Kit Grid into Sacred Inventory
 
-Every atmospheric effect that was designed but silently broken now actually works:
+Reframe the kit items with more atmospheric presence:
+- Replace the flat cell backgrounds with a warm glass-card treatment: `backdrop-filter: blur(4px)` + `background: hsl(45 20% 93% / 0.5)`.
+- Add a subtle golden border that intensifies on hover.
+- Add staggered reveal to each cell (80ms delay between items).
+- Move the background keys image to fill behind all 6 cells with slightly higher opacity (5%) for better texture.
 
-- The ambient warmth genuinely intensifies as visitors scroll deeper (was clamped at 1.0)
-- The portrait glow genuinely breathes between dim and bright (was stuck at opacity 1.0)
-- The candlelight shimmer drifts smoothly at 60fps (was forcing full gradient recalculation each frame)
-- The parallax responds instantly to scroll (was fighting a 900ms CSS transition)
+**Files:** `src/components/TheWitness.tsx`, `src/index.css`
 
-These are the invisible bugs that separate "looks fine in a screenshot" from "feels alive when you scroll through it."
+### Step 6: Add "Pianist" Underline Trailing Glow
 
+Match the "Yours" treatment from TheInvitation:
+- When the underline draws (via `scaleX`), add a single-fire `box-shadow` animation that flares to `0 0 12px hsl(var(--vow-yellow) / 0.4)` at 40% and settles to `0 0 6px hsl(var(--vow-yellow) / 0.25)` at 100%.
+- Apply with a 600ms delay matching the existing underline transition delay.
+- Add a `will-change: box-shadow` for GPU compositing.
+
+**Files:** `src/index.css` (new keyframe `witness-pianist-glow`)
+
+### Step 7: Add Weight to the Closing Line
+
+Transform "Now — choose how long you want me there." into a threshold moment:
+- Add a golden thread horizontal rule (64px, same as other sections) above the line.
+- Below the line, add a CTA: "See my three paths" using the ghost-link style (text + subtle underline on hover), pointing to `#three-paths`.
+- Add a subtle radial warm glow behind the closing area that intensifies with the `--witness-warmth` scroll variable.
+- Give the closing text a blur-to-sharp reveal (4px to 0) matching the TheInvitation epigraph treatment.
+
+**Files:** `src/components/TheWitness.tsx`
+
+### Step 8: Add Accessibility Layer
+
+- Add `role="region"` to the section element.
+- Add a `sr-only` span narrating: "The Preparation section describes what Parker brings to your ceremony: early arrival, sound-checked piano, backup equipment, printed cue sheet, liability insurance, and rain cover. Three declaration promises outline his commitment to excellence."
+
+**Files:** `src/components/TheWitness.tsx`
+
+### Step 9: Refine Transition Fades
+
+- Verify the top fade matches TheTransformation's warm exit color space. The Transformation exits at approximately `hsl(35 20% 14%)` warm-dark, transitioning into this Life-space section. The top fade should blend from that warm-dark into the section's cream.
+- The bottom fade into ThreePaths (dark section) is correct at `hsl(240 9% 4%)`.
+- Add a threshold golden line at the bottom (already exists) — verify its opacity matches other section transitions.
+
+**Files:** `src/components/TheWitness.tsx`
+
+### Step 10: Add Reduced Motion Fallbacks for All New Effects
+
+- Disable all new animations under `prefers-reduced-motion: reduce`: parallax, breathing glow, candlelight shimmer, pianist trailing glow, blur-to-sharp reveal.
+- Fallback to static states: glow at resting opacity, parallax offset at 0, blur at 0, underline at resting shadow.
+
+**Files:** `src/index.css`
+
+---
+
+## Technical Summary
+
+| Step | What Changes | Files |
+|------|-------------|-------|
+| 1 | 5-layer atmospheric depth | TheWitness.tsx, index.css |
+| 2 | Scroll-linked parallax + warmth | TheWitness.tsx |
+| 3 | Cinematic image frame elevation | TheWitness.tsx, index.css |
+| 4 | Declaration cards material upgrade | TheWitness.tsx, index.css |
+| 5 | Kit grid atmospheric presence | TheWitness.tsx, index.css |
+| 6 | Pianist underline trailing glow | index.css |
+| 7 | Closing line threshold weight | TheWitness.tsx |
+| 8 | Accessibility (role, sr-only) | TheWitness.tsx |
+| 9 | Transition fade color matching | TheWitness.tsx |
+| 10 | Reduced motion fallbacks | index.css |
+
+All changes touch only 2 files: `src/components/TheWitness.tsx` and `src/index.css`. The section transforms from a flat, utilitarian layout into a living, breathing Life-space room with spatial depth, warm candlelight, and intentional atmospheric presence matching the elevated sections.
