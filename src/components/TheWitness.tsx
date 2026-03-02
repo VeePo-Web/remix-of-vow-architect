@@ -92,7 +92,7 @@ export function TheWitness() {
       aria-label="The Preparation"
       className="relative section--surface section-padding-standard piano-section-target overflow-hidden min-h-[400px]"
       style={{
-        background: "linear-gradient(180deg, hsl(45 22% 95%) 0%, hsl(42 18% 91%) 100%)",
+        background: "linear-gradient(180deg, hsl(40 18% 94%) 0%, hsl(45 22% 95%) 45%, hsl(38 15% 90%) 100%)",
         // @ts-ignore
         '--witness-warmth': '0',
       } as React.CSSProperties}
@@ -110,9 +110,9 @@ export function TheWitness() {
           src={witnessKeys}
           alt=""
           className="absolute inset-0 w-full h-full object-cover witness-bg-drift"
-          style={{
-            opacity: 0.05,
-            filter: 'saturate(0.6) sepia(0.1) contrast(1.05)',
+           style={{
+            opacity: 0.10,
+            filter: 'saturate(0.4) sepia(0.2) contrast(1.15) brightness(0.85)',
             willChange: 'transform',
           }}
           loading="lazy"
@@ -120,46 +120,68 @@ export function TheWitness() {
         />
       </div>
 
-      {/* ── Layer 2: Warm fog (intensified) ── */}
+      {/* ── Layer 2a: Primary warm fog (amber cloud near image column) ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.04) 0%, transparent 65%)',
-          opacity: 'calc(0.85 + var(--witness-warmth) * 0.15)',
+          background: 'radial-gradient(ellipse at 40% 40%, hsl(40 45% 80% / 0.08) 0%, transparent 80%)',
+          opacity: 'calc(0.8 + var(--witness-warmth) * 0.2)',
+        }}
+        aria-hidden="true"
+      />
+      {/* ── Layer 2b: Secondary warm fog (closing area pool) ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at 70% 70%, hsl(45 40% 85% / 0.05) 0%, transparent 60%)',
+          opacity: 'calc(0.8 + var(--witness-warmth) * 0.2)',
         }}
         aria-hidden="true"
       />
 
-      {/* ── Layer 3: Radial vignette ── */}
+      {/* ── Layer 3: Radial vignette (visible edge darkening) ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 40%, hsl(42 18% 85% / 0.12) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 35%, hsl(40 15% 75% / 0.18) 100%)',
         }}
         aria-hidden="true"
       />
 
-      {/* ── Layer 4: Breathing candlelight glow pool ── */}
+      {/* ── Layer 4a: Breathing candlelight glow pool (image column) ── */}
       <div
         className="witness-breathing-glow absolute pointer-events-none"
         style={{
-          width: '400px',
-          height: '400px',
-          left: '10%',
-          top: '20%',
-          background: 'radial-gradient(ellipse at center, hsl(var(--vow-yellow) / 0.04) 0%, transparent 70%)',
+          width: '500px',
+          height: '500px',
+          left: '15%',
+          top: '30%',
+          background: 'radial-gradient(ellipse at center, hsl(var(--vow-yellow) / 0.05) 0%, transparent 70%)',
           opacity: 'calc(0.7 + var(--witness-warmth) * 0.3)',
         }}
         aria-hidden="true"
       />
+      {/* ── Layer 4b: Secondary glow pool (closing/CTA area) ── */}
+      <div
+        className="witness-breathing-glow absolute pointer-events-none"
+        style={{
+          width: '200px',
+          height: '200px',
+          right: '20%',
+          bottom: '30%',
+          background: 'radial-gradient(ellipse at center, hsl(var(--vow-yellow) / 0.04) 0%, transparent 70%)',
+          opacity: 'calc(0.6 + var(--witness-warmth) * 0.4)',
+        }}
+        aria-hidden="true"
+      />
 
-      {/* Film grain overlay */}
-      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
+      {/* Film grain overlay (6% for tactile paper texture on cream) */}
+      <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" aria-hidden="true" />
 
-      {/* Step 9: Top fade from TheTransformation warm-dark exit */}
+      {/* Top fade matching TheTransformation's warm cream exit */}
       <div
         className="section-fade-top"
-        style={{ background: 'linear-gradient(to top, transparent, hsl(35 20% 14%))' }}
+        style={{ background: 'linear-gradient(to top, transparent, hsl(45 25% 96%))' }}
         aria-hidden="true"
       />
 
