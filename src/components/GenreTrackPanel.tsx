@@ -74,7 +74,21 @@ export function GenreTrackPanel({
       }}
     >
       {/* Header */}
-...
+      <div className="px-5 pt-4 pb-3" style={{ borderBottom: "1px solid hsl(var(--vow-yellow) / 0.06)" }}>
+        <div className="flex items-center justify-between">
+          <span
+            className="text-[11px] uppercase tracking-[0.18em] font-display font-medium text-foreground/50"
+            role="heading"
+            aria-level={3}
+          >
+            {category.label}
+          </span>
+          <span className="text-[9px] uppercase tracking-[0.15em] text-foreground/20 font-mono tabular-nums">
+            {category.tracks.length} tracks
+          </span>
+        </div>
+      </div>
+
       {/* Tracks */}
       {category.tracks.map((track, tIdx) => {
         const globalIdx = globalStartIndex + tIdx;
@@ -83,10 +97,23 @@ export function GenreTrackPanel({
         const hasSrc = !!track.src;
         const pct = isActive && duration > 0 ? (progress / duration) * 100 : 0;
 
+        const TrackEl = hasSrc ? "button" : "div";
+        const trackProps = hasSrc
+          ? {
+              onClick: () => onTrackClick(globalIdx),
+              "aria-label": isTrackPlaying ? `Pause ${track.title}` : `Play ${track.title}`,
+              "aria-current": isActive ? ("true" as const) : undefined,
+            }
+          : {
+              role: "listitem" as const,
+              "aria-disabled": true,
+              tabIndex: -1,
+            };
+
         return (
-          <button
+          <TrackEl
             key={track.title}
-            onClick={() => hasSrc ? onTrackClick(globalIdx) : undefined}
+            {...(trackProps as any)}
             className={cn(
               "w-full flex items-center gap-3 min-h-[48px] px-5 relative",
               "font-display text-[15px] font-light tracking-normal",
@@ -94,7 +121,7 @@ export function GenreTrackPanel({
               isActive
                 ? "text-[hsl(var(--vow-yellow))]"
                 : hasSrc
-                ? "text-foreground/70 hover:text-foreground hover:bg-[hsl(var(--vow-yellow)/0.03)]"
+                ? "text-foreground/70 hover:text-foreground hover:bg-[hsl(var(--vow-yellow)/0.03)] cursor-pointer"
                 : "text-foreground/35 cursor-default"
             )}
             style={{
@@ -105,8 +132,6 @@ export function GenreTrackPanel({
               animation: reducedMotion ? "none" : undefined,
               transitionDelay: reducedMotion ? "0ms" : `${tIdx * 40}ms`,
             }}
-            aria-label={isTrackPlaying ? `Pause ${track.title}` : `Play ${track.title}`}
-            aria-current={isActive ? "true" : undefined}
           >
             {/* Accent bar */}
             <span
@@ -143,7 +168,7 @@ export function GenreTrackPanel({
                 aria-hidden="true"
               />
             )}
-          </button>
+          </TrackEl>
         );
       })}
 

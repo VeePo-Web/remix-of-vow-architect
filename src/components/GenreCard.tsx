@@ -62,12 +62,15 @@ export function GenreCard({
   const accent = genreAccents[id] || "hsl(var(--vow-yellow))";
   const gradient = genreGradients[id] || genreGradients.hymns;
   const [isHovered, setIsHovered] = useState(false);
+  const [isPressed, setIsPressed] = useState(false);
 
   return (
     <button
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseLeave={() => { setIsHovered(false); setIsPressed(false); }}
+      onMouseDown={() => setIsPressed(true)}
+      onMouseUp={() => setIsPressed(false)}
       className={cn(
         "genre-card group relative overflow-hidden rounded-xl",
         "aspect-[4/5] w-full",
@@ -79,11 +82,13 @@ export function GenreCard({
         border: isActive
           ? "1px solid hsl(var(--vow-yellow) / 0.35)"
           : `1px solid hsl(var(--vow-yellow) / ${isHovered ? 0.2 : 0.08})`,
-        transform: isActive ? "scale(1.02)" : isHovered ? "translateY(-2px)" : "scale(1)",
+        transform: isPressed ? "scale(0.98)" : isActive ? "scale(1.02)" : isHovered ? "translateY(-2px)" : "scale(1)",
         boxShadow: isActive
           ? "0 0 30px hsl(var(--vow-yellow) / 0.12), inset 0 1px 0 rgba(255,255,255,0.06)"
           : "inset 0 1px 0 rgba(255,255,255,0.06)",
-        transition: "transform 300ms cubic-bezier(0.22,0.61,0.36,1), box-shadow 300ms cubic-bezier(0.22,0.61,0.36,1), border-color 300ms cubic-bezier(0.22,0.61,0.36,1)",
+        transition: isPressed
+          ? "transform 80ms cubic-bezier(0.22,0.61,0.36,1), box-shadow 80ms cubic-bezier(0.22,0.61,0.36,1), border-color 80ms cubic-bezier(0.22,0.61,0.36,1)"
+          : "transform 300ms cubic-bezier(0.22,0.61,0.36,1), box-shadow 300ms cubic-bezier(0.22,0.61,0.36,1), border-color 300ms cubic-bezier(0.22,0.61,0.36,1)",
       }}
       aria-label={`${label} — ${trackCount} tracks`}
       aria-pressed={isActive}

@@ -400,6 +400,21 @@ export function TheSound() {
                   gridVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 )}
                 style={{ transitionDelay: gridVisible ? "200ms" : "0ms" }}
+                role="group"
+                aria-label="Genre selection"
+                onKeyDown={(e) => {
+                  if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+                  e.preventDefault();
+                  const buttons = Array.from(
+                    e.currentTarget.querySelectorAll<HTMLButtonElement>("button.genre-card")
+                  );
+                  const currentIdx = buttons.indexOf(document.activeElement as HTMLButtonElement);
+                  if (currentIdx === -1) return;
+                  const nextIdx = e.key === "ArrowRight"
+                    ? (currentIdx + 1) % buttons.length
+                    : (currentIdx - 1 + buttons.length) % buttons.length;
+                  buttons[nextIdx]?.focus();
+                }}
               >
                 {categories.map((cat, i) => (
                   <div
@@ -463,8 +478,8 @@ export function TheSound() {
               style={{
                 opacity: quoteVisible ? 1 : 0,
                 transform: quoteVisible ? "translateY(0)" : "translateY(12px)",
-                transition: "opacity 1000ms ease, transform 1000ms ease",
-                transitionDelay: quoteVisible ? "200ms" : "0ms",
+                transition: "opacity 700ms ease, transform 700ms ease",
+                transitionDelay: quoteVisible ? "150ms" : "0ms",
               }}
             >
               <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 50% 40% at 50% 50%, hsl(var(--vow-yellow) / 0.05) 0%, transparent 70%)" }} aria-hidden="true" />
