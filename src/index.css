@@ -4278,10 +4278,6 @@ All colors MUST be HSL.
     0 40px 100px -20px rgba(0,0,0,0.5) !important;
 }
 
-@keyframes witness-ken-burns {
-  0% { transform: scale(1); }
-  100% { transform: scale(1.04); }
-}
 
 @keyframes witnesses-ken-burns {
   0% { transform: scale(1); }
