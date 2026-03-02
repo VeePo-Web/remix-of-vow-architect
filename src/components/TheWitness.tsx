@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import witnessCeremony from "@/assets/witness-setup-ai.jpg";
@@ -22,48 +22,162 @@ const standardKit = [
 export function TheWitness() {
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.15 });
 
+  // Refs for parallax
+  const sectionElRef = useRef<HTMLElement | null>(null);
+  const imageColRef = useRef<HTMLDivElement>(null);
+
+  // Reduced motion detection
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const [revealDone, setRevealDone] = useState(false);
+
+  useEffect(() => {
+    setReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }, []);
+
+  // After reveal completes, enable parallax mode
+  useEffect(() => {
+    if (isVisible && !revealDone) {
+      const timer = setTimeout(() => setRevealDone(true), 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible, revealDone]);
+
+  // Merge refs
+  const setRefs = useCallback((node: HTMLElement | null) => {
+    sectionElRef.current = node;
+    (sectionRef as React.MutableRefObject<HTMLElement | null>).current = node;
+  }, [sectionRef]);
+
+  // Step 2: Scroll-linked parallax + warmth variable
+  useEffect(() => {
+    if (reducedMotion || !revealDone) return;
+
+    let rafId: number;
+    const handleScroll = () => {
+      rafId = requestAnimationFrame(() => {
+        const section = sectionElRef.current;
+        const imageCol = imageColRef.current;
+        if (!section || !imageCol) return;
+
+        const rect = section.getBoundingClientRect();
+        const viewH = window.innerHeight;
+        const sectionH = rect.height;
+
+        // How far through the section (0 at top entering, 1 at bottom leaving)
+        const progress = Math.max(0, Math.min(1, (viewH - rect.top) / (viewH + sectionH)));
+
+        // Warmth: 0 → 1 as visitor scrolls deeper
+        section.style.setProperty('--witness-warmth', String(progress));
+
+        // Parallax offset for image column (slower scroll = moves up relative to text)
+        const offset = (progress - 0.5) * 40 * 0.08; // subtle ~±1.6px
+        imageCol.style.transform = `translateY(${offset}px)`;
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      cancelAnimationFrame(rafId);
+    };
+  }, [reducedMotion, revealDone]);
+
   return (
-    <section 
+    <section
       id="the-witness"
-      ref={sectionRef}
+      ref={setRefs}
       data-theme="life"
+      role="region"
+      aria-label="The Preparation"
       className="relative section--surface section-padding-standard piano-section-target overflow-hidden min-h-[400px]"
       style={{
-        background: "linear-gradient(180deg, hsl(45 25% 96%) 0%, hsl(45 20% 93%) 100%)",
-      }}
+        background: "linear-gradient(180deg, hsl(45 22% 95%) 0%, hsl(42 18% 91%) 100%)",
+        // @ts-ignore
+        '--witness-warmth': '0',
+      } as React.CSSProperties}
     >
-      {/* Film grain overlay */}
-      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
+      {/* Step 8: Screen reader narrative */}
+      <span className="sr-only">
+        The Preparation section describes what Parker brings to your ceremony: early arrival,
+        sound-checked piano, backup equipment, printed cue sheet, liability insurance, and rain cover.
+        Three declaration promises outline his commitment to excellence.
+      </span>
 
-      {/* Warm atmospheric fog */}
+      {/* ── Layer 1: Full-section background image with Ken Burns ── */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <img
+          src={witnessKeys}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover witness-bg-drift"
+          style={{
+            opacity: 0.05,
+            filter: 'saturate(0.6) sepia(0.1) contrast(1.05)',
+            willChange: 'transform',
+          }}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+
+      {/* ── Layer 2: Warm fog (intensified) ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.02) 0%, transparent 60%)',
+          background: 'radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.04) 0%, transparent 65%)',
+          opacity: 'calc(0.85 + var(--witness-warmth) * 0.15)',
         }}
         aria-hidden="true"
       />
 
-      {/* Top fade from TheTransformation warm exit */}
+      {/* ── Layer 3: Radial vignette ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at center, transparent 40%, hsl(42 18% 85% / 0.12) 100%)',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* ── Layer 4: Breathing candlelight glow pool ── */}
+      <div
+        className="witness-breathing-glow absolute pointer-events-none"
+        style={{
+          width: '400px',
+          height: '400px',
+          left: '10%',
+          top: '20%',
+          background: 'radial-gradient(ellipse at center, hsl(var(--vow-yellow) / 0.04) 0%, transparent 70%)',
+          opacity: 'calc(0.7 + var(--witness-warmth) * 0.3)',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Film grain overlay */}
+      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
+
+      {/* Step 9: Top fade from TheTransformation warm-dark exit */}
       <div
         className="section-fade-top"
-        style={{ background: 'linear-gradient(to top, transparent, hsl(42 28% 91%))' }}
+        style={{ background: 'linear-gradient(to top, transparent, hsl(35 20% 14%))' }}
         aria-hidden="true"
       />
 
       <div className="container mx-auto px-4 relative z-10">
-        {/* ── Step 1: Asymmetric Two-Column Layout ── */}
+        {/* Asymmetric Two-Column Layout */}
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-10 md:gap-16 items-start">
 
-          {/* ── LEFT COLUMN: Cinematic Image Frame (Steps 1-2) ── */}
+          {/* ── LEFT COLUMN: Cinematic Image Frame ── */}
           <div
+            ref={imageColRef}
             className={cn(
-              "witness-image-frame relative rounded-lg overflow-hidden transition-all duration-700",
+              "witness-image-frame relative rounded-lg overflow-hidden",
               "aspect-[3/4] md:aspect-auto md:min-h-[520px]",
+              !revealDone && "transition-all duration-[900ms]",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             )}
             style={{
-              transitionDelay: isVisible ? "100ms" : "0ms",
+              transitionDelay: isVisible && !revealDone ? "100ms" : "0ms",
             }}
           >
             {/* Image with cinematic grade + Ken Burns */}
@@ -72,7 +186,7 @@ export function TheWitness() {
               alt="Piano prepared for a wedding ceremony"
               className="absolute inset-0 w-full h-full object-cover"
               style={{
-                opacity: 0.28,
+                opacity: 0.35,
                 animation: 'witness-ken-burns 30s ease-in-out infinite alternate',
                 filter: 'saturate(0.7) sepia(0.15) contrast(1.1)',
                 willChange: 'transform',
@@ -80,11 +194,15 @@ export function TheWitness() {
               loading="lazy"
               decoding="async"
             />
+
+            {/* Step 3: Candlelight shimmer inside frame */}
+            <div className="witness-frame-shimmer absolute inset-0 pointer-events-none" aria-hidden="true" />
+
             {/* Radial vignette inside the frame */}
             <div
               className="absolute inset-0 pointer-events-none"
               style={{
-                background: 'radial-gradient(ellipse at center, transparent 30%, hsl(45 20% 93% / 0.85) 100%)',
+                background: 'radial-gradient(ellipse at center, transparent 30%, hsl(45 20% 93% / 0.75) 100%)',
               }}
               aria-hidden="true"
             />
@@ -94,13 +212,24 @@ export function TheWitness() {
             <div
               className="absolute inset-0 rounded-lg pointer-events-none"
               style={{
-                boxShadow: 'inset 0 0 0 1px hsl(var(--vow-yellow) / 0.08)',
+                boxShadow: 'inset 0 0 0 1px hsl(var(--vow-yellow) / 0.1)',
+              }}
+              aria-hidden="true"
+            />
+
+            {/* Step 3: Light bleed behind frame */}
+            <div
+              className="witness-light-bleed absolute -inset-4 pointer-events-none rounded-lg"
+              style={{
+                background: 'radial-gradient(ellipse at 50% 50%, hsl(var(--vow-yellow) / 0.06) 0%, transparent 70%)',
+                filter: 'blur(20px)',
+                zIndex: -1,
               }}
               aria-hidden="true"
             />
           </div>
 
-          {/* ── RIGHT COLUMN: Text Content (Steps 4-8) ── */}
+          {/* ── RIGHT COLUMN: Text Content ── */}
           <div className="flex flex-col pt-2 md:pt-0">
             {/* Label */}
             <p
@@ -112,7 +241,7 @@ export function TheWitness() {
               THE PREPARATION
             </p>
 
-            {/* Step 8: Headline with ambient warm glow */}
+            {/* Headline with ambient warm glow */}
             <div className="relative mb-10">
               {/* Glow behind "pianist" */}
               <div
@@ -141,14 +270,14 @@ export function TheWitness() {
                 your ceremony{" "}
                 <span className="relative inline-block">
                   pianist
+                  {/* Step 6: Underline with trailing glow */}
                   <span
                     className={cn(
-                      "absolute left-0 right-0 -bottom-1 h-[2px] origin-left transition-transform duration-700",
+                      "witness-pianist-underline absolute left-0 right-0 -bottom-1 h-[2px] origin-left transition-transform duration-700",
                       isVisible ? "scale-x-100" : "scale-x-0"
                     )}
                     style={{
                       background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.6), hsl(var(--vow-yellow) / 0.2))",
-                      boxShadow: isVisible ? "0 0 8px hsl(var(--vow-yellow) / 0.3)" : "none",
                       transitionDelay: isVisible ? "600ms" : "0ms",
                       transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
                     }}
@@ -159,9 +288,9 @@ export function TheWitness() {
               </h2>
             </div>
 
-            {/* Step 4 + 7: Declaration Cards with Golden Thread Connector */}
+            {/* Step 4: Declaration Cards with Golden Thread Connector */}
             <div className="relative mb-12">
-              {/* Step 7: Vertical golden thread behind declarations */}
+              {/* Vertical golden thread behind declarations */}
               <div
                 className="witness-golden-thread absolute left-4 md:left-5 top-4 bottom-4 w-[1px] pointer-events-none"
                 style={{
@@ -180,17 +309,22 @@ export function TheWitness() {
                     )}
                     style={{
                       transitionDelay: isVisible ? `${350 + index * 150}ms` : "0ms",
-                      background: 'hsl(45 20% 92% / 0.5)',
-                      border: '1px solid hsl(45 20% 85% / 0.2)',
-                      boxShadow: 'inset 0 1px 0 hsl(0 0% 100% / 0.03)',
+                      background: 'linear-gradient(135deg, hsl(45 22% 93% / 0.6), hsl(45 18% 91% / 0.45))',
+                      border: '1px solid hsl(45 20% 85% / 0.25)',
+                      borderTop: '1px solid hsl(45 25% 88% / 0.4)',
+                      boxShadow: 'inset 3px 0 8px -3px hsl(var(--vow-yellow) / 0.06), inset 0 1px 0 hsl(0 0% 100% / 0.04)',
                     }}
                   >
                     {/* Thread node diamond */}
                     <span
-                      className="absolute left-[13px] md:left-[16px] top-1/2 -translate-y-1/2 w-[5px] h-[5px] rotate-45"
+                      className={cn(
+                        "witness-thread-diamond absolute left-[13px] md:left-[16px] top-1/2 -translate-y-1/2 w-[5px] h-[5px] rotate-45",
+                        isVisible && "witness-thread-diamond--active"
+                      )}
                       style={{
                         background: 'hsl(var(--vow-yellow) / 0.45)',
                         boxShadow: '0 0 6px hsl(var(--vow-yellow) / 0.15)',
+                        animationDelay: isVisible ? `${450 + index * 150}ms` : '0ms',
                       }}
                       aria-hidden="true"
                     />
@@ -203,7 +337,7 @@ export function TheWitness() {
             </div>
 
             {/* Golden thread separator */}
-            <div 
+            <div
               className={cn(
                 "h-[1px] w-16 mb-10 transition-all duration-700",
                 isVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
@@ -215,7 +349,7 @@ export function TheWitness() {
               aria-hidden="true"
             />
 
-            {/* Step 6: Kit Items as a Visual Grid */}
+            {/* Step 5: Sacred Inventory Kit Grid */}
             <div
               className={cn(
                 "relative transition-all duration-700",
@@ -223,13 +357,13 @@ export function TheWitness() {
               )}
               style={{ transitionDelay: isVisible ? "800ms" : "0ms" }}
             >
-              {/* Step 3: Piano keys texture behind kit */}
+              {/* Keys texture behind entire kit */}
               <div className="absolute inset-0 -m-4 rounded-lg overflow-hidden pointer-events-none" aria-hidden="true">
                 <img
                   src={witnessKeys}
                   alt=""
                   className="w-full h-full object-cover"
-                  style={{ opacity: 0.035, filter: 'saturate(0.5) blur(2px)' }}
+                  style={{ opacity: 0.05, filter: 'saturate(0.5) blur(2px)' }}
                   loading="lazy"
                   decoding="async"
                 />
@@ -242,9 +376,16 @@ export function TheWitness() {
                 {standardKit.map((item, index) => (
                   <div
                     key={index}
-                    className="witness-kit-cell group flex flex-col items-center gap-2 py-3 px-2 rounded-md cursor-default transition-all duration-[180ms]"
+                    className={cn(
+                      "witness-kit-cell group flex flex-col items-center gap-2 py-3 px-2 rounded-md cursor-default",
+                      "transition-all duration-700",
+                      isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
+                    )}
                     style={{
-                      background: 'hsl(45 20% 93% / 0.4)',
+                      transitionDelay: isVisible ? `${900 + index * 80}ms` : "0ms",
+                      background: 'hsl(45 20% 93% / 0.5)',
+                      backdropFilter: 'blur(4px)',
+                      WebkitBackdropFilter: 'blur(4px)',
                       border: '1px solid hsl(45 20% 85% / 0.25)',
                     }}
                   >
@@ -265,21 +406,65 @@ export function TheWitness() {
               </div>
             </div>
 
-            {/* Closing thought */}
-            <p
-              className={cn(
-                "text-sm md:text-[15px] font-display font-light italic text-muted-foreground mt-12 transition-all duration-700",
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-              )}
-              style={{ transitionDelay: isVisible ? "950ms" : "0ms" }}
-            >
-              Now{"\u2014"}choose how long you want me there.
-            </p>
+            {/* Step 7: Closing threshold with weight */}
+            <div className="relative mt-12">
+              {/* Warm glow behind closing */}
+              <div
+                className="absolute -inset-8 pointer-events-none"
+                style={{
+                  background: 'radial-gradient(ellipse at center, hsl(var(--vow-yellow) / 0.03) 0%, transparent 70%)',
+                  opacity: 'calc(0.6 + var(--witness-warmth) * 0.4)',
+                }}
+                aria-hidden="true"
+              />
+
+              {/* Golden thread rule */}
+              <div
+                className={cn(
+                  "h-[1px] w-16 mb-6 transition-all duration-700",
+                  isVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
+                )}
+                style={{
+                  background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.4), transparent)",
+                  transitionDelay: isVisible ? "950ms" : "0ms",
+                }}
+                aria-hidden="true"
+              />
+
+              {/* Closing thought with blur-to-sharp */}
+              <p
+                className={cn(
+                  "text-sm md:text-[15px] font-display font-light italic text-muted-foreground relative z-10",
+                  "transition-[opacity,transform,filter] duration-700",
+                  isVisible
+                    ? "opacity-100 translate-y-0 blur-0"
+                    : "opacity-0 translate-y-4 blur-[4px]"
+                )}
+                style={{ transitionDelay: isVisible ? "1000ms" : "0ms" }}
+              >
+                Now{"\u2014"}choose how long you want me there.
+              </p>
+
+              {/* Step 10: Ghost CTA into ThreePaths */}
+              <a
+                href="#three-paths"
+                className={cn(
+                  "witness-ghost-cta inline-flex items-center gap-2 mt-4 text-xs uppercase tracking-[0.18em] font-display",
+                  "text-muted-foreground hover:text-foreground relative z-10",
+                  "transition-[opacity,transform,color] duration-700",
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
+                )}
+                style={{ transitionDelay: isVisible ? "1100ms" : "0ms" }}
+              >
+                See my three paths
+                <span className="inline-block w-4 h-[1px] bg-current opacity-40" aria-hidden="true" />
+              </a>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Step 9: Bottom fade into ThreePaths dark — extended height */}
+      {/* Bottom fade into ThreePaths dark */}
       <div
         className="absolute bottom-0 left-0 right-0 pointer-events-none"
         style={{
