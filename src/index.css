@@ -4794,51 +4794,142 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   }
 }
 
-/* ─── ThreePaths Card — CSS-only hover ─── */
-.three-paths-card {
-  background: hsl(var(--ebon-charcoal) / 0.9);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid hsl(var(--border) / 0.2);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 16px 48px rgba(0,0,0,0.4);
+/* ═══════════════════════════════════════════════════════════════
+   PIANO WHITE KEY — Ivory pricing tier surface
+   ═══════════════════════════════════════════════════════════════ */
+.piano-white-key {
+  position: relative;
+  min-height: 520px;
+  padding: 40px 32px 32px;
+  background: linear-gradient(180deg, hsl(45 20% 96%) 0%, hsl(45 15% 92%) 100%);
+  border-left: 1px solid hsl(45 10% 85%);
+  border-right: 1px solid hsl(45 10% 88%);
+  border-bottom: none;
+  border-top: none;
+  border-radius: 4px 4px 0 0;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
   transition:
+    transform 180ms var(--ease-sacred),
     box-shadow 180ms var(--ease-sacred),
-    border-color 180ms var(--ease-sacred),
-    transform 260ms var(--ease-covenant),
     opacity 700ms ease,
-    translate 700ms ease,
-    scale 700ms ease;
+    translate 700ms ease;
   contain: layout paint;
 }
 
-.three-paths-card:hover {
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 16px 48px rgba(0,0,0,0.4), 0 0 24px rgba(255,224,138,0.06);
-  border-color: hsl(var(--vow-yellow) / 0.25);
+.piano-white-key:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.38), 0 0 20px rgba(255,224,138,0.06);
 }
 
-/* Step 6: Flanking cards — subtle recede */
-.three-paths-card--flanking {
-  transform-origin: center bottom;
+/* ─── Chosen key: pressed + golden top glow ─── */
+.piano-white-key--chosen {
+  border-top: 2px solid hsl(var(--vow-yellow) / 0.4);
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.3),
+    0 -4px 20px rgba(255,224,138,0.12);
 }
 
 @media (min-width: 768px) {
-  .three-paths-card--flanking {
-    scale: 0.98;
+  .piano-white-key--chosen {
+    transform: translateY(4px);
+  }
+  .piano-white-key--chosen:hover {
+    transform: translateY(0px);
   }
 }
 
-/* Step 6: Chosen card — elevated spatial plane */
-.three-paths-card--chosen {
-  background: radial-gradient(ellipse at 50% 0%, hsl(var(--vow-yellow) / 0.07) 0%, hsl(var(--ebon-charcoal) / 0.95) 65%);
-  border: 1px solid hsl(var(--vow-yellow) / 0.28);
-  border-top: 1px solid hsl(var(--vow-yellow) / 0.35);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.06),
-    0 16px 48px rgba(0,0,0,0.4),
-    0 24px 64px rgba(255,224,138,0.08);
+/* ─── Mobile: stacked, auto height ─── */
+.piano-white-key--mobile {
+  min-height: auto;
+  padding: 32px 24px;
+  border-radius: 4px;
+  border: 1px solid hsl(45 10% 85%);
 }
 
-/* Step 5: "MOST CHOSEN" wax-seal badge */
+/* ═══════════════════════════════════════════════════════════════
+   PIANO BLACK KEY — Glossy charcoal separator
+   ═══════════════════════════════════════════════════════════════ */
+.piano-black-key {
+  width: 48px;
+  height: 300px;
+  flex-shrink: 0;
+  border-radius: 0 0 4px 4px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 20%),
+    linear-gradient(180deg, hsl(222 12% 14%) 0%, hsl(240 9% 8%) 85%, hsl(240 9% 6%) 100%);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+@media (min-width: 1024px) {
+  .piano-black-key {
+    width: 56px;
+    height: 320px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PIANO KEY TYPOGRAPHY — Dark text on ivory
+   ═══════════════════════════════════════════════════════════════ */
+.piano-key__name {
+  font-family: var(--ff-display);
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: hsl(240 9% 12%);
+  letter-spacing: 0.02em;
+}
+
+.piano-key__price {
+  display: block;
+  font-family: var(--ff-display);
+  font-size: clamp(32px, 4vw, 44px);
+  font-weight: 300;
+  color: hsl(240 9% 8%);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 16px;
+}
+
+.piano-key__description {
+  font-size: 0.875rem;
+  color: hsl(240 9% 30%);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.piano-key__sentence {
+  font-family: var(--ff-display);
+  font-size: 0.875rem;
+  font-weight: 300;
+  font-style: italic;
+  color: hsl(240 9% 40%);
+  line-height: 1.5;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid hsl(45 10% 88%);
+}
+
+/* ─── CTA variants for ivory surface ─── */
+.piano-key__cta--chosen {
+  background: hsl(240 9% 8%) !important;
+  color: hsl(45 20% 96%) !important;
+  border-color: hsl(240 9% 8%) !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+.piano-key__cta--chosen:hover {
+  background: hsl(240 9% 14%) !important;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+.piano-key__cta--flanking {
+  background: transparent !important;
+  color: hsl(240 9% 20%) !important;
+  border: 1px solid hsl(240 9% 75%) !important;
+}
+.piano-key__cta--flanking:hover {
+  background: hsl(240 9% 8% / 0.05) !important;
+  border-color: hsl(240 9% 50%) !important;
+}
+
+/* ─── "MOST CHOSEN" badge (reused from original) ─── */
 .paths-chosen-badge {
   display: flex;
   align-items: center;
@@ -4850,20 +4941,6 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   border: 1px solid hsl(var(--vow-yellow) / 0.3);
   border-radius: 20px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.3), 0 0 20px rgba(255,224,138,0.06);
-}
-
-/* Step 8: Warm CTA for non-chosen cards */
-.paths-cta-warm {
-  border-color: hsl(var(--vow-yellow) / 0.15) !important;
-  color: hsl(45 20% 80%) !important;
-  background: transparent !important;
-  transition: border-color 180ms var(--ease-sacred), color 180ms var(--ease-sacred), background 180ms var(--ease-sacred);
-}
-
-.paths-cta-warm:hover {
-  border-color: hsl(var(--vow-yellow) / 0.3) !important;
-  color: hsl(45 30% 90%) !important;
-  background: hsl(var(--vow-yellow) / 0.04) !important;
 }
 
 /* ─── TheWitnesses Testimonial Card — frosted glass ─── */
@@ -4915,18 +4992,18 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .three-paths-card,
+  .piano-white-key,
+  .piano-white-key--chosen,
   .witnesses-testimonial-card {
     transition: opacity 120ms ease !important;
     will-change: auto;
-    scale: 1 !important;
+    transform: none !important;
+  }
+  .piano-white-key:hover {
     transform: none !important;
   }
   .witnesses-testimonial-card:hover {
     transform: none !important;
-  }
-  .three-paths-card--flanking {
-    scale: 1 !important;
   }
   .paths-chosen-badge {
     backdrop-filter: none;
