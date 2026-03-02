@@ -27,8 +27,8 @@ export function TheInvitation() {
         const rect = portrait.getBoundingClientRect();
         const center = rect.top + rect.height / 2;
         const viewCenter = window.innerHeight / 2;
-        const offset = (center - viewCenter) * 0.03;
-        portrait.style.transform = `perspective(800px) rotateY(-1.5deg) translateY(${offset}px)`;
+        const offset = (center - viewCenter) * 0.02;
+        portrait.style.transform = `translateZ(0) translateY(${offset}px)`;
       });
     };
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -43,7 +43,7 @@ export function TheInvitation() {
       id="the-invitation"
       ref={sectionRef}
       data-theme="life"
-      className="relative py-24 md:py-32 overflow-hidden invitation-texture piano-section-target min-h-[400px]"
+      className="relative py-28 md:py-40 overflow-hidden invitation-texture piano-section-target min-h-[400px]"
       style={{
         background: 'linear-gradient(180deg, hsl(30 8% 12%) 0%, hsl(25 6% 10%) 100%)',
       }}
@@ -116,12 +116,12 @@ export function TheInvitation() {
         aria-hidden="true"
       />
 
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 relative z-20">
         <div className="max-w-6xl mx-auto">
           {/* Section Label */}
           <p
             className={cn(
-              'text-xs uppercase tracking-[0.22em] text-white/40 mb-8 text-center',
+              'text-xs uppercase tracking-[0.22em] text-white/40 mb-12 text-center',
               'transition-all duration-700',
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             )}
@@ -130,12 +130,12 @@ export function TheInvitation() {
           </p>
 
           {/* Main Grid */}
-          <div className="grid md:grid-cols-5 gap-8 md:gap-12 items-start">
+          <div className="grid md:grid-cols-[2fr_3fr] gap-12 md:gap-20 items-start">
             {/* Portrait Column */}
             <div
               ref={portraitRef}
               className={cn(
-                'md:col-span-2 will-change-transform',
+                'will-change-transform',
                 'transition-all duration-700',
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               )}
@@ -196,32 +196,11 @@ export function TheInvitation() {
               </div>
             </div>
 
-            {/* Golden Thread — desktop: horizontal, mobile: vertical */}
-            <div
-              className={cn(
-                'hidden md:flex items-center justify-center pointer-events-none',
-                'md:col-span-0 md:absolute md:left-[40%] md:top-1/2 md:w-[8%]'
-              )}
-              style={{ transform: 'translateY(-50%)' }}
-            >
-              <span
-                className={cn(
-                  'block h-px w-full origin-left transition-transform duration-[800ms]',
-                  isVisible ? 'scale-x-100' : 'scale-x-0'
-                )}
-                style={{
-                  background: 'hsl(var(--vow-yellow) / 0.15)',
-                  transitionDelay: isVisible ? '500ms' : '0ms',
-                  transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
-                }}
-                aria-hidden="true"
-              />
-            </div>
             {/* Mobile golden thread */}
-            <div className="flex md:hidden justify-center">
+            <div className="flex md:hidden justify-center py-2">
               <span
                 className={cn(
-                  'block w-px h-10 origin-top transition-transform duration-[800ms]',
+                  'block w-px h-12 origin-top transition-transform duration-[800ms]',
                   isVisible ? 'scale-y-100' : 'scale-y-0'
                 )}
                 style={{
@@ -233,7 +212,7 @@ export function TheInvitation() {
             </div>
 
             {/* Content Column */}
-            <div className="md:col-span-3 space-y-7">
+            <div className="space-y-10">
               {/* Epigraph — whispered serif intro */}
               <p
                 className={cn(
@@ -322,17 +301,17 @@ export function TheInvitation() {
               {/* Credential Strip — frosted glass */}
               <div
                 className={cn(
-                  'pt-6 transition-all duration-700',
+                  'pt-8 transition-all duration-700',
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
                 )}
                 style={{ transitionDelay: isVisible ? '750ms' : '0ms' }}
               >
-                <div className="flex items-center gap-0">
+                <div className="flex items-center gap-3">
                   {credentials.map((cred, i) => (
-                    <div key={cred.value} className="flex items-center">
+                    <div key={cred.value} className="flex items-center gap-3">
                       <div
                         className={cn(
-                          'invitation-credential text-center px-5 py-3 rounded-[2px] transition-all duration-700',
+                          'invitation-credential text-center px-6 py-4 rounded-[2px] transition-all duration-700',
                           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                         )}
                         style={{
@@ -351,7 +330,7 @@ export function TheInvitation() {
                       </div>
                       {i < credentials.length - 1 && (
                         <span
-                          className="block w-px h-5 flex-shrink-0 mx-1"
+                          className="block w-px h-8 flex-shrink-0"
                           style={{ background: 'hsl(var(--vow-yellow) / 0.3)' }}
                           aria-hidden="true"
                         />

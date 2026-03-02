@@ -1461,6 +1461,7 @@ All colors MUST be HSL.
     line-height: 1.7;
     opacity: 0.5;
     color: hsl(0 0% 100%);
+    max-width: 520px;
   }
 
   /* Invitation Assurance — standalone serif statement */
@@ -1470,6 +1471,7 @@ All colors MUST be HSL.
     line-height: 1.5;
     font-weight: 400;
     color: hsl(0 0% 100% / 0.8);
+    max-width: 480px;
   }
 
   /* Invitation Credential — hover lift + shadow bloom */
@@ -1480,8 +1482,8 @@ All colors MUST be HSL.
   .invitation-credential:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 24px -8px hsl(var(--vow-yellow) / 0.12);
-    background: hsl(0 0% 100% / 0.06) !important;
-    border-color: hsl(var(--vow-yellow) / 0.15) !important;
+    background: hsl(0 0% 100% / 0.06);
+    border-color: hsl(var(--vow-yellow) / 0.15);
   }
 
   /* Invitation CTA — extending en-dash */
@@ -1500,7 +1502,7 @@ All colors MUST be HSL.
   .invitation-cta {
     font-family: var(--font-display);
     font-style: italic;
-    font-size: 16px;
+    font-size: 17px;
     color: hsl(0 0% 100% / 0.6);
     text-decoration: none;
     transition: color 180ms var(--ease-smooth);
