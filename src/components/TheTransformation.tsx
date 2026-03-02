@@ -119,16 +119,16 @@ export function TheTransformation() {
 
       {/* Layer 1b: Life-space Ken Burns image (lower half) */}
       <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-        <img
+      <img
           ref={lifeImgRef}
           src={transformationLifeImg}
           alt=""
           className="absolute inset-0 w-full h-full object-cover pointer-events-none will-change-transform"
           style={{
-            opacity: 0.08,
-            filter: "brightness(0.85) contrast(1.05) saturate(0.5)",
-            maskImage: "linear-gradient(to top, black 0%, black 40%, transparent 60%)",
-            WebkitMaskImage: "linear-gradient(to top, black 0%, black 40%, transparent 60%)",
+            opacity: 0.12,
+            filter: "brightness(1.1) contrast(0.95) saturate(0.4)",
+            maskImage: "linear-gradient(to top, black 0%, black 30%, transparent 55%)",
+            WebkitMaskImage: "linear-gradient(to top, black 0%, black 30%, transparent 55%)",
             animation: !reducedMotion ? "transform-life-kb 35s ease-in-out infinite alternate" : "none",
           }}
           loading="lazy"
@@ -161,6 +161,13 @@ export function TheTransformation() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ background: "radial-gradient(ellipse at 50% 70%, hsl(var(--vow-yellow) / 0.03) 0%, transparent 60%)" }}
+        aria-hidden="true"
+      />
+
+      {/* Layer 2e: Life-space warm depth vignette */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse at 50% 80%, hsl(35 30% 75% / 0.15) 0%, transparent 50%)" }}
         aria-hidden="true"
       />
 
@@ -201,23 +208,39 @@ export function TheTransformation() {
             The questions no one else thinks to ask
           </h2>
 
-          {/* Fears — whispered italic Cormorant */}
-          <div className="space-y-6 md:space-y-8">
+          {/* Fears — whispered italic Cormorant with separators */}
+          <div className="space-y-8 md:space-y-10">
             {fears.map((fear, i) => (
-              <p
-                key={i}
-                className={cn(
-                  "font-display text-lg md:text-xl font-light italic leading-relaxed transition-all duration-700",
-                  isVisible ? "opacity-[0.6] translate-y-0" : "opacity-0 translate-y-3"
+              <div key={i}>
+                <p
+                  className={cn(
+                    "font-display text-lg md:text-xl font-light italic leading-relaxed transition-all duration-700",
+                    isVisible ? "opacity-[0.6] translate-y-0" : "opacity-0 translate-y-3"
+                  )}
+                  style={{
+                    color: "hsl(var(--foreground))",
+                    transitionDelay: isVisible ? `${280 + i * 120}ms` : "0ms",
+                    transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
+                  }}
+                >
+                  {fear}
+                </p>
+                {i < fears.length - 1 && (
+                  <div
+                    className={cn(
+                      "mx-auto mt-8 md:mt-10 transition-all duration-700",
+                      isVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
+                    )}
+                    style={{
+                      width: 40,
+                      height: 1,
+                      background: "hsl(var(--vow-yellow) / 0.08)",
+                      transitionDelay: isVisible ? `${340 + i * 120}ms` : "0ms",
+                    }}
+                    aria-hidden="true"
+                  />
                 )}
-                style={{
-                  color: "hsl(var(--foreground))",
-                  transitionDelay: isVisible ? `${280 + i * 100}ms` : "0ms",
-                  transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
-                }}
-              >
-                {fear}
-              </p>
+              </div>
             ))}
           </div>
         </div>
@@ -307,7 +330,7 @@ export function TheTransformation() {
         </div>
 
         {/* === LIFE SPACE — Resolutions === */}
-        <div className="max-w-[680px] mx-auto mt-16 md:mt-24">
+        <div className="max-w-[600px] mx-auto mt-16 md:mt-24">
           {/* Heading */}
           <h3
             className={cn(
@@ -326,28 +349,36 @@ export function TheTransformation() {
           {/* Resolutions — Inter body, left border accent, vow-yellow en-dash */}
           <div className="space-y-6 md:space-y-8">
             {resolutions.map((resolution, i) => (
-              <p
+              <div
                 key={i}
                 className={cn(
-                  "font-sans text-base md:text-lg leading-relaxed transition-all duration-700 pl-5",
-                  isVisible ? "opacity-[0.85] translate-y-0" : "opacity-0 translate-y-3"
+                  "backdrop-blur-sm rounded-[4px] transition-all duration-700",
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
                 )}
                 style={{
-                  color: "hsl(var(--rich-black))",
-                  borderLeft: "1px solid hsl(var(--vow-yellow) / 0.15)",
-                  transitionDelay: isVisible ? `${1100 + i * 100}ms` : "0ms",
+                  background: "hsl(45 20% 95% / 0.6)",
+                  border: "1px solid hsl(var(--vow-yellow) / 0.08)",
+                  borderLeft: "2px solid hsl(var(--vow-yellow) / 0.25)",
+                  boxShadow: "0 2px 12px hsl(35 20% 50% / 0.06)",
+                  padding: "20px 24px",
+                  transitionDelay: isVisible ? `${1100 + i * 120}ms` : "0ms",
                   transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
                 }}
               >
-                <span
-                  className="inline-block mr-2 font-medium"
-                  style={{ color: "hsl(var(--vow-yellow) / 0.7)" }}
-                  aria-hidden="true"
+                <p
+                  className="font-sans text-base md:text-lg leading-relaxed"
+                  style={{ color: "hsl(var(--rich-black))" }}
                 >
-                  —
-                </span>
-                {resolution}
-              </p>
+                  <span
+                    className="inline-block mr-2 font-medium"
+                    style={{ color: "hsl(var(--vow-yellow) / 0.7)" }}
+                    aria-hidden="true"
+                  >
+                    —
+                  </span>
+                  {resolution}
+                </p>
+              </div>
             ))}
           </div>
         </div>
