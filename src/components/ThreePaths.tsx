@@ -149,7 +149,7 @@ export function ThreePaths() {
             )}
             style={{ transitionDelay: isVisible ? "300ms" : "0ms" }}
           >
-            Three ways I can shape the music of your day.
+            Three ways I can shape the music of your ceremony.
           </p>
 
           {/* Golden thread separator */}
@@ -329,7 +329,7 @@ export function ThreePaths() {
             textShadow: "0 1px 8px rgba(0,0,0,0.3)",
           }}
         >
-          You can move between these at any time—no penalty until two weeks before your day.
+          You can move between these at any time—no penalty until two weeks before your ceremony.
         </p>
       </div>
 
