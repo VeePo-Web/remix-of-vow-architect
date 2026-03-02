@@ -101,7 +101,7 @@ export function TheWitness() {
           </div>
 
           {/* ── RIGHT COLUMN: Text Content (Steps 4-8) ── */}
-          <div className="flex flex-col">
+          <div className="flex flex-col pt-2 md:pt-0">
             {/* Label */}
             <p
               className={cn(
@@ -181,7 +181,7 @@ export function TheWitness() {
                     style={{
                       transitionDelay: isVisible ? `${350 + index * 150}ms` : "0ms",
                       background: 'hsl(45 20% 92% / 0.5)',
-                      border: '1px solid hsl(45 20% 85% / 0.4)',
+                      border: '1px solid hsl(45 20% 85% / 0.2)',
                       boxShadow: 'inset 0 1px 0 hsl(0 0% 100% / 0.03)',
                     }}
                   >
@@ -229,7 +229,7 @@ export function TheWitness() {
                   src={witnessKeys}
                   alt=""
                   className="w-full h-full object-cover"
-                  style={{ opacity: 0.06, filter: 'saturate(0.5) blur(1px)' }}
+                  style={{ opacity: 0.035, filter: 'saturate(0.5) blur(2px)' }}
                   loading="lazy"
                   decoding="async"
                 />
@@ -268,7 +268,7 @@ export function TheWitness() {
             {/* Closing thought */}
             <p
               className={cn(
-                "text-sm md:text-[15px] font-display font-light italic text-muted-foreground mt-10 transition-all duration-700",
+                "text-sm md:text-[15px] font-display font-light italic text-muted-foreground mt-12 transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{ transitionDelay: isVisible ? "950ms" : "0ms" }}
