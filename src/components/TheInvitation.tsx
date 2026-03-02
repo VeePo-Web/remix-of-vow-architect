@@ -21,7 +21,7 @@ export function TheInvitation() {
 
       {/* Layer 1: Background image texture */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none invitation-bg-ken-burns"
         style={{
           backgroundImage: `url(${invitationPortrait})`,
           backgroundSize: 'cover',
@@ -92,7 +92,7 @@ export function TheInvitation() {
               />
               {/* Frame */}
               <div
-                className="aspect-[3/2] md:aspect-[3/4] overflow-hidden relative rounded-sm"
+                className="aspect-[3/2] md:aspect-[3/4] overflow-hidden relative rounded-sm invitation-portrait-frame"
                 style={{
                   border: '1px solid hsl(var(--vow-yellow) / 0.12)',
                   boxShadow: [
@@ -158,6 +158,7 @@ export function TheInvitation() {
                 transitionDelay: isVisible ? '200ms' : '0ms',
                 willChange: 'transform',
                 transformOrigin: 'left',
+                animation: isVisible ? 'invitation-rule-breathe 4s ease-in-out infinite' : 'none',
               }}
               aria-hidden="true"
             />
@@ -220,7 +221,8 @@ export function TheInvitation() {
               )}
               style={{ transitionDelay: isVisible ? '700ms' : '0ms' }}
             >
-              Every arrangement I write begins with a single question — what was playing when you knew.
+              Every arrangement I write begins with a single question{' '}
+              <span className="text-[hsl(var(--vow-yellow))] opacity-60">— what was playing when you knew.</span>
             </p>
 
             {/* CTA */}
@@ -248,12 +250,15 @@ export function TheInvitation() {
               )}
               style={{ transitionDelay: isVisible ? '900ms' : '0ms' }}
             >
-              500+ events · SOCAN licensed · $4M insured
+              500+ events <span className="text-[hsl(var(--vow-yellow))] opacity-30">·</span> SOCAN licensed <span className="text-[hsl(var(--vow-yellow))] opacity-30">·</span> $4M insured
             </p>
 
           </div>
         </div>
       </div>
+
+      {/* Golden thread — section threshold */}
+      <div className="absolute bottom-[60px] left-1/2 -translate-x-1/2 z-20 invitation-golden-thread" aria-hidden="true" />
 
       {/* Bottom fade */}
       <div
