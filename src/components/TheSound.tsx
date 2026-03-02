@@ -353,10 +353,10 @@ export function TheSound() {
             {/* Subhead */}
             <p
               className={cn(
-                "w-full text-lg font-display font-light italic text-muted-foreground mb-16 text-center transition-all duration-700",
+                "w-full text-lg font-display font-light italic text-muted-foreground mb-20 text-center transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
-              style={{ transitionDelay: isVisible ? "300ms" : "0ms" }}
+              style={{ transitionDelay: isVisible ? "300ms" : "0ms", textAlign: 'center' }}
             >
               Browse. Listen. Imagine it at yours.
             </p>
@@ -414,7 +414,7 @@ export function TheSound() {
             {/* ── Closing Quote ── */}
             <div
               ref={quoteRef as React.RefObject<HTMLDivElement>}
-              className="max-w-lg mx-auto text-center mt-24 md:mt-32 relative"
+              className="max-w-lg mx-auto text-center mt-28 md:mt-40 relative"
               style={{
                 opacity: quoteVisible ? 1 : 0,
                 transform: quoteVisible ? "translateY(0)" : "translateY(12px)",
