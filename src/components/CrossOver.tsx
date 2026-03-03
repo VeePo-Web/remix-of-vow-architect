@@ -175,7 +175,7 @@ export function CrossOver() {
         {/* 10c: Vertical golden thread above tagline */}
         <div
           className={cn(
-            "mx-auto mb-8 transition-all duration-700",
+            "mx-auto mb-fitz-6 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
           style={{ width: '1px', height: '40px' }}
@@ -194,17 +194,18 @@ export function CrossOver() {
         {/* Tagline with semicolon heartbeat */}
         <div
           className={cn(
-            "mb-10 transition-all duration-700",
+            "mb-fitz-8 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
         >
           <p 
-            className="font-display font-light text-2xl md:text-3xl uppercase tracking-[0.22em] text-foreground/70"
+            className="font-display font-light text-[28px] md:text-[34px] uppercase tracking-[0.22em] text-foreground/70"
+            role="text"
             style={{ textShadow: '0 1px 12px rgba(0, 0, 0, 0.3)' }}
           >
             {"\u2018"}TIL DEATH{" "}
             <span
-              className="inline-block text-3xl md:text-4xl text-primary"
+              className="inline-block text-[34px] md:text-[40px] text-primary"
               style={{
                 animation: isVisible ? "semicolon-heartbeat 2s ease-in-out infinite" : undefined,
               }}
@@ -229,7 +230,7 @@ export function CrossOver() {
         {/* CTA Stack — 10e: dual-layer glow pool */}
         <div
           className={cn(
-            "flex flex-col items-center mb-6 transition-all duration-700",
+            "flex flex-col items-center mb-fitz-5 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
           style={{ transitionDelay: isVisible ? "300ms" : "0ms" }}
@@ -253,18 +254,19 @@ export function CrossOver() {
             />
             <Button 
               size="lg" 
-              className="relative h-auto px-10 py-5 text-base cta-commitment cta-breathe-glow"
+              className="relative h-auto px-10 py-5 text-base rounded-[6px] font-sans font-medium cta-commitment cta-breathe-glow focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[hsl(240_9%_2%)]"
               asChild
             >
-              <Link to="/contact" className="font-sans tracking-[0.02em]">Hold my date.</Link>
+              <Link to="/contact" aria-describedby="crossing-trust-anchor" className="tracking-[0.02em]">Hold my date.</Link>
             </Button>
           </div>
         </div>
 
         {/* Trust Anchor */}
         <p
+          id="crossing-trust-anchor"
           className={cn(
-            "max-w-md mx-auto mb-10 font-sans text-sm leading-normal text-foreground/50 transition-all duration-700",
+            "max-w-md mx-auto mb-fitz-6 font-sans text-sm leading-normal text-foreground/50 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
           style={{ transitionDelay: isVisible ? "420ms" : "0ms" }}
@@ -275,7 +277,7 @@ export function CrossOver() {
         {/* 10g: Golden thread with enhanced glow bloom */}
         <div 
           className={cn(
-            "h-[1px] w-12 mx-auto mb-8 transition-all duration-700",
+            "h-[1px] w-12 mx-auto mb-fitz-5 transition-all duration-700",
             isVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
           )}
           style={{
