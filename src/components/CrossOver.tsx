@@ -23,10 +23,10 @@ export function CrossOver() {
         <img
           src={crossoverDance}
           alt=""
-          className="absolute inset-0 w-full h-full object-cover opacity-[0.12] pointer-events-none"
+          className="absolute inset-0 w-full h-full object-cover opacity-[0.10] pointer-events-none"
           style={{
             animation: 'crossover-ken-burns 30s ease-in-out infinite alternate',
-            filter: 'saturate(0.5) contrast(1.1)',
+            filter: 'brightness(0.75) contrast(1.08) saturate(0.9)',
             willChange: 'transform',
           }}
           loading="lazy"
@@ -35,31 +35,31 @@ export function CrossOver() {
 
       {/* Floating particle dust */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none z-[1]"
         style={{
-          background: "radial-gradient(circle 300px at 30% 40%, hsl(var(--vow-yellow) / 0.03) 0%, transparent 100%)",
+          background: "radial-gradient(circle 400px at 35% 35%, hsl(var(--vow-yellow) / 0.03) 0%, transparent 100%)",
           animation: "crossover-dust 20s ease-in-out infinite alternate",
         }}
         aria-hidden="true"
       />
       {/* Vignette Effect */}
       <div 
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none z-[1]"
         style={{
-          background: "radial-gradient(ellipse at center, transparent 0%, hsl(240 9% 2% / 0.6) 100%)"
+          background: "radial-gradient(ellipse at center, transparent 30%, hsl(240 9% 2% / 0.75) 100%)"
         }}
         aria-hidden="true"
       />
       {/* Warm fog layer */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none z-[1]"
         style={{
-          background: "radial-gradient(ellipse at 50% 40%, hsl(var(--vow-yellow) / 0.02) 0%, transparent 50%)",
+          background: "radial-gradient(ellipse at 50% 50%, hsl(var(--vow-yellow) / 0.03) 0%, transparent 50%)",
         }}
         aria-hidden="true"
       />
       {/* Film grain overlay */}
-      <div className="absolute inset-0 grain opacity-[0.08] pointer-events-none" aria-hidden="true" />
+      <div className="absolute inset-0 grain opacity-[0.08] pointer-events-none z-[1]" aria-hidden="true" />
 
       {/* Top fade from TheWitnesses warm */}
       <div
