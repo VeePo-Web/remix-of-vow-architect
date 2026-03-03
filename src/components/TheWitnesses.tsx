@@ -52,7 +52,7 @@ export function TheWitnesses() {
       id="the-witnesses"
       ref={sectionRef}
       data-theme="life"
-      className="relative section--surface section-padding-standard piano-section-target overflow-hidden min-h-[400px]"
+      className="relative section--surface py-[120px] piano-section-target overflow-hidden min-h-[400px]"
       style={{
         background: 'linear-gradient(180deg, hsl(45 25% 96%) 0%, hsl(45 20% 93%) 100%)',
       }}
@@ -76,7 +76,7 @@ export function TheWitnesses() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 40%, hsl(45 20% 93% / 0.7) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 40%, hsl(45 20% 93% / 0.8) 100%)',
         }}
         aria-hidden="true"
       />
@@ -86,6 +86,15 @@ export function TheWitnesses() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background: 'radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.025) 0%, transparent 60%)',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Overhead candlelight glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse 50% 40% at 50% 20%, hsl(45 40% 85% / 0.35), transparent)',
         }}
         aria-hidden="true"
       />
@@ -109,7 +118,7 @@ export function TheWitnesses() {
       />
 
       {/* Film grain overlay */}
-      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
+      <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" aria-hidden="true" />
 
       {/* Top fade from ThreePaths dark */}
       <div
@@ -119,7 +128,7 @@ export function TheWitnesses() {
       />
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-2xl mx-auto">
           {/* Header */}
           <div className="text-center mb-20">
             <p
@@ -150,6 +159,7 @@ export function TheWitnesses() {
               )}
               style={{
                 fontSize: "clamp(32px, 5vw, 48px)",
+                letterSpacing: "0.01em",
                 transitionDelay: isVisible ? "200ms" : "0ms",
                 textWrap: "balance" as any,
               }}
@@ -163,8 +173,8 @@ export function TheWitnesses() {
                     isVisible ? "scale-x-100" : "scale-x-0"
                   )}
                   style={{
-                    background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.5), hsl(var(--vow-yellow) / 0.15))",
-                    boxShadow: isVisible ? "0 0 8px hsl(var(--vow-yellow) / 0.2)" : "none",
+                    background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.65), hsl(var(--vow-yellow) / 0.2))",
+                    boxShadow: isVisible ? "0 0 10px hsl(var(--vow-yellow) / 0.3)" : "none",
                     transitionDelay: isVisible ? "700ms" : "0ms",
                     transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
                   }}
@@ -205,15 +215,27 @@ export function TheWitnesses() {
 
                 {/* Attribution (Step 6: hierarchy) */}
                 <div className="text-center">
+                  <div className="flex items-center justify-center gap-3 mb-1">
+                    <span
+                      className="inline-block w-[4px] h-[4px] rotate-45"
+                      style={{ background: "hsl(var(--vow-yellow) / 0.35)" }}
+                      aria-hidden="true"
+                    />
+                    <p
+                      className="font-display font-medium italic text-foreground/75"
+                      style={{ fontSize: "15px", letterSpacing: "0.04em" }}
+                    >
+                      {testimonial.names}
+                    </p>
+                    <span
+                      className="inline-block w-[4px] h-[4px] rotate-45"
+                      style={{ background: "hsl(var(--vow-yellow) / 0.35)" }}
+                      aria-hidden="true"
+                    />
+                  </div>
                   <p
-                    className="font-display font-medium italic text-foreground/75"
-                    style={{ fontSize: "14px", letterSpacing: "0.04em" }}
-                  >
-                    — {testimonial.names}
-                  </p>
-                  <p
-                    className="font-display text-foreground/50 mt-1"
-                    style={{ fontSize: "12px", letterSpacing: "0.08em", textTransform: "uppercase" }}
+                    className="font-display text-foreground/50"
+                    style={{ fontSize: "12px", letterSpacing: "0.06em", textTransform: "uppercase" }}
                   >
                     {testimonial.venue}
                   </p>
@@ -223,7 +245,7 @@ export function TheWitnesses() {
                 {index < testimonials.length - 1 && (
                   <div
                     className={cn(
-                      "mt-16 h-[1px] w-20 mx-auto witnesses-thread-breathing transition-all duration-700",
+                      "mt-16 h-[1px] w-32 mx-auto witnesses-thread-breathing transition-all duration-700",
                       isVisible ? "scale-x-100" : "opacity-0 scale-x-0"
                     )}
                     style={{
