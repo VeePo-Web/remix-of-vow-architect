@@ -63,11 +63,11 @@ export function GenreTrackPanel({
       ref={panelRef}
       className="w-full max-w-3xl mx-auto mt-6 rounded-lg overflow-hidden relative"
       style={{
-        background: "hsl(var(--rich-black) / 0.85)",
+        background: "hsl(var(--ebon-charcoal) / 0.92)",
         backdropFilter: "blur(16px)",
         WebkitBackdropFilter: "blur(16px)",
-        border: "1px solid hsl(var(--vow-yellow) / 0.12)",
-        boxShadow: `inset 0 1px 0 rgba(255,255,255,0.06), 0 16px 60px rgba(0,0,0,0.4), 0 0 20px hsl(var(--vow-yellow) / 0.04)${isPlaying ? ", inset 0 0 40px hsl(var(--vow-yellow) / 0.03)" : ""}`,
+        border: "1px solid hsl(var(--vow-yellow) / 0.18)",
+        boxShadow: `inset 0 1px 0 rgba(255,255,255,0.10), 0 16px 60px rgba(0,0,0,0.4), 0 0 20px hsl(var(--vow-yellow) / 0.04)${isPlaying ? ", inset 0 0 40px hsl(var(--vow-yellow) / 0.03)" : ""}`,
         opacity: 0,
         transform: "translateY(-8px)",
         transition: reducedMotion ? "none" : "opacity 400ms ease-out, transform 400ms cubic-bezier(0.22,0.61,0.36,1), box-shadow 700ms ease",
@@ -86,13 +86,13 @@ export function GenreTrackPanel({
       <div className="px-5 pt-4 pb-3" style={{ borderBottom: "1px solid hsl(var(--vow-yellow) / 0.06)" }}>
         <div className="flex items-center justify-between">
           <span
-            className="text-xs uppercase tracking-[0.18em] font-display font-light text-foreground/50"
+            className="text-xs uppercase tracking-[0.18em] font-display font-light text-foreground/60"
             role="heading"
             aria-level={3}
           >
             {category.label}
           </span>
-          <span className="text-[10px] uppercase tracking-[0.15em] text-foreground/20 font-mono tabular-nums">
+          <span className="text-[10px] uppercase tracking-[0.15em] text-foreground/30 font-mono tabular-nums">
             {category.tracks.length} tracks
           </span>
         </div>
@@ -130,8 +130,8 @@ export function GenreTrackPanel({
               isActive
                 ? "text-[hsl(var(--vow-yellow))]"
                 : hasSrc
-                ? "text-foreground/70 hover:text-foreground hover:bg-[hsl(var(--vow-yellow)/0.03)] cursor-pointer"
-                : "text-foreground/35 cursor-default"
+                ? "text-foreground/80 hover:text-foreground hover:bg-[hsl(var(--vow-yellow)/0.06)] cursor-pointer"
+                : "text-foreground/45 cursor-default"
             )}
             style={{
               background: isActive
@@ -179,7 +179,7 @@ export function GenreTrackPanel({
 
       {/* Footer */}
       <div className="px-5 pt-3 pb-4 text-center">
-        <p className="text-xs text-foreground/25 italic font-display">
+        <p className="text-xs text-foreground/35 italic font-display">
           Each piece, arranged for your ceremony.{" "}
           <Link
             to="/contact"
