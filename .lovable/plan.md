@@ -1,78 +1,64 @@
 
+# Step 4: Section Transition Refinement — TheWitnesses to CrossOver
 
-# Step 3: Spacing Precision and Structural Formatting
-
-This step addresses the structural formatting details that sit beneath typography and shadows — container discipline, internal element spacing, unnecessary wrapper complexity, and responsive padding alignment.
-
----
-
-## 3a. Container Max-Width — Focused Emotional Funnel
-
-**Current:** `max-w-4xl` (896px) on the content container.
-
-**Issue:** The brand standard container is 1200px (`max-w-5xl` = 1024px or custom `max-w-[1200px]`). However, this section is the emotional crescendo — a single column of centered text leading to one CTA. At 896px, the headline and trust text can stretch too wide, breaking the intimate funnel feel. For a centered single-column CTA section like this, the content should be constrained tighter. Change to `max-w-3xl` (768px) — this creates a narrow reading column that draws the eye inward, mimicking the focus of a ceremony aisle.
-
-**Fix:** Change `max-w-4xl` to `max-w-3xl` on the content container div.
+This step perfects the seamless visual bridge between the warm Life-space testimonials (TheWitnesses) and the dark Death-space closing CTA (CrossOver). The transition must feel like the room darkening before a final vow — not like a page break.
 
 ---
 
-## 3b. CTA Stack — Remove Unnecessary Flex Row
+## Current State
 
-**Current:** `flex flex-col sm:flex-row gap-4 justify-center items-center mb-8`
+The transition architecture is already partially correct:
+- **TheWitnesses** (warm, `hsl(45 25% 96%)`) has a `section-fade-bottom` that fades to `hsl(240 9% 2%)` — matching CrossOver's background.
+- **CrossOver** has a `section-fade-top` that fades from `hsl(240 9% 2%)` upward — creating the dark canopy.
+- The footer has a `footer-fade-bridge` that extends 60px above itself to blend from CrossOver's bottom.
 
-**Issue:** There is only one button in this CTA stack. The `sm:flex-row` breakpoint and `gap-4` are artifacts from when there may have been two buttons. With a single CTA, the flex container adds unnecessary DOM complexity. Simplify to `flex flex-col items-center mb-8` — the `flex-col` + `items-center` is sufficient for centering the single button wrapper.
-
-**Fix:** Remove `sm:flex-row gap-4 justify-center` — change to `flex flex-col items-center mb-8`.
-
----
-
-## 3c. Section Min-Height — Fitzgerald Alignment
-
-**Current:** `min-h-[400px]`
-
-**Issue:** 400px is not on the Fitzgerald spacing scale. For a section with this much vertical padding (`py-[80px] md:py-[120px]`), the min-height is likely unnecessary — the content itself plus padding should fill adequately. However, if the section needs a minimum for short-content viewports, use a viewport-relative value instead: `min-h-[60vh]` on desktop ensures the section commands the screen without an arbitrary pixel value. On mobile, the content stack is taller so min-height is less critical.
-
-**Fix:** Change `min-h-[400px]` to `min-h-[50vh] md:min-h-[60vh]` — proportional to viewport, not arbitrary.
+The CSS defines `.section-fade-top` at 120px height (80px on mobile). The CrossOver top fade uses `linear-gradient(to top, transparent, hsl(240 9% 2%))` which fades **upward** — meaning the dark color is at the top and dissolves downward into transparency. This is correct for darkening the top of a dark section.
 
 ---
 
-## 3d. Section Horizontal Padding — Responsive Scale
+## 4a. Top Fade Direction Correction
 
-**Current:** `px-4` (16px) on the section element.
+**Current:** `linear-gradient(to top, transparent, hsl(240 9% 2%))` — this puts transparent at the bottom and dark at the top. For a top fade that blends the section's top edge into the preceding section, this is correct: the gradient starts transparent (showing the section's own dark background below) and darkens toward the top edge.
 
-**Issue:** The brand standard calls for responsive horizontal padding: 16px mobile, 24px tablet, 32px desktop. Currently only the mobile value is set. The container class handles centering, but the section itself should provide the outer padding guard.
-
-**Fix:** Change `px-4` to `px-4 md:px-6 lg:px-8` (16px / 24px / 32px) — aligning to fitz-4 / fitz-5 / fitz-6.
+**Assessment:** Correct. No change needed.
 
 ---
 
-## 3e. Headline Max-Width Tightening
+## 4b. Top Fade Height — Extend for Smoother Transition
 
-**Current:** `max-w-2xl` (672px) on the headline.
+**Current:** The `.section-fade-top` CSS sets height to 120px (80px on mobile). The CrossOver component does not override this with an inline style.
 
-**Issue:** With the container now at `max-w-3xl` (768px), the headline at `max-w-2xl` (672px) creates a 48px margin on each side. This is generous but for a single-line quote like "Your vows deserve to be heard." at 48px font size, `max-w-2xl` may force an unnecessary line break on mid-sized viewports. The headline should have enough room to sit on a single line when possible but wrap gracefully when needed. Keep `max-w-2xl` — at 48px Cormorant with the current text, this creates a natural single-line on desktop (the text is ~520px wide at 48px) and wraps elegantly on mobile. Confirmed correct.
+**Issue:** The warm-to-dark transition is the most dramatic color shift on the entire page — from cream `hsl(45 25% 96%)` to near-black `hsl(240 9% 2%)`. A 120px fade is adequate for dark-to-dark transitions, but for this Life-to-Death shift, it should be longer to avoid a visible color seam. Extend to 160px on desktop for a more gradual atmospheric darkening.
 
-**Fix:** No change needed.
-
----
-
-## 3f. Trust Anchor Max-Width Refinement
-
-**Current:** `max-w-md` (448px) on the trust anchor.
-
-**Issue:** The trust text "Includes sound documentation, microphone setup, and your ceremony run-of-show." at 14px Inter is approximately 480px wide. At `max-w-md` (448px), it wraps to two lines. This is actually desirable — two short lines feel more intimate than one long line for footnote-level text. However, `max-w-sm` (384px) would be too tight. `max-w-md` is correct.
-
-**Fix:** No change needed.
+**Fix:** Add an inline `height: '160px'` style override to the CrossOver top fade div. On mobile (handled via CSS media query fallback), the 80px default remains appropriate given the compressed viewport.
 
 ---
 
-## 3g. Bottom Fade Positioning Precision
+## 4c. Top Fade Color Temperature — Warm-to-Cold Bridge
 
-**Current:** The bottom fade div uses `section-fade-bottom` class with inline `height: 80px`.
+**Current:** The top fade uses pure dark charcoal `hsl(240 9% 2%)`. But the section it's blending FROM is warm cream. The gradient goes from warm to cold with no intermediate warmth.
 
-**Issue:** The `section-fade-bottom` CSS class likely uses `position: absolute; bottom: 0`. The inline height override to 80px (from Step 15 of the original audit) is correct for the footer bridge handoff. However, the fade should sit within the section's overflow boundary. Confirm `overflow-hidden` is on the section — it is. No structural change needed.
+**Issue:** A direct warm-cream-to-cold-charcoal transition can create a perceptible "seam" where the color temperature shifts abruptly. Adding a subtle warm intermediary — a hint of taupe in the gradient midpoint — creates a smoother perceptual bridge.
 
-**Fix:** No change needed.
+**Fix:** Change the top fade gradient to a three-stop gradient: `linear-gradient(to top, transparent 0%, hsl(240 9% 3% / 0.5) 40%, hsl(240 9% 2%) 100%)`. The middle stop at 40% introduces a semi-transparent dark layer that softens the transition. This is subtle — the 0.5 opacity at the midpoint means the section's own background still shows through, but the gradient is no longer a binary jump.
+
+---
+
+## 4d. Bottom Fade into Footer — Precision Check
+
+**Current:** The bottom fade uses `linear-gradient(to bottom, transparent, hsl(240 9% 4%))` with `height: 80px`. The footer starts at `hsl(240 9% 2%)` with a `footer-fade-bridge` that extends 60px above.
+
+**Issue:** CrossOver fades to `hsl(240 9% 4%)` but the footer's base is `hsl(240 9% 2%)`. This 2% lightness difference creates a subtle but perceptible brightness bump at the seam. The CrossOver bottom fade should target the same color as the footer base.
+
+**Fix:** Change the bottom fade gradient from `hsl(240 9% 4%)` to `hsl(240 9% 2%)` — matching the footer's background exactly. This eliminates the brightness seam.
+
+---
+
+## 4e. Section Vertical Gap — Zero-Gap Seam
+
+**Current:** Both TheWitnesses and CrossOver have their own padding (`py-[80px] md:py-[120px]`). There is no explicit margin or gap between them in the page layout.
+
+**Assessment:** This is correct. The sections should sit flush — their respective fade overlays handle the visual transition. Adding any margin would create a visible gap between the fades. Confirmed: no change needed.
 
 ---
 
@@ -80,13 +66,10 @@ This step addresses the structural formatting details that sit beneath typograph
 
 | # | Element | Change | Rationale |
 |---|---------|--------|-----------|
-| 3a | Content container | `max-w-4xl` to `max-w-3xl` | Tighter funnel, ceremony aisle focus |
-| 3b | CTA stack | Remove `sm:flex-row gap-4 justify-center` | Single button, unnecessary complexity |
-| 3c | Section min-height | `min-h-[400px]` to `min-h-[50vh] md:min-h-[60vh]` | Viewport-proportional, not arbitrary |
-| 3d | Section padding | `px-4` to `px-4 md:px-6 lg:px-8` | Responsive padding scale |
-| 3e | Headline max-width | Confirmed `max-w-2xl` correct | No change |
-| 3f | Trust anchor max-width | Confirmed `max-w-md` correct | No change |
-| 3g | Bottom fade | Confirmed correct | No change |
+| 4a | Top fade direction | Confirmed correct | No change |
+| 4b | Top fade height | Add inline `height: 160px` | Smoother warm-to-dark transition |
+| 4c | Top fade gradient | Three-stop gradient with mid-opacity | Warm-to-cold temperature bridge |
+| 4d | Bottom fade color | `hsl(240 9% 4%)` to `hsl(240 9% 2%)` | Match footer base exactly |
+| 4e | Section gap | Confirmed zero-gap correct | No change |
 
-**One file modified.** Four structural formatting changes. Three confirmations. Zero new dependencies. Pure spatial discipline.
-
+**One file modified** (`CrossOver.tsx`). Three refinements to gradient transitions. Zero new dependencies. Pure atmospheric bridging.
