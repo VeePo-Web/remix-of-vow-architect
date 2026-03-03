@@ -42,7 +42,8 @@ export function CrossOver() {
         }}
         aria-hidden="true"
       />
-      {/* Vignette Effect */}
+
+      {/* Vignette Effect (static base) */}
       <div 
         className="absolute inset-0 z-[1] pointer-events-none"
         style={{
@@ -50,14 +51,65 @@ export function CrossOver() {
         }}
         aria-hidden="true"
       />
-      {/* Warm fog layer */}
-      <div
-        className="absolute inset-0 z-[1] pointer-events-none"
+
+      {/* 10b: Breathing vignette overlay */}
+      <div 
+        className="absolute inset-0 z-[1] pointer-events-none crossover-vignette-breathe"
         style={{
-          background: "radial-gradient(ellipse at 50% 50%, hsl(var(--vow-yellow) / 0.03) 0%, transparent 50%)",
+          background: "radial-gradient(ellipse at center, transparent 25%, hsl(240 9% 2% / 0.85) 100%)",
+          animation: "crossover-vignette-breathe 6s ease-in-out infinite",
         }}
         aria-hidden="true"
       />
+
+      {/* 10a: Dual-origin warm fog — primary (lower-center) */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse 60% 60% at 50% 70%, hsl(var(--vow-yellow) / 0.04) 0%, transparent 100%)",
+          animation: "crossover-dust 20s ease-in-out infinite alternate",
+        }}
+        aria-hidden="true"
+      />
+      {/* 10a: Dual-origin warm fog — secondary (upper-left) */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse 40% 40% at 30% 25%, hsl(var(--vow-yellow) / 0.02) 0%, transparent 100%)",
+          animation: "crossover-dust 28s ease-in-out infinite alternate-reverse",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* 10d: Ambient particle mote A */}
+      <div
+        className="absolute z-[1] pointer-events-none crossover-mote"
+        style={{
+          width: '200px',
+          height: '200px',
+          top: '30%',
+          left: '20%',
+          background: "radial-gradient(circle, hsl(var(--vow-yellow) / 0.02) 0%, transparent 70%)",
+          animation: "crossover-mote-a 14s ease-in-out infinite",
+          willChange: 'transform',
+        }}
+        aria-hidden="true"
+      />
+      {/* 10d: Ambient particle mote B */}
+      <div
+        className="absolute z-[1] pointer-events-none crossover-mote"
+        style={{
+          width: '200px',
+          height: '200px',
+          bottom: '25%',
+          right: '15%',
+          background: "radial-gradient(circle, hsl(var(--vow-yellow) / 0.02) 0%, transparent 70%)",
+          animation: "crossover-mote-b 22s ease-in-out infinite",
+          willChange: 'transform',
+        }}
+        aria-hidden="true"
+      />
+
       {/* Film grain overlay */}
       <div className="absolute inset-0 z-[1] grain opacity-[0.08] pointer-events-none" aria-hidden="true" />
 
@@ -71,6 +123,25 @@ export function CrossOver() {
       <div className="relative z-10 mx-auto max-w-3xl text-center">
         {/* Screen reader narrative */}
         <span className="sr-only">This is the final invitation to hold your wedding date. Parker responds within 24 hours.</span>
+
+        {/* 10c: Vertical golden thread above tagline */}
+        <div
+          className={cn(
+            "mx-auto mb-8 transition-all duration-700",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
+          )}
+          style={{ width: '1px', height: '40px' }}
+          aria-hidden="true"
+        >
+          <div
+            className="w-full h-full"
+            style={{
+              background: "linear-gradient(to bottom, transparent, hsl(var(--vow-yellow) / 0.3), transparent)",
+              animation: "crossover-dust 4s ease-in-out infinite alternate",
+              opacity: 0.25,
+            }}
+          />
+        </div>
 
         {/* Tagline with semicolon heartbeat */}
         <div
@@ -96,18 +167,18 @@ export function CrossOver() {
           </p>
         </div>
 
-        {/* Sacred Quote */}
+        {/* Sacred Quote — 10f: triple text shadow */}
         <h2
           className={cn(
             "max-w-2xl mx-auto mb-14 font-display font-normal text-[clamp(32px,5vw,48px)] leading-[1.15] tracking-[0.02em] text-foreground transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
-          style={{ transitionDelay: isVisible ? "150ms" : "0ms", textWrap: "balance" as any, textShadow: '0 2px 20px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.2)' }}
+          style={{ transitionDelay: isVisible ? "150ms" : "0ms", textWrap: "balance" as any, textShadow: '0 1px 3px rgba(0, 0, 0, 0.6), 0 2px 20px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.2)' }}
         >
           <span className="font-light text-foreground/80">{"\u201C"}</span>Let your ceremony sound like what your hearts feel like.<span className="font-light text-foreground/80">{"\u201D"}</span>
         </h2>
 
-        {/* CTA Stack */}
+        {/* CTA Stack — 10e: dual-layer glow pool */}
         <div
           className={cn(
             "flex flex-col items-center mb-6 transition-all duration-700",
@@ -116,11 +187,19 @@ export function CrossOver() {
           style={{ transitionDelay: isVisible ? "300ms" : "0ms" }}
         >
           <div className="relative">
-            {/* Ambient radial glow behind CTA */}
+            {/* 10e: Outer halo glow */}
             <div
-              className="absolute inset-0 -inset-x-10 -inset-y-5 rounded-full pointer-events-none"
+              className="absolute -inset-x-16 -inset-y-8 rounded-full pointer-events-none"
               style={{
-                background: 'radial-gradient(ellipse at center, hsl(45 100% 76% / 0.10) 0%, transparent 70%)',
+                background: 'radial-gradient(ellipse at center, hsl(45 100% 76% / 0.05) 0%, transparent 80%)',
+              }}
+              aria-hidden="true"
+            />
+            {/* 10e: Inner core glow */}
+            <div
+              className="absolute -inset-x-10 -inset-y-5 rounded-full pointer-events-none"
+              style={{
+                background: 'radial-gradient(ellipse at center, hsl(45 100% 76% / 0.12) 0%, transparent 40%)',
               }}
               aria-hidden="true"
             />
@@ -145,7 +224,7 @@ export function CrossOver() {
           Includes your bespoke ceremony arrangement, a collaborative run-of-show, and months of devoted preparation.
         </p>
 
-        {/* Golden thread above commitment */}
+        {/* 10g: Golden thread with enhanced glow bloom */}
         <div 
           className={cn(
             "h-[1px] w-12 mx-auto mb-8 transition-all duration-700",
@@ -153,19 +232,19 @@ export function CrossOver() {
           )}
           style={{
             background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)",
-            boxShadow: '0 0 8px hsl(var(--vow-yellow) / 0.15)',
+            boxShadow: '0 0 8px hsl(var(--vow-yellow) / 0.2), 0 0 20px hsl(var(--vow-yellow) / 0.08)',
             transitionDelay: isVisible ? "560ms" : "0ms",
           }}
           aria-hidden="true"
         />
 
-        {/* Commitment Statement */}
+        {/* Commitment Statement — 10f: triple text shadow */}
         <p
           className={cn(
             "font-display font-light text-lg italic tracking-[0.02em] text-foreground/70 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
-          style={{ transitionDelay: isVisible ? "700ms" : "0ms", textShadow: '0 1px 16px rgba(0, 0, 0, 0.35)' }}
+          style={{ transitionDelay: isVisible ? "700ms" : "0ms", textShadow: '0 1px 2px rgba(0, 0, 0, 0.5), 0 1px 16px rgba(0, 0, 0, 0.35)' }}
         >
           Response within 24 hours.{" "}<span className="font-normal not-italic tracking-[0.04em] text-primary">Always.</span>
         </p>

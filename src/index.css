@@ -4752,6 +4752,25 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   100% { transform: translate(-3%, 2%) scale(0.95); }
 }
 
+/* CrossOver breathing vignette (10b) */
+@keyframes crossover-vignette-breathe {
+  0%, 100% { opacity: 0.65; }
+  50% { opacity: 0.80; }
+}
+
+/* CrossOver ambient particle motes (10d) */
+@keyframes crossover-mote-a {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(15px, -20px); }
+  100% { transform: translate(-10px, 8px); }
+}
+
+@keyframes crossover-mote-b {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(-12px, 15px); }
+  100% { transform: translate(8px, -10px); }
+}
+
 /* Listening Room breathing line */
 @keyframes listening-breathe {
   0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scaleX(0.92); }
@@ -5359,6 +5378,15 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   .crossover-dust,
   .vigil-pulse {
     animation: none !important;
+  }
+
+  /* CrossOver Step 10 reduced-motion fallbacks */
+  .crossover-vignette-breathe {
+    animation: none !important;
+    opacity: 0.72 !important;
+  }
+  .crossover-mote {
+    display: none !important;
   }
 
   [style*="divider-diamond-breathe"],
