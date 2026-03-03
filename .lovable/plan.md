@@ -1,251 +1,166 @@
 
 
-# THE PREPARATION — Full Spacing & Style Audit
+# THE CROSSING — 15-Step Fantasy.co Precision Audit
 
-## Current State Assessment
+## Current State
 
-The section is architecturally sound: 5 atmospheric layers, asymmetric 2-column layout (2fr image / 3fr text), scroll-linked parallax, declaration cards with golden thread, sacred inventory kit grid, and a closing ghost CTA that bridges into Three Keys. The visual impression is strong — warm cream background, atmospheric depth, cinematic image frame.
+The CrossOver section is the final emotional threshold on the weddings page — the last moment before the visitor crosses from consideration into action. It currently renders: tagline overline, sacred quote headline, primary CTA button with ambient glow, trust anchor text, golden thread separator, and the "24 hours" commitment statement. Background has Ken Burns image, particle dust, vignette, warm fog, and film grain.
 
-This audit examines every spacing value, typography decision, reveal timing, and interaction detail against the brand system to bring it to world-class Fantasy.co standard.
-
----
-
-## 1. Section Padding
-
-**Current:** `section-padding-standard` class which maps to `py-20` (80px) desktop, `py-12` (48px) mobile via the CSS utility class. However, there's a conflict — the class is defined in *two places* in `index.css` (lines 690 and 4428), and the second definition overrides to `80px` on all viewports. The mobile override at line 4500 sets `48px`.
-
-**Issue:** The section uses `section-padding-standard` which is correct for desktop (80px = fitz-9). However, this section is a substantial content section with parallax image — it needs more breathing room than a utility section. The Fitzgerald scale recommends `120px` (fitz-10) for grand section separation on desktop.
-
-**Fix:** Replace `section-padding-standard` with explicit `py-[80px] md:py-[120px]` — matching TheWitnesses and ThreePaths (both already refined to this scale). This gives fitz-9 on mobile, fitz-10 on desktop.
+The section is structurally sound but needs 15 precision calibrations to reach world-class standard — every spacing value, typography decision, reveal timing, and atmospheric detail measured against the brand system.
 
 ---
 
-## 2. Typography Audit
+## File: `src/components/CrossOver.tsx` (all 15 steps in one file)
 
-### 2a. Overline "THE PREPARATION"
+### Step 1: Section Padding — Fitzgerald Scale Alignment
 
-**Current:** `text-xs uppercase tracking-[0.28em] text-muted-foreground`
-**Issue:** Tracking is `0.28em` — the brand standard is `0.22em`. Also missing `font-sans` to ensure Inter rendering.
-**Fix:** Change to `text-xs font-sans uppercase tracking-[0.22em] text-muted-foreground`
+**Current:** `py-24 px-4` (96px vertical)
+**Issue:** 96px is between fitz-9 (80px) and fitz-10 (120px) — an arbitrary value. This is the grandest emotional moment on the page; it deserves fitz-10 on desktop and fitz-9 on mobile.
+**Fix:** Replace `py-24 px-4` with `py-[80px] md:py-[120px] px-4`
 
-### 2b. Headline
+### Step 2: Section Accessibility Semantics
 
-**Current:** `text-[clamp(28px,4vw,40px)] font-display font-light leading-tight`
-**Issue:** The clamp starts at `28px` which is below the 3xl (30px) minimum for section headings. No letter-spacing specified (defaults to normal — should be `0.02em` for display headings).
-**Fix:** Change to `text-[clamp(30px,4.5vw,40px)]` with `tracking-[0.02em]` — matching the 3xl-to-4xl range used in TheWitnesses and ThreePaths.
+**Current:** No `role` or `aria-label`.
+**Fix:** Add `role="region"` and `aria-label="Final call to action"` to the section element. This gives screen readers a meaningful landmark for the page's culminating moment.
 
-### 2c. Body paragraph
+### Step 3: Tagline Overline Typography
 
-**Current:** `text-base md:text-lg leading-relaxed text-foreground/65 max-w-[42ch]`
-**Issue:** 42ch is slightly wide for the brand's intimate reading experience. The spec recommends 22ch for quotes and narrower measures for body in editorial sections. However, this is a paragraph (not a quote), so a wider measure is acceptable. The opacity at `/65` is slightly low — brand standard `ink-soft` should be around `/70`.
-**Fix:** Change to `max-w-[38ch]` and `text-foreground/70` for slightly narrower, more readable measure with better contrast.
+**Current:** `text-[clamp(16px,2vw,20px)] uppercase tracking-[0.4em] font-display font-light text-foreground/80`
+**Issues:**
+- Tracking at `0.4em` is nearly double the brand standard of `0.22em` — this creates an overly airy, diffused feel. The tagline should feel carved, not scattered.
+- Uses `font-display` (Cormorant) — but this is an overline/label element. However, for THE tagline specifically, Cormorant is appropriate since "'Til Death ; Unto Life" is a sacred display phrase, not a utility label.
+- The clamp range `16px-20px` is too large for an overline. The tagline should sit at `xl` (20px) fixed on desktop, `lg` (18px) on mobile — it's a display element but not the headline.
+- Opacity at `/80` is correct for this context.
+**Fix:** Change to `text-lg md:text-xl uppercase tracking-[0.22em] font-display font-light text-foreground/80`. Remove `text-shadow` inline style — text-shadow adds a glow effect that competes with the semicolon's heartbeat animation.
 
-### 2d. Declaration card text
+### Step 4: Tagline Spacing Below
 
-**Current:** `text-base md:text-lg font-display font-light leading-relaxed text-foreground/90`
-**Issue:** This is correct — Cormorant, light weight, relaxed leading, high opacity for primary content. No change needed.
+**Current:** `mb-10` (40px) below tagline, before headline.
+**Issue:** 40px (fitz-7) is correct as a section-internal gap between overline and headline. No change needed. Confirmed.
 
-### 2e. Kit grid labels
+### Step 5: Headline Typography
 
-**Current:** `text-xs uppercase tracking-[0.18em] font-display text-muted-foreground`
-**Issue:** Tracking at `0.18em` is below the `0.22em` brand standard for uppercase labels. Also uses `font-display` (Cormorant) — utility labels like these should use `font-sans` (Inter) for clarity.
-**Fix:** Change to `text-xs font-sans uppercase tracking-[0.22em] text-muted-foreground`
+**Current:** `text-[clamp(32px,5vw,56px)] font-display font-light leading-tight mb-12 text-foreground max-w-2xl`
+**Issues:**
+- The clamp range `32px-56px` reaches `56px` which exceeds the locked 5xl (48px) maximum in the typography scale. This headline is powerful but it should cap at the system maximum.
+- `mb-12` (48px) is between fitz-7 (40px) and fitz-8 (56px). Since this gap separates the headline from the CTA — the most critical transition on the page — it should be fitz-8 (56px) to give the CTA maximum breathing room.
+- Missing `tracking-[0.02em]` for display headings.
+- `text-foreground` is correct for the primary heading in a dark section.
+**Fix:** Change clamp to `text-[clamp(32px,5vw,48px)]`, add `tracking-[0.02em]`, change `mb-12` to `mb-14` (56px = fitz-8).
 
-### 2f. "Everything I bring" label
+### Step 6: CTA Button Wrapper Spacing
 
-**Current:** `font-display text-sm md:text-base font-light text-foreground/55`
-**Issue:** As a section sublabel, this should use Inter, not Cormorant. The size is correct.
-**Fix:** Change to `font-sans text-sm md:text-base text-foreground/55` (remove `font-display font-light`)
+**Current:** `mb-6` (24px) below the CTA stack, before the trust anchor.
+**Issue:** 24px (fitz-5) is slightly tight. The trust anchor text ("Includes sound documentation...") needs enough separation from the CTA to feel like a footnote, not a label. Change to `mb-8` (32px = fitz-6).
+**Fix:** Change `mb-6` to `mb-8`.
 
-### 2g. "And this is what I carry with me" bridge text
+### Step 7: CTA Button Variant and Sizing
 
-**Current:** `font-display text-sm md:text-base font-light italic text-foreground/50`
-**Issue:** This is an editorial/poetic bridge — Cormorant italic is correct here. The opacity at `/50` is slightly faint. `/55` would maintain the whisper while ensuring readability.
-**Fix:** Change opacity to `text-foreground/55`
+**Current:** `variant="primary-dark"` with `text-base px-8 py-6 h-auto cta-commitment cta-breathe-glow`.
+**Issues:**
+- The `primary-dark` variant renders as white background with dark text. For this specific section — the emotional crescendo — the primary vow-yellow CTA would be more appropriate. It signals warmth, invitation, and the Life side of the covenant.
+- `px-8 py-6` is generous. The vertical padding creates a tall button. `px-10 py-5` would be slightly wider and marginally shorter — more elegant.
+**Fix:** Change `variant="primary-dark"` to `variant="default"` (vow-yellow primary). Adjust padding to `px-10 py-5`.
 
-### 2h. Closing "Now—choose how long you want me there."
+### Step 8: Trust Anchor Typography
 
-**Current:** `text-lg md:text-xl font-display font-light text-foreground/80`
-**Issue:** Correct weight and font. Opacity at `/80` is appropriate for a closing statement. No change needed.
+**Current:** `text-sm text-foreground/60 mb-10`
+**Issues:**
+- `text-sm` (14px) is correct for a footnote element.
+- `/60` opacity is slightly low — should be `/50` to feel more like a whisper and less like content competing with the CTA.
+- `mb-10` (40px) before the golden thread is correct (fitz-7). No change.
+- Missing `font-sans` to ensure Inter rendering.
+**Fix:** Change to `text-sm font-sans text-foreground/50 mb-10`.
 
-### 2i. Ghost CTA "See my three paths"
+### Step 9: Golden Thread Separator
 
-**Current:** `text-xs uppercase tracking-[0.18em] font-display`
-**Issue:** Same tracking issue as kit labels — should be `0.22em`. And this is a CTA/navigation element — should use `font-sans` (Inter), not `font-display`.
-**Fix:** Change to `text-xs font-sans uppercase tracking-[0.22em]`
+**Current:** `h-[1px] w-8 mx-auto mb-8` with golden gradient and 600ms delay.
+**Issues:**
+- `w-8` (32px) is slightly narrow. The footer's opening golden thread is `w-12` (48px). This thread should match for visual continuity — it's the same sacred object bridging from section to footer.
+- `mb-8` (32px) is correct (fitz-6) — comfortable separation before the commitment statement.
+- The `scaleX` reveal animation is correct for horizontal expansion.
+**Fix:** Change `w-8` to `w-12` for consistency with footer thread.
 
----
+### Step 10: Commitment Statement Typography
 
-## 3. Spacing Inventory (Vertical Rhythm)
+**Current:** `text-lg font-display font-light text-foreground/90 italic` with inline `letterSpacing: "0.03em"`.
+**Issues:**
+- `text-lg` (18px) is correct for this closing statement.
+- The inline letter-spacing `0.03em` is close to the `0.02em` brand standard for display text. Align to `0.02em`.
+- The `<span>` around "24 hours" uses `text-primary font-normal not-italic text-lg font-semibold`. The `font-semibold` (600 weight) on Cormorant is too heavy — the brand specifies 300-400 only. Change to `font-medium` (500) maximum, or better, `font-normal` (400) with the vow-yellow color providing sufficient emphasis.
+- `text-foreground/90` is correct for the commitment statement.
+**Fix:** Change inline `letterSpacing` to `0.02em`. Change "24 hours" span to `text-primary font-normal not-italic` (remove `font-semibold` and redundant `text-lg`).
 
-Every gap is measured against the Fitzgerald scale.
+### Step 11: Reveal Distance Standardization
 
-| Element Gap | Current | Fitzgerald | Fix |
-|------------|---------|-----------|-----|
-| Section top/bottom padding | 80px (class) | fitz-9/fitz-10 | `py-[80px] md:py-[120px]` |
-| Overline to thread bridge | `mb-0` + `my-3` | fitz-3 (12px) | Correct |
-| Thread bridge height | `h-[24px]` | fitz-5 (24px) | Correct |
-| Headline block bottom | `mb-10` (40px) | fitz-7 (40px) | Correct |
-| Body paragraph bottom | `mb-10` (40px) | fitz-7 (40px) | Correct |
-| Declarations container bottom | `mb-8 md:mb-12` (32/48px) | fitz-6/fitz-8 | Change to `mb-10 md:mb-14` (40/56px) for fitz-7/fitz-8 |
-| Declaration card spacing | `space-y-4` (16px) | fitz-4 (16px) | Correct |
-| Golden separator to bridge text | `mb-6 md:mb-10` | fitz-6/fitz-7 | Correct |
-| Bridge text to kit label | `mb-4 md:mb-6` | fitz-4/fitz-5 | Correct |
-| Kit label to grid | `mb-5` (20px) | Between fitz-4/fitz-5 | Change to `mb-4` (16px) for clean fitz-4 |
-| Kit grid gap | `gap-3` (12px) | fitz-3 (12px) | Correct |
-| Diamond separator margin | `my-6 md:my-10` (24/40px) | fitz-5/fitz-7 | Correct |
-| Closing rule to text | `mb-3 md:mb-4` | fitz-3/fitz-4 | Correct |
-| CTA top margin | `mt-4 md:mt-5` (16/20px) | fitz-4/fitz-5- | Correct |
-| Column gap | `gap-10 md:gap-16` (40/64px) | fitz-7/fitz-8+ | Correct |
+**Current:** All reveals use `translate-y-4` (16px).
+**Issue:** Brand standard is 12px for the "up" reveal variant. All `translate-y-4` instances should be `translate-y-[12px]`.
+**Fix:** Replace all four instances of `translate-y-4` with `translate-y-[12px]`.
 
----
-
-## 4. Reveal Animation Audit
-
-### 4a. Translate distances
-
-**Current state and fixes:**
-
-| Element | Current translate | Brand standard | Fix |
-|---------|------------------|---------------|-----|
-| Label diamond + overline | `translate-y-4` (16px) | 12px | `translate-y-[12px]` |
-| Headline | `translate-y-4` (16px) + `scale-[0.97]` | 12px, no scale | `translate-y-[12px]`, remove `scale-[0.97]` and `scale-100` |
-| Body paragraph | `translate-y-4` (16px) | 12px | `translate-y-[12px]` |
-| Declaration cards | `translate-x-[-12px]` | 12px horizontal is acceptable for side-entry | No change |
-| Kit grid wrapper | `translate-y-4` (16px) + `scale-[0.98]` | 12px, no scale | `translate-y-[12px]`, remove scale |
-| Kit cells | `translate-y-3` (12px) | 12px | Correct |
-| Bridge text | `translate-y-4` (16px) | 12px | `translate-y-[12px]` |
-| Closing text | `translate-y-4` (16px) + `blur-[4px]` | 12px + blur is acceptable | `translate-y-[12px]` |
-| Ghost CTA | `translate-y-3` (12px) | 12px | Correct |
-| Diamond separator | `scale-75` to `scale-100` | scale variant correct | No change |
-
-### 4b. Stagger timing
+### Step 12: Stagger Timing Tightening
 
 **Current delays:**
-
 ```text
-Label:          0ms (default)
-Thread bridge:  150ms
-Headline:       200ms
-Body paragraph: 350ms
-Declaration 1:  350ms (overlaps with paragraph!)
-Declaration 2:  500ms
-Declaration 3:  650ms
-Golden sep:     700ms
-Bridge text:    750ms
-Kit wrapper:    800ms
-Kit cell 1-6:   900-1300ms (80ms gaps — correct)
-Diamond sep:    900ms (overlaps with kit!)
-Closing rule:   950ms
-Closing text:   1000ms
-Ghost CTA:      1100ms
+Tagline:     0ms
+Headline:    150ms
+CTA:         300ms
+Trust:       450ms
+Thread:      600ms
+Commitment:  750ms
 ```
 
-**Issues:**
-- Declaration 1 starts at same time as body paragraph (350ms) — they should be sequenced
-- Diamond separator (900ms) overlaps with kit cells starting at 900ms
-- The overall sequence runs 1100ms total — acceptable but could be tightened
+**Issue:** The 150ms gaps are uniform — the brand calls for organic variation (80-120ms). Also, the tagline-to-headline gap (150ms) should be tighter since they're semantically coupled, while the headline-to-CTA gap should be wider since the CTA is the section's dramatic climax.
 
-**Fix — revised stagger timeline:**
-
+**Fix — revised timeline:**
 ```text
-Label:          0ms
-Thread bridge:  100ms  (tightened from 150)
-Headline:       200ms
-Body paragraph: 350ms
-Declaration 1:  500ms  (clear of paragraph)
-Declaration 2:  600ms  (100ms gap)
-Declaration 3:  700ms
-Golden sep:     850ms
-Bridge text:    900ms
-Kit wrapper:    950ms
-Kit cell 1-6:   1050-1450ms (80ms gaps)
-Diamond sep:    1500ms (clear of kit)
-Closing rule:   1550ms
-Closing text:   1600ms
-Ghost CTA:      1700ms
+Tagline:     0ms
+Headline:    120ms   (tighter coupling)
+CTA:         320ms   (200ms gap — dramatic pause before the action)
+Trust:       450ms   (130ms gap)
+Thread:      580ms   (130ms gap)
+Commitment:  700ms   (120ms gap)
 ```
 
-This extends the sequence slightly but eliminates all overlaps and maintains 80-120ms organic gaps.
+### Step 13: Background Image Opacity
+
+**Current:** `opacity-[0.10]` (10%) on the Ken Burns background image.
+**Issue:** 10% is within the brand range (6-15%) but this section needs slightly more atmospheric presence — it's the emotional climax. Increase to `opacity-[0.12]` for a touch more depth without competing with content.
+**Fix:** Change `opacity-[0.10]` to `opacity-[0.12]`.
+
+### Step 14: Top Fade Color Match
+
+**Current:** Top fade is `linear-gradient(to top, transparent, hsl(240 9% 2%))`.
+**Issue:** The section above (TheWitnesses) is a warm cream section. The top fade should blend FROM the warm cream tone, not from the dark `hsl(240 9% 2%)`. However, since TheWitnesses already has its own bottom fade that handles the warm-to-dark transition, this top fade's job is to darken the top edge of CrossOver's own background to prevent a hard line. The current color `hsl(240 9% 2%)` matches the outer edge of the section's radial gradient — this is correct. No change needed. Confirmed.
+
+### Step 15: Bottom Fade to Footer Bridge
+
+**Current:** Bottom fade is `linear-gradient(to bottom, transparent, hsl(240 9% 4%))`.
+**Issue:** The footer background is `section--dark` which resolves to `hsl(240 9% 4%)`. The bottom fade targets the same color — this is correct for a seamless blend. However, the footer also has a `footer-fade-bridge` element (60px overlap positioned at `top: -60px`). This creates redundant fading. The CrossOver bottom fade and the footer bridge should work in concert, not overlap.
+
+The current setup works but the bottom fade height (controlled by `.section-fade-bottom` at 120px desktop / 80px mobile) may create a slightly over-gradual transition. Since the footer bridge handles 60px of overlap, the CrossOver bottom fade can be slightly shorter. Add an explicit `style={{ height: '80px' }}` to the bottom fade div to override the CSS default and create a crisper handoff.
+**Fix:** Add `style={{ height: '80px' }}` to the bottom fade div.
 
 ---
 
-## 5. Image Frame Refinements
+## Summary
 
-**Current:** Image at 35% opacity with Ken Burns, candlelight shimmer, vignette, grain, and warm border (1px inset vow-yellow at 10%).
+| Step | Element | Change | Type |
+|------|---------|--------|------|
+| 1 | Section padding | `py-24` to `py-[80px] md:py-[120px]` | Class swap |
+| 2 | Section semantics | Add `role="region"`, `aria-label` | Attribute |
+| 3 | Tagline typography | Tracking `0.4em` to `0.22em`, fixed size, remove text-shadow | Class + style |
+| 4 | Tagline spacing | Confirmed correct (`mb-10`) | No change |
+| 5 | Headline typography | Cap at 48px, add tracking, `mb-12` to `mb-14` | Class + style |
+| 6 | CTA wrapper spacing | `mb-6` to `mb-8` | Class swap |
+| 7 | CTA button | `primary-dark` to `default`, padding adjustment | Class swap |
+| 8 | Trust anchor | Add `font-sans`, `/60` to `/50` | Class swap |
+| 9 | Golden thread | `w-8` to `w-12` | Class swap |
+| 10 | Commitment text | Letter-spacing `0.02em`, remove `font-semibold` | Style + class |
+| 11 | Reveal distances | All `translate-y-4` to `translate-y-[12px]` | Class swap |
+| 12 | Stagger timing | Organic variation (120/200/130/130/120ms gaps) | Style values |
+| 13 | Background opacity | `0.10` to `0.12` | Class swap |
+| 14 | Top fade | Confirmed correct | No change |
+| 15 | Bottom fade | Add explicit 80px height | Style addition |
 
-**Issues:**
-- Image opacity at 35% is slightly high for the brand system (spec says 6-15% for backgrounds). However, this is the primary editorial image, not a background — 35% is acceptable for a foreground image frame. But it could be reduced to 28% for more atmospheric depth.
-- The image frame `aspect-[3/4]` on mobile, `md:min-h-[520px]` on desktop — the 520px minimum might cause the image to extend below the text content on some viewports.
-
-**Fix:**
-- Reduce image opacity from `0.35` to `0.28` — more atmospheric, less photographic
-- Change `md:min-h-[520px]` to `md:min-h-[480px]` — slightly shorter to ensure text and image bottom-align better
-
----
-
-## 6. Kit Grid Refinements
-
-**Current:** 2x3 grid with diamond icons, uppercase labels, warm card backgrounds with embossed box-shadows. First two cells have extra `inset glow` styling.
-
-**Issues:**
-- The special treatment on first two cells (Piano, Backup Piano) via `index < 2` creates arbitrary visual hierarchy — all six items are equally important
-- Card backgrounds use inline gradient styles — these should be consistent with the declaration card material
-
-**Fix:**
-- Remove the `index < 2` conditional box-shadow — apply uniform styling to all kit cells
-- Keep existing material depth (the CSS `.witness-kit-cell` class handles hover/shadow)
-
----
-
-## 7. Accessibility
-
-**Current:** Has `role="region"` and `aria-label="The Preparation"`, sr-only narrative block. Decorative elements have `aria-hidden="true"`.
-
-**Status:** Correct. No changes needed.
-
----
-
-## 8. Mobile-Specific Refinements
-
-### 8a. Image frame
-- On mobile, the image frame is `aspect-[3/4]` which creates a tall image above the text — on small screens this pushes content far down
-- Change to `aspect-[4/3]` on mobile for a landscape orientation that takes less vertical space, keeping `md:aspect-auto` for desktop
-
-### 8b. Kit grid
-- Currently `grid-cols-2 md:grid-cols-3` — on mobile this creates 3 rows of 2, which is acceptable
-- No change needed
-
-### 8c. Column layout
-- Currently `grid-cols-1 md:grid-cols-[2fr_3fr]` — stacks on mobile, which is correct
-- No change needed
-
----
-
-## Summary of All Changes
-
-### File: `src/components/TheWitness.tsx`
-
-| # | Change | Type |
-|---|--------|------|
-| 1 | Section padding: `section-padding-standard` to `py-[80px] md:py-[120px]` | Class swap |
-| 2 | Overline: add `font-sans`, tracking `0.28em` to `0.22em` | Class swap |
-| 3 | Headline: clamp `28px` to `30px`, add `tracking-[0.02em]` | Style value |
-| 4 | Headline: remove `scale-[0.97]` and `scale-100` from reveal | Class removal |
-| 5 | Body paragraph: `max-w-[42ch]` to `max-w-[38ch]`, `/65` to `/70` | Class swap |
-| 6 | Bridge text: `/50` to `/55` | Class swap |
-| 7 | Kit labels: `font-display` to `font-sans`, tracking `0.18em` to `0.22em` | Class swap |
-| 8 | Kit sublabel: `font-display font-light` to `font-sans` | Class swap |
-| 9 | Ghost CTA: `font-display` to `font-sans`, tracking `0.18em` to `0.22em` | Class swap |
-| 10 | All `translate-y-4` reveals to `translate-y-[12px]` | Class swap |
-| 11 | Remove `scale-[0.97]`/`scale-[0.98]` from headline and kit wrapper | Class removal |
-| 12 | Image opacity: `0.35` to `0.28` | Style value |
-| 13 | Image frame: `md:min-h-[520px]` to `md:min-h-[480px]` | Class swap |
-| 14 | Mobile image: `aspect-[3/4]` to `aspect-[4/3]` | Class swap |
-| 15 | Kit cell first-two special shadow: remove `index < 2` conditional | Logic removal |
-| 16 | Declarations container: `mb-8 md:mb-12` to `mb-10 md:mb-14` | Class swap |
-| 17 | Kit label spacing: `mb-5` to `mb-4` | Class swap |
-| 18 | Revised stagger timing across all delay values | Style values |
-
-**One file modified.** Zero CSS changes needed. Zero new dependencies. Zero new images. Pure spacing, typography, and timing calibration.
+**One file modified.** Zero CSS changes. Zero new dependencies. Zero new images. Pure precision calibration across spacing, typography, animation timing, and atmospheric depth.
 
