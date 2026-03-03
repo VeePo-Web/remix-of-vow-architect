@@ -1,99 +1,92 @@
 
 
-# Step 2: Pixel-Perfect Spacing, Text Shadows, and Typographic Depth
+# Step 3: Spacing Precision and Structural Formatting
 
-This step adds the material depth layer that separates flat web typography from Fantasy.co-grade cinematic text. Every element gets measured shadow treatment, refined vertical spacing, and typographic weight calibration.
-
----
-
-## 2a. Headline Text Shadow — Cinematic Depth
-
-**Current:** No text-shadow on the headline.
-
-**Issue:** On a dark atmospheric background with grain, vignette, and fog layers, the headline text sits flat against the noise. A subtle text-shadow creates the impression that the words are hovering slightly above the surface — the same technique used in cinematic title cards. This is not a glow effect; it is depth.
-
-**Fix:** Add `textShadow: '0 2px 20px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.2)'` to the headline's inline style. Two layers: a tight directional shadow (2px down, 20px blur) for depth, and a wide ambient shadow (40px blur) for atmospheric integration. Both use pure black — never colored shadows on text.
+This step addresses the structural formatting details that sit beneath typography and shadows — container discipline, internal element spacing, unnecessary wrapper complexity, and responsive padding alignment.
 
 ---
 
-## 2b. Tagline Text Shadow — Whisper Depth
+## 3a. Container Max-Width — Focused Emotional Funnel
 
-**Current:** No text-shadow on the tagline.
+**Current:** `max-w-4xl` (896px) on the content container.
 
-**Issue:** The tagline at `/70` opacity is intentionally subdued, but on the noisy background it can merge with the grain. A lighter shadow than the headline — just enough to lift it off the grain layer.
+**Issue:** The brand standard container is 1200px (`max-w-5xl` = 1024px or custom `max-w-[1200px]`). However, this section is the emotional crescendo — a single column of centered text leading to one CTA. At 896px, the headline and trust text can stretch too wide, breaking the intimate funnel feel. For a centered single-column CTA section like this, the content should be constrained tighter. Change to `max-w-3xl` (768px) — this creates a narrow reading column that draws the eye inward, mimicking the focus of a ceremony aisle.
 
-**Fix:** Add `textShadow: '0 1px 12px rgba(0, 0, 0, 0.3)'` to the tagline paragraph's inline style. Single layer, subtle, directional. The semicolon already has its own glow via the heartbeat animation — no additional shadow needed on it.
-
----
-
-## 2c. Commitment Statement Shadow — Closing Weight
-
-**Current:** No text-shadow on the commitment statement.
-
-**Issue:** As the final typographic element before the footer, the commitment statement needs the same material presence as the headline but at reduced intensity — it whispers, but it whispers with authority.
-
-**Fix:** Add `textShadow: '0 1px 16px rgba(0, 0, 0, 0.35)'` to the commitment statement's inline style.
+**Fix:** Change `max-w-4xl` to `max-w-3xl` on the content container div.
 
 ---
 
-## 2d. Vertical Spacing Precision — The Full Stack Audit
+## 3b. CTA Stack — Remove Unnecessary Flex Row
 
-Current vertical rhythm from top of content to bottom:
+**Current:** `flex flex-col sm:flex-row gap-4 justify-center items-center mb-8`
 
-```text
-Tagline wrapper:     mb-10 (40px)     -- fitz-7  ✓
-Headline:            mb-14 (56px)     -- fitz-8  ✓
-CTA wrapper:         mb-8  (32px)     -- fitz-6  ✓
-Trust anchor:        mb-10 (40px)     -- fitz-7  ✓
-Golden thread:       mb-8  (32px)     -- fitz-6  ✓
-Commitment:          mb-0  (0px)      -- terminal ✓
-```
+**Issue:** There is only one button in this CTA stack. The `sm:flex-row` breakpoint and `gap-4` are artifacts from when there may have been two buttons. With a single CTA, the flex container adds unnecessary DOM complexity. Simplify to `flex flex-col items-center mb-8` — the `flex-col` + `items-center` is sufficient for centering the single button wrapper.
 
-**Assessment:** All spacing values land on Fitzgerald scale points. The rhythm reads: 40 → 56 → 32 → 40 → 32 → 0. This creates a pattern of generous → grand → tight → generous → tight → terminal. The "tight" (32px) values around the CTA and golden thread compress the section's emotional climax, drawing the eye inward. This is correct — no changes needed.
+**Fix:** Remove `sm:flex-row gap-4 justify-center` — change to `flex flex-col items-center mb-8`.
 
 ---
 
-## 2e. CTA Button Shadow Enhancement
+## 3c. Section Min-Height — Fitzgerald Alignment
 
-**Current:** The `cta-breathe-glow` class handles the ambient breathing shadow. The `default` variant adds `shadow-[0_8px_24px_rgba(255,224,138,0.18)]`.
+**Current:** `min-h-[400px]`
 
-**Issue:** The button shadow is correct but the glow div behind it (`-inset-x-12 -inset-y-6`) uses `hsl(45 100% 76% / 0.10)` which is slightly warm. Increase to `0.12` for the glow to be more visible against the dark atmospheric background — the CTA is the section's emotional apex and deserves maximum presence.
+**Issue:** 400px is not on the Fitzgerald spacing scale. For a section with this much vertical padding (`py-[80px] md:py-[120px]`), the min-height is likely unnecessary — the content itself plus padding should fill adequately. However, if the section needs a minimum for short-content viewports, use a viewport-relative value instead: `min-h-[60vh]` on desktop ensures the section commands the screen without an arbitrary pixel value. On mobile, the content stack is taller so min-height is less critical.
 
-**Fix:** Change the ambient glow gradient from `0.10` to `0.14` opacity — just enough to create a warm halo without competing with the button's own shadow system.
-
----
-
-## 2f. Trust Anchor Letter-Spacing
-
-**Current:** No explicit letter-spacing on the trust anchor text.
-
-**Issue:** At `text-sm` (14px) with Inter, the default letter-spacing can feel slightly tight on dark backgrounds where grain and atmospheric noise compete with small text. Adding `tracking-[0.01em]` (a micro-adjustment) opens the text just enough for better legibility without changing its visual weight.
-
-**Fix:** Add `tracking-[0.01em]` to the trust anchor paragraph className.
+**Fix:** Change `min-h-[400px]` to `min-h-[50vh] md:min-h-[60vh]` — proportional to viewport, not arbitrary.
 
 ---
 
-## 2g. Golden Thread Shadow Enhancement
+## 3d. Section Horizontal Padding — Responsive Scale
 
-**Current:** The golden thread uses `background: linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)` — no box-shadow.
+**Current:** `px-4` (16px) on the section element.
 
-**Issue:** The thread is a 1px line. Without a soft glow beneath it, it disappears into the grain texture. A subtle box-shadow creates the impression that the thread is emitting light — like a hair-thin wire catching candlelight.
+**Issue:** The brand standard calls for responsive horizontal padding: 16px mobile, 24px tablet, 32px desktop. Currently only the mobile value is set. The container class handles centering, but the section itself should provide the outer padding guard.
 
-**Fix:** Add `boxShadow: '0 0 8px hsl(var(--vow-yellow) / 0.15)'` to the golden thread's inline style. This creates a warm glow bloom around the 1px line without thickening it.
+**Fix:** Change `px-4` to `px-4 md:px-6 lg:px-8` (16px / 24px / 32px) — aligning to fitz-4 / fitz-5 / fitz-6.
 
 ---
 
-## Summary of All Changes
+## 3e. Headline Max-Width Tightening
 
-| # | Element | Change | Type |
-|---|---------|--------|------|
-| 2a | Headline | Add dual-layer text-shadow for cinematic depth | Inline style |
-| 2b | Tagline | Add single-layer text-shadow for whisper depth | Inline style |
-| 2c | Commitment | Add text-shadow for closing authority | Inline style |
-| 2d | Vertical spacing | Audited and confirmed correct — no changes | No change |
-| 2e | CTA ambient glow | Increase opacity from `0.10` to `0.14` | Style value |
-| 2f | Trust anchor | Add `tracking-[0.01em]` for dark-background legibility | Class addition |
-| 2g | Golden thread | Add `boxShadow` glow bloom | Inline style |
+**Current:** `max-w-2xl` (672px) on the headline.
 
-**One file modified.** Six surgical additions — five shadow/glow refinements and one micro-tracking adjustment. Zero layout changes. Zero new dependencies. Pure material depth calibration.
+**Issue:** With the container now at `max-w-3xl` (768px), the headline at `max-w-2xl` (672px) creates a 48px margin on each side. This is generous but for a single-line quote like "Your vows deserve to be heard." at 48px font size, `max-w-2xl` may force an unnecessary line break on mid-sized viewports. The headline should have enough room to sit on a single line when possible but wrap gracefully when needed. Keep `max-w-2xl` — at 48px Cormorant with the current text, this creates a natural single-line on desktop (the text is ~520px wide at 48px) and wraps elegantly on mobile. Confirmed correct.
+
+**Fix:** No change needed.
+
+---
+
+## 3f. Trust Anchor Max-Width Refinement
+
+**Current:** `max-w-md` (448px) on the trust anchor.
+
+**Issue:** The trust text "Includes sound documentation, microphone setup, and your ceremony run-of-show." at 14px Inter is approximately 480px wide. At `max-w-md` (448px), it wraps to two lines. This is actually desirable — two short lines feel more intimate than one long line for footnote-level text. However, `max-w-sm` (384px) would be too tight. `max-w-md` is correct.
+
+**Fix:** No change needed.
+
+---
+
+## 3g. Bottom Fade Positioning Precision
+
+**Current:** The bottom fade div uses `section-fade-bottom` class with inline `height: 80px`.
+
+**Issue:** The `section-fade-bottom` CSS class likely uses `position: absolute; bottom: 0`. The inline height override to 80px (from Step 15 of the original audit) is correct for the footer bridge handoff. However, the fade should sit within the section's overflow boundary. Confirm `overflow-hidden` is on the section — it is. No structural change needed.
+
+**Fix:** No change needed.
+
+---
+
+## Summary
+
+| # | Element | Change | Rationale |
+|---|---------|--------|-----------|
+| 3a | Content container | `max-w-4xl` to `max-w-3xl` | Tighter funnel, ceremony aisle focus |
+| 3b | CTA stack | Remove `sm:flex-row gap-4 justify-center` | Single button, unnecessary complexity |
+| 3c | Section min-height | `min-h-[400px]` to `min-h-[50vh] md:min-h-[60vh]` | Viewport-proportional, not arbitrary |
+| 3d | Section padding | `px-4` to `px-4 md:px-6 lg:px-8` | Responsive padding scale |
+| 3e | Headline max-width | Confirmed `max-w-2xl` correct | No change |
+| 3f | Trust anchor max-width | Confirmed `max-w-md` correct | No change |
+| 3g | Bottom fade | Confirmed correct | No change |
+
+**One file modified.** Four structural formatting changes. Three confirmations. Zero new dependencies. Pure spatial discipline.
 
