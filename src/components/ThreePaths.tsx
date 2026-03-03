@@ -109,7 +109,7 @@ export function ThreePaths() {
           className="absolute inset-0 w-full h-full object-cover opacity-[0.14] pointer-events-none"
           style={{
             animation: 'paths-ken-burns 30s ease-in-out infinite alternate',
-            filter: 'saturate(0.6) sepia(0.1) contrast(1.05)',
+            filter: 'saturate(0.75) sepia(0.1) contrast(1.05) brightness(0.7)',
             willChange: 'transform',
           }}
           loading="lazy"
@@ -131,6 +131,15 @@ export function ThreePaths() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background: 'radial-gradient(ellipse at center, transparent 20%, hsl(240 9% 4%) 100%)',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Warm glow pool beneath keys */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at 50% 85%, hsl(var(--vow-yellow) / 0.03) 0%, transparent 40%)',
         }}
         aria-hidden="true"
       />
@@ -159,7 +168,7 @@ export function ThreePaths() {
           {/* Golden thread separator */}
           <div
             className={cn(
-              "h-[1px] w-12 mx-auto mt-8 transition-all duration-700",
+              "h-[1px] w-16 mx-auto mt-10 transition-all duration-700",
               isVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
             )}
             style={{
@@ -181,7 +190,7 @@ export function ThreePaths() {
                   tier.isChosen && "piano-white-key--chosen",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
                 )}
-                style={{ transitionDelay: isVisible ? `${whiteKeyDelays[i]}ms` : "0ms" }}
+                style={{ transitionDelay: isVisible ? `${whiteKeyDelays[i]}ms` : "0ms", paddingBottom: 40 }}
               >
                 {/* MOST CHOSEN badge — inside key padding for visibility */}
                 {tier.isChosen && (
@@ -221,7 +230,7 @@ export function ThreePaths() {
                 )}
 
                 {/* Top spacer — clean ivory playing surface */}
-                <div className="flex-grow min-h-[120px]" />
+                <div className="flex-grow min-h-[120px] max-h-[180px]" />
 
                 {/* Name */}
                 <h3 className="piano-key__name">{tier.name}</h3>
@@ -275,10 +284,10 @@ export function ThreePaths() {
                   tier.isChosen && "piano-white-key--chosen",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
                 )}
-                style={{ transitionDelay: isVisible ? `${whiteKeyDelays[i]}ms` : "0ms" }}
+                style={{ transitionDelay: isVisible ? `${whiteKeyDelays[i]}ms` : "0ms", paddingBottom: 40 }}
               >
                 {tier.isChosen && (
-                  <div className="absolute -top-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center">
+                  <div className="relative z-10 flex flex-col items-center -mt-4 mb-2">
                     <div className="paths-chosen-badge">
                       <span
                         className="inline-block"
@@ -340,7 +349,7 @@ export function ThreePaths() {
         {/* Reassurance */}
         <div
           className={cn(
-            "flex justify-center mb-4 transition-all duration-700",
+            "flex justify-center mb-4 mt-16 transition-all duration-700",
             isVisible ? "opacity-100" : "opacity-0"
           )}
           style={{ transitionDelay: isVisible ? "900ms" : "0ms" }}
@@ -351,7 +360,7 @@ export function ThreePaths() {
 
         <p
           className={cn(
-            "text-center text-sm text-muted-foreground/80 max-w-2xl mx-auto transition-all duration-700",
+            "text-center text-sm text-muted-foreground/60 max-w-2xl mx-auto transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
           style={{
