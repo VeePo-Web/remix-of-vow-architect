@@ -146,7 +146,7 @@ export function ThreePaths() {
 
       <div className="container mx-auto relative z-10">
         {/* Header — centered */}
-        <div className="text-center mb-16">
+        <div className="flex flex-col items-center mb-16">
           <p
             className={cn(
               "text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4 w-full block text-center transition-all duration-700",
@@ -238,7 +238,7 @@ export function ThreePaths() {
                 {/* Golden underline */}
                 <div
                   className="h-[3px] w-12 mt-2 mb-6"
-                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.6 : 0.5}), hsl(var(--vow-yellow) / 0.15), transparent)`, boxShadow: '0 1px 0 rgba(0,0,0,0.04)' }}
+                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.75 : 0.65}), hsl(var(--vow-yellow) / 0.2), transparent)`, boxShadow: '0 1px 1px rgba(0,0,0,0.08)' }}
                   aria-hidden="true"
                 />
 
@@ -254,7 +254,7 @@ export function ThreePaths() {
                 {/* CTA */}
                 <Button
                   className={cn(
-                    "w-full",
+                    "w-full mt-auto",
                     tier.isChosen
                       ? "piano-key__cta--chosen"
                       : "piano-key__cta--flanking"
@@ -324,7 +324,7 @@ export function ThreePaths() {
                 <h3 className="piano-key__name">{tier.name}</h3>
                 <div
                   className="h-[3px] w-12 mt-2 mb-4"
-                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.6 : 0.5}), hsl(var(--vow-yellow) / 0.15), transparent)`, boxShadow: '0 1px 0 rgba(0,0,0,0.04)' }}
+                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.75 : 0.65}), hsl(var(--vow-yellow) / 0.2), transparent)`, boxShadow: '0 1px 1px rgba(0,0,0,0.08)' }}
                   aria-hidden="true"
                 />
                 <span className="piano-key__price" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.06)' }}>{tier.price}</span>
@@ -332,7 +332,7 @@ export function ThreePaths() {
                 <p className="piano-key__sentence">{tier.sentence}</p>
                 <Button
                   className={cn(
-                    "w-full",
+                    "w-full mt-auto",
                     tier.isChosen ? "piano-key__cta--chosen" : "piano-key__cta--flanking"
                   )}
                   variant={tier.isChosen ? "default" : "outline"}
