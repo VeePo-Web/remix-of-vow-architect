@@ -62,7 +62,7 @@ function BlackKey({ delay, isVisible }: { delay: number; isVisible: boolean }) {
   return (
     <div
       className={cn(
-        "piano-black-key hidden md:flex items-center justify-center -mx-3 lg:-mx-4 transition-all duration-700",
+        "piano-black-key hidden md:flex items-start justify-center pt-12 -mx-3 lg:-mx-4 transition-all duration-700",
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
       )}
       style={{ transitionDelay: isVisible ? `${delay}ms` : "0ms" }}
@@ -92,7 +92,7 @@ export function ThreePaths() {
     <section
       id="three-paths"
       ref={sectionRef}
-      className="section--dark section-grain piano-section-target relative py-24 px-4 overflow-hidden min-h-[500px]"
+      className="section--dark section-grain piano-section-target relative py-32 md:py-40 px-4 min-h-[500px]"
     >
       {/* Top fade */}
       <div
@@ -140,7 +140,7 @@ export function ThreePaths() {
         <div className="text-center mb-16">
           <p
             className={cn(
-              "text-xs uppercase tracking-[0.22em] text-muted-foreground mb-4 transition-all duration-700",
+              "text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4 text-center transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
           >
@@ -151,7 +151,7 @@ export function ThreePaths() {
               "text-[clamp(28px,4vw,40px)] font-display font-light leading-tight text-foreground transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
-            style={{ transitionDelay: isVisible ? "150ms" : "0ms", textWrap: "balance" as any }}
+            style={{ transitionDelay: isVisible ? "150ms" : "0ms", maxWidth: "18ch", margin: "0 auto" }}
           >
             How deeply do you want me there.
           </h2>
@@ -171,7 +171,7 @@ export function ThreePaths() {
         </div>
 
         {/* ─── Piano Keys Layout (Desktop) ─── */}
-        <div className="hidden md:flex items-end max-w-5xl mx-auto mb-12 piano-keys-container">
+        <div className="hidden md:flex items-end max-w-5xl mx-auto mb-12 piano-keys-container overflow-visible">
           {tiers.map((tier, i) => (
             <div key={tier.name} className="contents">
               {/* White Key */}
@@ -221,20 +221,20 @@ export function ThreePaths() {
                 )}
 
                 {/* Top spacer — clean ivory playing surface */}
-                <div className="flex-grow min-h-[80px]" />
+                <div className="flex-grow min-h-[120px]" />
 
                 {/* Name */}
                 <h3 className="piano-key__name">{tier.name}</h3>
 
                 {/* Golden underline */}
                 <div
-                  className="h-[1px] w-8 mt-2 mb-6"
-                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.5 : 0.2}), transparent)` }}
+                  className="h-[1px] w-12 mt-2 mb-6"
+                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.4 : 0.25}), hsl(var(--vow-yellow) / 0.1), transparent)` }}
                   aria-hidden="true"
                 />
 
                 {/* Price */}
-                <span className="piano-key__price">{tier.price}</span>
+                <span className="piano-key__price" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.06)' }}>{tier.price}</span>
 
                 {/* Description */}
                 <p className="piano-key__description">{tier.description}</p>
@@ -314,11 +314,11 @@ export function ThreePaths() {
 
                 <h3 className="piano-key__name">{tier.name}</h3>
                 <div
-                  className="h-[1px] w-8 mt-2 mb-4"
-                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.5 : 0.2}), transparent)` }}
+                  className="h-[1px] w-12 mt-2 mb-4"
+                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.4 : 0.25}), hsl(var(--vow-yellow) / 0.1), transparent)` }}
                   aria-hidden="true"
                 />
-                <span className="piano-key__price">{tier.price}</span>
+                <span className="piano-key__price" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.06)' }}>{tier.price}</span>
                 <p className="piano-key__description">{tier.description}</p>
                 <p className="piano-key__sentence">{tier.sentence}</p>
                 <Button
