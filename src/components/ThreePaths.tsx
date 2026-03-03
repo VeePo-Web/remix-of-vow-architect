@@ -62,7 +62,7 @@ function BlackKey({ delay, isVisible }: { delay: number; isVisible: boolean }) {
   return (
     <div
       className={cn(
-        "piano-black-key hidden md:flex items-start justify-center pt-12 -mx-4 lg:-mx-5 transition-all duration-700",
+        "piano-black-key hidden md:flex items-start justify-center pt-12 -mx-5 lg:-mx-6 transition-all duration-700",
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
       )}
       style={{ transitionDelay: isVisible ? `${delay}ms` : "0ms" }}
@@ -149,7 +149,7 @@ export function ThreePaths() {
         <div className="text-center mb-16">
           <p
             className={cn(
-              "text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4 text-center transition-all duration-700",
+              "text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4 w-full block text-center transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
           >
@@ -157,7 +157,7 @@ export function ThreePaths() {
           </p>
           <h2
             className={cn(
-              "text-[clamp(28px,4vw,40px)] font-display font-light leading-tight text-foreground transition-all duration-700",
+              "text-[clamp(32px,4.5vw,44px)] font-display font-light leading-tight tracking-[0.01em] text-foreground transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
             style={{ transitionDelay: isVisible ? "150ms" : "0ms", maxWidth: "18ch", margin: "0 auto" }}
@@ -237,8 +237,8 @@ export function ThreePaths() {
 
                 {/* Golden underline */}
                 <div
-                  className="h-[2px] w-12 mt-2 mb-6"
-                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.6 : 0.5}), hsl(var(--vow-yellow) / 0.15), transparent)` }}
+                  className="h-[3px] w-12 mt-2 mb-6"
+                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.6 : 0.5}), hsl(var(--vow-yellow) / 0.15), transparent)`, boxShadow: '0 1px 0 rgba(0,0,0,0.04)' }}
                   aria-hidden="true"
                 />
 
@@ -246,10 +246,10 @@ export function ThreePaths() {
                 <span className="piano-key__price" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.06)' }}>{tier.price}</span>
 
                 {/* Description */}
-                <p className="piano-key__description">{tier.description}</p>
+                <p className="piano-key__description" style={{ minHeight: '2.8em' }}>{tier.description}</p>
 
                 {/* Composed sentence */}
-                <p className="piano-key__sentence">{tier.sentence}</p>
+                <p className="piano-key__sentence" style={{ minHeight: '3em' }}>{tier.sentence}</p>
 
                 {/* CTA */}
                 <Button
@@ -323,8 +323,8 @@ export function ThreePaths() {
 
                 <h3 className="piano-key__name">{tier.name}</h3>
                 <div
-                  className="h-[2px] w-12 mt-2 mb-4"
-                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.6 : 0.5}), hsl(var(--vow-yellow) / 0.15), transparent)` }}
+                  className="h-[3px] w-12 mt-2 mb-4"
+                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.6 : 0.5}), hsl(var(--vow-yellow) / 0.15), transparent)`, boxShadow: '0 1px 0 rgba(0,0,0,0.04)' }}
                   aria-hidden="true"
                 />
                 <span className="piano-key__price" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.06)' }}>{tier.price}</span>
@@ -349,7 +349,7 @@ export function ThreePaths() {
         {/* Reassurance */}
         <div
           className={cn(
-            "flex justify-center mb-4 mt-16 transition-all duration-700",
+            "flex justify-center mb-4 mt-12 transition-all duration-700",
             isVisible ? "opacity-100" : "opacity-0"
           )}
           style={{ transitionDelay: isVisible ? "900ms" : "0ms" }}
@@ -360,7 +360,7 @@ export function ThreePaths() {
 
         <p
           className={cn(
-            "text-center text-sm text-muted-foreground/60 max-w-2xl mx-auto transition-all duration-700",
+            "text-center text-sm text-muted-foreground/60 max-w-lg mx-auto transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
           style={{
