@@ -77,7 +77,7 @@ export function CrossOver() {
           )}
         >
           <p 
-            className="text-lg md:text-xl uppercase tracking-[0.22em] font-display font-light text-foreground/80"
+            className="text-xl md:text-2xl uppercase tracking-[0.25em] font-display font-light text-foreground/70"
           >
             {"\u2018"}TIL DEATH{" "}
             <span
@@ -95,12 +95,12 @@ export function CrossOver() {
         {/* Sacred Quote */}
         <h2
           className={cn(
-            "text-[clamp(32px,5vw,48px)] font-display font-light leading-tight mb-14 text-foreground max-w-2xl mx-auto tracking-[0.02em] transition-all duration-700",
+            "text-[clamp(32px,5vw,48px)] font-display font-light leading-[1.15] mb-14 text-foreground max-w-2xl mx-auto tracking-[0.02em] transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
           style={{ transitionDelay: isVisible ? "120ms" : "0ms", textWrap: "balance" as any }}
         >
-          {"\u201C"}Your vows deserve<br />to be heard.{"\u201D"}
+          <span className="font-normal">{"\u201C"}</span>Your vows deserve to be heard.<span className="font-normal">{"\u201D"}</span>
         </h2>
 
         {/* CTA Stack */}
@@ -125,7 +125,7 @@ export function CrossOver() {
               className="relative text-base px-10 py-5 h-auto cta-commitment cta-breathe-glow"
               asChild
             >
-              <Link to="/contact">Hold my date →</Link>
+              <Link to="/contact" className="font-sans tracking-[0.02em]">Hold my date</Link>
             </Button>
           </div>
         </div>
@@ -133,7 +133,7 @@ export function CrossOver() {
         {/* Trust Anchor */}
         <p
           className={cn(
-            "text-sm font-sans text-foreground/50 mb-10 transition-all duration-700",
+            "text-sm font-sans text-foreground/50 leading-relaxed max-w-md mx-auto mb-10 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
           style={{ transitionDelay: isVisible ? "450ms" : "0ms" }}
@@ -162,7 +162,7 @@ export function CrossOver() {
           )}
           style={{ transitionDelay: isVisible ? "700ms" : "0ms", letterSpacing: "0.02em" }}
         >
-          Response within <span className="text-primary font-normal not-italic">24 hours</span>. Always.
+          Response within 24 hours.{" "}<span className="text-primary font-normal not-italic tracking-[0.04em]">Always.</span>
         </p>
       </div>
 
