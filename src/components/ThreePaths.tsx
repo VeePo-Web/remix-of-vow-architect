@@ -168,12 +168,12 @@ export function ThreePaths() {
           </p>
           <h2
             className={cn(
-              "text-[clamp(30px,4.5vw,40px)] font-display font-light leading-tight tracking-[0.02em] text-foreground transition-all duration-700",
+              "text-[clamp(30px,4.5vw,40px)] font-display font-light leading-tight tracking-[0.02em] text-foreground text-center transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
             )}
             style={{ transitionDelay: isVisible ? "120ms" : "0ms", maxWidth: "18ch", margin: "0 auto" }}
           >
-            How deeply do you want me there.
+            Choose the presence that fits your day.
           </h2>
 
           {/* Golden thread separator */}
