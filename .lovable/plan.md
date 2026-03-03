@@ -1,64 +1,78 @@
 
-# Step 4: Section Transition Refinement — TheWitnesses to CrossOver
 
-This step perfects the seamless visual bridge between the warm Life-space testimonials (TheWitnesses) and the dark Death-space closing CTA (CrossOver). The transition must feel like the room darkening before a final vow — not like a page break.
+# Step 5: Pixel-Perfect Foreground and Background Depth
 
----
-
-## Current State
-
-The transition architecture is already partially correct:
-- **TheWitnesses** (warm, `hsl(45 25% 96%)`) has a `section-fade-bottom` that fades to `hsl(240 9% 2%)` — matching CrossOver's background.
-- **CrossOver** has a `section-fade-top` that fades from `hsl(240 9% 2%)` upward — creating the dark canopy.
-- The footer has a `footer-fade-bridge` that extends 60px above itself to blend from CrossOver's bottom.
-
-The CSS defines `.section-fade-top` at 120px height (80px on mobile). The CrossOver top fade uses `linear-gradient(to top, transparent, hsl(240 9% 2%))` which fades **upward** — meaning the dark color is at the top and dissolves downward into transparency. This is correct for darkening the top of a dark section.
+This step refines the atmospheric layer stack and foreground element rendering to achieve true cinematic depth — where every layer sits at a precise z-position and the content floats above the noise floor with material authority.
 
 ---
 
-## 4a. Top Fade Direction Correction
+## 5a. Background Image Filter — Cinematic Grade
 
-**Current:** `linear-gradient(to top, transparent, hsl(240 9% 2%))` — this puts transparent at the bottom and dark at the top. For a top fade that blends the section's top edge into the preceding section, this is correct: the gradient starts transparent (showing the section's own dark background below) and darkens toward the top edge.
+**Current:** `filter: 'saturate(0.5) contrast(1.1)'` on the Ken Burns background image at `opacity-[0.12]`.
 
-**Assessment:** Correct. No change needed.
+**Issue:** The brand standard for background images calls for `brightness(0.75) contrast(1.08) saturate(0.9)`. The current filter desaturates too aggressively (0.5 vs 0.9) and uses slightly higher contrast (1.1 vs 1.08). At 12% opacity the difference is subtle, but the over-desaturation strips warmth from the dance image, making the section feel colder than intended. The crossing should feel like the final warm moment before the footer void.
 
----
-
-## 4b. Top Fade Height — Extend for Smoother Transition
-
-**Current:** The `.section-fade-top` CSS sets height to 120px (80px on mobile). The CrossOver component does not override this with an inline style.
-
-**Issue:** The warm-to-dark transition is the most dramatic color shift on the entire page — from cream `hsl(45 25% 96%)` to near-black `hsl(240 9% 2%)`. A 120px fade is adequate for dark-to-dark transitions, but for this Life-to-Death shift, it should be longer to avoid a visible color seam. Extend to 160px on desktop for a more gradual atmospheric darkening.
-
-**Fix:** Add an inline `height: '160px'` style override to the CrossOver top fade div. On mobile (handled via CSS media query fallback), the 80px default remains appropriate given the compressed viewport.
+**Fix:** Change filter to `brightness(0.75) contrast(1.08) saturate(0.9)` — matching the brand standard. This restores trace warmth to the background without competing with content.
 
 ---
 
-## 4c. Top Fade Color Temperature — Warm-to-Cold Bridge
+## 5b. Background Image Opacity — Brand Standard Range
 
-**Current:** The top fade uses pure dark charcoal `hsl(240 9% 2%)`. But the section it's blending FROM is warm cream. The gradient goes from warm to cold with no intermediate warmth.
+**Current:** `opacity-[0.12]` (12%).
 
-**Issue:** A direct warm-cream-to-cold-charcoal transition can create a perceptible "seam" where the color temperature shifts abruptly. Adding a subtle warm intermediary — a hint of taupe in the gradient midpoint — creates a smoother perceptual bridge.
+**Issue:** The brand standard permits 6-15% for background images. 12% is within range, but for this section — which is the emotional crescendo with a prominent CTA — the background should recede slightly more to maximize content dominance. Reduce to `opacity-[0.10]` (10%). This keeps atmospheric presence while ensuring the headline and CTA float more clearly above the noise.
 
-**Fix:** Change the top fade gradient to a three-stop gradient: `linear-gradient(to top, transparent 0%, hsl(240 9% 3% / 0.5) 40%, hsl(240 9% 2%) 100%)`. The middle stop at 40% introduces a semi-transparent dark layer that softens the transition. This is subtle — the 0.5 opacity at the midpoint means the section's own background still shows through, but the gradient is no longer a binary jump.
-
----
-
-## 4d. Bottom Fade into Footer — Precision Check
-
-**Current:** The bottom fade uses `linear-gradient(to bottom, transparent, hsl(240 9% 4%))` with `height: 80px`. The footer starts at `hsl(240 9% 2%)` with a `footer-fade-bridge` that extends 60px above.
-
-**Issue:** CrossOver fades to `hsl(240 9% 4%)` but the footer's base is `hsl(240 9% 2%)`. This 2% lightness difference creates a subtle but perceptible brightness bump at the seam. The CrossOver bottom fade should target the same color as the footer base.
-
-**Fix:** Change the bottom fade gradient from `hsl(240 9% 4%)` to `hsl(240 9% 2%)` — matching the footer's background exactly. This eliminates the brightness seam.
+**Fix:** Change `opacity-[0.12]` to `opacity-[0.10]`.
 
 ---
 
-## 4e. Section Vertical Gap — Zero-Gap Seam
+## 5c. Vignette Intensity — Tighten Edge Darkening
 
-**Current:** Both TheWitnesses and CrossOver have their own padding (`py-[80px] md:py-[120px]`). There is no explicit margin or gap between them in the page layout.
+**Current:** `radial-gradient(ellipse at center, transparent 0%, hsl(240 9% 2% / 0.6) 100%)`.
 
-**Assessment:** This is correct. The sections should sit flush — their respective fade overlays handle the visual transition. Adding any margin would create a visible gap between the fades. Confirmed: no change needed.
+**Issue:** The vignette at 0.6 opacity is moderate. For a section where the content is centered in a narrow `max-w-3xl` column, the vignette should be stronger to create a natural spotlight effect — darkening the periphery and drawing the eye inward toward the CTA. Increase to 0.75 opacity and tighten the transparent zone from 0% to start fading earlier.
+
+**Fix:** Change to `radial-gradient(ellipse at center, transparent 30%, hsl(240 9% 2% / 0.75) 100%)`. The transparent zone now extends to 30% (keeping the center bright) before fading aggressively to near-black at the edges.
+
+---
+
+## 5d. Warm Fog Layer — Elevate Glow Pool
+
+**Current:** `radial-gradient(ellipse at 50% 40%, hsl(var(--vow-yellow) / 0.02) 0%, transparent 50%)`.
+
+**Issue:** The warm fog sits at 50% 40% — slightly above center. For a section where the CTA button is the focal point (approximately at vertical center), the fog should center on the CTA position. Also, 0.02 opacity is barely perceptible. Increase to 0.03 to create a more visible warm halo behind the button area, reinforcing the "candlelight in a dark room" atmosphere.
+
+**Fix:** Change to `radial-gradient(ellipse at 50% 50%, hsl(var(--vow-yellow) / 0.03) 0%, transparent 50%)`. Centered vertically, slightly stronger warmth.
+
+---
+
+## 5e. Film Grain Opacity — Reduce for Content Clarity
+
+**Current:** `opacity-[0.08]` (8%) on the grain overlay.
+
+**Issue:** The brand standard calls for grain at 10-15% in Death-space sections. However, at 8% the grain is already at the lower end. For a section with small trust-anchor text at 14px and `/50` opacity, any additional grain noise competes with legibility. Keep 8% — this is correct for a content-heavy CTA section. No change needed.
+
+**Fix:** No change.
+
+---
+
+## 5f. Floating Dust Position — Asymmetric Atmosphere
+
+**Current:** `radial-gradient(circle 300px at 30% 40%, hsl(var(--vow-yellow) / 0.03) 0%, transparent 100%)`.
+
+**Issue:** The dust particle is positioned at 30% 40% — upper-left quadrant. This creates subtle asymmetry which is good — it prevents the section from feeling artificially centered. However, the 300px radius is small relative to the section width. Expand to 400px for a more diffuse atmospheric presence, and shift slightly right to 35% 35% to avoid overlapping with the top fade.
+
+**Fix:** Change to `radial-gradient(circle 400px at 35% 35%, hsl(var(--vow-yellow) / 0.03) 0%, transparent 100%)`.
+
+---
+
+## 5g. Content Z-Index Stack — Ensure Proper Layering
+
+**Current:** Content container has `relative z-10`. Atmospheric layers have no explicit z-index (defaulting to stacking order). Fades use `section-fade-top` / `section-fade-bottom` CSS classes.
+
+**Issue:** The z-index stack should be explicit to prevent any atmospheric layer from rendering above content. Currently the layers rely on DOM order, which is correct but fragile. Adding `z-[1]` to all atmospheric overlays ensures they never compete with `z-10` content, even if DOM order changes in future edits.
+
+**Fix:** Add `z-[1]` to the vignette, warm fog, and film grain overlay divs. The background image container stays at default (z-0). The dust particle stays at default. Content remains at `z-10`.
 
 ---
 
@@ -66,10 +80,13 @@ The CSS defines `.section-fade-top` at 120px height (80px on mobile). The CrossO
 
 | # | Element | Change | Rationale |
 |---|---------|--------|-----------|
-| 4a | Top fade direction | Confirmed correct | No change |
-| 4b | Top fade height | Add inline `height: 160px` | Smoother warm-to-dark transition |
-| 4c | Top fade gradient | Three-stop gradient with mid-opacity | Warm-to-cold temperature bridge |
-| 4d | Bottom fade color | `hsl(240 9% 4%)` to `hsl(240 9% 2%)` | Match footer base exactly |
-| 4e | Section gap | Confirmed zero-gap correct | No change |
+| 5a | Background image filter | `saturate(0.5)` to `saturate(0.9)`, add `brightness(0.75)` | Brand standard compliance, restore warmth |
+| 5b | Background image opacity | `0.12` to `0.10` | Increase content dominance |
+| 5c | Vignette gradient | Tighten to `transparent 30%`, increase to `0.75` | Spotlight effect on centered content |
+| 5d | Warm fog | Center to `50% 50%`, increase to `0.03` | Align glow with CTA position |
+| 5e | Film grain | Confirmed `0.08` correct | No change |
+| 5f | Dust particle | Expand radius to 400px, shift to `35% 35%` | More diffuse, avoid top-fade overlap |
+| 5g | Z-index stack | Add `z-[1]` to vignette, fog, grain | Explicit layering for content safety |
 
-**One file modified** (`CrossOver.tsx`). Three refinements to gradient transitions. Zero new dependencies. Pure atmospheric bridging.
+**One file modified** (`CrossOver.tsx`). Five atmospheric refinements, one z-index hardening, one confirmation. Zero new dependencies. Pure depth calibration.
+
