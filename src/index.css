@@ -4816,8 +4816,8 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
     0 8px 32px rgba(0,0,0,0.3),
     0 2px 0 rgba(0,0,0,0.08);
   transition:
-    transform 120ms cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 120ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 180ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 180ms cubic-bezier(0.4, 0, 0.2, 1),
     opacity 700ms ease,
     translate 700ms ease;
   contain: layout paint;
@@ -4870,7 +4870,7 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
     0 2px 0 rgba(0,0,0,0.08);
 }
 
-/* Active: press DOWN 3px with shadow collapse */
+/* Active: press DOWN 3px with shadow collapse + golden flash */
 .piano-white-key:active {
   transform: translateY(3px);
   box-shadow:
@@ -4878,7 +4878,21 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
     inset -2px 0 4px rgba(0,0,0,0.04),
     0 1px 3px rgba(0,0,0,0.3),
     0 4px 12px rgba(255,224,138,0.1),
+    0 0 8px rgba(255,224,138,0.08),
     inset 0 2px 4px rgba(0,0,0,0.04);
+  transition-duration: 60ms;
+}
+
+/* Hover: name becomes more present */
+.piano-white-key:hover .piano-key__name {
+  color: hsl(240 9% 4%);
+  transition: color 180ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Active: cascaded CTA tactile feedback */
+.piano-white-key:active .piano-key__cta--chosen,
+.piano-white-key:active .piano-key__cta--flanking {
+  transform: scale(0.97);
   transition-duration: 60ms;
 }
 
@@ -4935,8 +4949,15 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   box-shadow:
     0 1px 3px rgba(0,0,0,0.3),
     0 4px 12px rgba(255,224,138,0.1),
+    0 0 6px rgba(255,224,138,0.06),
     inset 0 2px 4px rgba(0,0,0,0.04);
   transition-duration: 60ms;
+}
+
+/* Mobile chosen key: vertical golden spine accent */
+.piano-white-key--mobile.piano-white-key--chosen {
+  border-top: none;
+  border-left: 2px solid hsl(var(--vow-yellow) / 0.35);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -5058,6 +5079,7 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   font-weight: 400;
   color: hsl(240 9% 10%);
   letter-spacing: 0.02em;
+  transition: color 180ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .piano-key__price {
@@ -5109,7 +5131,8 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 }
 .piano-key__cta--chosen:hover {
   background: hsl(240 9% 14%) !important;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25), 0 0 12px rgba(255,224,138,0.06);
+  transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .piano-key__cta--flanking {
@@ -5126,9 +5149,27 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   align-items: center;
   justify-content: center;
 }
+.piano-key__cta--flanking {
+  position: relative;
+  overflow: hidden;
+}
+.piano-key__cta--flanking::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.5), transparent);
+  transform: scaleX(0);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
 .piano-key__cta--flanking:hover {
   background: hsl(240 9% 8% / 0.05) !important;
   border-color: hsl(240 9% 50%) !important;
+}
+.piano-key__cta--flanking:hover::after {
+  transform: scaleX(1);
 }
 
 .piano-key__cta--chosen:active {
@@ -5155,6 +5196,12 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   border: 1px solid hsl(var(--vow-yellow) / 0.3);
   border-radius: 20px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.3), 0 0 20px rgba(255,224,138,0.06);
+  animation: badge-glow-breathe 4s ease-in-out infinite;
+}
+
+@keyframes badge-glow-breathe {
+  0%, 100% { box-shadow: 0 4px 16px rgba(0,0,0,0.3), 0 0 20px rgba(255,224,138,0.06); }
+  50% { box-shadow: 0 4px 16px rgba(0,0,0,0.3), 0 0 24px rgba(255,224,138,0.12); }
 }
 
 /* ─── Witness Kit breathing diamonds ─── */

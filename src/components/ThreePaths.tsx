@@ -39,8 +39,8 @@ const tiers: KeyTier[] = [
 ];
 
 /* Stagger: center first, then left, then right */
-const whiteKeyDelays = [550, 450, 650];
-const blackKeyDelays = [500, 600];
+const whiteKeyDelays = [530, 450, 610];
+const blackKeyDelays = [480, 560];
 
 function GoldenDiamond() {
   return (
@@ -76,7 +76,7 @@ function BlackKey({ delay, isVisible }: { delay: number; isVisible: boolean }) {
 function MobileGoldenThread() {
   return (
     <div
-      className="md:hidden h-[1px] w-16 mx-auto my-2"
+      className="md:hidden h-[1px] w-12 mx-auto my-4"
       style={{
         background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.25), transparent)",
       }}
@@ -92,7 +92,9 @@ export function ThreePaths() {
     <section
       id="three-paths"
       ref={sectionRef}
-      className="section--dark section-grain piano-section-target relative py-32 md:py-40 px-4 min-h-[500px]"
+      role="region"
+      aria-label="Pricing options"
+      className="section--dark section-grain piano-section-target relative py-[80px] md:py-[120px] px-4 min-h-[500px]"
     >
       {/* Top fade */}
       <div
@@ -144,23 +146,32 @@ export function ThreePaths() {
         aria-hidden="true"
       />
 
+      {/* Warm fog layer — atmospheric haze at 60% height */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at 50% 60%, hsl(var(--vow-yellow) / 0.02) 0%, transparent 50%)',
+        }}
+        aria-hidden="true"
+      />
+
       <div className="container mx-auto relative z-10">
         {/* Header — centered */}
         <div className="flex flex-col items-center mb-16">
           <p
             className={cn(
-              "text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4 w-full block text-center transition-all duration-700",
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              "font-sans text-xs uppercase tracking-[0.22em] text-muted-foreground mb-4 w-full block text-center transition-all duration-700",
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
             )}
           >
             THREE KEYS
           </p>
           <h2
             className={cn(
-              "text-[clamp(32px,4.5vw,44px)] font-display font-light leading-tight tracking-[0.01em] text-foreground transition-all duration-700",
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              "text-[clamp(30px,4.5vw,40px)] font-display font-light leading-tight tracking-[0.02em] text-foreground transition-all duration-700",
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
             )}
-            style={{ transitionDelay: isVisible ? "150ms" : "0ms", maxWidth: "18ch", margin: "0 auto" }}
+            style={{ transitionDelay: isVisible ? "120ms" : "0ms", maxWidth: "18ch", margin: "0 auto" }}
           >
             How deeply do you want me there.
           </h2>
@@ -173,7 +184,7 @@ export function ThreePaths() {
             )}
             style={{
               background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow)), transparent)",
-              transitionDelay: isVisible ? "400ms" : "0ms",
+              transitionDelay: isVisible ? "300ms" : "0ms",
             }}
             aria-hidden="true"
           />
@@ -188,7 +199,7 @@ export function ThreePaths() {
                 className={cn(
                   "piano-white-key flex-1 flex flex-col transition-all duration-700",
                   tier.isChosen && "piano-white-key--chosen",
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
                 )}
                 style={{ transitionDelay: isVisible ? `${whiteKeyDelays[i]}ms` : "0ms", paddingBottom: 40 }}
               >
@@ -282,12 +293,12 @@ export function ThreePaths() {
                 className={cn(
                   "piano-white-key piano-white-key--mobile flex flex-col justify-end transition-all duration-700",
                   tier.isChosen && "piano-white-key--chosen",
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
                 )}
                 style={{ transitionDelay: isVisible ? `${whiteKeyDelays[i]}ms` : "0ms", paddingBottom: 40 }}
               >
                 {tier.isChosen && (
-                  <div className="relative z-10 flex flex-col items-center -mt-4 mb-2">
+                  <div className="relative z-10 flex flex-col items-center -mt-2 mb-3">
                     <div className="paths-chosen-badge">
                       <span
                         className="inline-block"
@@ -352,7 +363,7 @@ export function ThreePaths() {
             "flex justify-center mb-4 mt-12 transition-all duration-700",
             isVisible ? "opacity-100" : "opacity-0"
           )}
-          style={{ transitionDelay: isVisible ? "900ms" : "0ms" }}
+          style={{ transitionDelay: isVisible ? "800ms" : "0ms" }}
           aria-hidden="true"
         >
           <GoldenDiamond />
@@ -361,10 +372,10 @@ export function ThreePaths() {
         <p
           className={cn(
             "text-center text-sm text-muted-foreground/60 max-w-lg mx-auto transition-all duration-700",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
           style={{
-            transitionDelay: isVisible ? "950ms" : "0ms",
+            transitionDelay: isVisible ? "880ms" : "0ms",
             textShadow: "0 1px 8px rgba(0,0,0,0.3)",
           }}
         >
