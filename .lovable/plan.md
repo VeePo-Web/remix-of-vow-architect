@@ -1,88 +1,60 @@
 
 
-# Step 13: Section Entry Transition — The Descent into Darkness
+# Step 14: Bottom Transition — The Crossing into the Covenant Close
 
-This step creates a cinematic, pixel-detailed transition from the warm Life space of TheWitnesses into the deep vigil darkness of The Crossing. The current transition is a simple 160px linear gradient fade. This step replaces it with a multi-layered, orchestrated descent that feels like walking from a sunlit room into a candlelit chapel.
+This step creates a cinematic exit transition from The Crossing into the Footer, completing the section's atmospheric containment. The top entry (Step 13) was a 240px descent into darkness. The bottom exit must feel like the final exhale — the moment after the commitment is made, settling into quiet permanence.
 
 ---
 
 ## The Vision
 
-The transition should feel like the moment when the doors close and the room goes quiet. The warm cream of TheWitnesses dissolves through a liminal threshold — not with a hard cut, but with a slow, breathing descent through layers of warmth fading into shadow. A golden thread marks the threshold. The visitor crosses from Life back into Death for the final sacred moment.
+The current bottom fade is a simple 80px two-stop gradient (`transparent → hsl(240 9% 2%)`). The Footer already has a `footer-fade-bridge` element at its top. The transition between these two sections should feel seamless — as if the visitor is sinking deeper into the same dark room, not crossing a boundary between two components.
 
 ---
 
-## 13a. Extended Transition Zone — 240px Gradient Sweep
+## 14a. Extended Bottom Fade — 120px, 4-Stop Gradient
 
-**Current:** `section-fade-top` at 160px with a simple two-stop linear gradient (`transparent 0% → hsl(240 9% 3% / 0.5) 40% → hsl(240 9% 2%) 100%`).
+**Current:** 80px, simple two-stop gradient.
 
-**Problem:** 160px is abrupt for a transition between the two most emotionally contrasting sections on the page (warm cream testimonials → deep dark final CTA). The gradient stops are functional but lack the layered warmth-to-cold shift that makes it feel like a physical descent.
-
-**Fix:** Extend the top fade to 240px and replace the gradient with a 5-stop transition that moves through intermediate warmth tones before settling into pure darkness:
+**Fix:** Extend to 120px with a 4-stop gradient that moves through intermediate dark tones, creating a slower dissolution:
 
 ```css
-background: linear-gradient(to top,
+background: linear-gradient(to bottom,
   transparent 0%,
-  hsl(240 9% 4% / 0.3) 20%,
-  hsl(240 9% 3% / 0.6) 45%,
-  hsl(240 9% 2% / 0.85) 70%,
+  hsl(240 9% 3% / 0.4) 30%,
+  hsl(240 9% 2% / 0.8) 65%,
   hsl(240 9% 2%) 100%
 );
-height: 240px;
+height: 120px;
 ```
 
-This creates a longer, more gradual descent — the visitor feels the warmth leaving the page over a greater distance.
+This creates a longer tail that dissolves the section's atmospheric layers (grain, glow, motes) more gradually.
 
 ---
 
-## 13b. Warm-to-Cold Intermediate Layer
+## 14b. Bottom Golden Thread — Mirroring the Threshold
 
-**New addition:** A second gradient overlay positioned at the top of CrossOver, behind the main fade, that introduces a warm amber glow at the very top of the section which dissipates as the visitor scrolls down. This creates the illusion of residual warmth from TheWitnesses bleeding into the darkness before being consumed.
+A second horizontal golden thread at the bottom of the section, mirroring the top threshold (13c). This creates a visual "bookend" — the section is framed between two golden threads, like the margins of an invitation.
 
-**Technique:** A radial gradient positioned at `50% 0%` (top-center) using a warm amber tone (`hsl(35 40% 50% / 0.04)`) that fades to transparent within the top 30% of the section. This is a static layer — no animation needed. It just sits there, a ghost of warmth.
+**Technique:** Absolutely positioned `div` at the bottom of the content area (above the bottom fade), `width: 60px` (slightly narrower than the top's 80px — the section contracts as it closes), `height: 1px`, centered. Same golden gradient and glow as the top thread, but with a slower breathing animation (6s instead of 4s) — the closing thread breathes more slowly, like a settling heartbeat.
 
----
-
-## 13c. Threshold Golden Thread — Horizontal Divider
-
-**New addition:** A 1px horizontal golden thread at the very top of the CrossOver section, positioned just below the top fade gradient. This thread marks the exact threshold — the moment the visitor crosses from Life into Death for the final time.
-
-**Technique:** An absolutely positioned `div` at `top: 240px` (below the fade zone), `width: 80px`, `height: 1px`, centered, using the standard golden thread gradient (`transparent → vow-yellow/0.25 → transparent`). It has a subtle glow bloom (`box-shadow: 0 0 12px hsl(var(--vow-yellow) / 0.1)`) and a 4s breathing opacity animation matching the brand standard.
-
-On scroll reveal, the thread scales from `scale-x-0` to `scale-x-100` over 700ms with sacred easing — the threshold draws itself open as the visitor arrives.
+Scale reveal triggered by `isVisible`, matching the top thread's sacred easing.
 
 ---
 
-## 13d. Top-Edge Vignette Darkening
+## 14c. Residual Warmth Bleed — Bottom Edge
 
-**Enhancement:** Add a subtle top-edge-specific vignette that darkens the top 20% of the section more aggressively than the radial center vignette. This creates a "hood" effect — the section feels like it has a ceiling of shadow pressing down from where TheWitnesses ended.
+A subtle radial glow at the bottom edge that "bleeds" downward, creating the illusion that the CTA button's warmth is seeping into the Footer space below.
 
-**Technique:** A linear gradient overlay from `hsl(240 9% 2% / 0.4)` at top to `transparent` at 25%. This layers on top of the existing radial vignette and top fade to create extra density at the entry point.
-
----
-
-## 13e. Ambient Entry Glow — Rising Warmth
-
-**New addition:** A very subtle warm glow that appears to "rise" from the content area below. Positioned at the vertical center of the section, this radial gradient creates the illusion that the CTA button's golden glow is already casting light upward into the transition zone.
-
-**Technique:** A radial gradient at `50% 60%` using `hsl(var(--vow-yellow) / 0.02)` with a large radius (80% horizontal, 50% vertical). This is so subtle it is nearly invisible in isolation — but combined with the other layers, it creates depth and the sense that the golden light below is reaching up through the darkness.
+**Technique:** A radial gradient at `50% 100%` (bottom-center) using `hsl(var(--vow-yellow) / 0.015)` — even more subtle than the top's warm-to-cold layer. This bridges the visual temperature between sections.
 
 ---
 
-## 13f. Reduced Motion and Performance
+## 14d. Bottom Vignette Intensification
 
-- All new layers use `pointer-events: none` and `aria-hidden="true"`
-- The threshold golden thread's breathing animation gets a `prefers-reduced-motion` fallback (`animation: none; opacity: 0.2;`)
-- No new `will-change` properties — the gradient overlays are static or opacity-only
-- The extended gradient height has zero performance impact (pure CSS compositing)
+Darken the bottom 15% of the section more aggressively to create a "floor" effect — the section feels like it has depth, not just a flat gradient edge.
 
----
-
-## Implementation
-
-**Files modified:**
-1. `CrossOver.tsx` — Update the top fade div's gradient and height, add the warm-to-cold layer, threshold thread, top vignette, and entry glow divs
-2. `index.css` — Add a new `crossover-threshold-breathe` keyframe (or reuse the existing `crossover-dust` animation for the thread breathing)
+**Technique:** A linear gradient overlay from `transparent` at 85% to `hsl(240 9% 2% / 0.3)` at 100%. This layers beneath the bottom fade to create extra density at the exit point.
 
 ---
 
@@ -90,12 +62,10 @@ On scroll reveal, the thread scales from `scale-x-0` to `scale-x-100` over 700ms
 
 | # | Enhancement | Technique | Impact |
 |---|------------|-----------|--------|
-| 13a | Extended gradient sweep | 240px, 5-stop gradient | Longer, more gradual descent |
-| 13b | Warm-to-cold layer | Radial amber at top, 4% opacity | Residual warmth from previous section |
-| 13c | Threshold golden thread | 80px horizontal, breathing, scale reveal | Sacred threshold marker |
-| 13d | Top-edge vignette | Linear gradient darkening top 25% | "Hood" shadow ceiling |
-| 13e | Rising entry glow | Radial vow-yellow at center, 2% | CTA light reaching upward |
-| 13f | Reduced motion | Fallbacks for thread animation | Accessibility |
+| 14a | Extended bottom fade | 120px, 4-stop gradient | Slower, more gradual exit |
+| 14b | Bottom golden thread | 60px, mirrored bookend | Section framing, visual closure |
+| 14c | Residual warmth bleed | Radial glow at bottom edge | Temperature bridge to Footer |
+| 14d | Bottom vignette floor | Linear gradient darkening | Depth at exit point |
 
-Six transition refinements. The visitor no longer "arrives" at The Crossing — they descend into it. The warm world dissolves. The darkness gathers. And at the threshold, a golden thread draws itself open, marking the final crossing.
+**One file modified:** `CrossOver.tsx`. Four refinements. The section is now fully contained — entered through a 240px descent, exited through a 120px dissolution, framed between two breathing golden threads. A sacred room with a ceiling and a floor.
 
