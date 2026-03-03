@@ -1,117 +1,179 @@
 
 
-# Black Keys — Extreme Depth Enhancement
+# THE COVENANT KEPT — Detail-Oriented Design Overhaul
 
-## Current State
+## Current State Assessment
 
-The black keys are 64px wide (72px on lg), 320px tall (360px on lg), with a basic two-layer gradient, side borders, a `::before` top-face gloss, and a `::after` bottom shadow. They read as flat dark rectangles rather than 3D ebony keys protruding from the keybed.
+The section currently has: a warm cream background with Ken Burns image, vignette layers, film grain, three testimonial cards with frosted glass effect, golden thread separators, and a closing semicolon. The structure is sound but lacks the depth, material richness, and ceremonial weight that the brand demands. The cards read as translucent web elements, not as sacred testimony. The typography hierarchy is flat, and the atmospheric layers need refinement.
 
-## What Real Piano Black Keys Look Like
+## 15 Refinements Across 2 Files
 
-A real black key is a raised, beveled block of ebony. It has:
-- A distinct **flat top playing surface** (lighter, catches overhead light)
-- **Beveled side edges** that transition from the top face to the front face at an angle
-- **Deep lateral shadows** cast onto the neighboring white keys
-- A **glossy sheen** — ebony reflects a soft highlight stripe along its length
-- **Pronounced vertical depth** — the key visually "pops out" above the white key surface
+---
 
-## 10 Refinements (all in `src/index.css`)
+### File: `src/index.css` (9 changes)
 
-### 1. Increase z-index and add translateZ for visual pop
-Add `transform: translateY(-4px)` to the base `.piano-black-key` so it visually lifts above the white key surface. This creates immediate spatial separation.
-
-### 2. Deepen and layer the box-shadow for cast shadows
-Replace the current two-shadow stack with a five-layer shadow that simulates:
-- Contact shadow (tight, dark, 2px blur)
-- Near shadow (medium, 8px blur)
-- Ambient shadow (wide, 24px blur)
-- Lateral spread shadows (left and right, 4px x-offset)
-- Bottom pool (40px blur, wide spread)
+**1. Testimonial Card — Letterpress Paper Material**
+Replace the frosted glass background with a warm invitation-paper material. Real letterpress cards have visible paper texture, subtle embossed edges, and a warm ivory surface that catches light asymmetrically.
 
 ```css
-box-shadow:
-  0 2px 4px rgba(0,0,0,0.6),
-  0 8px 16px rgba(0,0,0,0.5),
-  0 16px 40px rgba(0,0,0,0.4),
-  -3px 4px 12px rgba(0,0,0,0.35),
-  3px 4px 12px rgba(0,0,0,0.35);
+.witnesses-testimonial-card {
+  background:
+    radial-gradient(ellipse at 15% 15%, hsl(var(--vow-yellow) / 0.05), transparent 50%),
+    radial-gradient(ellipse at 85% 85%, hsl(45 30% 88% / 0.3), transparent 50%),
+    hsl(45 25% 96% / 0.85);
+  backdrop-filter: blur(8px);
+  border: none;
+  border-left: 3px solid hsl(var(--vow-yellow) / 0.15);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.25),
+    inset 0 -1px 0 rgba(0,0,0,0.03),
+    0 1px 2px rgba(0,0,0,0.04),
+    0 4px 16px rgba(0,0,0,0.06),
+    0 12px 40px rgba(0,0,0,0.04);
+  padding: 2.5rem 2rem;
+  border-radius: 4px;
+}
 ```
+The inset top highlight and bottom darken simulate the paper edge catching overhead light. The triple-layer external shadow creates depth without harshness. `border-radius: 4px` (not 8px+) maintains reverence.
 
-### 3. Enhance the top-face plane with a distinct bevel edge
-The `::before` currently covers 15% height. Reduce to 8% and increase brightness to simulate the flat top surface catching direct overhead light. Add a stronger `border-bottom` (2px) to create the bevel edge where the top face meets the front face:
+**2. Testimonial Card Hover — Subtle Lift with Golden Warmth**
+Refine the hover to a 2px lift with expanded golden shadow pool and a slight warmth increase:
 
 ```css
-.piano-black-key::before {
-  height: 8%;
-  background: linear-gradient(180deg,
-    rgba(255,255,255,0.14) 0%,
-    rgba(255,255,255,0.08) 40%,
-    rgba(255,255,255,0.02) 100%
-  );
-  border-bottom: 2px solid rgba(255,255,255,0.06);
+.witnesses-testimonial-card:hover {
+  transform: translateY(-2px) rotate(0deg) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.3),
+    inset 0 -1px 0 rgba(0,0,0,0.03),
+    0 2px 4px rgba(0,0,0,0.05),
+    0 8px 24px rgba(0,0,0,0.07),
+    0 16px 48px rgba(0,0,0,0.04),
+    0 0 24px rgba(255,224,138,0.06);
 }
 ```
 
-### 4. Add a glossy highlight stripe along the front face
-Real ebony has a longitudinal sheen. Add a vertical highlight to the base gradient using an additional `linear-gradient` layer — a narrow bright stripe running down the center:
+**3. Quote Mark Ornament Enhancement**
+Add a CSS rule for a larger, more luminous quote mark glow behind the SVG motif to create a "warm candle pool" behind each testimonial:
 
 ```css
-background:
-  linear-gradient(90deg, transparent 35%, rgba(255,255,255,0.04) 48%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.04) 52%, transparent 65%),
-  linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 20%),
-  linear-gradient(180deg, hsl(222 12% 12%) 0%, hsl(240 9% 6%) 85%, hsl(240 9% 4%) 100%);
-```
-
-### 5. Deepen the bottom drop shadow
-The `::after` currently has `rgba(0,0,0,0.2)` at 6px. Increase to 10px height and `rgba(0,0,0,0.35)` with a wider spread to create a more pronounced grounding shadow:
-
-```css
-.piano-black-key::after {
-  bottom: -10px;
-  left: 2px;
-  right: 2px;
-  height: 10px;
-  background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.1) 40%, transparent 100%);
+.witnesses-testimonial-card::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 40px;
+  background: radial-gradient(ellipse, hsl(var(--vow-yellow) / 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
 }
 ```
 
-### 6. Add side bevel gradients via border refinement
-Strengthen the side borders to simulate beveled edges. The left border should be slightly lighter (light source from left), the right slightly darker:
+**4. Golden Thread Separators — Wider with Endpoint Diamonds**
+Increase the breathing thread width from `w-20` (80px) to `w-32` (128px) and add diamond endpoints via CSS pseudo-elements:
 
 ```css
-border-left: 1px solid hsl(222 12% 20%);
-border-right: 1px solid hsl(222 12% 12%);
+.witnesses-thread-breathing::before,
+.witnesses-thread-breathing::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  background: hsl(var(--vow-yellow) / 0.35);
+  transform: translateY(-50%) rotate(45deg);
+}
+.witnesses-thread-breathing::before { left: -6px; }
+.witnesses-thread-breathing::after { right: -6px; }
+.witnesses-thread-breathing {
+  position: relative;
+}
 ```
 
-### 7. Add inner side shadows for concavity
-Add `inset` side shadows to create the illusion that the side faces angle inward:
+**5. Semicolon Sacred Object — Golden Glow Pool**
+Add a radial glow beneath the semicolon to make it feel like a lit sacred object rather than a character:
 
 ```css
-/* Add to box-shadow stack: */
-inset 2px 0 4px rgba(0,0,0,0.3),
-inset -2px 0 4px rgba(0,0,0,0.3),
+.witnesses-semicolon::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 16px;
+  background: radial-gradient(ellipse, hsl(var(--vow-yellow) / 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+.witnesses-semicolon {
+  position: relative;
+}
 ```
 
-### 8. Bottom edge highlight for keybed contact
-Add a 1px bottom highlight to simulate where the key meets the keybed — a faint light line that real keys show at the contact point:
+**6. Ken Burns Keyframe Refinement**
+The current Ken Burns only scales. Add a subtle translate to create a drift effect, not just zoom:
 
 ```css
-border-bottom: 1px solid rgba(255,255,255,0.08);
+@keyframes witnesses-ken-burns {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.06) translate(-0.5%, -0.3%); }
+}
 ```
 
-### 9. Increase height slightly for more pop
-At 320px (360px lg), the black keys are roughly 53% of the white key height (600px). Real piano proportions have black keys at ~60% of white key length. Increase to 350px base, 390px lg.
+**7. Card Grain Texture Overlay**
+Add a grain layer specifically inside testimonial cards to give them paper-like tactile depth:
 
-### 10. Responsive refinement
-On the lg breakpoint, scale all shadow values up proportionally and increase the width to 76px to maintain the proportion against the wider white keys.
+```css
+.witnesses-testimonial-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+```
+
+**8. Vignette Refinement for Life Space**
+The current vignette fades to `hsl(45 20% 93% / 0.7)`. Strengthen this to create a more pronounced "room" feeling with warmer edges:
+
+Updated in `TheWitnesses.tsx` (inline style change).
+
+**9. Reduced Motion Updates**
+Ensure all new animations and pseudo-elements degrade gracefully under `prefers-reduced-motion`.
+
+---
+
+### File: `src/components/TheWitnesses.tsx` (6 changes)
+
+**10. Heading Typography Refinement**
+The heading "The music stayed with them" is good but the "stayed" underline glow needs to be stronger. Increase the underline base opacity from `0.5` to `0.65` and the glow from `0.2` to `0.3`. Also add `letter-spacing: 0.01em` to the heading for micro-refinement.
+
+**11. Expand Section Padding**
+Change `section-padding-standard` to explicit `py-[120px]` (fitz-10) for grand section separation. The current standard padding may be too tight for a "Life space" exhale section.
+
+**12. Widen Testimonial Container**
+Change `max-w-3xl` (768px) to `max-w-2xl` (672px) for testimonial quotes. Narrower quote columns create more intimate, reverent reading — like a page from a journal. The quotes will have more generous side margins, creating breathing room.
+
+**13. Golden Thread Width**
+Change the separator divs from `w-20` to `w-32` and add the `relative` class for the diamond endpoint pseudo-elements.
+
+**14. Attribution Typography Hierarchy**
+The names are at `14px italic` and venue at `12px uppercase`. Refine: change the em dash separator to a golden diamond micro-ornament (`<span>` with vow-yellow), increase the name to `15px`, and add `letter-spacing: 0.06em` to the venue for more refined tracking.
+
+**15. Vignette and Atmospheric Depth**
+Strengthen the warm vignette from `0.7` to `0.8` opacity. Add a second warm glow pool centered higher in the section (`at 50% 20%`) to create the sense of overhead candlelight illuminating the testimonials from above. Increase the film grain opacity from `0.04` to `0.06` for more tactile presence.
+
+---
 
 ## Summary
 
-Single file modified: `src/index.css`
-- Base `.piano-black-key`: new multi-layer background with center sheen, 5-layer box-shadow with inset + lateral shadows, `translateY(-4px)`, increased height (350px/390px), refined borders
-- `.piano-black-key::before`: reduced to 8% height, brighter highlight, 2px bevel edge
-- `.piano-black-key::after`: deeper drop shadow (10px, darker opacity)
-- `@media (min-width: 1024px)` `.piano-black-key`: updated to 76px width, 390px height
+Two files modified:
+- `src/index.css` — 9 CSS refinements (card material, hover depth, quote ornament glow, thread diamonds, semicolon glow pool, Ken Burns drift, card grain texture, reduced motion)
+- `src/components/TheWitnesses.tsx` — 6 TSX refinements (heading typography, section padding, container width, thread width, attribution hierarchy, atmospheric depth)
 
-No TSX changes needed. No new dependencies. Pure CSS material depth enhancement.
+No new dependencies. No new components. Pure refinement of existing structure to achieve material depth, typographic precision, and atmospheric richness.
 
