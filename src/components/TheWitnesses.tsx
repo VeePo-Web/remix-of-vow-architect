@@ -15,7 +15,7 @@ export function TheWitnesses() {
       id="the-witnesses"
       ref={sectionRef}
       data-theme="life"
-      className="relative py-[120px] piano-section-target overflow-hidden"
+      className="relative py-[80px] md:py-[120px] piano-section-target overflow-hidden"
       style={{
         background: 'linear-gradient(180deg, hsl(45 25% 96%) 0%, hsl(45 20% 93%) 100%)',
       }}
@@ -45,7 +45,7 @@ export function TheWitnesses() {
           <div className="text-center mb-20">
             <p
               className={cn(
-                "text-xs uppercase tracking-[0.22em] text-muted-foreground mb-4 transition-all duration-700",
+                "font-sans text-xs uppercase tracking-[0.22em] text-muted-foreground mb-4 transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
             >
@@ -53,7 +53,7 @@ export function TheWitnesses() {
             </p>
             <div
               className={cn(
-                "h-[2px] w-8 mx-auto mb-6 rounded-full transition-all duration-700",
+                "h-px w-8 mx-auto mb-6 transition-all duration-700",
                 isVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
               )}
               style={{
@@ -68,8 +68,8 @@ export function TheWitnesses() {
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{
-                fontSize: "clamp(32px, 5vw, 48px)",
-                letterSpacing: "0.01em",
+                fontSize: "clamp(30px, 4.5vw, 40px)",
+                letterSpacing: "0.02em",
                 transitionDelay: isVisible ? "200ms" : "0ms",
                 textWrap: "balance" as any,
               }}
@@ -85,6 +85,7 @@ export function TheWitnesses() {
                   style={{
                     background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.65), hsl(var(--vow-yellow) / 0.2))",
                     boxShadow: isVisible ? "0 0 10px hsl(var(--vow-yellow) / 0.3)" : "none",
+                    borderRadius: "1px",
                     transitionDelay: isVisible ? "700ms" : "0ms",
                     transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
                   }}
@@ -105,11 +106,11 @@ export function TheWitnesses() {
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
                 )}
                 style={{
-                  transitionDelay: isVisible ? `${400 + index * 250}ms` : "0ms",
+                  transitionDelay: isVisible ? `${400 + index * 120}ms` : "0ms",
                 }}
               >
                 <blockquote
-                  className="font-display font-light italic leading-relaxed mb-6 text-foreground/90 text-2xl"
+                  className="font-display font-light italic leading-relaxed mb-6 text-foreground/90 text-2xl max-w-[22ch] mx-auto"
                   style={{ textWrap: "balance" as any }}
                 >
                   &ldquo;{testimonial.quote}&rdquo;
@@ -122,8 +123,19 @@ export function TheWitnesses() {
                   >
                     {testimonial.names}
                   </p>
+                  {/* Golden diamond micro-ornament */}
+                  <span
+                    className="inline-block mx-auto my-1"
+                    style={{
+                      width: "3px",
+                      height: "3px",
+                      transform: "rotate(45deg)",
+                      background: "hsl(var(--vow-yellow) / 0.2)",
+                    }}
+                    aria-hidden="true"
+                  />
                   <p
-                    className="font-display text-foreground/50 mt-1"
+                    className="font-display text-foreground/50"
                     style={{ fontSize: "12px", letterSpacing: "0.06em", textTransform: "uppercase" }}
                   >
                     {testimonial.venue}
@@ -134,12 +146,12 @@ export function TheWitnesses() {
                 {index < testimonials.length - 1 && (
                   <div
                     className={cn(
-                      "mt-16 h-px w-8 mx-auto transition-all duration-700",
-                      isVisible ? "opacity-30 scale-x-100" : "opacity-0 scale-x-0"
+                      "mt-16 h-px w-12 mx-auto transition-all duration-700",
+                      isVisible ? "opacity-40 scale-x-100" : "opacity-0 scale-x-0"
                     )}
                     style={{
                       background: "hsl(var(--vow-yellow))",
-                      transitionDelay: isVisible ? `${600 + index * 250}ms` : "0ms",
+                      transitionDelay: isVisible ? `${600 + index * 120}ms` : "0ms",
                     }}
                     aria-hidden="true"
                   />
@@ -157,10 +169,10 @@ export function TheWitnesses() {
             style={{ transitionDelay: isVisible ? "1100ms" : "0ms" }}
           >
             <span
-              className="font-display inline-block select-none"
+              className="font-display inline-block select-none witnesses-vigil-pulse"
               style={{
                 fontSize: "28px",
-                color: "hsl(var(--vow-yellow) / 0.25)",
+                color: "hsl(var(--vow-yellow) / 0.35)",
                 lineHeight: 1,
               }}
               aria-hidden="true"

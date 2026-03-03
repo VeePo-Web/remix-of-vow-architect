@@ -5769,3 +5769,20 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 .witness-label-thread {
   animation: witness-thread-breathe 4s ease-in-out infinite;
 }
+
+/* ── Witnesses: Vigil Pulse (semicolon breathing) ── */
+@keyframes witnesses-vigil-pulse {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.4; }
+}
+
+.witnesses-vigil-pulse {
+  animation: witnesses-vigil-pulse 4000ms ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .witnesses-vigil-pulse {
+    animation: none;
+    opacity: 0.35;
+  }
+}
