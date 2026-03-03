@@ -126,7 +126,7 @@ export function TheWitness() {
       data-theme="life"
       role="region"
       aria-label="The Preparation"
-      className="relative section--surface section-padding-standard piano-section-target overflow-hidden min-h-[400px]"
+      className="relative section--surface py-[80px] md:py-[120px] piano-section-target overflow-hidden min-h-[400px]"
       style={{
         background: "linear-gradient(180deg, hsl(40 18% 94%) 0%, hsl(45 22% 95%) 45%, hsl(38 15% 90%) 100%)",
         // @ts-ignore
@@ -232,7 +232,7 @@ export function TheWitness() {
             ref={imageColRef}
             className={cn(
               "witness-image-frame relative rounded-lg overflow-hidden",
-              "aspect-[3/4] md:aspect-auto md:min-h-[520px]",
+              "aspect-[4/3] md:aspect-auto md:min-h-[480px]",
               !revealDone && "transition-all duration-[900ms]",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             )}
@@ -246,7 +246,7 @@ export function TheWitness() {
               alt="Piano prepared for a wedding ceremony"
               className="absolute inset-0 w-full h-full object-cover"
               style={{
-                opacity: 0.35,
+                opacity: 0.28,
                 animation: 'witness-ken-burns 30s ease-in-out infinite alternate',
                 filter: 'saturate(0.7) sepia(0.15) contrast(1.1)',
                 willChange: 'transform',
@@ -294,8 +294,8 @@ export function TheWitness() {
             {/* Step 7: Label with diamond prefix */}
             <p
               className={cn(
-                "text-xs uppercase tracking-[0.28em] text-muted-foreground mb-0 transition-all duration-700 flex items-center gap-2",
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                "text-xs font-sans uppercase tracking-[0.22em] text-muted-foreground mb-0 transition-all duration-700 flex items-center gap-2",
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
               )}
               style={{
                 opacity: isVisible ? 'calc(0.55 + var(--witness-warmth, 0) * 0.15)' : undefined,
@@ -315,7 +315,7 @@ export function TheWitness() {
                 "flex justify-start my-3 transition-all duration-700",
                 isVisible ? "opacity-100 scale-y-100" : "opacity-0 scale-y-0"
               )}
-              style={{ transitionDelay: isVisible ? "150ms" : "0ms" }}
+              style={{ transitionDelay: isVisible ? "100ms" : "0ms" }}
               aria-hidden="true"
             >
               <div
@@ -355,8 +355,8 @@ export function TheWitness() {
               />
               <h2
                 className={cn(
-                  "text-[clamp(28px,4vw,40px)] font-display font-light leading-tight transition-all duration-700",
-                  isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-4 scale-[0.97]"
+                   "text-[clamp(30px,4.5vw,40px)] font-display font-light leading-tight tracking-[0.02em] transition-all duration-700",
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
                 )}
                 style={{
                   transitionDelay: isVisible ? "200ms" : "0ms",
@@ -389,8 +389,8 @@ export function TheWitness() {
             {/* Step 8: Introductory paragraph — Parker's voice */}
             <p
               className={cn(
-                "text-base md:text-lg leading-relaxed text-foreground/65 max-w-[42ch] mb-10 transition-all duration-700",
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                "text-base md:text-lg leading-relaxed text-foreground/70 max-w-[38ch] mb-10 transition-all duration-700",
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
               )}
               style={{ transitionDelay: isVisible ? "350ms" : "0ms" }}
             >
@@ -398,7 +398,7 @@ export function TheWitness() {
             </p>
 
             {/* Step 4: Declaration Cards with Golden Thread Connector */}
-            <div className="witness-declarations-container relative mb-8 md:mb-12">
+            <div className="witness-declarations-container relative mb-10 md:mb-14">
               {/* Vertical golden thread behind declarations */}
               <div
                 className="witness-golden-thread absolute left-4 md:left-5 top-4 bottom-4 w-[1px] pointer-events-none"
@@ -417,7 +417,7 @@ export function TheWitness() {
                       isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-[-12px]"
                     )}
                     style={{
-                      transitionDelay: isVisible ? `${350 + index * 150}ms` : "0ms",
+                      transitionDelay: isVisible ? `${500 + index * 100}ms` : "0ms",
                       background: 'linear-gradient(180deg, hsl(45 25% 96% / 0.7) 0%, hsl(42 18% 90% / 0.5) 100%)',
                       border: '1px solid hsl(45 20% 85% / 0.25)',
                       borderTop: '1px solid hsl(45 30% 92% / 0.5)',
@@ -432,7 +432,7 @@ export function TheWitness() {
                       style={{
                         background: 'hsl(var(--vow-yellow) / 0.45)',
                         boxShadow: '0 0 6px hsl(var(--vow-yellow) / 0.15)',
-                        animationDelay: isVisible ? `${450 + index * 150}ms` : '0ms',
+                        animationDelay: isVisible ? `${600 + index * 100}ms` : '0ms',
                       }}
                       aria-hidden="true"
                     />
@@ -452,7 +452,7 @@ export function TheWitness() {
               )}
               style={{
                 background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.4), transparent)",
-                transitionDelay: isVisible ? "700ms" : "0ms",
+                transitionDelay: isVisible ? "850ms" : "0ms",
               }}
               aria-hidden="true"
             />
@@ -460,10 +460,10 @@ export function TheWitness() {
             {/* Step 8: Transitional sentence bridging declarations to kit */}
             <p
               className={cn(
-                "font-display text-sm md:text-base font-light italic text-foreground/50 mb-4 md:mb-6 transition-all duration-700",
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                "font-display text-sm md:text-base font-light italic text-foreground/55 mb-4 md:mb-6 transition-all duration-700",
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
               )}
-              style={{ transitionDelay: isVisible ? "750ms" : "0ms" }}
+              style={{ transitionDelay: isVisible ? "900ms" : "0ms" }}
             >
               And this is what I carry with me.
             </p>
@@ -472,9 +472,9 @@ export function TheWitness() {
             <div
               className={cn(
                 "relative transition-all duration-700",
-                isVisible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-4 scale-[0.98]"
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
               )}
-              style={{ transitionDelay: isVisible ? "800ms" : "0ms" }}
+              style={{ transitionDelay: isVisible ? "950ms" : "0ms" }}
             >
               {/* Keys texture behind entire kit */}
               <div className="absolute inset-0 -m-4 rounded-lg overflow-hidden pointer-events-none" aria-hidden="true">
@@ -490,7 +490,7 @@ export function TheWitness() {
               {/* Step 10B: Kit grain overlay for tactile depth */}
               <div className="absolute inset-0 -m-4 rounded-lg grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
 
-              <p className="font-display text-sm md:text-base font-light text-foreground/55 mb-5 relative z-10">
+              <p className="font-sans text-sm md:text-base text-foreground/55 mb-4 relative z-10">
                 Everything I bring.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 relative z-10">
@@ -503,13 +503,11 @@ export function TheWitness() {
                       isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
                     )}
                     style={{
-                      transitionDelay: isVisible ? `${900 + index * 80}ms` : "0ms",
+                      transitionDelay: isVisible ? `${1050 + index * 80}ms` : "0ms",
                       background: 'linear-gradient(180deg, hsl(45 24% 95% / 0.6) 0%, hsl(42 18% 91% / 0.4) 100%)',
                       border: '1px solid hsl(45 20% 85% / 0.25)',
                       borderTop: '1px solid hsl(45 28% 93% / 0.45)',
-                      boxShadow: index < 2
-                        ? '0 1px 2px -1px hsl(40 20% 50% / 0.05), inset 0 1px 0 hsl(0 0% 100% / 0.1), inset 2px 0 6px -2px hsl(var(--vow-yellow) / 0.06)'
-                        : undefined,
+                    
                     }}
                   >
                     {/* Diamond icon */}
@@ -522,7 +520,7 @@ export function TheWitness() {
                       }}
                       aria-hidden="true"
                     />
-                    <span className="text-xs uppercase tracking-[0.18em] font-display text-muted-foreground group-hover:text-foreground transition-colors duration-[180ms] text-center">
+                    <span className="text-xs font-sans uppercase tracking-[0.22em] text-muted-foreground group-hover:text-foreground transition-colors duration-[180ms] text-center">
                       {item}
                     </span>
                   </div>
@@ -536,7 +534,7 @@ export function TheWitness() {
                 "flex justify-center my-6 md:my-10 transition-all duration-700",
                 isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
               )}
-              style={{ transitionDelay: isVisible ? "900ms" : "0ms" }}
+              style={{ transitionDelay: isVisible ? "1500ms" : "0ms" }}
               aria-hidden="true"
             >
               <div
@@ -567,7 +565,7 @@ export function TheWitness() {
                 )}
                 style={{
                   background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.5), hsl(var(--vow-yellow) / 0.15))",
-                  transitionDelay: isVisible ? "950ms" : "0ms",
+                  transitionDelay: isVisible ? "1550ms" : "0ms",
                 }}
                 aria-hidden="true"
               />
@@ -577,11 +575,11 @@ export function TheWitness() {
                 className={cn(
                   "witness-closing-quote text-lg md:text-xl font-display font-light text-foreground/80 relative z-10 leading-relaxed",
                   "transition-[opacity,transform,filter] duration-700",
-                  isVisible
+                   isVisible
                     ? "opacity-100 translate-y-0 blur-0"
-                    : "opacity-0 translate-y-4 blur-[4px]"
+                    : "opacity-0 translate-y-[12px] blur-[4px]"
                 )}
-                style={{ transitionDelay: isVisible ? "1000ms" : "0ms" }}
+                style={{ transitionDelay: isVisible ? "1600ms" : "0ms" }}
               >
                 Now{"\u2014"}choose how long you want me there.
               </p>
@@ -590,12 +588,12 @@ export function TheWitness() {
               <a
                 href="#three-paths"
                 className={cn(
-                  "witness-ghost-cta inline-flex items-center gap-2 mt-4 md:mt-5 text-xs uppercase tracking-[0.18em] font-display",
+                  "witness-ghost-cta inline-flex items-center gap-2 mt-4 md:mt-5 text-xs font-sans uppercase tracking-[0.22em]",
                   "text-muted-foreground hover:text-foreground relative z-10",
                   "transition-[opacity,transform,color] duration-700",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
                 )}
-                style={{ transitionDelay: isVisible ? "1100ms" : "0ms" }}
+                style={{ transitionDelay: isVisible ? "1700ms" : "0ms" }}
               >
                 See my three paths
                 <span className="inline-block w-4 h-[1px] bg-current opacity-40" aria-hidden="true" />
