@@ -62,7 +62,7 @@ function BlackKey({ delay, isVisible }: { delay: number; isVisible: boolean }) {
   return (
     <div
       className={cn(
-        "piano-black-key hidden md:flex items-start justify-center pt-12 -mx-3 lg:-mx-4 transition-all duration-700",
+        "piano-black-key hidden md:flex items-start justify-center pt-12 -mx-4 lg:-mx-5 transition-all duration-700",
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
       )}
       style={{ transitionDelay: isVisible ? `${delay}ms` : "0ms" }}
@@ -106,7 +106,7 @@ export function ThreePaths() {
         <img
           src={pathsPianoCandle}
           alt=""
-          className="absolute inset-0 w-full h-full object-cover opacity-[0.10] pointer-events-none"
+          className="absolute inset-0 w-full h-full object-cover opacity-[0.14] pointer-events-none"
           style={{
             animation: 'paths-ken-burns 30s ease-in-out infinite alternate',
             filter: 'saturate(0.6) sepia(0.1) contrast(1.05)',
@@ -121,7 +121,7 @@ export function ThreePaths() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at 50% 45%, hsl(var(--vow-yellow) / 0.035) 0%, transparent 55%)',
+          background: 'radial-gradient(ellipse at 50% 45%, hsl(var(--vow-yellow) / 0.06) 0%, transparent 55%)',
         }}
         aria-hidden="true"
       />
@@ -130,7 +130,7 @@ export function ThreePaths() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 30%, hsl(240 9% 4%) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 20%, hsl(240 9% 4%) 100%)',
         }}
         aria-hidden="true"
       />
@@ -183,9 +183,9 @@ export function ThreePaths() {
                 )}
                 style={{ transitionDelay: isVisible ? `${whiteKeyDelays[i]}ms` : "0ms" }}
               >
-                {/* MOST CHOSEN badge — elevated with connecting thread */}
+                {/* MOST CHOSEN badge — inside key padding for visibility */}
                 {tier.isChosen && (
-                  <div className="absolute -top-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center">
+                  <div className="relative z-10 flex flex-col items-center -mt-6 mb-2">
                     <div className="paths-chosen-badge">
                       <span
                         className="inline-block"
@@ -228,8 +228,8 @@ export function ThreePaths() {
 
                 {/* Golden underline */}
                 <div
-                  className="h-[1px] w-12 mt-2 mb-6"
-                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.4 : 0.25}), hsl(var(--vow-yellow) / 0.1), transparent)` }}
+                  className="h-[2px] w-12 mt-2 mb-6"
+                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.6 : 0.5}), hsl(var(--vow-yellow) / 0.15), transparent)` }}
                   aria-hidden="true"
                 />
 
@@ -314,8 +314,8 @@ export function ThreePaths() {
 
                 <h3 className="piano-key__name">{tier.name}</h3>
                 <div
-                  className="h-[1px] w-12 mt-2 mb-4"
-                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.4 : 0.25}), hsl(var(--vow-yellow) / 0.1), transparent)` }}
+                  className="h-[2px] w-12 mt-2 mb-4"
+                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.6 : 0.5}), hsl(var(--vow-yellow) / 0.15), transparent)` }}
                   aria-hidden="true"
                 />
                 <span className="piano-key__price" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.06)' }}>{tier.price}</span>
