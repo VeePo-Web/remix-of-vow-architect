@@ -15,6 +15,7 @@ const pageConfig: Record<string, string> = {
 export function MobileStickyBar() {
   const [isVisible, setIsVisible] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isFooterCtaVisible, setIsFooterCtaVisible] = useState(false);
   const location = useLocation();
 
   // Hide entirely on contact page
@@ -33,14 +34,26 @@ export function MobileStickyBar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Fade out when footer CTA becomes visible — avoid duplicate CTAs
+  useEffect(() => {
+    const bookend = document.querySelector('[data-footer-bookend]');
+    if (!bookend) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsFooterCtaVisible(entry.isIntersecting),
+      { threshold: 0.3 }
+    );
+    observer.observe(bookend);
+    return () => observer.disconnect();
+  }, []);
+
   if (isContact) return null;
 
   const leftText = pageConfig[location.pathname] || "I would be honored to be there";
 
   return (
     <div 
-      className={`md:hidden fixed bottom-0 left-0 right-0 z-40 backdrop-blur-md overflow-hidden transition-transform duration-[260ms] ease-[cubic-bezier(0.22,0.61,0.36,1)] ${
-        isVisible ? 'translate-y-0' : 'translate-y-full'
+      className={`md:hidden fixed bottom-0 left-0 right-0 z-40 backdrop-blur-md overflow-hidden transition-all duration-[260ms] ease-[cubic-bezier(0.22,0.61,0.36,1)] ${
+        isVisible && !isFooterCtaVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
       }`}
       style={{
         background: "hsl(var(--rich-black) / 0.95)",

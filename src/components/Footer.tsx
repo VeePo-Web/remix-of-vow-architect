@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { NavLink } from "@/components/NavLink";
 import { Mail, Phone, Instagram, Youtube } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
@@ -7,6 +8,23 @@ import { Link } from "react-router-dom";
 
 export function Footer() {
   const { ref: footerRef, isVisible } = useScrollReveal({ threshold: 0.15 });
+  const [isArrival, setIsArrival] = useState(false);
+
+  // Detect arrival state — when the covenant bookend is visible
+  useEffect(() => {
+    // Small delay to let DOM render
+    const timer = setTimeout(() => {
+      const bookend = document.querySelector('[data-footer-bookend]');
+      if (!bookend) return;
+      const observer = new IntersectionObserver(
+        ([entry]) => setIsArrival(entry.isIntersecting),
+        { threshold: 0.5 }
+      );
+      observer.observe(bookend);
+      return () => observer.disconnect();
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <footer
@@ -17,9 +35,13 @@ export function Footer() {
       {/* === Color bridge from CrossOver === */}
       <div className="footer-fade-bridge" aria-hidden="true" />
 
-      {/* === Atmospheric layers === */}
+      {/* === Screen reader narrative === */}
+      <span className="sr-only">Site footer with navigation, contact information, and social links</span>
+
+      {/* === Atmospheric layers — warmth increases during arrival === */}
       <div
-        className="grain pointer-events-none absolute inset-0 z-[1] opacity-[0.06]"
+        className="grain pointer-events-none absolute inset-0 z-[1] transition-opacity duration-700"
+        style={{ opacity: isArrival ? 0.08 : 0.06 }}
         aria-hidden="true"
       />
       <div
@@ -31,22 +53,22 @@ export function Footer() {
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute inset-0 z-[1]"
+        className="pointer-events-none absolute inset-0 z-[1] transition-opacity duration-700"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 20%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)",
+            `radial-gradient(ellipse at 50% 20%, hsl(var(--vow-yellow) / ${isArrival ? '0.03' : '0.015'}) 0%, transparent 50%)`,
         }}
         aria-hidden="true"
       />
 
       <div className="container mx-auto py-20 px-4 relative z-[2]">
-        {/* Golden thread above content — widened to 48px */}
+        {/* Golden thread above content — widened to 48px, brightens during arrival */}
         <div
-          className="h-[1px] w-12 mx-auto mb-12 footer-breathe"
+          className="h-[1px] w-12 mx-auto mb-12 footer-breathe transition-opacity duration-700"
           style={{
             background:
-              "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.25), transparent)",
-            boxShadow: "0 0 8px hsl(var(--vow-yellow) / 0.1)",
+              `linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / ${isArrival ? '0.35' : '0.25'}), transparent)`,
+            boxShadow: `0 0 8px hsl(var(--vow-yellow) / ${isArrival ? '0.15' : '0.1'})`,
           }}
           aria-hidden="true"
         />
@@ -115,41 +137,43 @@ export function Footer() {
             )}
             style={{ transitionDelay: isVisible ? "150ms" : "0ms" }}
           >
-            <h4 className="font-display text-xs uppercase tracking-[0.22em] mb-6 text-foreground/80">
-              Navigate
-            </h4>
-            <ul className="space-y-3">
-              <li>
-                <NavLink to="/services" className="text-foreground/50 hover:text-primary transition-all duration-[180ms] story-link">
-                  Pricing
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/about" className="text-foreground/50 hover:text-primary transition-all duration-[180ms] story-link">
-                  About
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/gallery" className="text-foreground/50 hover:text-primary transition-all duration-[180ms] story-link">
-                  Proof
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/faq" className="text-foreground/50 hover:text-primary transition-all duration-[180ms] story-link">
-                  FAQ
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/listen" className="text-foreground/50 hover:text-primary transition-all duration-[180ms] story-link">
-                  Listen
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/contact" className="text-foreground/50 hover:text-primary transition-all duration-[180ms] story-link">
-                  Contact
-                </NavLink>
-              </li>
-            </ul>
+            <nav aria-label="Footer navigation">
+              <h4 className="font-display text-xs uppercase tracking-[0.22em] mb-6 text-foreground/80">
+                Navigate
+              </h4>
+              <ul className="space-y-3">
+                <li>
+                  <NavLink to="/services" className="text-foreground/50 hover:text-primary transition-all duration-[180ms] story-link">
+                    Pricing
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/about" className="text-foreground/50 hover:text-primary transition-all duration-[180ms] story-link">
+                    About
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/gallery" className="text-foreground/50 hover:text-primary transition-all duration-[180ms] story-link">
+                    Proof
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/faq" className="text-foreground/50 hover:text-primary transition-all duration-[180ms] story-link">
+                    FAQ
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/listen" className="text-foreground/50 hover:text-primary transition-all duration-[180ms] story-link">
+                    Listen
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/contact" className="text-foreground/50 hover:text-primary transition-all duration-[180ms] story-link">
+                    Contact
+                  </NavLink>
+                </li>
+              </ul>
+            </nav>
           </div>
 
           {/* Reach Me — delay 300ms */}
@@ -257,13 +281,14 @@ export function Footer() {
             }}
             aria-hidden="true"
           />
-          {/* Triple-glow dot */}
+          {/* Triple-glow dot — intensifies during arrival */}
           <div
-            className="w-1.5 h-1.5 rounded-full"
+            className="w-1.5 h-1.5 rounded-full transition-all duration-700"
             style={{
-              background: "hsl(var(--vow-yellow) / 0.5)",
-              boxShadow:
-                "0 0 6px hsl(var(--vow-yellow) / 0.5), 0 0 14px hsl(var(--vow-yellow) / 0.25), 0 0 24px hsl(var(--vow-yellow) / 0.1)",
+              background: `hsl(var(--vow-yellow) / ${isArrival ? '0.7' : '0.5'})`,
+              boxShadow: isArrival
+                ? "0 0 8px hsl(var(--vow-yellow) / 0.6), 0 0 18px hsl(var(--vow-yellow) / 0.35), 0 0 32px hsl(var(--vow-yellow) / 0.15)"
+                : "0 0 6px hsl(var(--vow-yellow) / 0.5), 0 0 14px hsl(var(--vow-yellow) / 0.25), 0 0 24px hsl(var(--vow-yellow) / 0.1)",
             }}
             aria-hidden="true"
           />
