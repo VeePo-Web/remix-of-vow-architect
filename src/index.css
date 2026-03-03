@@ -5423,6 +5423,14 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
     opacity: 0.2 !important;
   }
 
+  [style*="semicolon-heartbeat"] {
+    animation: none !important;
+  }
+
+  [style*="crossover-dust"] {
+    animation: none !important;
+  }
+
   [style*="divider-diamond-breathe"],
   [style*="sound-card-breathe"],
   [style*="golden-dot-idle"],
