@@ -4817,7 +4817,7 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
     linear-gradient(180deg, hsl(45 20% 96%) 0%, hsl(45 14% 91%) 100%);
   border-left: 1px solid hsl(45 10% 78%);
   border-right: 1px solid hsl(45 10% 82%);
-  border-bottom: none;
+  border-bottom: 2px solid hsl(45 10% 82%);
   border-top: none;
   border-radius: 4px 4px 0 0;
   /* Side facets + keybed shadow — bolder */
@@ -4870,9 +4870,9 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   box-shadow:
     inset 2px 0 4px rgba(0,0,0,0.04),
     inset -2px 0 4px rgba(0,0,0,0.04),
+    0 4px 24px rgba(0,0,0,0.18),
     0 2px 12px rgba(255,224,138,0.15),
-    0 -4px 20px rgba(255,224,138,0.12),
-    0 2px 0 rgba(0,0,0,0.06);
+    0 -4px 20px rgba(255,224,138,0.12);
 }
 
 @keyframes chosen-key-breathe {
@@ -4937,6 +4937,8 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
     0 2px 6px rgba(0,0,0,0.5);
   z-index: 10;
   border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-left: 1px solid hsl(222 12% 16%);
+  border-right: 1px solid hsl(222 12% 14%);
 }
 
 .piano-black-key::before {
@@ -4980,7 +4982,7 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   font-family: var(--ff-display);
   font-size: clamp(36px, 5vw, 52px);
   font-weight: 400;
-  color: hsl(240 9% 4%);
+  color: hsl(30 8% 6%);
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.02em;
   margin-bottom: 16px;
@@ -4995,10 +4997,10 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 
 .piano-key__sentence {
   font-family: var(--ff-display);
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   font-weight: 300;
   font-style: italic;
-  color: hsl(240 9% 40%);
+  color: hsl(30 6% 38%);
   line-height: 1.5;
   margin-bottom: 24px;
   padding-bottom: 24px;
@@ -5015,6 +5017,10 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   font-size: 0.8125rem;
   text-transform: uppercase;
   border-radius: 4px !important;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .piano-key__cta--chosen:hover {
   background: hsl(240 9% 14%) !important;
@@ -5029,6 +5035,10 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   font-size: 0.8125rem;
   text-transform: uppercase;
   border-radius: 4px !important;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .piano-key__cta--flanking:hover {
   background: hsl(240 9% 8% / 0.05) !important;
