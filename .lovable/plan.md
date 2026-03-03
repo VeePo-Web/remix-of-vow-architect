@@ -1,28 +1,49 @@
 
 
-# Hero Subtitle Change — Remove Repetition
+# Fix: "Begin the conversation" Button Hover Animation
 
-The line "I let my music sound like what your hearts feel like" appears in both the hero subtitle (`HeroTagline.tsx` line 96) and the Exhale section's screen-reader text (`TheExhale.tsx` line 242). The hero repeats the mission statement before the visitor even reaches the Exhale, diluting its impact.
+## The Problem
 
-## The Change
+The `.process-closing__cta` in `index.css` defines its transition as:
+```
+transition: 
+  opacity 800ms,
+  transform 800ms,    ← this governs BOTH entry reveal AND hover lift
+  color 260ms,
+  background 260ms,
+  border-color 260ms,
+  box-shadow 400ms;
+```
 
-Replace the hero subtitle with a line that sets the emotional stage without revealing the mission statement. The hero should whisper context — who Parker is and the weight of what he does — not deliver the thesis. The thesis belongs to the Exhale.
+When the button enters the viewport, `transform` correctly takes 800ms to rise from `translateY(16px)` to `translateY(0)`. But on hover, the same 800ms applies to the `-2px` lift — making it feel heavy and unresponsive. The brand timing standard is 180ms for hover feedback.
 
-**Current (line 96):**
-> I let my music sound like what your hearts feel like.
+## The Fix
 
-**Replacement:**
-> I carry the weight of your ceremony — so every word spoken lands where it belongs.
+Split the hover transform into a separate mechanism so it doesn't conflict with the entry animation:
 
-This line:
-- First-person voice ("I carry")
-- Verb-forward, composed tone
-- Frames Parker as witness/guardian, not performer
-- Addresses the visitor's core anxiety (will my vows be heard?)
-- Does not repeat any line used elsewhere on the page
-- Maintains the same character length (~75 chars) for layout stability
+1. **Change the entry animation to use a CSS keyframe** instead of transition-based transform, so it only fires once and doesn't affect hover.
+2. **Or simpler:** After the entry transition completes (~1500ms after visible), swap the transition timing for `transform` from 800ms to 180ms. This can be done by adding a class or by using a CSS-only approach with `transition` on the hover state itself.
 
-## File Modified
+**Cleanest approach:** Override the `transform` transition duration specifically on hover and active states to 180ms, and keep the 800ms only for the entry reveal. CSS specificity handles this naturally:
 
-`src/components/HeroTagline.tsx` — line 96 only. One line. No structural changes.
+In `index.css`, add to the existing `.process-closing__cta:hover` rule:
+```css
+transition: 
+  color 260ms var(--ease-sacred),
+  background 260ms var(--ease-sacred),
+  border-color 260ms var(--ease-sacred),
+  box-shadow 400ms var(--ease-sacred),
+  transform 180ms cubic-bezier(0.4, 0, 0.2, 1);
+```
+
+And similarly on `:active`:
+```css
+transition: transform 80ms ease;
+```
+
+Also fix `border-radius: 100px` to `6px` per brand rules (under 8px maximum).
+
+## File Changed
+
+`src/index.css` — lines 2993-3001 (hover rule) and 2925-2952 (base rule border-radius). Two small edits in one file.
 
