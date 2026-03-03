@@ -13,7 +13,7 @@ export function CrossOver() {
       ref={sectionRef}
       role="region"
       aria-label="Final call to action"
-      className="section--dark section-grain piano-section-target py-[80px] md:py-[120px] px-4 relative overflow-hidden min-h-[400px]"
+      className="section--dark section-grain piano-section-target py-[80px] md:py-[120px] px-4 md:px-6 lg:px-8 relative overflow-hidden min-h-[50vh] md:min-h-[60vh]"
       style={{
         background: "radial-gradient(ellipse at center, hsl(240 12% 5%) 0%, hsl(240 9% 2%) 100%)",
       }}
@@ -68,7 +68,7 @@ export function CrossOver() {
         aria-hidden="true"
       />
 
-      <div className="container mx-auto max-w-4xl text-center relative z-10">
+      <div className="container mx-auto max-w-3xl text-center relative z-10">
         {/* Tagline with semicolon heartbeat */}
         <div
           className={cn(
@@ -107,7 +107,7 @@ export function CrossOver() {
         {/* CTA Stack */}
         <div
           className={cn(
-            "flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 transition-all duration-700",
+            "flex flex-col items-center mb-8 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
           style={{ transitionDelay: isVisible ? "320ms" : "0ms" }}
