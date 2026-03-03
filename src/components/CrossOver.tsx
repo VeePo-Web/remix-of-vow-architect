@@ -113,10 +113,58 @@ export function CrossOver() {
       {/* Film grain overlay */}
       <div className="absolute inset-0 z-[1] grain opacity-[0.08] pointer-events-none" aria-hidden="true" />
 
-      {/* Top fade from TheWitnesses warm */}
+      {/* 13b: Warm-to-cold intermediate layer — residual warmth from TheWitnesses */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse 80% 30% at 50% 0%, hsl(35 40% 50% / 0.04) 0%, transparent 100%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* 13d: Top-edge vignette darkening — shadow hood */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          background: "linear-gradient(to bottom, hsl(240 9% 2% / 0.4) 0%, transparent 25%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* 13e: Ambient entry glow — CTA warmth rising */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse 80% 50% at 50% 60%, hsl(var(--vow-yellow) / 0.02) 0%, transparent 100%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* 13a: Extended top fade — 240px, 5-stop gradient sweep */}
       <div
         className="section-fade-top"
-        style={{ background: 'linear-gradient(to top, transparent 0%, hsl(240 9% 3% / 0.5) 40%, hsl(240 9% 2%) 100%)', height: '160px' }}
+        style={{
+          background: 'linear-gradient(to top, transparent 0%, hsl(240 9% 4% / 0.3) 20%, hsl(240 9% 3% / 0.6) 45%, hsl(240 9% 2% / 0.85) 70%, hsl(240 9% 2%) 100%)',
+          height: '240px',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* 13c: Threshold golden thread — sacred horizontal divider */}
+      <div
+        className={cn(
+          "absolute left-1/2 -translate-x-1/2 z-[2] transition-transform duration-700",
+          isVisible ? "scale-x-100" : "scale-x-0"
+        )}
+        style={{
+          top: '240px',
+          width: '80px',
+          height: '1px',
+          background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.25), transparent)",
+          boxShadow: '0 0 12px hsl(var(--vow-yellow) / 0.1)',
+          animation: 'crossover-threshold-breathe 4s ease-in-out infinite',
+          transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+        }}
         aria-hidden="true"
       />
 
