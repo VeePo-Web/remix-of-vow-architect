@@ -1698,6 +1698,27 @@ All colors MUST be HSL.
     transition: border-color 180ms ease, box-shadow 180ms ease;
   }
 
+  /* 15-C: Gilded edge intensification on hover */
+  .crossing-cta-hover {
+    transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  }
+
+  .crossing-cta-hover:hover {
+    border-color: hsl(45 100% 76% / 0.45);
+    box-shadow:
+      inset 0 1px 0 hsl(45 100% 76% / 0.15),
+      0 8px 24px rgba(255, 224, 138, 0.22);
+    transform: translateY(-1px);
+  }
+
+  .crossing-cta-hover:active {
+    transform: translateY(0);
+    box-shadow:
+      inset 0 1px 3px rgba(0, 0, 0, 0.15),
+      0 4px 12px rgba(255, 224, 138, 0.12);
+    border-color: hsl(45 100% 76% / 0.20);
+  }
+
   .cta-commitment:hover {
     border-color: hsl(45 100% 76% / 0.40);
   }
@@ -1707,6 +1728,16 @@ All colors MUST be HSL.
       inset 0 1px 3px rgba(0, 0, 0, 0.15),
       0 1px 4px rgba(0, 0, 0, 0.25) !important;
     border-color: hsl(45 100% 76% / 0.20);
+  }
+
+  /* 15-E: Closing golden dot breathing */
+  .crossing-golden-dot {
+    animation: crossing-dot-breathe 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes crossing-dot-breathe {
+    0% { opacity: 0.2; }
+    100% { opacity: 0.4; }
   }
   
   /* Navigation Links */
@@ -5429,6 +5460,15 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 
   [style*="crossover-dust"] {
     animation: none !important;
+  }
+
+  .crossing-golden-dot {
+    animation: none !important;
+    opacity: 0.3;
+  }
+
+  .crossing-cta-hover:hover {
+    transform: none !important;
   }
 
   [style*="divider-diamond-breathe"],
