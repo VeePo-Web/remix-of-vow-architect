@@ -14,6 +14,8 @@ export function TheWitnesses() {
     <section
       id="the-witnesses"
       ref={sectionRef}
+      role="region"
+      aria-label="Testimonials from couples"
       data-theme="life"
       className="relative py-[80px] md:py-[120px] piano-section-target overflow-hidden"
       style={{
@@ -46,7 +48,7 @@ export function TheWitnesses() {
             <p
               className={cn(
                 "font-sans text-xs uppercase tracking-[0.22em] text-muted-foreground mb-4 transition-all duration-700",
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
               )}
             >
               THE COVENANT KEPT
@@ -64,8 +66,8 @@ export function TheWitnesses() {
             />
             <h2
               className={cn(
-                "font-display font-light leading-tight mb-4 text-center transition-all duration-700",
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                "font-display font-light leading-tight text-center transition-all duration-700",
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
               )}
               style={{
                 fontSize: "clamp(30px, 4.5vw, 40px)",
@@ -103,7 +105,7 @@ export function TheWitnesses() {
                 key={index}
                 className={cn(
                   "relative text-center transition-all duration-700",
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
                 )}
                 style={{
                   transitionDelay: isVisible ? `${400 + index * 120}ms` : "0ms",
