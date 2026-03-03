@@ -93,7 +93,7 @@ export function HeroTagline() {
           animationFillMode: "forwards",
         }}
       >
-        I let my music sound like what your hearts feel like.
+        I carry the weight of your ceremony — so every word spoken lands where it belongs.
       </p>
     </div>
   );
