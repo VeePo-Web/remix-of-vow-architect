@@ -315,7 +315,7 @@ export function TheInvitation() {
                   isVisible && 'is-visible invitation-cta-breathe'
                 )}
               >
-                Meet the witness
+                Hear my story
                 <span className="invitation-cta-rule" aria-hidden="true" />
               </Link>
             </div>
