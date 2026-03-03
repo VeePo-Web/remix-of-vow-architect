@@ -1,71 +1,93 @@
 
 
-# Step 14: Bottom Transition — The Crossing into the Covenant Close
+# Step 14: Visual, UI, and UX Refinement — The Crossing as Sacred Space
 
-This step creates a cinematic exit transition from The Crossing into the Footer, completing the section's atmospheric containment. The top entry (Step 13) was a 240px descent into darkness. The bottom exit must feel like the final exhale — the moment after the commitment is made, settling into quiet permanence.
-
----
-
-## The Vision
-
-The current bottom fade is a simple 80px two-stop gradient (`transparent → hsl(240 9% 2%)`). The Footer already has a `footer-fade-bridge` element at its top. The transition between these two sections should feel seamless — as if the visitor is sinking deeper into the same dark room, not crossing a boundary between two components.
+This step is a comprehensive audit and polish of every visual, UI, and UX detail in The Crossing section. Steps 1-13 built the architecture, atmosphere, and transitions. Step 14 refines the lived experience — the precise spacing between elements, the typographic weight of each word, the visual hierarchy that guides the eye from tagline to button to promise without conscious effort.
 
 ---
 
-## 14a. Extended Bottom Fade — 120px, 4-Stop Gradient
+## 14-A. Vertical Spacing Audit — Fitzgerald Scale Enforcement
 
-**Current:** 80px, simple two-stop gradient.
+The current spacing uses Tailwind utilities (`mb-10`, `mb-14`, `mb-6`, `mb-8`) which map to arbitrary values (40px, 56px, 24px, 32px). These are close to the Fitzgerald scale but not exact. This step locks every vertical gap to the scale:
 
-**Fix:** Extend to 120px with a 4-stop gradient that moves through intermediate dark tones, creating a slower dissolution:
+| Element pair | Current | Corrected | Fitz token |
+|---|---|---|---|
+| Vertical thread to tagline | mb-8 (32px) | 32px | fitz-6 (correct) |
+| Tagline to sacred quote | mb-10 (40px) | 56px | fitz-8 (generous separation) |
+| Sacred quote to CTA button | mb-14 (56px) | 56px | fitz-8 (correct) |
+| CTA button to trust anchor | mb-6 (24px) | 24px | fitz-5 (correct) |
+| Trust anchor to golden thread | mb-10 (40px) | 32px | fitz-6 (tighten — thread is a divider, not a section) |
+| Golden thread to commitment | mb-8 (32px) | 24px | fitz-5 (tighten — these are a couplet) |
 
-```css
-background: linear-gradient(to bottom,
-  transparent 0%,
-  hsl(240 9% 3% / 0.4) 30%,
-  hsl(240 9% 2% / 0.8) 65%,
-  hsl(240 9% 2%) 100%
-);
-height: 120px;
-```
-
-This creates a longer tail that dissolves the section's atmospheric layers (grain, glow, motes) more gradually.
+Key change: increase tagline-to-quote gap from 40px to 56px to create more reverence before the main declaration. Tighten the bottom cluster (trust anchor, thread, commitment) to feel like a unified "closing block" rather than separate elements.
 
 ---
 
-## 14b. Bottom Golden Thread — Mirroring the Threshold
+## 14-B. Typography Weight and Size Refinement
 
-A second horizontal golden thread at the bottom of the section, mirroring the top threshold (13c). This creates a visual "bookend" — the section is framed between two golden threads, like the margins of an invitation.
-
-**Technique:** Absolutely positioned `div` at the bottom of the content area (above the bottom fade), `width: 60px` (slightly narrower than the top's 80px — the section contracts as it closes), `height: 1px`, centered. Same golden gradient and glow as the top thread, but with a slower breathing animation (6s instead of 4s) — the closing thread breathes more slowly, like a settling heartbeat.
-
-Scale reveal triggered by `isVisible`, matching the top thread's sacred easing.
-
----
-
-## 14c. Residual Warmth Bleed — Bottom Edge
-
-A subtle radial glow at the bottom edge that "bleeds" downward, creating the illusion that the CTA button's warmth is seeping into the Footer space below.
-
-**Technique:** A radial gradient at `50% 100%` (bottom-center) using `hsl(var(--vow-yellow) / 0.015)` — even more subtle than the top's warm-to-cold layer. This bridges the visual temperature between sections.
+Current issues:
+- The tagline "'TIL DEATH ; UNTO LIFE" uses `text-2xl md:text-3xl` (24px/30px) with `tracking-[0.22em]`. The letter-spacing is correct for overlines but the size is slightly small for the emotional weight it carries. Increase to `text-[28px] md:text-[34px]` — a custom size that sits between the scale points, justified because this is the brand's covenant, not a standard heading.
+- The sacred quote uses `clamp(32px, 5vw, 48px)` which is correct.
+- The trust anchor text at `text-sm` (14px) is correct for supporting copy.
+- "Always." in the commitment line uses `text-primary` (vow-yellow). Verify this renders as the warm gold, not a generic primary.
 
 ---
 
-## 14d. Bottom Vignette Intensification
+## 14-C. CTA Button Visual Polish
 
-Darken the bottom 15% of the section more aggressively to create a "floor" effect — the section feels like it has depth, not just a flat gradient edge.
-
-**Technique:** A linear gradient overlay from `transparent` at 85% to `hsl(240 9% 2% / 0.3)` at 100%. This layers beneath the bottom fade to create extra density at the exit point.
+The button currently has `cta-commitment cta-breathe-glow` classes. This step adds:
+- Explicit `rounded-[6px]` to enforce the brand maximum (under 8px). The current `rounded-full` from button defaults is too casual for this sacred moment.
+- `font-sans font-medium` to ensure Inter at weight 500 — confident without shouting.
+- Verify the gilded border from Step 12 (`border border-[hsl(45_100%_76%_/_0.25)]`) renders correctly. If the Tailwind arbitrary value syntax fails, move to an inline `style` prop.
 
 ---
 
-## Summary
+## 14-D. Accessibility Pass
 
-| # | Enhancement | Technique | Impact |
-|---|------------|-----------|--------|
-| 14a | Extended bottom fade | 120px, 4-stop gradient | Slower, more gradual exit |
-| 14b | Bottom golden thread | 60px, mirrored bookend | Section framing, visual closure |
-| 14c | Residual warmth bleed | Radial glow at bottom edge | Temperature bridge to Footer |
-| 14d | Bottom vignette floor | Linear gradient darkening | Depth at exit point |
+- The `h2` sacred quote is the only heading in the section. Verify it is semantically correct (the previous section should end with its own heading hierarchy).
+- Add `role="text"` to the tagline `p` element to prevent screen readers from splitting "'TIL DEATH" and "UNTO LIFE" into separate announcements.
+- Verify the CTA link has sufficient contrast: vow-yellow text on dark background passes WCAG AA (ratio ~11:1 — passes).
+- Add `aria-describedby` linking the CTA button to the trust anchor text, so screen readers announce "Hold my date. Includes your bespoke ceremony arrangement..." as a unified action.
 
-**One file modified:** `CrossOver.tsx`. Four refinements. The section is now fully contained — entered through a 240px descent, exited through a 120px dissolution, framed between two breathing golden threads. A sacred room with a ceiling and a floor.
+---
+
+## 14-E. Focus State and Keyboard UX
+
+- The CTA button's focus ring should use `focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow))] focus-visible:ring-offset-2 focus-visible:ring-offset-[hsl(240_9%_2%)]` — a vow-yellow ring with a dark offset that matches the section background.
+- Tab order: vertical thread (decorative, skip) -> tagline (no interaction, skip) -> CTA button (focusable) -> commitment text (no interaction). Only one focusable element in the section — clean.
+
+---
+
+## 14-F. Mobile UX Refinement
+
+- On mobile (`< 768px`), the section padding is `py-[80px]` which is correct (fitz-9).
+- The sacred quote at `clamp(32px, 5vw, 48px)` renders at ~32px on 375px screens — verify this is readable and does not orphan words awkwardly.
+- The CTA button padding `px-10 py-5` (40px/20px) — verify touch target height is at least 44px. With py-5 (20px top + 20px bottom) + text line-height, the total should be ~56px. Passes.
+- The vertical golden thread (40px tall, 1px wide) is decorative and invisible to assistive tech — correct.
+
+---
+
+## 14-G. Reduced Motion Verification
+
+Ensure all animated elements degrade gracefully:
+- Ken Burns on background image: add `@media (prefers-reduced-motion: reduce)` override to stop animation.
+- Semicolon heartbeat: should already have a reduced motion check (conditional `animation` based on `isVisible`). Add an explicit CSS fallback.
+- Breathing vignette, floating motes, particle dust: all should freeze under reduced motion. Verify the existing `prefers-reduced-motion` rules in `index.css` cover these keyframe names.
+- The scroll-triggered reveals (opacity + translateY) should snap to final state under reduced motion — the `useScrollReveal` hook already handles this.
+
+---
+
+## Summary of Changes
+
+| # | Refinement | File | Impact |
+|---|---|---|---|
+| 14-A | Spacing audit | CrossOver.tsx | Fitzgerald-locked vertical rhythm |
+| 14-B | Typography size | CrossOver.tsx | Tagline size increase, weight check |
+| 14-C | Button polish | CrossOver.tsx | Rounded corners, font enforcement |
+| 14-D | Accessibility | CrossOver.tsx | aria-describedby, role attributes |
+| 14-E | Focus states | CrossOver.tsx | Vow-yellow focus ring on CTA |
+| 14-F | Mobile UX | CrossOver.tsx | Touch target + readability verification |
+| 14-G | Reduced motion | index.css | Fallbacks for all CrossOver animations |
+
+**Two files modified:** `CrossOver.tsx` (spacing, typography, accessibility, button) and `index.css` (reduced motion fallbacks). Seven refinements. The section moves from "built" to "crafted."
 
