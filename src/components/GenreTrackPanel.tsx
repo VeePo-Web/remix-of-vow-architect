@@ -61,7 +61,7 @@ export function GenreTrackPanel({
   return (
     <div
       ref={panelRef}
-      className="w-full max-w-2xl mx-auto mt-6 rounded-lg overflow-hidden relative"
+      className="w-full max-w-3xl mx-auto mt-6 rounded-lg overflow-hidden relative"
       style={{
         background: "hsl(var(--rich-black) / 0.85)",
         backdropFilter: "blur(16px)",
@@ -86,13 +86,13 @@ export function GenreTrackPanel({
       <div className="px-5 pt-4 pb-3" style={{ borderBottom: "1px solid hsl(var(--vow-yellow) / 0.06)" }}>
         <div className="flex items-center justify-between">
           <span
-            className="text-[11px] uppercase tracking-[0.18em] font-display font-light text-foreground/50"
+            className="text-xs uppercase tracking-[0.18em] font-display font-light text-foreground/50"
             role="heading"
             aria-level={3}
           >
             {category.label}
           </span>
-          <span className="text-[9px] uppercase tracking-[0.15em] text-foreground/20 font-mono tabular-nums">
+          <span className="text-[10px] uppercase tracking-[0.15em] text-foreground/20 font-mono tabular-nums">
             {category.tracks.length} tracks
           </span>
         </div>
@@ -125,7 +125,7 @@ export function GenreTrackPanel({
             {...(trackProps as any)}
             className={cn(
               "w-full flex items-center gap-3 min-h-[48px] px-5 relative",
-              "font-display text-[15px] font-light tracking-normal",
+              "font-display text-base font-light tracking-normal",
               "transition-all duration-[180ms]",
               isActive
                 ? "text-[hsl(var(--vow-yellow))]"
@@ -179,7 +179,7 @@ export function GenreTrackPanel({
 
       {/* Footer */}
       <div className="px-5 pt-3 pb-4 text-center">
-        <p className="text-[11px] text-foreground/25 italic font-display">
+        <p className="text-xs text-foreground/25 italic font-display">
           Each piece, arranged for your ceremony.{" "}
           <Link
             to="/contact"
