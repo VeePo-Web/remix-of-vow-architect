@@ -1,49 +1,18 @@
 
 
-# Fix: "Begin the conversation" Button Hover Animation
+# Fix: "Meet the witness" Button — Copy and Quality
 
-## The Problem
+## The Change
 
-The `.process-closing__cta` in `index.css` defines its transition as:
-```
-transition: 
-  opacity 800ms,
-  transform 800ms,    ← this governs BOTH entry reveal AND hover lift
-  color 260ms,
-  background 260ms,
-  border-color 260ms,
-  box-shadow 400ms;
-```
+In `src/components/TheInvitation.tsx`, line 318, replace "Meet the witness" with "Hear my story" — verb-forward, first-person, composed. It invites without commanding, and connects to the emotional journey (hearing = Parker's medium). "Parker's Story" reads third-person and breaks voice rules.
 
-When the button enters the viewport, `transform` correctly takes 800ms to rise from `translateY(16px)` to `translateY(0)`. But on hover, the same 800ms applies to the `-2px` lift — making it feel heavy and unresponsive. The brand timing standard is 180ms for hover feedback.
+The existing `.invitation-cta--pill` styling is already high-quality (breathing glow, extending underline, gilded border). Two refinements to elevate it:
 
-## The Fix
+1. **Hover lift:** Add `transform: translateY(-1px)` on `.invitation-cta--pill:hover` with 180ms timing — matching the CTA hover standard just fixed on the process button.
+2. **Active press:** Add `.invitation-cta--pill:active` with `translateY(0)` and 80ms transition for tactile feedback.
 
-Split the hover transform into a separate mechanism so it doesn't conflict with the entry animation:
+## Files
 
-1. **Change the entry animation to use a CSS keyframe** instead of transition-based transform, so it only fires once and doesn't affect hover.
-2. **Or simpler:** After the entry transition completes (~1500ms after visible), swap the transition timing for `transform` from 800ms to 180ms. This can be done by adding a class or by using a CSS-only approach with `transition` on the hover state itself.
-
-**Cleanest approach:** Override the `transform` transition duration specifically on hover and active states to 180ms, and keep the 800ms only for the entry reveal. CSS specificity handles this naturally:
-
-In `index.css`, add to the existing `.process-closing__cta:hover` rule:
-```css
-transition: 
-  color 260ms var(--ease-sacred),
-  background 260ms var(--ease-sacred),
-  border-color 260ms var(--ease-sacred),
-  box-shadow 400ms var(--ease-sacred),
-  transform 180ms cubic-bezier(0.4, 0, 0.2, 1);
-```
-
-And similarly on `:active`:
-```css
-transition: transform 80ms ease;
-```
-
-Also fix `border-radius: 100px` to `6px` per brand rules (under 8px maximum).
-
-## File Changed
-
-`src/index.css` — lines 2993-3001 (hover rule) and 2925-2952 (base rule border-radius). Two small edits in one file.
+- `src/components/TheInvitation.tsx` — line 318: text change only
+- `src/index.css` — add translateY lift to `.invitation-cta--pill:hover` and `:active` rules (~4 lines)
 
