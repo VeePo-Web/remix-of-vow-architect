@@ -298,10 +298,49 @@ export function CrossOver() {
         </p>
       </div>
 
-      {/* Bottom fade into Footer dark */}
+      {/* 14d: Bottom vignette floor — depth at exit */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          background: "linear-gradient(to bottom, transparent 85%, hsl(240 9% 2% / 0.3) 100%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* 14c: Residual warmth bleed — bottom edge */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse 60% 30% at 50% 100%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 100%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* 14b: Bottom golden thread — mirrored bookend */}
+      <div
+        className={cn(
+          "absolute left-1/2 -translate-x-1/2 z-[2] transition-transform duration-700",
+          isVisible ? "scale-x-100" : "scale-x-0"
+        )}
+        style={{
+          bottom: '120px',
+          width: '60px',
+          height: '1px',
+          background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.25), transparent)",
+          boxShadow: '0 0 12px hsl(var(--vow-yellow) / 0.1)',
+          animation: 'crossover-threshold-breathe 6s ease-in-out infinite',
+          transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* 14a: Extended bottom fade — 120px, 4-stop gradient */}
       <div
         className="section-fade-bottom"
-        style={{ background: 'linear-gradient(to bottom, transparent, hsl(240 9% 2%))', height: '80px' }}
+        style={{
+          background: 'linear-gradient(to bottom, transparent 0%, hsl(240 9% 3% / 0.4) 30%, hsl(240 9% 2% / 0.8) 65%, hsl(240 9% 2%) 100%)',
+          height: '120px',
+        }}
         aria-hidden="true"
       />
     </section>
