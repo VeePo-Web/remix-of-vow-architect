@@ -1,70 +1,99 @@
 
 
-# Step 1: Fantasy.co Typography — The Crossing
+# Step 2: Pixel-Perfect Spacing, Text Shadows, and Typographic Depth
 
-The typography in the CrossOver section is already partially refined from the previous audit. This step takes it to world-class Fantasy.co standard by addressing the remaining typographic details that separate "good" from "held breath."
-
----
-
-## 1a. Tagline — Sacred Display Treatment
-
-**Current:** `text-lg md:text-xl uppercase tracking-[0.22em] font-display font-light text-foreground/80`
-
-**Issue:** The tagline "'Til Death ; Unto Life" is the brand's covenant — the most sacred typographic element on the entire page. At `text-lg` (18px) / `text-xl` (20px), it reads as a label, not a proclamation. It needs to sit at `2xl` (24px) on desktop and `xl` (20px) on mobile — sized as a subtitle, not an overline. The tracking at `0.22em` is the label standard, but for this specific phrase — the covenant itself — it should be slightly wider at `0.25em` to create the carved-in-stone feeling. This is the ONE exception to the `0.22em` rule.
-
-**Fix:** Change to `text-xl md:text-2xl uppercase tracking-[0.25em] font-display font-light text-foreground/70`. Reduce opacity from `/80` to `/70` — the tagline floats above the headline as a whisper, not competing with it.
+This step adds the material depth layer that separates flat web typography from Fantasy.co-grade cinematic text. Every element gets measured shadow treatment, refined vertical spacing, and typographic weight calibration.
 
 ---
 
-## 1b. Headline — Sacred Quote Sizing and Weight
+## 2a. Headline Text Shadow — Cinematic Depth
 
-**Current:** `text-[clamp(32px,5vw,48px)] font-display font-light leading-tight tracking-[0.02em]`
+**Current:** No text-shadow on the headline.
 
-**Issue:** The headline is the emotional climax of the entire page. At `clamp(32px,5vw,48px)` it caps at 48px (5xl) which is correct for the type scale. However, `leading-tight` (1.25) is too compressed for a two-line quote — the lines crowd each other. Change to `leading-[1.15]` — tighter than `tight` but with enough air for the quote marks to breathe. Also, `font-light` (300) is correct for Cormorant display, but the quote marks themselves should feel more present. Wrap the curly quotes in spans with `font-normal` (400) to give them slightly more visual weight — they frame the sacred words.
+**Issue:** On a dark atmospheric background with grain, vignette, and fog layers, the headline text sits flat against the noise. A subtle text-shadow creates the impression that the words are hovering slightly above the surface — the same technique used in cinematic title cards. This is not a glow effect; it is depth.
 
-**Fix:** Change leading to `leading-[1.15]`. Wrap opening and closing quote marks in `<span className="font-normal">` for subtle weight contrast. Remove the `<br />` tag and let `text-wrap: balance` handle the line break naturally — forced breaks create different results across viewports.
-
----
-
-## 1c. Trust Anchor — Subordinate Clarity
-
-**Current:** `text-sm font-sans text-foreground/50`
-
-**Issue:** The trust anchor text is correctly sized and weighted. However, it's missing `leading-relaxed` (1.625) which would give the single line more vertical presence without increasing font size. Also, `max-w-sm` or `max-w-md` should constrain the line to prevent it from stretching too wide on large viewports.
-
-**Fix:** Add `leading-relaxed max-w-md mx-auto` to ensure the text sits in a contained, readable measure.
+**Fix:** Add `textShadow: '0 2px 20px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.2)'` to the headline's inline style. Two layers: a tight directional shadow (2px down, 20px blur) for depth, and a wide ambient shadow (40px blur) for atmospheric integration. Both use pure black — never colored shadows on text.
 
 ---
 
-## 1d. Commitment Statement — Closing Gravitas
+## 2b. Tagline Text Shadow — Whisper Depth
 
-**Current:** `text-lg font-display font-light text-foreground/90 italic` with `letterSpacing: 0.02em`
+**Current:** No text-shadow on the tagline.
 
-**Issue:** The commitment statement "Response within 24 hours. Always." is the final typographic element — the last words before the footer. It should feel like a closing vow. The `italic` is correct for Cormorant in this devotional context. However, "Always." as a standalone sentence deserves its own typographic emphasis. It should be set as a separate element — not inline — with a slightly different treatment: non-italic, vow-yellow, creating a one-word resolution after the italic promise.
+**Issue:** The tagline at `/70` opacity is intentionally subdued, but on the noisy background it can merge with the grain. A lighter shadow than the headline — just enough to lift it off the grain layer.
 
-**Fix:** Split into two elements. "Response within 24 hours." remains italic Cormorant. "Always." becomes its own `<span>` or `<p>` element: `text-primary font-display font-normal not-italic tracking-[0.04em]` — non-italic, vow-yellow, slightly wider tracking. This creates a two-beat rhythm: promise, then seal.
-
----
-
-## 1e. CTA Button Text
-
-**Current:** "Hold my date →" inside a `Button` with `text-base`
-
-**Issue:** The arrow character `→` is a unicode arrow. For Fantasy.co-grade typography, this should use the proper right arrow entity or be removed entirely — the button's shape already implies directionality. Also, `text-base` (16px) is correct but should have explicit `font-sans` and `tracking-[0.02em]` for precision.
-
-**Fix:** Remove the `→` arrow from the CTA text — let the vow-yellow button speak for itself. "Hold my date" is stronger without the arrow. Add `font-sans tracking-[0.02em]` to the button className for typographic precision.
+**Fix:** Add `textShadow: '0 1px 12px rgba(0, 0, 0, 0.3)'` to the tagline paragraph's inline style. Single layer, subtle, directional. The semicolon already has its own glow via the heartbeat animation — no additional shadow needed on it.
 
 ---
 
-## Summary
+## 2c. Commitment Statement Shadow — Closing Weight
 
-| Element | Change | Rationale |
-|---------|--------|-----------|
-| Tagline | `text-xl md:text-2xl`, tracking `0.25em`, opacity `/70` | Elevate from label to covenant proclamation |
-| Headline | `leading-[1.15]`, weighted quote marks, remove `<br />` | Breathe between lines, frame the sacred words |
-| Trust anchor | Add `leading-relaxed max-w-md mx-auto` | Contained measure, vertical presence |
-| Commitment | Split "Always." into separate vow-yellow element | Two-beat closing rhythm: promise then seal |
-| CTA | Remove arrow, add `font-sans tracking-[0.02em]` | Typographic precision, let the button speak |
+**Current:** No text-shadow on the commitment statement.
 
-**One file modified.** Five surgical typography changes. Zero new dependencies. Pure typographic calibration.
+**Issue:** As the final typographic element before the footer, the commitment statement needs the same material presence as the headline but at reduced intensity — it whispers, but it whispers with authority.
+
+**Fix:** Add `textShadow: '0 1px 16px rgba(0, 0, 0, 0.35)'` to the commitment statement's inline style.
+
+---
+
+## 2d. Vertical Spacing Precision — The Full Stack Audit
+
+Current vertical rhythm from top of content to bottom:
+
+```text
+Tagline wrapper:     mb-10 (40px)     -- fitz-7  ✓
+Headline:            mb-14 (56px)     -- fitz-8  ✓
+CTA wrapper:         mb-8  (32px)     -- fitz-6  ✓
+Trust anchor:        mb-10 (40px)     -- fitz-7  ✓
+Golden thread:       mb-8  (32px)     -- fitz-6  ✓
+Commitment:          mb-0  (0px)      -- terminal ✓
+```
+
+**Assessment:** All spacing values land on Fitzgerald scale points. The rhythm reads: 40 → 56 → 32 → 40 → 32 → 0. This creates a pattern of generous → grand → tight → generous → tight → terminal. The "tight" (32px) values around the CTA and golden thread compress the section's emotional climax, drawing the eye inward. This is correct — no changes needed.
+
+---
+
+## 2e. CTA Button Shadow Enhancement
+
+**Current:** The `cta-breathe-glow` class handles the ambient breathing shadow. The `default` variant adds `shadow-[0_8px_24px_rgba(255,224,138,0.18)]`.
+
+**Issue:** The button shadow is correct but the glow div behind it (`-inset-x-12 -inset-y-6`) uses `hsl(45 100% 76% / 0.10)` which is slightly warm. Increase to `0.12` for the glow to be more visible against the dark atmospheric background — the CTA is the section's emotional apex and deserves maximum presence.
+
+**Fix:** Change the ambient glow gradient from `0.10` to `0.14` opacity — just enough to create a warm halo without competing with the button's own shadow system.
+
+---
+
+## 2f. Trust Anchor Letter-Spacing
+
+**Current:** No explicit letter-spacing on the trust anchor text.
+
+**Issue:** At `text-sm` (14px) with Inter, the default letter-spacing can feel slightly tight on dark backgrounds where grain and atmospheric noise compete with small text. Adding `tracking-[0.01em]` (a micro-adjustment) opens the text just enough for better legibility without changing its visual weight.
+
+**Fix:** Add `tracking-[0.01em]` to the trust anchor paragraph className.
+
+---
+
+## 2g. Golden Thread Shadow Enhancement
+
+**Current:** The golden thread uses `background: linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)` — no box-shadow.
+
+**Issue:** The thread is a 1px line. Without a soft glow beneath it, it disappears into the grain texture. A subtle box-shadow creates the impression that the thread is emitting light — like a hair-thin wire catching candlelight.
+
+**Fix:** Add `boxShadow: '0 0 8px hsl(var(--vow-yellow) / 0.15)'` to the golden thread's inline style. This creates a warm glow bloom around the 1px line without thickening it.
+
+---
+
+## Summary of All Changes
+
+| # | Element | Change | Type |
+|---|---------|--------|------|
+| 2a | Headline | Add dual-layer text-shadow for cinematic depth | Inline style |
+| 2b | Tagline | Add single-layer text-shadow for whisper depth | Inline style |
+| 2c | Commitment | Add text-shadow for closing authority | Inline style |
+| 2d | Vertical spacing | Audited and confirmed correct — no changes | No change |
+| 2e | CTA ambient glow | Increase opacity from `0.10` to `0.14` | Style value |
+| 2f | Trust anchor | Add `tracking-[0.01em]` for dark-background legibility | Class addition |
+| 2g | Golden thread | Add `boxShadow` glow bloom | Inline style |
+
+**One file modified.** Six surgical additions — five shadow/glow refinements and one micro-tracking adjustment. Zero layout changes. Zero new dependencies. Pure material depth calibration.
 
