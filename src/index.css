@@ -4956,19 +4956,26 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 .piano-black-key {
   position: relative;
   width: 64px;
-  height: 320px;
+  height: 350px;
   flex-shrink: 0;
   border-radius: 0 0 4px 4px;
+  transform: translateY(-4px);
   background:
+    linear-gradient(90deg, transparent 35%, rgba(255,255,255,0.04) 48%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.04) 52%, transparent 65%),
     linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 20%),
     linear-gradient(180deg, hsl(222 12% 12%) 0%, hsl(240 9% 6%) 85%, hsl(240 9% 4%) 100%);
   box-shadow:
-    0 8px 24px rgba(0,0,0,0.7),
-    0 2px 6px rgba(0,0,0,0.5);
+    inset 2px 0 4px rgba(0,0,0,0.3),
+    inset -2px 0 4px rgba(0,0,0,0.3),
+    0 2px 4px rgba(0,0,0,0.6),
+    0 8px 16px rgba(0,0,0,0.5),
+    0 16px 40px rgba(0,0,0,0.4),
+    -3px 4px 12px rgba(0,0,0,0.35),
+    3px 4px 12px rgba(0,0,0,0.35);
   z-index: 10;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  border-left: 1px solid hsl(222 12% 16%);
-  border-right: 1px solid hsl(222 12% 14%);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-left: 1px solid hsl(222 12% 20%);
+  border-right: 1px solid hsl(222 12% 12%);
 }
 
 .piano-black-key::before {
@@ -4977,22 +4984,26 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   top: 0;
   left: 0;
   right: 0;
-  height: 15%;
-  background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 60%, transparent 100%);
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  height: 8%;
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.14) 0%,
+    rgba(255,255,255,0.08) 40%,
+    rgba(255,255,255,0.02) 100%
+  );
+  border-bottom: 2px solid rgba(255,255,255,0.06);
   border-radius: 0 0 2px 2px;
   pointer-events: none;
 }
 
-/* Fix 4: Black key casts shadow downward onto white keys */
+/* Black key grounding shadow — cast onto white keys below */
 .piano-black-key::after {
   content: '';
   position: absolute;
-  bottom: -6px;
-  left: 4px;
-  right: 4px;
-  height: 6px;
-  background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, transparent 100%);
+  bottom: -10px;
+  left: 2px;
+  right: 2px;
+  height: 10px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.1) 40%, transparent 100%);
   border-radius: 0 0 4px 4px;
   pointer-events: none;
 }
@@ -5036,8 +5047,16 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 
 @media (min-width: 1024px) {
   .piano-black-key {
-    width: 72px;
-    height: 360px;
+    width: 76px;
+    height: 390px;
+    box-shadow:
+      inset 2px 0 5px rgba(0,0,0,0.3),
+      inset -2px 0 5px rgba(0,0,0,0.3),
+      0 3px 6px rgba(0,0,0,0.6),
+      0 10px 20px rgba(0,0,0,0.5),
+      0 20px 48px rgba(0,0,0,0.4),
+      -4px 5px 14px rgba(0,0,0,0.35),
+      4px 5px 14px rgba(0,0,0,0.35);
   }
 }
 
