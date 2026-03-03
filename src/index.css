@@ -4374,8 +4374,8 @@ All colors MUST be HSL.
 
 
 @keyframes witnesses-ken-burns {
-  0% { transform: scale(1); }
-  100% { transform: scale(1.04); }
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.06) translate(-0.5%, -0.3%); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -5168,19 +5168,25 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   box-shadow: 0 4px 16px rgba(0,0,0,0.3), 0 0 20px rgba(255,224,138,0.06);
 }
 
-/* ─── TheWitnesses Testimonial Card — frosted glass ─── */
+/* ─── TheWitnesses Testimonial Card — Letterpress Paper Material ─── */
 .witnesses-testimonial-card {
+  position: relative;
   background:
-    radial-gradient(ellipse at 10% 10%, hsl(var(--vow-yellow) / 0.03), transparent 60%),
-    hsl(45 28% 95% / 0.7);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border-left: 2px solid hsl(var(--vow-yellow) / 0.12);
-  border-top: 1px solid hsl(var(--vow-yellow) / 0.2);
+    radial-gradient(ellipse at 15% 15%, hsl(var(--vow-yellow) / 0.05), transparent 50%),
+    radial-gradient(ellipse at 85% 85%, hsl(45 30% 88% / 0.3), transparent 50%),
+    hsl(45 25% 96% / 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: none;
+  border-left: 3px solid hsl(var(--vow-yellow) / 0.15);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.1),
-    0 4px 16px rgba(0,0,0,0.04);
-  padding: 2rem;
+    inset 0 1px 0 rgba(255,255,255,0.25),
+    inset 0 -1px 0 rgba(0,0,0,0.03),
+    0 1px 2px rgba(0,0,0,0.04),
+    0 4px 16px rgba(0,0,0,0.06),
+    0 12px 40px rgba(0,0,0,0.04);
+  padding: 2.5rem 2rem;
+  border-radius: 4px;
   transition:
     box-shadow 180ms var(--ease-sacred),
     transform 180ms var(--ease-sacred),
@@ -5188,27 +5194,83 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
     translate 700ms ease;
 }
 
-.witnesses-testimonial-card:hover {
-  transform: translateY(-1px) rotate(0deg) !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.1),
-    0 0 20px rgba(255,224,138,0.08),
-    0 8px 24px rgba(0,0,0,0.06);
+/* Candle pool glow behind quote ornament */
+.witnesses-testimonial-card::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 40px;
+  background: radial-gradient(ellipse, hsl(var(--vow-yellow) / 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* Breathing golden thread separator */
+/* Card grain texture for paper-like tactile depth */
+.witnesses-testimonial-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+
+.witnesses-testimonial-card:hover {
+  transform: translateY(-2px) rotate(0deg) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.3),
+    inset 0 -1px 0 rgba(0,0,0,0.03),
+    0 2px 4px rgba(0,0,0,0.05),
+    0 8px 24px rgba(0,0,0,0.07),
+    0 16px 48px rgba(0,0,0,0.04),
+    0 0 24px rgba(255,224,138,0.06);
+}
+
+/* Breathing golden thread separator with diamond endpoints */
 @keyframes witnesses-thread-breathe {
   0%, 100% { opacity: 0.3; }
   50% { opacity: 0.5; }
 }
 
 .witnesses-thread-breathing {
+  position: relative;
   animation: witnesses-thread-breathe 3.5s ease-in-out infinite;
 }
 
-/* Closing semicolon sacred object */
+.witnesses-thread-breathing::before,
+.witnesses-thread-breathing::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  background: hsl(var(--vow-yellow) / 0.35);
+  transform: translateY(-50%) rotate(45deg);
+}
+.witnesses-thread-breathing::before { left: -6px; }
+.witnesses-thread-breathing::after { right: -6px; }
+
+/* Closing semicolon sacred object with golden glow pool */
 .witnesses-semicolon {
+  position: relative;
   animation: vigil-pulse 4s ease-in-out infinite;
+}
+
+.witnesses-semicolon::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 16px;
+  background: radial-gradient(ellipse, hsl(var(--vow-yellow) / 0.1) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 /* ─── Witness Kit breathing diamonds ─── */
