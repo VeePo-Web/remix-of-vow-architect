@@ -1,101 +1,73 @@
 
 
-# Step 8: Full Formatting Pass — Code Architecture and Structural Polish
+# Step 9: Copy Overhaul — From Sound to Sacred Piano
 
-This step addresses the structural formatting of the CrossOver component code itself — ensuring consistent patterns, optimal class organization, and proper code architecture that matches the brand's precision standards.
-
----
-
-## 8a. Section Padding — Fitzgerald Scale Alignment
-
-**Current:** `py-[80px] md:py-[120px] px-4 md:px-6 lg:px-8`
-
-**Issue:** The vertical padding uses fitz-9 (80px) mobile and fitz-10 (120px) desktop — correct for a grand section. However, the horizontal padding uses `px-4` (16px), `md:px-6` (24px), `lg:px-8` (32px) which are arbitrary Tailwind values. These happen to align with the Fitzgerald scale (fitz-4, fitz-5, fitz-6), but the inconsistency between bracket notation for vertical and standard classes for horizontal is a formatting concern.
-
-**Assessment:** No functional change needed — the values are correct. But for code consistency, leave as-is since bracket notation for non-standard Tailwind values and standard classes for standard ones is the established pattern throughout the codebase.
+This step replaces all sound-engineer-oriented copy with language that honors Parker's identity as a ceremony pianist and emotional translator.
 
 ---
 
-## 8b. Class Organization — Consistent Ordering
+## 9a. Sacred Quote (Headline) — Replace "Your vows deserve to be heard."
 
-**Current:** Classes across elements follow different ordering patterns. Some lead with layout (`flex`, `absolute`), others with typography (`text-lg`, `font-display`), others with visual (`opacity-100`).
+**Current:** "Your vows deserve to be heard."
 
-**Fix:** Standardize all className strings in CrossOver to follow this order:
-1. Layout (position, display, flex, grid)
-2. Sizing (width, height, max-width)
-3. Spacing (margin, padding)
-4. Typography (font, text, tracking, leading)
-5. Color/opacity (text-foreground, bg-)
-6. Visual (border, shadow, rounded)
-7. Transition/animation
-8. State variants (hover, focus, active)
+**Problem:** This positions Parker as an audio technician ensuring audibility. It could belong on any sound company's website. It does not mention piano, music, feeling, or translation — the four pillars of Parker's identity. It fails North Star Question 3: "Is this uniquely his, or could any pianist say this?"
 
-Apply this to every element. This is a formatting-only change — zero visual impact.
+**Replacement options (ranked by brand alignment):**
 
----
+1. **"Let your ceremony sound like what your hearts feel like."**
+   - Directly echoes the core mission statement
+   - First-person-adjacent (addressing the couple)
+   - Positions Parker as a translator of feeling, not a provider of sound
+   - Piano-implicit: "sound like" refers to the music he creates
 
-## 8c. Style Prop Consolidation — Reduce Inline Styles
+2. **"Every note I play carries what your words cannot."**
+   - First-person voice
+   - Positions piano as completing/elevating the spoken vow
+   - Deeply emotional — acknowledges the inexpressible
 
-**Current:** Several elements use both `className` and `style` props. The `style` props contain:
-- `textShadow` values (cannot be done in Tailwind without plugins)
-- `background` gradients (too complex for Tailwind)
-- `animation` conditionals
-- `transitionDelay` conditionals
-- `textWrap: "balance"` (requires inline)
+3. **"Your ceremony deserves its own music."**
+   - Simple, direct, positions against generic playlists
+   - Emphasizes bespoke creation
+   - Less emotionally resonant than options 1 and 2
 
-**Assessment:** All inline styles are justified — they contain values that cannot be expressed in standard Tailwind CSS. The `textWrap: "balance"` cast to `any` is necessary because TypeScript's CSSProperties does not include the newer `text-wrap` property. No changes needed — the inline/className split is correct.
+**Recommendation:** Option 1 — "Let your ceremony sound like what your hearts feel like." This is the brand's core mission reframed as an invitation. It transforms the closing CTA into a direct echo of the North Star, creating a bookend with the hero.
 
----
-
-## 8d. Aria and Accessibility Formatting
-
-**Current:** All decorative elements have `aria-hidden="true"`. The section has `role="region"` and `aria-label="Final call to action"`. Background image has `alt=""`.
-
-**Issue:** The section uses `role="region"` which is correct for a landmark section with an `aria-label`. However, add a screen-reader-only description that narrates the section's emotional purpose for assistive technology users.
-
-**Fix:** Add a `<span className="sr-only">` inside the section content that reads: "This is the final invitation to hold your wedding date. Parker responds within 24 hours."
+**Fix:** Replace the h2 content from `"Your vows deserve to be heard."` to `"Let your ceremony sound like what your hearts feel like."`
 
 ---
 
-## 8e. Content Container — Max-Width Audit
+## 9b. Trust Anchor — Replace sound-engineer microcopy
 
-**Current:** `container mx-auto max-w-3xl text-center relative z-10`
+**Current:** "Includes sound documentation, microphone setup, and your ceremony run-of-show."
 
-**Issue:** `max-w-3xl` = 768px. The `container` class also applies its own max-width constraints. When both are present, the smaller value wins. Since `max-w-3xl` (768px) is always smaller than any container breakpoint, the `container` class is redundant — it adds padding that `px-4 md:px-6 lg:px-8` on the parent already provides.
+**Problem:** "Sound documentation," "microphone setup" — this is audio-vendor language. Parker is a pianist who collaborates for months on bespoke ceremony music. The trust anchor should reflect what couples actually receive from a pianist, not a sound technician.
 
-**Fix:** Remove `container` from the content div, keeping `mx-auto max-w-3xl`. The parent section already handles horizontal padding. This eliminates a redundant constraint and simplifies the layout chain.
+**Replacement:** "Includes your bespoke ceremony arrangement, a collaborative run-of-show, and months of devoted preparation."
+
+This reframes the value around:
+- **Bespoke ceremony arrangement** — custom piano music, not a playlist
+- **Collaborative run-of-show** — partnership, not a service delivery
+- **Months of devoted preparation** — reinforces the 5-10 weddings/year selectivity
+
+**Fix:** Replace the trust anchor paragraph text.
 
 ---
 
-## 8f. Transition Class Consolidation
+## 9c. Screen Reader Narrative — Update for consistency
 
-**Current:** Every reveal element repeats `transition-all duration-700`. This is 6 instances of the same two classes.
+**Current:** "This is the final invitation to hold your wedding date. Parker responds within 24 hours."
 
-**Assessment:** While DRY principles suggest extracting this, in React with Tailwind the repetition is idiomatic — each element is independently styled. Extracting to a shared constant would reduce readability. No change — this is correct Tailwind practice.
-
----
-
-## 8g. Bottom Fade Height — Proportional Check
-
-**Current:** Top fade is 160px, bottom fade is 80px.
-
-**Issue:** The top fade is 2x the bottom fade. The top fade blends from TheWitnesses (a warm section) into this dark section — a larger fade is correct for a temperature shift. The bottom fade blends into the Footer, which is also dark — a shorter fade is correct since both are Death-space sections. The 2:1 ratio is intentional and correct.
-
-**Assessment:** No change needed.
+**Assessment:** This is pianist-neutral and still accurate. No change needed — it describes the section's purpose without referencing sound equipment.
 
 ---
 
 ## Summary
 
-| # | Element | Change | Rationale |
-|---|---------|--------|-----------|
-| 8a | Section padding | Confirmed correct | Fitzgerald-aligned |
-| 8b | Class ordering | Standardize to layout-sizing-spacing-typography-color-visual-transition | Code consistency |
-| 8c | Inline styles | Confirmed justified | Cannot express in Tailwind |
-| 8d | SR description | Add sr-only narrative span | Accessibility completeness |
-| 8e | Content container | Remove redundant `container` class | Simplify layout chain |
-| 8f | Transition classes | Confirmed idiomatic | No change |
-| 8g | Fade proportions | Confirmed correct 2:1 ratio | No change |
+| # | Element | Current | New | Rationale |
+|---|---------|---------|-----|-----------|
+| 9a | Headline | "Your vows deserve to be heard." | "Let your ceremony sound like what your hearts feel like." | Core mission echo, pianist identity |
+| 9b | Trust anchor | "Includes sound documentation, microphone setup, and your ceremony run-of-show." | "Includes your bespoke ceremony arrangement, a collaborative run-of-show, and months of devoted preparation." | Pianist value, not sound-tech value |
+| 9c | SR narrative | No change | No change | Already pianist-neutral |
 
-**One file modified** (`CrossOver.tsx`). Two structural refinements (class ordering, container cleanup), one accessibility addition. Zero visual changes. Zero new dependencies. Pure code architecture polish.
+**One file modified** (`CrossOver.tsx`). Two copy replacements. Zero structural changes. Zero new dependencies. Pure brand-voice alignment.
 
