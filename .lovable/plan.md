@@ -1,138 +1,105 @@
 
 
-# Step 10: Foreground Effects and Atmospheric Elevation — Fantasy.co Quality
+# Step 11: Detail-Oriented Typography Refinement
 
-This step transforms the CrossOver section's atmospheric layers from "competent dark section" into a cinematic, immersive space that feels like standing in a candlelit room at the threshold of a ceremony. Every effect serves the emotional crescendo of the page's final moment.
-
----
-
-## 10a. Dual-Origin Warm Fog System
-
-**Current:** Single warm fog layer centered at 50% 50% with vow-yellow at 3% opacity.
-
-**Problem:** A single centered fog reads as flat — like a CSS gradient, not atmospheric depth. Real candlelight fog has multiple source points at different intensities.
-
-**Fix:** Replace the single fog layer with a dual-origin system:
-- **Primary fog** (lower-center, 50% 70%): vow-yellow at 4% opacity, 60% radius — simulates warmth rising from below the CTA
-- **Secondary fog** (upper-left, 30% 25%): vow-yellow at 2% opacity, 40% radius — creates asymmetric depth
-
-Both use the existing `crossover-dust` animation at different speeds (20s primary, 28s secondary) to create parallax fog drift. No new keyframes needed.
+This step elevates every typographic element in the CrossOver section to precision-grade quality, ensuring each text element honors the Fitzgerald typography system and brand standards.
 
 ---
 
-## 10b. Breathing Vignette Enhancement
+## 11a. Tagline Typography — Weight and Tracking Refinement
 
-**Current:** Static vignette at `transparent 30%, hsl(240 9% 2% / 0.75) 100%`.
+**Current:** `font-display font-light text-xl md:text-2xl uppercase tracking-[0.18em] text-foreground/70`
 
-**Problem:** The vignette is static — it does not breathe with the section. Fantasy-grade sections have vignettes that subtly pulse, creating the sensation of the room "exhaling."
+**Issues:**
+- `text-xl` (20px) to `text-2xl` (24px) is too small for a tagline that carries the brand covenant. The tagline "'Til Death ; Unto Life" is the most sacred text on the page — it should command presence without shouting.
+- `tracking-[0.18em]` is slightly tight for uppercase display text at this scale. The brand standard specifies `0.22em` for uppercase labels.
+- `font-light` (300) is correct for Cormorant Garamond display.
 
-**Fix:** Add a second vignette layer on top of the existing static one. This overlay vignette breathes on a 6s cycle between 0.65 and 0.80 opacity, using a new `crossover-vignette-breathe` keyframe. The static base vignette remains for guaranteed edge darkening; the breathing layer adds life. This creates the feeling that the darkness at the edges is alive — gently contracting and expanding like a held breath.
-
-New CSS keyframe in `index.css`:
-```css
-@keyframes crossover-vignette-breathe {
-  0%, 100% { opacity: 0.65; }
-  50% { opacity: 0.80; }
-}
-```
+**Fix:**
+- Scale up to `text-2xl md:text-3xl` (24px mobile, 30px desktop) — aligning with the Fitzgerald "section headings" tier.
+- Increase tracking to `tracking-[0.22em]` — matching the brand's uppercase label standard.
+- Keep `font-light` and `text-foreground/70`.
 
 ---
 
-## 10c. Golden Thread Vertical Line Above Tagline
+## 11b. Semicolon Scale — Proportional to Tagline
 
-**Current:** There is a horizontal golden thread between the trust anchor and the commitment statement, but no vertical sacred object to anchor the section's top.
+**Current:** `text-2xl md:text-3xl text-primary` — the semicolon is already one step larger than the surrounding text.
 
-**Fix:** Add a 1px vertical golden thread (40px tall) above the tagline, centered. It uses the brand's standard 4s breathing opacity cycle (0.15 to 0.35). This creates a visual "descent" from the previous section into the sacred space — the golden thread that stitches sections together, appearing at this threshold moment as the brand standard demands.
+**Issue:** With the tagline scaling up (11a), the semicolon should maintain its proportional lead. It should be 1.25x the tagline size to create the "pivot" effect.
 
-The thread appears with the tagline reveal (same `isVisible` gate, same `duration-700`), with a slightly earlier delay (tagline uses 0ms, thread uses the same).
-
----
-
-## 10d. Ambient Particle Motes
-
-**Current:** The `crossover-dust` animation drifts the single warm fog layer.
-
-**Problem:** The section lacks fine-grain atmospheric particles — the "dust motes in candlelight" effect that Fantasy-grade dark sections use to create the sensation of physical space.
-
-**Fix:** Add two small radial gradient "motes" — tiny (200px radius) vow-yellow circles at 2% opacity, positioned off-center. They drift on independent timings (14s and 22s) using CSS `translate` animations (new `crossover-mote-a` and `crossover-mote-b` keyframes). These are barely perceptible — they create depth without distraction. On reduced motion, they are hidden entirely.
-
-New CSS keyframes:
-```css
-@keyframes crossover-mote-a {
-  0% { transform: translate(0, 0); }
-  50% { transform: translate(15px, -20px); }
-  100% { transform: translate(-10px, 8px); }
-}
-
-@keyframes crossover-mote-b {
-  0% { transform: translate(0, 0); }
-  50% { transform: translate(-12px, 15px); }
-  100% { transform: translate(8px, -10px); }
-}
-```
+**Fix:** Scale the semicolon to `text-3xl md:text-4xl` (30px mobile, 36px desktop). This keeps the sacred object visually dominant within the tagline — the threshold between Death and Life.
 
 ---
 
-## 10e. CTA Glow Pool Enhancement
+## 11c. Sacred Quote (h2) — Line Height and Max-Width
 
-**Current:** Radial glow behind CTA uses `hsl(45 100% 76% / 0.10)` in a simple ellipse.
+**Current:** `font-display font-normal text-[clamp(32px,5vw,48px)] leading-[1.15] tracking-[0.02em] text-foreground max-w-2xl`
 
-**Problem:** The glow is uniform. Fantasy-grade CTAs have a layered glow: a tight bright core and a wider diffuse halo, creating the illusion of a light source emanating from the button itself.
+**Issues:**
+- `font-normal` (400) — the brand standard for Cormorant Garamond headings is weight 300-400. At this display size (up to 48px), `font-light` (300) would create more elegance and breathing room. The weight 400 feels slightly heavy for a sacred quote at this scale.
+- `max-w-2xl` (672px) — this is tight for the longer headline "Let your ceremony sound like what your hearts feel like." which may break awkwardly. Widening to `max-w-[720px]` gives the text one more word per line at desktop, creating a more balanced two-line break.
+- `leading-[1.15]` — at 48px, this yields ~55px line-height. For a two-line sacred quote, `leading-[1.2]` (57.6px) gives slightly more breathing room between lines without feeling loose.
 
-**Fix:** Replace the single glow div with a two-layer glow:
-- **Inner core:** Tight radial gradient (40% radius), vow-yellow at 12% opacity — the "hot center"
-- **Outer halo:** Wide radial gradient (80% radius), vow-yellow at 5% opacity — the ambient spill
-
-Both layers breathe with the existing `cta-breathe-glow` animation on the button, creating a unified light source effect. The outer halo uses a slightly larger negative inset (`-inset-x-16 -inset-y-8`) to extend beyond the button boundaries.
-
----
-
-## 10f. Text Shadow Depth Pass
-
-**Current:** Headline uses `textShadow: '0 2px 20px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.2)'`. Commitment uses `textShadow: '0 1px 16px rgba(0, 0, 0, 0.35)'`.
-
-**Problem:** Text shadows are functional but lack the "lifted from the surface" quality that Fantasy-grade typography achieves. Adding a third, very tight shadow (0 1px 2px at higher opacity) creates a crisp "near shadow" that grounds the text while the existing blur shadows create atmosphere.
-
-**Fix:** Add a third tight shadow to both the headline and commitment statement:
-- Headline: `'0 1px 3px rgba(0, 0, 0, 0.6), 0 2px 20px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.2)'`
-- Commitment: `'0 1px 2px rgba(0, 0, 0, 0.5), 0 1px 16px rgba(0, 0, 0, 0.35)'`
+**Fix:**
+- Change `font-normal` to `font-light` — whisper, don't speak.
+- Change `max-w-2xl` to `max-w-[720px]` — better line breaks.
+- Change `leading-[1.15]` to `leading-[1.2]` — more air between lines.
 
 ---
 
-## 10g. Golden Thread Glow Enhancement
+## 11d. Quotation Mark Treatment
 
-**Current:** Horizontal golden thread uses `boxShadow: '0 0 8px hsl(var(--vow-yellow) / 0.15)'`.
+**Current:** Opening and closing quotation marks use `font-light text-foreground/80` — they are the same weight as the surrounding text and only slightly dimmed.
 
-**Fix:** Increase the glow radius and add a second, wider shadow for a more ethereal bloom:
-- `boxShadow: '0 0 8px hsl(var(--vow-yellow) / 0.2), 0 0 20px hsl(var(--vow-yellow) / 0.08)'`
+**Issue:** In luxury typography, quotation marks on display text are typically de-emphasized further — they frame the quote without competing with it. The marks should feel like the edges of a frame, not part of the text.
 
-This creates a tighter bright core with a wider diffuse halo — matching the CTA glow pool treatment for visual consistency.
+**Fix:**
+- Reduce opacity to `text-foreground/40` — the marks become whisper-quiet frames.
+- Add a slight size reduction using `text-[0.8em]` — proportionally smaller than the quote text at any responsive size.
+- Add `align-top` on the opening mark and slight negative margin to tuck it closer to the first letter.
 
 ---
 
-## 10h. Reduced Motion Fallbacks
+## 11e. Trust Anchor — Typography Precision
 
-All new animations require reduced-motion fallbacks:
-- Breathing vignette: `animation: none; opacity: 0.72;`
-- Particle motes: `display: none;` (purely decorative)
-- Dual fog: `animation: none;` (static position is fine)
+**Current:** `font-sans text-sm leading-relaxed tracking-[0.01em] text-foreground/50`
 
-Added to the existing `@media (prefers-reduced-motion: reduce)` block in `index.css`.
+**Issues:**
+- `text-sm` (14px) with `leading-relaxed` (1.625) — this yields ~22.75px line-height. For a single-line trust anchor at this size, `leading-normal` (1.5) is sufficient and tighter.
+- `tracking-[0.01em]` — nearly invisible tracking. For body text at 14px, `tracking-normal` (0) is cleaner.
+
+**Fix:**
+- Change `leading-relaxed` to `leading-normal` — tighter single-line text.
+- Remove `tracking-[0.01em]` (use default) — cleaner at this size.
+
+---
+
+## 11f. Commitment Statement — "Always." Emphasis
+
+**Current:** `font-display font-light text-lg italic tracking-[0.02em] text-foreground/70` with "Always." in `font-normal not-italic tracking-[0.04em] text-primary`.
+
+**Issues:**
+- `text-lg` (18px) — this is the "lead paragraph" tier. For a commitment statement that closes the section, it should feel slightly more present. However, it must not compete with the h2. Current size is correct.
+- The "Always." treatment is good — the shift from italic serif to upright primary-colored text creates the emphasis. But `font-normal` (400) on "Always." when the surrounding text is `font-light` (300) creates a subtle weight contrast that is correct.
+- `tracking-[0.04em]` on "Always." is slightly wide. Reducing to `tracking-[0.03em]` creates a more precise separation.
+
+**Fix:**
+- Tighten "Always." tracking from `tracking-[0.04em]` to `tracking-[0.03em]`.
+- No other changes — the italic-to-upright shift and color change are working.
 
 ---
 
 ## Summary
 
-| # | Enhancement | Technique | Opacity | Rationale |
-|---|------------|-----------|---------|-----------|
-| 10a | Dual-origin fog | Two radial gradients, asymmetric | 2-4% | Physical depth, not flat gradient |
-| 10b | Breathing vignette | 6s opacity cycle overlay | 65-80% | Living darkness at edges |
-| 10c | Vertical golden thread | 1px line, 4s breathe | 15-35% | Sacred threshold marker |
-| 10d | Particle motes | Two drifting micro-gradients | 2% | Candlelit dust in space |
-| 10e | CTA glow pool | Two-layer core + halo | 5-12% | Light source illusion |
-| 10f | Text shadow depth | Triple-shadow system | n/a | Typography grounding |
-| 10g | Thread glow bloom | Dual box-shadow | 8-20% | Ethereal sacred object |
-| 10h | Reduced motion | Fallbacks for all new | n/a | Accessibility respect |
+| # | Element | Current | New | Impact |
+|---|---------|---------|-----|--------|
+| 11a | Tagline size | text-xl/text-2xl, 0.18em | text-2xl/text-3xl, 0.22em | More presence, brand-standard tracking |
+| 11b | Semicolon | text-2xl/text-3xl | text-3xl/text-4xl | Proportional pivot maintained |
+| 11c | Sacred quote | font-normal, max-w-2xl, 1.15 LH | font-light, max-w-[720px], 1.2 LH | Lighter weight, better line breaks, more air |
+| 11d | Quote marks | text-foreground/80, same size | text-foreground/40, 0.8em | Whisper-quiet frames |
+| 11e | Trust anchor | leading-relaxed, 0.01em | leading-normal, default | Tighter, cleaner |
+| 11f | "Always." | tracking-[0.04em] | tracking-[0.03em] | Precision tightening |
 
-**Two files modified:** `CrossOver.tsx` (foreground effects), `index.css` (new keyframes + reduced motion). Eight enhancements. Zero new dependencies. Pure atmospheric elevation.
+**One file modified** (`CrossOver.tsx`). Six typographic refinements. Zero visual layout changes. Zero new dependencies. Pure typography precision.
 
