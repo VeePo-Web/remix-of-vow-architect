@@ -13,7 +13,7 @@ export function CrossOver() {
       ref={sectionRef}
       role="region"
       aria-label="Final call to action"
-      className="section--dark section-grain piano-section-target py-[80px] md:py-[120px] px-4 md:px-6 lg:px-8 relative overflow-hidden min-h-[50vh] md:min-h-[60vh]"
+      className="section--dark section-grain piano-section-target relative overflow-hidden min-h-[50vh] md:min-h-[60vh] py-[80px] md:py-[120px] px-4 md:px-6 lg:px-8"
       style={{
         background: "radial-gradient(ellipse at center, hsl(240 12% 5%) 0%, hsl(240 9% 2%) 100%)",
       }}
@@ -35,7 +35,7 @@ export function CrossOver() {
 
       {/* Floating particle dust */}
       <div
-        className="absolute inset-0 pointer-events-none z-[1]"
+        className="absolute inset-0 z-[1] pointer-events-none"
         style={{
           background: "radial-gradient(circle 400px at 35% 35%, hsl(var(--vow-yellow) / 0.03) 0%, transparent 100%)",
           animation: "crossover-dust 20s ease-in-out infinite alternate",
@@ -44,7 +44,7 @@ export function CrossOver() {
       />
       {/* Vignette Effect */}
       <div 
-        className="absolute inset-0 pointer-events-none z-[1]"
+        className="absolute inset-0 z-[1] pointer-events-none"
         style={{
           background: "radial-gradient(ellipse at center, transparent 30%, hsl(240 9% 2% / 0.75) 100%)"
         }}
@@ -52,14 +52,14 @@ export function CrossOver() {
       />
       {/* Warm fog layer */}
       <div
-        className="absolute inset-0 pointer-events-none z-[1]"
+        className="absolute inset-0 z-[1] pointer-events-none"
         style={{
           background: "radial-gradient(ellipse at 50% 50%, hsl(var(--vow-yellow) / 0.03) 0%, transparent 50%)",
         }}
         aria-hidden="true"
       />
       {/* Film grain overlay */}
-      <div className="absolute inset-0 grain opacity-[0.08] pointer-events-none z-[1]" aria-hidden="true" />
+      <div className="absolute inset-0 z-[1] grain opacity-[0.08] pointer-events-none" aria-hidden="true" />
 
       {/* Top fade from TheWitnesses warm */}
       <div
@@ -68,7 +68,10 @@ export function CrossOver() {
         aria-hidden="true"
       />
 
-      <div className="container mx-auto max-w-3xl text-center relative z-10">
+      <div className="relative z-10 mx-auto max-w-3xl text-center">
+        {/* Screen reader narrative */}
+        <span className="sr-only">This is the final invitation to hold your wedding date. Parker responds within 24 hours.</span>
+
         {/* Tagline with semicolon heartbeat */}
         <div
           className={cn(
@@ -77,12 +80,12 @@ export function CrossOver() {
           )}
         >
           <p 
-            className="text-xl md:text-2xl uppercase tracking-[0.18em] font-display font-light text-foreground/70"
+            className="font-display font-light text-xl md:text-2xl uppercase tracking-[0.18em] text-foreground/70"
             style={{ textShadow: '0 1px 12px rgba(0, 0, 0, 0.3)' }}
           >
             {"\u2018"}TIL DEATH{" "}
             <span
-              className="text-primary inline-block text-2xl md:text-3xl"
+              className="inline-block text-2xl md:text-3xl text-primary"
               style={{
                 animation: isVisible ? "semicolon-heartbeat 2s ease-in-out infinite" : undefined,
               }}
@@ -96,7 +99,7 @@ export function CrossOver() {
         {/* Sacred Quote */}
         <h2
           className={cn(
-            "text-[clamp(32px,5vw,48px)] font-display font-normal leading-[1.15] mb-14 text-foreground max-w-2xl mx-auto tracking-[0.02em] transition-all duration-700",
+            "max-w-2xl mx-auto mb-14 font-display font-normal text-[clamp(32px,5vw,48px)] leading-[1.15] tracking-[0.02em] text-foreground transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
           style={{ transitionDelay: isVisible ? "150ms" : "0ms", textWrap: "balance" as any, textShadow: '0 2px 20px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.2)' }}
@@ -123,7 +126,7 @@ export function CrossOver() {
             />
             <Button 
               size="lg" 
-              className="relative text-base px-10 py-5 h-auto cta-commitment cta-breathe-glow"
+              className="relative h-auto px-10 py-5 text-base cta-commitment cta-breathe-glow"
               asChild
             >
               <Link to="/contact" className="font-sans tracking-[0.02em]">Hold my date.</Link>
@@ -134,7 +137,7 @@ export function CrossOver() {
         {/* Trust Anchor */}
         <p
           className={cn(
-            "text-sm font-sans text-foreground/50 leading-relaxed max-w-md mx-auto mb-10 tracking-[0.01em] transition-all duration-700",
+            "max-w-md mx-auto mb-10 font-sans text-sm leading-relaxed tracking-[0.01em] text-foreground/50 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
           style={{ transitionDelay: isVisible ? "420ms" : "0ms" }}
@@ -159,12 +162,12 @@ export function CrossOver() {
         {/* Commitment Statement */}
         <p
           className={cn(
-            "text-lg font-display font-light text-foreground/70 italic tracking-[0.02em] transition-all duration-700",
+            "font-display font-light text-lg italic tracking-[0.02em] text-foreground/70 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
           style={{ transitionDelay: isVisible ? "700ms" : "0ms", textShadow: '0 1px 16px rgba(0, 0, 0, 0.35)' }}
         >
-          Response within 24 hours.{" "}<span className="text-primary font-normal not-italic tracking-[0.04em]">Always.</span>
+          Response within 24 hours.{" "}<span className="font-normal not-italic tracking-[0.04em] text-primary">Always.</span>
         </p>
       </div>
 
