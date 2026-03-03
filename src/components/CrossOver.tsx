@@ -325,7 +325,7 @@ export function CrossOver() {
         <p
           id="crossing-trust-anchor"
           className={cn(
-            "max-w-md mx-auto mb-fitz-6 font-sans text-sm leading-normal text-foreground/50 transition-all duration-700",
+            "max-w-md mx-auto mb-fitz-6 font-sans text-sm leading-normal text-center text-foreground/50 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
           style={{ transitionDelay: isVisible ? "420ms" : "0ms" }}
@@ -350,7 +350,7 @@ export function CrossOver() {
         {/* 15-D: Commitment Statement with "Always." underline reveal */}
         <p
           className={cn(
-            "font-display font-light text-lg italic tracking-[0.02em] text-foreground/70 transition-all duration-700",
+            "font-display font-light text-lg italic tracking-[0.02em] text-center text-foreground/70 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
           style={{ transitionDelay: isVisible ? "700ms" : "0ms", textShadow: '0 1px 2px rgba(0, 0, 0, 0.5), 0 1px 16px rgba(0, 0, 0, 0.35)' }}
