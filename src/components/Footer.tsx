@@ -12,7 +12,6 @@ export function Footer() {
 
   // Detect arrival state — when the covenant bookend is visible
   useEffect(() => {
-    // Small delay to let DOM render
     const timer = setTimeout(() => {
       const bookend = document.querySelector('[data-footer-bookend]');
       if (!bookend) return;
@@ -38,12 +37,14 @@ export function Footer() {
       {/* === Screen reader narrative === */}
       <span className="sr-only">Site footer with navigation, contact information, and social links</span>
 
-      {/* === Atmospheric layers — warmth increases during arrival === */}
+      {/* === Atmospheric Layer 1: Grain — intensifies during arrival === */}
       <div
         className="grain pointer-events-none absolute inset-0 z-[1] transition-opacity duration-700"
         style={{ opacity: isArrival ? 0.08 : 0.06 }}
         aria-hidden="true"
       />
+
+      {/* === Atmospheric Layer 2: Edge vignette === */}
       <div
         className="pointer-events-none absolute inset-0 z-[1]"
         style={{
@@ -52,23 +53,51 @@ export function Footer() {
         }}
         aria-hidden="true"
       />
+
+      {/* === Atmospheric Layer 3: Top-center warm fog === */}
       <div
         className="pointer-events-none absolute inset-0 z-[1] transition-opacity duration-700"
         style={{
           background:
-            `radial-gradient(ellipse at 50% 20%, hsl(var(--vow-yellow) / ${isArrival ? '0.03' : '0.015'}) 0%, transparent 50%)`,
+            `radial-gradient(ellipse at 50% 20%, hsl(var(--vow-yellow) / ${isArrival ? '0.035' : '0.015'}) 0%, transparent 50%)`,
+        }}
+        aria-hidden="true"
+      />
+
+      {/* === Atmospheric Layer 4: Bottom-center warm fog (dual-origin) === */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[1] transition-opacity duration-700"
+        style={{
+          background:
+            `radial-gradient(ellipse at 50% 85%, hsl(var(--vow-yellow) / ${isArrival ? '0.03' : '0.012'}) 0%, transparent 45%)`,
+        }}
+        aria-hidden="true"
+      />
+
+      {/* === Atmospheric Layer 5: Breathing vignette — pulses during arrival === */}
+      <div
+        className={cn(
+          "pointer-events-none absolute inset-0 z-[1]",
+          isArrival && "footer-vignette-breathe"
+        )}
+        style={{
+          background: "radial-gradient(ellipse at center, transparent 30%, hsl(240 9% 2% / 0.7) 100%)",
+          opacity: isArrival ? undefined : 0.7,
         }}
         aria-hidden="true"
       />
 
       <div className="container mx-auto py-20 px-4 relative z-[2]">
-        {/* Golden thread above content — widened to 48px, brightens during arrival */}
+        {/* Golden thread above content — widened to 80px, breathes during arrival */}
         <div
-          className="h-[1px] w-12 mx-auto mb-12 footer-breathe transition-opacity duration-700"
+          className={cn(
+            "h-[1px] w-20 mx-auto mb-12 transition-opacity duration-700",
+            isArrival ? "footer-breathe" : ""
+          )}
           style={{
             background:
-              `linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / ${isArrival ? '0.35' : '0.25'}), transparent)`,
-            boxShadow: `0 0 8px hsl(var(--vow-yellow) / ${isArrival ? '0.15' : '0.1'})`,
+              `linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / ${isArrival ? '0.4' : '0.25'}), transparent)`,
+            boxShadow: `0 0 ${isArrival ? '12px' : '8px'} hsl(var(--vow-yellow) / ${isArrival ? '0.18' : '0.1'})`,
           }}
           aria-hidden="true"
         />
@@ -129,7 +158,7 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Navigate — delay 150ms */}
+          {/* Navigate — delay 150ms, key depression hover + spotlight dimming */}
           <div
             className={cn(
               "transition-all duration-700",
@@ -141,37 +170,24 @@ export function Footer() {
               <h4 className="font-display text-xs uppercase tracking-[0.22em] mb-6 text-foreground/80">
                 Navigate
               </h4>
-              <ul className="space-y-3">
-                <li>
-                  <NavLink to="/services" className="text-foreground/50 hover:text-primary transition-all duration-[180ms] story-link">
-                    Pricing
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/about" className="text-foreground/50 hover:text-primary transition-all duration-[180ms] story-link">
-                    About
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/gallery" className="text-foreground/50 hover:text-primary transition-all duration-[180ms] story-link">
-                    Proof
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/faq" className="text-foreground/50 hover:text-primary transition-all duration-[180ms] story-link">
-                    FAQ
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/listen" className="text-foreground/50 hover:text-primary transition-all duration-[180ms] story-link">
-                    Listen
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/contact" className="text-foreground/50 hover:text-primary transition-all duration-[180ms] story-link">
-                    Contact
-                  </NavLink>
-                </li>
+              <ul className="group/nav space-y-3">
+                {[
+                  { to: "/services", label: "Pricing" },
+                  { to: "/about", label: "About" },
+                  { to: "/gallery", label: "Proof" },
+                  { to: "/faq", label: "FAQ" },
+                  { to: "/listen", label: "Listen" },
+                  { to: "/contact", label: "Contact" },
+                ].map((link) => (
+                  <li key={link.to}>
+                    <NavLink
+                      to={link.to}
+                      className="text-foreground/50 hover:text-primary hover:translate-y-[1px] active:translate-y-[2px] group-hover/nav:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] story-link inline-block"
+                    >
+                      {link.label}
+                    </NavLink>
+                  </li>
+                ))}
               </ul>
             </nav>
           </div>
@@ -203,29 +219,33 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Golden thread separator */}
+        {/* Golden thread separator — glow intensifies during arrival */}
         <div
-          className="h-[1px] w-full mt-16 mb-10"
+          className="h-[1px] w-full mt-16 mb-10 transition-all duration-700"
           style={{
             background:
-              "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.15), transparent)",
-            boxShadow: "0 0 8px hsl(var(--vow-yellow) / 0.1)",
+              `linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / ${isArrival ? '0.22' : '0.15'}), transparent)`,
+            boxShadow: `0 0 ${isArrival ? '12px' : '8px'} hsl(var(--vow-yellow) / ${isArrival ? '0.15' : '0.1'})`,
           }}
           aria-hidden="true"
         />
 
-        {/* === Subtle CTA — delay 400ms === */}
+        {/* === Subtle CTA — delay 400ms, arrival-aware glow === */}
         <div
           className={cn(
-            "flex flex-col items-center gap-4 mb-10 transition-all duration-700",
+            "flex flex-col items-center gap-4 mb-10 transition-all duration-700 relative",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
           style={{ transitionDelay: isVisible ? "400ms" : "0ms" }}
         >
           <div
-            className="pointer-events-none absolute w-[200px] h-[200px] rounded-full"
+            className={cn(
+              "pointer-events-none absolute w-[200px] h-[200px] rounded-full transition-opacity duration-700",
+              isArrival && "footer-cta-arrival-glow"
+            )}
             style={{
-              background: "radial-gradient(circle, hsl(var(--vow-yellow) / 0.04) 0%, transparent 70%)",
+              background: `radial-gradient(circle, hsl(var(--vow-yellow) / ${isArrival ? '0.06' : '0.04'}) 0%, transparent 70%)`,
+              opacity: isArrival ? undefined : 1,
             }}
             aria-hidden="true"
           />
@@ -273,22 +293,26 @@ export function Footer() {
           )}
           style={{ transitionDelay: isVisible ? "650ms" : "0ms" }}
         >
-          {/* Mini golden thread echo */}
+          {/* Mini golden thread echo — intensifies during arrival */}
           <div
-            className="h-[1px] w-8 footer-breathe"
+            className={cn(
+              "h-[1px] w-8",
+              isArrival ? "footer-breathe" : ""
+            )}
             style={{
-              background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.2), transparent)",
+              background: `linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / ${isArrival ? '0.3' : '0.2'}), transparent)`,
+              boxShadow: isArrival ? '0 0 6px hsl(var(--vow-yellow) / 0.12)' : 'none',
             }}
             aria-hidden="true"
           />
-          {/* Triple-glow dot — intensifies during arrival */}
+          {/* Three Tempos golden dot — 3s polyrhythm cycle, intensifies during arrival */}
           <div
-            className="w-1.5 h-1.5 rounded-full transition-all duration-700"
+            className={cn(
+              "w-2 h-2 rounded-full transition-all duration-700",
+              isArrival ? "golden-dot-breathe-arrival" : "golden-dot-breathe"
+            )}
             style={{
-              background: `hsl(var(--vow-yellow) / ${isArrival ? '0.7' : '0.5'})`,
-              boxShadow: isArrival
-                ? "0 0 8px hsl(var(--vow-yellow) / 0.6), 0 0 18px hsl(var(--vow-yellow) / 0.35), 0 0 32px hsl(var(--vow-yellow) / 0.15)"
-                : "0 0 6px hsl(var(--vow-yellow) / 0.5), 0 0 14px hsl(var(--vow-yellow) / 0.25), 0 0 24px hsl(var(--vow-yellow) / 0.1)",
+              background: `hsl(var(--vow-yellow) / ${isArrival ? '0.75' : '0.5'})`,
             }}
             aria-hidden="true"
           />
