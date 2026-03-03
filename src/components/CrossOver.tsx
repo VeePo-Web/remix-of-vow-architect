@@ -78,6 +78,7 @@ export function CrossOver() {
         >
           <p 
             className="text-xl md:text-2xl uppercase tracking-[0.25em] font-display font-light text-foreground/70"
+            style={{ textShadow: '0 1px 12px rgba(0, 0, 0, 0.3)' }}
           >
             {"\u2018"}TIL DEATH{" "}
             <span
@@ -98,7 +99,7 @@ export function CrossOver() {
             "text-[clamp(32px,5vw,48px)] font-display font-light leading-[1.15] mb-14 text-foreground max-w-2xl mx-auto tracking-[0.02em] transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
-          style={{ transitionDelay: isVisible ? "120ms" : "0ms", textWrap: "balance" as any }}
+          style={{ transitionDelay: isVisible ? "120ms" : "0ms", textWrap: "balance" as any, textShadow: '0 2px 20px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.2)' }}
         >
           <span className="font-normal">{"\u201C"}</span>Your vows deserve to be heard.<span className="font-normal">{"\u201D"}</span>
         </h2>
@@ -116,7 +117,7 @@ export function CrossOver() {
             <div
               className="absolute inset-0 -inset-x-12 -inset-y-6 rounded-full pointer-events-none"
               style={{
-                background: 'radial-gradient(ellipse at center, hsl(45 100% 76% / 0.10) 0%, transparent 70%)',
+                background: 'radial-gradient(ellipse at center, hsl(45 100% 76% / 0.14) 0%, transparent 70%)',
               }}
               aria-hidden="true"
             />
@@ -133,7 +134,7 @@ export function CrossOver() {
         {/* Trust Anchor */}
         <p
           className={cn(
-            "text-sm font-sans text-foreground/50 leading-relaxed max-w-md mx-auto mb-10 transition-all duration-700",
+            "text-sm font-sans text-foreground/50 leading-relaxed max-w-md mx-auto mb-10 tracking-[0.01em] transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
           style={{ transitionDelay: isVisible ? "450ms" : "0ms" }}
@@ -149,6 +150,7 @@ export function CrossOver() {
           )}
           style={{
             background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)",
+            boxShadow: '0 0 8px hsl(var(--vow-yellow) / 0.15)',
             transitionDelay: isVisible ? "580ms" : "0ms",
           }}
           aria-hidden="true"
@@ -160,7 +162,7 @@ export function CrossOver() {
             "text-lg font-display font-light text-foreground/90 italic transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
-          style={{ transitionDelay: isVisible ? "700ms" : "0ms", letterSpacing: "0.02em" }}
+          style={{ transitionDelay: isVisible ? "700ms" : "0ms", letterSpacing: "0.02em", textShadow: '0 1px 16px rgba(0, 0, 0, 0.35)' }}
         >
           Response within 24 hours.{" "}<span className="text-primary font-normal not-italic tracking-[0.04em]">Always.</span>
         </p>
