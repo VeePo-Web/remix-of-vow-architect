@@ -1,114 +1,113 @@
 
+# Three Keys — Step 2: Atmospheric, Interaction & Mobile Refinement
 
-# THE COVENANT KEPT — World-Class Detail Audit & Final Refinements
+## Overview
 
-## Current State
-
-The section has already been through two rounds of refinement and is now at a high standard: warm gradient background, vignette, film grain, top/bottom fades, pure typography with three placeholder testimonials, static golden separators, golden diamond micro-ornaments, and a breathing semicolon. The implementation matches the previously approved spec closely.
-
-This audit identifies the remaining 6 precision refinements needed to reach true Fantasy.co standard — every one is a micro-calibration, not a structural change.
+The Three Keys section has strong structural bones — real piano-key 3D materials, Ken Burns background, vignette layers, and the MOST CHOSEN badge system. Step 2 brings it to Fantasy.co standard through four precise workstreams: atmospheric layer tuning, hover/press choreography, reveal animation polish, and a mobile-specific reimagination.
 
 ---
 
-## Architecture (Confirmed Correct)
+## Workstream 1: Atmospheric Layer Refinement
 
-```text
-Layer 0: Warm gradient (180deg cream-to-taupe) — correct
-Layer 1: Vignette (radial, transparent center, warm edge) — correct
-Layer 2: Film grain (global .grain, 6% opacity) — correct
-Layer 3: Top fade (rich-black blend) + Bottom fade (near-black blend) — correct
-Layer 4: Content (header + 3 testimonials + separators + semicolon) — correct
-```
+### File: `src/components/ThreePaths.tsx`
 
-No layer changes needed. 18 DOM nodes. Zero images. One ambient animation. This is essence.
+**Current state:** 5 atmospheric layers (top fade, background image with Ken Burns, warm spotlight, cinematic vignette, warm glow pool). This is structurally correct but can be tightened.
 
----
-
-## 6 Final Refinements (1 file)
-
-### File: `src/components/TheWitnesses.tsx`
-
-**1. Translate-Y distance on testimonial reveal**
-Currently `translate-y-6` (24px). The brand reveal system specifies `translateY(12px)` for the "up" variant — not 24px. 24px creates too much vertical travel, making the animation feel like a slide rather than a gentle materialization. Change to `translate-y-3` (12px) to match the reveal system spec.
-
-**2. Translate-Y distance on heading/overline reveal**
-Currently `translate-y-4` (16px). Should be `translate-y-[12px]` to match the exact 12px spec. This is a 4px difference but ensures consistency with every other section's reveal distance across the site.
-
-**3. Separator reveal animation type**
-Currently uses `scale-x` for separators. The spec calls for separators to use `scaleX + opacity` which is correct, but the initial state should include `translate-y-0` (no vertical movement) — separators should expand horizontally from center, not drift. Currently this is correct in the code. Confirmed — no change needed.
-
-**4. Heading `mb-4` after heading**
-The heading has `mb-4` (16px) after it before the testimonials block. But the testimonials block is inside a separate div with `mb-20` (80px) on the header wrapper. This means the `mb-4` on the heading has no visual effect since the parent's `mb-20` controls the gap. Remove the redundant `mb-4` from the heading element for code cleanliness — it adds no visual value and creates confusion about which margin is active.
-
-**5. Missing `role="region"` and `aria-label`**
-The section lacks semantic labeling. Per the accessibility-as-reverence principle, add `role="region"` and `aria-label="Testimonials from couples"` to the section element. This gives screen readers a meaningful landmark name.
-
-**6. Bottom fade color verification**
-The bottom fade targets `hsl(240 9% 2%)`. The CrossOver section background is `radial-gradient(ellipse at center, hsl(240 12% 5%) 0%, hsl(240 9% 2%) 100%)` — the outer edge is `hsl(240 9% 2%)`. This matches. Confirmed correct. No change needed.
+**Changes:**
+- Add `role="region"` and `aria-label="Pricing options"` to the section for accessibility
+- Update section padding from `py-32 md:py-40` to `py-[80px] md:py-[120px]` — aligning to the Fitzgerald scale (fitz-9 mobile, fitz-10 desktop), matching TheWitnesses and other refined sections
+- Update header overline tracking from `tracking-[0.3em]` to `tracking-[0.22em]` — matching the brand standard used in TheWitnesses and other sections
+- Add `font-sans` to overline to ensure Inter rendering (not inherited Cormorant)
+- Update heading `tracking-[0.01em]` to `tracking-[0.02em]` — matching the brand standard for display headings
+- Update heading `clamp(32px,4.5vw,44px)` to `clamp(30px,4.5vw,40px)` — matching the 3xl-to-4xl range (section heading, not hero display)
+- Reduce reveal `translate-y-4` on header elements to `translate-y-[12px]` — matching brand 12px reveal standard
+- Reduce reveal `translate-y-6` on key cards to `translate-y-3` (12px) — same
+- Reduce `translate-y-4` on reassurance text to `translate-y-[12px]`
+- Add a subtle warm fog layer (vow-yellow at 2% opacity, full-width, positioned at 60% height) to create atmospheric haze between the keys and the background — this is the "standing in a room" depth cue currently missing
 
 ---
 
-## Resulting Changes (Net)
+## Workstream 2: Interaction Choreography
 
-| Change | Type | Impact |
-|--------|------|--------|
-| Testimonial reveal: `translate-y-6` to `translate-y-3` | Class swap | Subtler, brand-consistent reveal |
-| Header/overline reveal: `translate-y-4` to `translate-y-[12px]` | Class swap | Exact 12px per spec |
-| Remove redundant `mb-4` from heading | Class removal | Code cleanliness |
-| Add `role="region"` + `aria-label` | Attribute addition | Accessibility |
+### File: `src/index.css`
 
-4 changes. 1 file. Zero new CSS. Zero new dependencies. Pure precision calibration.
+**Hover state sequencing (desktop white keys):**
+- Current hover transition is `120ms` — too fast for sacred pacing. Update `.piano-white-key` base transition to `180ms cubic-bezier(0.4, 0, 0.2, 1)` for transform/box-shadow (the "acknowledgment" timing)
+- Add a hover transition for the golden underline inside keys: on hover, the underline opacity shifts from 0.65 to 0.85 over 250ms — a subtle "warming" that rewards exploration without demanding attention
+- Add `.piano-white-key:hover .piano-key__name` rule: color shifts from `hsl(240 9% 10%)` to `hsl(240 9% 4%)` over 180ms — the name becomes more present on hover
 
----
+**Press feedback (active states):**
+- Current active transition is `60ms` — correct for the "snap" of a key depression
+- Ensure the active state box-shadow collapse includes a brief golden flash: add `0 0 8px rgba(255,224,138,0.08)` to the active box-shadow — barely perceptible but rewards the press
+- Add `.piano-white-key:active .piano-key__cta--chosen` and `--flanking` rules: CTA gets a `scale(0.97)` during key press for cascaded tactile feedback
 
-## Complete Spec Summary (Verified Against Implementation)
+**CTA hover refinement:**
+- `.piano-key__cta--chosen:hover`: add `transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1)` explicitly, and increase box-shadow spread slightly for warmth
+- `.piano-key__cta--flanking:hover`: add golden thread underline effect — a 1px bottom border animating from `scaleX(0)` to `scaleX(1)` over 250ms, using the golden gradient
 
-### Typography (all confirmed correct)
-- Overline: Inter, 12px, 0.22em tracking, uppercase, muted-foreground
-- Heading: Cormorant, 300 weight, clamp(30px, 4.5vw, 40px), 0.02em tracking, tight leading
-- "stayed" underline: 3px, gradient 0.65-0.2 opacity, 10px glow, 1px border-radius, sacred easing
-- Quote: Cormorant, 300 weight, 24px, italic, relaxed leading, max-width 22ch
-- Name: Cormorant, 500 weight, 15px, italic, 0.04em tracking, foreground/75
-- Venue: Cormorant, 400 weight, 12px, uppercase, 0.06em tracking, foreground/50
-- Semicolon: Cormorant, 400 weight, 28px, vow-yellow/0.25-0.4 (pulsing)
-
-### Spacing (all confirmed correct)
-- Section padding: 80px mobile, 120px desktop
-- Header to testimonials: 80px (mb-20)
-- Overline to rule: 16px (mb-4)
-- Rule to heading: 24px (mb-6)
-- Between testimonials: 64px (space-y-16)
-- Quote to attribution: 24px (mb-6)
-- Diamond ornament: 4px vertical (my-1)
-- Separator margin: 64px (mt-16)
-- Semicolon margin: 64px (mt-16)
-
-### Animation (all confirmed correct)
-- Overline: 700ms, 0ms delay, translateY + opacity
-- Golden rule: 700ms, 100ms delay, scaleX + opacity
-- Heading: 700ms, 200ms delay, translateY + opacity
-- Underline: 700ms, 700ms delay, scaleX, sacred easing
-- Testimonials: 700ms, 400/520/640ms delays, translateY + opacity
-- Separators: 700ms, 600/720ms delays, scaleX + opacity
-- Semicolon entry: 700ms, 1100ms delay, scale(0.9-1) + opacity
-- Semicolon pulse: 4000ms continuous, ease-in-out, opacity 0.25-0.4
-
-### Colors (all confirmed correct)
-- Background: cream-to-taupe gradient
-- Vignette: warm edge at 0.8 opacity
-- Top fade: rich-black (240 9% 4%)
-- Bottom fade: near-black (240 9% 2%) — matches CrossOver
-- Golden elements: vow-yellow at prescribed opacities
-- Film grain: 6% opacity
-
-### Accessibility
-- Reduced motion: vigil-pulse disabled, static 0.35 opacity
-- All decorative elements: `aria-hidden="true"`
-- Semantic: adding `role="region"` and `aria-label`
+**MOST CHOSEN badge breathing:**
+- Add a subtle badge glow pulse: the outer `box-shadow` on `.paths-chosen-badge` breathes between `rgba(255,224,138,0.06)` and `rgba(255,224,138,0.12)` over 4s — synced with the `chosen-key-breathe` animation for harmonic coherence
 
 ---
 
-## Verdict
+## Workstream 3: Reveal Animation Polish
 
-The section is 96% to spec. The 4 remaining changes are micro-calibrations: tightening reveal distances to match the brand's 12px standard, removing a redundant margin class, and adding proper semantic labeling. After these changes, the section will be fully Fantasy.co-grade — pure typography, precise timing, atmospheric depth without complexity.
+### File: `src/components/ThreePaths.tsx`
 
+**Stagger timing refinement:**
+- Current: center 450ms, left 550ms, right 650ms — 100ms gaps. This is acceptable but should be tightened to 80ms for organic cohesion: center 450ms, left 530ms, right 610ms
+- Black key delays: tighten from 500/600 to 480/560 — they should appear slightly after their adjacent white keys but not lag
+
+**Header reveal sequence:**
+- Overline: 0ms delay (first element, already correct)
+- Heading: 120ms delay (tighten from 150ms for organic rhythm)
+- Golden thread: 300ms delay (tighten from 400ms — it should connect to the heading reveal, not feel separated)
+
+**Reassurance reveal:**
+- Diamond: delay from 900ms to 800ms
+- Text: delay from 950ms to 880ms — tighter coupling with the diamond
+
+**Easing:**
+- All reveal transitions already use `duration-700` which is correct for "sacred reveal" timing
+- No easing changes needed — the browser default CSS `ease` on `transition-all` is acceptable; adding explicit `cubic-bezier(0.4, 0, 0.2, 1)` to the transition class would be ideal but not critical
+
+---
+
+## Workstream 4: Mobile-Specific Reimagination
+
+### File: `src/components/ThreePaths.tsx`
+
+**Mobile card spacing:**
+- Current `MobileGoldenThread` has `my-2` (8px vertical margin). Increase to `my-4` (16px) — the cards need more breathing room on mobile (fitz-4)
+- Mobile golden thread width: increase from `w-16` to `w-12` — narrower thread, more precious (matching TheWitnesses separator width)
+
+**Mobile card reveal stagger:**
+- On mobile, the three cards stack vertically. The current stagger (450/550/650ms) works for simultaneous desktop reveal but on mobile, cards reveal one-at-a-time as the user scrolls. The stagger has less impact. Keep the timing but reduce the translate distance — `translate-y-3` (12px) is already planned.
+
+**Mobile touch targets:**
+- CTAs already have `min-height: 48px` — correct (exceeds 44px minimum)
+- Ensure the entire mobile card is tappable by wrapping the card content — actually, this would change the interaction model. Keep as-is; the CTA button is the primary touch target.
+
+**Mobile MOST CHOSEN badge:**
+- Current badge has `-mt-4 mb-2` on mobile. The badge should feel more integrated — change to `-mt-2 mb-3` for tighter coupling with the card top edge.
+
+### File: `src/index.css`
+
+**Mobile active state:**
+- `.piano-white-key--mobile:active` currently presses 2px. Add a golden flash to the box-shadow matching the desktop behavior: `0 0 6px rgba(255,224,138,0.06)` — barely visible but sensorially consistent.
+
+**Mobile chosen key:**
+- On mobile, the chosen key should have a subtle left-edge golden accent instead of the desktop top-border press-down. Add `.piano-white-key--mobile.piano-white-key--chosen` rule: `border-left: 2px solid hsl(var(--vow-yellow) / 0.35)` replacing the top border — this creates a vertical "spine" accent that works better in the stacked layout.
+
+---
+
+## Summary
+
+| Workstream | File | Changes |
+|-----------|------|---------|
+| Atmospheric | TSX | Fitzgerald spacing, typography alignment, fog layer, accessibility |
+| Interaction | CSS | Hover 180ms, name color shift, active golden flash, CTA underline, badge breathing |
+| Reveal | TSX | Tighter stagger (80ms gaps), header sequence, reassurance coupling |
+| Mobile | TSX + CSS | Card breathing room, golden thread width, badge positioning, active golden flash, chosen left-accent |
+
+**Two files modified.** Zero new dependencies. Zero new images. Zero new keyframes beyond the badge glow pulse (which can reuse `chosen-key-breathe` timing). Pure interaction choreography and atmospheric calibration.
