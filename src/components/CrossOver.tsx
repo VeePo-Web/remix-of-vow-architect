@@ -77,12 +77,12 @@ export function CrossOver() {
           )}
         >
           <p 
-            className="text-xl md:text-2xl uppercase tracking-[0.25em] font-display font-light text-foreground/70"
+            className="text-xl md:text-2xl uppercase tracking-[0.18em] font-display font-light text-foreground/70"
             style={{ textShadow: '0 1px 12px rgba(0, 0, 0, 0.3)' }}
           >
             {"\u2018"}TIL DEATH{" "}
             <span
-              className="text-primary inline-block"
+              className="text-primary inline-block text-2xl md:text-3xl"
               style={{
                 animation: isVisible ? "semicolon-heartbeat 2s ease-in-out infinite" : undefined,
               }}
@@ -96,12 +96,12 @@ export function CrossOver() {
         {/* Sacred Quote */}
         <h2
           className={cn(
-            "text-[clamp(32px,5vw,48px)] font-display font-light leading-[1.15] mb-14 text-foreground max-w-2xl mx-auto tracking-[0.02em] transition-all duration-700",
+            "text-[clamp(32px,5vw,48px)] font-display font-normal leading-[1.15] mb-14 text-foreground max-w-2xl mx-auto tracking-[0.02em] transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
           style={{ transitionDelay: isVisible ? "150ms" : "0ms", textWrap: "balance" as any, textShadow: '0 2px 20px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.2)' }}
         >
-          <span className="font-normal">{"\u201C"}</span>Your vows deserve to be heard.<span className="font-normal">{"\u201D"}</span>
+          <span className="font-light text-foreground/80">{"\u201C"}</span>Your vows deserve to be heard.<span className="font-light text-foreground/80">{"\u201D"}</span>
         </h2>
 
         {/* CTA Stack */}
@@ -126,7 +126,7 @@ export function CrossOver() {
               className="relative text-base px-10 py-5 h-auto cta-commitment cta-breathe-glow"
               asChild
             >
-              <Link to="/contact" className="font-sans tracking-[0.02em]">Hold my date</Link>
+              <Link to="/contact" className="font-sans tracking-[0.02em]">Hold my date.</Link>
             </Button>
           </div>
         </div>
@@ -159,10 +159,10 @@ export function CrossOver() {
         {/* Commitment Statement */}
         <p
           className={cn(
-            "text-lg font-display font-light text-foreground/70 italic transition-all duration-700",
+            "text-lg font-display font-light text-foreground/70 italic tracking-[0.02em] transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
-          style={{ transitionDelay: isVisible ? "700ms" : "0ms", letterSpacing: "0.02em", textShadow: '0 1px 16px rgba(0, 0, 0, 0.35)' }}
+          style={{ transitionDelay: isVisible ? "700ms" : "0ms", textShadow: '0 1px 16px rgba(0, 0, 0, 0.35)' }}
         >
           Response within 24 hours.{" "}<span className="text-primary font-normal not-italic tracking-[0.04em]">Always.</span>
         </p>
