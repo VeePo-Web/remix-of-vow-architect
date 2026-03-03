@@ -11,7 +11,9 @@ export function CrossOver() {
     <section 
       id="the-crossing"
       ref={sectionRef}
-      className="section--dark section-grain piano-section-target py-24 px-4 relative overflow-hidden min-h-[400px]"
+      role="region"
+      aria-label="Final call to action"
+      className="section--dark section-grain piano-section-target py-[80px] md:py-[120px] px-4 relative overflow-hidden min-h-[400px]"
       style={{
         background: "radial-gradient(ellipse at center, hsl(240 12% 5%) 0%, hsl(240 9% 2%) 100%)",
       }}
@@ -21,7 +23,7 @@ export function CrossOver() {
         <img
           src={crossoverDance}
           alt=""
-          className="absolute inset-0 w-full h-full object-cover opacity-[0.10] pointer-events-none"
+          className="absolute inset-0 w-full h-full object-cover opacity-[0.12] pointer-events-none"
           style={{
             animation: 'crossover-ken-burns 30s ease-in-out infinite alternate',
             filter: 'saturate(0.5) contrast(1.1)',
@@ -67,18 +69,15 @@ export function CrossOver() {
       />
 
       <div className="container mx-auto max-w-4xl text-center relative z-10">
-        {/* Step 10: Tagline with semicolon heartbeat */}
+        {/* Tagline with semicolon heartbeat */}
         <div
           className={cn(
             "mb-10 transition-all duration-700",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
         >
           <p 
-            className="text-[clamp(16px,2vw,20px)] uppercase tracking-[0.4em] font-display font-light text-foreground/80"
-            style={{
-              textShadow: "0 2px 8px rgba(0,0,0,0.6), 0 0 2px rgba(255,224,138,0.15)"
-            }}
+            className="text-lg md:text-xl uppercase tracking-[0.22em] font-display font-light text-foreground/80"
           >
             {"\u2018"}TIL DEATH{" "}
             <span
@@ -96,10 +95,10 @@ export function CrossOver() {
         {/* Sacred Quote */}
         <h2
           className={cn(
-            "text-[clamp(32px,5vw,56px)] font-display font-light leading-tight mb-12 text-foreground max-w-2xl mx-auto transition-all duration-700",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            "text-[clamp(32px,5vw,48px)] font-display font-light leading-tight mb-14 text-foreground max-w-2xl mx-auto tracking-[0.02em] transition-all duration-700",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
-          style={{ transitionDelay: isVisible ? "150ms" : "0ms", textWrap: "balance" as any }}
+          style={{ transitionDelay: isVisible ? "120ms" : "0ms", textWrap: "balance" as any }}
         >
           {"\u201C"}Your vows deserve<br />to be heard.{"\u201D"}
         </h2>
@@ -107,10 +106,10 @@ export function CrossOver() {
         {/* CTA Stack */}
         <div
           className={cn(
-            "flex flex-col sm:flex-row gap-4 justify-center items-center mb-6 transition-all duration-700",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            "flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 transition-all duration-700",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
-          style={{ transitionDelay: isVisible ? "300ms" : "0ms" }}
+          style={{ transitionDelay: isVisible ? "320ms" : "0ms" }}
         >
           <div className="relative">
             {/* Ambient radial glow behind CTA */}
@@ -123,8 +122,7 @@ export function CrossOver() {
             />
             <Button 
               size="lg" 
-              variant="primary-dark" 
-              className="relative text-base px-8 py-6 h-auto cta-commitment cta-breathe-glow"
+              className="relative text-base px-10 py-5 h-auto cta-commitment cta-breathe-glow"
               asChild
             >
               <Link to="/contact">Hold my date →</Link>
@@ -133,46 +131,45 @@ export function CrossOver() {
         </div>
 
         {/* Trust Anchor */}
-
         <p
           className={cn(
-            "text-sm text-foreground/60 mb-10 transition-all duration-700",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            "text-sm font-sans text-foreground/50 mb-10 transition-all duration-700",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
           style={{ transitionDelay: isVisible ? "450ms" : "0ms" }}
         >
           Includes sound documentation, microphone setup, and your ceremony run-of-show.
         </p>
 
-        {/* Step 11: Golden thread above commitment */}
+        {/* Golden thread above commitment */}
         <div 
           className={cn(
-            "h-[1px] w-8 mx-auto mb-8 transition-all duration-700",
+            "h-[1px] w-12 mx-auto mb-8 transition-all duration-700",
             isVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
           )}
           style={{
             background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)",
-            transitionDelay: isVisible ? "600ms" : "0ms",
+            transitionDelay: isVisible ? "580ms" : "0ms",
           }}
           aria-hidden="true"
         />
 
-        {/* Step 11: Commitment Statement with ceremony */}
+        {/* Commitment Statement */}
         <p
           className={cn(
             "text-lg font-display font-light text-foreground/90 italic transition-all duration-700",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
-          style={{ transitionDelay: isVisible ? "750ms" : "0ms", letterSpacing: "0.03em" }}
+          style={{ transitionDelay: isVisible ? "700ms" : "0ms", letterSpacing: "0.02em" }}
         >
-          Response within <span className="text-primary font-normal not-italic text-lg font-semibold">24 hours</span>. Always.
+          Response within <span className="text-primary font-normal not-italic">24 hours</span>. Always.
         </p>
       </div>
 
       {/* Bottom fade into Footer dark */}
       <div
         className="section-fade-bottom"
-        style={{ background: 'linear-gradient(to bottom, transparent, hsl(240 9% 4%))' }}
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(240 9% 4%))', height: '80px' }}
         aria-hidden="true"
       />
     </section>
