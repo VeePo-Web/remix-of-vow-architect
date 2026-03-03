@@ -5984,3 +5984,55 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
     opacity: 0.35;
   }
 }
+
+/* ── Footer: Golden Dot Breathe — 3s tempo (polyrhythm with 2s semicolon + 8s footer-breathe) ── */
+@keyframes golden-dot-breathe {
+  0%, 100% { box-shadow: 0 0 6px hsl(var(--vow-yellow) / 0.5), 0 0 14px hsl(var(--vow-yellow) / 0.25), 0 0 24px hsl(var(--vow-yellow) / 0.1); }
+  50% { box-shadow: 0 0 8px hsl(var(--vow-yellow) / 0.6), 0 0 18px hsl(var(--vow-yellow) / 0.35), 0 0 32px hsl(var(--vow-yellow) / 0.15); }
+}
+.golden-dot-breathe {
+  animation: golden-dot-breathe 3s ease-in-out infinite;
+}
+
+/* Footer: Arrival-intensified golden dot */
+@keyframes golden-dot-breathe-arrival {
+  0%, 100% { box-shadow: 0 0 8px hsl(var(--vow-yellow) / 0.6), 0 0 18px hsl(var(--vow-yellow) / 0.35), 0 0 32px hsl(var(--vow-yellow) / 0.15); }
+  50% { box-shadow: 0 0 12px hsl(var(--vow-yellow) / 0.75), 0 0 24px hsl(var(--vow-yellow) / 0.45), 0 0 40px hsl(var(--vow-yellow) / 0.2); }
+}
+.golden-dot-breathe-arrival {
+  animation: golden-dot-breathe-arrival 3s ease-in-out infinite;
+}
+
+/* Footer: CTA breathing glow during arrival */
+@keyframes footer-cta-arrival-glow {
+  0%, 100% { opacity: 0.04; transform: scale(1); }
+  50% { opacity: 0.08; transform: scale(1.05); }
+}
+.footer-cta-arrival-glow {
+  animation: footer-cta-arrival-glow 4s ease-in-out infinite;
+}
+
+/* Footer: Breathing vignette during arrival */
+@keyframes footer-vignette-breathe {
+  0%, 100% { opacity: 0.65; }
+  50% { opacity: 0.80; }
+}
+.footer-vignette-breathe {
+  animation: footer-vignette-breathe 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .golden-dot-breathe,
+  .golden-dot-breathe-arrival {
+    animation: none;
+    box-shadow: 0 0 6px hsl(var(--vow-yellow) / 0.5), 0 0 14px hsl(var(--vow-yellow) / 0.25);
+  }
+  .footer-cta-arrival-glow {
+    animation: none;
+    opacity: 0.06;
+  }
+  .footer-vignette-breathe {
+    animation: none;
+    opacity: 0.7;
+  }
+}
