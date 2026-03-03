@@ -4800,19 +4800,21 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 
 /* Key gap container */
 .piano-keys-container {
-  background: hsl(240 9% 3%);
+  background: hsl(25 8% 5%);
   border-radius: 4px 4px 0 0;
+  overflow: visible;
 }
 
 .piano-white-key {
   position: relative;
-  min-height: 520px;
+  min-height: 560px;
   padding: 40px 32px 32px;
-  /* Convex surface: top highlight + ivory gradient + micro-texture */
+  /* Convex surface: top highlight + ivory ridge + micro-texture + base gradient */
   background:
-    linear-gradient(180deg, rgba(255,255,255,0.35) 0%, transparent 15%),
-    repeating-linear-gradient(90deg, rgba(0,0,0,0.008) 0px, transparent 1px, transparent 8px),
-    linear-gradient(180deg, hsl(45 20% 96%) 0%, hsl(45 15% 92%) 100%);
+    linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 8%, transparent 20%),
+    linear-gradient(90deg, hsl(45 12% 91%) 0%, hsl(45 18% 95%) 35%, hsl(45 20% 96%) 50%, hsl(45 18% 95%) 65%, hsl(45 12% 91%) 100%),
+    repeating-linear-gradient(90deg, rgba(0,0,0,0.006) 0px, transparent 1px, transparent 8px),
+    linear-gradient(180deg, hsl(45 20% 96%) 0%, hsl(45 14% 91%) 100%);
   border-left: 1px solid hsl(45 10% 85%);
   border-right: 1px solid hsl(45 10% 88%);
   border-bottom: none;
@@ -4863,13 +4865,19 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 
 /* ─── Chosen key: permanently pressed 6px + golden underglow ─── */
 .piano-white-key--chosen {
-  border-top: 2px solid hsl(var(--vow-yellow) / 0.4);
+  border-top: 2px solid hsl(var(--vow-yellow) / 0.35);
+  animation: chosen-key-breathe 4s ease-in-out infinite;
   box-shadow:
     inset 2px 0 4px rgba(0,0,0,0.04),
     inset -2px 0 4px rgba(0,0,0,0.04),
     0 2px 12px rgba(255,224,138,0.15),
     0 -4px 20px rgba(255,224,138,0.12),
     0 2px 0 rgba(0,0,0,0.06);
+}
+
+@keyframes chosen-key-breathe {
+  0%, 100% { border-top-color: hsl(var(--vow-yellow) / 0.3); }
+  50% { border-top-color: hsl(var(--vow-yellow) / 0.5); }
 }
 
 @media (min-width: 768px) {
@@ -4916,6 +4924,7 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
    PIANO BLACK KEY — Glossy charcoal separator (Enhanced depth)
    ═══════════════════════════════════════════════════════════════ */
 .piano-black-key {
+  position: relative;
   width: 48px;
   height: 300px;
   flex-shrink: 0;
@@ -4927,8 +4936,25 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
     0 6px 16px rgba(0,0,0,0.6),
     0 2px 4px rgba(0,0,0,0.4);
   z-index: 10;
-  /* Subtle bottom-edge highlight */
   border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.piano-black-key::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, transparent 100%);
+  border-radius: 0 0 2px 2px;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .piano-white-key {
+    min-height: 600px;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -4984,6 +5010,10 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   color: hsl(45 20% 96%) !important;
   border-color: hsl(240 9% 8%) !important;
   box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  letter-spacing: 0.08em;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  border-radius: 4px !important;
 }
 .piano-key__cta--chosen:hover {
   background: hsl(240 9% 14%) !important;
@@ -4994,6 +5024,10 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   background: transparent !important;
   color: hsl(240 9% 20%) !important;
   border: 1px solid hsl(240 9% 75%) !important;
+  letter-spacing: 0.08em;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  border-radius: 4px !important;
 }
 .piano-key__cta--flanking:hover {
   background: hsl(240 9% 8% / 0.05) !important;
@@ -5082,6 +5116,7 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
     transition: opacity 120ms ease !important;
     will-change: auto;
     transform: none !important;
+    animation: none;
   }
   .piano-white-key:hover,
   .piano-white-key:active,
