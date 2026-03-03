@@ -1694,6 +1694,19 @@ All colors MUST be HSL.
   /* CTA Commitment Pulse */
   .cta-commitment {
     animation: commitment-pulse 2.4s var(--ease-sacred) infinite;
+    border: 1px solid hsl(45 100% 76% / 0.25);
+    transition: border-color 180ms ease, box-shadow 180ms ease;
+  }
+
+  .cta-commitment:hover {
+    border-color: hsl(45 100% 76% / 0.40);
+  }
+
+  .cta-commitment:active {
+    box-shadow:
+      inset 0 1px 3px rgba(0, 0, 0, 0.15),
+      0 1px 4px rgba(0, 0, 0, 0.25) !important;
+    border-color: hsl(45 100% 76% / 0.20);
   }
   
   /* Navigation Links */
@@ -4304,10 +4317,20 @@ All colors MUST be HSL.
      ------------------------------------------- */
    @keyframes cta-breathe {
     0%, 100% {
-      box-shadow: 0 0 30px rgba(255, 224, 138, 0.2), 0 0 60px rgba(255, 224, 138, 0.1), 0 0 120px rgba(255, 224, 138, 0.05);
+      box-shadow:
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.18),
+        0 2px 8px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(255, 224, 138, 0.2),
+        0 0 60px rgba(255, 224, 138, 0.1),
+        0 0 120px rgba(255, 224, 138, 0.05);
     }
     50% {
-      box-shadow: 0 0 45px rgba(255, 224, 138, 0.35), 0 0 90px rgba(255, 224, 138, 0.18), 0 0 160px rgba(255, 224, 138, 0.08);
+      box-shadow:
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.28),
+        0 3px 12px rgba(0, 0, 0, 0.35),
+        0 0 45px rgba(255, 224, 138, 0.35),
+        0 0 90px rgba(255, 224, 138, 0.18),
+        0 0 160px rgba(255, 224, 138, 0.08);
     }
   }
 
