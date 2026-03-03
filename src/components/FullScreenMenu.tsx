@@ -93,9 +93,16 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
         style={{ background: "radial-gradient(ellipse at center, transparent 30%, hsl(240 9% 2%) 100%)" }}
         aria-hidden="true"
       />
+      {/* Warm candlelight fog — pooling from left where menu items sit */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at 30% 40%, hsl(var(--vow-yellow) / 0.02) 0%, transparent 50%)" }}
+        style={{ background: "radial-gradient(ellipse 60% 80% at 30% 40%, hsl(var(--vow-yellow) / 0.02) 0%, transparent 50%)" }}
+        aria-hidden="true"
+      />
+      {/* Secondary candle warmth — subtle center glow */}
+      <div
+        className="absolute inset-0 pointer-events-none header-candle"
+        style={{ background: "radial-gradient(ellipse at 50% 60%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 40%)" }}
         aria-hidden="true"
       />
 
@@ -159,10 +166,10 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
                   {item.number}
                 </span>
                 <span className={cn(
-                  "font-display text-4xl md:text-5xl lg:text-6xl transition-colors duration-[180ms]",
+                  "font-display text-4xl md:text-5xl lg:text-6xl transition-all duration-[180ms]",
                   isActive
                     ? "text-foreground"
-                    : "text-foreground/80 group-hover:text-primary"
+                    : "text-foreground/80 group-hover:text-primary group-hover:translate-y-[1px]"
                 )}>
                   {item.label}
                 </span>
@@ -171,18 +178,33 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
           })}
         </nav>
 
-        {/* Golden thread separator */}
-        <div
-          className={cn(
-            "mt-12 h-[1px] w-12 transition-all duration-300",
-            isOpen ? "opacity-100 delay-700" : "opacity-0"
-          )}
-          style={{
-            background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.3), transparent)",
-            boxShadow: "0 0 8px hsl(var(--vow-yellow) / 0.08)",
-          }}
-          aria-hidden="true"
-        />
+        {/* Organic vine thread separator — matches header arch edge */}
+        <div className={cn(
+          "mt-12 w-24 transition-all duration-300 overflow-visible",
+          isOpen ? "opacity-100 delay-700" : "opacity-0"
+        )}>
+          <svg
+            width="100%"
+            height="6"
+            viewBox="0 0 96 6"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <defs>
+              <linearGradient id="menu-vine-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="hsl(45 100% 76% / 0.3)" />
+                <stop offset="50%" stopColor="hsl(45 100% 76% / 0.15)" />
+                <stop offset="100%" stopColor="transparent" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M0,3 Q12,1.5 24,3 T48,3 Q60,4.5 72,3 T96,3"
+              fill="none"
+              stroke="url(#menu-vine-gradient)"
+              strokeWidth="1"
+            />
+          </svg>
+        </div>
 
         {/* Contact Info */}
         <div

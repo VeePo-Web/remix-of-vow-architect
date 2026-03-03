@@ -4812,6 +4812,28 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   animation: footer-breathe 8s ease-in-out infinite;
 }
 
+/* Header candlelight warmth pulse */
+@keyframes header-candle-pulse {
+  0%, 100% { opacity: 0.025; }
+  50% { opacity: 0.04; }
+}
+.header-candle {
+  animation: header-candle-pulse 4s ease-in-out infinite;
+}
+.header-candle--arrival {
+  animation: header-candle-pulse 4s ease-in-out infinite;
+}
+.header-candle--arrival {
+  --candle-intensity: 0.05;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-candle,
+  .header-candle--arrival {
+    animation: none;
+  }
+}
+
 /* Footer color bridge from CrossOver */
 .footer-fade-bridge {
   position: absolute;
