@@ -64,7 +64,7 @@ export function CrossOver() {
       {/* Top fade from TheWitnesses warm */}
       <div
         className="section-fade-top"
-        style={{ background: 'linear-gradient(to top, transparent, hsl(240 9% 2%))' }}
+        style={{ background: 'linear-gradient(to top, transparent 0%, hsl(240 9% 3% / 0.5) 40%, hsl(240 9% 2%) 100%)', height: '160px' }}
         aria-hidden="true"
       />
 
@@ -171,7 +171,7 @@ export function CrossOver() {
       {/* Bottom fade into Footer dark */}
       <div
         className="section-fade-bottom"
-        style={{ background: 'linear-gradient(to bottom, transparent, hsl(240 9% 4%))', height: '80px' }}
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(240 9% 2%))', height: '80px' }}
         aria-hidden="true"
       />
     </section>
