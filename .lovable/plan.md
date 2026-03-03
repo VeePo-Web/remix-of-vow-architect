@@ -1,16 +1,18 @@
 
 
-# Fix: ThreePaths Section — Heading Copy and Centering
+# Fix: Center All Text in CrossOver Section Footer
 
-## Changes
+## The Issue
 
-### File: `src/components/ThreePaths.tsx`
+The bottom portion of the CrossOver section — the trust anchor text ("Includes your bespoke ceremony arrangement...") and the commitment statement ("Response within 24 hours. Always.") — relies on inherited `text-center` from the parent container. On some viewports or when text wraps, these elements may not appear visually centered.
 
-1. **Line 176** — Replace "How deeply do you want me there." with a new heading that honors the covenant voice while feeling fresh. Proposed: "Choose the presence that fits your day." — frames the decision as selecting a level of presence rather than a transactional package choice. Stays first-person-adjacent, verb-forward, and composed.
+## The Fix
 
-2. **Lines 169-177** — The heading already has `margin: "0 auto"` and the parent div has `items-center`, but the `h2` itself lacks `text-center`. Add `text-center` to ensure multiline wrapping centers properly on all viewports.
+### File: `src/components/CrossOver.tsx`
 
-3. **Line 163** — The label "THREE KEYS" is already centered. No change needed.
+1. **Line 328** — Add explicit `text-center` to the trust anchor paragraph class. Currently has `max-w-md mx-auto` but no explicit text alignment.
 
-All other formatting (golden thread, stagger reveals, piano key layout) remains untouched.
+2. **Line 353** — Add explicit `text-center` to the commitment statement paragraph ("Response within 24 hours. Always."). Currently inherits centering but lacks the explicit class.
+
+Both are single-class additions — no layout or structural changes. The parent `div` on line 209 already has `text-center`, so this is a reinforcement to ensure centering is never lost through CSS specificity or inheritance breaks.
 
