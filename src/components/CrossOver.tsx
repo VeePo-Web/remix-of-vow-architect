@@ -151,12 +151,12 @@ export function CrossOver() {
           )}
         >
           <p 
-            className="font-display font-light text-xl md:text-2xl uppercase tracking-[0.18em] text-foreground/70"
+            className="font-display font-light text-2xl md:text-3xl uppercase tracking-[0.22em] text-foreground/70"
             style={{ textShadow: '0 1px 12px rgba(0, 0, 0, 0.3)' }}
           >
             {"\u2018"}TIL DEATH{" "}
             <span
-              className="inline-block text-2xl md:text-3xl text-primary"
+              className="inline-block text-3xl md:text-4xl text-primary"
               style={{
                 animation: isVisible ? "semicolon-heartbeat 2s ease-in-out infinite" : undefined,
               }}
@@ -170,12 +170,12 @@ export function CrossOver() {
         {/* Sacred Quote — 10f: triple text shadow */}
         <h2
           className={cn(
-            "max-w-2xl mx-auto mb-14 font-display font-normal text-[clamp(32px,5vw,48px)] leading-[1.15] tracking-[0.02em] text-foreground transition-all duration-700",
+            "max-w-[720px] mx-auto mb-14 font-display font-light text-[clamp(32px,5vw,48px)] leading-[1.2] tracking-[0.02em] text-foreground transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
           style={{ transitionDelay: isVisible ? "150ms" : "0ms", textWrap: "balance" as any, textShadow: '0 1px 3px rgba(0, 0, 0, 0.6), 0 2px 20px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.2)' }}
         >
-          <span className="font-light text-foreground/80">{"\u201C"}</span>Let your ceremony sound like what your hearts feel like.<span className="font-light text-foreground/80">{"\u201D"}</span>
+          <span className="font-light text-foreground/40 text-[0.8em] align-top -mr-[0.05em]">{"\u201C"}</span>Let your ceremony sound like what your hearts feel like.<span className="font-light text-foreground/40 text-[0.8em]">{"\u201D"}</span>
         </h2>
 
         {/* CTA Stack — 10e: dual-layer glow pool */}
@@ -216,7 +216,7 @@ export function CrossOver() {
         {/* Trust Anchor */}
         <p
           className={cn(
-            "max-w-md mx-auto mb-10 font-sans text-sm leading-relaxed tracking-[0.01em] text-foreground/50 transition-all duration-700",
+            "max-w-md mx-auto mb-10 font-sans text-sm leading-normal text-foreground/50 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
           style={{ transitionDelay: isVisible ? "420ms" : "0ms" }}
@@ -246,7 +246,7 @@ export function CrossOver() {
           )}
           style={{ transitionDelay: isVisible ? "700ms" : "0ms", textShadow: '0 1px 2px rgba(0, 0, 0, 0.5), 0 1px 16px rgba(0, 0, 0, 0.35)' }}
         >
-          Response within 24 hours.{" "}<span className="font-normal not-italic tracking-[0.04em] text-primary">Always.</span>
+          Response within 24 hours.{" "}<span className="font-normal not-italic tracking-[0.03em] text-primary">Always.</span>
         </p>
       </div>
 
