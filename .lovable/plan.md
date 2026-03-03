@@ -1,179 +1,112 @@
 
 
-# THE COVENANT KEPT — Detail-Oriented Design Overhaul
+# THE COVENANT KEPT — Radical Simplification
 
-## Current State Assessment
+## Philosophy
 
-The section currently has: a warm cream background with Ken Burns image, vignette layers, film grain, three testimonial cards with frosted glass effect, golden thread separators, and a closing semicolon. The structure is sound but lacks the depth, material richness, and ceremonial weight that the brand demands. The cards read as translucent web elements, not as sacred testimony. The typography hierarchy is flat, and the atmospheric layers need refinement.
+The current section is overengineered: 6 atmospheric overlay divs, letterpress card materials with pseudo-element grain textures, SVG quote motifs, diamond-endpoint separators, breathing animations, and candle pool glows. This violates the lagom principle. The testimonials should feel like whispered truths in a warm room — not a layered Photoshop composition.
 
-## 15 Refinements Across 2 Files
-
----
-
-### File: `src/index.css` (9 changes)
-
-**1. Testimonial Card — Letterpress Paper Material**
-Replace the frosted glass background with a warm invitation-paper material. Real letterpress cards have visible paper texture, subtle embossed edges, and a warm ivory surface that catches light asymmetrically.
-
-```css
-.witnesses-testimonial-card {
-  background:
-    radial-gradient(ellipse at 15% 15%, hsl(var(--vow-yellow) / 0.05), transparent 50%),
-    radial-gradient(ellipse at 85% 85%, hsl(45 30% 88% / 0.3), transparent 50%),
-    hsl(45 25% 96% / 0.85);
-  backdrop-filter: blur(8px);
-  border: none;
-  border-left: 3px solid hsl(var(--vow-yellow) / 0.15);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.25),
-    inset 0 -1px 0 rgba(0,0,0,0.03),
-    0 1px 2px rgba(0,0,0,0.04),
-    0 4px 16px rgba(0,0,0,0.06),
-    0 12px 40px rgba(0,0,0,0.04);
-  padding: 2.5rem 2rem;
-  border-radius: 4px;
-}
-```
-The inset top highlight and bottom darken simulate the paper edge catching overhead light. The triple-layer external shadow creates depth without harshness. `border-radius: 4px` (not 8px+) maintains reverence.
-
-**2. Testimonial Card Hover — Subtle Lift with Golden Warmth**
-Refine the hover to a 2px lift with expanded golden shadow pool and a slight warmth increase:
-
-```css
-.witnesses-testimonial-card:hover {
-  transform: translateY(-2px) rotate(0deg) !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.3),
-    inset 0 -1px 0 rgba(0,0,0,0.03),
-    0 2px 4px rgba(0,0,0,0.05),
-    0 8px 24px rgba(0,0,0,0.07),
-    0 16px 48px rgba(0,0,0,0.04),
-    0 0 24px rgba(255,224,138,0.06);
-}
-```
-
-**3. Quote Mark Ornament Enhancement**
-Add a CSS rule for a larger, more luminous quote mark glow behind the SVG motif to create a "warm candle pool" behind each testimonial:
-
-```css
-.witnesses-testimonial-card::before {
-  content: '';
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 40px;
-  background: radial-gradient(ellipse, hsl(var(--vow-yellow) / 0.06) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-```
-
-**4. Golden Thread Separators — Wider with Endpoint Diamonds**
-Increase the breathing thread width from `w-20` (80px) to `w-32` (128px) and add diamond endpoints via CSS pseudo-elements:
-
-```css
-.witnesses-thread-breathing::before,
-.witnesses-thread-breathing::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  width: 4px;
-  height: 4px;
-  background: hsl(var(--vow-yellow) / 0.35);
-  transform: translateY(-50%) rotate(45deg);
-}
-.witnesses-thread-breathing::before { left: -6px; }
-.witnesses-thread-breathing::after { right: -6px; }
-.witnesses-thread-breathing {
-  position: relative;
-}
-```
-
-**5. Semicolon Sacred Object — Golden Glow Pool**
-Add a radial glow beneath the semicolon to make it feel like a lit sacred object rather than a character:
-
-```css
-.witnesses-semicolon::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40px;
-  height: 16px;
-  background: radial-gradient(ellipse, hsl(var(--vow-yellow) / 0.1) 0%, transparent 70%);
-  pointer-events: none;
-}
-.witnesses-semicolon {
-  position: relative;
-}
-```
-
-**6. Ken Burns Keyframe Refinement**
-The current Ken Burns only scales. Add a subtle translate to create a drift effect, not just zoom:
-
-```css
-@keyframes witnesses-ken-burns {
-  0% { transform: scale(1) translate(0, 0); }
-  100% { transform: scale(1.06) translate(-0.5%, -0.3%); }
-}
-```
-
-**7. Card Grain Texture Overlay**
-Add a grain layer specifically inside testimonial cards to give them paper-like tactile depth:
-
-```css
-.witnesses-testimonial-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  opacity: 0.03;
-  pointer-events: none;
-  border-radius: inherit;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode: multiply;
-}
-```
-
-**8. Vignette Refinement for Life Space**
-The current vignette fades to `hsl(45 20% 93% / 0.7)`. Strengthen this to create a more pronounced "room" feeling with warmer edges:
-
-Updated in `TheWitnesses.tsx` (inline style change).
-
-**9. Reduced Motion Updates**
-Ensure all new animations and pseudo-elements degrade gracefully under `prefers-reduced-motion`.
+The directive is clear: **simple, bold, clear.** Strip to essence. Let typography and space do the work. Replace all quote text with "Placeholder."
 
 ---
 
-### File: `src/components/TheWitnesses.tsx` (6 changes)
+## Changes
 
-**10. Heading Typography Refinement**
-The heading "The music stayed with them" is good but the "stayed" underline glow needs to be stronger. Increase the underline base opacity from `0.5` to `0.65` and the glow from `0.2` to `0.3`. Also add `letter-spacing: 0.01em` to the heading for micro-refinement.
+### File 1: `src/components/TheWitnesses.tsx` — Rewrite to essence
 
-**11. Expand Section Padding**
-Change `section-padding-standard` to explicit `py-[120px]` (fitz-10) for grand section separation. The current standard padding may be too tight for a "Life space" exhale section.
+**Remove entirely:**
+- The `QuoteMotif` SVG component
+- 4 of 6 atmospheric overlay divs (keep only the vignette and film grain)
+- The background image and Ken Burns animation
+- Card rotations (`cardRotations` array)
+- Diamond ornaments in attribution
+- The `witnesses-testimonial-card` class (cards become invisible containers — no material, no borders, no shadows)
+- The `witnesses-thread-breathing` class on separators
 
-**12. Widen Testimonial Container**
-Change `max-w-3xl` (768px) to `max-w-2xl` (672px) for testimonial quotes. Narrower quote columns create more intimate, reverent reading — like a page from a journal. The quotes will have more generous side margins, creating breathing room.
+**Simplify to:**
+- Clean warm gradient background (single div, no image)
+- One vignette layer
+- One grain layer
+- Section fades top/bottom (keep)
 
-**13. Golden Thread Width**
-Change the separator divs from `w-20` to `w-32` and add the `relative` class for the diamond endpoint pseudo-elements.
+**Testimonial content:**
+- All three quotes become `"Placeholder"`
+- Attribution names become `"Placeholder"`
+- Venue becomes `"Placeholder"`
+- Remove the `blockquote` font-size clamp — use a single clean `text-2xl` (24px) Cormorant
+- Remove attribution diamonds — just the name and venue, centered, clean hierarchy
 
-**14. Attribution Typography Hierarchy**
-The names are at `14px italic` and venue at `12px uppercase`. Refine: change the em dash separator to a golden diamond micro-ornament (`<span>` with vow-yellow), increase the name to `15px`, and add `letter-spacing: 0.06em` to the venue for more refined tracking.
+**Typography refinements:**
+- Heading: keep "The music stayed with them" with the golden underline on "stayed" — this is the one bold moment
+- Overline: keep "THE COVENANT KEPT" label
+- Golden rule separator: keep but simplify to a solid `w-8` line
 
-**15. Vignette and Atmospheric Depth**
-Strengthen the warm vignette from `0.7` to `0.8` opacity. Add a second warm glow pool centered higher in the section (`at 50% 20%`) to create the sense of overhead candlelight illuminating the testimonials from above. Increase the film grain opacity from `0.04` to `0.06` for more tactile presence.
+**Separators between testimonials:**
+- Replace the breathing diamond-endpoint thread with a simple `w-8 h-px` golden line at 30% opacity. No animation. No pseudo-elements. Static, quiet, precise.
+
+**Semicolon:**
+- Keep but remove the glow pool pseudo-element. Just the character at reduced opacity.
+
+**Performance gains:**
+- Removes 1 image load (witnesses-venue-ai.jpg)
+- Removes 4 DOM nodes (atmospheric divs)
+- Removes `backdrop-filter: blur(8px)` from cards (expensive compositor operation)
+- Removes SVG quote motifs (3 inline SVGs)
+- Removes Ken Burns animation (GPU layer)
+- Removes breathing thread animation
+- Removes card grain texture SVG data URI
+
+### File 2: `src/index.css` — Strip witnesses styles
+
+**Remove or simplify:**
+- `.witnesses-testimonial-card` — reduce to `position: relative` only (no background, no border, no shadow, no backdrop-filter)
+- `.witnesses-testimonial-card::before` — remove entirely (candle pool glow)
+- `.witnesses-testimonial-card::after` — remove entirely (grain texture)
+- `.witnesses-testimonial-card:hover` — remove entirely (no hover state needed for text-only cards)
+- `.witnesses-thread-breathing` — remove animation, remove pseudo-elements
+- `@keyframes witnesses-thread-breathe` — remove
+- `@keyframes witnesses-ken-burns` — remove
+- `.witnesses-semicolon::after` — remove (glow pool)
+- Corresponding reduced-motion overrides — simplify since there is less to override
+
+---
+
+## Resulting Structure
+
+```text
+Section
+  Layer 0: Warm gradient background (inline style)
+  Layer 1: Vignette (1 div)
+  Layer 2: Film grain (1 div)
+  Layer 3: Top/bottom fades (2 divs)
+  Layer 4: Content
+    - "THE COVENANT KEPT" overline
+    - Golden rule (w-8)
+    - "The music stayed with them" heading
+    - Testimonial 1: "Placeholder" / Placeholder / Placeholder
+    - Golden separator (w-8, static)
+    - Testimonial 2: "Placeholder" / Placeholder / Placeholder
+    - Golden separator (w-8, static)
+    - Testimonial 3: "Placeholder" / Placeholder / Placeholder
+    - Semicolon (;)
+```
+
+Total DOM nodes reduced from ~25+ to ~15. Zero animations in section (except scroll reveal transitions). Zero images loaded. Zero backdrop-filter operations. Zero pseudo-element overlays on cards.
 
 ---
 
 ## Summary
 
-Two files modified:
-- `src/index.css` — 9 CSS refinements (card material, hover depth, quote ornament glow, thread diamonds, semicolon glow pool, Ken Burns drift, card grain texture, reduced motion)
-- `src/components/TheWitnesses.tsx` — 6 TSX refinements (heading typography, section padding, container width, thread width, attribution hierarchy, atmospheric depth)
+| Aspect | Before | After |
+|--------|--------|-------|
+| Atmospheric divs | 6 | 2 |
+| Background images | 1 (Ken Burns) | 0 |
+| Card CSS classes | 5 (base, before, after, hover, breathing) | 1 (position only) |
+| Animations | 3 (Ken Burns, thread breathe, semicolon pulse) | 0 |
+| SVG elements | 3 (quote motifs) | 0 |
+| Pseudo-elements | 8 (card before/after x3, thread before/after) | 0 |
+| backdrop-filter | Yes (blur 8px) | No |
+| Quote text | 3 unique quotes | "Placeholder" x3 |
 
-No new dependencies. No new components. Pure refinement of existing structure to achieve material depth, typographic precision, and atmospheric richness.
+Two files modified. No new dependencies. Pure subtraction to reach essence.
 
