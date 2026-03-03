@@ -66,10 +66,13 @@ export function MinimalHeader() {
           background: isScrolled ? "rgba(10,10,12,0.92)" : undefined,
         }}
       >
-        {/* Golden gradient thread at bottom — fades in over 450ms */}
+        {/* Golden gradient thread at bottom — breathes in sync with footer during arrival */}
         {isScrolled && (
           <div
-            className="absolute bottom-0 left-0 right-0 h-[1px] pointer-events-none animate-fade-in"
+            className={cn(
+              "absolute bottom-0 left-0 right-0 h-[1px] pointer-events-none animate-fade-in",
+              isArrival && "footer-breathe"
+            )}
             style={{
               background: `linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / ${isArrival ? '0.25' : '0.12'}), transparent)`,
               animationDuration: '450ms',
