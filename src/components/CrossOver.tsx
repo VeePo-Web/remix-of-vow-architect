@@ -104,7 +104,7 @@ export function CrossOver() {
           )}
           style={{ transitionDelay: isVisible ? "150ms" : "0ms", textWrap: "balance" as any, textShadow: '0 2px 20px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.2)' }}
         >
-          <span className="font-light text-foreground/80">{"\u201C"}</span>Your vows deserve to be heard.<span className="font-light text-foreground/80">{"\u201D"}</span>
+          <span className="font-light text-foreground/80">{"\u201C"}</span>Let your ceremony sound like what your hearts feel like.<span className="font-light text-foreground/80">{"\u201D"}</span>
         </h2>
 
         {/* CTA Stack */}
@@ -142,7 +142,7 @@ export function CrossOver() {
           )}
           style={{ transitionDelay: isVisible ? "420ms" : "0ms" }}
         >
-          Includes sound documentation, microphone setup, and your ceremony run-of-show.
+          Includes your bespoke ceremony arrangement, a collaborative run-of-show, and months of devoted preparation.
         </p>
 
         {/* Golden thread above commitment */}
