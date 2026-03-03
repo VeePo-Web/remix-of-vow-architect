@@ -4395,6 +4395,12 @@ All colors MUST be HSL.
     0 40px 100px -20px rgba(0,0,0,0.5) !important;
 }
 
+/* 13c: CrossOver threshold golden thread breathing */
+@keyframes crossover-threshold-breathe {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.4; }
+}
+
 
 @media (prefers-reduced-motion: reduce) {
   .invitation-ken-burns {
@@ -5410,6 +5416,11 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   }
   .crossover-mote {
     display: none !important;
+  }
+
+  [style*="crossover-threshold-breathe"] {
+    animation: none !important;
+    opacity: 0.2 !important;
   }
 
   [style*="divider-diamond-breathe"],
