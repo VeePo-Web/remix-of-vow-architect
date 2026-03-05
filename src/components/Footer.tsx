@@ -176,6 +176,7 @@ export function Footer() {
               </h4>
               <ul className="group/nav space-y-3">
                 {[
+                  { to: "/events", label: "Events" },
                   { to: "/services", label: "Pricing" },
                   { to: "/about", label: "About" },
                   { to: "/gallery", label: "Proof" },
