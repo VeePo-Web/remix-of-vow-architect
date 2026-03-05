@@ -28,7 +28,7 @@ const services = [
     description: "Live piano for moments that demand presence",
     image: eventsImg,
     href: "/events",
-    available: false,
+    available: true,
     delay: 1400,
   },
 ];
