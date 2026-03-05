@@ -1,79 +1,122 @@
 
 
-# Plan: Deep Expansion of Teaching Brand Identity Prompt
+# Plan: Build the Teaching Homepage — 8-Section Emotional Architecture
 
-The current teaching identity document is 684 lines — structurally sound but lacking the operational depth required to actually build a Fantasy.co-grade website from it. The weddings site was built with an additional 10-page "Sacred Sound" philosophy document providing granular guidance on emotional phases, motion timing, copy frameworks, and micro-interaction specifications. The teaching identity needs that same operational depth embedded directly into the document.
+## Scope
 
-## What Is Missing
+Create a new Teaching homepage at `/teaching` with 8 sections following the Appendix B architecture from the teaching brand identity. This requires:
 
-After comparing the teaching document against both the weddings identity and the master "Sacred Sound" philosophy, the following gaps exist:
+1. A new page component (`src/pages/Teaching.tsx`)
+2. Eight section components in `src/components/teaching/`
+3. A route addition in `App.tsx`
+4. Enabling the Gateway Teaching card (available: true)
 
-### 1. The Psychological Journey (entirely absent)
-The weddings site has a detailed 5-phase emotional funnel (Mystery → Awe → Recognition → Trust → Desire → Commitment). The teaching document has no equivalent. Without this, every page designer must guess how to sequence content emotionally.
+## Architecture
 
-**Will add:** A complete 5-phase emotional journey map for the teaching visitor — from "I've always wanted to play" through "I want Parker as my mentor" — with specific emotional triggers, content types, and design treatments for each phase.
+### Route & Gateway
 
-### 2. The Mind-Reading Copy Framework (absent)
-The weddings site uses a "surface the fear, mirror it, resolve it" pattern that makes visitors feel understood. The teaching Customer Language Bank (Section 5) lists fears but doesn't specify *how* they appear on the page — the dramatic structure, the visual treatment, the pacing.
+- Add `/teaching` route in `App.tsx` pointing to `Teaching.tsx`
+- Update `Gateway.tsx`: set Teaching card `available: true`
 
-**Will add:** A full mind-reading framework with 8-10 fear/resolution pairs, each with the internal monologue phrasing, the first-person resolution, and the visual treatment (e.g., the fear in muted type, the resolution in warm cream with vow-yellow accent).
+### Page: `src/pages/Teaching.tsx`
 
-### 3. Motion Philosophy & Timing Table (skeletal reference only)
-Line 465 mentions "220ms for hover, 900ms for reveals" but there is no structured timing table. The weddings brand doc references precise timing as "emotional language" — 180ms for acknowledgment, 450ms for sacred reveal, 3000-4000ms for ambient breathing. The teaching doc needs equivalent specificity.
+Minimal shell matching the weddings `Index.tsx` pattern — imports all 8 sections, renders them in sequence. Uses `usePageTheme` for theme management. Includes `MinimalHeader` and `Footer` (shared components).
 
-**Will add:** A complete motion timing table with emotional labels, specific durations, easing curves, and the teaching-specific metaphor each timing serves (patience, discovery, breakthrough).
+### The 8 Sections
 
-### 4. Page-by-Page Emotional Architecture (Appendix B is skeletal)
-Appendix B lists page names and 1-line descriptions. A Fantasy.co-level prompt would specify, for each major section: the emotional state of the visitor entering, the emotional state leaving, the copy structure, the visual treatment, the sacred objects present, and the transition to the next section.
+Each section follows the brand identity's Silence → Sound spectrum positioning.
 
-**Will add:** Full emotional architecture for the homepage (8 sections), with entry/exit emotional states, copy structure patterns, visual treatments, and transition logic.
+**Section 1: `TeachingHero.tsx` — The Empty Bench**
+- Spectrum: Point 1 (Deep Silence)
+- Full-viewport hero. Warm cream background. Empty bench photograph at 12-15% opacity as atmospheric layer.
+- Tagline: "From Silence; Unto Sound." with vow-yellow semicolon.
+- Role label: "Piano Mentor" (whispered, uppercase, tracking-wide)
+- Breathing scroll cue (golden dot, 3s cycle)
+- Ken Burns drift on bench image at 30-40s cycle
+- Grain overlay, vignette, fog layers matching weddings hero pattern but warmer
+- No nav intrusion, no features, no pricing
 
-### 5. The Silence → Sound Emotional Spectrum (underdeveloped)
-Appendix A describes two states (Silence and Sound) but doesn't map the *gradient* between them — the way a practice session moves through frustration, patience, tentative discovery, near-miss, and breakthrough. This gradient is what the homepage sections should embody.
+**Section 2: `TeachingExhale.tsx` — The Exhale (Recognition)**
+- Spectrum: Point 2 (Longing)
+- Text-only section. Warm cream bg. Centered, max-width 680px.
+- Copy: "You have a song inside you that you have never been able to play. You have heard it in the car, in the quiet, in the space between what you feel and what you can say. I understand. The piano has been waiting."
+- Cormorant Garamond italic. Line-by-line stagger reveal (200ms gaps, 400ms per line, discovery easing)
+- No sacred objects — absence creates contrast
+- 120px padding bottom, no decorative divider
 
-**Will add:** A 7-point emotional spectrum from deep silence to full resonance, with visual and tonal descriptors for each point, creating a precise tool for designers to place any section on the spectrum.
+**Section 3: `TeachingPillars.tsx` — The Three Pillars (Desire)**
+- Spectrum: Point 3 (Tentative Approach)
+- Three centered blocks: Patient Mentorship, Emotional Fluency, Lifelong Relationship
+- Cormorant headlines + Inter supporting sentence
+- Golden thread vertical line connecting three pillars, breathing at 4s
+- Golden dots as pillar markers
+- 80px between pillars. Scroll-triggered stagger reveal
 
-### 6. Sacred Objects Inventory (incomplete)
-The weddings doc has the semicolon, golden diamond, golden thread, breathing flame, and vigil candle. The teaching doc mentions the semicolon, golden thread, and bench — but doesn't define their visual specifications, animation behaviors, or usage rules with the same precision.
+**Section 4: `TeachingMethodology.tsx` — The First Question**
+- Spectrum: Point 3-4
+- Display question: "What do you want to say through this instrument?" in large Cormorant Garamond
+- Background shifts to soft charcoal (first dark section). Text inverts to cream-on-dark.
+- Close-up keys photograph at 8% opacity
+- Pencil annotation appears: handwritten "listen" in margin (clip-path write-on reveal, 600ms)
+- 3-4 sentence narrative from the First Session script (Appendix C, Beat 2)
 
-**Will add:** A complete sacred objects inventory with visual specs, animation behaviors, meaning, and max-usage-per-page rules for each object.
+**Section 5: `TeachingThreshold.tsx` — The Threshold (Mind-Reading)**
+- Spectrum: Point 4-5 (Patience → Near-Miss)
+- 4 fear/resolution pairs (Age, Impossibility, School Trauma, Quitting Again)
+- Fear in Cormorant italic at 70% opacity → 40-60px pause → Resolution in Inter at 100%
+- Vow-yellow underline on key word per resolution (450ms, one-time, scroll-triggered)
+- Charcoal background maintained. Atmospheric grain at 3-4%
+- Semicolon threshold marker between this section and next, at 1.5x scale
 
-### 7. The First Session Script (absent — unique to teaching)
-No equivalent exists in weddings. This is the teaching vertical's most powerful differentiator: the first conversation. A Fantasy.co prompt would script the emotional arc of that first encounter so the website can dramatize it.
+**Section 6: `TeachingStories.tsx` — Student Stories (Validation)**
+- Spectrum: Point 6 (Breakthrough)
+- 2-3 student transformation narratives (placeholder content initially)
+- Each: 3-4 sentence narrative in Inter + pull quote in Cormorant italic
+- Warmest section. Full Sound-state. Cream at maximum warmth. Vow-yellow at peak
+- Golden dots as story separators. Golden thread horizontal beneath each story
 
-**Will add:** A narrative script of "The First Session" — the emotional beats of what happens when a new student sits down with Parker — which becomes the source material for the methodology section of the website.
+**Section 7: `TeachingOffering.tsx` — The Offering (Choice)**
+- Spectrum: Point 6-7
+- Framing question: "Where are you in your relationship with the instrument?"
+- Three tier cards: The Conversation, The Practice (Most Chosen), The Devotion
+- Piano-key visual metaphor. Most Chosen card elevated (-4px translateY), vow-yellow left border, pill
+- Golden dots replace bullets. 220ms hover lift. Warm cream bg.
+- CTAs link to `/contact` (or future teaching contact page)
 
-### 8. Pricing Psychology Framework (absent)
-The Offer Architecture (lines 347-353) names three tiers but doesn't specify the psychological framing, the visual hierarchy, the "most chosen" nudge logic, or the anxiety-reduction copy patterns.
+**Section 8: `TeachingCrossing.tsx` — The Crossing (Commitment)**
+- Spectrum: Point 7 (Full Resonance)
+- Tagline bookend: "From Silence; Unto Sound."
+- CTA: "Sit down with me." button (vow-yellow, 180ms hover fill)
+- Anti-anxiety: "Response within 24 hours. Always." and "This is a conversation, not a commitment."
+- Bench photograph at 6-8% opacity — occupied this time (transformation marker)
+- Maximum warmth. Golden thread from above.
 
-**Will add:** A pricing psychology section specifying how each tier is framed, what fear each resolves, the visual treatment (piano-key metaphor carried from weddings), and the anti-anxiety microcopy.
+## Visual & Technical Standards
 
-### 9. Cross-Vertical Brand Coherence Rules (absent)
-No section defines how the teaching vertical relates to weddings visually and tonally when a visitor navigates between them via the Gateway. The transition must feel like entering a different room in the same house — not a different house.
+- **Palette:** Warm cream dominant (60-70%), charcoal for Section 4-5 only (20-30%), vow-yellow ≤6%, vine-green ≤4%
+- **Typography:** Cormorant Garamond for display, Inter for body. Same 9-size scale as weddings.
+- **Spacing:** 80px+ section gaps. Fitzgerald spacing system.
+- **Motion:** All timings from Section 9.5 timing table. All animations have `prefers-reduced-motion` fallbacks.
+- **Images:** Lazy-loaded below fold. Hero image preloaded. Ken Burns 30-40s. WebP format.
+- **Accessibility:** WCAG 2.1 AA. Keyboard nav. Proper heading hierarchy (single H1 in hero). aria-labels on sacred objects.
 
-**Will add:** Cross-vertical coherence rules defining shared DNA (typography, spacing, sacred objects, semicolon) and permitted divergence (palette temperature, animation speed, photography style, voice warmth).
+## Files to Create/Modify
 
-### 10. Accessibility & Performance Standards (absent)
-The weddings site has detailed `prefers-reduced-motion` fallbacks, WCAG compliance patterns, and performance budgets embedded in the codebase. The teaching identity needs these codified.
+**Create:**
+- `src/pages/Teaching.tsx`
+- `src/components/teaching/TeachingHero.tsx`
+- `src/components/teaching/TeachingExhale.tsx`
+- `src/components/teaching/TeachingPillars.tsx`
+- `src/components/teaching/TeachingMethodology.tsx`
+- `src/components/teaching/TeachingThreshold.tsx`
+- `src/components/teaching/TeachingStories.tsx`
+- `src/components/teaching/TeachingOffering.tsx`
+- `src/components/teaching/TeachingCrossing.tsx`
+- `src/components/teaching/index.ts` (barrel export)
 
-**Will add:** Accessibility and performance standards section with WCAG targets, reduced-motion behavior specs, image optimization rules, and Core Web Vitals targets.
+**Modify:**
+- `src/App.tsx` — add `/teaching` route
+- `src/pages/Gateway.tsx` — set Teaching `available: true`
 
-## Implementation
-
-**Single file update:** `.lovable/teaching-brand-identity.md`
-
-The document will expand from ~684 lines to approximately ~1200-1400 lines. New sections will be inserted as:
-
-- **Section 6.5:** The Psychological Journey (5 phases)
-- **Section 6.6:** The Mind-Reading Copy Framework
-- **Section 9.5:** Motion Philosophy & Timing Table
-- **Section 9.6:** Sacred Objects Inventory
-- **Section 9.7:** The Silence → Sound Emotional Spectrum (7-point scale)
-- **Appendix B expansion:** Full homepage emotional architecture (8 sections, detailed)
-- **Appendix C:** The First Session (narrative script)
-- **Appendix D:** Pricing Psychology Framework
-- **Appendix E:** Cross-Vertical Brand Coherence
-- **Appendix F:** Accessibility & Performance Standards
-
-No code changes. No component modifications. This is governance depth that ensures every future design and copy decision has a North Star granular enough to eliminate guesswork.
+This is a large build. Implementation will proceed section by section, ensuring each meets the brand identity's emotional architecture before moving to the next.
 
