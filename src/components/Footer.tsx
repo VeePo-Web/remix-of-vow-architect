@@ -87,11 +87,11 @@ export function Footer() {
         aria-hidden="true"
       />
 
-      <div className="container mx-auto py-20 px-4 relative z-[2]">
+      <div className="container mx-auto py-fitz-9 md:py-fitz-10 px-fitz-4 md:px-fitz-5 lg:px-fitz-6 relative z-[2]">
         {/* Golden thread above content — widened to 80px, breathes during arrival */}
         <div
           className={cn(
-            "h-[1px] w-20 mx-auto mb-12 transition-opacity duration-700",
+            "h-[1px] w-20 mx-auto mb-fitz-9 transition-opacity duration-700",
             isArrival ? "footer-breathe" : ""
           )}
           style={{
@@ -102,7 +102,7 @@ export function Footer() {
           aria-hidden="true"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-fitz-9">
           {/* Name/Tagline — delay 0ms */}
           <div
             className={cn(
@@ -144,6 +144,8 @@ export function Footer() {
                 href="https://instagram.com"
                 className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] group-hover/icons:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] p-3.5 -m-3.5 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
                 aria-label="Follow me on Instagram"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <Instagram size={18} />
               </a>
@@ -152,6 +154,8 @@ export function Footer() {
                 href="https://youtube.com"
                 className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] group-hover/icons:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] p-3.5 -m-3.5 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
                 aria-label="Watch me on YouTube"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <Youtube size={18} />
               </a>
@@ -206,12 +210,12 @@ export function Footer() {
             <ul className="space-y-3 text-foreground/50">
               <li>Calgary, Cochrane, Canmore and Okotoks</li>
               <li>
-                <a href="mailto:parker@parkergawryletz.com" className="hover:text-primary transition-all duration-[180ms]" aria-label="Email me at parker@parkergawryletz.com">
+                <a href="mailto:parker@parkergawryletz.com" className="hover:text-primary transition-all duration-[180ms] rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70" aria-label="Email me at parker@parkergawryletz.com">
                   parker@parkergawryletz.com
                 </a>
               </li>
               <li>
-                <a href="tel:+14038308930" className="hover:text-primary transition-all duration-[180ms]" aria-label="Call me at +1-403-830-8930">
+                <a href="tel:+14038308930" className="hover:text-primary transition-all duration-[180ms] rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70" aria-label="Call me at +1-403-830-8930">
                   +1-403-830-8930
                 </a>
               </li>
@@ -221,7 +225,7 @@ export function Footer() {
 
         {/* Golden thread separator — glow intensifies during arrival */}
         <div
-          className="h-[1px] w-full mt-16 mb-10 transition-all duration-700"
+          className="h-[1px] w-full mt-fitz-10 mb-fitz-7 transition-all duration-700"
           style={{
             background:
               `linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / ${isArrival ? '0.22' : '0.15'}), transparent)`,
@@ -269,16 +273,16 @@ export function Footer() {
             © {new Date().getFullYear()} Parker Gawryletz. All rights reserved.
           </p>
           <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm">
-            <NavLink to="/privacy-policy" className="text-foreground/40 hover:text-primary transition-all duration-[180ms]">
+            <NavLink to="/privacy-policy" className="text-foreground/40 hover:text-primary transition-all duration-[180ms] rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70">
               Privacy
             </NavLink>
-            <NavLink to="/terms" className="text-foreground/40 hover:text-primary transition-all duration-[180ms]">
+            <NavLink to="/terms" className="text-foreground/40 hover:text-primary transition-all duration-[180ms] rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70">
               Terms
             </NavLink>
-            <NavLink to="/cookie-policy" className="text-foreground/40 hover:text-primary transition-all duration-[180ms]">
+            <NavLink to="/cookie-policy" className="text-foreground/40 hover:text-primary transition-all duration-[180ms] rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70">
               Cookies
             </NavLink>
-            <NavLink to="/accessibility" className="text-foreground/40 hover:text-primary transition-all duration-[180ms]">
+            <NavLink to="/accessibility" className="text-foreground/40 hover:text-primary transition-all duration-[180ms] rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70">
               Accessibility
             </NavLink>
           </div>
@@ -288,7 +292,7 @@ export function Footer() {
         <div
           data-footer-bookend
           className={cn(
-            "mt-10 flex flex-col items-center gap-3 transition-all duration-700",
+            "mt-fitz-7 flex flex-col items-center gap-3 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
           style={{ transitionDelay: isVisible ? "650ms" : "0ms" }}
