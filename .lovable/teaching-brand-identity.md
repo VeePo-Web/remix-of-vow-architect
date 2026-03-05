@@ -254,6 +254,208 @@ Supporting directions for contextual use:
 
 ---
 
+## 6.5. The Psychological Journey
+
+The teaching website is a psychological architecture --- not a brochure. Every visitor walks an emotional path that mirrors the arc of sitting down at the piano for the first time. The homepage is designed to move the visitor through five distinct emotional phases, each with its own visual treatment, copy structure, and sacred object logic.
+
+### Phase 1: LONGING → RECOGNITION (The Empty Bench)
+**Visitor enters feeling:** "I have always wanted to play. I don't know if I can. I don't know if it's too late."
+
+**What they see:** The hero section. An empty piano bench in warm natural light. Vast negative space. The tagline appears slowly: "From Silence; Unto Sound." No navigation demands attention. No feature lists. No pricing. Just the invitation of an empty bench.
+
+**Emotional trigger:** The visitor sees their own longing reflected. The empty bench is *their* empty bench --- the one they have walked past in music stores, the one at a friend's house they touched once and pulled away from. The hero does not sell. It mirrors.
+
+**Copy structure:** One line maximum. The tagline carries everything. Below it, a single scroll cue --- not "Learn more" but a gentle downward chevron that breathes with a 3s opacity cycle (0.4 → 0.7 → 0.4).
+
+**Visual treatment:** Warm cream background. The bench photograph at 12-15% opacity as an atmospheric layer. Cormorant Garamond at the largest display size. Vow-yellow appears only in the semicolon of the tagline. 80px+ padding above and below.
+
+**Sacred objects present:** The semicolon (;) in the tagline. The empty bench (photograph). The golden thread as a faint horizontal rule below the hero, marking the threshold into the next section.
+
+**Exit state:** "This feels different from every other piano website I have ever seen. This person understands the wanting."
+
+**Transition to Phase 2:** The golden thread rule fades from 0 to 0.2 opacity over 600ms as the visitor scrolls past the hero fold. The background temperature warms by 2-3% (barely perceptible shift from cool cream to warm cream).
+
+### Phase 2: RECOGNITION → TRUST (The Exhale)
+**Visitor enters feeling:** "They understand me. They know what I feel when I think about playing piano."
+
+**What they see:** The first words that are not the tagline. These words do not describe Parker or his services. They describe the visitor:
+
+> "You have a song inside you. You have heard it in the quiet moments --- in the car, at weddings, in the space between sleep and waking. You have wondered what it would feel like to sit down and let your hands find it."
+
+**Emotional trigger:** The mind-reading effect. The visitor's internal monologue is spoken back to them. This creates the "how do they know?" response that builds instant trust.
+
+**Copy structure:** 2-3 sentences maximum. First-person addressing the visitor ("You have..."). No mention of Parker, mentorship, or services yet. This is about the visitor's emotional reality.
+
+**Visual treatment:** Text-forward section. Cormorant Garamond italic at medium-large size, centered. Warm cream background (the Sound state baseline). Maximum line width of 680px for optimal reading measure. Text appears with a 400ms fade-in stagger (line by line, 200ms delay between lines).
+
+**Sacred objects present:** None. This section is pure typography. The absence of sacred objects creates contrast with the hero and makes Phase 3's objects feel more significant.
+
+**Exit state:** "This person knows exactly what I am feeling. I want to keep reading."
+
+**Transition to Phase 3:** A single breath of whitespace --- 120px minimum --- before the next section. The space itself communicates patience. No decorative dividers.
+
+### Phase 3: TRUST → DESIRE (The Three Pillars)
+**Visitor enters feeling:** "They understand me. Now I want to know: can they actually help me?"
+
+**What they see:** The three messaging pillars, presented not as features but as first-person promises:
+
+1. **"I don't teach speed. I teach depth."** (Patient Mentorship)
+2. **"The piano is not a skill. It is a voice."** (Emotional Fluency)
+3. **"There is no graduation. Only growing."** (Lifelong Relationship)
+
+Each pillar is a single headline + one supporting sentence. No bullet lists. No feature comparisons. Each pillar answers the implicit question: "What kind of mentor is this?"
+
+**Emotional trigger:** The shift from "they understand me" to "they can help me." The pillars are structured as promises --- "I will" energy without the words "I will." The visitor begins to project themselves into the mentorship.
+
+**Copy structure:** Three centered text blocks, each with:
+- A headline (Cormorant Garamond, medium-large)
+- One supporting sentence (Inter, regular weight, muted warm-gray)
+- Separated by 80px vertical spacing
+
+**Visual treatment:** Alternating warmth. The first pillar sits on warm cream. The second pillar sits on a slightly deeper cream (2% opacity charcoal overlay). The third pillar returns to warm cream. This breathing creates visual rhythm without explicit dividers.
+
+**Sacred objects present:** The golden thread appears as a faint vertical line connecting the three pillars --- a visual metaphor for the continuity of the mentorship. The thread pulses with the 4s breathing cycle (opacity 0.1 → 0.25 → 0.1).
+
+**Exit state:** "I want this kind of mentorship. I want this person beside me."
+
+**Transition to Phase 4:** The background shifts from cream to soft charcoal over 200px of scroll distance. The text inverts from dark-on-cream to cream-on-dark. This is the first "Silence" section --- the introspective pause.
+
+### Phase 4: DESIRE → CONVICTION (The Methodology / The Threshold)
+**Visitor enters feeling:** "I want this. But I have fears. What if I'm too old? What if I fail? What if this is just another lesson factory with nicer branding?"
+
+**What they see:** Two sub-sections:
+
+**4A: The Mind-Reading** (fear surfacing)
+The visitor's fears are spoken aloud --- phrased as internal monologue, displayed in muted cream type on the charcoal background:
+
+> *"What if I'm too old to start?"*
+
+And immediately beneath, in warm cream with a vow-yellow underline on the first word:
+
+> "There is no age at which the piano stops being willing to listen."
+
+This pattern repeats for 3-4 fears (see Section 6.6 for the full framework).
+
+**4B: The First Question**
+The methodology is revealed through its most powerful moment: the first conversation. Not explained as a process, but dramatized as a scene:
+
+> "The first question I ask is never about music. It is about you. What do you want to say through this instrument? There is no right answer. There is no wrong answer. There is only the beginning."
+
+**Emotional trigger:** Fear validation + immediate resolution. The visitor feels seen in their anxiety, then immediately comforted. The methodology section demonstrates patience by being patient --- it does not rush to list features.
+
+**Copy structure:** Fear/resolution pairs use a specific typographic hierarchy:
+- Fear: Cormorant Garamond italic, 70% opacity, cream on charcoal
+- Resolution: Inter, 100% opacity, warm cream, with a 2px vow-yellow underline on the first significant word (the word that carries the most emotional weight)
+
+**Visual treatment:** Dark (Silence state) background. This is the vigil of the teaching journey --- the held breath before commitment. Photography: close-up of keys in low, warm light. Atmospheric grain at 3-4%.
+
+**Sacred objects present:** The semicolon appears once, larger than body text (1.5x), between the fear section and the methodology section --- marking the threshold between doubt and understanding. The bench appears as a background photograph at 8-10% opacity.
+
+**Exit state:** "My fears have been answered. This person's methodology is exactly what I need. I am ready to see how to begin."
+
+**Transition to Phase 5:** The background warms from charcoal back to cream over 160px of scroll. The golden thread reappears as a horizontal rule, marking the return to the Sound state.
+
+### Phase 5: CONVICTION → COMMITMENT (The Offering / The Crossing)
+**Visitor enters feeling:** "I want this. Show me how to begin."
+
+**What they see:** Two final sub-sections:
+
+**5A: The Offering**
+Three tiers presented not as packages but as depths of relationship:
+- **The Conversation** --- a single session for those who are curious
+- **The Practice** --- ongoing mentorship (Most Chosen)
+- **The Devotion** --- intensive mentorship for milestone preparation
+
+Framing question above the tiers: "Where are you in your relationship with the instrument?"
+
+**5B: The Crossing**
+The final CTA. The tagline returns as a bookend. The CTA button reads "Sit down with me." Below: "Response within 24 hours. Always." and "This is a conversation, not a commitment."
+
+**Emotional trigger:** Choice reduction. Three clear options, framed by emotional readiness rather than features. The anti-anxiety microcopy ("This is a conversation, not a commitment") removes the last barrier.
+
+**Copy structure:** Tier cards use the piano-key visual metaphor from the weddings vertical. The Most Chosen tier (The Practice) is visually elevated with a vow-yellow border accent and a subtle "Most Chosen" pill.
+
+**Visual treatment:** Warmest section on the page. Full Sound-state palette. Vow-yellow appears at maximum concentration (still ≤6% of section area). The CTA button has a 2px vow-yellow border with a 180ms hover that fills the background with vow-yellow and inverts the text to charcoal.
+
+**Sacred objects present:** The semicolon returns in the tagline. The golden thread extends from the bottom of the last tier card to the CTA, connecting choice to action. The bench appears one final time in the closing photography.
+
+**Exit state:** "I am going to reach out. This is not a commitment --- it is a conversation."
+
+---
+
+## 6.6. The Mind-Reading Copy Framework
+
+The mind-reading framework is the teaching vertical's most powerful persuasion tool. It works by surfacing the visitor's unspoken fears --- phrased in their exact internal language --- and immediately resolving them with Parker's first-person voice. The effect is visceral: the visitor feels *known* before they have said a word.
+
+### The Dramatic Structure
+
+Each fear/resolution pair follows a three-beat structure:
+
+1. **The Surface** --- The fear appears in muted, italic type, phrased as internal monologue ("What if..."). It sits alone with generous negative space, forcing the visitor to sit with the discomfort for a beat.
+
+2. **The Pause** --- A single breath of whitespace (40-60px) between fear and resolution. This pause is critical --- it mirrors the patient methodology. The brand does not rush to answer. It lets the question breathe.
+
+3. **The Resolution** --- Parker's first-person response appears in full-opacity warm type. The first emotionally significant word carries a 2px vow-yellow underline that reveals left-to-right over 450ms (one-time animation, triggered on scroll-into-view). The resolution is never defensive. It is warm, specific, and honest.
+
+### The Fear/Resolution Pairs
+
+**Pair 1: Age**
+- *Fear:* "What if I'm too old to start?"
+- *Resolution:* "There is no age at which the piano stops being willing to listen. I have sat beside students who touched the keys for the first time at 50, at 60, at 70. The instrument does not care when you arrive. Neither do I."
+- *Visual:* The word "no" carries the vow-yellow underline. Background: the bench, empty, with afternoon light.
+- *Emotional mechanism:* Dissolves the most common barrier to adult piano learning by removing the concept of "too late" entirely.
+
+**Pair 2: Wasting Time**
+- *Fear:* "What if I'm terrible and waste the teacher's time?"
+- *Resolution:* "You cannot waste my time by sitting at the bench with honesty. The only way to waste time is to sit at an instrument you love and pretend you don't care about the sound."
+- *Visual:* The word "honesty" carries the underline. Background: hands resting on keys, still, not playing.
+- *Emotional mechanism:* Reframes "wasting time" from a fear about skill to a question about emotional honesty --- which the visitor already has.
+
+**Pair 3: Impossibility**
+- *Fear:* "What if I can never play anything real?"
+- *Resolution:* "The first real thing you play will not be a concerto. It will be a chord that makes you stop and say --- 'that is exactly what I meant.' And that is the beginning."
+- *Visual:* The word "beginning" carries the underline. Background: a single chord notation, pencil-written on staff paper.
+- *Emotional mechanism:* Redefines "real" from "impressive to others" to "true to yourself."
+
+**Pair 4: The Wall**
+- *Fear:* "What if I hit a wall and can't get past it?"
+- *Resolution:* "Walls are where the most important work happens. When you feel stuck, that is not failure --- that is the moment just before the music changes. I will be beside you at the wall. That is what patience is for."
+- *Visual:* The word "patience" carries the underline. Background: sheet music with eraser marks and re-written notes.
+- *Emotional mechanism:* Transforms the wall from threat to threshold. The mentor's presence at the wall is the differentiator.
+
+**Pair 5: School Trauma**
+- *Fear:* "What if it feels like school?"
+- *Resolution:* "There is no curriculum. There is no homework. There are no grades. There is a bench, an instrument, and a question: what do you want to say? That is as far from school as sound is from silence."
+- *Visual:* The word "question" carries the underline. Background: warm, empty practice room with natural light.
+- *Emotional mechanism:* Addresses the childhood trauma many adults carry from forced music lessons. The resolution systematically removes every institutional element.
+
+**Pair 6: Not Knowing What to Play**
+- *Fear:* "What if I don't know what I want to play?"
+- *Resolution:* "That is exactly where we begin. The first conversation is not about repertoire. It is about listening --- to what moves you, to what you hum in the car, to what stops you in a room. The music you want to play is already inside you. I help you find it."
+- *Visual:* The word "listening" carries the underline. Background: close-up of ear beside piano, intimate framing.
+- *Emotional mechanism:* Transforms uncertainty into an asset. Not knowing is the ideal starting point for this methodology.
+
+**Pair 7: Quitting Again**
+- *Fear:* "What if I start and quit again?"
+- *Resolution:* "You didn't quit last time. You had a teacher who measured your progress by their timeline instead of yours. There is no timeline here. There is your pace, your sound, and my patience. The only way to quit is to stop wanting --- and you are here because you haven't."
+- *Visual:* The word "pace" carries the underline. Background: piano bench with a coat draped over it --- someone who arrived and stayed.
+- *Emotional mechanism:* Reframes past "failure" as a failure of the teacher, not the student. Restores agency.
+
+**Pair 8: Cost Justification**
+- *Fear:* "Is this worth the investment?"
+- *Resolution:* "An app costs less. A group class costs less. But neither will sit beside you at the moment the chord sounds right and say nothing --- because in that moment, silence is the only thing worth saying. The investment is in the relationship with the instrument. And with me."
+- *Visual:* The word "relationship" carries the underline. Background: two hands on a piano --- one guiding, one finding.
+- *Emotional mechanism:* Shifts the frame from cost comparison to relationship value. The "say nothing" detail demonstrates the mentorship's emotional intelligence.
+
+### Usage Rules
+- **Maximum 4 pairs on homepage.** Select the 4 most relevant to the majority of visitors (Pairs 1, 3, 5, 7 recommended). Reserve others for the FAQ page and contact page.
+- **Never display all 8 on one page.** Overuse dilutes the intimacy of the effect.
+- **The fear always comes first.** Never lead with the resolution. The beat of discomfort is what makes the resolution land.
+- **The pause between fear and resolution is non-negotiable.** Removing the whitespace turns mind-reading into a FAQ. The pause is the patience.
+- **The vow-yellow underline appears only once per resolution.** One word. The most emotionally weighted word. No more.
+
+---
+
 ## 7. Messaging Pillars
 
 ### Pillar 1: Patient Mentorship
@@ -501,6 +703,249 @@ Framing question: "Where are you in your relationship with the instrument?"
 
 ---
 
+## 9.5. Motion Philosophy & Timing Table
+
+Motion in the teaching vertical is emotional language. Every duration, every easing curve, every delay communicates something about the mentorship: patience, presence, discovery, breakthrough. Nothing moves without purpose. Nothing moves for attention.
+
+### The Teaching Metaphor for Motion
+
+The weddings vertical uses motion as "ceremony" --- held breath, sacred reveal, the processional pace. The teaching vertical uses motion as "practice session" --- the unhurried repetition, the tentative exploration, the sudden clarity. Motion should feel like sitting at the bench: slow when learning, patient when waiting, warm when arriving.
+
+### Timing Table
+
+| Duration | Emotional Label | Use Case | Easing | Teaching Metaphor |
+|----------|----------------|----------|--------|-------------------|
+| 160ms | Acknowledgment | Button hover scale (1.03), link underline grow | cubic-bezier(.22,.61,.36,1) | The slight nod --- "I see you." |
+| 220ms | Gentle response | Card hover lift (-2px translateY), input focus ring | cubic-bezier(.22,.61,.36,1) | The hand adjusting position --- small, precise, warm. |
+| 300ms | Comfortable shift | Navigation state changes, tab switching, tooltip appear | ease-out | The turn of a page --- unhurried, expected. |
+| 450ms | Patient reveal | Section headings fading in, vow-yellow underline stroke | cubic-bezier(.16,1,.3,1) | The first note of a new piece --- tentative, then confident. One-time animation, scroll-triggered. |
+| 600ms | Deep reveal | Hero tagline appearance, mind-reading resolution text | cubic-bezier(.16,1,.3,1) | The moment the student hears themselves for the first time --- slow enough to feel the weight. |
+| 900ms | Sacred transformation | Phase transitions (cream → charcoal), the First Question reveal | cubic-bezier(.22,.61,.36,1) | The held breath before playing --- the silence that is not empty but full of what is coming. |
+| 1800ms | Meditative entrance | Page load hero sequence, the empty bench photograph fade-in | cubic-bezier(.16,1,.3,1) | Sitting down at the bench for the first time. Taking a breath. Placing hands. Not rushing. |
+| 3000-4000ms | Ambient breathing | Scroll cue opacity cycle, golden thread pulse, background Ken Burns | sine (0.4→0.7→0.4 opacity) | The rhythm of a practice session --- inhale, play, exhale, rest. Continuous, never demanding attention. |
+| 30000-40000ms | Environmental drift | Background image Ken Burns pan, atmospheric grain shift | linear | The slow passage of an afternoon at the bench --- light moving across the room. Felt but never watched. |
+
+### Easing Curves (Named)
+
+| Curve Name | Value | When to Use |
+|------------|-------|-------------|
+| **patience** | cubic-bezier(.22,.61,.36,1) | Default for all interactive elements. Quick start, patient settle. |
+| **discovery** | cubic-bezier(.16,1,.3,1) | One-time reveals. Scroll-triggered appearances. The "finding" motion. |
+| **breath** | sine (CSS: ease-in-out) | Ambient loops. Scroll cue. Golden thread. Anything that breathes continuously. |
+| **settle** | cubic-bezier(.25,.1,.25,1) | Return-to-rest states. Button release. Card de-hover. The exhale after the note. |
+
+### Stagger Logic
+
+When multiple elements appear in sequence (e.g., the three pillars, the fear/resolution pairs), use staggered delays:
+- First element: 0ms delay
+- Second element: 200ms delay
+- Third element: 400ms delay
+- Fourth element: 600ms delay
+- Never exceed 800ms total stagger spread. Beyond that, the sequence feels sluggish rather than patient.
+
+Each element uses the **discovery** easing curve individually. The stagger creates a cascading reveal that feels like notes in a slow arpeggio.
+
+### Reduced Motion Behavior
+
+All animations have `prefers-reduced-motion: reduce` fallbacks:
+- **Transforms** (scale, translate, rotate) → replaced with opacity-only transitions at 120ms
+- **Ken Burns drift** → static image, no movement
+- **Ambient breathing cycles** → static at 60% opacity (the midpoint of the cycle)
+- **Stagger delays** → collapsed to simultaneous appearance with shared 200ms opacity fade
+- **The vow-yellow underline** → appears instantly, no stroke animation
+- The content carries the message. The motion enhances but never creates meaning.
+
+---
+
+## 9.6. Sacred Objects Inventory
+
+Sacred objects are the visual vocabulary that connects the teaching vertical to the master brand while carrying teaching-specific meaning. Each object has strict usage rules to prevent dilution. Overuse of any sacred object reduces its ceremonial power.
+
+### Object 1: The Semicolon (;)
+
+**Meaning (teaching):** The threshold between not-knowing and knowing. The pause that is not emptiness but patience. The moment between "I cannot play this" and "I can feel this."
+
+**Visual Specification:**
+- Typeface: Cormorant Garamond, same weight as surrounding display text
+- Color: Vow-yellow (#FFE08A / hsl(45 100% 77%)) when on dark backgrounds; charcoal when on cream backgrounds
+- Scale: 1.2x-1.5x surrounding text size when used as a standalone sacred object (not inline in the tagline)
+- Kerning: +20 tracking when standalone, standard when inline
+
+**Animation Behavior:**
+- **Heartbeat pulse:** When used as a standalone threshold marker, the semicolon pulses with a subtle scale animation: 1.0 → 1.04 → 1.0 over 3000ms, continuous, using **breath** easing. The pulse is barely perceptible --- felt more than seen.
+- **Scroll reveal:** When appearing for the first time on scroll, the semicolon fades in over 600ms using **discovery** easing, with a simultaneous 0.95 → 1.0 scale.
+- **Reduced motion:** Static. No pulse. Instant appearance at full opacity.
+
+**Usage Rules:**
+- Maximum 3 per page (homepage). Maximum 2 per subpage.
+- Must appear in the tagline ("From Silence; Unto Sound.")
+- May appear as a standalone threshold marker between major section transitions (e.g., between Phase 4 and Phase 5 of the psychological journey)
+- Never used decoratively. Every instance must mark a genuine threshold moment.
+- Never appears in body copy as punctuation --- only as a sacred object or within the tagline.
+
+### Object 2: The Golden Thread
+
+**Meaning (teaching):** The line of patience connecting student to mentor to instrument. The continuity of the mentorship across time. The through-line that says "I am still here."
+
+**Visual Specification:**
+- Element: 1px horizontal or vertical line
+- Color: Vow-yellow (#FFE08A) at reduced opacity
+- Opacity range: 0.1 → 0.25 (breathing cycle) or 0.2 static
+- Length: Typically spans the full content width (horizontal) or connects two vertically stacked elements
+
+**Animation Behavior:**
+- **Breathing cycle:** Opacity oscillates between 0.1 and 0.25 over 4000ms using **breath** easing. Continuous. Never demands attention.
+- **Reveal:** Horizontal threads reveal via scaleX (0 → 1) from center over 450ms using **discovery** easing. Vertical threads reveal via scaleY (0 → 1) from top.
+- **Reduced motion:** Static at 0.15 opacity. No breathing. No reveal animation.
+
+**Usage Rules:**
+- Maximum 4 per page (homepage). Maximum 2 per subpage.
+- Used as section dividers (horizontal) or as connecting lines between vertically related elements (vertical).
+- Never used as a decorative border around cards, images, or containers.
+- The thread always connects --- two sections, two ideas, two phases. It never terminates in empty space.
+
+### Object 3: The Empty Bench
+
+**Meaning (teaching):** The invitation. The waiting. The space that says "you are welcome here." The bench is wide enough for two --- the student and the mentor.
+
+**Visual Specification:**
+- Photographic: A real piano bench (or the front edge of one) in warm natural light. Shallow depth of field. The keys visible but slightly blurred in background.
+- Opacity when used as atmospheric background: 8-12%
+- Color treatment: Warm temperature shift (+5-10% amber in post-processing). Never cool, never blue.
+
+**Animation Behavior:**
+- **Ken Burns drift:** 30-40s pan, 2-3% scale increase over the full cycle. Direction: gentle left-to-right or slight zoom-in toward the keys. Using **linear** easing.
+- **Reduced motion:** Static. No drift.
+
+**Usage Rules:**
+- Maximum 2 photographic appearances per page.
+- The hero section of the homepage must feature the empty bench --- this is the first sacred object the visitor encounters.
+- The bench is always empty in its initial appearance. It is never shown occupied until the methodology section (where the occupation represents the mentorship beginning).
+- Never used as a thumbnail, avatar, or repeated grid element.
+
+### Object 4: The Pencil Annotation
+
+**Meaning (teaching):** The personal mark. The teacher's hand on the student's journey. The evidence that this is handcrafted mentorship, not mass-produced education. Unique to the teaching vertical --- does not appear in weddings.
+
+**Visual Specification:**
+- Typographic: A script or handwritten typeface used at body-text scale or smaller
+- Color: Charcoal at 60-70% opacity on cream; warm cream at 60-70% on charcoal
+- Context: Appears as marginal annotations, as if someone wrote a note in the margin of the page
+
+**Animation Behavior:**
+- **Write-on reveal:** The annotation appears via a clip-path reveal (left to right) over 600ms using **discovery** easing, simulating handwriting speed. One-time, scroll-triggered.
+- **Reduced motion:** Instant appearance. No clip-path animation.
+
+**Usage Rules:**
+- Maximum 1-2 per page. Extreme restraint.
+- Used only in the methodology section or the "First Session" narrative --- never in headers, CTAs, or pricing.
+- The annotation must add meaning (e.g., "listen here" beside a section about the First Question, or "again" beside a section about patience). It is never purely decorative text.
+- The handwritten typeface is never used for headings, CTAs, or navigation. It exists only as annotation.
+
+### Object 5: The Golden Dot
+
+**Meaning (teaching):** The note. The single point of sound in silence. The moment before the melody begins. Adapted from the weddings vertical's golden diamond --- simplified to a circle to reflect the teaching vertical's warmer, less liturgical aesthetic.
+
+**Visual Specification:**
+- Shape: Perfect circle, 6-8px diameter
+- Color: Vow-yellow (#FFE08A)
+- Usage: Appears as a list marker (replacing bullet points in feature lists), as a status indicator, or as a navigational breadcrumb dot
+
+**Animation Behavior:**
+- **Pulse:** When used as a status indicator (e.g., "currently accepting students"), pulses with a radial glow: box-shadow 0 0 0 0 → 0 0 8px 2px at 20% opacity vow-yellow, over 3000ms using **breath** easing.
+- **Static:** When used as a list marker, no animation. The stillness of a note written on a page.
+- **Reduced motion:** Static. No pulse.
+
+**Usage Rules:**
+- Maximum 6 per page (as list markers). Maximum 2 as animated status indicators per page.
+- Replaces standard bullet points in any list that appears in the brand's sacred context (e.g., the three pillars, the methodology steps). Does not replace bullets in long-form content or FAQ answers.
+- Never used at sizes larger than 10px. It is a dot, not a circle. It represents a single note, not a spotlight.
+
+---
+
+## 9.7. The Silence → Sound Emotional Spectrum
+
+The Silence → Sound arc is not binary. Between the empty bench and the breakthrough moment lies a rich gradient of emotional states that a practice session --- and a mentorship --- moves through. This 7-point spectrum provides a precise tool for placing any section, any piece of copy, and any visual treatment on the emotional map.
+
+### The Seven Points
+
+**1. DEEP SILENCE — The Void Before Desire**
+*"I have never played. I don't know if I can."*
+
+- **Visual:** Maximum negative space. Near-empty frames. The piano alone in a room, untouched. Cool cream tones leaning toward white.
+- **Tonal:** Whisper-quiet. Contemplative. The longest pauses. Typography at its most restrained.
+- **Motion:** Near-stillness. Only ambient breathing (scroll cue, golden thread at lowest opacity). Nothing demands.
+- **Use:** Hero sections. The very first impression. The invitation that does not push.
+- **Sections:** Homepage hero. The empty bench photograph.
+
+**2. LONGING — The Ache of the Unplayed**
+*"I have always wanted to play. I hear music and wonder what it would feel like to make it."*
+
+- **Visual:** Warm cream enters. The first hint of amber in the light. Close-ups of keys with no hands. Sheet music, closed, resting on the music stand.
+- **Tonal:** Reflective. The copy mirrors the visitor's desire back to them. Second person ("You have...").
+- **Motion:** Slow fade-ins (600ms). Text appears line by line. The page begins to breathe.
+- **Use:** The Exhale section. The mind-reading opener. Recognition before information.
+- **Sections:** Homepage Phase 2 (The Exhale). About page opener.
+
+**3. TENTATIVE APPROACH — The First Touch**
+*"I am sitting down. My hands are on the keys. I don't know what to do."*
+
+- **Visual:** Hands visible for the first time --- resting on keys, not playing. The bench is now occupied. Warm light increases. Shallow depth of field on fingertips.
+- **Tonal:** Gentle encouragement. First-person enters ("I will sit beside you"). The mentor's voice appears for the first time.
+- **Motion:** Medium reveals (450ms). The golden thread appears, connecting elements. The page is warming.
+- **Use:** The pillars. The methodology introduction. The first description of what the mentorship looks like.
+- **Sections:** Homepage Phase 3 (Three Pillars). Methodology page opener.
+
+**4. PATIENCE — The Long Middle**
+*"I am practicing. Some days it feels like nothing is happening. But I keep coming back."*
+
+- **Visual:** The darkest point on the teaching spectrum (but still warmer than weddings' vigil). Charcoal background. Close-ups of sheet music with pencil eraser marks. The evidence of repetition.
+- **Tonal:** Honest. Acknowledges difficulty. "There will be difficult weeks." But also steadfast: "I will be there for those too."
+- **Motion:** Slower transitions (900ms). The pause between fear and resolution in the mind-reading framework. The page breathes more deeply here.
+- **Use:** The Threshold section. The mind-reading fears. The "walls" discussion.
+- **Sections:** Homepage Phase 4 (The Threshold). FAQ page when addressing difficulty.
+
+**5. NEAR-MISS — The Almost**
+*"I can almost hear it. The sound is close but not quite right. I am frustrated and hopeful at the same time."*
+
+- **Visual:** The transition zone. Charcoal warming toward cream. Vow-yellow begins to appear --- a flicker, not a glow. Hands on keys, mid-motion. The blur of movement.
+- **Tonal:** Anticipatory. The copy leans forward. Short sentences. "Almost. Again. Listen. There."
+- **Motion:** Slightly faster reveals (400ms). The pace quickens subtly. The golden thread brightens. Something is about to happen.
+- **Use:** Transition passages. The moment before the methodology reveals its power. The pre-CTA build.
+- **Sections:** The end of the mind-reading section. The transition into the offering.
+
+**6. BREAKTHROUGH — The Golden Instant**
+*"That is exactly what I meant. That is the sound I have been hearing inside."*
+
+- **Visual:** Maximum warmth. Cream at its warmest amber tone. Vow-yellow at peak presence (still ≤6%). Close-up of hands on keys, pressing down --- the moment of contact. Light blooming.
+- **Tonal:** Quiet triumph. Not celebratory --- reverent. "This is what your hands have been wanting to say." The copy honors the moment without inflating it.
+- **Motion:** The vow-yellow underline reveal (450ms, one-time). The golden dot pulses at its brightest. This is the teaching vertical's equivalent of the weddings' "I do" moment.
+- **Use:** The methodology climax. The student stories section. The testimonial anchoring point.
+- **Sections:** Homepage student stories. Methodology page culmination.
+
+**7. FULL RESONANCE — The Sound That Stays**
+*"The music sounds like me. It has always sounded like me. I just needed someone beside me to hear it."*
+
+- **Visual:** Warm but settled. The amber softens. The palette returns to the baseline cream but with a golden undertone that was not present at the beginning. The piano in a room with late-afternoon light. Not the empty bench --- the occupied bench, with light falling across both the instrument and the space where the mentor sits.
+- **Tonal:** Completion without finality. "There is no graduation. Only growing." The voice is at its warmest, most present. This is the Sound state at its fullest.
+- **Motion:** Ambient breathing at its most settled rhythm. Ken Burns at its slowest. The page is at rest, not because it is empty, but because it is full.
+- **Use:** The closing section. The final CTA. The covenant.
+- **Sections:** Homepage Phase 5 (The Crossing). Contact page closing.
+
+### How to Use This Spectrum
+
+Every section on every page should be placed on this 7-point scale before design begins. The placement determines:
+- **Background color temperature** (cool cream → warm cream → charcoal → warm cream → amber cream)
+- **Typography weight and size** (restrained → increasing → bold at breakthrough → settled at resonance)
+- **Motion speed** (near-still → slow → medium → quickening → settling)
+- **Vow-yellow presence** (absent → flickering → peak at breakthrough → glowing at resonance)
+- **Sacred object density** (sparse → increasing → maximum at threshold → settled at resonance)
+- **Photography intimacy** (distant → approaching → close-up → extreme close-up at breakthrough → wide but warm at resonance)
+
+The homepage moves through points 1 → 2 → 3 → 4 → 5 → 6 → 7 in order. Subpages may start at point 2 or 3 and move toward 6 or 7 depending on their purpose.
+
+---
+
 ## 10. Brand Governance
 
 ### Brand Constitution (Hard Rules)
@@ -639,19 +1084,93 @@ The semicolon is the threshold --- the patient pause between not-knowing and kno
 
 ---
 
-## Appendix B: Teaching Website Content Architecture
+## Appendix B: Teaching Website Content Architecture — Full Homepage Emotional Architecture
 
 ### Planned Pages and Sections
 
-**Homepage (The Journey)**
-1. Hero: The empty bench. Natural light. "From Silence; Unto Sound." Scroll cue.
-2. The Invitation: "You have a song inside you that only your hands can play."
-3. The Three Pillars: Patient Mentorship, Emotional Fluency, Lifelong Relationship
-4. The First Question: "What do you want to say through this instrument?"
-5. The Methodology: Patience as practice. How the mentorship works.
-6. Student Stories: Transformation narratives, not testimonials. From silence to sound.
-7. The Offering: The Conversation, The Practice, The Devotion
-8. The Crossing: Final CTA. "Sit down with me."
+**Homepage (The Journey) — 8 Sections, Detailed**
+
+#### Section 1: The Empty Bench (Hero)
+- **Spectrum position:** Point 1 — Deep Silence
+- **Visitor enters feeling:** Curiosity mixed with longing. "I found this website. What is this?"
+- **Content:** The tagline "From Silence; Unto Sound." over the empty bench photograph. Scroll cue breathing at 3s cycle. No navigation intrusion. No feature text. No pricing.
+- **Copy structure:** Tagline only. Maximum 8 words visible.
+- **Visual treatment:** Full-viewport hero. Bench photograph at 12-15% opacity as atmospheric layer. Warm cream background. Cormorant Garamond at largest scale. Vow-yellow semicolon only.
+- **Sacred objects:** Semicolon (in tagline). Empty bench (photograph). Scroll cue (breathing golden dot at bottom center).
+- **Transition out:** Golden thread horizontal rule fades in at 0.15 opacity as visitor scrolls past 80vh. Background warms 2%.
+- **Visitor exits feeling:** "This is unlike any piano website I have ever seen. Something about this feels right."
+
+#### Section 2: The Exhale (Recognition)
+- **Spectrum position:** Point 2 — Longing
+- **Visitor enters feeling:** Intrigued. Willing to read.
+- **Content:** The mind-reading opener. 2-3 sentences that describe the visitor's internal experience, not Parker's services. "You have a song inside you..."
+- **Copy structure:** Second-person ("You have..."). Cormorant Garamond italic, centered. Max 680px line width. No mention of Parker or mentorship yet.
+- **Visual treatment:** Text-only section. Warm cream background. Text appears line-by-line with 200ms stagger delays, 400ms per line using **discovery** easing.
+- **Sacred objects:** None. The absence creates contrast.
+- **Transition out:** 120px whitespace. No decorative divider.
+- **Visitor exits feeling:** "They understand exactly what I feel. How do they know?"
+
+#### Section 3: The Three Pillars (Desire)
+- **Spectrum position:** Point 3 — Tentative Approach
+- **Visitor enters feeling:** Trust building. "Tell me more."
+- **Content:** Three messaging pillars as single-headline promises: Patient Mentorship, Emotional Fluency, Lifelong Relationship. One supporting sentence each.
+- **Copy structure:** Three centered blocks. Cormorant Garamond headlines + Inter supporting sentence. 80px between pillars.
+- **Visual treatment:** Subtle warmth alternation (cream → cream+2% charcoal overlay → cream). Golden thread vertical line connecting three pillars, breathing at 4s cycle.
+- **Sacred objects:** Golden thread (vertical, connecting). Golden dots as pillar markers.
+- **Transition out:** Background begins warming. The golden thread extends downward, bridging into the next section.
+- **Visitor exits feeling:** "This is the kind of mentorship I have been looking for."
+
+#### Section 4: The First Question (Methodology)
+- **Spectrum position:** Point 3-4 — Tentative Approach → Patience
+- **Visitor enters feeling:** Growing desire. "How does this actually work?"
+- **Content:** The First Question dramatized: "What do you want to say through this instrument?" Followed by a brief, poetic description of how the mentorship begins --- not as a process diagram, but as a narrative moment.
+- **Copy structure:** The question in Cormorant Garamond at large display size, centered. Supporting narrative in Inter, max 600px width, 3-4 sentences.
+- **Visual treatment:** Background shifts to soft charcoal (first Silence section). Text inverts to cream-on-dark. Photography: close-up of keys in warm low light at 8% opacity.
+- **Sacred objects:** The pencil annotation appears for the first time --- a handwritten "listen" in the margin of the section.
+- **Transition out:** Background holds at charcoal. The mind-reading section follows directly.
+- **Visitor exits feeling:** "This person begins by listening, not assigning. That is exactly what I need."
+
+#### Section 5: The Threshold (Mind-Reading)
+- **Spectrum position:** Point 4-5 — Patience → Near-Miss
+- **Visitor enters feeling:** Desire plus lingering doubt. "But what about my fears?"
+- **Content:** 4 fear/resolution pairs from the Mind-Reading Framework (Section 6.6). Pairs 1 (Age), 3 (Impossibility), 5 (School Trauma), 7 (Quitting Again) recommended.
+- **Copy structure:** Fear in Cormorant italic at 70% opacity → 40-60px pause → Resolution in Inter at 100% with vow-yellow underline on key word. Each pair separated by 100px.
+- **Visual treatment:** Charcoal background maintained. Each resolution's vow-yellow underline triggers on scroll-into-view (450ms, one-time). Atmospheric grain at 3-4%.
+- **Sacred objects:** Semicolon appears once between the final fear/resolution pair and the next section, at 1.5x scale, marking the threshold from doubt to commitment.
+- **Transition out:** Background warms from charcoal to cream over 200px scroll distance. The semicolon marks the exact transition point.
+- **Visitor exits feeling:** "Every fear I had has been answered. And they answered them before I even asked."
+
+#### Section 6: Student Stories (Validation)
+- **Spectrum position:** Point 6 — Breakthrough
+- **Visitor enters feeling:** Conviction forming. "Show me proof."
+- **Content:** 2-3 student transformation narratives. Not testimonial quotes --- narrative stories. Named emotions, specific moments, the arc from silence to sound. With permission, real first names.
+- **Copy structure:** Each story is a 3-4 sentence narrative in Inter, with the student's emotional turning point highlighted. A single-sentence pull quote in Cormorant Garamond italic anchors each story.
+- **Visual treatment:** Warmest section on the page. Full Sound-state palette. Cream background at maximum warmth. Vow-yellow accents at peak presence. Photography: hands on keys, playing.
+- **Sacred objects:** Golden dots as story separators. The golden thread runs horizontally beneath each story.
+- **Transition out:** 100px whitespace. The palette holds warm.
+- **Visitor exits feeling:** "Others have walked this path and found their sound. I can too."
+
+#### Section 7: The Offering (Choice)
+- **Spectrum position:** Point 6-7 — Breakthrough → Full Resonance
+- **Visitor enters feeling:** Ready to act. "Show me how to begin."
+- **Content:** The framing question: "Where are you in your relationship with the instrument?" Three tiers: The Conversation, The Practice (Most Chosen), The Devotion. Each tier has a 1-line description and a soft CTA.
+- **Copy structure:** Framing question in Cormorant Garamond, centered. Three tier cards using the piano-key visual metaphor. The Practice card has a "Most Chosen" pill in vow-yellow and a subtle border accent.
+- **Visual treatment:** Warm cream background. Tier cards with 1px warm-charcoal borders. Hover: 220ms lift (-2px) using **patience** easing. Most Chosen card has a 1px vow-yellow left border.
+- **Sacred objects:** Golden dots replace bullet points in tier feature lists.
+- **Transition out:** The golden thread extends from the bottom of the tier section to the final CTA.
+- **Visitor exits feeling:** "I know which option is right for me. The choice feels clear, not overwhelming."
+
+#### Section 8: The Crossing (Commitment)
+- **Spectrum position:** Point 7 — Full Resonance
+- **Visitor enters feeling:** Decision made. "I want to reach out."
+- **Content:** The tagline returns: "From Silence; Unto Sound." The CTA: "Sit down with me." Below: "Response within 24 hours. Always." and "This is a conversation, not a commitment."
+- **Copy structure:** Tagline in Cormorant Garamond, centered. CTA button below. Anti-anxiety microcopy in Inter at smaller size, muted warm-gray.
+- **Visual treatment:** Maximum warmth. Vow-yellow CTA button with 2px border, 180ms hover fill. Background: warm cream with the bench photograph at 6-8% opacity, occupied this time --- the mentor is present.
+- **Sacred objects:** Semicolon in tagline (bookend with hero). Golden thread extending from above. The bench (now occupied, marking transformation).
+- **Transition out:** Footer. The page is complete. The covenant is offered.
+- **Visitor exits feeling:** "I am going to reach out. This is a conversation, not a commitment. I feel safe."
+
+---
 
 **About / The Mentor**
 - Parker's relationship with the instrument (17 years, personal narrative)
@@ -676,6 +1195,221 @@ The semicolon is the threshold --- the patient pause between not-knowing and kno
 - Simple form: name, what brought you to the piano, preferred format (in-person/virtual)
 - "Response within 24 hours. Always."
 - No obligation language: "This is a conversation, not a commitment."
+
+---
+
+## Appendix C: The First Session — Narrative Script
+
+This is the source material for the methodology section of the website. It scripts the emotional arc of the first encounter between Parker and a new student, providing designers and copywriters with the raw narrative to dramatize.
+
+### The Setting
+A room with a piano. Natural light. Nothing formal. The bench is wide enough for two. There is no desk, no whiteboard, no curriculum binder on the music stand. Just the instrument and two chairs --- one at the bench, one slightly beside it.
+
+### Beat 1: The Arrival (0-2 minutes)
+The student arrives. They are nervous. They have thought about this for months --- maybe years. They don't know where to put their hands, figuratively or literally. They might apologize: "I'm sorry, I have no idea what I'm doing." Or: "I should warn you, I'm probably terrible."
+
+Parker does not sit at the piano yet. He sits beside it. He asks the student to sit down --- not at the bench. Just in the room. He offers water. He says: "There's no rush. We have the whole hour."
+
+*The emotional state: anxiety, self-consciousness, vulnerability. The student is bracing for judgment.*
+
+### Beat 2: The Question (2-10 minutes)
+Parker asks: "What brought you to the piano?"
+
+Not "what do you want to learn?" Not "what's your experience level?" Not "have you played before?" --- but: what brought you here?
+
+The student talks. Maybe they say they've always wanted to play. Maybe they heard a song at a wedding and couldn't stop thinking about it. Maybe their grandmother played and they want to feel close to her. Maybe they don't know why they're here --- they just know they want to be.
+
+Parker listens. He does not take notes. He does not interrupt. He asks follow-up questions that show he is listening: "What was it about that song?" or "What do you remember about the way your grandmother played?"
+
+*The emotional state: the anxiety begins to dissolve. The student realizes this is not a test. This is a conversation.*
+
+### Beat 3: The First Touch (10-20 minutes)
+Parker moves to the bench. He invites the student to sit beside him. He plays a single chord --- something warm, something simple, something that fills the room without overwhelming it.
+
+"This is a C major chord," he says. "Put your hand here."
+
+The student places their hand on the keys. Parker adjusts gently --- not their technique, but their comfort. "Relax your wrist. Let your hand be heavy. Don't try to press --- just let your fingers rest."
+
+The student plays the chord. It sounds imperfect. Parker says: "That's it. That's the sound."
+
+The student looks surprised. "That's it?"
+
+"That's the beginning. Everything starts with a sound you're willing to make."
+
+*The emotional state: wonder. The threshold has been crossed. The student has made a sound and was not judged for it.*
+
+### Beat 4: The Exploration (20-40 minutes)
+Parker plays a simple melody --- maybe four or five notes. He plays it slowly, then plays it again. He asks: "Does that sound like anything to you?"
+
+The student might recognize it. Or they might not. Either way, Parker begins to teach the first few notes --- not as an exercise, but as a conversation. "This note is where it starts. And this one --- this is where it opens up. Can you hear the difference?"
+
+They go back and forth. Parker demonstrates, the student tries. When the student makes a mistake, Parker does not correct immediately. He waits. He lets the student hear the difference. Then he says: "Try again. But this time, listen to the space between the notes."
+
+There are moments of frustration. Moments where the student's hands do not do what their mind tells them. Parker does not rush past these moments. He sits in them. "This part is hard. And it matters that it's hard. Because when your hands find it, you'll know you earned it."
+
+*The emotional state: a mix of frustration and hope. The student is working. They can feel the edge of something.*
+
+### Beat 5: The Silence (40-50 minutes)
+At some point --- and it happens differently every time --- the student plays something that sounds right. Not a complete piece. Maybe just a phrase. Maybe just a chord progression that resonates. But something shifts. The room gets quiet.
+
+Parker does not say anything immediately. He lets the silence hold the moment. The student often looks up, surprised. "Was that right?"
+
+Parker says: "That sounded like you."
+
+*The emotional state: the breakthrough. Not technical mastery --- emotional recognition. The student heard themselves in the instrument for the first time.*
+
+### Beat 6: The Close (50-60 minutes)
+Parker does not assign homework. He does not say "practice this for 30 minutes a day." He says: "When you sit down at a piano this week --- if you sit down --- try to find that sound again. The one that surprised you."
+
+He talks briefly about what the mentorship looks like from here: how often they might meet, what the student can expect, what Parker's role is. He emphasizes: "There is no timeline. There is no test. There is only what you want to say through this instrument, and my patience to help you find it."
+
+The student leaves the room differently than they entered. The anxiety is gone. In its place is something quieter: the beginning of a relationship with the instrument.
+
+*The emotional state: warmth, anticipation, the first note of a long conversation.*
+
+### How to Use This Script
+- The **methodology section** of the website should dramatize Beats 2-5 --- the question, the first touch, the exploration, the silence
+- The **hero or exhale section** should evoke the emotional state of Beat 1 --- the longing, the nervousness, the "I have always wanted to"
+- The **student stories section** should echo the transformation of Beat 5 --- the moment something sounded right
+- The **CTA/crossing section** should mirror Beat 6 --- the invitation without pressure, the warmth of beginning
+- Specific lines from this script can be extracted for use as section copy, pull quotes, or annotation text
+
+---
+
+## Appendix D: Pricing Psychology Framework
+
+### The Framing Principle
+Pricing in the teaching vertical follows the same anchoring + decoy logic as weddings, but adapted for the relational (not transactional) nature of mentorship. The visitor should never feel they are buying a "lesson package." They are choosing a depth of relationship.
+
+### The Three Tiers
+
+**Tier 1: The Conversation — $X (single session)**
+- **Psychological frame:** The low-commitment entry point. For the visitor who is 70% convinced but needs to experience the mentorship before committing. This tier exists to answer: "What does it feel like?"
+- **Fear it resolves:** "What if I commit and it's not right for me?"
+- **Visual treatment:** Clean, unadorned card. Charcoal text on cream. No accent colors. The visual simplicity signals: "This is the smallest step. There is no pressure."
+- **CTA:** "Discover what the piano holds for you."
+- **Anti-anxiety microcopy:** "No obligation. One conversation. Sixty minutes of listening."
+
+**Tier 2: The Practice — $X/month (ongoing mentorship) — MOST CHOSEN**
+- **Psychological frame:** The compromise-effect target. Visually elevated, emotionally centered, and framed as the "natural" choice for someone who is ready. The "Most Chosen" pill triggers social proof without manufactured urgency.
+- **Fear it resolves:** "How do I maintain momentum? What if I lose the thread?"
+- **Visual treatment:** Elevated card with 1px vow-yellow left border. "Most Chosen" pill in vow-yellow at the top. Slightly larger typography for the tier name. The card is 4px higher than the other two (translateY(-4px) at rest).
+- **CTA:** "Find your sound."
+- **Anti-anxiety microcopy:** "Pause or adjust anytime. Your pace is the only timeline."
+- **Nudge logic:** This tier is the default selection. When a visitor arrives at the pricing section, the eye naturally lands here due to visual elevation, color accent, and the "Most Chosen" social proof. The other two tiers frame this one as the balanced choice.
+
+**Tier 3: The Devotion — $X/month (intensive mentorship)**
+- **Psychological frame:** The high anchor. Exists partly to make Tier 2 feel like a balanced choice, and partly for the genuine audience: students preparing to play at a milestone event (a wedding, a memorial, a gift performance).
+- **Fear it resolves:** "I have something specific I want to play, and I need to get there."
+- **Visual treatment:** Clean card, matching Tier 1 in simplicity but with a warm-charcoal background. Cream text. The darkest card signals seriousness of commitment. No vow-yellow accent (reserved for Tier 2).
+- **CTA:** "Tell me what you want to say."
+- **Anti-anxiety microcopy:** "For those with something urgent and beautiful to prepare for."
+
+### Visual Architecture
+The three tiers use the piano-key metaphor: three adjacent cards that feel like three white keys on a keyboard. The cards are separated by 2px gaps (the black-key spaces). The middle card (The Practice) is visually elevated --- the key being pressed.
+
+### Price Display Rules
+- Price is never the first thing visible on the card. The tier name and description come first. The price appears below the description, in Inter at regular weight, preceded by "from" when the price is variable.
+- The word "price" never appears. Use "investment" if a label is needed, but prefer no label at all --- just the figure.
+- Currency symbol is standard ($). No cents unless necessary. No strikethrough "original prices." No discounting language.
+- Below the price: the anti-anxiety microcopy. This is the last thing the visitor reads before the CTA, ensuring the final emotional note is reassurance, not cost.
+
+### The Framing Question
+Above the three tiers, a single question in Cormorant Garamond, centered:
+
+> "Where are you in your relationship with the instrument?"
+
+This question reframes the choice from "which package do I buy?" to "who am I right now?" --- making the selection feel like self-identification rather than shopping.
+
+---
+
+## Appendix E: Cross-Vertical Brand Coherence
+
+### The Principle
+The teaching and weddings verticals are different rooms in the same house. A visitor navigating between them via the Gateway should feel the shift in emotional temperature --- warmer, more patient, more open for teaching; darker, more ceremonial, more reverent for weddings --- without feeling they have left the brand.
+
+### Shared DNA (what must remain identical)
+1. **Typography:** Cormorant Garamond for display/headings. Inter for body/interface. Same 9-size scale.
+2. **Spacing system:** 80px+ section gaps. The same breathing rhythm. Fitzgerald spacing maintained.
+3. **Sacred objects (shared):** The semicolon (;) and the golden thread appear in both verticals. Their visual specifications are identical. Only their *meaning* shifts:
+   - Semicolon: weddings = the threshold between death and life. Teaching = the threshold between silence and sound.
+   - Golden thread: weddings = the covenant connecting moments. Teaching = the patience connecting student to mentor.
+4. **Vow-yellow color:** Same hue (hsl(45 100% 77%)), same max-6% rule. The color binds the brand.
+5. **Vine-green color:** Same hue, same max-4% rule, same use (availability, success states).
+6. **First-person voice:** "I" across both verticals. Non-negotiable.
+7. **No exclamation marks.** Across both verticals.
+8. **Verb-forward CTAs.** Across both verticals.
+9. **The credential line format:** "17 years at the keys. 500+ events." The structure is consistent; the surrounding context adapts.
+10. **prefers-reduced-motion fallbacks.** Identical approach across both.
+
+### Permitted Divergence (what can and should differ)
+
+| Element | Weddings | Teaching |
+|---------|----------|----------|
+| **Baseline palette temperature** | Cold. Charcoal-dominant (70-80% dark surface). The vigil. | Warm. Cream-dominant (60-70% light surface). The practice room. |
+| **Emotional arc** | Death → Life. Gravity → release. | Silence → Sound. Potential → expression. |
+| **Animation speed** | Faster reveals (180ms hover, 450ms sacred). Ceremonial precision. | Slower reveals (220ms hover, 600ms sacred). Patient methodology. |
+| **Photography** | Cinematic. Wide shots. Ceremony spaces. Candlelight. | Intimate. Close-ups. Practice rooms. Natural light. |
+| **Voice warmth** | Composed. Reverent. Weight of permanence. | Warm. Patient. Weight of becoming. |
+| **Sacred objects (unique)** | Golden diamond. Vigil candle/flame. | Empty bench. Pencil annotation. Golden dot (replacing diamond). |
+| **Tagline** | "'Til Death; Unto Life." | "From Silence; Unto Sound." |
+| **Archetype** | Sage-Caregiver (mastery + service) | Sage-Guide (mastery + companionship) |
+| **CTA tone** | "Hold my date." (commitment) | "Sit down with me." (invitation) |
+| **Background image opacity** | 4-12% (darker, more atmospheric) | 8-18% (lighter, more visible) |
+| **Ken Burns cycle** | 20-30s (ceremonial pace) | 30-40s (practice-session patience) |
+
+### The Gateway Transition
+When a visitor clicks from the Gateway page into either vertical:
+- The transition should feel like walking through a doorway --- not teleporting to a different website
+- Shared elements (logo, semicolon, typography) persist through the transition, creating continuity
+- The *temperature* shifts: the Gateway page uses a neutral palette (between the warmth of teaching and the darkness of weddings). Entering weddings cools the palette. Entering teaching warms it.
+- The transition animation should be 600ms using **discovery** easing --- long enough to feel intentional, short enough to not feel sluggish
+
+---
+
+## Appendix F: Accessibility & Performance Standards
+
+### WCAG Compliance Targets
+- **Target level:** WCAG 2.1 AA minimum. AAA where achievable without compromising brand aesthetic.
+- **Color contrast:** All text meets 4.5:1 ratio (normal text) and 3:1 (large text / 18px+). Vow-yellow on charcoal passes (7.8:1). Vow-yellow on cream requires charcoal text overlay (vow-yellow is background only, never text color on light backgrounds).
+- **Keyboard navigation:** All interactive elements accessible via keyboard. Focus rings visible (2px vow-yellow outline at 60% opacity, offset 2px). Tab order follows visual order.
+- **Screen readers:** All images have descriptive alt text. All sacred objects have aria-labels explaining their function. The semicolon in the tagline has `aria-hidden="true"` (decorative in this context --- the tagline reads correctly without it).
+- **Heading hierarchy:** Single H1 per page. Sequential heading levels (no skipping H2 → H4). Headings used structurally, not for visual sizing.
+- **Form accessibility:** All form inputs have associated labels. Error states announced via `aria-live="polite"`. Required fields marked with `aria-required="true"`.
+
+### Reduced Motion Standards
+All animations respect `prefers-reduced-motion: reduce`:
+- **Transforms** → opacity-only at 120ms
+- **Ken Burns** → static image
+- **Ambient breathing** → static at midpoint opacity
+- **Stagger delays** → simultaneous appearance at 200ms shared fade
+- **Underline reveals** → instant appearance
+- **Page transitions** → instant navigation, no animation
+- The rule: content must be fully accessible and emotionally resonant even with zero motion. Motion enhances --- it never creates meaning.
+
+### Performance Budgets
+- **Largest Contentful Paint (LCP):** ≤ 2.5s on 4G mobile
+- **First Input Delay (FID):** ≤ 100ms
+- **Cumulative Layout Shift (CLS):** ≤ 0.1
+- **Total page weight (homepage):** ≤ 1.5MB initial load (above-the-fold)
+- **JavaScript bundle:** ≤ 200KB gzipped (total)
+- **Font loading:** Display swap for Cormorant Garamond. Inter loaded via system fallback chain.
+
+### Image Optimization Rules
+- All images served as WebP with AVIF fallback for supporting browsers
+- Responsive srcset: minimum 3 sizes (640w, 1024w, 1920w)
+- Lazy loading via `loading="lazy"` on all below-fold images
+- Hero image: preloaded via `<link rel="preload">` for LCP optimization
+- Background atmospheric images: maximum 200KB each at highest resolution
+- All images have `width` and `height` attributes to prevent CLS
+
+### Semantic HTML Requirements
+- Landmark regions: `<header>`, `<main>`, `<footer>`, `<nav>`, `<section>` with aria-labels
+- Lists use `<ul>`/`<ol>` --- never styled `<div>` sequences
+- Buttons use `<button>` --- never clickable `<div>` or `<span>`
+- Links use `<a>` with `href` --- never `<button>` for navigation
+- Time references use `<time>` with `datetime` attribute
+- Pricing tables use `<table>` with proper `<thead>`, `<tbody>`, `<th scope>` attributes
 
 ---
 
