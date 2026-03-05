@@ -1,122 +1,75 @@
 
 
-# Plan: Build the Teaching Homepage — 8-Section Emotional Architecture
+# Plan: Refine Teaching Brand Identity Document
 
-## Scope
+Three targeted refinements to `.lovable/teaching-brand-identity.md` based on real teaching experience.
 
-Create a new Teaching homepage at `/teaching` with 8 sections following the Appendix B architecture from the teaching brand identity. This requires:
+---
 
-1. A new page component (`src/pages/Teaching.tsx`)
-2. Eight section components in `src/components/teaching/`
-3. A route addition in `App.tsx`
-4. Enabling the Gateway Teaching card (available: true)
+## Refinement 1: De-Idealize the First Session Script (Appendix C, lines 1201-1275)
 
-## Architecture
+**Current problem:** The script reads like a screenplay with clean beats and a student who says cinematic things. Real first sessions are messier.
 
-### Route & Gateway
+**Changes:**
 
-- Add `/teaching` route in `App.tsx` pointing to `Teaching.tsx`
-- Update `Gateway.tsx`: set Teaching card `available: true`
+- **Beat 1 (Arrival):** Add the three real student archetypes — the over-apologizer ("I'm sorry, I have no idea what I'm doing" x3), the nervous chatter-filler, and the one who goes completely silent. Parker's response to each is the same: sit, breathe, "There's no rush."
 
-### Page: `src/pages/Teaching.tsx`
+- **Beat 2 (The Question):** Add the shrug. Many students cannot answer "What brought you to the piano?" They say "I just always wanted to" or they don't know. The script should honor the shrug as a valid answer rather than skipping to a poetic grandmother story. Add Parker's real response: "That's enough. That's all we need."
 
-Minimal shell matching the weddings `Index.tsx` pattern — imports all 8 sections, renders them in sequence. Uses `usePageTheme` for theme management. Includes `MinimalHeader` and `Footer` (shared components).
+- **Beat 3 (First Touch):** Add the imperfect chord. The student presses too hard, hits the wrong key, or barely makes sound. Parker says "That's it" not to a perfect sound but to the *willingness to try*. Add a line: "It sounds imperfect. Parker does not flinch."
 
-### The 8 Sections
+- **New Beat 3.5: The Uncomfortable Middle (20-30 minutes):** The 10-minute stretch where neither person knows exactly what to do next. Parker sits in the discomfort rather than filling it with exercises. The student fumbles. There is no breakthrough yet. This is the most honest beat — the one the idealized script skipped entirely.
 
-Each section follows the brand identity's Silence → Sound spectrum positioning.
+- **Beat 5 (The Silence):** Add the variant where breakthrough doesn't happen. "Sometimes the first session ends without a golden moment. The student leaves having had a conversation, not a revelation — and that is enough. The breakthrough comes later. Or it comes quietly, at home, when they sit down and try a chord alone."
 
-**Section 1: `TeachingHero.tsx` — The Empty Bench**
-- Spectrum: Point 1 (Deep Silence)
-- Full-viewport hero. Warm cream background. Empty bench photograph at 12-15% opacity as atmospheric layer.
-- Tagline: "From Silence; Unto Sound." with vow-yellow semicolon.
-- Role label: "Piano Mentor" (whispered, uppercase, tracking-wide)
-- Breathing scroll cue (golden dot, 3s cycle)
-- Ken Burns drift on bench image at 30-40s cycle
-- Grain overlay, vignette, fog layers matching weddings hero pattern but warmer
-- No nav intrusion, no features, no pricing
+- **Rename header:** "The First Conversation — What Actually Happens" (from "The First Session — Narrative Script")
 
-**Section 2: `TeachingExhale.tsx` — The Exhale (Recognition)**
-- Spectrum: Point 2 (Longing)
-- Text-only section. Warm cream bg. Centered, max-width 680px.
-- Copy: "You have a song inside you that you have never been able to play. You have heard it in the car, in the quiet, in the space between what you feel and what you can say. I understand. The piano has been waiting."
-- Cormorant Garamond italic. Line-by-line stagger reveal (200ms gaps, 400ms per line, discovery easing)
-- No sacred objects — absence creates contrast
-- 120px padding bottom, no decorative divider
+## Refinement 2: Reweight the Mind-Reading Framework (Section 6.6, lines 386-456)
 
-**Section 3: `TeachingPillars.tsx` — The Three Pillars (Desire)**
-- Spectrum: Point 3 (Tentative Approach)
-- Three centered blocks: Patient Mentorship, Emotional Fluency, Lifelong Relationship
-- Cormorant headlines + Inter supporting sentence
-- Golden thread vertical line connecting three pillars, breathing at 4s
-- Golden dots as pillar markers
-- 80px between pillars. Scroll-triggered stagger reveal
+**Current problem:** All 8 pairs treated equally. Real experience says **Quitting Again** (Pair 7) and **Age** (Pair 1) are the dominant fears for adult students (18-55).
 
-**Section 4: `TeachingMethodology.tsx` — The First Question**
-- Spectrum: Point 3-4
-- Display question: "What do you want to say through this instrument?" in large Cormorant Garamond
-- Background shifts to soft charcoal (first dark section). Text inverts to cream-on-dark.
-- Close-up keys photograph at 8% opacity
-- Pencil annotation appears: handwritten "listen" in margin (clip-path write-on reveal, 600ms)
-- 3-4 sentence narrative from the First Session script (Appendix C, Beat 2)
+**Changes:**
 
-**Section 5: `TeachingThreshold.tsx` — The Threshold (Mind-Reading)**
-- Spectrum: Point 4-5 (Patience → Near-Miss)
-- 4 fear/resolution pairs (Age, Impossibility, School Trauma, Quitting Again)
-- Fear in Cormorant italic at 70% opacity → 40-60px pause → Resolution in Inter at 100%
-- Vow-yellow underline on key word per resolution (450ms, one-time, scroll-triggered)
-- Charcoal background maintained. Atmospheric grain at 3-4%
-- Semicolon threshold marker between this section and next, at 1.5x scale
+- **Add a priority classification** after the pairs list:
+  - **Primary (homepage Threshold section):** Pair 7 (Quitting Again) and Pair 1 (Age). These appear first and last in the homepage sequence.
+  - **Secondary (homepage, middle positions):** Pair 3 (Impossibility) and Pair 5 (School Trauma).
+  - **Tertiary (FAQ/contact pages only):** Pairs 2, 4, 6, 8.
 
-**Section 6: `TeachingStories.tsx` — Student Stories (Validation)**
-- Spectrum: Point 6 (Breakthrough)
-- 2-3 student transformation narratives (placeholder content initially)
-- Each: 3-4 sentence narrative in Inter + pull quote in Cormorant italic
-- Warmest section. Full Sound-state. Cream at maximum warmth. Vow-yellow at peak
-- Golden dots as story separators. Golden thread horizontal beneath each story
+- **Sharpen Pair 7 (Quitting Again):** Add a line acknowledging the shame: *"The guilt you carry about stopping is not yours. It belongs to the system that made you feel like stopping was failure."* Insert before the final "The only way to quit..." sentence.
 
-**Section 7: `TeachingOffering.tsx` — The Offering (Choice)**
-- Spectrum: Point 6-7
-- Framing question: "Where are you in your relationship with the instrument?"
-- Three tier cards: The Conversation, The Practice (Most Chosen), The Devotion
-- Piano-key visual metaphor. Most Chosen card elevated (-4px translateY), vow-yellow left border, pill
-- Golden dots replace bullets. 220ms hover lift. Warm cream bg.
-- CTAs link to `/contact` (or future teaching contact page)
+- **Sharpen Pair 1 (Age):** Add adult-specific specificity: *"I sit beside adults every week who believed they were too late. They are not too late. They are exactly on time — because they are here now."* Add after "Neither do I."
 
-**Section 8: `TeachingCrossing.tsx` — The Crossing (Commitment)**
-- Spectrum: Point 7 (Full Resonance)
-- Tagline bookend: "From Silence; Unto Sound."
-- CTA: "Sit down with me." button (vow-yellow, 180ms hover fill)
-- Anti-anxiety: "Response within 24 hours. Always." and "This is a conversation, not a commitment."
-- Bench photograph at 6-8% opacity — occupied this time (transformation marker)
-- Maximum warmth. Golden thread from above.
+- **Update usage rules (line 451):** Change recommended pairs from "Pairs 1, 3, 5, 7" to: "Lead with Pair 7 (Quitting Again — the most emotionally charged), follow with Pairs 3 and 5 (middle positions), close with Pair 1 (Age — the most universally felt). The order matters: the sequence moves from shame to liberation."
 
-## Visual & Technical Standards
+- **Add a preamble note** connecting the framework to the conversation-first methodology: the website reads the visitor's fears the same way Parker reads a student's nervousness in the first session.
 
-- **Palette:** Warm cream dominant (60-70%), charcoal for Section 4-5 only (20-30%), vow-yellow ≤6%, vine-green ≤4%
-- **Typography:** Cormorant Garamond for display, Inter for body. Same 9-size scale as weddings.
-- **Spacing:** 80px+ section gaps. Fitzgerald spacing system.
-- **Motion:** All timings from Section 9.5 timing table. All animations have `prefers-reduced-motion` fallbacks.
-- **Images:** Lazy-loaded below fold. Hero image preloaded. Ken Burns 30-40s. WebP format.
-- **Accessibility:** WCAG 2.1 AA. Keyboard nav. Proper heading hierarchy (single H1 in hero). aria-labels on sacred objects.
+## Refinement 3: Elevate "Conversation Before Music" (Section 3, lines 64-97)
 
-## Files to Create/Modify
+**Current problem:** "Conversation before music" is the single most powerful differentiator but exists only implicitly across scattered references.
 
-**Create:**
-- `src/pages/Teaching.tsx`
-- `src/components/teaching/TeachingHero.tsx`
-- `src/components/teaching/TeachingExhale.tsx`
-- `src/components/teaching/TeachingPillars.tsx`
-- `src/components/teaching/TeachingMethodology.tsx`
-- `src/components/teaching/TeachingThreshold.tsx`
-- `src/components/teaching/TeachingStories.tsx`
-- `src/components/teaching/TeachingOffering.tsx`
-- `src/components/teaching/TeachingCrossing.tsx`
-- `src/components/teaching/index.ts` (barrel export)
+**Changes:**
 
-**Modify:**
-- `src/App.tsx` — add `/teaching` route
-- `src/pages/Gateway.tsx` — set Teaching `available: true`
+- **Add a new subsection in Section 3** after "Standards" (after line 96):
 
-This is a large build. Implementation will proceed section by section, ensuring each meets the brand identity's emotional architecture before moving to the next.
+  ```
+  ### The Methodology in One Sentence
+  The first question I ask is never about music. It is about you.
+
+  This is the secondary tagline — usable across all channels, all touchpoints,
+  all contexts. It captures the core differentiator in a single breath:
+  conversation before music, listening before teaching, the student before
+  the instrument.
+  ```
+
+- **Add to Section 4 differentiator table (line 120):** Add a row: "First interaction is a conversation, not a lesson" vs competitors.
+
+- **Update Appendix C header** as noted in Refinement 1.
+
+---
+
+## Files Modified
+
+Single file: `.lovable/teaching-brand-identity.md`
+
+Approximately 60-80 lines added/modified across three sections. No structural reorganization — only deepening existing content based on real practice.
 
