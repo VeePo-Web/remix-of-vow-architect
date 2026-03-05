@@ -126,7 +126,7 @@ export function Footer() {
             <div className="group/icons flex items-center gap-4">
               <a
                 href="mailto:parker@parkergawryletz.com"
-                className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] group-hover/icons:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] p-3.5 -m-3.5 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
+                className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] group-hover/icons:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] p-3.5 -m-3.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 aria-label="Send me an email"
               >
                 <Mail size={18} />
@@ -134,7 +134,7 @@ export function Footer() {
               <span className="inline-block w-1 h-1 rotate-45" style={{ background: 'hsl(var(--vow-yellow) / 0.3)', boxShadow: '0 0 4px hsl(var(--vow-yellow) / 0.15)' }} aria-hidden="true" />
               <a
                 href="tel:+14038308930"
-                className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] group-hover/icons:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] p-3.5 -m-3.5 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
+                className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] group-hover/icons:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] p-3.5 -m-3.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 aria-label="Call me by phone"
               >
                 <Phone size={18} />
@@ -142,7 +142,7 @@ export function Footer() {
               <span className="inline-block w-1 h-1 rotate-45" style={{ background: 'hsl(var(--vow-yellow) / 0.3)', boxShadow: '0 0 4px hsl(var(--vow-yellow) / 0.15)' }} aria-hidden="true" />
               <a
                 href="https://instagram.com"
-                className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] group-hover/icons:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] p-3.5 -m-3.5 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
+                className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] group-hover/icons:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] p-3.5 -m-3.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 aria-label="Follow me on Instagram"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -152,7 +152,7 @@ export function Footer() {
               <span className="inline-block w-1 h-1 rotate-45" style={{ background: 'hsl(var(--vow-yellow) / 0.3)', boxShadow: '0 0 4px hsl(var(--vow-yellow) / 0.15)' }} aria-hidden="true" />
               <a
                 href="https://youtube.com"
-                className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] group-hover/icons:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] p-3.5 -m-3.5 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
+                className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] group-hover/icons:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] p-3.5 -m-3.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 aria-label="Watch me on YouTube"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -210,12 +210,12 @@ export function Footer() {
             <ul className="space-y-3 text-foreground/50">
               <li>Calgary, Cochrane, Canmore and Okotoks</li>
               <li>
-                <a href="mailto:parker@parkergawryletz.com" className="hover:text-primary transition-all duration-[180ms] rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70" aria-label="Email me at parker@parkergawryletz.com">
+                <a href="mailto:parker@parkergawryletz.com" className="hover:text-primary transition-all duration-[180ms] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background" aria-label="Email me at parker@parkergawryletz.com">
                   parker@parkergawryletz.com
                 </a>
               </li>
               <li>
-                <a href="tel:+14038308930" className="hover:text-primary transition-all duration-[180ms] rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70" aria-label="Call me at +1-403-830-8930">
+                <a href="tel:+14038308930" className="hover:text-primary transition-all duration-[180ms] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background" aria-label="Call me at +1-403-830-8930">
                   +1-403-830-8930
                 </a>
               </li>
