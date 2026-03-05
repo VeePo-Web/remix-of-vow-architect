@@ -1,75 +1,98 @@
 
 
-# Plan: Refine Teaching Brand Identity Document
+# Plan: Build the Events Page — 8-Section Professional Architecture
 
-Three targeted refinements to `.lovable/teaching-brand-identity.md` based on real teaching experience.
+## Context
 
----
+Events covers romantic background piano for private dinners, church services, in-home catered gatherings, and intimate formal occasions. The tone is **professional and polished** — confident, clean, and elegant without the sacred/vigil weight of weddings or the warmth of teaching.
 
-## Refinement 1: De-Idealize the First Session Script (Appendix C, lines 1201-1275)
+## Architecture
 
-**Current problem:** The script reads like a screenplay with clean beats and a student who says cinematic things. Real first sessions are messier.
+### Route & Gateway
 
-**Changes:**
+- **`src/App.tsx`:** Add `/events` route pointing to new `Events.tsx` page. Add to `usePageTheme` death-theme list.
+- **`src/pages/Gateway.tsx`:** Set Events card `available: true`.
 
-- **Beat 1 (Arrival):** Add the three real student archetypes — the over-apologizer ("I'm sorry, I have no idea what I'm doing" x3), the nervous chatter-filler, and the one who goes completely silent. Parker's response to each is the same: sit, breathe, "There's no rush."
+### Page: `src/pages/Events.tsx`
 
-- **Beat 2 (The Question):** Add the shrug. Many students cannot answer "What brought you to the piano?" They say "I just always wanted to" or they don't know. The script should honor the shrug as a valid answer rather than skipping to a poetic grandmother story. Add Parker's real response: "That's enough. That's all we need."
+Minimal shell matching Teaching pattern — imports 8 sections, `MinimalHeader`, `Footer`, `usePageTheme`.
 
-- **Beat 3 (First Touch):** Add the imperfect chord. The student presses too hard, hits the wrong key, or barely makes sound. Parker says "That's it" not to a perfect sound but to the *willingness to try*. Add a line: "It sounds imperfect. Parker does not flinch."
+### The 8 Sections
 
-- **New Beat 3.5: The Uncomfortable Middle (20-30 minutes):** The 10-minute stretch where neither person knows exactly what to do next. Parker sits in the discomfort rather than filling it with exercises. The student fumbles. There is no breakthrough yet. This is the most honest beat — the one the idealized script skipped entirely.
+**Section 1: `EventsHero.tsx` — The Room Before the Music**
+- Full-viewport hero. Rich black background. Atmospheric image (candlelit dining/piano setting) at 12-15% opacity.
+- Tagline: "Every room has a sound it's waiting for."
+- Role label: "Private Event Pianist" (uppercase, tracking-wide)
+- Breathing scroll cue. Ken Burns drift. Grain + vignette overlays.
+- Professional, confident — no vigil/sacred framing.
 
-- **Beat 5 (The Silence):** Add the variant where breakthrough doesn't happen. "Sometimes the first session ends without a golden moment. The student leaves having had a conversation, not a revelation — and that is enough. The breakthrough comes later. Or it comes quietly, at home, when they sit down and try a chord alone."
+**Section 2: `EventsExhale.tsx` — The Recognition**
+- Text-only. Dark background. Max-width 680px centered.
+- Copy: "You are planning something that matters. A dinner where conversation deepens. A gathering where presence is felt. A moment that asks for more than a playlist. I understand what live music does to a room."
+- Cormorant Garamond. Line-by-line stagger reveal.
 
-- **Rename header:** "The First Conversation — What Actually Happens" (from "The First Session — Narrative Script")
+**Section 3: `EventsOccasions.tsx` — The Occasions (What I Play For)**
+- 4 occasion cards: Private Dinners, Church Services, Cocktail Receptions, Intimate Celebrations
+- Each card: icon/image, title, 1-2 sentence description
+- Grid layout (2x2 on desktop). Scroll-triggered stagger.
+- Professional categorization — helps visitors self-identify their event type.
 
-## Refinement 2: Reweight the Mind-Reading Framework (Section 6.6, lines 386-456)
+**Section 4: `EventsApproach.tsx` — The Approach (How I Work)**
+- Shift to slightly warmer charcoal. Display question: "What should the room feel like?"
+- 3-step process: Conversation → Curation → Delivery
+- Clean, confident presentation — no sacred metaphors, just professional methodology.
+- Brief description of how repertoire is tailored per event.
 
-**Current problem:** All 8 pairs treated equally. Real experience says **Quitting Again** (Pair 7) and **Age** (Pair 1) are the dominant fears for adult students (18-55).
+**Section 5: `EventsThreshold.tsx` — The Assurance (Mind-Reading)**
+- 4 concern/resolution pairs relevant to event clients:
+  - "Will it be too loud / too quiet?" → SPL-calibrated to your room
+  - "Can you play [specific genre]?" → 500+ event repertoire across classical, pop, film, hymns
+  - "What if the space is unusual?" → I've played living rooms, churches, rooftops, gardens
+  - "Is this within our budget?" → Transparent pricing, no hidden fees
+- Professional tone, not fear-based. More FAQ-style assurance.
 
-**Changes:**
+**Section 6: `EventsExperience.tsx` — Past Events (Social Proof)**
+- 2-3 event vignettes (placeholder content initially)
+- Each: event type, brief narrative, pull quote from host
+- Clean card layout. Warm neutral background.
 
-- **Add a priority classification** after the pairs list:
-  - **Primary (homepage Threshold section):** Pair 7 (Quitting Again) and Pair 1 (Age). These appear first and last in the homepage sequence.
-  - **Secondary (homepage, middle positions):** Pair 3 (Impossibility) and Pair 5 (School Trauma).
-  - **Tertiary (FAQ/contact pages only):** Pairs 2, 4, 6, 8.
+**Section 7: `EventsOffering.tsx` — The Offering (Packages)**
+- Framing: "How long do you need me there?"
+- Three tiers: The Moment (1 hour), The Evening (2-3 hours), The Full Occasion (4+ hours)
+- Middle tier marked "Most Selected." Cards with vow-yellow accents.
+- CTAs link to `/contact`.
 
-- **Sharpen Pair 7 (Quitting Again):** Add a line acknowledging the shame: *"The guilt you carry about stopping is not yours. It belongs to the system that made you feel like stopping was failure."* Insert before the final "The only way to quit..." sentence.
+**Section 8: `EventsCrossing.tsx` — The Crossing (CTA)**
+- Tagline bookend: "Every room has a sound it's waiting for."
+- CTA: "Tell me about your event." (vow-yellow button)
+- Anti-anxiety: "Response within 24 hours. Always." and "No obligation — just a conversation."
 
-- **Sharpen Pair 1 (Age):** Add adult-specific specificity: *"I sit beside adults every week who believed they were too late. They are not too late. They are exactly on time — because they are here now."* Add after "Neither do I."
+## Visual Standards
 
-- **Update usage rules (line 451):** Change recommended pairs from "Pairs 1, 3, 5, 7" to: "Lead with Pair 7 (Quitting Again — the most emotionally charged), follow with Pairs 3 and 5 (middle positions), close with Pair 1 (Age — the most universally felt). The order matters: the sequence moves from shame to liberation."
+- **Palette:** Rich black dominant (hero/early sections), transitioning to warm charcoal then cream. Vow-yellow ≤6% for CTAs and accents.
+- **Typography:** Cormorant Garamond for display, Inter for body. Same scale as other pages.
+- **Tone difference from other pages:** No "sacred," "vigil," "covenant" language. Use "elegant," "intentional," "presence," "atmosphere."
+- **Motion:** Same timing system (180ms hovers, 900ms reveals, reduced-motion fallbacks).
 
-- **Add a preamble note** connecting the framework to the conversation-first methodology: the website reads the visitor's fears the same way Parker reads a student's nervousness in the first session.
+## Files to Create/Modify
 
-## Refinement 3: Elevate "Conversation Before Music" (Section 3, lines 64-97)
+**Create:**
+- `src/pages/Events.tsx`
+- `src/components/events/EventsHero.tsx`
+- `src/components/events/EventsExhale.tsx`
+- `src/components/events/EventsOccasions.tsx`
+- `src/components/events/EventsApproach.tsx`
+- `src/components/events/EventsThreshold.tsx`
+- `src/components/events/EventsExperience.tsx`
+- `src/components/events/EventsOffering.tsx`
+- `src/components/events/EventsCrossing.tsx`
+- `src/components/events/index.ts` (barrel export)
 
-**Current problem:** "Conversation before music" is the single most powerful differentiator but exists only implicitly across scattered references.
+**Modify:**
+- `src/App.tsx` — add `/events` route
+- `src/pages/Gateway.tsx` — set Events `available: true`
+- `src/hooks/usePageTheme.ts` — add `/events` to death-theme routes
 
-**Changes:**
-
-- **Add a new subsection in Section 3** after "Standards" (after line 96):
-
-  ```
-  ### The Methodology in One Sentence
-  The first question I ask is never about music. It is about you.
-
-  This is the secondary tagline — usable across all channels, all touchpoints,
-  all contexts. It captures the core differentiator in a single breath:
-  conversation before music, listening before teaching, the student before
-  the instrument.
-  ```
-
-- **Add to Section 4 differentiator table (line 120):** Add a row: "First interaction is a conversation, not a lesson" vs competitors.
-
-- **Update Appendix C header** as noted in Refinement 1.
-
----
-
-## Files Modified
-
-Single file: `.lovable/teaching-brand-identity.md`
-
-Approximately 60-80 lines added/modified across three sections. No structural reorganization — only deepening existing content based on real practice.
+**Generate (AI image):**
+- `src/assets/events-hero.jpg` — candlelit piano/dining atmosphere image
 
