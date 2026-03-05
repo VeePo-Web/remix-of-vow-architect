@@ -20,7 +20,7 @@ const services = [
     description: "Learn the instrument that speaks when words fall short",
     image: teachingImg,
     href: "/teaching",
-    available: false,
+    available: true,
     delay: 1200,
   },
   {
