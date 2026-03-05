@@ -3,10 +3,10 @@ import { cn } from "@/lib/utils";
 
 const fears = [
   {
-    fear: "What if I'm too old to start?",
+    fear: "What if I start and quit again?",
     resolution:
-      "There is no age at which the piano stops being willing to listen. I have sat beside students who touched the keys for the first time at 50, at 60, at 70. The instrument does not care when you arrive. Neither do I.",
-    underlineWord: "no",
+      "You didn't quit last time. You had a teacher who measured your progress by their timeline instead of yours. The guilt you carry about stopping is not yours. It belongs to the system that made you feel like stopping was failure. There is no timeline here. There is your pace, your sound, and my patience. The only way to quit is to stop wanting — and you are here because you haven't.",
+    underlineWord: "pace",
   },
   {
     fear: "What if I can never play anything real?",
@@ -21,10 +21,10 @@ const fears = [
     underlineWord: "question",
   },
   {
-    fear: "What if I start and quit again?",
+    fear: "What if I'm too old to start?",
     resolution:
-      "You didn't quit last time. You had a teacher who measured your progress by their timeline instead of yours. There is no timeline here. There is your pace, your sound, and my patience. The only way to quit is to stop wanting — and you are here because you haven't.",
-    underlineWord: "pace",
+      "There is no age at which the piano stops being willing to listen. I have sat beside students who touched the keys for the first time at 50, at 60, at 70. The instrument does not care when you arrive. Neither do I. I sit beside adults every week who believed they were too late. They are not too late. They are exactly on time — because they are here now.",
+    underlineWord: "no",
   },
 ];
 
