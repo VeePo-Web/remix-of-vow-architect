@@ -4804,12 +4804,21 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 
 /* Footer breathing separator */
 @keyframes footer-breathe {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.6; }
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.85; }
 }
 
 .footer-breathe {
-  animation: footer-breathe 8s ease-in-out infinite;
+  animation: footer-breathe 4s ease-in-out infinite;
+}
+
+/* Header vine thread breathing — synced 4s cycle with footer-breathe */
+@keyframes header-vine-breathe {
+  0%, 100% { filter: drop-shadow(0 0 4px hsl(45 100% 76% / 0.06)); }
+  50% { filter: drop-shadow(0 0 6px hsl(45 100% 76% / 0.1)); }
+}
+.header-vine-breathe {
+  animation: header-vine-breathe 4s ease-in-out infinite;
 }
 
 /* Header candlelight warmth pulse */
@@ -4885,7 +4894,8 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .footer-breathe {
+  .footer-breathe,
+  .header-vine-breathe {
     animation: none;
   }
 }
@@ -6005,8 +6015,8 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 
 /* Footer: CTA breathing glow during arrival */
 @keyframes footer-cta-arrival-glow {
-  0%, 100% { opacity: 0.04; transform: scale(1); }
-  50% { opacity: 0.08; transform: scale(1.05); }
+  0%, 100% { opacity: 0.04; }
+  50% { opacity: 0.09; }
 }
 .footer-cta-arrival-glow {
   animation: footer-cta-arrival-glow 4s ease-in-out infinite;
