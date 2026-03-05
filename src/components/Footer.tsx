@@ -96,8 +96,8 @@ export function Footer() {
           )}
           style={{
             background:
-              `linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / ${isArrival ? '0.4' : '0.25'}), transparent)`,
-            boxShadow: `0 0 ${isArrival ? '12px' : '8px'} hsl(var(--vow-yellow) / ${isArrival ? '0.18' : '0.1'})`,
+              `linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / ${isArrival ? '0.3' : '0.25'}), transparent)`,
+            boxShadow: `0 0 ${isArrival ? '8px' : '8px'} hsl(var(--vow-yellow) / ${isArrival ? '0.15' : '0.1'})`,
           }}
           aria-hidden="true"
         />
@@ -186,7 +186,7 @@ export function Footer() {
                   <li key={link.to}>
                     <NavLink
                       to={link.to}
-                      className="text-foreground/50 hover:text-primary hover:translate-y-[1px] active:translate-y-[2px] group-hover/nav:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] story-link inline-block"
+                      className="text-foreground/50 hover:text-primary hover:translate-y-[1px] active:translate-y-[2px] group-hover/nav:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] story-link inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
                     >
                       {link.label}
                     </NavLink>
@@ -273,16 +273,16 @@ export function Footer() {
             © {new Date().getFullYear()} Parker Gawryletz. All rights reserved.
           </p>
           <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm">
-            <NavLink to="/privacy-policy" className="text-foreground/40 hover:text-primary transition-all duration-[180ms] rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70">
+            <NavLink to="/privacy-policy" className="text-foreground/40 hover:text-primary transition-all duration-[180ms] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background">
               Privacy
             </NavLink>
-            <NavLink to="/terms" className="text-foreground/40 hover:text-primary transition-all duration-[180ms] rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70">
+            <NavLink to="/terms" className="text-foreground/40 hover:text-primary transition-all duration-[180ms] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background">
               Terms
             </NavLink>
-            <NavLink to="/cookie-policy" className="text-foreground/40 hover:text-primary transition-all duration-[180ms] rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70">
+            <NavLink to="/cookie-policy" className="text-foreground/40 hover:text-primary transition-all duration-[180ms] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background">
               Cookies
             </NavLink>
-            <NavLink to="/accessibility" className="text-foreground/40 hover:text-primary transition-all duration-[180ms] rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70">
+            <NavLink to="/accessibility" className="text-foreground/40 hover:text-primary transition-all duration-[180ms] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background">
               Accessibility
             </NavLink>
           </div>

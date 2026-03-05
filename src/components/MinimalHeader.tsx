@@ -104,7 +104,7 @@ export function MinimalHeader() {
           <svg
             className={cn(
               "absolute bottom-0 left-0 w-full pointer-events-none animate-fade-in",
-              isArrival && "footer-breathe"
+              isArrival && "header-vine-breathe"
             )}
             style={{
               animationDuration: '450ms',
