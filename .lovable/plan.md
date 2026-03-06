@@ -1,33 +1,38 @@
 
 
-# Plan: Create Events Brand Identity Document
+# Plan: Create In-Depth Teaching Business Report
 
-Create `.lovable/events-brand-identity.md` following the same structure as the wedding and teaching documents — Brand Truth Table, Non-Negotiables/Flex/Dealbreakers, Brand Spine, Positioning, Customer Identity Mirror, Messaging, Voice, and Visual direction.
+Create a comprehensive, copy-paste-ready business description, vision, and mission document for Parker Gawryletz's piano teaching practice. This is a standalone reference document — not a code change.
 
-## Key Differentiators from Other Verticals
+## Document Structure
 
-- **Tone:** Professional and polished, not sacred/vigil (weddings) or warm/mentorship (teaching)
-- **Category:** "Private Event Pianist" — not "sound director" or "mentor"
-- **Mission:** "I understand what live music does to a room" — atmospheric, not ceremonial
-- **Tagline adaptation:** "Every room has a sound it's waiting for."
-- **Enemy:** The generic playlist, the background-noise assumption, the DJ who drowns conversation
-- **Audience:** Hosts planning private dinners, church services, cocktail receptions, intimate celebrations — people who care about atmosphere and presence
+The report will be written in first person (Parker's voice) and cover:
 
-## Document Structure (matching existing format)
+1. **Executive Summary** — Who Parker is, what the practice offers, and the singular mission
+2. **Business Description** — Category (Piano Mentorship), service model, geography, delivery formats, student profile, capacity
+3. **Vision Statement** — The long-term aspirational state: what the practice is building toward
+4. **Mission Statement** — The operational North Star: "I sit beside you until the music sounds the way you hear it inside"
+5. **Core Values & Philosophy** — Patience-first methodology, expression over technique, no grades/exams, conversation before music
+6. **The Methodology: "The First Conversation"** — How mentorship begins and unfolds, the First Question, the patient bench
+7. **Unique Differentiators** — What separates this from music schools, apps, YouTube, and typical private teachers
+8. **Target Audience & Ideal Student Profile** — Adults who always wanted to play, intermediate players seeking depth, milestone preparers
+9. **Service Offerings** — The three tiers (The Conversation, The Practice, The Devotion) with positioning
+10. **Competitive Landscape & Positioning** — Category ownership of "Piano Mentorship" vs the 30-minute lesson factory
+11. **Brand Identity & Voice** — First-person voice, no exclamation marks, verb-forward CTAs, banned language
+12. **Credentials & Proof Points** — 17 years, 500+ events, cross-context fluency
+13. **Growth Philosophy** — How the practice scales (or intentionally doesn't), long-term student relationships
+14. **The Covenant** — Parker's personal promise to every student
 
-1. **Brand Truth Table** — Events-specific truths (500+ events, 4 occasion types, 500+ repertoire, room-reading ability)
-2. **Non-Negotiables / Flex / Dealbreakers** — Professional tone rules, no "sacred/vigil" language, no entertainment framing
-3. **Brand Spine** — Category stance, enemy, audience, promise, proof, personality
-4. **Positioning & Differentiators** — "Private Event Pianist" category, differentiator table vs DJs/playlists/bands
-5. **Customer Identity Mirror** — "You are my people if..." / "Not for you if..." for event hosts
-6. **Messaging Pillars** — Atmosphere, Adaptability, Professionalism
-7. **Voice & Lexicon** — Events-specific word choices (allowed/banned), CTA phrasing
-8. **Visual Direction** — How the events page differs aesthetically from weddings/teaching
-9. **Cross-Vertical Coherence** — How events connects to the broader Sacred Sound brand
+## Source Material
 
-## File
+Drawing from the existing `.lovable/teaching-brand-identity.md` (1,462 lines), brand memories, and the master brand vision document. The report will synthesize and expand these into a polished, professional business document.
 
-- **Create:** `.lovable/events-brand-identity.md`
+## Deliverable
 
-No code changes required.
+A single markdown document created at `.lovable/teaching-business-report.md` — formatted for easy copy-paste into any context (investor deck, business registration, grant application, personal reference).
+
+## Scope
+
+- **Creates:** `.lovable/teaching-business-report.md`
+- **No code changes.** Documentation only.
 
