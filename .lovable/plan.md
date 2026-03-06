@@ -1,24 +1,33 @@
 
 
-# Plan: Create Master Style Guide Document
+# Plan: Create Events Brand Identity Document
 
-Create `.lovable/style-guide.md` — a unified Creative Director reference document that codifies the design system, animation standards, voice rules, atmospheric layering, and section-refinement process across all three verticals.
+Create `.lovable/events-brand-identity.md` following the same structure as the wedding and teaching documents — Brand Truth Table, Non-Negotiables/Flex/Dealbreakers, Brand Spine, Positioning, Customer Identity Mirror, Messaging, Voice, and Visual direction.
 
-## What It Contains
+## Key Differentiators from Other Verticals
 
-1. **Design System Constants** — Typography (Fitzgerald scale), spacing (Fitzgerald spacing), color covenant (88/6/4 ratios), CSS variables
-2. **Animation Standards ("Sacred Pacing")** — Locked timing values (180ms hovers, 160ms lifts, 700ms reveals, 80-120ms staggers), easing curves, choreographed component lifecycle (Entering/Idle/Active), reduced motion fallbacks
-3. **Atmospheric Layering Stack** — The 5-layer system (background gradient, grain, warm fog, breathing glow, vignette) with opacity values and z-index order
-4. **Voice Rules (Universal)** — First-person, no exclamation marks, verb-forward CTAs, Oxford comma, en-dashes, banned adjectives
-5. **Vertical-Specific Language** — Allowed/banned word lists for Weddings, Events, and Teaching (references the existing brand identity docs)
-6. **Emotional Funnel Mapping** — Section roles (Hero→Awe, Exhale→Recognition, Threshold→Conviction, Crossing→Action) and what each must achieve
-7. **Section Refinement Process** — The 9-step audit checklist for elevating any individual section
-8. **Quality Checklist (Fantasy.co Standard)** — 10 verification questions before any section is considered complete
-9. **Tech Stack Reference** — Hooks (`useScrollReveal`), utilities (`cn`), component patterns (`Button asChild`), inline keyframe conventions
-10. **Section Registry** — Current sections by page with their funnel role
+- **Tone:** Professional and polished, not sacred/vigil (weddings) or warm/mentorship (teaching)
+- **Category:** "Private Event Pianist" — not "sound director" or "mentor"
+- **Mission:** "I understand what live music does to a room" — atmospheric, not ceremonial
+- **Tagline adaptation:** "Every room has a sound it's waiting for."
+- **Enemy:** The generic playlist, the background-noise assumption, the DJ who drowns conversation
+- **Audience:** Hosts planning private dinners, church services, cocktail receptions, intimate celebrations — people who care about atmosphere and presence
 
-## Scope
+## Document Structure (matching existing format)
 
-- **Creates:** `.lovable/style-guide.md`
-- **Does NOT touch:** Any component files, CSS, or animation code on the weddings page or anywhere else
+1. **Brand Truth Table** — Events-specific truths (500+ events, 4 occasion types, 500+ repertoire, room-reading ability)
+2. **Non-Negotiables / Flex / Dealbreakers** — Professional tone rules, no "sacred/vigil" language, no entertainment framing
+3. **Brand Spine** — Category stance, enemy, audience, promise, proof, personality
+4. **Positioning & Differentiators** — "Private Event Pianist" category, differentiator table vs DJs/playlists/bands
+5. **Customer Identity Mirror** — "You are my people if..." / "Not for you if..." for event hosts
+6. **Messaging Pillars** — Atmosphere, Adaptability, Professionalism
+7. **Voice & Lexicon** — Events-specific word choices (allowed/banned), CTA phrasing
+8. **Visual Direction** — How the events page differs aesthetically from weddings/teaching
+9. **Cross-Vertical Coherence** — How events connects to the broader Sacred Sound brand
+
+## File
+
+- **Create:** `.lovable/events-brand-identity.md`
+
+No code changes required.
 
