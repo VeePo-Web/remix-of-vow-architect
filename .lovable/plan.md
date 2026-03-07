@@ -1,33 +1,32 @@
 
 
-# Plan: Create Events Brand Identity Document
+# Plan: Create Events Vertical Business Report
 
-Create `.lovable/events-brand-identity.md` following the same structure as the wedding and teaching documents — Brand Truth Table, Non-Negotiables/Flex/Dealbreakers, Brand Spine, Positioning, Customer Identity Mirror, Messaging, Voice, and Visual direction.
+Create `.lovable/events-business-report.md` — a comprehensive, copy-paste-ready business description, vision, and mission document for the Private Event Pianist vertical, mirroring the depth and structure of the teaching report.
 
-## Key Differentiators from Other Verticals
+## Document Structure (14 Sections)
 
-- **Tone:** Professional and polished, not sacred/vigil (weddings) or warm/mentorship (teaching)
-- **Category:** "Private Event Pianist" — not "sound director" or "mentor"
-- **Mission:** "I understand what live music does to a room" — atmospheric, not ceremonial
-- **Tagline adaptation:** "Every room has a sound it's waiting for."
-- **Enemy:** The generic playlist, the background-noise assumption, the DJ who drowns conversation
-- **Audience:** Hosts planning private dinners, church services, cocktail receptions, intimate celebrations — people who care about atmosphere and presence
+1. **Executive Summary** — Parker Gawryletz, Private Event Pianist, 500+ events, atmospheric architecture
+2. **Business Description** — Category (Private Event Pianist), service model, geography (Western Canada), occasion types, operational structure
+3. **Vision Statement** — Long-term aspiration: every host who cares about atmosphere knows there is an alternative to the playlist and the DJ
+4. **Mission Statement** — "I understand what live music does to a room" — broken into components
+5. **Core Values and Philosophy** — Presence over performance, room-reading as craft, invisible transitions, conversation-level volume, self-sufficiency
+6. **The Methodology: Room-Reading** — How Parker reads a room's energy in real time, adapts tempo/volume/repertoire, and makes transitions invisible
+7. **Unique Differentiators** — vs. playlists, DJs, bands, and other solo musicians (the existing differentiator table expanded into narrative)
+8. **Target Audience and Ideal Client Profile** — Hosts who care about atmosphere: private dinner hosts, church worship coordinators, reception planners, intimate celebration organizers
+9. **Service Offerings** — The three tiers from the website (The Hour, The Evening, The Occasion) with positioning
+10. **Competitive Landscape and Positioning** — Category ownership of "Private Event Pianist" vs. background musician, entertainer, vendor
+11. **Brand Identity and Voice** — First-person, no exclamation marks, atmosphere/presence language, banned words, CTA phrasing
+12. **Credentials and Proof Points** — 500+ events, 500+ repertoire, insurance, cross-context fluency, Western Canada coverage
+13. **Growth Philosophy** — How the practice grows through referrals and reputation, not marketing tactics; cross-vertical pipeline (events → weddings → teaching)
+14. **The Covenant** — Parker's personal promise to every host
 
-## Document Structure (matching existing format)
+## Source Material
 
-1. **Brand Truth Table** — Events-specific truths (500+ events, 4 occasion types, 500+ repertoire, room-reading ability)
-2. **Non-Negotiables / Flex / Dealbreakers** — Professional tone rules, no "sacred/vigil" language, no entertainment framing
-3. **Brand Spine** — Category stance, enemy, audience, promise, proof, personality
-4. **Positioning & Differentiators** — "Private Event Pianist" category, differentiator table vs DJs/playlists/bands
-5. **Customer Identity Mirror** — "You are my people if..." / "Not for you if..." for event hosts
-6. **Messaging Pillars** — Atmosphere, Adaptability, Professionalism
-7. **Voice & Lexicon** — Events-specific word choices (allowed/banned), CTA phrasing
-8. **Visual Direction** — How the events page differs aesthetically from weddings/teaching
-9. **Cross-Vertical Coherence** — How events connects to the broader Sacred Sound brand
+Drawing from `.lovable/events-brand-identity.md`, the events component files (EventsOffering tiers, EventsThreshold concerns, EventsExperience vignettes), and brand memories.
 
-## File
+## Scope
 
-- **Create:** `.lovable/events-brand-identity.md`
-
-No code changes required.
+- **Creates:** `.lovable/events-business-report.md`
+- **No code changes.** Documentation only.
 
