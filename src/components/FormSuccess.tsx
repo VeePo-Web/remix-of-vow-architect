@@ -31,7 +31,7 @@ END:VCALENDAR`;
       <div className="flex items-start gap-3 p-6 bg-accent/10 border border-accent/20 rounded-lg">
         <CheckCircle2 className="text-accent mt-0.5 flex-shrink-0" size={24} />
         <div className="space-y-2">
-          <h3 className="font-semibold text-foreground">
+          <h3 className="font-display font-medium text-foreground">
             Thanks—your request is in.
           </h3>
           <p className="text-sm text-muted-foreground">

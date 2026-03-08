@@ -29,7 +29,7 @@ export function AboutCredentials() {
             <div className="flex items-start gap-4">
               <credential.icon className="text-primary shrink-0" size={24} />
               <div>
-                <h3 className="font-bold text-foreground mb-2">{credential.label}</h3>
+                <h3 className="font-display font-medium text-foreground mb-2">{credential.label}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   {credential.description}
                 </p>

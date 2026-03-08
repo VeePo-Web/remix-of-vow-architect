@@ -35,7 +35,7 @@ export function AboutEthos() {
         <div key={index} className="flex items-start gap-4">
           <value.icon className="text-primary shrink-0 mt-1" size={24} />
           <div>
-            <h3 className="font-bold text-foreground mb-1">{value.name}</h3>
+            <h3 className="font-display font-medium text-foreground mb-1">{value.name}</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
               {value.description}
             </p>
