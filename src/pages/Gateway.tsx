@@ -78,7 +78,7 @@ export default function Gateway() {
   useEffect(() => { document.title = "Parker Gawryletz — Sound Director"; }, []);
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-[hsl(var(--rich-black))] flex flex-col items-center py-8 md:py-0 md:justify-center relative" role="main" aria-label="Choose your path">
+    <main className="h-screen w-screen overflow-hidden bg-[hsl(var(--rich-black))] flex flex-col items-center py-8 md:py-0 md:justify-center relative" aria-label="Choose your path">
       {/* Film grain */}
       <div className="absolute inset-0 grain opacity-[0.10] pointer-events-none" aria-hidden="true" />
       {/* Breathing warm vignette */}
