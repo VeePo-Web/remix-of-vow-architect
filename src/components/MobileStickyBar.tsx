@@ -2,16 +2,16 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 
-const pageConfig: Record<string, string> = {
-  "/": "I would be honored to be there",
-  "/weddings": "I would be honored to be there",
-  "/teaching": "Begin the conversation",
-  "/events": "Discuss your event",
-  "/services": "Find the right presence",
-  "/about": "The witness behind the keys",
-  "/gallery": "500+ events performed",
-  "/faq": "Every question, answered",
-  "/listen": "Hear what your ceremony could sound like",
+const pageConfig: Record<string, { text: string; cta: string }> = {
+  "/": { text: "Three paths, one pianist", cta: "Start a conversation" },
+  "/weddings": { text: "I would be honored to be there", cta: "Hold my date" },
+  "/teaching": { text: "Begin the conversation", cta: "Begin the conversation" },
+  "/events": { text: "Discuss your event", cta: "Discuss your event" },
+  "/services": { text: "Find the right presence", cta: "Hold my date" },
+  "/about": { text: "The witness behind the keys", cta: "Hold my date" },
+  "/gallery": { text: "500+ ceremonies performed", cta: "Hold my date" },
+  "/faq": { text: "Every question, answered", cta: "Hold my date" },
+  "/listen": { text: "Hear what your ceremony could sound like", cta: "Hold my date" },
 };
 
 export function MobileStickyBar() {
@@ -50,7 +50,9 @@ export function MobileStickyBar() {
 
   if (isContact) return null;
 
-  const leftText = pageConfig[location.pathname] || "I would be honored to be there";
+  const config = pageConfig[location.pathname] || { text: "I would be honored to be there", cta: "Hold my date" };
+  const leftText = config.text;
+  const ctaText = config.cta;
 
   return (
     <div 
@@ -91,7 +93,7 @@ export function MobileStickyBar() {
           />
           <Link to="/contact" className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm">
             <Button size="sm" variant="primary-dark" className="relative hover-scale cta-breathe-glow">
-              Hold my date
+              {ctaText}
             </Button>
           </Link>
         </div>

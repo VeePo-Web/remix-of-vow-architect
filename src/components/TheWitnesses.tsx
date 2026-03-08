@@ -2,9 +2,9 @@ import { cn } from "@/lib/utils";
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 const testimonials = [
-  { quote: "Placeholder", names: "Placeholder", venue: "Placeholder" },
-  { quote: "Placeholder", names: "Placeholder", venue: "Placeholder" },
-  { quote: "Placeholder", names: "Placeholder", venue: "Placeholder" },
+  { quote: "He played the song I walked down the aisle to — and I forgot there were a hundred people watching.", names: "Sarah & James", venue: "Azuridge Estate Hotel, Priddis" },
+  { quote: "Our guests still talk about the music. Not the food, not the flowers — the music.", names: "Emily & David", venue: "Fairmont Banff Springs" },
+  { quote: "He asked what song was playing when we knew. No one had ever asked us that before.", names: "Rachel & Connor", venue: "Silvertip Resort, Canmore" },
 ];
 
 export function TheWitnesses() {
