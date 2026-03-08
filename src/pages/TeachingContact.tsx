@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
-import { CheckCircle2, MessageCircle, Clock, Users } from "lucide-react";
 import { useState, useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { useForm } from "react-hook-form";
@@ -119,10 +118,17 @@ export default function TeachingContact() {
               {isSubmitted ? (
                 <Card className="p-8 bg-card border-border card-keyline animate-fade-in">
                   <div className="text-center space-y-4">
-                    <CheckCircle2
-                      className="mx-auto text-accent"
-                      size={48}
-                    />
+                    {/* Glowing semicolon */}
+                    <span
+                      className="inline-block font-display text-[40px] font-light text-primary"
+                      style={{
+                        textShadow: "0 0 20px hsl(var(--vow-yellow) / 0.4), 0 0 40px hsl(var(--vow-yellow) / 0.15)",
+                        animation: "semicolon-success-glow 4s ease-in-out infinite",
+                      }}
+                      aria-hidden="true"
+                    >
+                      ;
+                    </span>
                     <h2 className="font-display text-[clamp(20px,2.5vw,28px)] font-light">
                       I received your note.
                     </h2>
@@ -200,29 +206,20 @@ export default function TeachingContact() {
                 </Card>
               )}
 
-              {/* Reassurance — text only, not cards */}
+              {/* Reassurance — typographic markers only */}
               {!isSubmitted && (
                 <div className="mt-10 space-y-3 max-w-md mx-auto">
                   {[
-                    {
-                      icon: MessageCircle,
-                      text: "This is a conversation, not a commitment.",
-                    },
-                    {
-                      icon: Clock,
-                      text: "Response within 24 hours.",
-                    },
-                    {
-                      icon: Users,
-                      text: "Currently accepting new students.",
-                    },
-                  ].map((item, i) => (
+                    "This is a conversation, not a commitment.",
+                    "Response within 24 hours.",
+                    "Currently accepting new students.",
+                  ].map((text, i) => (
                     <div
                       key={i}
-                      className="flex items-center gap-3 text-muted-foreground"
+                      className="flex items-center gap-2.5 text-muted-foreground"
                     >
-                      <item.icon size={16} className="text-primary/60 shrink-0" />
-                      <span className="text-xs">{item.text}</span>
+                      <span className="text-primary/50 text-xs" aria-hidden="true">·</span>
+                      <span className="text-xs">{text}</span>
                     </div>
                   ))}
                 </div>
@@ -235,9 +232,14 @@ export default function TeachingContact() {
       <MobileStickyBar />
 
       <style>{`
+        @keyframes semicolon-success-glow {
+          0%, 100% { text-shadow: 0 0 20px hsl(var(--vow-yellow) / 0.4), 0 0 40px hsl(var(--vow-yellow) / 0.15); }
+          50% { text-shadow: 0 0 28px hsl(var(--vow-yellow) / 0.55), 0 0 56px hsl(var(--vow-yellow) / 0.2); }
+        }
         @media (prefers-reduced-motion: reduce) {
           .grain { animation: none !important; }
           [style*="ken-burns"] { animation: none !important; }
+          [style*="semicolon-success-glow"] { animation: none !important; }
         }
       `}</style>
     </div>

@@ -9,10 +9,9 @@ import { Label } from "@/components/ui/label";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ContactFormSuccess } from "@/components/ContactFormSuccess";
 import { ContactSLATimeline } from "@/components/ContactSLATimeline";
-import { ContactTestimonials } from "@/components/ContactTestimonials";
 import { BentoSelector } from "@/components/BentoSelector";
 
-import { Upload, ChevronRight, ChevronLeft, RefreshCw, Clock, Shield } from "lucide-react";
+import { ChevronRight, ChevronLeft, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import contactHeroImg from "@/assets/contact-hero.jpg";
@@ -46,6 +45,13 @@ const guestItems = [
   { id: "under-50", label: "Under 50", description: "Intimate gathering" },
   { id: "50-150", label: "50–150", description: "Standard ceremony" },
   { id: "150+", label: "150+", description: "Grand celebration" },
+];
+
+const reassuranceLines = [
+  "No cost to hold your date — take the time you need.",
+  "Full refund within 14 days — commitment without pressure.",
+  "Response within 24 hours — your personalized plan, always.",
+  "Insurance, redundancy, and documentation — included.",
 ];
 
 export default function Contact() {
@@ -93,6 +99,8 @@ export default function Contact() {
     const file = e.target.files?.[0];
     if (file) setFileName(file.name);
   };
+
+  const stepLabels = ["Your day", "The sound", "Final details"];
 
   return (
     <div className="min-h-screen bg-background">
@@ -163,7 +171,7 @@ export default function Contact() {
                         ))}
                       </div>
                       <span className="text-xs text-muted-foreground transition-opacity duration-[260ms]">
-                        {step === 1 ? "Your day" : step === 2 ? "The sound" : "Final details"}
+                        {stepLabels[step - 1]}
                       </span>
                     </div>
 
@@ -254,15 +262,13 @@ export default function Contact() {
                           <p className="text-sm text-muted-foreground -mt-2">Everything below is optional — you can send now or add details.</p>
 
                           {!showStep3 ? (
-                            <div className="space-y-3">
-                              <button
-                                type="button"
-                                onClick={() => setShowStep3(true)}
-                                className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-[180ms] underline underline-offset-2"
-                              >
-                                Add ceremony time, planner details, or song requests
-                              </button>
-                            </div>
+                            <button
+                              type="button"
+                              onClick={() => setShowStep3(true)}
+                              className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-[180ms] underline underline-offset-2"
+                            >
+                              Add ceremony time, planner details, or song requests
+                            </button>
                           ) : (
                             <div className="space-y-5 animate-fade-in">
                               <div className="grid sm:grid-cols-2 gap-5">
@@ -288,19 +294,29 @@ export default function Contact() {
                                 <Textarea id="additionalNotes" {...register("additionalNotes")} placeholder="Song requests, tone preferences, meaningful moments..." rows={3} className="mt-2" />
                               </div>
 
+                              {/* Inline file attach — no dashed box */}
                               <div>
-                                <Label htmlFor="fileUpload">Cue sheet or upload</Label>
-                                <div className="mt-2 border-2 border-dashed border-border rounded-xl p-4 text-center hover:border-primary/40 transition-colors duration-[180ms] cursor-pointer">
-                                  <Upload className="mx-auto mb-1 text-muted-foreground" size={20} />
-                                  <input id="fileUpload" type="file" accept=".pdf,.docx,.jpg,.jpeg,.png,.mp3" onChange={handleFileChange} className="hidden" />
-                                  <label htmlFor="fileUpload" className="cursor-pointer">
-                                    {fileName ? (
-                                      <p className="text-sm font-medium">{fileName}</p>
-                                    ) : (
-                                      <p className="text-xs text-muted-foreground">PDF, DOCX, JPG, MP3</p>
-                                    )}
+                                <input id="fileUpload" type="file" accept=".pdf,.docx,.jpg,.jpeg,.png,.mp3" onChange={handleFileChange} className="hidden" />
+                                {fileName ? (
+                                  <div className="flex items-center gap-2 text-sm text-foreground">
+                                    <span>{fileName}</span>
+                                    <button
+                                      type="button"
+                                      onClick={() => setFileName(null)}
+                                      className="text-muted-foreground hover:text-foreground transition-colors duration-[180ms]"
+                                      aria-label="Remove file"
+                                    >
+                                      <X size={14} />
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <label
+                                    htmlFor="fileUpload"
+                                    className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-[180ms] underline underline-offset-2 cursor-pointer"
+                                  >
+                                    Attach a file (PDF, DOCX, JPG, MP3)
                                   </label>
-                                </div>
+                                )}
                               </div>
                             </div>
                           )}
@@ -324,22 +340,24 @@ export default function Contact() {
                     </form>
                   </Card>
 
-                  {/* Sidebar */}
-                  <div className="lg:col-span-1 space-y-4">
-                    {[
-                      { icon: Clock, text: "No cost to hold your date — take the time you need." },
-                      { icon: RefreshCw, text: "Full refund within 14 days — commitment without pressure." },
-                      { icon: Clock, text: "Response within 24 hours — your personalized plan, always." },
-                      { icon: Shield, text: "Insurance, redundancy, and documentation — included." },
-                    ].map((item, i) => (
-                      <Card key={i} className="bg-card/50 border-border p-4 flex items-start gap-3">
-                        <item.icon className="text-primary shrink-0 mt-0.5" size={18} />
-                        <p className="text-sm text-foreground leading-relaxed">{item.text}</p>
-                      </Card>
-                    ))}
+                  {/* Sidebar — typographic reassurance, no icons */}
+                  <div className="lg:col-span-1">
+                    <div className="border border-border/30 rounded-lg p-5 space-y-0">
+                      {reassuranceLines.map((line, i) => (
+                        <div key={i}>
+                          <div className="flex items-start gap-2.5 py-3">
+                            <span className="text-primary/50 shrink-0 text-sm leading-relaxed" aria-hidden="true">—</span>
+                            <p className="text-sm text-foreground/80 leading-relaxed">{line}</p>
+                          </div>
+                          {i < reassuranceLines.length - 1 && (
+                            <div className="h-px bg-border/30" />
+                          )}
+                        </div>
+                      ))}
+                    </div>
 
                     {/* Micro testimonial */}
-                    <div className="pt-4 border-t border-border/50 mt-2">
+                    <div className="mt-6 pt-4">
                       <p className="text-xs text-muted-foreground italic leading-relaxed">
                         "I sent my details and received a full plan the next morning — clearer than anything our previous musician offered in three weeks."
                       </p>
@@ -356,14 +374,6 @@ export default function Contact() {
           <section className="section--surface section-padding">
             <div className="container mx-auto px-4">
               <ContactSLATimeline />
-            </div>
-          </section>
-        )}
-
-        {!isSubmitted && (
-          <section className="section-padding">
-            <div className="container mx-auto px-4">
-              <ContactTestimonials />
             </div>
           </section>
         )}
