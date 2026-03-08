@@ -119,7 +119,7 @@ export function VowMoment() {
       {/* Step 6: Bottom fade into TheInvitation */}
       <div
         className="section-fade-bottom"
-        style={{ background: 'linear-gradient(to bottom, transparent, hsl(45 25% 96%))' }}
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(var(--surface)))' }}
         aria-hidden="true"
       />
     </section>

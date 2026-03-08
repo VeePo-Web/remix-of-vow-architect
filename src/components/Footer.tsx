@@ -61,7 +61,7 @@ export function Footer() {
           strokeWidth="1"
           className="transition-all duration-[450ms]"
           style={{
-            filter: `drop-shadow(0 0 ${isArrival ? 6 : 3}px hsl(45 100% 76% / ${isArrival ? 0.1 : 0.03}))`,
+            filter: `drop-shadow(0 0 ${isArrival ? 6 : 3}px hsl(var(--vow-yellow) / ${isArrival ? 0.1 : 0.03}))`,
           }}
         />
       </svg>

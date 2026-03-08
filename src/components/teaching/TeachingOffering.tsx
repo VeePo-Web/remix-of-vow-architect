@@ -283,7 +283,7 @@ export function TeachingOffering() {
               color: "hsl(var(--teaching-text-heading))",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
               transitionDelay: "300ms",
-              textShadow: "0 1px 2px hsl(40 20% 80% / 0.25)",
+              textShadow: "0 1px 2px hsl(var(--teaching-vignette) / 0.25)",
             }}
           >
             Would you like to sit down?

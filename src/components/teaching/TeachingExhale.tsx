@@ -330,7 +330,7 @@ export function TeachingExhale() {
             isVisible ? "opacity-30" : "opacity-0"
           )}
           style={{
-            color: "hsl(30 12% 50%)",
+            color: "hsl(var(--teaching-text-cite))",
             transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
             transitionDelay: "800ms",
           }}
