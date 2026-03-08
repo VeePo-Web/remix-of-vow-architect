@@ -1,62 +1,122 @@
 
 
-# Full-Screen Menu & Header — Premium UX Overhaul
+# Premium Navigation Menu Overhaul — Fantasy.co Quality
 
-## Problem
-The full-screen menu feels unbalanced: all content is left-aligned with massive dead space on the right. The alternating black-key indentation on page links creates visual noise rather than hierarchy. The two zones (verticals + pages) feel disconnected. Compared to hickoryandrose's centered, symmetrical composition, this reads as incomplete.
+## Current State Audit
 
-The VeePo footer is confirmed good — no changes there.
+**What's cheap/confusing:**
+1. **Menu layout imbalance** — All content left-aligned with dead space on right (amateur composition)
+2. **Black-key indentation** — Alternating page link indent creates visual noise, not hierarchy
+3. **Icon clutter** — Multiple Lucide icons (Mail, MapPin, Shield) feel generic/software-y
+4. **Disconnected zones** — "Verticals" and "Page links" feel like two separate menus forced together
+5. **No brand presence** — Missing the pianist's name/identity in the menu itself
+6. **Weak CTA hierarchy** — Contact info buried inline, no clear conversion path
+7. **Scroll-behavior gap** — Header always visible when scrolled; hickoryandrose hides on scroll-down to reduce clutter
 
-## Changes
+## hickoryandrose Benchmark Insights
 
-### 1. FullScreenMenu — Center-Balanced Composition (`src/components/FullScreenMenu.tsx`)
+After analyzing the reference project:
+- **Center-balanced composition** — All menu content centered vertically and horizontally for symmetry
+- **Brand mark prominence** — "Hickory & Rose" displayed at top with subtle shimmer
+- **Minimal iconography** — No generic icons; uses custom divider lines and typography
+- **Clear CTA** — "Inquire" button with border + gold shimmer sweep on hover
+- **Scroll direction awareness** — Header hides on scroll-down (past threshold), reveals on scroll-up
+- **Breathing animations** — Subtle gold accents pulse/breathe rather than static
+
+## Proposed Changes
+
+### 1. FullScreenMenu — Centered Symphony Layout
+
+**Brand mark introduction:**
+- Add "Parker Gawryletz" in Cormorant at top of menu with 4s shimmer sweep
+- Golden divider line beneath (1px, centered, breathing pulse)
 
 **Layout restructure:**
-- Change the main container from `items-start` → `items-center text-center` so all content is centered both vertically and horizontally (matching hickoryandrose's approach)
-- Add the "Parker Gawryletz" brand mark above Zone 1 with a gold shimmer sweep and a small gold divider line beneath it (like H&R's mobile brand mark)
-- Move contact info and covenant bookend to a bottom-anchored footer row, not inline with the nav
+- Change container from `items-start` → `items-center text-center`
+- All content centered for premium symmetry
 
 **Zone 1 (Verticals):**
-- Keep horizontal row but center it. Add `justify-center` to the flex container
-- Reduce gap slightly for tighter grouping
+- Keep horizontal row, add `justify-center`
+- Reduce gap for tighter grouping
+- Remove any icon decorations
 
 **Golden thread separator:**
-- Center it with `mx-auto`
+- Center with `mx-auto`, add subtle breathing animation
 
 **Zone 2 (Page links):**
-- Remove the black-key indentation entirely — all items align consistently (cleaner scan path, less confusion)
-- Center-align all links
-- Keep numbered indices (01-06) but position them consistently to the left of each label
+- **Remove all black-key indentation** — uniform center alignment for clean scan path
+- Keep numbered indices (01-06) positioned consistently left of labels
+- Remove all Lucide icons from link labels
 
-**CTA in menu:**
-- Add a "Hold My Date" (or vertical-aware CTA) button below the page links, styled with a border + gold shimmer sweep on hover (matching hickoryandrose's Inquire button pattern)
-- `border border-foreground/20 text-foreground hover:border-primary` with the diagonal shimmer overlay
+**CTA addition:**
+- Add vertical-aware CTA button below page links:
+  - Weddings: "Hold My Date"
+  - Events: "Discuss Your Event"
+  - Teaching: "Begin Lessons"
+- Styled with `border border-foreground/20 text-foreground hover:border-primary`
+- Diagonal shimmer sweep on hover (like hickoryandrose "Inquire")
 
 **Contact info repositioning:**
-- Move location, email, trust signal to `absolute bottom-8` center-aligned row — gives the menu breathing room and a cleaner footer zone
+- Move location/email/trust signal to `absolute bottom-8` centered footer row
+- Replace icons with simple text dividers (en-dash separators)
+- Breathing gold dot separator between items
 
-### 2. MinimalHeader — Minor Polish (`src/components/MinimalHeader.tsx`)
+### 2. MinimalHeader — Scroll Direction Intelligence
 
-**Hide/show on scroll direction:**
-- Add scroll-direction awareness (like hickoryandrose): hide header on scroll-down past 300px, reveal on scroll-up. Currently the header is always visible when scrolled, which takes up space. This is a standard luxury pattern.
-- Use `lastScrollY` ref comparison in the existing `updateScroll` callback
-- Apply `transform: translateY(-100%)` when hidden, with 400ms cubic-bezier transition
+**Hide/show pattern:**
+- Track scroll direction via `lastScrollY` ref in existing `updateScroll` callback
+- Hide header on scroll-down past 300px: `transform: translateY(-100%)`
+- Reveal on scroll-up: `transform: translateY(0)`
+- Transition: `400ms cubic-bezier(0.4, 0, 0.2, 1)`
 
-**Page context label fix:**
-- The current `text-muted-foreground/40` uses fractional opacity on a semantic token (violates token governance). Replace with `text-muted-foreground opacity-40`
+**Token governance fix:**
+- Replace `text-muted-foreground/40` → `text-muted-foreground opacity-40`
 
-### 3. Keyframe Updates
+### 3. Animation Keyframes
 
-Add to FullScreenMenu's inline `<style>`:
-- No new keyframes needed — reuse existing `shimmer-sweep` for the CTA gold sweep
+**Add to FullScreenMenu inline styles:**
+- Reuse existing `shimmer-sweep` for CTA and brand mark
+- Add `menu-brand-shimmer` for the pianist name (4s delay, 6s duration, infinite)
 
-## Files Modified
-1. `src/components/FullScreenMenu.tsx` — layout centering, remove black-key indent, add brand mark, add CTA button, reposition contact info
-2. `src/components/MinimalHeader.tsx` — scroll-direction hide/show, fix fractional opacity token
+## Technical Implementation
 
-## Technical Notes
-- No new dependencies
-- All changes are CSS/layout — no new state management
-- Touch targets remain 44×44px minimum
-- `prefers-reduced-motion` fallbacks already in place for all animated elements
+**Files modified:**
+1. `src/components/FullScreenMenu.tsx`
+   - Layout: items-center text-center
+   - Add brand mark with shimmer
+   - Remove black-key indent
+   - Remove Lucide icons
+   - Add vertical-aware CTA button
+   - Reposition contact footer
+
+2. `src/components/MinimalHeader.tsx`
+   - Add scroll direction state
+   - Add transform logic
+   - Fix opacity token
+
+**Dependencies:** None (uses existing hooks/components)
+
+**Performance:** All GPU-accelerated transforms, no layout thrashing
+
+**Accessibility:**
+- Maintain 44×44px touch targets
+- ARIA labels for icon-free links
+- Reduced motion fallbacks (opacity-only)
+
+## Removed "Cheap" Elements
+
+- ❌ Lucide Mail/MapPin/Shield icons (replaced with typography)
+- ❌ Black-key alternating indent (uniform alignment)
+- ❌ Left-aligned asymmetry (centered composition)
+- ❌ Static header on scroll (direction-aware hide/show)
+- ❌ Inline contact clutter (footer row)
+
+## Added Premium Elements
+
+- ✅ Centered brand mark with shimmer
+- ✅ Diagonal shimmer CTA (hickoryandrose pattern)
+- ✅ Breathing golden dividers
+- ✅ Scroll-direction header intelligence
+- ✅ Symmetrical composition (Fantasy.co balance)
+- ✅ Semantic token governance compliance
 
