@@ -194,7 +194,7 @@ export function TeachingHero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 40% 35% at 50% 46%, hsl(38 45% 50% / 0.05), transparent 100%)",
+            "radial-gradient(ellipse 40% 35% at 50% 46%, hsl(var(--vow-yellow) / 0.05), transparent 100%)",
           animation: isRevealed
             ? "teaching-halo-breathe 8s ease-in-out infinite"
             : undefined,
