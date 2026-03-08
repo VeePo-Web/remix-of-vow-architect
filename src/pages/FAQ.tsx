@@ -154,7 +154,7 @@ export default function FAQ() {
                 </DirectionalLink>
               </Button>
             </div>
-            <p className="text-xs text-ink-inverse/70 max-w-2xl mx-auto">
+            <p className="text-xs text-muted-foreground max-w-2xl mx-auto">
               Response within 24 hours. Your clarity starts before the ceremony does.
             </p>
           </div>

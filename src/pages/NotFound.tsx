@@ -57,7 +57,7 @@ const NotFound = () => {
           />
 
           {/* Covenant whisper */}
-          <p className="text-xs text-muted-foreground/50 font-display italic">
+          <p className="text-xs text-muted-foreground font-display italic opacity-50">
             'Til Death; Unto Life.
           </p>
         </div>
