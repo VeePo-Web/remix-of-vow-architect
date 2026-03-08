@@ -208,6 +208,7 @@ export default function Proof() {
         </div>
       </section>
 
+      </main>
       <Footer />
       <MobileStickyBar />
 
