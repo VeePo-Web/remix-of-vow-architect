@@ -67,6 +67,16 @@ export default function About() {
 
       <Footer />
       <MobileStickyBar />
+
+      <style>{`
+        @keyframes witness-vignette-breathe {
+          0%, 100% { opacity: 0.8; }
+          50% { opacity: 0.65; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          [style*="witness-vignette-breathe"] { animation: none !important; }
+        }
+      `}</style>
     </div>
   );
 }
