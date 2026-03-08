@@ -201,7 +201,7 @@ export function TeachingMethodology() {
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
           }}
         >
-          The First Conversation
+          The first conversation
         </p>
 
         {/* Golden dot anchor */}

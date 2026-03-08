@@ -13,7 +13,7 @@ const pillars = [
     numeral: "II",
     title: "Voice Before Technique",
     description:
-      "The piano is not a skill to acquire. It is a voice waiting to be uncovered. Technique serves expression, never the reverse — every scale, every exercise exists only to unlock what you want to say.",
+      "The piano is not a skill to acquire. It is a voice waiting to be uncovered. Technique serves expression, never the reverse — every scale, every exercise exist only to unlock what you want to say.",
     underlineWord: "voice",
   },
   {
@@ -276,7 +276,7 @@ export function TeachingPillars() {
       className="relative py-[140px] md:py-[180px] px-fitz-4 md:px-fitz-6 overflow-hidden"
       style={{ background: "hsl(40 30% 95%)" }}
       role="region"
-      aria-label="What I Hold True"
+      aria-label="What I Hold to Be True"
     >
       {/* Breathing vignette */}
       <div
