@@ -322,7 +322,7 @@ export function CrossOver() {
         <p
           id="crossing-trust-anchor"
           className={cn(
-            "max-w-md mx-auto mb-fitz-6 font-sans text-sm leading-normal text-center text-foreground/50 transition-all duration-700",
+            "max-w-md mx-auto mb-fitz-6 font-sans text-sm leading-normal text-center text-muted-foreground transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
           style={{ transitionDelay: isVisible ? "420ms" : "0ms" }}
