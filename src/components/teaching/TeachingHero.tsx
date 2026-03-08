@@ -258,7 +258,7 @@ export function TeachingHero() {
         </p>
 
         {/* ── Tagline — character-by-character reveal ── */}
-        <h1 className="font-display tracking-tight leading-none">
+        <h1 className="font-display tracking-tight leading-none flex flex-col items-center gap-0">
           {/* Line 1: "From Silence" + semicolon ignition */}
           <CharReveal
             text="From Silence"
