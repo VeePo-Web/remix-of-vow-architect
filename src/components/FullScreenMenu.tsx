@@ -469,19 +469,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
                       aria-hidden="true"
                     />
 
-                    {/* Black key shadow */}
-                    {isBlackKey && (
-                      <span
-                        className="absolute -left-2 lg:-left-3 top-1/2 -translate-y-1/2 w-[2px] h-[60%] rounded-full pointer-events-none"
-                        style={{
-                          background: `linear-gradient(to bottom, transparent, hsl(var(--foreground) / ${
-                            isHovered ? 0.08 : 0.03
-                          }), transparent)`,
-                          transition: "background 180ms ease",
-                        }}
-                        aria-hidden="true"
-                      />
-                    )}
+                    {/* Black key — clean indentation only, no shadow */}
                   </span>
                 </Link>
               </div>
