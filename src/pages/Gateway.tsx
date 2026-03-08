@@ -143,7 +143,7 @@ export default function Gateway() {
                   className={cn(
                     "mt-3 font-sans text-[12px] uppercase tracking-[0.18em] inline-flex items-center gap-1.5",
                     s.available
-                      ? "text-[hsl(var(--vow-yellow))]"
+                      ? "text-primary"
                       : "text-muted-foreground opacity-50"
                   )}
                 >
@@ -209,12 +209,12 @@ export default function Gateway() {
         <p className="font-display text-[16px] font-light text-muted-foreground tracking-tight">
           'Til Death
           <span
-            className="semicolon-breathe text-[hsl(var(--vow-yellow))]"
+            className="semicolon-breathe text-primary"
             style={{ animation: "semicolon-breathe 4s ease-in-out infinite" }}
           >
             {" ; "}
           </span>
-          Unto Life<span className="text-[hsl(var(--vow-yellow))]">.</span>
+          Unto Life<span className="text-primary">.</span>
         </p>
       </footer>
 

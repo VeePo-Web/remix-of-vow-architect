@@ -75,7 +75,7 @@ export function EventsOccasions() {
                 <Icon
                   size={24}
                   strokeWidth={1.2}
-                  className="text-[hsl(var(--vow-yellow))] mb-4 opacity-70 group-hover:opacity-100 transition-opacity duration-300"
+                  className="text-primary mb-4 opacity-70 group-hover:opacity-100 transition-opacity duration-300"
                 />
                 <h3 className="font-display text-[22px] font-medium text-foreground mb-2">
                   {o.title}

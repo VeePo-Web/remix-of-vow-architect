@@ -183,7 +183,7 @@ export function GenreTrackPanel({
           Each piece, arranged for your ceremony.{" "}
           <Link
             to="/contact"
-            className="underline decoration-[hsl(var(--vow-yellow)/0.15)] hover:decoration-[hsl(var(--vow-yellow)/0.3)] hover:text-[hsl(var(--vow-yellow)/0.6)] transition-all duration-[260ms]"
+            className="underline decoration-primary/15 hover:decoration-primary/30 hover:text-primary hover:opacity-60 transition-all duration-[260ms]"
           >
             Hear me play for you.
           </Link>

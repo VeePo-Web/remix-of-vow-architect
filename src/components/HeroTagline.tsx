@@ -36,7 +36,7 @@ export function HeroTagline() {
         >
           'Til Death
           <span 
-            className="text-[hsl(var(--vow-yellow))]"
+            className="text-primary"
             style={{ 
               textShadow: "0 0 40px hsl(var(--vow-yellow) / 0.5)",
               opacity: 0.85
@@ -56,7 +56,7 @@ export function HeroTagline() {
         >
           Unto Life
           <span 
-            className="text-[hsl(var(--vow-yellow))]"
+            className="text-primary"
             style={{ 
               textShadow: "0 0 40px hsl(var(--vow-yellow) / 0.5)",
               opacity: 0.9

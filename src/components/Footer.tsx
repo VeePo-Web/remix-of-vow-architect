@@ -361,7 +361,7 @@ export function Footer() {
           <p className="font-display text-sm text-muted-foreground opacity-60 tracking-wide">
             'Til Death
             <span
-              className="text-[hsl(var(--vow-yellow)/0.6)]"
+              className="text-primary opacity-60"
               style={{
                 animation: "semicolon-heartbeat 2s ease-in-out infinite",
               }}
