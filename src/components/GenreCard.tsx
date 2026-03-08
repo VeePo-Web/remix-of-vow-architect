@@ -100,7 +100,7 @@ export function GenreCard({
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "linear-gradient(180deg, hsl(220 15% 6% / 0.40) 0%, hsl(220 15% 4% / 0.50) 100%)",
+          background: "linear-gradient(180deg, hsl(var(--transform-dark) / 0.40) 0%, hsl(var(--rich-black) / 0.50) 100%)",
         }}
         aria-hidden="true"
       />
