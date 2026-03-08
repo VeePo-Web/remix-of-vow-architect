@@ -363,8 +363,7 @@ export function TheSound() {
           ref={parallaxLeakRef}
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: "radial-gradient(ellipse 60% 50% at 40% 30%, hsl(35 50% 50% / 0.03) 0%, transparent 70%)",
-            willChange: "transform",
+            background: "radial-gradient(ellipse 60% 50% at 40% 30%, hsl(var(--vow-yellow) / 0.03) 0%, transparent 70%)",
           }}
           aria-hidden="true"
         />
