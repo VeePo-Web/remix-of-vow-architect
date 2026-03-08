@@ -209,7 +209,7 @@ export function TeachingExhale() {
       id="teaching-exhale"
       ref={ref}
       className="relative py-[120px] md:py-[160px] px-fitz-4 md:px-fitz-6 overflow-hidden"
-      style={{ background: "hsl(40 30% 95%)" }}
+      style={{ background: "hsl(var(--teaching-bg))" }}
       role="region"
       aria-label="The Exhale"
     >
