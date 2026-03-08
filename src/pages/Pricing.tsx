@@ -14,6 +14,7 @@ import { MostSelectedPill } from "@/components/MostSelectedPill";
 import { RevealOnScroll, StaggerChildren } from "@/components/animation";
 import { Check } from "lucide-react";
 import { usePageTheme } from "@/hooks/usePageTheme";
+import { Link } from "react-router-dom";
 import servicesHeroImg from "@/assets/services-hero.jpg";
 
 const pricingSections = [
@@ -28,6 +29,28 @@ const pricingSections = [
   { id: "pricing-cta",          label: "Begin",          isBlackKey: true  },
 ];
 
+/** Golden thread with breathing center dot */
+function GoldenThread() {
+  return (
+    <div className="relative py-2 my-16" aria-hidden="true">
+      <div
+        className="h-px max-w-xs mx-auto"
+        style={{
+          background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)",
+        }}
+      />
+      <div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-1 rounded-full"
+        style={{
+          background: "hsl(var(--vow-yellow) / 0.6)",
+          boxShadow: "0 0 8px hsl(var(--vow-yellow) / 0.3)",
+          animation: "pricing-dot-breathe 3s ease-in-out infinite",
+        }}
+      />
+    </div>
+  );
+}
+
 export default function Pricing() {
   usePageTheme();
 
@@ -37,7 +60,7 @@ export default function Pricing() {
       <PianoKeyNav sections={pricingSections} />
 
       {/* Hero */}
-      <section id="pricing-hero" className="relative section-padding bg-background piano-section-target">
+      <section id="pricing-hero" className="relative section-padding bg-background piano-section-target overflow-hidden">
         <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
           <div 
             className="absolute inset-0 opacity-[0.08]"
@@ -52,6 +75,17 @@ export default function Pricing() {
             }}
           />
         </div>
+        {/* Warm fog */}
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)" }} aria-hidden="true" />
+        {/* Breathing vignette */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 100%)",
+            animation: "pricing-vignette-breathe 6s ease-in-out infinite",
+          }}
+          aria-hidden="true"
+        />
         <div 
           className="absolute inset-0 grain opacity-[0.06] pointer-events-none"
           style={{
@@ -72,8 +106,7 @@ export default function Pricing() {
             </p>
           </div>
 
-          {/* Golden thread */}
-          <div className="h-[1px] max-w-xs mx-auto mb-20" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
+          <GoldenThread />
 
           {/* Section 2: What Every Package Includes */}
           <div id="pricing-inclusions" className="piano-section-target">
@@ -82,8 +115,7 @@ export default function Pricing() {
           </RevealOnScroll>
           </div>
 
-          {/* Golden thread */}
-          <div className="h-[1px] max-w-xs mx-auto my-20" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
+          <GoldenThread />
 
           {/* Section 3: Transparent Pricing Tiers */}
           <RevealOnScroll variant="up">
@@ -122,7 +154,9 @@ export default function Pricing() {
                     ))}
                   </ul>
 
-                  <Button variant="primary-dark" className="w-full hover-scale mb-3">Hold my date</Button>
+                  <Button variant="primary-dark" className="w-full hover-scale mb-3" asChild>
+                    <Link to="/contact">Hold my date</Link>
+                  </Button>
 
                   <div className="space-y-2 text-xs text-muted-foreground">
                     <p className="font-medium">Booking: 50% deposit; balance due 14 days before the event.</p>
@@ -156,7 +190,9 @@ export default function Pricing() {
                     ))}
                   </ul>
 
-                  <Button variant="primary-dark" className="w-full hover-scale mb-3">Hold my date</Button>
+                  <Button variant="primary-dark" className="w-full hover-scale mb-3" asChild>
+                    <Link to="/contact">Hold my date</Link>
+                  </Button>
 
                   <p className="text-xs text-muted-foreground italic">
                     Guarantee: Upgradeable to Full Day until 2 weeks prior—no penalty.
@@ -187,7 +223,9 @@ export default function Pricing() {
                     ))}
                   </ul>
 
-                  <Button variant="primary-dark" className="w-full hover-scale mb-3">Hold my date</Button>
+                  <Button variant="primary-dark" className="w-full hover-scale mb-3" asChild>
+                    <Link to="/contact">Hold my date</Link>
+                  </Button>
 
                   <p className="text-xs text-muted-foreground italic">
                     Designed for all-in-one venues; includes an extra 1-hour transition buffer for moves.
@@ -201,8 +239,7 @@ export default function Pricing() {
             </div>
           </RevealOnScroll>
 
-          {/* Golden thread */}
-          <div className="h-[1px] max-w-xs mx-auto my-20" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
+          <GoldenThread />
 
           {/* Section 4: Add-ons */}
           <div id="pricing-addons" className="piano-section-target">
@@ -211,8 +248,7 @@ export default function Pricing() {
           </RevealOnScroll>
           </div>
 
-          {/* Golden thread */}
-          <div className="h-[1px] max-w-xs mx-auto my-20" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
+          <GoldenThread />
 
           {/* Section 5: Compare Vendors */}
           <RevealOnScroll variant="up">
@@ -229,8 +265,7 @@ export default function Pricing() {
             </div>
           </RevealOnScroll>
 
-          {/* Golden thread */}
-          <div className="h-[1px] max-w-xs mx-auto my-20" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
+          <GoldenThread />
 
           {/* Section 6: Testimonials */}
           <div id="pricing-testimonials" className="piano-section-target">
@@ -239,8 +274,7 @@ export default function Pricing() {
           </RevealOnScroll>
           </div>
 
-          {/* Golden thread */}
-          <div className="h-[1px] max-w-xs mx-auto my-20" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
+          <GoldenThread />
 
           {/* Section 7: FAQs */}
           <div id="pricing-faq" className="piano-section-target">
@@ -249,8 +283,7 @@ export default function Pricing() {
           </RevealOnScroll>
           </div>
 
-          {/* Golden thread */}
-          <div className="h-[1px] max-w-xs mx-auto my-20" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
+          <GoldenThread />
 
           {/* Section 8: Download */}
           <div id="pricing-download" className="piano-section-target">
@@ -259,21 +292,28 @@ export default function Pricing() {
           </RevealOnScroll>
           </div>
 
-          {/* Golden thread */}
-          <div className="h-[1px] max-w-xs mx-auto my-20" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
+          <GoldenThread />
 
           {/* Section 9: Final CTA */}
           <div id="pricing-cta" className="piano-section-target">
           <RevealOnScroll variant="up">
-            <div className="max-w-2xl mx-auto text-center mb-8 space-y-6">
-              <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light mx-auto">
+            <div className="relative max-w-2xl mx-auto text-center mb-8 space-y-6">
+              {/* Warm glow */}
+              <div
+                className="absolute inset-0 -inset-x-20 pointer-events-none"
+                style={{
+                  background: "radial-gradient(ellipse 60% 70% at 50% 50%, hsl(var(--vow-yellow) / 0.04) 0%, transparent 70%)",
+                }}
+                aria-hidden="true"
+              />
+              <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light mx-auto relative z-10">
                 Every arrangement begins with a conversation.
               </h2>
-              <p className="p-body text-muted-foreground">
+              <p className="p-body text-muted-foreground relative z-10">
                 Tell me about your day. I will respond within 24 hours with a personalized plan.
               </p>
-              <Button size="lg" variant="primary-dark" className="hover-scale">
-                Hold my date
+              <Button size="lg" variant="primary-dark" className="hover-scale relative z-10" asChild>
+                <Link to="/contact">Hold my date</Link>
               </Button>
             </div>
           </RevealOnScroll>
@@ -283,6 +323,20 @@ export default function Pricing() {
 
       <Footer />
       <MobileStickyBar />
+
+      <style>{`
+        @keyframes pricing-vignette-breathe {
+          0%, 100% { opacity: 0.8; }
+          50% { opacity: 0.65; }
+        }
+        @keyframes pricing-dot-breathe {
+          0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
+          50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.5); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .grain, [style*="ken-burns"] { animation: none !important; }
+        }
+      `}</style>
     </div>
   );
 }

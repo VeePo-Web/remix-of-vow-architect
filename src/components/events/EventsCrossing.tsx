@@ -15,6 +15,14 @@ export function EventsCrossing() {
       role="region"
       aria-label="The Crossing"
     >
+      {/* Breathing warm glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse 50% 60% at 50% 50%, hsl(var(--vow-yellow) / 0.04) 0%, transparent 70%)",
+        }}
+        aria-hidden="true"
+      />
       <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" aria-hidden="true" />
 
       <div className="relative z-10 max-w-2xl mx-auto text-center">
