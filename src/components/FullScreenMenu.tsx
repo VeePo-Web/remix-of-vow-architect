@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSmoothScroll } from "@/components/SmoothScrollProvider";
+import { usePageTransition } from "@/hooks/usePageTransition";
 
 interface FullScreenMenuProps {
   isOpen: boolean;
@@ -37,6 +38,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [pressedIndex, setPressedIndex] = useState<number | null>(null);
   const lenis = useSmoothScroll();
+  const { navigateWithTransition } = usePageTransition();
 
   // Stop/start Lenis when menu opens/closes
   useEffect(() => {
@@ -102,14 +104,19 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
     return () => window.removeEventListener("keydown", trap);
   }, [isOpen]);
 
-  const handleItemClick = useCallback((index: number) => {
+  const handleItemClick = useCallback((e: React.MouseEvent, index: number) => {
+    e.preventDefault();
     setPressedIndex(index);
-    // Tactile delay — feel the key depress before navigating
+    const targetPath = menuItems[index].href;
+    // Tactile delay — feel the key depress, then transition gracefully
     setTimeout(() => {
       setPressedIndex(null);
       onClose();
+      if (targetPath !== location.pathname) {
+        navigateWithTransition(targetPath);
+      }
     }, 120);
-  }, [onClose]);
+  }, [onClose, location.pathname, navigateWithTransition]);
 
   return (
     <div
@@ -285,7 +292,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
                     transitionDelay: isOpen ? `${300 + index * 60}ms` : "0ms",
                     transitionTimingFunction: "cubic-bezier(0.22,0.61,0.36,1)",
                   }}
-                  onClick={() => handleItemClick(index)}
+                  onClick={(e) => handleItemClick(e, index)}
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseDown={() => setPressedIndex(index)}
                   onMouseUp={() => setPressedIndex(null)}
