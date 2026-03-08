@@ -147,7 +147,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 25%, hsl(240 9% 2% / 0.6) 70%, hsl(240 9% 1%) 100%)",
+            "radial-gradient(ellipse at center, transparent 25%, hsl(var(--rich-black) / 0.6) 70%, hsl(var(--rich-black)) 100%)",
         }}
         aria-hidden="true"
       />
