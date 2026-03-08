@@ -25,7 +25,7 @@ const topTenFAQs = [
   {
     question: "Can I cancel or change my mind after booking?",
     answer: "Yes. Full refund within 14 days. After that, your deposit converts to transferable credit. Clear timelines are documented in your agreement.",
-    link: { to: "/pricing", label: "See the terms" }
+    link: { to: "/terms", label: "See the terms" }
   },
   {
     question: "How do I know my officiant will be coordinated?",
