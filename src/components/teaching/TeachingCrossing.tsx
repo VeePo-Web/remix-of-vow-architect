@@ -331,7 +331,7 @@ export function TeachingCrossing() {
               transitionDelay: "500ms",
             }}
           >
-            This is a conversation, not a contract.
+            This is a beginning, not a binding.
           </p>
         </div>
 

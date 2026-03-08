@@ -20,7 +20,7 @@ const pillars = [
     numeral: "III",
     title: "Freedom Through Fluency",
     description:
-      "When your hands know the instrument deeply enough, they stop translating and start saying what you mean. That is fluency. And fluency is freedom — the freedom to say whatever the moment requires.",
+      "When your hands know the instrument deeply enough, they stop translating and start saying what you mean. That is fluency. And fluency is freedom — the freedom to express whatever the moment requires.",
     underlineWord: "freedom",
   },
   {

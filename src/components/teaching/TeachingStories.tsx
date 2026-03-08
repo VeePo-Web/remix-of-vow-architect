@@ -10,7 +10,7 @@ const stories = [
   },
   {
     narrative:
-      "David had taken lessons as a child and quit at 14. Twenty years of silence. When he returned to the bench, his hands remembered more than he expected — and less than he hoped. But the sound was different now. It carried something it could not carry at 14: the weight of everything he had lived through.",
+      "David had taken lessons as a child and quit at 14. Twenty years of silence. When he returned to the bench, his hands remembered more than he expected — and less than he hoped. But the sound was different now. It held something it could not hold at 14: the weight of everything he had lived through.",
     quote: "The sound carried everything I had lived through.",
     quoteUnderline: "everything",
   },
