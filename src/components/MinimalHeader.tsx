@@ -63,18 +63,31 @@ export function MinimalHeader() {
   const rafRef = useRef<number>(0);
   const lastScrollY = useRef(0);
 
-  // Scroll tracking with rAF for smooth progress
+  // Scroll tracking with rAF for smooth progress + direction awareness
   const updateScroll = useCallback(() => {
-    const scrolled = window.scrollY > window.innerHeight;
+    const currentScrollY = window.scrollY;
+    const scrolled = currentScrollY > window.innerHeight;
     setIsScrolled(scrolled);
     if (scrolled) setWasScrolled(true);
+
+    // Scroll direction detection — hide on down, show on up
+    if (currentScrollY > 300) {
+      if (currentScrollY > lastScrollY.current && !isHeaderHidden) {
+        setIsHeaderHidden(true);
+      } else if (currentScrollY < lastScrollY.current && isHeaderHidden) {
+        setIsHeaderHidden(false);
+      }
+    } else {
+      if (isHeaderHidden) setIsHeaderHidden(false);
+    }
+    lastScrollY.current = currentScrollY;
 
     // Scroll progress for golden thread
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     if (docHeight > 0) {
-      setScrollProgress(Math.min(window.scrollY / docHeight, 1));
+      setScrollProgress(Math.min(currentScrollY / docHeight, 1));
     }
-  }, []);
+  }, [isHeaderHidden]);
 
   useEffect(() => {
     const handleScroll = () => {
