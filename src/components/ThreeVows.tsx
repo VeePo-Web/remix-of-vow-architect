@@ -1,3 +1,6 @@
+import { cn } from "@/lib/utils";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+
 interface VowProps {
   number: string;
   title: string;
