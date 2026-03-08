@@ -167,7 +167,7 @@ export default function Proof() {
       <section className="section--surface py-8">
         <div className="container mx-auto px-4">
           <p className="text-xs text-muted-foreground max-w-3xl mx-auto text-center">
-            I design within typical venue policies and Parks Canada guidelines. Where no amplification is permitted, 
+            I design within typical venue policies and Parks Canada guidelines. Where sound restrictions apply, 
             your plan prioritizes proximity seating and acoustic projection. Insurance certificates and safety 
             documentation are available on request.
           </p>

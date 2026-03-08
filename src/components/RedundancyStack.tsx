@@ -12,7 +12,7 @@ const failoverTiers = [
   {
     icon: Zap,
     tier: "Second System",
-    description: "Independent backup microphone and amplifier on a separate channel",
+    description: "Independent backup wireless unit and sound system on a separate channel",
     highlight: false,
   },
   {

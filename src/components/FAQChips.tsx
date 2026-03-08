@@ -11,7 +11,7 @@ const chips = [
   },
   {
     question: "What if there is no power?",
-    answer: "I use a silent battery system with backups — no generators.",
+    answer: "I use a silent battery system with backups — completely quiet.",
     link: { to: "/proof", label: "See the equipment" }
   },
   {

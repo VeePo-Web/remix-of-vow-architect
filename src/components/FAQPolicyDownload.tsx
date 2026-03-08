@@ -4,7 +4,7 @@ import { Check, FileDown } from "lucide-react";
 const policyItems = [
   "Refund structure: full refund within 14 days; transferable credit after that, with clear timelines.",
   "Weather relocation: pre-approved backup positions and timing, agreed in advance.",
-  "Redundancy: triple failover across microphone, amplifier, and instrument.",
+  "Redundancy: triple failover across wireless, sound system, and instrument.",
   "Flexibility: upgrade your arrangement up to 2 weeks before your ceremony.",
   "Response commitment: written confirmation and personalized plan within 24 hours."
 ];

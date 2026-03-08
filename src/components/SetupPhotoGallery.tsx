@@ -14,8 +14,8 @@ const setupImages = [
   {
     icon: Zap,
     title: "Silent Battery Power",
-    tooltip: "No generators, no noise — placement optimized for distance and wind.",
-    alt: "Battery powered ceremony amplifier outdoor wedding Alberta",
+    tooltip: "Silent battery power — placement optimized for distance and wind.",
+    alt: "Battery powered ceremony sound system outdoor wedding Alberta",
   },
   {
     icon: Users,
