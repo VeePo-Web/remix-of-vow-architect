@@ -219,6 +219,6 @@ export default function Gateway() {
       </footer>
 
       <AmbientAudioPill />
-    </div>
+    </main>
   );
 }
