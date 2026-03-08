@@ -37,7 +37,7 @@ export function TheWitnesses() {
       {/* Top fade */}
       <div
         className="section-fade-top"
-        style={{ background: 'linear-gradient(to top, transparent, hsl(240 9% 4%))' }}
+        style={{ background: 'linear-gradient(to top, transparent, hsl(var(--rich-black)))' }}
         aria-hidden="true"
       />
 
