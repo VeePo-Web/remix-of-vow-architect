@@ -299,7 +299,7 @@ export function CrossOver() {
             {/* 10e: Outer halo glow */}
             <div
               className="absolute -inset-x-16 -inset-y-8 rounded-full pointer-events-none"
-              style={{ background: 'radial-gradient(ellipse at center, hsl(45 100% 76% / 0.05) 0%, transparent 80%)' }}
+              style={{ background: 'radial-gradient(ellipse at center, hsl(var(--vow-yellow) / 0.05) 0%, transparent 80%)' }}
               aria-hidden="true"
             />
             {/* 10e: Inner core glow */}
