@@ -47,6 +47,28 @@ function SectionFade({
   );
 }
 
+/** Golden thread separator between same-tone sections */
+function GoldenThread() {
+  return (
+    <div className="relative py-2 my-0" aria-hidden="true">
+      <div
+        className="h-px max-w-xs mx-auto"
+        style={{
+          background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.2), transparent)",
+        }}
+      />
+      <div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-1 rounded-full"
+        style={{
+          background: "hsl(var(--vow-yellow) / 0.5)",
+          boxShadow: "0 0 6px hsl(var(--vow-yellow) / 0.25)",
+          animation: "teaching-dot-breathe 3s ease-in-out infinite",
+        }}
+      />
+    </div>
+  );
+}
+
 export default function Teaching() {
   usePageTheme();
 
@@ -58,10 +80,11 @@ export default function Teaching() {
       <main>
         <TeachingHero />
 
-        {/* Hero (warm cream) → Exhale (warm cream) — no fade needed, same tone */}
+        {/* Hero (warm cream) → Exhale (warm cream) */}
         <TeachingExhale />
 
-        {/* Exhale (cream) → Pillars (cream) — subtle warmth shift */}
+        {/* Exhale → Pillars — golden thread between same-tone sections */}
+        <GoldenThread />
         <TeachingPillars />
 
         {/* Pillars (warm cream) → Methodology (dark charcoal) */}
@@ -71,7 +94,8 @@ export default function Teaching() {
         />
         <TeachingMethodology />
 
-        {/* Methodology (dark) → Threshold (dark) — same tone */}
+        {/* Methodology (dark) → Threshold (dark) — golden thread */}
+        <GoldenThread />
         <TeachingThreshold />
 
         {/* Threshold (dark charcoal) → Stories (warm cream) */}
@@ -81,15 +105,26 @@ export default function Teaching() {
         />
         <TeachingStories />
 
-        {/* Stories (cream) → Offering (cream) — same tone */}
+        {/* Stories → Offering — golden thread */}
+        <GoldenThread />
         <TeachingOffering />
 
-        {/* Offering (cream) → Crossing (cream) — same tone */}
+        {/* Offering → Crossing */}
         <TeachingCrossing />
       </main>
 
       <Footer />
       <MobileStickyBar />
+
+      <style>{`
+        @keyframes teaching-dot-breathe {
+          0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
+          50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.5); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          [style*="teaching-dot-breathe"] { animation: none !important; }
+        }
+      `}</style>
     </div>
   );
 }

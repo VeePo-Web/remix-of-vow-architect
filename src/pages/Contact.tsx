@@ -96,8 +96,15 @@ export default function Contact() {
         </div>
         {/* Warm fog */}
         <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)" }} aria-hidden="true" />
-        {/* Cinematic vignette */}
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 100%)" }} aria-hidden="true" />
+        {/* Breathing vignette */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 100%)",
+            animation: "contact-vignette-breathe 6s ease-in-out infinite",
+          }}
+          aria-hidden="true"
+        />
         {/* Film grain */}
         <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
 
@@ -129,7 +136,7 @@ export default function Contact() {
                 {/* Section 2: Form + Reassurance Cards */}
                 <div className="grid lg:grid-cols-3 gap-8 mb-12">
                   {/* Form - 2/3 width */}
-                  <Card className="lg:col-span-2 p-8 bg-card border-border card-keyline">
+                  <Card className="lg:col-span-2 p-8 bg-card/80 backdrop-blur-[8px] border-border/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)] card-keyline">
                     <h2 className="h4 mb-6">
                       Let's secure your date
                     </h2>
@@ -428,6 +435,16 @@ export default function Contact() {
 
       <Footer />
       <MobileStickyBar />
+
+      <style>{`
+        @keyframes contact-vignette-breathe {
+          0%, 100% { opacity: 0.8; }
+          50% { opacity: 0.65; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .grain { animation: none !important; }
+        }
+      `}</style>
     </div>
   );
 }
