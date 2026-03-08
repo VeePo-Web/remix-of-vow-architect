@@ -6,7 +6,7 @@ export default function Terms() {
   return (
     <PolicyLayout
       title="Terms & Conditions"
-      lastUpdated="November 28, 2025"
+      lastUpdated="March 8, 2026"
       breadcrumbs={[
         { label: "Home", path: "/" },
         { label: "Legal", path: "/legal" },

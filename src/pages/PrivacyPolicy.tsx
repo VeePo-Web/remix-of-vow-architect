@@ -7,7 +7,7 @@ export default function PrivacyPolicy() {
   return (
     <PolicyLayout
       title="Privacy Policy"
-      lastUpdated="November 28, 2025"
+      lastUpdated="March 8, 2026"
       breadcrumbs={[
         { label: "Home", path: "/" },
         { label: "Legal", path: "/legal" },
