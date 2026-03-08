@@ -334,7 +334,7 @@ export default function Contact() {
                           className="mt-2"
                         />
                         <p className="text-xs text-muted-foreground mt-1">
-                          I'll CC them on the plan.
+                          I will CC them on the plan.
                         </p>
                       </div>
 
