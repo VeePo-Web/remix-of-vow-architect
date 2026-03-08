@@ -206,7 +206,7 @@ export function Footer() {
             style={{ transitionDelay: isVisible ? "150ms" : "0ms" }}
           >
             <nav aria-label="Footer navigation">
-              <h4 className="font-display text-xs uppercase tracking-[0.22em] mb-6 text-foreground/80">
+              <h4 className="font-display text-xs uppercase tracking-[0.22em] mb-6 text-foreground opacity-80">
                 Navigate
               </h4>
               <ul className="group/nav space-y-3">
