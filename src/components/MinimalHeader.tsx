@@ -241,15 +241,15 @@ export function MinimalHeader() {
                 <stop offset="0%" stopColor="transparent" />
                 <stop
                   offset="20%"
-                  stopColor={`hsl(45 100% 76% / ${isArrival ? 0.3 : 0.12})`}
+                  stopColor={`hsl(var(--vow-yellow) / ${isArrival ? 0.3 : 0.12})`}
                 />
                 <stop
                   offset="50%"
-                  stopColor={`hsl(45 100% 76% / ${isArrival ? 0.35 : 0.15})`}
+                  stopColor={`hsl(var(--vow-yellow) / ${isArrival ? 0.35 : 0.15})`}
                 />
                 <stop
                   offset="80%"
-                  stopColor={`hsl(45 100% 76% / ${isArrival ? 0.3 : 0.12})`}
+                  stopColor={`hsl(var(--vow-yellow) / ${isArrival ? 0.3 : 0.12})`}
                 />
                 <stop offset="100%" stopColor="transparent" />
               </linearGradient>
