@@ -127,7 +127,7 @@ export function MinimalHeader() {
         )}
         style={{
           height: isScrolled ? "56px" : "auto",
-          background: isScrolled ? "rgba(10,10,12,0.94)" : undefined,
+          background: isScrolled ? "hsl(var(--rich-black) / 0.94)" : undefined,
           transitionDuration: "260ms",
           transitionTimingFunction: "cubic-bezier(0.22,0.61,0.36,1)",
         }}
