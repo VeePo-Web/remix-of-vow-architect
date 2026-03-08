@@ -12,6 +12,7 @@ export function WitnessOrigin() {
   return (
     <section 
       id="witness-origin"
+      aria-label="The Origin"
       ref={ref as React.RefObject<HTMLElement>}
       className="relative py-[120px] px-4 bg-background overflow-hidden piano-section-target"
     >
@@ -127,6 +128,7 @@ export function WitnessOrigin() {
                 style={{ 
                   animation: "ken-burns 30s ease-in-out infinite alternate",
                   filter: "saturate(0.85) contrast(1.05)",
+                  willChange: "transform",
                 }}
               />
               {/* Cinematic vignette overlay */}

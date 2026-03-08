@@ -22,6 +22,7 @@ export function WitnessPresence() {
   return (
     <section 
       id="witness-presence"
+      aria-label="The Presence"
       ref={ref as React.RefObject<HTMLElement>}
       className="relative py-[120px] px-4 bg-background overflow-hidden piano-section-target"
     >
@@ -87,7 +88,7 @@ export function WitnessPresence() {
             <div 
               className={cn(
                 "relative text-center transition-all duration-1000",
-                isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
+                isVisible ? "opacity-100 scale-100 blur-none" : "opacity-0 scale-95 blur-sm"
               )}
               style={{ transitionDelay: "300ms" }}
             >
@@ -132,12 +133,14 @@ export function WitnessPresence() {
               <div 
                 key={index}
                 className={cn(
-                  "py-5 px-6 border-l border-primary/15 transition-all duration-500 hover:border-primary/30",
+                  "py-5 px-6 border-l border-primary/15 transition-all duration-[180ms] hover:border-primary/30",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 )}
                 style={{ 
                   transitionDelay: `${900 + index * 100}ms`,
                 }}
+                onMouseEnter={(e) => e.currentTarget.style.boxShadow = "0 0 24px hsl(var(--vow-yellow) / 0.08)"}
+                onMouseLeave={(e) => e.currentTarget.style.boxShadow = "none"}
               >
                 <p className="text-sm text-muted-foreground leading-relaxed italic">
                   {moment}

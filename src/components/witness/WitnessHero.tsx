@@ -15,7 +15,7 @@ export function WitnessHero() {
   }, []);
 
   return (
-    <section id="witness-hero" className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-background piano-section-target">
+    <section id="witness-hero" aria-label="The Witness" className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-background piano-section-target">
       {/* Background image with Ken Burns — overflow-hidden wrapper */}
       <div className="absolute inset-0 overflow-hidden">
         <div 
@@ -66,8 +66,8 @@ export function WitnessHero() {
         <div className="max-w-4xl mx-auto text-center">
           {/* The Label */}
           <p 
-            className={`text-xs uppercase tracking-[0.3em] text-muted-foreground mb-8 transition-all duration-700 ${
-              isVisible ? "opacity-60 translate-y-0" : "opacity-0 translate-y-4"
+            className={`text-xs uppercase tracking-[0.3em] text-muted-foreground text-center mb-8 transition-all duration-700 ${
+              isVisible ? "opacity-70 translate-y-0" : "opacity-0 translate-y-4"
             }`}
             style={{ transitionDelay: "200ms" }}
           >
@@ -81,8 +81,8 @@ export function WitnessHero() {
             }`}
             style={{ transitionDelay: "500ms" }}
           >
-            <div className="absolute inset-0 bg-primary/40 vibrating-string" />
-            <div className="absolute inset-0 bg-primary blur-sm vibrating-string" style={{ animationDelay: "50ms" }} />
+            <div className="absolute inset-0 bg-primary/40 vibrating-string motion-reduce:animate-none" />
+            <div className="absolute inset-0 bg-primary blur-sm vibrating-string motion-reduce:animate-none" style={{ animationDelay: "50ms" }} />
             {/* Center glow point with breathing */}
             <div 
               className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-primary motion-reduce:animate-none"
