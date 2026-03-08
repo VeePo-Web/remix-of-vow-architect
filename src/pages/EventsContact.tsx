@@ -291,7 +291,6 @@ export default function EventsContact() {
 
                   {/* Sidebar reassurance */}
                   <div className="lg:col-span-1 space-y-4">
-                  <div className="lg:col-span-1 space-y-4">
                     {[
                       { icon: Clock, text: "No cost to inquire — take the time you need." },
                       { icon: Clock, text: "Response within 24 hours, always." },
