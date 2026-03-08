@@ -34,6 +34,8 @@ function getNavLinks(pathname: string) {
  * journey: preparation → ceremony → covenant.
  */
 export function MinimalHeader() {
+  const location = useLocation();
+  const navLinks = getNavLinks(location.pathname);
   const hasPlayed = typeof window !== 'undefined' && sessionStorage.getItem('vigil-complete') === 'true';
   const headerDelay = hasPlayed ? '0ms' : '6200ms';
   const [isScrolled, setIsScrolled] = useState(false);
