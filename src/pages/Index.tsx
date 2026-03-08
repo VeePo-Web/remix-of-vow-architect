@@ -85,7 +85,7 @@ export default function Index() {
 
         {/* Layer 4: Fog Overlay */}
         <div
-          className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 will-change-opacity ${
+          className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 ${
             vigilPhase.isRevealing || vigilPhase.isComplete ? "opacity-100" : "opacity-0"
           }`}
           style={{
