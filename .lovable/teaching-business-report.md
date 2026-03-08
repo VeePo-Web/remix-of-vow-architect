@@ -366,7 +366,7 @@ I do not intend to scale this practice into a music school. I do not intend to h
 Growth, for this practice, means:
 
 - **Deeper relationships with existing students** — students who stay for years, who deepen their relationship with the instrument, who come back after time away because the piano called them again.
-- **Selective expansion of capacity** — taking on new students only when I can offer them the same depth of attention I give every current student. If capacity is full, the waitlist is honest: "I will reach out when a space opens."
+- **Selective expansion within the 10-student cap** — taking on new students only when a space opens naturally. The cap is not arbitrary; it is the number at which genuine depth is sustainable. If capacity is full, the waitlist is honest: "I will reach out when a space opens."
 - **Geographic reach through virtual mentorship** — serving students across North America without compromising the methodology. Virtual is not a scale hack; it is a genuine format for the same relationship.
 - **Category recognition** — the long-term aspiration is that "Piano Mentorship" becomes a recognized category, not just in Calgary but wherever someone is searching for a different kind of relationship with the piano. I want the question to shift from "who gives piano lessons near me?" to "is there a piano mentor near me?"
 
