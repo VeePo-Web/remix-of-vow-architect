@@ -1,16 +1,18 @@
-import { createContext, useContext, useCallback, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { createContext, useContext } from 'react';
+import type { Location } from 'react-router-dom';
 
 export type TransitionPhase = 'idle' | 'exiting' | 'entering';
 
 interface PageTransitionContextValue {
   phase: TransitionPhase;
   navigateWithTransition: (path: string) => void;
+  displayLocation: Location;
 }
 
 export const PageTransitionContext = createContext<PageTransitionContextValue>({
   phase: 'idle',
   navigateWithTransition: () => {},
+  displayLocation: {} as Location,
 });
 
 export function usePageTransition() {

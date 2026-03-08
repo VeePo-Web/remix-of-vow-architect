@@ -9,16 +9,16 @@ import {
 
 /**
  * ╔══════════════════════════════════════════════════════════════╗
- * ║  THE THRESHOLD CROSSING                                     ║
+ * ║  THE THRESHOLD CROSSING v2                                  ║
  * ║  "Every page change is a door opening in a wedding venue"   ║
  * ╚══════════════════════════════════════════════════════════════╝
  *
- * Two-phase transition:
- *   EXIT  — current page fades + shifts up, golden line expands
- *   ENTER — new page fades in + shifts up from below, line contracts
+ * Two-phase transition with atmospheric depth:
+ *   EXIT  — content blurs + fades, vignette darkens, golden line expands
+ *           with sacred semicolon at center
+ *   ENTER — new page fades in from blur, vignette lifts, line contracts
  *
- * The golden line is the semicolon made physical — the sacred pause
- * between Death and Life, between one page and the next.
+ * The old page stays rendered (via displayLocation) until exit completes.
  */
 
 interface PageTransitionProps {
@@ -44,9 +44,7 @@ export function PageTransition({ children }: PageTransitionProps) {
   // Programmatic navigation with transition
   const navigateWithTransition = useCallback(
     (path: string) => {
-      // Same page — no transition
       if (path === location.pathname) return;
-      // Already transitioning — skip
       if (isTransitioningRef.current) return;
 
       isTransitioningRef.current = true;
@@ -55,7 +53,6 @@ export function PageTransition({ children }: PageTransitionProps) {
       const timing = getRouteTiming(path);
       const exitDuration = prefersReducedMotion.current ? 150 : timing.exit;
 
-      // Phase 1: Exit
       setPhase('exiting');
 
       setTimeout(() => {
@@ -75,7 +72,7 @@ export function PageTransition({ children }: PageTransitionProps) {
     const enterDuration = prefersReducedMotion.current ? 150 : timing.enter;
 
     if (wasExiting) {
-      // We triggered this — swap content immediately
+      // We triggered this — swap content now (old page exit is complete)
       setDisplayLocation(location);
       setPhase('entering');
 
@@ -85,7 +82,6 @@ export function PageTransition({ children }: PageTransitionProps) {
       }, enterDuration);
     } else {
       // External navigation (browser back/forward, direct Link click)
-      // Run a quick exit → enter
       const exitDuration = prefersReducedMotion.current ? 100 : 250;
       isTransitioningRef.current = true;
       setPhase('exiting');
@@ -103,13 +99,13 @@ export function PageTransition({ children }: PageTransitionProps) {
   }, [location]);
 
   const contextValue = useMemo(
-    () => ({ phase, navigateWithTransition }),
-    [phase, navigateWithTransition]
+    () => ({ phase, navigateWithTransition, displayLocation }),
+    [phase, navigateWithTransition, displayLocation]
   );
 
   return (
     <PageTransitionContext.Provider value={contextValue}>
-      {/* The Veil — golden threshold line */}
+      {/* The Veil — golden threshold line with sacred semicolon */}
       <div
         aria-hidden="true"
         className={cn(
@@ -119,13 +115,35 @@ export function PageTransition({ children }: PageTransitionProps) {
         )}
         style={{ transitionDuration: '120ms' }}
       >
+        {/* Vignette overlay — room dimming */}
         <div
           className={cn(
-            'threshold-line',
-            phase === 'exiting' && 'threshold-line--expand',
-            phase === 'entering' && 'threshold-line--contract'
+            'absolute inset-0 transition-opacity',
+            phase === 'exiting' ? 'threshold-vignette--in' : '',
+            phase === 'entering' ? 'threshold-vignette--out' : '',
+            phase === 'idle' ? 'opacity-0' : ''
           )}
         />
+
+        {/* Golden line + semicolon */}
+        <div className="relative w-full flex items-center justify-center">
+          <div
+            className={cn(
+              'threshold-line',
+              phase === 'exiting' && 'threshold-line--expand',
+              phase === 'entering' && 'threshold-line--contract'
+            )}
+          />
+          <span
+            className={cn(
+              'threshold-semicolon',
+              phase === 'exiting' && 'threshold-semicolon--in',
+              phase === 'entering' && 'threshold-semicolon--out'
+            )}
+          >
+            ;
+          </span>
+        </div>
       </div>
 
       {/* Page content wrapper */}
