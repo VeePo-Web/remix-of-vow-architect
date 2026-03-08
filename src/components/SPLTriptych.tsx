@@ -40,7 +40,7 @@ export function SPLTriptych() {
 
           <StaggerChildren staggerDelay={120} className="grid md:grid-cols-3 gap-6 mb-8">
             {splReadings.map((reading, i) => (
-              <Card key={i} className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)] hover:shadow-[0_0_24px_rgba(255,224,138,0.06)] transition-all duration-[180ms]">
+              <Card key={i} className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred card-sacred-hover transition-all duration-[180ms]">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 rounded-lg bg-primary/[0.06] border border-primary/10 flex items-center justify-center">
                     <Activity className="text-primary" size={20} />
