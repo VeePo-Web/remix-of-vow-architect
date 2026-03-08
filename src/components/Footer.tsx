@@ -113,7 +113,7 @@ export function Footer() {
           isArrival && "footer-vignette-breathe"
         )}
         style={{
-          background: "radial-gradient(ellipse at center, transparent 30%, hsl(240 9% 2% / 0.7) 100%)",
+          background: "radial-gradient(ellipse at center, transparent 30%, hsl(var(--rich-black) / 0.7) 100%)",
           opacity: isArrival ? undefined : 0.7,
         }}
         aria-hidden="true"
