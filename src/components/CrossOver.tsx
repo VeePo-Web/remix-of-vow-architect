@@ -160,7 +160,7 @@ export function CrossOver() {
       {/* 13b: Warm-to-cold intermediate layer */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 80% 30% at 50% 0%, hsl(35 40% 50% / 0.04) 0%, transparent 100%)" }}
+        style={{ background: "radial-gradient(ellipse 80% 30% at 50% 0%, hsl(var(--vow-yellow) / 0.04) 0%, transparent 100%)" }}
         aria-hidden="true"
       />
 
