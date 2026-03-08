@@ -336,7 +336,7 @@ export function TeachingExhale() {
           }}
           aria-label="Closing annotation"
         >
-          — you have always heard it
+          — you have heard it all along
         </span>
       </div>
 
