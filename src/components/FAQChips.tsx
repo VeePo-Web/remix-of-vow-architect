@@ -7,7 +7,7 @@ const chips = [
   {
     question: "Will every word be heard clearly?",
     answer: "Yes. I include a dedicated wireless system, balanced in real time so every word carries.",
-    link: { to: "/gallery", label: "See how I prepare" }
+    link: { to: "/proof", label: "See how I prepare" }
   },
   {
     question: "What if there is no power?",
