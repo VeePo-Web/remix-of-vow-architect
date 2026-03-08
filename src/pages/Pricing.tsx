@@ -64,11 +64,11 @@ export default function Pricing() {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-12 animate-fade-in pt-24">
-            <div className="overline mb-2">Assured Ceremony Audio™</div>
-            <h1 className="h1 mx-auto mb-4">Pricing & Packages</h1>
+            <div className="overline mb-2">The Offering</div>
+            <h1 className="h1 mx-auto mb-4">Choose the presence that fits your day.</h1>
             <div className="chapter-rule mx-auto" />
             <p className="p-lead mx-auto text-muted-foreground mt-6 max-w-3xl">
-              I frame cost as clarity insurance—not entertainment—so your decision is fast, confident, and risk-free.
+              How deeply do you want me there? Every option includes the same devoted preparation — only the hours change.
             </p>
           </div>
 
