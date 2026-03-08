@@ -56,10 +56,10 @@ const buttonVariants = cva(
          */
         "primary-dark": [
           "bg-ink-inverse text-ink-primary border border-ink-inverse",
-          "shadow-[0_4px_16px_hsl(0_0%_100%/0.06)]",
+          "shadow-[0_4px_16px_hsl(var(--absolute-white)/0.06)]",
           "hover:bg-transparent hover:text-ink-inverse",
-          "hover:shadow-[0_8px_24px_hsl(0_0%_100%/0.04),inset_0_0_12px_hsl(0_0%_100%/0.03)]",
-          "active:shadow-[0_2px_8px_hsl(0_0%_100%/0.04)]",
+          "hover:shadow-[0_8px_24px_hsl(var(--absolute-white)/0.04),inset_0_0_12px_hsl(var(--absolute-white)/0.03)]",
+          "active:shadow-[0_2px_8px_hsl(var(--absolute-white)/0.04)]",
         ].join(" "),
 
         /**
