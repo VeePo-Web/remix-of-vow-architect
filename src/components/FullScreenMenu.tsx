@@ -292,7 +292,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
                     transitionDelay: isOpen ? `${300 + index * 60}ms` : "0ms",
                     transitionTimingFunction: "cubic-bezier(0.22,0.61,0.36,1)",
                   }}
-                  onClick={() => handleItemClick(index)}
+                  onClick={(e) => handleItemClick(e, index)}
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseDown={() => setPressedIndex(index)}
                   onMouseUp={() => setPressedIndex(null)}
