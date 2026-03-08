@@ -49,7 +49,7 @@ function PreparationSection() {
         <div
           className="absolute inset-0"
           style={{
-            background: 'radial-gradient(ellipse at 40% 40%, hsl(40 45% 80% / 0.08) 0%, transparent 80%)',
+            background: 'radial-gradient(ellipse at 40% 40%, hsl(var(--warm-glow-soft) / 0.08) 0%, transparent 80%)',
           }}
         />
       </div>
