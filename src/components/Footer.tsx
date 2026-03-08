@@ -149,7 +149,7 @@ export function Footer() {
               Parker Gawryletz
             </h3>
             <p className="font-display italic text-sm text-foreground/40 mt-1 mb-4">
-              Wedding Pianist
+              Sound Director
             </p>
             <p className="text-foreground/70 mb-8 max-w-md leading-relaxed">
               I carry your vows so they can carry your guests.
