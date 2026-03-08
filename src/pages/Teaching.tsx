@@ -72,7 +72,10 @@ function GoldenThread() {
 
 export default function Teaching() {
   usePageTheme();
-  useEffect(() => { document.title = "Piano Mentorship — Parker Gawryletz"; }, []);
+  useEffect(() => {
+    document.title = "Piano Mentorship — Parker Gawryletz";
+    document.querySelector('meta[name="description"]')?.setAttribute("content", "Piano mentorship rooted in patience and musicality. From first notes to confident performance — learn at your own pace.");
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">

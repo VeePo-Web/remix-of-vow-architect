@@ -37,7 +37,10 @@ const pianoSections = [
 
 export default function Index() {
   usePageTheme();
-  useEffect(() => { document.title = "Parker Gawryletz — Wedding Pianist, Calgary to Banff"; }, []);
+  useEffect(() => {
+    document.title = "Parker Gawryletz — Wedding Pianist, Calgary to Banff";
+    document.querySelector('meta[name="description"]')?.setAttribute("content", "I carry your vows so they can carry your guests. Custom ceremony piano from Calgary to Banff — every note crafted to honour your moment.");
+  }, []);
   const vigilPhase = useVigilSequence();
 
   return (

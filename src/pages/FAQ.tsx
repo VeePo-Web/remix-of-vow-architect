@@ -24,7 +24,10 @@ const faqSections = [
 
 export default function FAQ() {
   usePageTheme();
-  useEffect(() => { document.title = "Questions Answered — Parker Gawryletz"; }, []);
+  useEffect(() => {
+    document.title = "Questions Answered — Parker Gawryletz";
+    document.querySelector('meta[name="description"]')?.setAttribute("content", "Transparent answers to every question about ceremony piano — logistics, pricing, Banff Mode, weather contingencies, and more.");
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">

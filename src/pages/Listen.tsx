@@ -100,7 +100,10 @@ function NowPlayingMini({
 /* ── Page ── */
 export default function Listen() {
   usePageTheme();
-  useEffect(() => { document.title = "Listen — Parker Gawryletz, Pianist"; }, []);
+  useEffect(() => {
+    document.title = "Listen — Parker Gawryletz, Pianist";
+    document.querySelector('meta[name="description"]')?.setAttribute("content", "Hear the sound before you choose. Explore classical, film score, hymns, worship, and contemporary piano arrangements.");
+  }, []);
 
   const audioRef = useRef<HTMLAudioElement>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);

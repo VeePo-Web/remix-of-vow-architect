@@ -28,7 +28,10 @@ const eventsSections = [
 
 export default function Events() {
   usePageTheme();
-  useEffect(() => { document.title = "Private Events — Parker Gawryletz, Pianist"; }, []);
+  useEffect(() => {
+    document.title = "Private Events — Parker Gawryletz, Pianist";
+    document.querySelector('meta[name="description"]')?.setAttribute("content", "Live piano for corporate gatherings, galas, and private celebrations. Atmospheric, unobtrusive, and tailored to your evening.");
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
