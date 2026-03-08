@@ -389,6 +389,7 @@ export default function Contact() {
                            <Button
                             type="submit"
                             size="lg"
+                            variant="primary-dark"
                             className="flex-1 hover-scale"
                           >
                             Hold my date

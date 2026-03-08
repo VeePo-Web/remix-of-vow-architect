@@ -247,7 +247,7 @@ export function TheExhale() {
       {/* Bottom fade into ProcessSection */}
       <div
         className="section-fade-bottom"
-        style={{ background: 'linear-gradient(to bottom, transparent, hsl(45 30% 92%))' }}
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(var(--surface)))' }}
         aria-hidden="true"
       />
     </section>
