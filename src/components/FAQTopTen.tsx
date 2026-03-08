@@ -10,7 +10,7 @@ const topTenFAQs = [
   {
     question: "Will every word carry outdoors?",
     answer: "Yes. Wind and distance make it difficult for guests to hear unaided vows. I include a dedicated wireless system, balanced in real time so every word carries — even to the last row.",
-    link: { to: "/proof", label: "See how I prepare" }
+    link: { to: "/gallery", label: "See how I prepare" }
   },
   {
     question: "What if the venue has no power?",
