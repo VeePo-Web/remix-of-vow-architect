@@ -82,7 +82,7 @@ export function TheTransformation() {
       aria-label="The Transformation — fears honoured, promises made"
       style={{
         background:
-          "linear-gradient(180deg, hsl(220 15% 8%) 0%, hsl(220 15% 8%) 30%, hsl(230 12% 18%) 48%, hsl(40 20% 80%) 68%, hsl(45 30% 92%) 100%)",
+          "linear-gradient(180deg, hsl(var(--transform-dark)) 0%, hsl(var(--transform-dark)) 30%, hsl(var(--transform-mid)) 48%, hsl(var(--transform-warm)) 68%, hsl(var(--transform-light)) 100%)",
       }}
     >
       {/* sr-only narrative */}
