@@ -50,7 +50,7 @@ export function PricingTestimonials() {
               </blockquote>
               
               <div className="pt-3 border-t border-border/30">
-                <p className="text-xs font-sans tracking-[0.1em] text-primary/80 uppercase">
+                <p className="text-xs font-sans tracking-[0.1em] text-primary opacity-80 uppercase">
                   {testimonial.package}
                 </p>
               </div>

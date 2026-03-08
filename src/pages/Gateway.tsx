@@ -144,7 +144,7 @@ export default function Gateway() {
                     "mt-3 font-sans text-[12px] uppercase tracking-[0.18em] inline-flex items-center gap-1.5",
                     s.available
                       ? "text-[hsl(var(--vow-yellow))]"
-                      : "text-muted-foreground/50"
+                      : "text-muted-foreground opacity-50"
                   )}
                 >
                   {s.available ? "Step Inside" : "Coming Soon"}

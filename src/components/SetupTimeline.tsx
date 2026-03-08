@@ -25,7 +25,7 @@ export function SetupTimeline() {
               <p className="text-xs text-center font-medium leading-tight">{step}</p>
             </div>
             {index < steps.length - 1 && (
-              <ArrowRight size={20} className="text-muted-foreground/50 shrink-0" />
+              <ArrowRight size={20} className="text-muted-foreground opacity-50 shrink-0" />
             )}
           </div>
         ))}

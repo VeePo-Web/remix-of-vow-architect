@@ -358,7 +358,7 @@ export function Footer() {
             }}
             aria-hidden="true"
           />
-          <p className="font-display text-sm text-foreground/40 tracking-wide">
+          <p className="font-display text-sm text-muted-foreground opacity-60 tracking-wide">
             'Til Death
             <span
               className="text-[hsl(var(--vow-yellow)/0.6)]"

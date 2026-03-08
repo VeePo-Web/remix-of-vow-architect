@@ -279,7 +279,7 @@ export function CrossOver() {
                   style={{ transitionDelay: isVisible ? `${delay}ms` : "0ms" }}
                 >
                   {word}
-                  {isLast && <span className="font-light text-foreground/40 text-[0.8em]">{"\u201D"}</span>}
+                  {isLast && <span className="font-light text-muted-foreground text-[0.8em]">{"\u201D"}</span>}
                 </span>
                 {!isLast && " "}
               </span>

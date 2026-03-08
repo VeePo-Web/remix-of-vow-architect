@@ -45,7 +45,7 @@ export function AboutEvolutionTimeline() {
             </div>
             {index < milestones.length - 1 && (
               <div className="flex justify-center">
-                <ArrowDown size={16} className="text-muted-foreground/50" />
+                <ArrowDown size={16} className="text-muted-foreground opacity-50" />
               </div>
             )}
           </div>
