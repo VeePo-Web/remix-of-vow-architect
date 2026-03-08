@@ -128,7 +128,7 @@ function NowPlayingBar({
             onClick={handleToggle}
             className={cn(
               "w-7 h-7 rounded-full flex items-center justify-center shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)/0.4)]",
-              isPlaying ? "bg-[hsl(var(--vow-yellow))] text-background" : "text-foreground/70"
+              isPlaying ? "bg-[hsl(var(--vow-yellow))] text-background" : "text-foreground opacity-70"
             )}
             style={{ transition: "all 180ms cubic-bezier(.22,.61,.36,1)", background: isPlaying ? undefined : "linear-gradient(135deg, hsl(0 0% 100% / 0.06), hsl(var(--vow-yellow) / 0.04))" }}
             aria-label={isPlaying ? "Pause" : "Play"}

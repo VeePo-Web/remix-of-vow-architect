@@ -590,7 +590,7 @@ export function MinimalHeader() {
             <p className="font-display text-[10px] text-foreground opacity-[0.15] tracking-[0.18em] whitespace-nowrap">
               'Til Death
               <span
-                className="text-primary/25"
+                className="text-primary opacity-25"
                 style={{
                   animation: "semicolon-heartbeat 2s ease-in-out infinite 1s",
                 }}
