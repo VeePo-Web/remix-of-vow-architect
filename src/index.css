@@ -92,6 +92,20 @@ All colors MUST be HSL.
     
     --gradient-coal-night: linear-gradient(180deg, hsl(var(--rich-black)) 0%, hsl(var(--deep-graphite)) 100%);
 
+    /* Events Vertical Warm Palette */
+    --events-dark: 20 8% 10%;
+    --events-dark-elevated: 20 8% 14%;
+    --events-dark-card: 20 6% 12%;
+    --events-warm-bg: 35 20% 94%;
+    --events-warm-card: 38 25% 97%;
+    --events-warm-border: 35 15% 88%;
+    --events-warm-text: 30 10% 20%;
+    --events-warm-text-soft: 30 10% 35%;
+    --events-warm-text-deep: 30 10% 22%;
+    --events-warm-label: 35 40% 50%;
+    --events-warm-cite: 30 8% 50%;
+    --events-approach-bg: 30 8% 14%;
+
     /* Fitzgerald Typography Scale */
     --font-display: "Cormorant Garamond", "DM Serif Display", "Times New Roman", serif;
     --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;

@@ -42,7 +42,7 @@ export function EventsOffering() {
       id="events-offering"
       ref={ref}
       className="relative py-fitz-10 px-fitz-4 md:px-fitz-6"
-      style={{ background: "hsl(20 8% 10%)" }}
+      style={{ background: "hsl(var(--events-dark))" }}
       role="region"
       aria-label="The Offering"
     >
@@ -80,7 +80,7 @@ export function EventsOffering() {
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{
-                background: t.isSelected ? "hsl(20 8% 14%)" : "hsl(20 6% 12%)",
+                background: t.isSelected ? "hsl(var(--events-dark-elevated))" : "hsl(var(--events-dark-card))",
                 transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
                 transitionDelay: `${300 + i * 200}ms`,
               }}

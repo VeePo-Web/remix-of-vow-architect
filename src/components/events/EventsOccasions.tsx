@@ -37,7 +37,7 @@ export function EventsOccasions() {
       id="events-occasions"
       ref={ref}
       className="relative py-fitz-10 px-fitz-4 md:px-fitz-6"
-      style={{ background: "hsl(var(--deep-graphite))" }}
+      style={{ background: "hsl(var(--events-dark))" }}
       role="region"
       aria-label="What I Play For"
     >
@@ -67,7 +67,7 @@ export function EventsOccasions() {
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 )}
                 style={{
-                  background: "hsl(var(--ebon-charcoal))",
+                  background: "hsl(var(--events-dark-card))",
                   transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
                   transitionDelay: `${300 + i * 150}ms`,
                 }}

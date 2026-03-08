@@ -12,7 +12,7 @@ const steps = [
     number: "02",
     title: "Curation",
     description:
-      "I build a repertoire tailored to your event — classical, film scores, pop, hymns, jazz standards — calibrated to the energy of each phase of your evening.",
+      "I build a repertoire tailored to your event — classical, film scores, pop arrangements, hymns, jazz standards — calibrated to the energy of each phase of your evening.",
   },
   {
     number: "03",
@@ -30,7 +30,7 @@ export function EventsApproach() {
       id="events-approach"
       ref={ref}
       className="relative py-fitz-10 px-fitz-4 md:px-fitz-6"
-      style={{ background: "hsl(30 8% 14%)" }}
+      style={{ background: "hsl(var(--events-approach-bg))" }}
       role="region"
       aria-label="How I Work"
     >

@@ -33,7 +33,7 @@ export function EventsExperience() {
       id="events-experience"
       ref={ref}
       className="relative py-fitz-10 px-fitz-4 md:px-fitz-6"
-      style={{ background: "hsl(35 20% 94%)" }}
+      style={{ background: "hsl(var(--events-warm-bg))" }}
       role="region"
       aria-label="Past Events"
     >
@@ -44,7 +44,7 @@ export function EventsExperience() {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
           )}
           style={{
-            color: "hsl(30 10% 20%)",
+            color: "hsl(var(--events-warm-text))",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
           }}
         >
@@ -60,34 +60,34 @@ export function EventsExperience() {
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{
-                background: "hsl(38 25% 97%)",
-                border: "1px solid hsl(35 15% 88%)",
+                background: "hsl(var(--events-warm-card))",
+                border: "1px solid hsl(var(--events-warm-border))",
                 transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
                 transitionDelay: `${300 + i * 180}ms`,
               }}
             >
               <span
                 className="font-sans text-[11px] uppercase tracking-[0.22em] mb-4 block"
-                style={{ color: "hsl(35 40% 50%)" }}
+                style={{ color: "hsl(var(--events-warm-label))" }}
               >
                 {v.type}
               </span>
               <p
                 className="font-sans text-[14px] leading-relaxed mb-6"
-                style={{ color: "hsl(30 10% 35%)" }}
+                style={{ color: "hsl(var(--events-warm-text-soft))" }}
               >
                 {v.narrative}
               </p>
               <blockquote className="border-l-2 border-[hsl(var(--vow-yellow))] pl-4">
                 <p
                   className="font-display italic text-[16px]"
-                  style={{ color: "hsl(30 10% 22%)" }}
+                  style={{ color: "hsl(var(--events-warm-text-deep))" }}
                 >
                   "{v.quote}"
                 </p>
                 <cite
                   className="font-sans text-[12px] not-italic mt-2 block"
-                  style={{ color: "hsl(30 8% 50%)" }}
+                  style={{ color: "hsl(var(--events-warm-cite))" }}
                 >
                   {v.attribution}
                 </cite>
