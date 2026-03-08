@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
  * THE SUSTAIN — Abstract Piano Visualization
  * Three illuminated golden nodes connected by lines
  * Words, Silence, Memory — editorial layout, no card containers
+ * Dark background to match vigil mood and ensure contrast
  */
 
 const threeKeys = [
@@ -31,7 +32,7 @@ export function WitnessSustain() {
       ref={ref as React.RefObject<HTMLElement>}
       className="relative py-[120px] px-4 piano-section-target"
       style={{
-        background: "linear-gradient(180deg, hsl(var(--surface)) 0%, hsl(var(--surface-warm)) 100%)"
+        background: "linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--surface)) 100%)"
       }}
     >
       {/* Film grain */}
@@ -39,7 +40,7 @@ export function WitnessSustain() {
 
       {/* Ambient golden glow behind visualization */}
       <div 
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        className="absolute inset-0 opacity-[0.05] pointer-events-none"
         style={{ background: "radial-gradient(ellipse at 50% 40%, hsl(var(--vow-yellow)) 0%, transparent 60%)" }}
         aria-hidden="true"
       />
@@ -50,17 +51,20 @@ export function WitnessSustain() {
           <p 
             className={cn(
               "text-xs uppercase tracking-[0.3em] text-center mb-4 transition-all duration-700",
-              isVisible ? "opacity-60 translate-y-0" : "opacity-0 translate-y-4"
+              isVisible ? "opacity-70 translate-y-0" : "opacity-0 translate-y-4"
             )}
             style={{ color: "hsl(var(--muted-foreground))" }}
           >
             THE SUSTAIN
           </p>
 
+          {/* Golden rule */}
+          <div className="w-12 h-px mx-auto mb-12" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.5), transparent)" }} />
+
           {/* Headline */}
           <h2 
             className={cn(
-              "font-display text-[clamp(28px,4vw,48px)] font-light text-center leading-tight mb-16 text-foreground transition-all duration-700 max-w-3xl mx-auto",
+              "font-display text-[clamp(28px,4vw,48px)] font-normal text-center leading-tight mb-16 text-foreground transition-all duration-700 max-w-3xl mx-auto",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             )}
             style={{ transitionDelay: "200ms" }}
@@ -69,7 +73,7 @@ export function WitnessSustain() {
             I hold your ceremony.
           </h2>
 
-          {/* Abstract Visualization — Three connected golden nodes with glow filter */}
+          {/* Abstract Visualization — Three connected golden nodes with boosted opacity */}
           <div 
             className={cn(
               "relative flex justify-center items-center mb-20 h-20 transition-all duration-1000",
@@ -87,25 +91,25 @@ export function WitnessSustain() {
                   </feMerge>
                 </filter>
               </defs>
-              {/* Connecting line — elegant dashed */}
+              {/* Connecting line — boosted opacity */}
               <line 
                 x1="60" y1="20" x2="340" y2="20" 
                 stroke="hsl(var(--vow-yellow))" 
                 strokeWidth="1" 
-                opacity="0.15"
+                opacity="0.35"
                 strokeDasharray="4 8"
               />
-              {/* Three nodes with glow filter */}
+              {/* Three nodes with boosted glow */}
               {[60, 200, 340].map((cx, i) => (
                 <g key={i} filter="url(#nodeGlow)">
-                  <circle cx={cx} cy="20" r="12" fill="hsl(var(--vow-yellow))" opacity="0.08">
-                    <animate attributeName="opacity" values="0.06;0.12;0.06" dur={`${3 + i * 0.5}s`} repeatCount="indefinite" />
+                  <circle cx={cx} cy="20" r="14" fill="hsl(var(--vow-yellow))" opacity="0.12">
+                    <animate attributeName="opacity" values="0.08;0.16;0.08" dur={`${3 + i * 0.5}s`} repeatCount="indefinite" />
                   </circle>
-                  <circle cx={cx} cy="20" r="6" fill="hsl(var(--vow-yellow))" opacity="0.15">
-                    <animate attributeName="opacity" values="0.12;0.22;0.12" dur={`${3 + i * 0.5}s`} repeatCount="indefinite" />
+                  <circle cx={cx} cy="20" r="7" fill="hsl(var(--vow-yellow))" opacity="0.3">
+                    <animate attributeName="opacity" values="0.2;0.4;0.2" dur={`${3 + i * 0.5}s`} repeatCount="indefinite" />
                   </circle>
-                  <circle cx={cx} cy="20" r="3" fill="hsl(var(--vow-yellow))" opacity="0.8">
-                    <animate attributeName="opacity" values="0.7;1;0.7" dur={`${3 + i * 0.5}s`} repeatCount="indefinite" />
+                  <circle cx={cx} cy="20" r="3" fill="hsl(var(--vow-yellow))" opacity="1">
+                    <animate attributeName="opacity" values="0.8;1;0.8" dur={`${3 + i * 0.5}s`} repeatCount="indefinite" />
                   </circle>
                 </g>
               ))}
@@ -123,12 +127,12 @@ export function WitnessSustain() {
                 )}
                 style={{ transitionDelay: `${600 + index * 200}ms` }}
               >
-                {/* Glowing dot */}
+                {/* Glowing dot — boosted */}
                 <div 
-                  className="w-2 h-2 rounded-full mx-auto mb-6"
+                  className="w-2.5 h-2.5 rounded-full mx-auto mb-6"
                   style={{ 
                     background: "hsl(var(--vow-yellow))",
-                    boxShadow: "0 0 12px hsl(var(--vow-yellow) / 0.3), 0 0 24px hsl(var(--vow-yellow) / 0.15)" 
+                    boxShadow: "0 0 16px hsl(var(--vow-yellow) / 0.4), 0 0 32px hsl(var(--vow-yellow) / 0.2)" 
                   }}
                 />
                 
@@ -140,7 +144,7 @@ export function WitnessSustain() {
                 {/* Golden thread separator */}
                 <div 
                   className="w-8 h-px mx-auto mb-4"
-                  style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)" }}
+                  style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.4), transparent)" }}
                 />
                 
                 {/* Description */}

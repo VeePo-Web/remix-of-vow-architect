@@ -73,10 +73,10 @@ export function WitnessCovenant() {
             <div className="absolute inset-0 grain opacity-[0.08] rounded-sm pointer-events-none" aria-hidden="true" />
 
             {/* Corner ornaments — larger, warmer */}
-            <div className="absolute top-5 left-5 w-16 h-16 border-l border-t border-primary/30" />
-            <div className="absolute top-5 right-5 w-16 h-16 border-r border-t border-primary/30" />
-            <div className="absolute bottom-5 left-5 w-16 h-16 border-l border-b border-primary/30" />
-            <div className="absolute bottom-5 right-5 w-16 h-16 border-r border-b border-primary/30" />
+            <div className="absolute top-5 left-5 w-16 h-16 border-l border-t border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
+            <div className="absolute top-5 right-5 w-16 h-16 border-r border-t border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
+            <div className="absolute bottom-5 left-5 w-16 h-16 border-l border-b border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
+            <div className="absolute bottom-5 right-5 w-16 h-16 border-r border-b border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
 
             {/* Certificate Header */}
             <div className="text-center mb-10 relative">
@@ -185,7 +185,7 @@ export function WitnessCovenant() {
       {/* Section fade bottom → Crossing */}
       <div 
         className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
-        style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--rich-black)))" }}
+        style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--rich-black)) 85%)" }}
         aria-hidden="true"
       />
     </section>

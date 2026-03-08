@@ -69,7 +69,7 @@ export function WitnessOrigin() {
                 )}
                 style={{ transitionDelay: "400ms" }}
               >
-                The wind blew. The DJ shrugged. The moment was lost.
+                The wind blew. The musician shrugged. The moment was lost.
               </p>
               
               <p 
@@ -79,7 +79,7 @@ export function WitnessOrigin() {
                 )}
                 style={{ transitionDelay: "600ms" }}
               >
-                I left the reception that night and started building the Ceremony-Audio Plan—a way to make audibility inevitable.
+                I left the reception that night and started building a system to ensure every word would be heard—no matter the wind, the venue, or the distance.
               </p>
             </div>
 
@@ -144,7 +144,7 @@ export function WitnessOrigin() {
       {/* Section fade bottom → Sustain */}
       <div 
         className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
-        style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--surface)))" }}
+        style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--background)))" }}
         aria-hidden="true"
       />
     </section>

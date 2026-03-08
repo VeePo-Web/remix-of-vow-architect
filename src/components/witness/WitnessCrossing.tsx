@@ -84,7 +84,7 @@ export function WitnessCrossing() {
             )}
             style={{ transitionDelay: "200ms" }}
           >
-            Ready to be witnessed?
+            Your ceremony deserves a witness.
           </h2>
 
           {/* Subtext */}
