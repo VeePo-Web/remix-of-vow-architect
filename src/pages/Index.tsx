@@ -23,16 +23,16 @@ import heroImage from "@/assets/hero-wedding.jpg";
 import { useEffect } from "react";
 
 const pianoSections = [
-  { id: "the-exhale",         label: "The Exhale",         isBlackKey: false },
-  { id: "process",            label: "Our Process",        isBlackKey: true  },
-  { id: "vow-moment",         label: "The Vow",            isBlackKey: false },
-  { id: "the-invitation",     label: "The Invitation",     isBlackKey: true  },
-  { id: "the-sound",          label: "Hear Me Play",       isBlackKey: false },
-  { id: "the-transformation", label: "The Transformation", isBlackKey: false },
-  { id: "the-witness",        label: "The Witness",        isBlackKey: true  },
-  { id: "three-paths",        label: "Three Paths",        isBlackKey: false },
-  { id: "the-witnesses",      label: "Testimonials",       isBlackKey: true  },
-  { id: "the-crossing",       label: "The Crossing",       isBlackKey: false },
+  { id: "the-exhale",         label: "Introduction",       isBlackKey: false },
+  { id: "process",            label: "How I Prepare",      isBlackKey: true  },
+  { id: "vow-moment",         label: "My Promise",         isBlackKey: false },
+  { id: "the-invitation",     label: "Meet Me",            isBlackKey: true  },
+  { id: "the-sound",          label: "Listen",             isBlackKey: false },
+  { id: "the-transformation", label: "Before & After",     isBlackKey: false },
+  { id: "the-witness",        label: "About Me",           isBlackKey: true  },
+  { id: "three-paths",        label: "Pricing",            isBlackKey: false },
+  { id: "the-witnesses",      label: "Kind Words",         isBlackKey: true  },
+  { id: "the-crossing",       label: "Get in Touch",       isBlackKey: false },
 ];
 
 export default function Index() {

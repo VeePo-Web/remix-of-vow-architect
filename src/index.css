@@ -889,6 +889,7 @@ All colors MUST be HSL.
 
 .piano-key-thread-fill {
   width: 100%;
+  position: relative;
   background: linear-gradient(
     to bottom,
     hsl(var(--vow-yellow) / 0.3),
@@ -898,10 +899,29 @@ All colors MUST be HSL.
   box-shadow: 0 0 6px hsl(var(--vow-yellow) / 0.06);
 }
 
+.piano-key-thread-fill::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: hsl(var(--vow-yellow) / 0.6);
+  box-shadow: 0 0 6px hsl(var(--vow-yellow) / 0.3);
+  animation: piano-thread-dot 3s ease-in-out infinite;
+}
+
 .piano-key--active {
   background: hsl(var(--vow-yellow) / 0.15);
   border-left: 2px solid hsl(var(--vow-yellow) / 0.6);
   box-shadow: -4px 0 12px hsl(var(--vow-yellow) / 0.08);
+  animation: piano-active-breathe 3s ease-in-out infinite;
+}
+
+.piano-key:not(.piano-key--black) {
+  border-top: 1px solid hsl(var(--foreground) / 0.12);
 }
 
 .piano-key--black.piano-key--active {
@@ -916,14 +936,15 @@ All colors MUST be HSL.
   white-space: nowrap;
   z-index: 10;
   font-family: var(--font-sans);
-  font-size: 10px;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.18em;
   color: hsl(var(--muted-foreground));
-  background: hsl(var(--rich-black) / 0.9);
+  background: hsl(var(--rich-black) / 0.92);
   backdrop-filter: blur(8px);
-  padding: 4px 10px;
+  padding: 5px 12px;
   border-radius: 4px;
+  border-left: 1px solid hsl(var(--vow-yellow) / 0.3);
   animation: piano-tooltip-in 180ms ease-out both;
   pointer-events: none;
 }
@@ -971,11 +992,27 @@ All colors MUST be HSL.
   }
 }
 
+@keyframes piano-active-breathe {
+  0%, 100% { box-shadow: -4px 0 12px hsl(var(--vow-yellow) / 0.08); }
+  50% { box-shadow: -6px 0 18px hsl(var(--vow-yellow) / 0.18); }
+}
+
+@keyframes piano-thread-dot {
+  0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.4); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .piano-key {
     animation: none !important;
     opacity: 1;
     transform: none;
+  }
+  .piano-key--active {
+    animation: none !important;
+  }
+  .piano-key-thread-fill::after {
+    animation: none !important;
   }
   .piano-key-tooltip {
     animation: none !important;

@@ -12,9 +12,9 @@ import { Link } from "react-router-dom";
 import listenHero from "@/assets/listen-hero.jpg";
 
 const listenSections = [
-  { id: "listen-hero",     label: "The Room",       isBlackKey: false },
-  { id: "listen-movements", label: "The Movements", isBlackKey: true  },
-  { id: "listen-crossing",  label: "The Crossing",  isBlackKey: false },
+  { id: "listen-hero",      label: "Welcome",       isBlackKey: false },
+  { id: "listen-movements", label: "Tracks",        isBlackKey: true  },
+  { id: "listen-crossing",  label: "Get in Touch",  isBlackKey: false },
 ];
 
 /* ── Track data ── */

@@ -17,12 +17,12 @@ import galleryHeroImg from "@/assets/gallery-hero.jpg";
 
 const proofSections = [
   { id: "proof-hero",        label: "Overview",         isBlackKey: false },
-  { id: "proof-spl",         label: "Documentation",    isBlackKey: true  },
-  { id: "proof-setup",       label: "Setup Gallery",    isBlackKey: false },
+  { id: "proof-spl",         label: "Sound Levels",     isBlackKey: true  },
+  { id: "proof-setup",       label: "Setup Photos",     isBlackKey: false },
   { id: "proof-insurance",   label: "Insurance",        isBlackKey: true  },
-  { id: "proof-redundancy",  label: "Redundancy",       isBlackKey: false },
+  { id: "proof-redundancy",  label: "Backup Systems",   isBlackKey: false },
   { id: "proof-downloads",   label: "Downloads",        isBlackKey: false },
-  { id: "proof-cta",         label: "Begin",            isBlackKey: true  },
+  { id: "proof-cta",         label: "Get in Touch",     isBlackKey: true  },
 ];
 
 /** Golden thread separator between sections */

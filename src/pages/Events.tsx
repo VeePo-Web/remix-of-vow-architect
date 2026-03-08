@@ -16,14 +16,14 @@ import {
 import { usePageTheme } from "@/hooks/usePageTheme";
 
 const eventsSections = [
-  { id: "events-hero",       label: "The Opening",    isBlackKey: false },
-  { id: "events-exhale",     label: "The Exhale",     isBlackKey: true  },
-  { id: "events-occasions",  label: "Occasions",      isBlackKey: false },
-  { id: "events-approach",   label: "The Approach",   isBlackKey: true  },
-  { id: "events-threshold",  label: "The Threshold",  isBlackKey: false },
-  { id: "events-experience", label: "The Experience", isBlackKey: true  },
-  { id: "events-offering",   label: "The Offering",   isBlackKey: false },
-  { id: "events-crossing",   label: "The Crossing",   isBlackKey: false },
+  { id: "events-hero",       label: "Welcome",          isBlackKey: false },
+  { id: "events-exhale",     label: "Why Live Piano",   isBlackKey: true  },
+  { id: "events-occasions",  label: "Event Types",      isBlackKey: false },
+  { id: "events-approach",   label: "How I Work",       isBlackKey: true  },
+  { id: "events-threshold",  label: "Your Questions",   isBlackKey: false },
+  { id: "events-experience", label: "Past Events",      isBlackKey: true  },
+  { id: "events-offering",   label: "Packages",         isBlackKey: false },
+  { id: "events-crossing",   label: "Get in Touch",     isBlackKey: false },
 ];
 
 export default function Events() {

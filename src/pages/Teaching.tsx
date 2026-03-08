@@ -16,14 +16,14 @@ import {
 import { usePageTheme } from "@/hooks/usePageTheme";
 
 const teachingSections = [
-  { id: "teaching-hero",        label: "The Opening",     isBlackKey: false },
-  { id: "teaching-exhale",      label: "The Exhale",      isBlackKey: true  },
-  { id: "teaching-pillars",     label: "The Pillars",     isBlackKey: false },
-  { id: "teaching-methodology", label: "The Method",      isBlackKey: true  },
-  { id: "teaching-threshold",   label: "The Threshold",   isBlackKey: false },
-  { id: "teaching-stories",     label: "The Stories",     isBlackKey: true  },
-  { id: "teaching-offering",    label: "The Offering",    isBlackKey: false },
-  { id: "teaching-crossing",    label: "The Crossing",    isBlackKey: false },
+  { id: "teaching-hero",        label: "Welcome",         isBlackKey: false },
+  { id: "teaching-exhale",      label: "My Philosophy",   isBlackKey: true  },
+  { id: "teaching-pillars",     label: "Core Values",     isBlackKey: false },
+  { id: "teaching-methodology", label: "How I Teach",     isBlackKey: true  },
+  { id: "teaching-threshold",   label: "Your Questions",  isBlackKey: false },
+  { id: "teaching-stories",     label: "Student Stories",  isBlackKey: true  },
+  { id: "teaching-offering",    label: "Lesson Options",  isBlackKey: false },
+  { id: "teaching-crossing",    label: "Get in Touch",    isBlackKey: false },
 ];
 
 /**
