@@ -518,11 +518,14 @@ export function MinimalHeader() {
           <button
             onClick={() => setIsMenuOpen(true)}
             className={cn(
-              "flex items-center gap-2 opacity-0 animate-fade-in group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm transition-all duration-[260ms]",
+              "flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm transition-all duration-[260ms]",
+              arrivalPhase !== 'arrived' && "opacity-0 animate-fade-in"
             )}
             style={{
-              animationDelay: headerDelay,
-              animationFillMode: "forwards",
+              ...(arrivalPhase !== 'arrived' && {
+                animationDelay: headerDelay,
+                animationFillMode: "forwards",
+              }),
               // Soften opacity during arrival — menu is still accessible but whispers
               ...(arrivalPhase === 'arrived' && {
                 opacity: 0.4,
