@@ -66,7 +66,7 @@ export function VowMoment() {
 
       {/* Step 3 & 4: Staggered Sacred Quote with Animated Underline */}
       <div className="relative z-10 max-w-4xl mx-auto text-center">
-        <blockquote className="text-[clamp(48px,6vw,72px)] font-display font-light italic leading-[1.2] text-white">
+        <blockquote className="text-[clamp(48px,6vw,72px)] font-display font-light italic leading-[1.2] text-foreground">
           {/* Line 1: 0ms delay */}
           <span
             className={cn(
