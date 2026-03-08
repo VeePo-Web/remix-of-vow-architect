@@ -152,7 +152,7 @@ export function TeachingMethodology() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 80%, hsl(30 12% 16% / 0.3), transparent 50%), radial-gradient(ellipse at 20% 20%, hsl(30 10% 18% / 0.15), transparent 40%)",
+            "radial-gradient(ellipse at 50% 80%, hsl(var(--teaching-studio-fog-alt) / 0.3), transparent 50%), radial-gradient(ellipse at 20% 20%, hsl(var(--teaching-studio-fog-alt) / 0.15), transparent 40%)",
           animation: isVisible
             ? "methodology-fog-drift 22s ease-in-out infinite alternate"
             : undefined,
