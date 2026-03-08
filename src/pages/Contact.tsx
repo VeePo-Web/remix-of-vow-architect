@@ -12,7 +12,7 @@ import { ContactSLATimeline } from "@/components/ContactSLATimeline";
 import { ContactTestimonials } from "@/components/ContactTestimonials";
 import { BentoSelector } from "@/components/BentoSelector";
 
-import { Upload, ChevronRight, ChevronLeft, DollarSign, RefreshCw, Clock, Shield } from "lucide-react";
+import { Upload, ChevronRight, ChevronLeft, RefreshCw, Clock, Shield } from "lucide-react";
 import { useState, useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import contactHeroImg from "@/assets/contact-hero.jpg";
