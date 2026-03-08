@@ -429,8 +429,8 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
                 x2="100%"
                 y2="0%"
               >
-                <stop offset="0%" stopColor="hsl(45 100% 76% / 0.3)" />
-                <stop offset="50%" stopColor="hsl(45 100% 76% / 0.12)" />
+                <stop offset="0%" stopColor="hsl(var(--vow-yellow) / 0.3)" />
+                <stop offset="50%" stopColor="hsl(var(--vow-yellow) / 0.12)" />
                 <stop offset="100%" stopColor="transparent" />
               </linearGradient>
             </defs>
