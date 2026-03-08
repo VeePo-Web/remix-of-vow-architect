@@ -947,7 +947,7 @@ All colors MUST be HSL.
 .piano-key--active {
   background: hsl(var(--vow-yellow) / 0.15);
   border-left: 2px solid hsl(var(--vow-yellow) / 0.6);
-  box-shadow: -4px 0 12px hsl(var(--vow-yellow) / 0.08);
+  box-shadow: -4px 0 12px hsl(var(--vow-yellow) / 0.08), inset 0 0 8px hsl(var(--vow-yellow) / 0.06);
   animation: piano-active-breathe 3s ease-in-out infinite;
 }
 
