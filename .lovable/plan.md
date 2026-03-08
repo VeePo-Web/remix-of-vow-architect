@@ -1,33 +1,37 @@
 
 
-# Plan: Create Events Brand Identity Document
+# Piano Key Nav — Final Polish Pass
 
-Create `.lovable/events-brand-identity.md` following the same structure as the wedding and teaching documents — Brand Truth Table, Non-Negotiables/Flex/Dealbreakers, Brand Spine, Positioning, Customer Identity Mirror, Messaging, Voice, and Visual direction.
+All label renames and core visual upgrades are confirmed complete. This pass addresses three remaining craft-level details to reach true Fantasy.co quality.
 
-## Key Differentiators from Other Verticals
+## 1. Spotlight Damper on Hover
 
-- **Tone:** Professional and polished, not sacred/vigil (weddings) or warm/mentorship (teaching)
-- **Category:** "Private Event Pianist" — not "sound director" or "mentor"
-- **Mission:** "I understand what live music does to a room" — atmospheric, not ceremonial
-- **Tagline adaptation:** "Every room has a sound it's waiting for."
-- **Enemy:** The generic playlist, the background-noise assumption, the DJ who drowns conversation
-- **Audience:** Hosts planning private dinners, church services, cocktail receptions, intimate celebrations — people who care about atmosphere and presence
+When hovering any key, all *other* keys should dim to 40% opacity — the "spotlight" pattern used in the full-screen menu. Currently all keys remain at full opacity during hover, which lacks the focused intentionality of the brand's interaction model.
 
-## Document Structure (matching existing format)
+**File:** `src/components/PianoKeyNav.tsx`
+- When `hoveredIndex !== null`, apply `opacity: 0.4` to all non-hovered, non-active keys via inline style
+- Active key stays at full opacity regardless
+- Transition: 180ms ease
 
-1. **Brand Truth Table** — Events-specific truths (500+ events, 4 occasion types, 500+ repertoire, room-reading ability)
-2. **Non-Negotiables / Flex / Dealbreakers** — Professional tone rules, no "sacred/vigil" language, no entertainment framing
-3. **Brand Spine** — Category stance, enemy, audience, promise, proof, personality
-4. **Positioning & Differentiators** — "Private Event Pianist" category, differentiator table vs DJs/playlists/bands
-5. **Customer Identity Mirror** — "You are my people if..." / "Not for you if..." for event hosts
-6. **Messaging Pillars** — Atmosphere, Adaptability, Professionalism
-7. **Voice & Lexicon** — Events-specific word choices (allowed/banned), CTA phrasing
-8. **Visual Direction** — How the events page differs aesthetically from weddings/teaching
-9. **Cross-Vertical Coherence** — How events connects to the broader Sacred Sound brand
+## 2. Pressed Key — Golden Flash
 
-## File
+The pressed state currently uses a flat `vow-yellow / 0.2` background. Add a brief radial glow that fades — a "golden flash" matching the Three Keys piano aesthetic. This is a CSS-only change.
 
-- **Create:** `.lovable/events-brand-identity.md`
+**File:** `src/index.css`
+- Add `@keyframes piano-key-flash` (100ms scale from 1 to 1.02 with box-shadow burst, then back)
+- Apply to `.piano-key--pressed` as a one-shot animation
 
-No code changes required.
+## 3. Thread Easing Refinement
+
+The golden thread `height` transition uses `450ms cubic-bezier(0.22, 0.61, 0.36, 1)`. This is good but the thread should also fade its opacity slightly at the leading edge. Add a subtle gradient mask so the fill doesn't have a hard bottom edge.
+
+**File:** `src/index.css`
+- Add `mask-image: linear-gradient(to bottom, black 85%, transparent 100%)` to `.piano-key-thread-fill`
+- Add `-webkit-mask-image` for Safari
+
+---
+
+## Files Modified
+1. `src/components/PianoKeyNav.tsx` — spotlight damper opacity logic
+2. `src/index.css` — golden flash keyframe, thread gradient mask
 
