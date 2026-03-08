@@ -47,7 +47,7 @@ export function SoundSystemDiagram() {
           
           <div className="flex flex-wrap gap-4 justify-center mt-4">
             <DirectionalLink to="/faq">See full FAQ</DirectionalLink>
-            <DirectionalLink to="/gallery">See how I prepare</DirectionalLink>
+            <DirectionalLink to="/proof">See how I prepare</DirectionalLink>
           </div>
         </div>
       </div>
