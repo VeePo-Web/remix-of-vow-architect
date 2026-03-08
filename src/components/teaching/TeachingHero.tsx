@@ -332,7 +332,7 @@ export function TeachingHero() {
             transitionDelay: `${SUBTITLE_DELAY}ms`,
           }}
         >
-          The first question I ask is never about music. It is about you.
+          I sit beside you until the music sounds the way you hear it inside.
         </p>
       </div>
 

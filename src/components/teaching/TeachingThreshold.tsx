@@ -347,7 +347,7 @@ export function TeachingThreshold() {
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             }}
           >
-            What you might be thinking
+            What you carry in
           </p>
 
           <div
