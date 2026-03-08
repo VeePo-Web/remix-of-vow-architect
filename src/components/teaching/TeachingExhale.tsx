@@ -67,9 +67,9 @@ const allWords = buildWordMap(lines);
 
 /* ── Text shadow presets ── */
 const TEXT_SHADOWS: Record<string, string> = {
-  light: "0 1px 3px hsl(40 20% 80% / 0.2)",
+  light: "0 1px 3px hsl(var(--teaching-vignette) / 0.2)",
   medium:
-    "0 1px 2px hsl(40 20% 80% / 0.25), 0 4px 16px hsl(40 30% 70% / 0.06)",
+    "0 1px 2px hsl(var(--teaching-vignette) / 0.25), 0 4px 16px hsl(var(--teaching-vignette-alt) / 0.06)",
 };
 
 /* ── Scroll-linked word reveal block ── */
