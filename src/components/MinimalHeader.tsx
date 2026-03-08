@@ -153,8 +153,9 @@ export function MinimalHeader() {
         style={{
           height: isScrolled ? "56px" : "auto",
           background: isScrolled ? "hsl(var(--rich-black) / 0.94)" : undefined,
-          transitionDuration: "260ms",
-          transitionTimingFunction: "cubic-bezier(0.22,0.61,0.36,1)",
+          transform: isHeaderHidden ? 'translateY(-100%)' : 'translateY(0)',
+          transitionDuration: "400ms",
+          transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       >
         {/* ═══════════════════════════════════════════
