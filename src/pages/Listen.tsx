@@ -249,10 +249,10 @@ export default function Listen() {
               onClick={handleEnter}
               className={cn(
                 "inline-flex items-center gap-3 px-8 py-4 rounded-full transition-all duration-300",
-                "border border-[hsl(var(--vow-yellow)/0.3)] bg-[hsl(var(--vow-yellow)/0.08)]",
-                "text-[hsl(var(--vow-yellow))] hover:bg-[hsl(var(--vow-yellow)/0.14)]",
-                "hover:border-[hsl(var(--vow-yellow)/0.5)] hover:scale-[1.03]",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)/0.5)]"
+                "border border-vow-yellow/30 bg-vow-yellow/[0.08]",
+                "text-vow-yellow hover:bg-vow-yellow/[0.14]",
+                "hover:border-vow-yellow/50 hover:scale-[1.03]",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vow-yellow/50"
               )}
             >
               <Play size={18} strokeWidth={2} className="ml-0.5" />
