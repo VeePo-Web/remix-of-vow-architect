@@ -280,7 +280,7 @@ export function TeachingStories() {
     <section
       id="teaching-stories"
       className="relative py-[140px] md:py-[180px] px-fitz-4 md:px-fitz-6 overflow-hidden"
-      style={{ background: "hsl(38 35% 93%)" }}
+      style={{ background: "hsl(var(--teaching-bg-alt))" }}
       role="region"
       aria-label="Those Who Sat Down"
     >
