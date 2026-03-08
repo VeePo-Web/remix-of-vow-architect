@@ -43,7 +43,7 @@ export function PricingSampleDownload() {
           </p>
         </div>
 
-        <Card className="p-8 bg-card/80 backdrop-blur-[8px] border-border/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)]">
+        <Card className="p-8 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred">
           <div className="grid md:grid-cols-3 gap-6 mb-8">
             {features.map((f, i) => (
               <div key={i} className="flex flex-col items-center text-center">

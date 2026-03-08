@@ -354,7 +354,7 @@ export function CrossOver() {
             "font-display font-light text-lg italic tracking-[0.02em] text-center text-foreground/70 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
-          style={{ transitionDelay: isVisible ? "700ms" : "0ms", textShadow: '0 1px 2px rgba(0, 0, 0, 0.5), 0 1px 16px rgba(0, 0, 0, 0.35)' }}
+          style={{ transitionDelay: isVisible ? "700ms" : "0ms", textShadow: '0 1px 2px hsl(var(--rich-black) / 0.5), 0 1px 16px hsl(var(--rich-black) / 0.35)' }}
         >
           Response within 24 hours.{" "}
           <span className="relative inline-block font-normal not-italic tracking-[0.03em] text-primary">

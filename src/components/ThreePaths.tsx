@@ -254,7 +254,7 @@ export function ThreePaths() {
                 />
 
                 {/* Price */}
-                <span className="piano-key__price" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.06)' }}>{tier.price}</span>
+                <span className="piano-key__price" style={{ textShadow: '0 1px 2px hsl(var(--rich-black) / 0.06)' }}>{tier.price}</span>
 
                 {/* Description */}
                 <p className="piano-key__description" style={{ minHeight: '2.8em' }}>{tier.description}</p>
