@@ -4,17 +4,19 @@ import { cn } from "@/lib/utils";
 import keysImg from "@/assets/teaching-keys.jpg";
 
 /**
- * Split text into words with individual opacity control
- * driven by scroll progress through the section.
+ * Scroll-linked word reveal with Y-drift and ease-in-out progress curve.
+ * Words near the center of the passage reveal faster, creating breathing rhythm.
  */
 function ScrollRevealWords({
   text,
   isInView,
   underlineWord,
+  colorBase = "inherit",
 }: {
   text: string;
   isInView: boolean;
   underlineWord?: string;
+  colorBase?: string;
 }) {
   const containerRef = useRef<HTMLSpanElement>(null);
   const [progress, setProgress] = useState(0);
@@ -24,16 +26,19 @@ function ScrollRevealWords({
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const vh = window.innerHeight;
-    // Map: top enters bottom of viewport (0) → top reaches 30% from top (1)
     const raw = 1 - (rect.top - vh * 0.3) / (vh * 0.5);
-    setProgress(Math.max(0, Math.min(1, raw)));
+    const clamped = Math.max(0, Math.min(1, raw));
+    // Ease-in-out curve for breathing rhythm
+    const eased =
+      clamped < 0.5
+        ? 2 * clamped * clamped
+        : 1 - Math.pow(-2 * clamped + 2, 2) / 2;
+    setProgress(eased);
     rafRef.current = requestAnimationFrame(updateProgress);
   }, []);
 
   useEffect(() => {
     if (!isInView) return;
-
-    // Check reduced motion
     const prefersReduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
@@ -41,7 +46,6 @@ function ScrollRevealWords({
       setProgress(1);
       return;
     }
-
     rafRef.current = requestAnimationFrame(updateProgress);
     return () => cancelAnimationFrame(rafRef.current);
   }, [isInView, updateProgress]);
@@ -49,13 +53,15 @@ function ScrollRevealWords({
   const words = text.split(" ");
 
   return (
-    <span ref={containerRef} className="inline">
+    <span ref={containerRef} className="inline" style={{ color: colorBase }}>
       {words.map((word, i) => {
-        // Each word fades in at a slightly different scroll threshold
         const wordThreshold = i / words.length;
         const wordOpacity = isInView
-          ? Math.max(0.12, Math.min(1, (progress - wordThreshold * 0.7) / 0.3))
-          : 0.12;
+          ? Math.max(0.08, Math.min(1, (progress - wordThreshold * 0.7) / 0.3))
+          : 0.08;
+        const yDrift = isInView
+          ? Math.max(0, 4 * (1 - (progress - wordThreshold * 0.7) / 0.3))
+          : 4;
 
         const isUnderline =
           underlineWord &&
@@ -65,9 +71,12 @@ function ScrollRevealWords({
         return (
           <span
             key={i}
-            className="inline-block transition-opacity duration-[80ms]"
+            className="inline-block"
             style={{
               opacity: wordOpacity,
+              transform: `translateY(${yDrift}px)`,
+              transition: "opacity 80ms linear, transform 120ms ease-out",
+              willChange: "opacity, transform",
             }}
           >
             {isUnderline ? (
@@ -80,6 +89,10 @@ function ScrollRevealWords({
                   )}
                   style={{
                     transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
+                    boxShadow:
+                      progress > 0.85
+                        ? "0 0 8px 2px hsl(var(--vow-yellow) / 0.25)"
+                        : "none",
                   }}
                   aria-hidden="true"
                 />
@@ -107,7 +120,7 @@ export function TeachingMethodology() {
       role="region"
       aria-label="The First Question"
     >
-      {/* Background keys — Ken Burns drift */}
+      {/* ── Layer 1: Background keys — Ken Burns drift ── */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
@@ -119,13 +132,13 @@ export function TeachingMethodology() {
         aria-hidden="true"
       />
 
-      {/* Grain */}
+      {/* ── Layer 2a: Grain ── */}
       <div
         className="absolute inset-0 grain opacity-[0.05] pointer-events-none"
         aria-hidden="true"
       />
 
-      {/* Dual-origin fog */}
+      {/* ── Layer 2b: Dual-origin fog ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -135,7 +148,33 @@ export function TeachingMethodology() {
         aria-hidden="true"
       />
 
-      {/* Breathing vignette */}
+      {/* ── Layer 2c: Secondary depth fog — drifts slowly ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at 50% 80%, hsl(30 12% 16% / 0.3), transparent 50%), radial-gradient(ellipse at 20% 20%, hsl(30 10% 18% / 0.15), transparent 40%)",
+          animation: isVisible
+            ? "methodology-fog-drift 22s ease-in-out infinite alternate"
+            : undefined,
+        }}
+        aria-hidden="true"
+      />
+
+      {/* ── Layer 3: Warm light bloom — subtle golden presence ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at 50% 35%, hsl(var(--vow-yellow) / 0.015), transparent 45%)",
+          animation: isVisible
+            ? "methodology-bloom 8s ease-in-out infinite"
+            : undefined,
+        }}
+        aria-hidden="true"
+      />
+
+      {/* ── Layer 4: Breathing vignette ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -198,7 +237,7 @@ export function TeachingMethodology() {
           aria-hidden="true"
         />
 
-        {/* The First Question — scroll-linked word reveals */}
+        {/* The First Question — scroll-linked word reveals with Y-drift */}
         <h2
           className="font-display text-[32px] md:text-[48px] font-light tracking-tight leading-[1.15] mb-fitz-8"
           style={{
@@ -217,7 +256,10 @@ export function TeachingMethodology() {
         {/* Narrative — scroll-linked word reveals */}
         <p
           className="font-sans text-[16px] md:text-[18px] leading-[1.7] max-w-[600px] mx-auto mb-fitz-7"
-          style={{ color: "hsl(40 20% 75%)" }}
+          style={{
+            color: "hsl(40 20% 75%)",
+            textShadow: "0 1px 3px hsl(0 0% 0% / 0.15)",
+          }}
         >
           <ScrollRevealWords
             text="The first question I ask is never about music. It is about you. What brought you here. What you hear when no one is listening. The mentorship begins not with a scale or an exercise — but with a conversation about the sound you carry inside."
@@ -237,7 +279,8 @@ export function TeachingMethodology() {
             color: "hsl(40 25% 70%)",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             transitionDelay: "700ms",
-            textShadow: "0 1px 2px hsl(0 0% 0% / 0.2)",
+            textShadow:
+              "0 1px 2px hsl(0 0% 0% / 0.2), 0 3px 12px hsl(0 0% 0% / 0.08)",
           }}
         >
           Every gift arrives as a seed. Your hands are the soil.
@@ -288,6 +331,14 @@ export function TeachingMethodology() {
         @keyframes methodology-dot-breathe {
           0%, 100% { opacity: 0.4; transform: scale(1); }
           50% { opacity: 1; transform: scale(1.15); }
+        }
+        @keyframes methodology-fog-drift {
+          0% { transform: translate(0, 0) scale(1); }
+          100% { transform: translate(-1.5%, 0.8%) scale(1.02); }
+        }
+        @keyframes methodology-bloom {
+          0%, 100% { opacity: 0.5; }
+          50% { opacity: 1; }
         }
         @media (prefers-reduced-motion: reduce) {
           #teaching-methodology * {
