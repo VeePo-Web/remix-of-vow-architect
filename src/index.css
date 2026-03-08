@@ -826,6 +826,7 @@ All colors MUST be HSL.
   width: 48px;
   height: 40px;
   background: hsl(var(--foreground) / 0.06);
+  background-image: repeating-linear-gradient(90deg, transparent, transparent 2px, hsl(var(--foreground) / 0.015) 2px, hsl(var(--foreground) / 0.015) 3px);
   border: 1px solid hsl(var(--foreground) / 0.08);
   border-right: none;
   border-radius: 4px 0 0 4px;
@@ -859,6 +860,18 @@ All colors MUST be HSL.
   margin-top: -4px;
   margin-bottom: -4px;
   box-shadow: 0 2px 4px hsl(var(--rich-black) / 0.3), inset 0 1px 0 hsl(var(--foreground) / 0.06);
+}
+
+.piano-key--black::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 20%;
+  width: 60%;
+  height: 1px;
+  background: hsl(var(--foreground) / 0.06);
+  border-radius: 1px;
+  pointer-events: none;
 }
 
 .piano-key--black:hover {
@@ -934,7 +947,7 @@ All colors MUST be HSL.
 .piano-key--active {
   background: hsl(var(--vow-yellow) / 0.15);
   border-left: 2px solid hsl(var(--vow-yellow) / 0.6);
-  box-shadow: -4px 0 12px hsl(var(--vow-yellow) / 0.08);
+  box-shadow: -4px 0 12px hsl(var(--vow-yellow) / 0.08), inset 0 0 8px hsl(var(--vow-yellow) / 0.06);
   animation: piano-active-breathe 3s ease-in-out infinite;
 }
 
@@ -974,6 +987,11 @@ All colors MUST be HSL.
   opacity: 1;
   visibility: visible;
   transform: translateY(-50%) translateX(0);
+}
+
+.piano-key-tooltip.piano-key-tooltip--active {
+  border-left: 2px solid hsl(var(--vow-yellow) / 0.6);
+  color: hsl(var(--foreground) / 0.9);
 }
 
 .piano-key-tooltip-caret {
@@ -1060,6 +1078,9 @@ All colors MUST be HSL.
   .piano-key--black {
     width: 24px;
     height: 22px;
+  }
+  .piano-key-thread {
+    right: 18px;
   }
 }
 

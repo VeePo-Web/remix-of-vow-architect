@@ -164,7 +164,8 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
             <div
               className={cn(
                 'piano-key-tooltip',
-                isHovered && 'piano-key-tooltip--visible'
+                isHovered && 'piano-key-tooltip--visible',
+                isActive && 'piano-key-tooltip--active'
               )}
             >
               {section.label}
