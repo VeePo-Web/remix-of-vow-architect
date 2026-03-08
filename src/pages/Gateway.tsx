@@ -117,14 +117,14 @@ export default function Gateway() {
             <>
               <CardImage image={s.image} available={s.available} />
               {/* Gradient overlay */}
-              <div
-                className={cn(
-                  "absolute inset-0 bg-gradient-to-t transition-all duration-500",
-                  s.available
-                    ? "from-black/70 via-black/30 to-black/10 group-hover:from-black/60"
-                    : "from-black/85 via-black/50 to-black/30"
-                )}
-                aria-hidden="true"
+                <div
+                  className="absolute inset-0 transition-all duration-500"
+                  style={{
+                    background: s.available
+                      ? 'linear-gradient(to top, hsl(var(--rich-black) / 0.7) 0%, hsl(var(--rich-black) / 0.3) 40%, hsl(var(--rich-black) / 0.1) 100%)'
+                      : 'linear-gradient(to top, hsl(var(--rich-black) / 0.85) 0%, hsl(var(--rich-black) / 0.5) 40%, hsl(var(--rich-black) / 0.3) 100%)',
+                  }}
+                  aria-hidden="true"
               />
               {/* Content */}
               <div className="relative z-10 flex flex-col justify-end h-full p-6 md:p-8">
