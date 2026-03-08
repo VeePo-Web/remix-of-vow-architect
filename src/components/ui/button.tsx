@@ -81,8 +81,8 @@ const buttonVariants = cva(
         "ghost-light": [
           "bg-transparent text-ink-primary border border-lines",
           "hover:bg-card hover:border-border",
-          "hover:shadow-[0_6px_20px_rgba(0,0,0,0.06)]",
-          "active:shadow-[0_2px_8px_rgba(0,0,0,0.04)]",
+          "hover:shadow-[0_6px_20px_hsl(var(--rich-black)/0.06)]",
+          "active:shadow-[0_2px_8px_hsl(var(--rich-black)/0.04)]",
         ].join(" "),
 
         /**
