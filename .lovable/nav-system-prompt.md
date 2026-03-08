@@ -1,794 +1,808 @@
-# THE CEREMONY ARCH — Bespoke Navigation System Architecture
-
-## A North Star Document for Parker Gawryletz's Navigation Experience
-### Version 2.0 — Exhaustive Specification
+# THE CEREMONY ARCH — Bespoke Navigation Architecture
+## A Sacred Navigation System for Parker Allard, Wedding Pianist
+### Version 3.0 — The Definitive Specification
 
 ---
 
 ## PREAMBLE: WHY THIS DOCUMENT EXISTS
 
-This is not a navigation specification. It is a **covenant** — a binding agreement between the brand's soul and every pixel, every millisecond, every interaction state that a visitor will ever encounter. The navigation system for parkergawryletz.com is not a menu. It is the **architectural frame of a ceremony venue**, rendered in code.
+This is not a navigation specification. This is the architectural blueprint for the most emotionally resonant navigation system ever built for a solo artist's website. Every pixel, every millisecond, every hover state, every transition serves one purpose: to make the visitor feel the weight and wonder of marriage before they ever read a word.
 
-Every decision documented here flows from a single truth: **the browser viewport is a chapel.** The header is the arch above the altar. The footer is the threshold stone beneath. Between them, the brand story unfolds like a wedding ceremony — from the held breath of the vigil, through the processional walk, to the covenant sealed at the close.
+The navigation is not a menu. It is a ceremony arch — the structure through which every guest passes on their way to witness a sacred moment. The header is the arch's crown. The footer is its foundation. Together, they frame every page like a wedding venue frames every vow.
 
-When the visitor scrolls to the bottom of any page, the header and footer **synchronize into a single breathing entity** — an easter egg that rewards completion, mirrors the wedding journey from processional to recessional, and transforms the browser window itself into a ceremony venue. This is not decoration. This is the physical manifestation of the brand promise: *'Til Death ; Unto Life.*
-
----
-
-## I. THE SINGULAR TRUTH OF NAVIGATION
-
-Navigation on this site is a **threshold**. Like the arch at the front of a ceremony venue, the header exists to orient, to shelter, and to sanctify what lies beneath it.
-
-The navigation system and footer together form a **unified ceremonial frame** — a living bookend that opens the page journey (the arch) and closes it (the covenant). The frame breathes. The frame responds. The frame remembers.
-
-**The Core Metaphor:** The browser viewport is a chapel. The header is the arch above the altar. The footer is the threshold stone beneath. Between them, the brand story unfolds like a ceremony.
-
-**The Core Interaction Model:** Every interactive element follows **piano-key physics** — the weight, mechanism, and resonance of a real instrument. Nothing clicks. Everything *plays*.
-
-**The Core Emotional Arc:** Vigil (anticipation) → Processional (direction) → Ceremony (content) → Covenant (commitment) → Arrival (sacred stillness).
+When the visitor scrolls to the bottom of any page, the header and footer will reunite — like two hands clasping at the end of an aisle — creating a single, unified ceremonial frame. This is the Arrival. This is the easter egg. This is the moment the architecture reveals itself as a love letter to the craft of marriage.
 
 ---
 
-## II. THE MULTI-VERTICAL ARCHITECTURE
+## I. THE PHILOSOPHICAL FOUNDATION
 
-The site serves three distinct verticals, each accessed via the Gateway page:
+### 1.1 Navigation as Sacred Architecture
 
-### The Gateway — The Narthex
-The Gateway is the **narthex** — the entry hall of the chapel. Three doors lead to three distinct experiences:
+In a cathedral, the nave guides the eye upward. In a concert hall, the proscenium arch frames the performer. In a wedding venue, the arch frames the couple. This navigation system is all three.
 
-1. **Weddings** (`/weddings`) — The primary vertical. The full 7-page navigation structure.
-2. **Teaching** (`/teaching`) — Piano mentorship. Its own emotional architecture.
-3. **Events** (`/events`) — Corporate and private events. Its own tone.
+The header is the lintel — the horizontal beam that spans the threshold. It carries the weight of identity (the wordmark), orientation (the nav links), and invitation (the CTA). It is the first thing seen and the last thing remembered.
 
-### Vertical-Specific Navigation Behavior:
+The footer is the foundation stone — the base upon which the entire ceremony rests. It carries the weight of trust (credentials, contact), continuity (site map), and covenant (the tagline bookend).
 
-#### Weddings Vertical:
-- **Header nav links:** Pricing, About, Proof (+ "Hold My Date" CTA)
-- **Full-screen menu:** 8 items (Home, Events, Pricing, About, Proof, FAQ, Listen, Contact)
-- **Emotional temperature:** Sacred, reverent, ceremonial. The vigil space.
-- **CTA language:** "Hold my date" — a vow, not a booking
-- **Footer tagline:** "'Til Death ; Unto Life." — the full covenant
-- **Piano Key Nav (sidebar):** Section-specific, appears after hero
+Between them, the page content is the aisle — the sacred space where the story unfolds.
 
-#### Teaching Vertical:
-- **Header nav links:** Same global structure, but CTA adapts: "Begin the conversation"
-- **Emotional temperature:** Patient, warm, inviting. The practice room.
-- **CTA language:** "Begin the conversation" — reflecting the "First Conversation" methodology
-- **Footer adapts:** Same structure, but subtitle shifts to context-aware text
-- **Piano Key Nav:** Not present (teaching pages use simpler section flow)
+### 1.2 The Three Emotional States of Navigation
 
-#### Events Vertical:
-- **Header nav links:** Same global structure, CTA adapts: "Discuss your event"
-- **Emotional temperature:** Confident, professional, warm. The concert hall.
-- **CTA language:** "Discuss your event" — direct, professional
-- **Piano Key Nav:** Not present
+Every navigation element exists in one of three emotional temperatures, corresponding to the brand's Death/Life dichotomy:
 
-### Cross-Vertical Navigation:
-- The full-screen menu always shows all verticals — the visitor can move between worlds
-- The Gateway is accessible from any vertical via the logo (which always links to `/`)
-- Breadcrumbs are not used — the site is shallow enough that orientation is maintained by the header state alone
+**STATE 1: THE VIGIL (Default/Idle)**
+- The visitor has just arrived. The navigation is quiet, composed, waiting.
+- Color temperature: Cool. Charcoal dominance. Minimal accent.
+- Animation energy: Low. Breathing rhythms. Candle-flame flickers.
+- Emotional tone: Reverence. Anticipation. Held breath.
+- The header is nearly invisible — a whisper of structure against the void.
+- Typography: Light weight. Maximum letter-spacing. Ethereal.
 
----
+**STATE 2: THE PROCESSIONAL (Active/Scrolling)**
+- The visitor is moving through the page. The navigation adapts, reveals, guides.
+- Color temperature: Warming. Vow-yellow begins to appear in active states.
+- Animation energy: Medium. Purposeful transitions. Directional momentum.
+- Emotional tone: Confidence. Guidance. Gentle authority.
+- The header crystallizes — nav links appear, the CTA solidifies.
+- Typography: Medium weight. Tighter spacing. Grounded.
 
-## III. THE THREE STATES — A WEDDING IN MINIATURE
+**STATE 3: THE ARRIVAL (Footer Intersection)**
+- The visitor has reached the end. Header and footer synchronize.
+- Color temperature: Warm. Golden glow. Vine-green whispers.
+- Animation energy: Elevated but controlled. Synchronized breathing.
+- Emotional tone: Fulfillment. Unity. The exhale after the vow.
+- The header transforms — links dissolve, logo centers, vine threads connect to footer.
+- Typography: Display weight. Ceremonial. The wordmark becomes an altar piece.
 
-The header transitions through three emotional states that mirror the wedding journey. Each state has been engineered to the millisecond.
+### 1.3 The Piano-Key Interaction Philosophy
 
-### State 1: THE VIGIL (Top of Page — scrollY < 1vh)
-**Emotional Temperature:** Held breath. Sacred anticipation. The moment before the doors open.
+Every interactive element in this navigation system behaves like a piano key. Not metaphorically — mechanically. The physics are real:
 
-**Visual Specification:**
-- Background: `transparent` — no material presence whatsoever
-- Logo: `font-display text-base tracking-wide text-foreground`
-- Logo animation: `opacity: 0 → 1` via `animate-fade-in`
-  - First visit: `animationDelay: 6200ms` (waits for Vigil Sequence to complete)
-  - Return visit: `animationDelay: 0ms` (sessionStorage flag `vigil-complete`)
-- Menu button: Same animation timing as logo
-- No nav links visible
-- No scroll progress thread
-- No vine thread
-- No atmospheric layers
+**Key Depression Model:**
+- Hover: 1px translateY downward (the finger resting on the key)
+- Press/Active: 2px translateY downward (the key being struck)
+- Release: Spring-return with cubic-bezier(0.22, 0.61, 0.36, 1) — the key returning to rest
+- The "sound" of each press is visual: a vow-yellow underline that draws beneath the text like a note resonating
 
-**Behavioral Specification:**
-- The header is `position: fixed`, `top: 0`, `left: 0`, `right: 0`, `z-index: 50`
-- Height: `auto` (content-driven, approximately 72px with padding)
-- The page content shows through — the header is a ghost, a whisper
-- Padding: `px-[var(--hero-space-edge, 24px)] md:px-[var(--hero-space-edge, 48px)] py-6`
+**Key Weighting:**
+- Primary nav links: Weighted keys — slower, deeper depression, longer resonance (450ms underline draw)
+- Secondary links: Lighter keys — quicker response, shorter resonance (260ms)
+- Utility links: Muted keys — minimal depression, opacity change only (180ms)
+- CTA button: The sustain pedal — press creates a golden aura that holds and breathes
 
-**Why This Matters:**
-The visitor has just arrived. They are in the vestibule. The ceremony has not yet begun. Navigation should not compete with the hero's emotional opening. The Vigil Sequence on the homepage is an 8-second orchestrated reveal — the header must not upstage it. It must *wait*. It must honor the vigil.
+**Spotlight Damper System:**
+When one key is pressed (hovered), all other keys are dampened:
+- Non-hovered nav items drop to 40% opacity
+- The transition uses 180ms with the sacred easing curve
+- This mimics how a pianist's sustain pedal lifts all dampers, but our "inverse damper" isolates the active note
+- On the full-screen menu, this effect is dramatic: the hovered item at 100% opacity, all others at 30%
 
-**Sound Metaphor:** A single sustained note — pure, unadorned, waiting. The damper pedal held.
+### 1.4 The Vine Thread — Organic Connection System
 
----
+Traditional navigation uses borders, lines, and dividers. This navigation uses vines.
 
-### State 2: THE PROCESSIONAL (scrollY > 1vh, footer not visible)
-**Emotional Temperature:** Forward motion. The walk down the aisle. Purpose and direction.
+The vine thread is a hand-drawn SVG path that replaces every straight-line border in the navigation system. It undulates gently — like ivy climbing a trellis, like a wedding vine wrapping an arch. The path uses a custom cubic bezier that creates organic, asymmetric curves.
 
-**Visual Specification — Glass-Morphic Bar:**
-- Height: `56px` (locked, never changes during this state)
-- Background: `rgba(10, 10, 12, 0.94)` — near-black with 6% transparency for material depth
-- Backdrop filter: `blur(12px)` — premium glass frosting
-- Transition into this state: `260ms cubic-bezier(0.22, 0.61, 0.36, 1)` — the brand's signature easing
+**Vine Thread Specifications:**
+- Stroke width: 0.5px (barely visible — felt more than seen)
+- Stroke color: hsl(var(--vow-yellow) / 0.15) in Vigil state → hsl(var(--vow-yellow) / 0.40) in Arrival state
+- Path variation: Each instance uses a slightly different seed for the undulation, so no two vine threads are identical
+- Animation: The vine "grows" — stroke-dashoffset animation from full to zero over 1200ms on first appearance
+- Breathing: In idle state, the vine pulses opacity between 0.12 and 0.20 on a 4000ms cycle
+- Material: The vine has a barely perceptible glow — a 1px gaussian blur at 8% opacity that simulates bioluminescence
 
-**Atmospheric Layers (4 total, stacked with `pointer-events: none`):**
+**Vine Thread Placement:**
+- Header bottom edge: Replaces the traditional bottom border
+- Footer top edge: Replaces the traditional top border
+- Full-screen menu item separators: Between each numbered item
+- Piano Key navigator connector: The vertical "golden thread" behind the keys
+- Mobile sticky bar top edge: A 2px growing vine that tracks scroll progress
 
-1. **Candlelight Warmth (Layer 1):**
-   - `radial-gradient(ellipse 80% 120% at 50% 100%, hsl(var(--vow-yellow) / 0.025) 0%, transparent 60%)`
-   - Purpose: A single candle burns beneath the navigation bar. Warmth rises from below.
-   - Arrival intensification: opacity increases to `0.04`
-
-2. **Secondary Warmth Pool (Layer 2):**
-   - `radial-gradient(ellipse 60% 100% at 50% 50%, hsl(var(--vow-yellow) / 0.008) 0%, transparent 50%)`
-   - Purpose: Centered ambient warmth. Barely perceptible.
-   - Arrival behavior: Begins `header-warmth-bloom` animation (6s ease-in-out infinite, opacity oscillates 0.6 → 1)
-   - Arrival intensification: base opacity increases to `0.018`
-
-3. **Edge Vignette (Layer 3):**
-   - `radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.18) 100%)`
-   - Purpose: Creates depth. The bar feels recessed, not flat. The edges darken as if light falls off.
-   - Static — does not change with arrival
-
-4. **Film Grain (Layer 4):**
-   - CSS class: `.grain` (defined globally in index.css)
-   - Normal opacity: `0.03` — barely visible, but adds materiality
-   - Arrival opacity: `0.05` — intensifies, as if the grain of aged wood becomes more visible in warm light
-   - Transition: `opacity 700ms ease`
-   - `will-change: opacity` for GPU compositing
-
-**Scroll Progress Thread (Top Edge):**
-- Position: `absolute top-0 left-0`
-- Height: `1px` — razor-thin golden line
-- Width: Dynamically bound to scroll progress (`scrollY / (docHeight - viewportHeight) * 100%`)
-- Color: `linear-gradient(90deg, hsl(var(--vow-yellow) / 0.3), hsl(var(--vow-yellow) / 0.45))`
-- Glow: `box-shadow: 0 0 4px hsl(var(--vow-yellow) / 0.08)`
-- Update mechanism: `requestAnimationFrame`-throttled (no raw scroll listeners)
-- Arrival intensification: glow expands to `8px`, opacity increases to `0.5 / 0.7`
-- Metaphor: The golden thread is the timeline of the ceremony — processional to recessional. At 100%, the ceremony is complete.
-
-**Organic Vine Thread (Bottom Edge):**
-- SVG element: `viewBox="0 0 1200 6"`, `preserveAspectRatio="none"`
-- Path: `M0,3 Q50,1.5 100,3 T200,3 Q250,4.5 300,3 T400,3 Q450,1.5 500,3 T600,3 Q650,4.5 700,3 T800,3 Q850,1.5 900,3 T1000,3 Q1050,4.5 1100,3 T1200,3`
-- This path creates a gentle undulating wave — not a straight line, but an organic vine thread that feels hand-drawn, alive
-- Stroke: Linear gradient from transparent edges to `hsl(45 100% 76% / 0.12-0.15)` center
-- Drop-shadow: `0 0 4px hsl(45 100% 76% / 0.04)`
-- Entrance: `animate-fade-in` at `450ms`
-- Arrival intensification: gradient stops increase to `0.3 / 0.35` opacity; drop-shadow to `6px` at `0.1` opacity
-- Arrival behavior: CSS class `header-vine-breathe` applied — synchronized 4s breathing cycle with footer
-
-**Navigation Links — Piano Key Depression + Spotlight:**
-
-Three primary links (Pricing, About, Proof) plus "Hold My Date" CTA:
-
-- **Entrance:** Staggered `animate-fade-in` at 80ms intervals per link. CTA appears last.
-- **Exit (scroll back up):** Reverse-staggered fade-out — last link exits first, creating a "recessional" feel
-- **Container:** `display: flex`, `align-items: center`, `gap: 32px` (8 * 4px = 2rem)
-- **Link styling:** CSS class `.nav-link` — `text-xs font-sans uppercase tracking-[0.22em]`
-
-**Individual Link Interaction States:**
-
-| State | Transform | Opacity | Text Color | Text Shadow | Duration | Easing |
-|-------|-----------|---------|------------|-------------|----------|--------|
-| Rest | `translateY(0)` | 1.0 | `--muted-foreground` | none | — | — |
-| Hover | `translateY(1px)` | 1.0 | `--primary` | none | 180ms | brand |
-| Press | `translateY(2px)` | 1.0 | `--primary` | none | 60ms | ease-out |
-| Release | `translateY(1px)` → `translateY(0)` | 1.0 | transitions back | none | 180ms | brand |
-| Active (current page) | `translateY(0)` | 1.0 | `--foreground` | none | — | — |
-| Dimmed (spotlight) | `translateY(0)` | 0.35 | unchanged | none | 180ms | brand |
-
-**Vow-Yellow Underline (per link):**
-- Position: `absolute -bottom-1 left-0 w-full`
-- Height: `1px`
-- Origin: `center` — draws outward from center
-- Color: `linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.4), transparent)`
-- Active page: `scale-x-100` with `box-shadow: 0 0 6px hsl(var(--vow-yellow) / 0.1)`
-- Hover: `scale-x-100` (draws from center)
-- Duration: `450ms` — the sacred reveal timing. Not fast. Not slow. The pace of a vow.
-
-**Spotlight Dimming Logic:**
-- `onMouseEnter` on nav container sets `hoveredNavIndex`
-- `onMouseLeave` on nav container resets to `null`
-- When `hoveredNavIndex !== null && hoveredNavIndex !== i`: link gets `opacity: 0.35`
-- This creates a **piano spotlight** effect — like a stage light following the pianist's hands. Only the hovered note is illuminated.
-
-**"Hold My Date" CTA:**
-- Wrapped in a `<span>` with a radial gradient glow pool behind it:
-  `radial-gradient(ellipse at center, hsl(45 100% 76% / 0.06) 0%, transparent 70%)`
-- On contact page: text changes to "You're here" and glow disappears (the vow has been made)
-- Participates in spotlight dimming like other nav links
-- Has the same piano-key depression physics (1px hover, 2px press)
-- CSS class: `.nav-link--cta` — golden hover drop-shadow: `0 0 6px hsl(var(--vow-yellow) / 0.3)`
-
-**Logo Behavior During Processional:**
-- Remains left-aligned
-- Candle warmth pool behind logo: `radial-gradient(circle 60px at center, hsl(var(--vow-yellow) / 0.03) 0%, transparent 70%)`
-- Hover: text color shifts to `--primary` (Vow Yellow)
-- Has `focus-visible` ring for keyboard navigation
+**The Arrival Synchronization:**
+When the footer enters the viewport, the header's bottom vine and the footer's top vine begin to pulse in perfect synchronization — their breathing cycles align to the same 4000ms rhythm, creating the visual impression of a single organic thread connecting crown to foundation. This is the "two hands clasping" moment. The vine threads become a single, continuous botanical frame around the page content.
 
 ---
 
-### State 3: THE ARRIVAL (Footer Bookend Visible)
-**Emotional Temperature:** The recessional. The moment after the vows. Completion and covenant.
+## II. THE HEADER — CROWN OF THE CEREMONY ARCH
 
-This is the **easter egg** — the reward for scrolling to the end. The header and footer become one unified frame.
+### 2.1 Structural Anatomy
 
-**Detection Mechanism:**
-- IntersectionObserver watches `[data-footer-bookend]` element
-- Threshold: `0.5` — triggers when half the bookend is visible
-- Sets `isAtFooter` state, which combined with `isScrolled` creates `isArrival`
+The header is a fixed-position element that spans the full viewport width. It contains exactly four zones, arranged left-to-right on desktop:
 
-**Phase 1 — Dissolving:**
-Duration: `navLinks.length × 80ms + 300ms` (total ≈ 540ms for 3 links)
-
-The navigation links perform a **recessional dissolve** — fading out in reverse order. Just as a wedding party exits in reverse (last bridesmaid first, maid of honor last), the navigation links retreat:
-
-- Each link: `opacity: 0`, `transform: translateY(-4px)`
-- Stagger: 80ms intervals, **reverse order** (last link dissolves first)
-- "Hold My Date" CTA dissolves first (delay 0ms) — it served its purpose. The vow has been offered.
-- `transitionTimingFunction: cubic-bezier(0.22, 0.61, 0.36, 1)` — brand easing
-- After all links dissolve: nav container collapses (`width: 0`, `overflow: hidden`, `pointer-events: none`)
-
-**Phase 2 — Arrived:**
-The ceremony frame closes. The officiant (logo) moves to center stage.
-
-- **Logo Glide:** Transform-based centering:
-  `transform: translateX(calc(50vw - 50% - var(--hero-space-edge, 48px)))`
-  - Duration: `450ms`
-  - Easing: `cubic-bezier(0.22, 0.61, 0.36, 1)`
-  - The logo physically glides from left to center — this is the officiant stepping forward after the vows
-
-- **Logo Ceremonial Glow:**
-  - Text-shadow: `0 0 24px hsl(var(--vow-yellow) / 0.1), 0 0 60px hsl(var(--vow-yellow) / 0.04)`
-  - Transition: `text-shadow 700ms ease`
-  - Candle warmth pool behind logo intensifies: `0.03 → 0.08` opacity
-
-- **Vow-Yellow Underline Under Logo:**
-  - `scale-x-0 → scale-x-100` at `450ms`, delayed `200ms` after logo arrives
-  - Color: `linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.4), transparent)`
-  - Glow: `box-shadow: 0 0 8px hsl(var(--vow-yellow) / 0.12)`
-  - Origin: `center` — draws outward from center, like a blessing spreading
-
-- **Menu Button Softening:**
-  - Opacity: `0.4` (still accessible but whispers)
-  - Transition delay: `200ms`
-  - The menu is still reachable — accessibility is never compromised — but it steps back
-
-- **Arrival Tagline:**
-  - "'Til Death ; Unto Life." appears below the header
-  - Position: `absolute bottom-[8px] left-1/2 -translate-x-1/2`
-  - Animation: `arrival-tagline-rise` — `opacity: 0, translateY(8px)` → `opacity: 1, translateY(0)` over `700ms`
-  - Delay: `300ms` after arrival phase begins
-  - Font: `font-display text-[10px] text-foreground/15 tracking-[0.18em]` — a ghost, barely visible
-  - Semicolon: `text-primary/25` with `semicolon-heartbeat` animation (2s cycle, 1s delay)
-  - This is not a CTA. It is a **covenant echo** — the same words that appear in the footer, now mirrored in the header. The frame is complete.
-
-- **Vine Thread Synchronization:**
-  - CSS class `header-vine-breathe` applied
-  - The header's vine thread now breathes on a **shared 4s cycle** with the footer's vine thread
-  - Both vines pulse between their base opacity and 1.5× base
-  - The visual impression: a single golden thread runs from the top of the viewport to the bottom, pulsing with the rhythm of a heartbeat
-
-**Atmospheric Intensification Summary:**
-
-| Layer | Normal | Arrival | Transition |
-|-------|--------|---------|------------|
-| Candlelight warmth | 2.5% opacity | 4% opacity | 900ms |
-| Secondary warmth | 0.8% opacity, static | 1.8% opacity, 6s breathe | 700ms |
-| Film grain | 3% opacity | 5% opacity | 700ms |
-| Scroll progress glow | 4px, 8% | 8px, 15% | 700ms |
-| Vine thread gradient | 12-15% | 30-35% | 450ms |
-| Logo candle pool | 3% | 8% | 900ms |
-
----
-
-## IV. THE FULL-SCREEN MENU — "THE SCORE"
-
-Opening the menu is like opening a musical score. The world falls away. The lights dim. You are alone with the music — alone with the navigation, in the deepest, most sacred space of the brand.
-
-### The Inhale/Exhale Model:
-- **Opening the menu** is an **inhale** — the world contracts, darkens, focuses
-- **Closing the menu** is an **exhale** — the world expands, lightens, releases
-- The menu transition itself is `opacity 260ms` — quick enough to feel responsive, slow enough to feel intentional
-
-### Atmospheric Layers (5 total):
-
-1. **Film Grain (Layer 1):**
-   - CSS class: `.grain`
-   - Opacity: `0.06` — heavier than the header (6% vs 3%) because this is the vigil space
-   - `will-change: opacity` for GPU compositing
-   - Purpose: Sacred texture. The grain of aged parchment, of ceremony programs, of piano wood.
-
-2. **Edge Vignette (Layer 2):**
-   - `radial-gradient(ellipse at center, transparent 25%, hsl(240 9% 2% / 0.6) 70%, hsl(240 9% 1%) 100%)`
-   - Purpose: Concentrates focus inward. The edges of the viewport darken, creating a tunnel of attention toward the menu items. Like looking down the nave of a dark cathedral.
-
-3. **Primary Candlelight (Layer 3):**
-   - `radial-gradient(ellipse 50% 70% at 25% 45%, hsl(var(--vow-yellow) / 0.025) 0%, transparent 50%)`
-   - Position: Left of center, where the menu items sit
-   - Purpose: A single candle illuminates the score. The light falls on the music, not the walls.
-
-4. **Secondary Candle Warmth (Layer 4):**
-   - `radial-gradient(ellipse at 50% 55%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 35%)`
-   - Animation: `menu-candle-breathe` — 6s ease-in-out infinite, opacity oscillates 0.7 → 1
-   - Purpose: The candle breathes. The light is alive. This is not a screen; this is a vigil.
-
-5. **Deep Charcoal Fog (Layer 5):**
-   - `radial-gradient(ellipse at 70% 80%, hsl(222 10% 7% / 0.4) 0%, transparent 45%)`
-   - Animation: `menu-fog-drift` — 18s ease-in-out infinite alternate
-   - Transform: `translate(0, 0) scale(1)` → `translate(-1.5%, 0.8%) scale(1.03)`
-   - Purpose: Atmospheric depth. The fog drifts slowly, as if smoke from extinguished candles moves through a darkened venue. Barely perceptible, but subconsciously felt.
-
-### Menu Items as Piano Keys:
-
-8 items, numbered 01–08, arranged vertically:
-
-| # | Label | Key Type | Indent | Purpose |
-|---|-------|----------|--------|---------|
-| 01 | Home | White | 0 | Return to the beginning |
-| 02 | Events | Black | 12-16px | Explore the other verticals |
-| 03 | Pricing | White | 0 | Understand the offering |
-| 04 | About | Black | 12-16px | Meet the witness |
-| 05 | Proof | White | 0 | See the covenant kept |
-| 06 | FAQ | Black | 12-16px | Address the fears |
-| 07 | Listen | White | 0 | Hear the sound |
-| 08 | Contact | Black | 12-16px | Cross the threshold |
-
-**The White/Black Key Pattern:**
-- Even-indexed items (0, 2, 4, 6) = **White keys** — flush left, larger presence
-- Odd-indexed items (1, 3, 5, 7) = **Black keys** — indented with `md:pl-3 lg:pl-4`
-- Black keys have a subtle vertical shadow bar at their left edge:
-  `linear-gradient(to bottom, transparent, hsl(var(--foreground) / 0.03), transparent)`
-  This shadow intensifies to `0.08` on hover — the physical depth of a black key
-
-**Typography Hierarchy:**
-- Font: `font-display` (Cormorant Garamond)
-- Size: `text-3xl md:text-4xl lg:text-5xl` — large, commanding, readable
-- Numbers: `text-xs font-sans min-w-[2.5ch] tabular-nums` — small, precise, muted
-- Gap between number and label: `gap-4 md:gap-6`
-- Active page number: `text-primary/50` (golden tint)
-- Inactive number: `text-muted-foreground/40`, hover: `text-primary/25`
-
-**Piano Key Depression Physics:**
-
-| State | Transform | Duration | Easing | Visual Effect |
-|-------|-----------|----------|--------|---------------|
-| Rest | `translateY(0)` | — | — | Neutral position |
-| Hover | `translateY(1px)` | 180ms | `cubic-bezier(0.22,0.61,0.36,1)` | Key lifts from anticipation |
-| Press | `translateY(2px)` | 60ms | `cubic-bezier(0.4, 0, 1, 1)` | Key snaps down — hammer strikes string |
-| Release | Back to hover → rest | 180ms | brand easing | Key returns with resonance |
-
-**Text Shadow on Hover:**
-- `0 0 30px hsl(var(--vow-yellow) / 0.08)` — golden warmth, as if the key glows when touched
-- Active page: `0 0 20px hsl(var(--vow-yellow) / 0.05)` — persistent but quieter
-
-**Spotlight Dimming:**
-- `hoveredIndex !== null && hoveredIndex !== index`: opacity `0.2`
-- Deeper dimming than header (0.2 vs 0.35) because the vigil space demands more focus
-- Only the hovered key is fully illuminated — like a single key lit on a dark stage
-
-**Golden Thread Connections:**
-- Between each item: a 1px vertical golden line, 10px tall
-- Normal opacity: `hsl(var(--vow-yellow) / 0.06)` — barely visible
-- When either adjacent item is hovered: opacity increases to `0.25`
-- These threads are the **bar lines** of the musical score — structural divisions that connect the measures
-
-**Underline Draw:**
-- `absolute -bottom-1 left-0 w-full h-[1px] origin-left`
-- Active page: `scale-x-100`, gradient from golden to transparent, with `8px` glow
-- Hover: `scale-x-100`, same gradient but weaker glow (`6px`)
-- Duration: `450ms` — sacred reveal timing
-- Origin: `left` (not center like header) — draws from the beginning, like reading music left to right
-
-**Musical Staff Lines:**
-- 5 faint horizontal rules positioned behind the menu items
-- Created with div elements, each `w-full h-px`
-- Opacity: `2.5-4%` foreground color (center line slightly stronger)
-- Spacing: `48px` apart (one octave of visual space)
-- Entrance: staggered at `600ms + line * 60ms` after menu opens
-- These create the impression of sheet music — the five-line staff on which the navigation notes sit
-
-### Stagger Choreography (The Orchestration):
-
-| Element | Delay | Duration | Animation |
-|---------|-------|----------|-----------|
-| Overlay background | 0ms | 260ms | opacity 0 → 1 |
-| Close button | 300ms | 260ms | opacity 0 → 1 |
-| Menu item 01 | 300ms | 260ms | translateY(24px) → 0, opacity 0 → 1 |
-| Menu item 02 | 360ms | 260ms | same |
-| Menu item 03 | 420ms | 260ms | same |
-| Menu item 04 | 480ms | 260ms | same |
-| Menu item 05 | 540ms | 260ms | same |
-| Menu item 06 | 600ms | 260ms | same |
-| Menu item 07 | 660ms | 260ms | same |
-| Menu item 08 | 720ms | 260ms | same |
-| Staff lines | 600-900ms | 700ms | opacity 0 → 1 |
-| Vine thread | 700ms | 400ms | opacity 0 → 1 |
-| Contact info | 750ms | 300ms | translateY(16px) → 0, opacity 0 → 1 |
-| Covenant bookend | 850ms | 400ms | opacity 0 → 1 |
-
-Total orchestration time: ~1050ms from open. Every element has its entrance cue, like instruments entering a score.
-
-### Link Click Behavior:
-- `onClick`: preventDefault, set pressedIndex, tactile delay of `120ms`
-- After delay: reset pressedIndex, close menu, navigate via `usePageTransition`
-- The 120ms delay is **not** a performance issue — it is the **mechanical travel time** of a piano key. The user *feels* the press before the page changes.
-
-### Close Interaction:
-- "Close" label + X icon with `rotate-90` on hover
-- Both elements: `text-muted-foreground`, hover: `text-primary`
-- Escape key closes (event listener added on mount, removed on unmount)
-- Focus trap: Tab cycles through all interactive elements, Shift+Tab reverses
-- First focusable element receives focus on open
-
-### Covenant Bookend (Coda):
-- Breathing golden dot: `w-1.5 h-1.5 rounded-full`
-  - Background: `hsl(var(--vow-yellow) / 0.35)`
-  - Box-shadow: `0 0 6px hsl(var(--vow-yellow) / 0.1)`
-  - Animation: `menu-dot-breathe` — 4s ease-in-out infinite
-  - Opacity oscillates: `0.4 → 0.8`; shadow: `4px → 10px`
-- Tagline: `font-display text-sm text-foreground/25 tracking-wide`
-- Semicolon: `text-primary/40` with `semicolon-heartbeat` (2s infinite)
-- This is the **coda** — the final notation that signals the piece is complete
-
----
-
-## V. THE UNIFIED CEREMONIAL FRAME — THE EASTER EGG
-
-When a visitor reaches the bottom of any page, the header and footer become one. This is the most important design detail on the entire site.
-
-### The Concept:
-Imagine a wedding venue. The arch at the front. The threshold at the back. During the ceremony, they are separate — distant. But at the moment the couple turns to face their guests as married, the arch and threshold become a single frame around them. The venue itself becomes the witness.
-
-That is what happens here. The header arch and footer threshold **synchronize** — their golden threads breathe together, their atmospheric layers intensify in harmony, their taglines echo each other. The browser viewport becomes the venue.
-
-### Technical Implementation:
-
-**Shared Detection:**
-Both `MinimalHeader` and `Footer` independently observe `[data-footer-bookend]` via IntersectionObserver (threshold 0.5). They do not communicate directly — they respond to the same signal, like two musicians watching the same conductor.
-
-**Synchronized Breathing:**
-- Header vine thread: CSS class `header-vine-breathe` (4s cycle)
-- Footer vine thread: CSS class `footer-vine-breathe` (4s cycle)
-- Both defined in index.css with identical timing: `4s ease-in-out infinite`
-- The cycles start when arrival is detected — since both trigger from the same IntersectionObserver event, they naturally sync
-- Visual effect: opacity pulses between base and 1.5× base, creating the impression of a single golden thread connecting top to bottom
-
-**Mirror Symmetry:**
-- Header vine path: Q peaks point **downward** (toward content)
-- Footer vine path: Q peaks point **upward** (toward content, mirror of header)
-- When both are visible during arrival, they create a visual **parenthesis** — `( content )` — framing the covenant
-
-**Atmospheric Harmony:**
-During arrival, both header and footer intensify their atmospheric layers:
-
-| Property | Header (Normal → Arrival) | Footer (Normal → Arrival) |
-|----------|--------------------------|--------------------------|
-| Film grain | 3% → 5% | 6% → 8% |
-| Warm fog | 0.8% → 1.8% | 1.5% → 3.5% |
-| Candlelight | 2.5% → 4% | 1.5% → 3% |
-| Vine thread | 12% → 30% | 10% → 30% |
-| Vignette | Static | Breathes on arrival |
-
-**Tagline Echo:**
-- Header: `'Til Death ; Unto Life.` at `10px, 15% opacity` — a whisper, a ghost
-- Footer: `'Til Death ; Unto Life.` at `sm, 40% opacity` — a statement, a covenant
-- Both use the semicolon heartbeat animation (2s cycle)
-- The repetition is intentional — it is the same covenant, spoken twice: once as a whisper of hope (header), once as a declaration of commitment (footer)
-
-**Mobile Coordination:**
-- The `MobileStickyBar` fades out (`opacity-0, translate-y-full`) when the footer bookend enters the viewport
-- This prevents CTA duplication and allows the footer's own CTA to take primacy
-- The mobile dot navigator also fades, giving the arrival state full visual authority
-
----
-
-## VI. THE PIANO KEY SIDEBAR NAVIGATOR
-
-A bespoke vertical section navigator fixed to the right viewport edge (desktop/tablet only, hidden on mobile).
-
-### Visual Design:
-- Fixed position: right edge of viewport, vertically centered
-- Alternating white and black 3D keys using gradients and negative margins
-- **White keys:** `w-7 h-[18px]`, background gradient from `hsl(0 0% 95%)` to `hsl(0 0% 85%)`, rounded-r corners
-- **Black keys:** `w-5 h-[14px]`, background gradient from `hsl(222 10% 18%)` to `hsl(222 10% 12%)`, negative margin to overlap white keys, higher z-index
-- Each key has a `1px` bottom border for depth separation
-- **Golden thread progress line:** Behind the keys, a 1px vertical golden line fills downward based on scroll depth
-
-### Interaction:
-- Click: Smooth-scroll to section via `lenis.scrollTo(target, { offset, duration: 800 })`
-- **Key depression:** `translateX(-3px)` on click (key presses inward toward content)
-  - Duration: 60ms snap, 450ms release with overshoot
-  - Overshoot: `cubic-bezier(0.22, 1.36, 0.36, 1)` — the key bounces slightly past rest on release
-- **Active glow:** Active section key gets `box-shadow: 0 0 8px hsl(var(--vow-yellow) / 0.3)` and a warm golden hue
-- **Tooltip:** Named section label appears on hover, offset from key
-
-### Entrance Animation:
-- One-time staggered entrance on first scroll past hero
-- Each key: `translateX(20px) → translateX(0)` at `40ms` stagger intervals
-- Total entrance: `sections.length * 40 + 260ms`
-- `hasAnimated` flag prevents re-triggering
-
-### Accessibility:
-- `role="navigation"`, `aria-label="Page sections"`
-- Each key: `role="button"`, `aria-label={section.label}`, `tabIndex={0}`
-- Keyboard: Enter/Space activates scroll
-- Tooltip uses `aria-hidden="true"` (the aria-label carries the information)
-
----
-
-## VII. BUTTON PHILOSOPHY — THE PIANO KEY AS INTERFACE
-
-Every button on this site is a piano key. Not literally — but in its physics, its feedback, and its emotional weight. The button component (`src/components/ui/button.tsx`) implements this through carefully layered CSS.
-
-### The Physics Model:
-
-**Rest → Hover → Press → Release** mimics the mechanical action of a piano key:
-
-1. **Rest (translateY: 0, scale: 1):** The key sits at its natural position. Shadow at rest depth. Ready.
-2. **Hover (translateY: -1px, scale: 1.02):** The key lifts — magnetic anticipation. Shadow deepens and extends beneath, creating the illusion of the key rising away from the surface. This is the moment your finger approaches the key.
-3. **Press (translateY: 0, scale: 1):** The key depresses back to or past its rest position. Shadow compresses to minimum. This is the hammer striking the string. The duration is **instantaneous** — the active state must feel certain, committed.
-4. **Release (back to rest over 250ms):** The key returns with the resonance of a struck note. The brand easing (`cubic-bezier(0.22, 0.61, 0.36, 1)`) provides a gentle deceleration — the key doesn't snap back; it *settles*.
-
-### Shadow as Depth Indicator:
-
-Each button variant uses three shadow states:
-- **Rest shadow:** The button's natural elevation
-- **Hover shadow:** Deeper, wider — the button has risen, its shadow stretches
-- **Active shadow:** Compressed, tight — the button has pressed down, its shadow contracts
-
-For the primary (Vow Yellow) button:
-- Rest: `0 8px 24px rgba(255,224,138,0.18)` — warm candlelight beneath
-- Hover: `0 12px 32px rgba(255,224,138,0.28), 0 0 16px rgba(255,224,138,0.08)` — glow intensifies, secondary aura appears
-- Active: `0 4px 12px rgba(255,224,138,0.12)` — compressed, the key is down
-
-### Brand Easing:
-All button transitions use `cubic-bezier(0.22, 0.61, 0.36, 1)` — the site's signature easing curve. This curve has:
-- A gentle start (0.22 — not aggressive)
-- A strong middle (0.61 — purposeful)
-- A soft landing (0.36, 1 — settles gracefully)
-
-It feels like a piano key's return mechanism — controlled, weighted, musical.
-
-### Variant Specifications:
-
-*(See Section V of the previous version for full variant descriptions with brand narratives)*
-
-### Universal Specifications:
-- Shape: `rounded-full` — pill/capsule form. Organic, non-aggressive, inviting
-- Font: `font-display` (Cormorant Garamond) at `15px` with `font-medium` weight
-- The serif font carries gravitas that sans-serif cannot. Buttons on this site are not clickable rectangles — they are engraved invitations.
-- Focus: `ring-[3px] ring-primary/70` — golden focus ring, visible and accessible
-- Disabled: `opacity-50, pointer-events-none` — the piano lid is closed
-- SVG icons: `pointer-events-none, size-4, shrink-0` — icons serve the label, never distract
-
----
-
-## VIII. THE FOOTER — "THE COVENANT CLOSE"
-
-The footer is not an afterthought. It is the **threshold stone** — the final step of the ceremony, where the couple crosses from the sacred space into their new life together.
-
-### Architecture:
-- 3-column grid on desktop: "Parker Gawryletz" (brand) | "Navigate" (7-page list) | "Reach Me" (contact)
-- Mobile: single-column stack with same content order
-
-### Atmospheric Layers (5 total, mirroring the header's atmospheric philosophy):
-
-1. **Grain:** 6% normal, 8% arrival
-2. **Edge Vignette:** Darkens edges with `hsl(240 9% 2%)`
-3. **Top-Center Warm Fog:** `hsl(var(--vow-yellow) / 0.015)`, arrival: `0.035`
-4. **Bottom-Center Warm Fog (Dual-Origin):** `hsl(var(--vow-yellow) / 0.012)`, arrival: `0.03`
-5. **Breathing Vignette:** On arrival, CSS class `footer-vignette-breathe` — opacity pulses
-
-### Organic Vine Thread (Top Edge — Mirror of Header):
-- Same SVG construction as header, but path peaks point **upward** (mirror)
-- `d="M0,3 Q50,4.5 100,3 T200,3 Q250,1.5 300,3 ..."`
-- On arrival: `footer-vine-breathe` class — synchronized 4s cycle with header
-
-### Navigation Links:
-- 7 links in a `<ul>` with `group/nav` spotlight dimming
-- Each link: `text-foreground/50`, hover: `text-primary`
-- Piano key depression: `hover:translate-y-[1px]`, `active:translate-y-[2px]`
-- Spotlight: `group-hover/nav:[&:not(:hover)]:opacity-40`
-- Story link underline: `.story-link` class from global CSS
-
-### Social Icons:
-- 4 icons: Mail, Phone, Instagram, YouTube
-- `group/icons` spotlight dimming: non-hovered icons dim to 40%
-- Hover color: `text-vow-yellow` with `drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)]`
-- Separated by golden diamond markers: `w-1 h-1 rotate-45` with vow-yellow at 30%
-- Touch target: `p-3.5 -m-3.5` — 14px padding creates 46px touch target from 18px icon
-
-### Subtle CTA:
-- "Ready to begin?" prompt + "Hold my date" ghost-dark button
-- Golden glow pool behind button: `radial-gradient(circle, hsl(var(--vow-yellow) / 0.04) 0%, transparent 70%)`
-- Arrival: glow intensifies via `footer-cta-arrival-glow` class
-
-### Covenant Bookend (`[data-footer-bookend]`):
-This is the element that triggers the arrival state site-wide.
-- Mini golden thread echo: `h-[1px] w-8`, arrival: breathing
-- Triple-glow golden dot: `w-2 h-2 rounded-full`, breathing on 4s cycle (normal) or intensified arrival cycle
-- Tagline: `'Til Death ; Unto Life.` with semicolon heartbeat
-
-### Staggered Entrance:
-Columns fade in with `150ms` stagger delays when the footer enters the viewport (IntersectionObserver via `useScrollReveal`).
-
----
-
-## IX. ACCESSIBILITY COVENANT
-
-Navigation accessibility is non-negotiable. It is a sacred duty — the digital equivalent of ensuring every seat at the ceremony has a clear view of the altar.
-
-### Keyboard Navigation:
-- **Tab order:** Logo → Nav links (left to right) → CTA → Menu button
-- **Focus ring:** `2px solid hsl(var(--ring))` at 70% opacity, `2px offset`, `rounded-sm`
-- Ring color: Vow Yellow on dark backgrounds, charcoal on light — always visible
-- **Escape:** Closes full-screen menu, any open overlays
-- **Arrow keys:** Navigate between menu items in full-screen menu
-- **Enter/Space:** Activate focused link or button
-
-### Screen Reader Support:
-- `<header>` has implicit `banner` role
-- `<nav>` elements have `aria-label` descriptions
-- Full-screen menu: `role="dialog"`, `aria-modal="true"`, `aria-label="Site navigation menu"`
-- `<span class="sr-only">` provides narrative context for complex visual states
-- All decorative layers: `aria-hidden="true"`
-- All icons: either `aria-label` on parent or `sr-only` text
-
-### Reduced Motion:
-- Media query: `@media (prefers-reduced-motion: reduce)`
-- All `animation-duration` values: `0.01ms !important` (effectively instant)
-- All `transition-duration` values: `120ms !important` (minimum perceivable)
-- Breathing cycles stop
-- Piano key depression disabled
-- Content and navigation remain fully functional
-- The vigil sequence skips to reveal state
-
-### Color Contrast:
-- All navigation text: minimum 4.5:1 against background
-- Focus indicators: minimum 3:1 against adjacent colors
-- Golden accents (`--vow-yellow`): always paired with text labels — never sole information carrier
-- Muted text (`foreground/40-50%`): still meets 4.5:1 on dark backgrounds
-
-### Touch Targets:
-- All interactive elements: minimum `44px × 44px` touch area
-- Achieved via padding (`p-3.5`) on icons and adequate button heights (`h-9` to `h-11`)
-- Spacing between targets: minimum `8px` to prevent mis-taps
-
----
-
-## X. PERFORMANCE STANDARDS
-
-- Navigation initial render: < 100ms
-- No layout shift (CLS = 0) from state transitions
-- All animations use `transform` and `opacity` only — GPU-composited properties
-- `will-change` applied only to actively animating elements (grain opacity, vine thread)
-- IntersectionObserver for footer detection — no scroll event polling
-- `requestAnimationFrame` for scroll progress — throttled, no setTimeout
-- CSS animations preferred over JS-driven animations for breathing/heartbeat cycles
-- `<style>` blocks for keyframes are component-scoped to prevent global pollution
-- SVG vine threads use `preserveAspectRatio="none"` for responsive scaling without repainting
-
----
-
-## XI. ANIMATION KEYFRAMES REFERENCE
-
-### Header Keyframes:
-```css
-@keyframes header-warmth-bloom {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
-}
-
-@keyframes arrival-tagline-rise {
-  from { opacity: 0; transform: translateY(8px) translateX(-50%); }
-  to { opacity: 1; transform: translateY(0) translateX(-50%); }
-}
+```
+[WORDMARK] ———————————— [NAV LINKS] ———— [CTA] ———— [MENU TRIGGER]
 ```
 
-### Menu Keyframes:
-```css
-@keyframes menu-candle-breathe {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
-}
+**Zone 1: The Wordmark (Left)**
+- Text: "Parker Gawryletz" in Cormorant Garamond
+- Size: 18px, letter-spacing: 0.08em, font-weight: 300
+- The wordmark is not a logo — it is a signature. It should feel handwritten, personal, intimate.
+- Hover state: Letter-spacing expands to 0.12em over 260ms — the name "breathes" open
+- Click: Returns to home (/) with a 260ms page transition
+- Arrival state: The wordmark glides to center-alignment over 260ms, weight increases to 400, and a vow-yellow underline draws beneath it (450ms, sacred easing)
 
-@keyframes menu-fog-drift {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(-1.5%, 0.8%) scale(1.03); }
-}
+**Zone 2: The Navigation Links (Center-Right)**
+- Items: Up to 4 visible links on desktop (determined by current page context)
+- Typography: 11px uppercase, letter-spacing: 0.14em, font-weight: 300
+- These links appear only after the visitor scrolls past the first viewport (100vh)
+- Entrance: Stagger-fade from left to right, 80ms intervals, 260ms duration each
+- Active state: Vow-yellow underline draws from center outward (450ms)
+- Hover state: 1px key depression + spotlight damper on siblings
+- Exit (on scroll-up past 100vh): Reverse stagger-fade, right to left, 80ms intervals
 
-@keyframes menu-dot-breathe {
-  0%, 100% { opacity: 0.4; box-shadow: 0 0 4px hsl(var(--vow-yellow) / 0.08); }
-  50% { opacity: 0.8; box-shadow: 0 0 10px hsl(var(--vow-yellow) / 0.18); }
-}
+**Zone 3: The CTA (Right of Nav Links)**
+- A single, context-aware button that changes label based on the current page:
+  - Wedding pages: "Hold My Date"
+  - Teaching pages: "Begin the Conversation"
+  - Events pages: "Discuss Your Event"
+  - Contact page: "You're Here" (disabled state — the visitor has arrived)
+- Variant: `accent` — Vow-yellow background, charcoal text
+- Hover: Golden aura pulse (box-shadow breathing) + 1px key depression
+- The CTA is the sustain pedal of the header — it holds attention with warmth
+
+**Zone 4: The Menu Trigger (Far Right)**
+- A bespoke hamburger icon built from three horizontal lines
+- The lines are not equal — they are "piano strings":
+  - Top line: 24px width (treble string — thin, bright)
+  - Middle line: 20px width (middle string)
+  - Bottom line: 16px width (bass string — short, grounded)
+- Hover: Lines expand to equal 24px width over 180ms (the strings tune to unison)
+- Active/Open: Lines transform into an X with rotation animation (260ms)
+- The transition from hamburger to X uses the sacred easing curve
+- Each line is 1px height with 6px vertical spacing
+
+### 2.2 Atmospheric Layers
+
+The header is not a flat bar. It is a layered atmospheric composition:
+
+**Layer 0: The Void (Base)**
+- background: transparent (in Vigil state, the header is invisible against dark heroes)
+
+**Layer 1: The Fog (Scroll-Activated)**
+- After scrolling 50px: A gradient fog rises from below
+- background: linear-gradient(to bottom, hsl(var(--background) / 0.92), hsl(var(--background) / 0.0))
+- backdrop-filter: blur(12px) saturate(1.1)
+- Transition: 260ms ease-out
+- This creates the effect of the header materializing from mist — like a venue appearing through morning fog
+
+**Layer 2: The Candlelight (Ambient)**
+- A radial gradient positioned at the center of the header
+- background: radial-gradient(ellipse 60% 100% at 50% 0%, hsl(var(--vow-yellow) / 0.03), transparent)
+- This creates the faintest warm glow at the top of every page — candlelight from above
+- In Arrival state: Intensity increases to 0.08 opacity — the candles brighten as the ceremony concludes
+
+**Layer 3: The Film Grain (Texture)**
+- A CSS-generated noise texture at 3% opacity
+- This prevents the header from feeling "digital" — adds the organic imperfection of a film photograph
+- Implementation: Pseudo-element with repeating SVG noise pattern
+- In Arrival state: Grain intensity increases to 6% — the atmosphere thickens
+
+**Layer 4: The Vine Thread (Bottom Edge)**
+- The organic SVG border described in Section 1.4
+- Replaces any straight-line bottom border
+- Grows from center outward on first scroll (1200ms)
+- Breathes at 4000ms cycle in idle state
+- Synchronizes with footer vine in Arrival state
+
+### 2.3 The Height Covenant
+
+The header height is sacred — it must never compete with content:
+
+- Desktop: 72px (sufficient for wordmark + nav + breathing room)
+- Tablet: 64px
+- Mobile: 56px
+- These values are fixed. The header never grows, never shrinks, never shifts. It is the constant — the architectural beam that does not move while the ceremony unfolds below.
+
+### 2.4 Scroll Behavior — The Processional Choreography
+
+The header responds to scroll with a precise choreography:
+
+**Phase 1: The Vigil (0–50px scroll)**
+- Header is fully transparent
+- Only wordmark and menu trigger are visible
+- No atmospheric layers active
+- The visitor is in the "held breath" moment — the header waits
+
+**Phase 2: The Materialization (50–200px scroll)**
+- Fog layer fades in (260ms)
+- Candlelight layer activates
+- Film grain appears
+- The header "condenses" from atmosphere — like breath becoming visible in cold air
+
+**Phase 3: The Processional (200px–100vh scroll)**
+- Header is fully materialized
+- Nav links begin their stagger-entrance
+- CTA button fades in
+- Vine thread grows along bottom edge
+- The visitor is now "walking the aisle" — the header guides them
+
+**Phase 4: The Steady State (100vh+ scroll)**
+- All elements are visible and interactive
+- Header hides on downward scroll (240ms translateY to -100%)
+- Header reveals on upward scroll (240ms translateY to 0)
+- This "peek-a-boo" behavior respects content space while maintaining orientation
+
+**Phase 5: The Arrival (Footer visible)**
+- Nav links dissolve in reverse stagger (80ms intervals, right to left)
+- CTA fades out (180ms)
+- Wordmark glides to center (260ms)
+- Vow-yellow underline draws beneath centered wordmark (450ms)
+- Vine thread intensifies and synchronizes with footer
+- Candlelight layer brightens
+- Film grain thickens
+- The header has become the crown of the ceremony arch — no longer a navigation tool, but a ceremonial frame
+
+### 2.5 Hide/Reveal Intelligence
+
+The header's hide/reveal behavior on scroll is not a simple "hide on down, show on up." It uses intelligent thresholds:
+
+- **Scroll Down Threshold:** Header hides after 80px of continuous downward scroll (prevents hiding on micro-scrolls or bounce)
+- **Scroll Up Threshold:** Header reveals after 30px of upward scroll (faster reveal — the visitor is seeking orientation)
+- **Velocity Dampening:** If the visitor is scrolling very fast (>2000px/s), the header stays hidden — they are scanning, not seeking navigation
+- **Anchor Exception:** If the visitor clicks a same-page anchor link, the header reveals and stays visible for 2000ms before resuming auto-hide behavior
+- **Form Exception:** If a form field is focused, the header hides and stays hidden to maximize input space (mobile)
+
+---
+
+## III. THE FULL-SCREEN MENU — THE NAVE
+
+### 3.1 The Concept
+
+When the menu trigger is activated, the full-screen menu is not a overlay — it is a space. The visitor steps from the aisle into the nave of a cathedral. The ceiling is high. The walls are dark. The light comes from within.
+
+### 3.2 Entrance Choreography — The Doors Opening
+
+The menu opens like cathedral doors:
+
+**Beat 1 (0ms):** A charcoal veil begins to descend from the top of the viewport
+- background: hsl(var(--background))
+- Transition: 400ms with sacred easing
+- The veil covers content progressively — this is not a snap, it is a curtain
+
+**Beat 2 (200ms):** The menu items begin their entrance
+- Items are numbered 01 through 08
+- Each item enters from below with a 12px translateY and opacity 0→1
+- Stagger: 60ms between each item
+- Duration: 300ms per item with sacred easing
+- Total entrance time: 200ms + (8 × 60ms) + 300ms = ~980ms
+
+**Beat 3 (600ms):** The atmospheric layers activate
+- Film grain fades in at 5% opacity
+- A very subtle radial warmth appears at the center (candlelight, 4% opacity)
+- The vine thread separators between items grow from center outward
+
+**Beat 4 (900ms):** The footer information appears at the bottom
+- Contact details, social links fade in
+- The tagline "'Til Death ; Unto Life" appears with the semicolon glowing
+
+### 3.3 Menu Item Design
+
+Each menu item is a full-width row containing:
+
+```
+[NUMBER]  [LABEL]                                              [DESCRIPTION]
 ```
 
-### Shared Keyframes (index.css):
-```css
-@keyframes semicolon-heartbeat {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.8; }
-}
+**Number:** 
+- Font: Cormorant Garamond, 14px, weight 300
+- Color: hsl(var(--vow-yellow) / 0.40)
+- Format: "01" through "08" (always two digits — precision, ceremony)
 
-/* Vine breathing — synchronized 4s cycle */
-.header-vine-breathe { animation: vine-breathe 4s ease-in-out infinite; }
-.footer-vine-breathe { animation: vine-breathe 4s ease-in-out infinite; }
+**Label:**
+- Font: Cormorant Garamond, 48px (desktop) / 32px (mobile), weight 300
+- Color: hsl(var(--foreground))
+- Letter-spacing: 0.04em
+- Text-transform: none (sentence case — intimate, not corporate)
+
+**Description:**
+- Font: System sans-serif, 12px, weight 300
+- Color: hsl(var(--foreground) / 0.50)
+- A single phrase describing the page's emotional purpose
+- Desktop only — hidden on mobile for simplicity
+
+**Menu Items and Their Descriptions:**
+1. 01 — Home — "Where the story begins"
+2. 02 — Events — "Beyond the ceremony"
+3. 03 — Teaching — "The conversation before music"
+4. 04 — Pricing — "The offering"
+5. 05 — About — "The witness behind the keys"
+6. 06 — Proof — "Covenants kept"
+7. 07 — Listen — "Hear what your hearts feel like"
+8. 08 — Contact — "Begin the conversation"
+
+### 3.4 Menu Item Interactions
+
+**Hover — The Spotlight:**
+- Hovered item: opacity remains 1.0, text color shifts to hsl(var(--vow-yellow)), number glows
+- All other items: opacity drops to 0.30 over 180ms
+- A horizontal vine thread grows beneath the hovered item (450ms, center outward)
+- The item shifts 1px downward (key depression)
+- A barely perceptible golden glow appears behind the number (box-shadow, 6% opacity)
+
+**Active/Press:**
+- Item shifts 2px downward
+- Background flash: hsl(var(--vow-yellow) / 0.04) for 120ms, then fades
+- This is the "note struck" — the visual confirmation of intent
+
+**Current Page Indicator:**
+- The active page's number is solid vow-yellow (not transparent)
+- A small golden dash (12px × 1px) appears to the left of the number
+- The label weight increases to 400 (slightly bolder — this is where you are)
+
+### 3.5 Exit Choreography — The Doors Closing
+
+The menu closes in reverse:
+
+**Beat 1 (0ms):** Footer information fades out (120ms)
+**Beat 2 (100ms):** Menu items exit upward in reverse stagger (last item first, 60ms intervals)
+**Beat 3 (400ms):** Atmospheric layers dissolve
+**Beat 4 (500ms):** Charcoal veil rises upward (400ms)
+**Total exit time:** ~900ms
+
+The exit is slightly faster than the entrance — the visitor has made a decision and the navigation should honor their intent without delay.
+
+### 3.6 Keyboard Navigation
+
+- Tab cycles through menu items top to bottom
+- Shift+Tab cycles bottom to top
+- Enter/Space activates the focused item
+- Escape closes the menu (triggers exit choreography)
+- Arrow Up/Down moves focus between items
+- Home/End jumps to first/last item
+- Focus ring: 2px solid hsl(var(--vow-yellow) / 0.60), offset 4px, border-radius 2px
+
+---
+
+## IV. THE FOOTER — FOUNDATION OF THE CEREMONY ARCH
+
+### 4.1 The Concept — The Covenant Close
+
+The footer is not a dumping ground for legal links. It is the foundation stone of the ceremony arch — the place where the brand makes its final promise. If the header says "Welcome to the ceremony," the footer says "The covenant is kept."
+
+### 4.2 Structural Anatomy
+
+The footer is a three-column layout on desktop, single-column stacked on mobile:
+
+**Column 1: The Pianist (Brand)**
+- Wordmark: "Parker Gawryletz" in Cormorant Garamond, 16px, weight 300
+- Beneath: A single sentence — "Wedding pianist. Sound director. Witness."
+- Social icons row with "spotlight" dimming behavior (non-hovered icons at 40% opacity)
+
+**Column 2: Navigate (Site Map)**
+- Seven page links in a vertical list
+- Typography: 12px, uppercase, letter-spacing 0.12em
+- Active page highlighted with vow-yellow color
+- Each link has 1px key depression on hover
+
+**Column 3: Reach Me (Contact)**
+- Email: parker@parkergawryletz.com
+- Location: "Calgary, Cochrane, Canmore, and Banff"
+- A ghost-dark "Hold My Date" CTA button
+
+### 4.3 The Covenant Bookend
+
+At the very bottom of the footer, centered, is the tagline bookend:
+
+```
+                    · 'Til Death ; Unto Life ·
 ```
 
----
+**The Dot:** A 6px circle with triple-layer golden glow:
+- Inner: solid hsl(var(--vow-yellow))
+- Middle: 4px blur at 30% opacity
+- Outer: 8px blur at 15% opacity
+- Breathing animation: Scale between 1.0 and 1.15 on a 4000ms cycle
 
-## XII. THE NORTH STAR QUESTIONS
+**The Semicolon:** The sacred threshold character
+- Color: hsl(var(--vow-yellow))
+- It pulses faintly — opacity between 0.70 and 1.0 on a 3000ms cycle (offset from the dot's cycle by 500ms, creating a "heartbeat" counterpoint)
 
-Before any navigation decision — any pixel, any timing, any label — ask:
+**The Text:** 
+- "'Til Death" — weight 300, normal case
+- "Unto Life" — weight 300, normal case
+- The entire line: 11px, letter-spacing 0.16em, Cormorant Garamond
 
-1. **Does this honor the ceremony?** Does it feel like part of a sacred space, or like a utility toolbar bolted onto a website?
-2. **Does this breathe?** Is there rhythm — inhale/exhale, dark/light, pause/release? Or is it static and dead?
-3. **Would you notice this at a wedding?** Navigation should be invisible during the ceremony and present only when you need orientation. Like a good usher — there when needed, invisible when not.
-4. **Does it reward completion?** The arrival easter egg exists because finishing deserves recognition. Every scroll to the bottom is a covenant kept — by the visitor and by the brand.
-5. **Is every millisecond intentional?** No default values. No "about a second." Every timing is a musical decision — a tempo marking on a score. `60ms` is staccato. `450ms` is legato. `4000ms` is fermata.
-6. **Does it feel like a piano key?** Every interactive element should have weight, mechanism, and resonance. Rest → anticipation → commitment → resonance. The physics of real instruments, translated into digital interaction.
-7. **Is it accessible?** Can someone navigate this with a screen reader, a keyboard, a switch device, their voice? If not, it is not finished. Accessibility is not a feature — it is a covenant.
-8. **Does this serve three verticals?** Weddings, Teaching, Events — the navigation must adapt its emotional temperature while maintaining structural consistency. The frame is the same; the light within changes.
-9. **Does this create symmetry?** Header and footer mirror each other. Vine threads face each other. Taglines echo. The frame closes. Symmetry is not repetition — it is completion.
-10. **Would Fantasy.co approve?** Is the timing precise to the millisecond? Is the atmospheric layering deep enough to feel real? Is every interaction intentional, weighted, and meaningful? Would this survive a design review at the highest level?
+### 4.4 The Atmospheric Bridge
 
----
+The footer does not begin abruptly. A 60px "atmospheric bridge" blends the last content section into the footer:
 
-## XIII. ELEMENT-BY-ELEMENT AUDIT CHECKLIST
+- Gradient: From transparent to hsl(var(--background)) over 60px
+- This prevents a hard visual break — the content "exhales" into the footer
+- A horizontal vine thread marks the true beginning of the footer territory
 
-Use this checklist when reviewing any page's navigation elements:
+### 4.5 The Empty Venue Atmosphere
 
-### Header Elements:
-- [ ] Logo: correct font, tracking, hover color, focus ring
-- [ ] Logo candle warmth pool: correct opacity and radius
-- [ ] Nav links: correct labels, stagger timing, spotlight dimming
-- [ ] Active page underline: correct color, draw direction, glow
-- [ ] CTA: correct label for current vertical/page, glow pool
-- [ ] Scroll progress thread: smooth update, correct gradient, arrival glow
-- [ ] Vine thread: correct path, gradient, arrival breathing class
-- [ ] Atmospheric layers 1-4: correct opacities, arrival intensification
-- [ ] Arrival dissolve: correct reverse stagger timing
-- [ ] Arrival logo glide: correct transform calculation, easing
-- [ ] Arrival tagline: correct positioning, opacity, animation
-- [ ] Menu button: correct entrance delay, arrival softening
+The footer simulates the "empty venue" emotional temperature — the feeling of standing in a ceremony space after all guests have left. The chairs are empty. The candles are low. The flowers are still. But the room remembers what happened here.
 
-### Full-Screen Menu Elements:
-- [ ] Atmospheric layers 1-5: correct opacities and animations
-- [ ] Staff lines: 5 lines, correct opacity, stagger timing
-- [ ] Menu items: correct numbering, white/black key alternation
-- [ ] Indent on black keys: correct padding values
-- [ ] Key depression: 1px hover, 2px press, correct timing
-- [ ] Spotlight dimming: 20% opacity on non-hovered
-- [ ] Golden thread connections: correct position, hover intensification
-- [ ] Click delay: 120ms tactile pause before navigation
-- [ ] Close button: X rotation on hover, correct styling
-- [ ] Focus trap: functional, includes all interactive elements
-- [ ] Contact info: correct text, email link, styling
-- [ ] Covenant bookend: dot breathing, tagline, semicolon heartbeat
-
-### Footer Elements:
-- [ ] Vine thread (top): mirror path of header, arrival breathing
-- [ ] Atmospheric layers 1-5: correct, arrival intensification
-- [ ] Golden thread separators: correct width, glow, arrival behavior
-- [ ] Navigation links: spotlight dimming, key depression, story-link underline
-- [ ] Social icons: spotlight dimming, golden hover, diamond separators
-- [ ] CTA: correct label, golden glow pool, arrival intensification
-- [ ] Legal links: correct styling, hover color
-- [ ] Covenant bookend: dot breathing, tagline, semicolon heartbeat
-- [ ] `data-footer-bookend` attribute: present (triggers arrival state site-wide)
-
-### Button Elements (all pages):
-- [ ] Correct variant for section background
-- [ ] Piano key depression: -1px hover, 0 active
-- [ ] Shadow depth transitions: rest → hover → active
-- [ ] Brand easing applied
-- [ ] Focus ring: 3px golden
-- [ ] Touch target: minimum 44px
+- Film grain: 8% opacity (thicker than header — more cinematic)
+- Warm yellow fog: A radial gradient at center-bottom, hsl(var(--vow-yellow) / 0.03)
+- Vine-green whisper: A barely perceptible green gradient at the very bottom edge, hsl(var(--vine-green) / 0.02)
 
 ---
 
-*This is the Ceremony Arch. This is the navigation covenant.*
+## V. THE ARRIVAL — THE EASTER EGG
 
-*Every threshold crossed, every link pressed, every page arrived at — carries the weight of the brand's promise. The frame opens. The story unfolds. The frame closes. And between the arch and the threshold, the sacred sound lives.*
+### 5.1 The Concept
 
-*'Til Death ; Unto Life.*
+When the visitor scrolls to the footer, the header and footer recognize each other. They synchronize. They become one frame. This is the Arrival — the moment the ceremony arch completes itself.
+
+The visitor has walked the entire aisle. They have read the story. They have felt the weight. Now the architecture reveals its secret: the header and footer were always one piece. They were always connected. The page was always a ceremony.
+
+### 5.2 Trigger Conditions
+
+The Arrival activates when:
+- The footer's covenant bookend (`[data-footer-bookend]`) enters the viewport
+- The scroll velocity is below 800px/s (the visitor is reading, not skimming)
+- The page has been scrolled at least 60% (prevents triggering on short pages)
+
+### 5.3 The Arrival Score — Animation Choreography
+
+This is a musical score. Every animation is timed to the millisecond.
+
+**Measure 1 (0ms–260ms): The Dissolution**
+- Header nav links fade out in reverse stagger (rightmost first, 60ms intervals)
+- Header CTA fades out (180ms)
+- Mobile sticky bar translates down and fades (260ms)
+
+**Measure 2 (260ms–520ms): The Centering**
+- Wordmark glides from left-aligned to center-aligned (260ms, sacred easing)
+- Wordmark weight transitions from 300 to 400
+- Letter-spacing tightens from 0.08em to 0.06em (the name "settles")
+
+**Measure 3 (520ms–970ms): The Coronation**
+- A vow-yellow underline draws beneath the centered wordmark (450ms, sacred easing)
+- The underline uses stroke-dashoffset animation — it "writes" itself from center outward
+- Simultaneously, the header's candlelight layer intensifies (0.03 → 0.08 opacity)
+- Film grain thickens (3% → 6%)
+
+**Measure 4 (970ms–1470ms): The Synchronization**
+- Header's bottom vine thread and footer's top vine thread begin pulsing in unison
+- Both threads brighten to 0.40 opacity
+- Both breathe on the same 4000ms cycle, phase-locked
+- A barely perceptible golden line connects them along the right viewport edge (the "spine" of the arch)
+
+**Measure 5 (1470ms+): The Steady State**
+- All animations settle into their breathing rhythms
+- The page is now "framed" — header crown above, footer foundation below
+- The visitor sees the complete ceremony arch for the first time
+- Scroll up will reverse the Arrival in reverse order
+
+### 5.4 The Reversal
+
+If the visitor scrolls up (footer bookend exits viewport):
+
+**Reverse Measure 1 (0ms):** Vine threads desynchronize, return to independent breathing
+**Reverse Measure 2 (100ms):** Underline retracts (reverse stroke-dashoffset, 300ms)
+**Reverse Measure 3 (300ms):** Wordmark glides back to left alignment (260ms)
+**Reverse Measure 4 (400ms):** Nav links and CTA re-enter with forward stagger (60ms intervals)
+**Reverse Measure 5 (600ms):** Atmospheric layers return to Processional intensity
+
+The reversal is faster than the Arrival — the visitor is re-entering the ceremony, not leaving it.
+
+### 5.5 The Piano Connection
+
+The Arrival easter egg has a piano-specific layer:
+
+- When the vine threads synchronize, the header's menu trigger icon transforms subtly:
+  - The three horizontal lines (piano strings) begin to pulse at different frequencies
+  - Top line: 3000ms breathing cycle
+  - Middle line: 4000ms breathing cycle  
+  - Bottom line: 5000ms breathing cycle
+  - This creates a polyrhythmic visual that mimics the harmonic overtones of a sustained piano chord
+  - The effect is extremely subtle — most visitors will feel it rather than see it
+
+- The footer's social icons, if visible, settle into a "keyboard" arrangement:
+  - Equal spacing mimicking the interval between piano keys
+  - Hover reveals a tiny vow-yellow glow beneath each icon, like a key being illuminated from within
+
+---
+
+## VI. MOBILE NAVIGATION — THE INTIMATE CEREMONY
+
+### 6.1 Philosophy
+
+Mobile navigation is the intimate ceremony — the elopement. Fewer guests, but no less sacred. Every element must be larger, more reachable, more forgiving. The thumb is the visitor's hand reaching for the keys.
+
+### 6.2 The Mobile Header
+
+- Height: 56px
+- Contents: Wordmark (left) + Menu Trigger (right)
+- No visible nav links — they live in the full-screen menu
+- The CTA moves to the Mobile Sticky Bar (below)
+- Atmospheric layers are simplified: fog + grain only (no candlelight — performance)
+
+### 6.3 The Mobile Sticky Bar
+
+A bottom-fixed bar that appears after 100vh scroll:
+
+- Height: 56px + safe area inset
+- Background: Premium glass material (bg-black/40, backdrop-blur-12, 1px border)
+- Contents: Context-aware CTA label (left) + Scroll progress indicator (right)
+- The scroll progress indicator is a vine thread that grows from left to right along the bar's top edge
+- Entrance: Slide up from below viewport (260ms, sacred easing)
+- Exit: Slide down when footer bookend enters viewport (Arrival coordination)
+
+### 6.4 The Mobile Menu
+
+Same as desktop full-screen menu with these adaptations:
+- Item labels: 32px (reduced from 48px)
+- No description text (clean, focused)
+- Numbers: 12px
+- Touch targets: 56px minimum height per item
+- Vine thread separators remain
+- Spotlight hover effect replaced with tap-highlight:
+  - On tap: Background flash of hsl(var(--vow-yellow) / 0.06) for 200ms
+  - Tapped item scales to 1.02 briefly (the "haptic" visual)
+
+### 6.5 Mobile Section Dots
+
+A vertical dot navigator on the right edge of the viewport:
+- 6px dots, one per major section
+- Active section dot: vow-yellow, scale 1.4
+- Inactive dots: hsl(var(--foreground) / 0.20)
+- Tap on any dot: Smooth scroll to that section
+- Tap feedback: Scale pulse to 1.6 then back to 1.4 (120ms)
+
+---
+
+## VII. THE PIANO KEY SECTION NAVIGATOR — THE OCTAVE RAIL
+
+### 7.1 Desktop Only
+
+A vertical rail fixed to the right viewport edge, visible on pages with 4+ sections.
+
+### 7.2 Key Design
+
+The rail alternates white and black keys, mimicking a piano keyboard rotated 90°:
+
+**White Keys:**
+- Width: 32px, Height: 40px
+- Background: linear-gradient(to right, hsl(0 0% 95%), hsl(0 0% 88%))
+- Border-radius: 0 0 3px 3px
+- Box-shadow: inset 0 -2px 3px hsl(0 0% 70%)
+
+**Black Keys:**
+- Width: 22px, Height: 28px
+- Background: linear-gradient(to bottom, hsl(0 0% 20%), hsl(0 0% 10%))
+- Offset: Overlaps adjacent white keys by 8px (negative margin)
+- Box-shadow: 0 2px 4px hsl(0 0% 0% / 0.30)
+
+### 7.3 Key Interactions
+
+- Hover: Key depresses 2px (translateY), tooltip appears with section name
+- Click: Key depresses 3px, golden flash, smooth scroll to section
+- Active section: Key has vow-yellow inner glow (box-shadow inset)
+- The "golden thread" — a vertical line behind the keys — fills downward based on scroll progress
+
+### 7.4 Entrance
+
+- Keys stagger-enter from top to bottom on page load (80ms intervals)
+- The golden thread grows downward simultaneously
+- Total entrance: ~800ms
+- This happens once per page visit (not on every scroll)
+
+---
+
+## VIII. ACCESSIBILITY — THE UNIVERSAL WELCOME
+
+### 8.1 Core Requirements
+
+Every navigation element must be:
+- Keyboard navigable (Tab, Arrow Keys, Enter, Space, Escape)
+- Screen reader compatible (ARIA roles, labels, live regions)
+- Sufficient contrast (4.5:1 minimum for all text, 3:1 for decorative elements)
+- Operable at 200% zoom without horizontal scroll
+- Functional with animations disabled (prefers-reduced-motion)
+
+### 8.2 Reduced Motion Fallbacks
+
+When `prefers-reduced-motion: reduce` is active:
+- All translateY key depressions → opacity changes only
+- Vine thread growth → instant appearance at 50% opacity
+- Stagger entrances → simultaneous fade-in at 200ms
+- The Arrival synchronization → vine threads simply brighten without breathing
+- Film grain → disabled entirely
+- Candlelight gradients → remain (they are static, not animated)
+
+### 8.3 ARIA Specification
+
+```
+<header role="banner" aria-label="Site navigation">
+  <nav aria-label="Primary navigation">
+    <!-- Nav links with aria-current="page" for active -->
+  </nav>
+  <button aria-label="Open menu" aria-expanded="false" aria-controls="full-screen-menu">
+    <!-- Hamburger icon -->
+  </button>
+</header>
+
+<div id="full-screen-menu" role="dialog" aria-label="Site menu" aria-modal="true">
+  <nav aria-label="Full site navigation">
+    <ul role="menu">
+      <li role="menuitem"><a href="/">Home</a></li>
+      <!-- ... -->
+    </ul>
+  </nav>
+</div>
+
+<footer role="contentinfo" aria-label="Site footer">
+  <nav aria-label="Footer navigation">
+    <!-- Footer links -->
+  </nav>
+</footer>
+```
+
+### 8.4 Focus Management
+
+- When full-screen menu opens: Focus moves to the first menu item
+- When menu closes: Focus returns to the menu trigger button
+- Tab trap: Focus cycles within the menu while it is open
+- Skip link: "Skip to content" link appears on Tab from the header, positioned absolutely, visible only on focus
+
+---
+
+## IX. PERFORMANCE — THE INVISIBLE DISCIPLINE
+
+### 9.1 Targets
+
+- Header LCP contribution: <50ms
+- Menu open time (first paint): <100ms
+- Total navigation JS bundle: <15KB gzipped
+- No layout shift from header materialization (CLS = 0)
+
+### 9.2 Optimization Strategies
+
+- Vine thread SVGs: Inline, not fetched — <500 bytes each
+- Film grain: CSS-generated, no image assets
+- Atmospheric gradients: GPU-composited (transform, opacity only)
+- Full-screen menu: Lazy-mounted on first trigger, then cached
+- Scroll handlers: RequestAnimationFrame throttled, passive listeners
+- Intersection Observer for Arrival detection (no scroll position polling)
+
+### 9.3 Animation Performance
+
+- All animations use transform and opacity only (compositor-thread)
+- No width/height/margin/padding animations (avoid layout thrashing)
+- will-change applied sparingly and removed after animation completes
+- Breathing cycles use CSS @keyframes, not JS timers
+
+---
+
+## X. THE WEDDING × PIANO FUSION — DESIGN DETAILS
+
+### 10.1 Typographic Choices
+
+The navigation typography is the "voice" of the piano:
+
+- **Cormorant Garamond** for all navigation labels — this serif has the elegance of a grand piano's curves, the delicacy of a bride's handwriting, and the authority of a cathedral inscription
+- **System sans-serif** (or the body font) for descriptions and utility text — this is the "program notes" at a concert, the "order of service" at a wedding
+- No bold weights above 400 anywhere in navigation — the piano whispers, it does not shout
+- Letter-spacing is generous everywhere — notes need space between them to resonate
+
+### 10.2 Color Discipline
+
+The navigation follows the Color Covenant strictly:
+
+- 92% of navigation pixels: Charcoal/black/background tones
+- 6% maximum: Vow-yellow (CTAs, active states, the semicolon, vine threads at peak intensity)
+- 2% maximum: Vine-green (success confirmations, availability indicators)
+- Yellow appears only at "threshold moments" — the instant before a decision (hover, active)
+- Green appears only at "confirmation moments" — after a decision (navigation complete, page loaded)
+
+### 10.3 The Sound of Interaction
+
+Though the site has no audio in navigation, every interaction should feel like it has a sound:
+
+- Hover on nav link = the soft "thud" of a finger resting on a key (1px depression)
+- Click on nav link = the "strike" of the key (2px depression + golden flash)
+- Menu opening = a chord being sustained (the slow curtain, the gradual reveal)
+- Menu closing = the damper falling (faster, more decisive)
+- Arrival synchronization = a final chord resolving (the vines breathing together)
+
+### 10.4 The Wedding Program Metaphor
+
+The full-screen menu is structured like a wedding program:
+
+- Numbered items (01–08) = the "Order of Ceremony"
+- The vine thread separators = the decorative dividers on a printed program
+- The footer information within the menu = the "reception details" at the bottom of the program
+- The tagline bookend = the "officiant's blessing" that closes the program
+
+This is not accidental. This is the navigation telling the visitor: "You are not browsing a website. You are holding a ceremony program. Every page is a movement in the ceremony. Every click is a step down the aisle."
+
+---
+
+## XI. RESPONSIVE BREAKPOINTS
+
+### 11.1 Desktop (1280px+)
+- Full header with all four zones
+- Piano Key navigator visible
+- Full-screen menu with descriptions
+- Footer in three columns
+
+### 11.2 Tablet (768px–1279px)
+- Header: Wordmark + CTA + Menu Trigger (nav links hidden)
+- Piano Key navigator visible (narrower keys)
+- Full-screen menu without descriptions
+- Footer in two columns
+
+### 11.3 Mobile (< 768px)
+- Header: Wordmark + Menu Trigger only
+- Mobile Sticky Bar replaces header CTA
+- Section dots replace Piano Key navigator
+- Full-screen menu: Large touch targets, no descriptions
+- Footer: Single column, stacked
+
+---
+
+## XII. IMPLEMENTATION CHECKLIST
+
+### Phase 1: Foundation
+- [ ] Header structure with four zones
+- [ ] Atmospheric layers (fog, candlelight, grain, vine)
+- [ ] Scroll-aware state machine (Vigil → Processional → Arrival)
+- [ ] Piano-key depression physics on all interactive elements
+
+### Phase 2: Full-Screen Menu
+- [ ] Cathedral door entrance/exit choreography
+- [ ] Numbered items with spotlight damper
+- [ ] Vine thread separators
+- [ ] Keyboard accessibility and focus management
+
+### Phase 3: The Arrival Easter Egg
+- [ ] Footer intersection detection (IntersectionObserver)
+- [ ] Header dissolution choreography (5-measure score)
+- [ ] Vine thread synchronization
+- [ ] Reversal choreography
+- [ ] Mobile sticky bar coordination
+
+### Phase 4: Piano Key Navigator
+- [ ] Alternating white/black key design
+- [ ] Key depression interactions
+- [ ] Golden thread scroll progress
+- [ ] Staggered entrance animation
+- [ ] Section ID targeting
+
+### Phase 5: Mobile Adaptations
+- [ ] Mobile header simplification
+- [ ] Mobile sticky bar with progress vine
+- [ ] Mobile menu touch optimizations
+- [ ] Section dot navigator
+- [ ] Safe area handling
+
+### Phase 6: Polish
+- [ ] Reduced motion fallbacks for all animations
+- [ ] Screen reader testing (VoiceOver, NVDA)
+- [ ] Performance audit (Lighthouse, Core Web Vitals)
+- [ ] Cross-browser testing (Chrome, Safari, Firefox, Edge)
+- [ ] Touch device testing (iOS Safari, Android Chrome)
+
+---
+
+## XIII. THE NORTH STAR QUESTIONS FOR NAVIGATION
+
+Before implementing any navigation element, ask:
+
+1. **Does this feel like a ceremony arch?** Does it frame the content with the reverence of a wedding venue?
+2. **Does this feel like a piano?** Does the interaction have the mechanical weight and resonance of a key being struck?
+3. **Does this honor the vigil?** Does the default state respect the quiet anticipation before the visitor acts?
+4. **Does this celebrate the arrival?** Does the footer state create a sense of completion and unity?
+5. **Would I notice this at a wedding?** Navigation should be like a good wedding coordinator — invisible when everything is going right, immediately present when needed.
+6. **Does this reduce anxiety?** The visitor should always know where they are, where they can go, and how to get back.
+7. **Does this breathe?** Every element should have a rhythm — not frantic, not static, but alive.
+8. **Would Fantasy.co approve?** Is every millisecond intentional? Is it reduced to essence? Does it create emotional gravity?
+
+---
+
+## XIV. THE COVENANT
+
+This navigation system covenants to:
+
+- Frame every page like a ceremony arch frames every vow
+- Guide every visitor like a processional guides every guest
+- Reveal its secret (the Arrival) only to those who walk the entire aisle
+- Behave like a piano — mechanical, weighted, resonant, alive
+- Honor the vigil before selling the celebration
+- Breathe, always breathe — because the held breath before "I do" is the most sacred sound of all
+
+'Til Death ; Unto Life.
