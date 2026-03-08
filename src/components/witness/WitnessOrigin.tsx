@@ -79,7 +79,7 @@ export function WitnessOrigin() {
                 )}
                 style={{ transitionDelay: "600ms" }}
               >
-                I left the reception that night and started building a system to ensure every word would be heard—no matter the wind, the venue, or the distance.
+                I left the reception that night with a single promise: no couple would ever lose their words to the wind.
               </p>
             </div>
 
