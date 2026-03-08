@@ -252,7 +252,7 @@ export function AudioPlayer({ tracks, onPlayStateChange }: AudioPlayerProps) {
                   <WaveformBars isPlaying={isTrackPlaying} reducedMotion={reducedMotion} />
                 )}
                 {isActive && !hasError && (
-                  <span className="text-[11px] tabular-nums text-muted-foreground/60 whitespace-nowrap">
+                  <span className="text-[11px] tabular-nums text-muted-foreground opacity-60 whitespace-nowrap">
                     {formatTime(progress)} / {formatTime(duration)}
                   </span>
                 )}
