@@ -162,7 +162,7 @@ export function TeachingHero() {
           backgroundImage: `url(${benchImg})`,
           backgroundSize: "cover",
           backgroundPosition: "center 90%",
-          opacity: 0.06,
+          opacity: 0.035,
           filter: "saturate(0.7) contrast(1.1)",
           animation: "teaching-ken-burns 30s linear infinite alternate",
           willChange: "transform",
