@@ -174,11 +174,11 @@ export default function Pricing() {
 
                   <ul className="space-y-2 mb-6 text-sm">
                     {[
-                      "Everything in Ceremony + Cocktails",
-                      "Dinner background music",
-                      "Conversational volume mixing",
-                      "All-in-one venue optimization",
-                      "Extra 1-hour transition buffer for moves",
+                      "Everything in The Hour",
+                      "Dinner ambiance — music that lets conversation breathe",
+                      "Volume shaped to each moment of the day",
+                      "Multi-space venue coordination",
+                      "One-hour transition buffer between locations",
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
                         <Check size={16} className="text-accent mt-0.5 flex-shrink-0" />
