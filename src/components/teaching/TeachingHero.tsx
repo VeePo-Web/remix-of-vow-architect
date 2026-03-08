@@ -279,7 +279,7 @@ export function TeachingHero() {
             isRevealed={isRevealed}
             baseDelay={LINE2_BASE}
             charInterval={LINE2_INTERVAL}
-            className="block text-[40px] md:text-[64px] font-light leading-[1.05] mt-1"
+            className="block text-[40px] md:text-[64px] font-light leading-[1.05] -mt-1"
             style={{
               color: "hsl(40 20% 90%)",
               textShadow:
