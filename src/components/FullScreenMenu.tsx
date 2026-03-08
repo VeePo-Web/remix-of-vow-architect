@@ -38,6 +38,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [pressedIndex, setPressedIndex] = useState<number | null>(null);
   const lenis = useSmoothScroll();
+  const { navigateWithTransition } = usePageTransition();
 
   // Stop/start Lenis when menu opens/closes
   useEffect(() => {
