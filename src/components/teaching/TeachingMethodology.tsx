@@ -116,7 +116,7 @@ export function TeachingMethodology() {
       id="teaching-methodology"
       ref={ref}
       className="relative py-[140px] md:py-[180px] px-fitz-4 md:px-fitz-6 overflow-hidden"
-      style={{ background: "hsl(30 8% 14%)" }}
+      style={{ background: "hsl(var(--teaching-studio-bg))" }}
       role="region"
       aria-label="The First Conversation"
     >
