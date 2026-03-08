@@ -45,8 +45,7 @@ export function MinimalHeader() {
   const [hoveredNavIndex, setHoveredNavIndex] = useState<number | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [arrivalPhase, setArrivalPhase] = useState<'none' | 'dissolving' | 'arrived'>('none');
-  const location = useLocation();
-  const isContactPage = location.pathname === '/contact';
+  const isContactPage = pathname === '/contact';
   
   // Vertical-aware CTA label — adapts to the emotional temperature of each vertical
   const ctaLabel = (() => {
