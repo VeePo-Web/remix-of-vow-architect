@@ -71,7 +71,7 @@ function ScrollRevealWords({
         return (
           <span
             key={i}
-            className="inline-block"
+            className="inline-block mr-[0.25em]"
             style={{
               opacity: wordOpacity,
               transform: `translateY(${yDrift}px)`,
@@ -100,7 +100,7 @@ function ScrollRevealWords({
             ) : (
               word
             )}
-            {i < words.length - 1 ? " " : ""}
+            
           </span>
         );
       })}
