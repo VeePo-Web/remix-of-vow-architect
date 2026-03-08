@@ -917,6 +917,11 @@ All colors MUST be HSL.
   background: hsl(var(--vow-yellow) / 0.15);
   border-left: 2px solid hsl(var(--vow-yellow) / 0.6);
   box-shadow: -4px 0 12px hsl(var(--vow-yellow) / 0.08);
+  animation: piano-active-breathe 3s ease-in-out infinite;
+}
+
+.piano-key:not(.piano-key--black) {
+  border-top: 1px solid hsl(var(--foreground) / 0.12);
 }
 
 .piano-key--black.piano-key--active {
