@@ -10,7 +10,10 @@ import { Link } from "react-router-dom";
 
 export default function Legal() {
   usePageTheme();
-  useEffect(() => { document.title = "Legal & Policies — Parker Gawryletz"; }, []);
+  useEffect(() => {
+    document.title = "Legal & Policies — Parker Gawryletz";
+    document.querySelector('meta[name="description"]')?.setAttribute("content", "Privacy, terms, cookies, and accessibility — every policy in plain language. Clarity before commitment.");
+  }, []);
 
   const policies = [
     {
