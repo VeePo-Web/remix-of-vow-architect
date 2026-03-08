@@ -146,7 +146,7 @@ function ScrollRevealBlock({ isInView }: { isInView: boolean }) {
                 return (
                   <span
                     key={wi}
-                    className="inline-block"
+                    className="inline-block mr-[0.25em]"
                     style={{
                       opacity,
                       transform: `translateY(${yDrift}px)`,
@@ -172,7 +172,6 @@ function ScrollRevealBlock({ isInView }: { isInView: boolean }) {
                         aria-hidden="true"
                       />
                     </span>
-                    {wi < lineWords.length - 1 ? " " : ""}
                   </span>
                 );
               }
@@ -180,7 +179,7 @@ function ScrollRevealBlock({ isInView }: { isInView: boolean }) {
               return (
                 <span
                   key={wi}
-                  className="inline-block"
+                  className="inline-block mr-[0.25em]"
                   style={{
                     opacity,
                     transform: `translateY(${yDrift}px)`,
@@ -189,7 +188,6 @@ function ScrollRevealBlock({ isInView }: { isInView: boolean }) {
                   }}
                 >
                   {w.word}
-                  {wi < lineWords.length - 1 ? "\u00A0" : ""}
                 </span>
               );
             })}

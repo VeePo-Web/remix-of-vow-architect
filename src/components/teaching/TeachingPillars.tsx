@@ -86,7 +86,7 @@ function ScrollDescription({
         return (
           <span
             key={i}
-            className="inline-block transition-opacity duration-[60ms]"
+            className="inline-block mr-[0.25em] transition-opacity duration-[60ms]"
             style={{ opacity: wordOpacity }}
           >
             {isUnderline ? (
@@ -106,7 +106,6 @@ function ScrollDescription({
             ) : (
               word
             )}
-            {i < words.length - 1 ? " " : ""}
           </span>
         );
       })}
