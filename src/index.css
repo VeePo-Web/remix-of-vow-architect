@@ -1827,8 +1827,8 @@ All colors MUST be HSL.
 
   .cta-commitment:active {
     box-shadow:
-      inset 0 1px 3px rgba(0, 0, 0, 0.15),
-      0 1px 4px rgba(0, 0, 0, 0.25) !important;
+      inset 0 1px 3px hsl(var(--rich-black) / 0.15),
+      0 1px 4px hsl(var(--rich-black) / 0.25) !important;
     border-color: hsl(45 100% 76% / 0.20);
   }
 
