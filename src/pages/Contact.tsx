@@ -377,13 +377,13 @@ export default function Contact() {
                         <Textarea
                           id="additionalNotes"
                           {...register("additionalNotes")}
-                          placeholder="Song requests, tone preferences, special moments..."
+                          placeholder="Song requests, tone preferences, meaningful moments..."
                           rows={4}
                           className="mt-2"
                         />
                       </div>
 
-                      {/* Submit Button */}
+                      {/* Primary CTA */}
                       <div className="space-y-3">
                         <div className="flex items-center gap-2">
                            <Button

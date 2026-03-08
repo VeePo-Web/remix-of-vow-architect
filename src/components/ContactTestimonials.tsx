@@ -4,7 +4,7 @@ export function ContactTestimonials() {
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       <MicroTestimonial
-        quote="I submitted the form and received a full plan the next morning — clearer than anything our DJ offered in three weeks."
+        quote="I sent my details and received a full plan the next morning — clearer than anything our previous musician offered in three weeks."
         author="Sandra & Leo"
         venue="Cochrane"
       />
