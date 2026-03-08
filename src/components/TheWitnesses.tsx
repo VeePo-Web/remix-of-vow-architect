@@ -19,7 +19,7 @@ export function TheWitnesses() {
       data-theme="life"
       className="relative py-[80px] md:py-[120px] piano-section-target overflow-hidden"
       style={{
-        background: 'linear-gradient(180deg, hsl(45 25% 96%) 0%, hsl(45 20% 93%) 100%)',
+        background: 'linear-gradient(180deg, hsl(var(--surface)) 0%, hsl(var(--surface-warm)) 100%)',
       }}
     >
       {/* Vignette */}
