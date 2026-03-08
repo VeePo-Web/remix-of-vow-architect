@@ -247,7 +247,7 @@ export function TeachingExhale() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 50%, hsl(40 25% 88% / 0.5) 100%)",
+            "radial-gradient(ellipse at center, transparent 50%, hsl(var(--teaching-vignette) / 0.5) 100%)",
           animation: isVisible
             ? "exhale-vignette-breathe 6s ease-in-out infinite"
             : undefined,
