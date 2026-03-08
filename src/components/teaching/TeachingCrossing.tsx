@@ -288,8 +288,9 @@ export function TeachingCrossing() {
             />
             <Button
               asChild
+              variant="primary-dark"
               size="lg"
-              className="relative font-sans text-[14px] uppercase tracking-[0.14em] bg-primary text-primary-foreground hover:bg-primary/85 border-2 border-primary rounded-md px-10 py-3.5 transition-all duration-[260ms] hover:shadow-[0_4px_20px_hsl(var(--vow-yellow)/0.25)] hover:-translate-y-[1px]"
+              className="relative"
             >
               <Link to="/contact">Sit down with me</Link>
             </Button>
