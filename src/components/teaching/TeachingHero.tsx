@@ -153,7 +153,7 @@ export function TeachingHero() {
       onMouseLeave={handleMouseLeave}
     >
       {/* ── Layer 0: True black base ── */}
-      <div className="absolute inset-0" style={{ background: "hsl(0 0% 2%)" }} aria-hidden="true" />
+      <div className="absolute inset-0" style={{ background: "hsl(var(--rich-black))" }} aria-hidden="true" />
 
       {/* ── Layer 1: Background bench — only warm wood grain texture ── */}
       <div
