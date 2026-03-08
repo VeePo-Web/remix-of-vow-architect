@@ -230,7 +230,7 @@ export default function Listen() {
               : "opacity-0 translate-y-6"
           )}
         >
-          <p className="text-[11px] md:text-xs uppercase tracking-[0.35em] text-[hsl(var(--vow-yellow)/0.6)] mb-6">
+          <p className="text-[11px] md:text-xs uppercase tracking-[0.35em] text-[hsl(var(--vow-yellow))] opacity-60 mb-6">
             An Immersive Experience
           </p>
           <h1 className="font-display text-4xl md:text-6xl lg:text-7xl text-foreground mb-4">
