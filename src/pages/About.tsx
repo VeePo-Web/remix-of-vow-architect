@@ -47,23 +47,25 @@ export default function About() {
       <MinimalHeader />
       <PianoKeyNav sections={aboutSections} />
       
-      {/* ACT I: THE RESONANCE */}
-      <WitnessHero />
-      
-      {/* ACT II: THE ORIGIN */}
-      <WitnessOrigin />
-      
-      {/* ACT III: THE SUSTAIN */}
-      <WitnessSustain />
-      
-      {/* ACT IV: THE PRESENCE */}
-      <WitnessPresence />
-      
-      {/* ACT V: THE COVENANT */}
-      <WitnessCovenant />
-      
-      {/* ACT VI: THE CROSSING */}
-      <WitnessCrossing />
+      <main>
+        {/* ACT I: THE RESONANCE */}
+        <WitnessHero />
+        
+        {/* ACT II: THE ORIGIN */}
+        <WitnessOrigin />
+        
+        {/* ACT III: THE SUSTAIN */}
+        <WitnessSustain />
+        
+        {/* ACT IV: THE PRESENCE */}
+        <WitnessPresence />
+        
+        {/* ACT V: THE COVENANT */}
+        <WitnessCovenant />
+        
+        {/* ACT VI: THE CROSSING */}
+        <WitnessCrossing />
+      </main>
 
       <Footer />
       <MobileStickyBar />

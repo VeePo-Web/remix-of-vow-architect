@@ -140,6 +140,7 @@ export default function Index() {
 
       {/* SECTION 9 — Cross Over (Final CTA) */}
       <CrossOver />
+      </main>
 
       <Footer />
       <MobileStickyBar />
