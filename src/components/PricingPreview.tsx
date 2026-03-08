@@ -40,7 +40,7 @@ export function PricingPreview() {
         </div>
 
         <div className="flex justify-center">
-          <DirectionalLink to="/pricing">See all paths and policies</DirectionalLink>
+          <DirectionalLink to="/services">See all paths and policies</DirectionalLink>
         </div>
       </div>
     </section>
