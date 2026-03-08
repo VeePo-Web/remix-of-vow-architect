@@ -18,15 +18,15 @@ import { Link } from "react-router-dom";
 import servicesHeroImg from "@/assets/services-hero.jpg";
 
 const pricingSections = [
-  { id: "pricing-hero",         label: "Overview",       isBlackKey: false },
-  { id: "pricing-inclusions",   label: "Inclusions",     isBlackKey: true  },
-  { id: "packages",             label: "Packages",       isBlackKey: false },
-  { id: "pricing-addons",       label: "Add-ons",        isBlackKey: true  },
-  { id: "compare",              label: "Compare",        isBlackKey: false },
-  { id: "pricing-testimonials", label: "Testimonials",   isBlackKey: false },
-  { id: "pricing-faq",          label: "FAQ",            isBlackKey: true  },
-  { id: "pricing-download",     label: "Download",       isBlackKey: false },
-  { id: "pricing-cta",          label: "Begin",          isBlackKey: true  },
+  { id: "pricing-hero",         label: "Overview",         isBlackKey: false },
+  { id: "pricing-inclusions",   label: "What is Included", isBlackKey: true  },
+  { id: "packages",             label: "Packages",         isBlackKey: false },
+  { id: "pricing-addons",       label: "Enhancements",     isBlackKey: true  },
+  { id: "compare",              label: "Comparison",       isBlackKey: false },
+  { id: "pricing-testimonials", label: "Kind Words",       isBlackKey: false },
+  { id: "pricing-faq",          label: "Questions",        isBlackKey: true  },
+  { id: "pricing-download",     label: "Download",         isBlackKey: false },
+  { id: "pricing-cta",          label: "Get in Touch",     isBlackKey: true  },
 ];
 
 /** Golden thread with breathing center dot */

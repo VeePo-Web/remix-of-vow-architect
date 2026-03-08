@@ -14,12 +14,12 @@ import { FAQTrustStack } from "@/components/FAQTrustStack";
 import faqHeroImg from "@/assets/faq-hero.jpg";
 
 const faqSections = [
-  { id: "faq-hero",      label: "The Threshold",  isBlackKey: false },
-  { id: "faq-chips",     label: "Quick Answers",  isBlackKey: true  },
-  { id: "faq-fears",     label: "Common Fears",   isBlackKey: false },
-  { id: "faq-policy",    label: "Policies",        isBlackKey: true  },
-  { id: "faq-trust",     label: "Trust",           isBlackKey: false },
-  { id: "faq-crossing",  label: "The Crossing",   isBlackKey: false },
+  { id: "faq-hero",      label: "Overview",          isBlackKey: false },
+  { id: "faq-chips",     label: "Quick Answers",     isBlackKey: true  },
+  { id: "faq-fears",     label: "Common Concerns",   isBlackKey: false },
+  { id: "faq-policy",    label: "Policies",           isBlackKey: true  },
+  { id: "faq-trust",     label: "Credentials",        isBlackKey: false },
+  { id: "faq-crossing",  label: "Get in Touch",      isBlackKey: false },
 ];
 
 export default function FAQ() {

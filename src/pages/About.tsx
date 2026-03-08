@@ -32,12 +32,12 @@ import {
  * 6. THE CROSSING — Final CTA with warm glow
  */
 const aboutSections = [
-  { id: "witness-hero",     label: "The Resonance", isBlackKey: false },
-  { id: "witness-origin",   label: "The Origin",    isBlackKey: true  },
-  { id: "witness-sustain",  label: "The Sustain",   isBlackKey: false },
-  { id: "witness-presence", label: "The Presence",  isBlackKey: true  },
-  { id: "witness-covenant", label: "The Covenant",  isBlackKey: false },
-  { id: "witness-crossing", label: "The Crossing",  isBlackKey: false },
+  { id: "witness-hero",     label: "Welcome",        isBlackKey: false },
+  { id: "witness-origin",   label: "My Story",       isBlackKey: true  },
+  { id: "witness-sustain",  label: "What I Believe", isBlackKey: false },
+  { id: "witness-presence", label: "Experience",     isBlackKey: true  },
+  { id: "witness-covenant", label: "My Promise",     isBlackKey: false },
+  { id: "witness-crossing", label: "Get in Touch",   isBlackKey: false },
 ];
 
 export default function About() {
