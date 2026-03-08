@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Menu } from "lucide-react";
+
 import { NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { FullScreenMenu } from "./FullScreenMenu";
@@ -308,7 +308,7 @@ export function MinimalHeader() {
             <NavLink
               to="/"
               className={cn(
-                "relative font-display text-base tracking-wide text-foreground opacity-0 animate-fade-in transition-all duration-[260ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm",
+                "relative font-display text-base text-foreground opacity-0 animate-fade-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm",
                 isArrival
                   ? "hover:text-foreground"
                   : "hover:text-primary"
@@ -316,11 +316,14 @@ export function MinimalHeader() {
               style={{
                 animationDelay: headerDelay,
                 animationFillMode: "forwards",
+                letterSpacing: '0.08em',
                 textShadow: arrivalPhase === 'arrived'
                   ? "0 0 24px hsl(var(--vow-yellow) / 0.1), 0 0 60px hsl(var(--vow-yellow) / 0.04)"
                   : "none",
-                transition: 'text-shadow 700ms ease',
+                transition: 'letter-spacing 260ms cubic-bezier(0.22,0.61,0.36,1), text-shadow 700ms ease, color 260ms ease',
               }}
+              onMouseEnter={(e) => { if (arrivalPhase !== 'arrived') (e.currentTarget as HTMLElement).style.letterSpacing = '0.12em'; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.letterSpacing = '0.08em'; }}
             >
               Parker Gawryletz
               {/* Vow-yellow underline draw — only during full arrival */}
@@ -552,11 +555,21 @@ export function MinimalHeader() {
             <span className="text-xs font-sans uppercase tracking-[0.22em] text-muted-foreground group-hover:text-primary transition-colors duration-[180ms]">
               Menu
             </span>
-            <Menu
-              size={20}
-              className="text-muted-foreground group-hover:text-primary transition-all duration-[180ms]"
-              strokeWidth={1.5}
-            />
+            {/* Bespoke Piano-String Hamburger — three lines of descending width */}
+            <div className="flex flex-col items-end gap-[5px] group-hover:[&>span]:w-[20px]" aria-hidden="true">
+              <span
+                className="block h-[1px] bg-muted-foreground group-hover:bg-primary transition-all duration-[180ms]"
+                style={{ width: 20, transitionTimingFunction: 'cubic-bezier(0.22,0.61,0.36,1)' }}
+              />
+              <span
+                className="block h-[1px] bg-muted-foreground group-hover:bg-primary transition-all duration-[180ms]"
+                style={{ width: 16, transitionTimingFunction: 'cubic-bezier(0.22,0.61,0.36,1)' }}
+              />
+              <span
+                className="block h-[1px] bg-muted-foreground group-hover:bg-primary transition-all duration-[180ms]"
+                style={{ width: 12, transitionTimingFunction: 'cubic-bezier(0.22,0.61,0.36,1)' }}
+              />
+            </div>
           </button>
         </div>
 
