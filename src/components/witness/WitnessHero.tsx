@@ -33,7 +33,7 @@ export function WitnessHero() {
       </div>
 
       {/* Film grain overlay */}
-      <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
+      <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" aria-hidden="true" />
 
       {/* Cinematic vignette with breathing */}
       <div 

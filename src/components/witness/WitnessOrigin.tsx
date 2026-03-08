@@ -130,7 +130,7 @@ export function WitnessOrigin() {
                 aria-hidden="true"
               />
               {/* Film grain */}
-              <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
+              <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
             </div>
           </div>
         </div>

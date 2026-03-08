@@ -41,7 +41,7 @@ export function WitnessPresence() {
       </div>
 
       {/* Grain */}
-      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
+      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
 
       {/* Vignette */}
       <div 
