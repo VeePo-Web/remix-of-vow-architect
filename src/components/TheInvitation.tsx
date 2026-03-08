@@ -230,7 +230,6 @@ export function TheInvitation() {
               style={{
                 background: 'hsl(var(--vow-yellow) / 0.25)',
                 transitionDelay: isVisible ? '200ms' : '0ms',
-                willChange: 'transform',
                 transformOrigin: 'left',
                 animation: isVisible ? 'invitation-rule-breathe 4s ease-in-out infinite' : 'none',
               }}

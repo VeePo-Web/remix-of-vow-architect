@@ -78,7 +78,6 @@ export function CrossOver() {
           style={{
             animation: 'crossover-ken-burns 30s ease-in-out infinite alternate',
             filter: 'brightness(0.75) contrast(1.08) saturate(0.9)',
-            willChange: 'transform',
           }}
           loading="lazy"
           decoding="async"
@@ -141,7 +140,6 @@ export function CrossOver() {
           width: '200px', height: '200px', top: '30%', left: '20%',
           background: "radial-gradient(circle, hsl(var(--vow-yellow) / 0.02) 0%, transparent 70%)",
           animation: "crossover-mote-a 14s ease-in-out infinite",
-          willChange: 'transform',
         }}
         aria-hidden="true"
       />
@@ -152,7 +150,6 @@ export function CrossOver() {
           width: '200px', height: '200px', bottom: '25%', right: '15%',
           background: "radial-gradient(circle, hsl(var(--vow-yellow) / 0.02) 0%, transparent 70%)",
           animation: "crossover-mote-b 22s ease-in-out infinite",
-          willChange: 'transform',
         }}
         aria-hidden="true"
       />

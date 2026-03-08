@@ -182,7 +182,6 @@ export function MinimalHeader() {
               style={{
                 opacity: isArrival ? 0.05 : 0.03,
                 transition: "opacity 700ms ease",
-                willChange: "opacity",
               }}
               aria-hidden="true"
             />

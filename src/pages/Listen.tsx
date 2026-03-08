@@ -187,7 +187,7 @@ export default function Listen() {
       <audio ref={audioRef} preload="none" />
 
       {/* Film grain */}
-      <div className="grain opacity-[0.06]" style={{ willChange: "opacity" }} aria-hidden="true" />
+      <div className="grain opacity-[0.06]" aria-hidden="true" />
 
       {/* ── HERO ── */}
       <section id="listen-hero" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden piano-section-target">
@@ -197,7 +197,7 @@ export default function Listen() {
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover opacity-[0.08] pointer-events-none"
-           style={{ animation: "ken-burns 25s ease-in-out infinite alternate", willChange: "transform" }}
+           style={{ animation: "ken-burns 25s ease-in-out infinite alternate" }}
            loading="eager"
            decoding="async"
         />

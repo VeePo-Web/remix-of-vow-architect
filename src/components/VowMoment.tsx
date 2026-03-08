@@ -34,7 +34,6 @@ export function VowMoment() {
           style={{
             animation: 'vow-ken-burns 30s ease-in-out infinite alternate',
             filter: 'saturate(0.7) contrast(1.08)',
-            willChange: 'transform',
           }}
           loading="lazy"
           decoding="async"
@@ -52,7 +51,7 @@ export function VowMoment() {
 
       {/* Step 5: Breathing Vow-Yellow Radial Glow */}
       <div
-        className="absolute inset-0 pointer-events-none vow-glow-breathe will-change-[opacity]"
+        className="absolute inset-0 pointer-events-none vow-glow-breathe"
         style={{
           background: "radial-gradient(circle at center, hsl(var(--vow-yellow) / 0.05) 0%, transparent 50%)",
         }}

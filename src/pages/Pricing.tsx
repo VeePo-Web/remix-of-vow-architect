@@ -72,7 +72,6 @@ export default function Pricing() {
               maskImage: "linear-gradient(to bottom, black 0%, transparent 40%)",
               WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 40%)",
               animation: "ken-burns 25s ease-in-out infinite alternate",
-              willChange: "transform",
             }}
           />
         </div>
@@ -92,7 +91,6 @@ export default function Pricing() {
           style={{
             maskImage: "linear-gradient(to bottom, black 0%, transparent 40%)",
             WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 40%)",
-            willChange: "opacity",
           }}
           aria-hidden="true" 
         />

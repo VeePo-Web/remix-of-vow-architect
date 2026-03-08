@@ -65,7 +65,6 @@ export default function Proof() {
               backgroundSize: "cover",
               backgroundPosition: "center",
               animation: "ken-burns 30s ease-in-out infinite alternate",
-              willChange: "transform",
             }}
           />
         </div>
@@ -81,7 +80,7 @@ export default function Proof() {
           aria-hidden="true"
         />
         {/* Film grain */}
-        <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
+        <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" aria-hidden="true" />
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center space-y-6 animate-fade-in">

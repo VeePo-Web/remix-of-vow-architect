@@ -69,7 +69,7 @@ export function WitnessCovenant() {
             }}
           >
             {/* Film grain texture on certificate — refined opacity */}
-            <div className="absolute inset-0 grain opacity-[0.08] rounded-sm pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
+            <div className="absolute inset-0 grain opacity-[0.08] rounded-sm pointer-events-none" aria-hidden="true" />
 
             {/* Corner ornaments — subtler */}
             <div className="absolute top-6 left-6 w-10 h-10 border-l border-t border-primary/25" />

@@ -85,7 +85,6 @@ export default function Contact() {
               maskImage: "linear-gradient(to bottom, black 0%, transparent 50%)",
               WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 50%)",
               animation: "ken-burns 25s ease-in-out infinite alternate",
-              willChange: "transform",
             }}
           />
           <img src={contactHeroImg} alt="" className="hidden" loading="eager" decoding="async" />
@@ -102,7 +101,7 @@ export default function Contact() {
           aria-hidden="true"
         />
         {/* Film grain */}
-        <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
+        <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" aria-hidden="true" />
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-5xl mx-auto animate-fade-in">

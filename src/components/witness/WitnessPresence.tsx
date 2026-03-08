@@ -34,14 +34,13 @@ export function WitnessPresence() {
             backgroundSize: "cover",
             backgroundPosition: "center",
             animation: "ken-burns 30s ease-in-out infinite alternate",
-            willChange: "transform",
           }}
           aria-hidden="true"
         />
       </div>
 
       {/* Grain */}
-      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
+      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
 
       {/* Vignette */}
       <div 
