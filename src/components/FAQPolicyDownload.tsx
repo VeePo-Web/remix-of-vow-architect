@@ -36,9 +36,11 @@ export function FAQPolicyDownload() {
               ))}
             </ul>
 
-            <Button size="lg" variant="primary-dark" className="hover-scale">
-              <FileDown className="w-4 h-4 mr-2" />
-              Download my full policy sheet
+            <Button size="lg" variant="primary-dark" className="hover-scale" asChild>
+              <a href="/terms">
+                <FileDown className="w-4 h-4 mr-2" />
+                Read my full booking terms
+              </a>
             </Button>
           </div>
         </div>

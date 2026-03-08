@@ -22,7 +22,7 @@ const chips = [
   {
     question: "What is the refund policy?",
     answer: "Full refund within 14 days. After that, your deposit becomes transferable credit.",
-    link: { to: "#", label: "See policy details" }
+    link: { to: "/terms", label: "See the terms" }
   },
   {
     question: "Do I receive a plan — or just a performance?",

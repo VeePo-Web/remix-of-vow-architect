@@ -54,8 +54,8 @@ const topTenFAQs = [
   },
   {
     question: "How does a ceremony pianist compare to a DJ or band?",
-    answer: "The simplest question to ask any alternative: how do they ensure your outdoor vows are heard clearly and quietly? The comparison chart on the pricing page outlines the differences.",
-    link: { to: "/pricing", label: "See the comparison" }
+    answer: "The simplest question to ask any alternative: how do they ensure your outdoor vows are heard clearly and quietly? The comparison chart on the services page outlines the differences.",
+    link: { to: "/services", label: "See the comparison" }
   }
 ];
 

@@ -3,7 +3,7 @@ import { AlertTriangle, HelpCircle, FileText, Heart } from "lucide-react";
 
 const testimonials = [
   {
-    quote: "I had a nightmare about our DJ bailing. Parker showed up with three amps.",
+    quote: "I had a nightmare about our DJ bailing. Parker showed up with triple redundancy and a smile.",
     name: "Kaitlyn",
     location: "Cochrane",
     initials: "K"

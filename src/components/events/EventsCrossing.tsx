@@ -61,11 +61,8 @@ export function EventsCrossing() {
           )}
           style={{ transitionDelay: "500ms" }}
         >
-          <Button
-            asChild
-            className="bg-[hsl(var(--vow-yellow))] text-[hsl(var(--rich-black))] hover:bg-[hsl(var(--vow-yellow)/0.9)] font-sans text-[14px] tracking-[0.08em] px-8 py-3"
-          >
-            <Link to="/contact">Tell me about your event</Link>
+          <Button asChild size="lg" variant="primary-dark">
+            <Link to="/contact">Discuss your event</Link>
           </Button>
         </div>
 
