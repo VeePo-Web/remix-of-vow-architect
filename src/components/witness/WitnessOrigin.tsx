@@ -117,7 +117,6 @@ export function WitnessOrigin() {
                 decoding="async"
                 style={{ 
                   animation: "ken-burns 30s ease-in-out infinite alternate",
-                  willChange: "transform",
                   filter: "saturate(0.85) contrast(1.05)",
                 }}
               />

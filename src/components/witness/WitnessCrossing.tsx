@@ -29,7 +29,6 @@ export function WitnessCrossing() {
             backgroundSize: "cover",
             backgroundPosition: "center",
             animation: "ken-burns 30s ease-in-out infinite alternate",
-            willChange: "transform",
           }}
           aria-hidden="true"
         />

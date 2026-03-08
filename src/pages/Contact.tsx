@@ -85,7 +85,6 @@ export default function Contact() {
               maskImage: "linear-gradient(to bottom, black 0%, transparent 50%)",
               WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 50%)",
               animation: "ken-burns 25s ease-in-out infinite alternate",
-              willChange: "transform",
             }}
           />
           <img src={contactHeroImg} alt="" className="hidden" loading="eager" decoding="async" />

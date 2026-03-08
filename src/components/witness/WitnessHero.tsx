@@ -25,7 +25,6 @@ export function WitnessHero() {
             backgroundSize: "cover",
             backgroundPosition: "center",
             animation: "ken-burns 25s ease-in-out infinite alternate",
-            willChange: "transform",
             filter: "saturate(0.85) contrast(1.05)",
           }}
           aria-hidden="true"

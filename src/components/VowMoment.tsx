@@ -34,7 +34,6 @@ export function VowMoment() {
           style={{
             animation: 'vow-ken-burns 30s ease-in-out infinite alternate',
             filter: 'saturate(0.7) contrast(1.08)',
-            willChange: 'transform',
           }}
           loading="lazy"
           decoding="async"
