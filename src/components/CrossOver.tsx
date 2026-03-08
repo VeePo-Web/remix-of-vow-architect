@@ -399,7 +399,7 @@ export function CrossOver() {
       {/* 14d: Bottom vignette floor */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none"
-        style={{ background: "linear-gradient(to bottom, transparent 85%, hsl(240 9% 2% / 0.3) 100%)" }}
+        style={{ background: "linear-gradient(to bottom, transparent 85%, hsl(var(--rich-black) / 0.3) 100%)" }}
         aria-hidden="true"
       />
 
