@@ -2,16 +2,16 @@ import { Check, X, AlertTriangle } from "lucide-react";
 
 const comparisonData = [
   { 
-    feature: "Vow amplification", 
-    dj: { value: "warning", label: "Basic rental mic" }, 
+    feature: "Vow clarity", 
+    dj: { value: "warning", label: "Basic setup" }, 
     band: { value: false, label: "Often not included" }, 
-    parker: { value: true, label: "Wireless lapel + handheld, live-mixed" } 
+    parker: { value: true, label: "Dedicated wireless system, balanced live" } 
   },
   { 
     feature: "Silent power", 
-    dj: { value: false, label: "Generator noise common" }, 
+    dj: { value: false, label: "Noisy equipment common" }, 
     band: { value: "warning", label: "Sometimes" }, 
-    parker: { value: true, label: "Battery system — no noise" } 
+    parker: { value: true, label: "Battery system — completely quiet" } 
   },
   { 
     feature: "Volume verification", 
