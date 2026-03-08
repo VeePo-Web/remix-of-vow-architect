@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { MinimalHeader } from "@/components/MinimalHeader";
+import { MobileStickyBar } from "@/components/MobileStickyBar";
+import { PianoKeyNav } from "@/components/PianoKeyNav";
 import { Footer } from "@/components/Footer";
 import { ListeningMovement } from "@/components/ListeningMovement";
 import { Button } from "@/components/ui/button";
@@ -8,6 +10,12 @@ import { Play, Pause } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import listenHero from "@/assets/listen-hero.jpg";
+
+const listenSections = [
+  { id: "listen-hero",     label: "The Room",       isBlackKey: false },
+  { id: "listen-movements", label: "The Movements", isBlackKey: true  },
+  { id: "listen-crossing",  label: "The Crossing",  isBlackKey: false },
+];
 
 /* ── Track data ── */
 const movements = [
