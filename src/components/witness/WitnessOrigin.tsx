@@ -69,7 +69,7 @@ export function WitnessOrigin() {
                 )}
                 style={{ transitionDelay: "400ms" }}
               >
-                The wind blew. The DJ shrugged. The moment was lost.
+                The wind blew. The musician shrugged. The moment was lost.
               </p>
               
               <p 
