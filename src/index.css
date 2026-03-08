@@ -1032,7 +1032,7 @@ All colors MUST be HSL.
 
   .card-surface:hover {
     transform: translateY(-4px);
-    box-shadow: 0 22px 44px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 22px 44px hsl(var(--rich-black) / 0.06);
   }
 
   .card-surface--featured {
