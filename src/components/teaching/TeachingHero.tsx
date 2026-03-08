@@ -241,13 +241,13 @@ export function TeachingHero() {
         {/* Role label */}
         <p
           className={cn(
-            "font-sans text-[11px] uppercase tracking-[0.28em] mb-10 transition-all duration-[1800ms]",
+            "font-sans text-[11px] uppercase tracking-[0.28em] mb-8 transition-all duration-[1800ms]",
             isRevealed
-              ? "opacity-40 translate-y-0"
+              ? "opacity-50 translate-y-0"
               : "opacity-0 translate-y-[8px]"
           )}
           style={{
-            color: "hsl(40 12% 52%)",
+            color: "hsl(40 14% 56%)",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             transitionDelay: `${ROLE_DELAY}ms`,
           }}
