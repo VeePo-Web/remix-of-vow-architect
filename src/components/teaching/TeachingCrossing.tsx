@@ -17,9 +17,10 @@ function ScrollTagline({ isInView }: { isInView: boolean }) {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const vh = window.innerHeight;
+    // Only compute when element is near viewport
+    if (rect.bottom < -100 || rect.top > vh + 100) return;
     const raw = 1 - (rect.top - vh * 0.3) / (vh * 0.35);
     setProgress(Math.max(0, Math.min(1, raw)));
-    rafRef.current = requestAnimationFrame(updateProgress);
   }, []);
 
   useEffect(() => {
