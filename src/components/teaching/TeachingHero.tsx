@@ -290,7 +290,7 @@ export function TeachingHero() {
             charInterval={LINE2_INTERVAL}
             className="block text-[clamp(34px,8vw,68px)] font-light"
             style={{
-              color: "hsl(40 18% 88%)",
+              color: "hsl(var(--teaching-text-heading-light))",
               lineHeight: "1",
               marginTop: "-8px",
               textShadow:
