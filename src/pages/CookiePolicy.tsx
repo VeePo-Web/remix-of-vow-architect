@@ -21,7 +21,7 @@ export default function CookiePolicy() {
   return (
     <PolicyLayout
       title="Cookie Policy"
-      lastUpdated="November 28, 2025"
+      lastUpdated="March 8, 2026"
       breadcrumbs={[
         { label: "Home", path: "/" },
         { label: "Legal", path: "/legal" },
