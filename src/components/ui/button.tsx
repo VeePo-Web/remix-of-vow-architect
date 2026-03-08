@@ -113,8 +113,8 @@ const buttonVariants = cva(
         destructive: [
           "bg-destructive text-destructive-foreground shadow-sm",
           "hover:bg-destructive/90",
-          "hover:shadow-[0_8px_20px_rgba(239,68,68,0.15)]",
-          "active:shadow-[0_2px_8px_rgba(239,68,68,0.1)]",
+          "hover:shadow-[0_8px_20px_hsl(0_80%_60%/0.15)]",
+          "active:shadow-[0_2px_8px_hsl(0_80%_60%/0.1)]",
         ].join(" "),
 
         secondary: [
