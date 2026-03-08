@@ -32,7 +32,7 @@ const tiers: KeyTier[] = [
   {
     name: "The Story",
     price: "$1,200",
-    description: "Prelude, ceremony, and live piano or curated DJ for cocktail hour.",
+    description: "Prelude, ceremony, and live piano for cocktail hour.",
     sentence: "From the first guest to the last glass raised — I am there.",
     ctaText: "Hold my date",
   },
