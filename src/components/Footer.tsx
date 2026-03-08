@@ -154,7 +154,7 @@ export function Footer() {
             <p className="font-display italic text-sm text-muted-foreground mt-1 mb-4">
               Sound Director
             </p>
-            <p className="text-foreground/70 mb-8 max-w-md leading-relaxed">
+            <p className="text-foreground mb-8 max-w-md leading-relaxed opacity-70">
               I carry your vows so they can carry your guests.
             </p>
             {/* Social icons with spotlight hover */}
