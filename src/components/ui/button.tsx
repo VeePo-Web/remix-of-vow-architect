@@ -43,10 +43,10 @@ const buttonVariants = cva(
          */
         default: [
           "bg-primary text-primary-foreground",
-          "shadow-[0_8px_24px_rgba(255,224,138,0.18)]",
+          "shadow-[0_8px_24px_hsl(var(--vow-yellow)/0.18)]",
           "hover:bg-[hsl(var(--vow-yellow)/0.85)]",
-          "hover:shadow-[0_12px_32px_rgba(255,224,138,0.28),0_0_16px_rgba(255,224,138,0.08)]",
-          "active:shadow-[0_4px_12px_rgba(255,224,138,0.12)]",
+          "hover:shadow-[0_12px_32px_hsl(var(--vow-yellow)/0.28),0_0_16px_hsl(var(--vow-yellow)/0.08)]",
+          "active:shadow-[0_4px_12px_hsl(var(--vow-yellow)/0.12)]",
         ].join(" "),
 
         /**
