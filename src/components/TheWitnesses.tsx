@@ -26,7 +26,7 @@ export function TheWitnesses() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 40%, hsl(45 20% 93% / 0.8) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 40%, hsl(var(--surface-warm) / 0.8) 100%)',
         }}
         aria-hidden="true"
       />
