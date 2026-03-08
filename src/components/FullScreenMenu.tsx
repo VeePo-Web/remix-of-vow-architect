@@ -287,9 +287,51 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
       </div>
 
       {/* ═══════════════════════════════════════════
-          MENU CONTENT — Two Zones
+          MENU CONTENT — Centered Symphony Layout
           ═══════════════════════════════════════════ */}
-      <div className="flex flex-col justify-center items-start min-h-screen px-8 md:px-16 lg:px-24">
+      <div className="flex flex-col justify-center items-center text-center min-h-screen px-8 md:px-16 lg:px-24">
+
+        {/* ═══════════════════════════════════════════
+            BRAND MARK — Parker Gawryletz
+            ═══════════════════════════════════════════ */}
+        <div
+          className={cn(
+            "mb-6 md:mb-8 transition-all duration-[400ms]",
+            isOpen ? "opacity-100 translate-y-0 delay-[100ms]" : "opacity-0 translate-y-4"
+          )}
+        >
+          <div className="relative overflow-hidden">
+            <h2 className="font-display text-xl md:text-2xl text-foreground tracking-[0.08em]">
+              Parker Gawryletz
+            </h2>
+            {/* Gold shimmer sweep — one-time on open */}
+            <span
+              className="absolute inset-0 pointer-events-none opacity-0"
+              style={{
+                animation: isOpen ? 'shimmer-sweep 2s ease-in-out 0.8s 1 forwards' : undefined,
+                background: 'linear-gradient(110deg, transparent 30%, hsl(var(--vow-yellow) / 0.2) 45%, hsl(var(--vow-yellow) / 0.3) 50%, hsl(var(--vow-yellow) / 0.2) 55%, transparent 70%)',
+              }}
+              aria-hidden="true"
+            />
+          </div>
+          {/* Golden divider line */}
+          <div
+            className={cn(
+              "mt-4 mx-auto transition-all duration-[500ms] origin-center",
+              isOpen ? "opacity-100 scale-x-100 delay-[200ms]" : "opacity-0 scale-x-0"
+            )}
+            style={{ width: '80px' }}
+          >
+            <div
+              className="h-px"
+              style={{
+                background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.4), transparent)',
+                animation: isOpen ? 'menu-dot-breathe 4s ease-in-out infinite 1s' : undefined,
+              }}
+              aria-hidden="true"
+            />
+          </div>
+        </div>
 
         {/* ═══════════════════════════════════════════
             ZONE 1: The Three Paths — Vertical Selection
