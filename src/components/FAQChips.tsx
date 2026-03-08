@@ -5,8 +5,8 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 
 const chips = [
   {
-    question: "Do I need amplification for vows?",
-    answer: "Yes. I include wireless microphones, live-mixed so every word carries.",
+    question: "Will every word be heard clearly?",
+    answer: "Yes. I include a dedicated wireless system, balanced in real time so every word carries.",
     link: { to: "/proof", label: "See how I prepare" }
   },
   {
