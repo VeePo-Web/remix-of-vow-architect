@@ -435,6 +435,16 @@ export default function Contact() {
 
       <Footer />
       <MobileStickyBar />
+
+      <style>{`
+        @keyframes contact-vignette-breathe {
+          0%, 100% { opacity: 0.8; }
+          50% { opacity: 0.65; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .grain { animation: none !important; }
+        }
+      `}</style>
     </div>
   );
 }
