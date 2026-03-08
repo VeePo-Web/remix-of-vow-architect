@@ -36,6 +36,7 @@ export function MinimalHeader() {
   const [wasScrolled, setWasScrolled] = useState(false);
   const [hoveredNavIndex, setHoveredNavIndex] = useState<number | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [arrivalPhase, setArrivalPhase] = useState<'none' | 'dissolving' | 'arrived'>('none');
   const location = useLocation();
   const isContactPage = location.pathname === '/contact';
   const navRef = useRef<HTMLElement>(null);
@@ -87,6 +88,19 @@ export function MinimalHeader() {
   }, []);
 
   const isArrival = isAtFooter && isScrolled;
+
+  // Orchestrate arrival phases: dissolve nav → glide logo → reveal tagline
+  useEffect(() => {
+    if (isArrival && arrivalPhase === 'none') {
+      setArrivalPhase('dissolving');
+      // After nav links finish dissolving (navLinks.length * 80ms + 260ms transition)
+      const dissolveTime = navLinks.length * 80 + 300;
+      const timer = setTimeout(() => setArrivalPhase('arrived'), dissolveTime);
+      return () => clearTimeout(timer);
+    } else if (!isArrival && arrivalPhase !== 'none') {
+      setArrivalPhase('none');
+    }
+  }, [isArrival, arrivalPhase]);
 
   return (
     <>
@@ -247,11 +261,22 @@ export function MinimalHeader() {
         <div
           className={cn(
             "flex items-center h-full px-[var(--hero-space-edge,24px)] md:px-[var(--hero-space-edge,48px)] py-6 relative",
-            isArrival ? "justify-center" : "justify-between"
+            "justify-between"
           )}
         >
-          {/* Logo with candle warmth glow */}
-          <div className="relative">
+          {/* Logo with candle warmth glow — glides to center during arrival */}
+          <div
+            className="relative transition-all"
+            style={{
+              // Transform-based centering: logo glides from left to center
+              transform: arrivalPhase === 'arrived'
+                ? 'translateX(calc(50vw - 50% - var(--hero-space-edge, 48px)))'
+                : 'translateX(0)',
+              transitionDuration: '450ms',
+              transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+              transitionDelay: arrivalPhase === 'arrived' ? '0ms' : '0ms',
+            }}
+          >
             {/* Candle warmth pool behind logo */}
             <div
               className={cn(
@@ -260,7 +285,7 @@ export function MinimalHeader() {
               )}
               style={{
                 background: `radial-gradient(circle 60px at center, hsl(var(--vow-yellow) / ${
-                  isArrival ? 0.06 : 0.03
+                  arrivalPhase === 'arrived' ? 0.08 : isArrival ? 0.06 : 0.03
                 }) 0%, transparent 70%)`,
               }}
               aria-hidden="true"
@@ -276,24 +301,26 @@ export function MinimalHeader() {
               style={{
                 animationDelay: headerDelay,
                 animationFillMode: "forwards",
-                // Subtle text shadow during arrival — the logo glows
-                textShadow: isArrival
-                  ? "0 0 20px hsl(var(--vow-yellow) / 0.08)"
+                textShadow: arrivalPhase === 'arrived'
+                  ? "0 0 24px hsl(var(--vow-yellow) / 0.1), 0 0 60px hsl(var(--vow-yellow) / 0.04)"
                   : "none",
+                transition: 'text-shadow 700ms ease',
               }}
             >
               Parker Gawryletz
-              {/* Vow-yellow underline draw — only during arrival */}
+              {/* Vow-yellow underline draw — only during full arrival */}
               <span
                 className={cn(
-                  "absolute -bottom-1 left-0 w-full h-[1px] origin-center transition-transform duration-[450ms]",
-                  isArrival ? "scale-x-100" : "scale-x-0"
+                  "absolute -bottom-1 left-0 w-full h-[1px] origin-center transition-transform",
+                  arrivalPhase === 'arrived' ? "scale-x-100" : "scale-x-0"
                 )}
                 style={{
                   background:
                     "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.4), transparent)",
+                  transitionDuration: "450ms",
+                  transitionDelay: arrivalPhase === 'arrived' ? "200ms" : "0ms",
                   transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
-                  boxShadow: isArrival
+                  boxShadow: arrivalPhase === 'arrived'
                     ? "0 0 8px hsl(var(--vow-yellow) / 0.12)"
                     : "none",
                 }}
@@ -310,15 +337,20 @@ export function MinimalHeader() {
               ref={navRef}
               className={cn(
                 "hidden md:flex items-center gap-8 transition-all duration-[260ms]",
-                isArrival && "opacity-0 w-0 overflow-hidden pointer-events-none"
               )}
               style={{
                 transitionTimingFunction: "cubic-bezier(0.22,0.61,0.36,1)",
+                // During arrival dissolve, shrink and hide after animation completes
+                ...(arrivalPhase === 'arrived' && {
+                  width: 0,
+                  overflow: 'hidden',
+                  pointerEvents: 'none' as const,
+                }),
               }}
               onMouseLeave={() => setHoveredNavIndex(null)}
             >
               {navLinks.map((link, i) => {
-                // Reverse stagger on fade-out (recessional)
+                // Reverse stagger on fade-out (recessional dissolve)
                 const reverseI = navLinks.length - 1 - i;
                 const delay =
                   wasScrolled && !isScrolled
@@ -328,13 +360,17 @@ export function MinimalHeader() {
                 const isDimmed =
                   hoveredNavIndex !== null && hoveredNavIndex !== i;
 
+                // Arrival dissolve: reverse stagger, each link fades out
+                const isDissolving = arrivalPhase === 'dissolving' || arrivalPhase === 'arrived';
+                const dissolveDelay = reverseI * 80;
+
                 return (
                   <NavLink
                     key={link.to}
                     to={link.to}
                     className={({ isActive }) =>
                       cn(
-                        "relative nav-link opacity-0 animate-fade-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm transition-all duration-[180ms]",
+                        "relative nav-link opacity-0 animate-fade-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm transition-all",
                         isActive && "text-foreground",
                         isDimmed && "!opacity-[0.35]"
                       )
@@ -342,6 +378,15 @@ export function MinimalHeader() {
                     style={{
                       animationDelay: delay,
                       animationFillMode: "forwards",
+                      // Staggered dissolve during arrival
+                      ...(isDissolving && {
+                        opacity: 0,
+                        transform: 'translateY(-4px)',
+                        transitionDuration: '260ms',
+                        transitionDelay: `${dissolveDelay}ms`,
+                        transitionTimingFunction: 'cubic-bezier(0.22,0.61,0.36,1)',
+                        pointerEvents: 'none' as const,
+                      }),
                     }}
                     onMouseEnter={() => setHoveredNavIndex(i)}
                   >
@@ -400,12 +445,20 @@ export function MinimalHeader() {
                 );
               })}
 
-              {/* CTA — "Hold My Date" with warm glow */}
+              {/* CTA — "Hold My Date" with warm glow — dissolves first during arrival */}
               <span
-                className="relative opacity-0 animate-fade-in"
+                className="relative opacity-0 animate-fade-in transition-all"
                 style={{
                   animationDelay: `${navLinks.length * 80}ms`,
                   animationFillMode: "forwards",
+                  ...((arrivalPhase === 'dissolving' || arrivalPhase === 'arrived') && {
+                    opacity: 0,
+                    transform: 'translateY(-4px)',
+                    transitionDuration: '260ms',
+                    transitionDelay: '0ms', // CTA dissolves first
+                    transitionTimingFunction: 'cubic-bezier(0.22,0.61,0.36,1)',
+                    pointerEvents: 'none' as const,
+                  }),
                 }}
                 onMouseEnter={() => setHoveredNavIndex(navLinks.length)}
               >
@@ -456,17 +509,20 @@ export function MinimalHeader() {
             </nav>
           )}
 
-          {/* Menu Button — always visible */}
+          {/* Menu Button — stays right, softens during arrival */}
           <button
             onClick={() => setIsMenuOpen(true)}
             className={cn(
               "flex items-center gap-2 opacity-0 animate-fade-in group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm transition-all duration-[260ms]",
-              isArrival &&
-                "absolute right-[var(--hero-space-edge,24px)] md:right-[var(--hero-space-edge,48px)] top-1/2 -translate-y-1/2"
             )}
             style={{
               animationDelay: headerDelay,
               animationFillMode: "forwards",
+              // Soften opacity during arrival — menu is still accessible but whispers
+              ...(arrivalPhase === 'arrived' && {
+                opacity: 0.4,
+                transitionDelay: '200ms',
+              }),
             }}
             aria-label="Open menu"
           >
@@ -482,15 +538,17 @@ export function MinimalHeader() {
         </div>
 
         {/* ═══════════════════════════════════════════
-            ARRIVAL TAGLINE — appears only during arrival
-            The header echoes the footer's covenant text
+            ARRIVAL TAGLINE — appears only during full arrival
+            Delayed entrance: rises 8px with opacity, 
+            creating the ceremonial "recessional" close
             ═══════════════════════════════════════════ */}
-        {isArrival && (
+        {arrivalPhase === 'arrived' && (
           <div
-            className="absolute bottom-[8px] left-1/2 -translate-x-1/2 pointer-events-none animate-fade-in"
+            className="absolute bottom-[8px] left-1/2 -translate-x-1/2 pointer-events-none"
             style={{
-              animationDuration: "700ms",
-              animationFillMode: "forwards",
+              opacity: 0,
+              transform: 'translateY(8px) translateX(-50%)',
+              animation: 'arrival-tagline-rise 700ms cubic-bezier(0.22, 0.61, 0.36, 1) 300ms forwards',
             }}
             aria-hidden="true"
           >
@@ -499,7 +557,7 @@ export function MinimalHeader() {
               <span
                 className="text-primary/25"
                 style={{
-                  animation: "semicolon-heartbeat 2s ease-in-out infinite",
+                  animation: "semicolon-heartbeat 2s ease-in-out infinite 1s",
                 }}
               >
                 {" ; "}
@@ -524,9 +582,23 @@ export function MinimalHeader() {
           0%, 100% { opacity: 0.6; }
           50% { opacity: 1; }
         }
+        @keyframes arrival-tagline-rise {
+          from {
+            opacity: 0;
+            transform: translateY(8px) translateX(-50%);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) translateX(-50%);
+          }
+        }
         @media (prefers-reduced-motion: reduce) {
           header * {
             transition-duration: 120ms !important;
+          }
+          @keyframes arrival-tagline-rise {
+            from { opacity: 0; }
+            to { opacity: 1; }
           }
         }
       `}</style>
