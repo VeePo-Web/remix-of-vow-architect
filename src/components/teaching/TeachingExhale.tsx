@@ -269,7 +269,7 @@ export function TeachingExhale() {
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
           }}
         >
-          The recognition
+          The exhale
         </p>
 
         {/* Golden dot anchor — heartbeat */}
