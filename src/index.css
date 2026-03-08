@@ -1078,7 +1078,7 @@ All colors MUST be HSL.
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
+    background: linear-gradient(180deg, hsl(var(--rich-black) / 0) 0%, hsl(var(--rich-black) / 0.4) 100%);
     pointer-events: none;
   }
   
