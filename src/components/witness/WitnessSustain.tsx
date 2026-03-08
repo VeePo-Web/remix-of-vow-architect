@@ -103,7 +103,7 @@ export function WitnessSustain() {
                   <circle cx={cx} cy="20" r="6" fill="hsl(var(--vow-yellow))" opacity="0.15">
                     <animate attributeName="opacity" values="0.12;0.22;0.12" dur={`${3 + i * 0.5}s`} repeatCount="indefinite" />
                   </circle>
-                  <circle cx={cx} cy="20" r="3" fill="hsl(45 80% 75%)" opacity="0.8">
+                  <circle cx={cx} cy="20" r="3" fill="hsl(var(--vow-yellow))" opacity="0.8">
                     <animate attributeName="opacity" values="0.7;1;0.7" dur={`${3 + i * 0.5}s`} repeatCount="indefinite" />
                   </circle>
                 </g>
