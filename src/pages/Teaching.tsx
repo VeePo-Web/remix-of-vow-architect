@@ -53,6 +53,7 @@ export default function Teaching() {
   return (
     <div className="min-h-screen">
       <MinimalHeader />
+      <PianoKeyNav sections={teachingSections} />
 
       <main>
         <TeachingHero />
