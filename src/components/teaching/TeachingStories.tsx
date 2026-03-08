@@ -27,7 +27,7 @@ function StoryCard({
   story: (typeof stories)[number];
   index: number;
 }) {
-  const { ref, isVisible } = useScrollReveal({ threshold: 0.3 });
+  const { ref, isVisible } = useScrollReveal({ threshold: 0.3 }) as { ref: React.RefObject<HTMLDivElement>; isVisible: boolean };
 
   return (
     <div ref={ref} className="mb-[100px] last:mb-0">
