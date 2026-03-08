@@ -43,7 +43,7 @@ export function PricingTestimonials() {
                 </div>
               </div>
               
-              <blockquote className="border-l-2 border-[hsl(var(--vow-yellow)/0.4)] pl-4 mb-4">
+              <blockquote className="border-l-2 border-primary/40 pl-4 mb-4">
                 <p className="font-display text-base text-foreground italic leading-relaxed">
                   "{testimonial.quote}"
                 </p>

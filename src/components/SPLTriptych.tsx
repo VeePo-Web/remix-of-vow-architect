@@ -70,7 +70,7 @@ export function SPLTriptych() {
             </p>
 
             <Card className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred">
-              <blockquote className="border-l-2 border-[hsl(var(--vow-yellow)/0.4)] pl-4 mb-4">
+              <blockquote className="border-l-2 border-primary/40 pl-4 mb-4">
                 <p className="font-display text-[15px] text-foreground italic leading-relaxed">
                   "We included the volume documentation in our permit application — approved instantly."
                 </p>

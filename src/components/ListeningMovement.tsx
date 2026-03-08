@@ -29,7 +29,7 @@ function WaveformBars({ isPlaying }: { isPlaying: boolean }) {
           key={i}
           className={cn(
             "w-[3px] rounded-full transition-colors duration-300",
-            isPlaying ? "bg-[hsl(var(--vow-yellow))]" : "bg-foreground/15"
+            isPlaying ? "bg-primary" : "bg-foreground/15"
           )}
           style={{
             height: isPlaying
@@ -142,7 +142,7 @@ export function ListeningMovement({
         )}
       >
         {/* Context label */}
-        <p className="text-[11px] md:text-xs uppercase tracking-[0.3em] text-[hsl(var(--vow-yellow))] opacity-70 mb-4">
+        <p className="text-[11px] md:text-xs uppercase tracking-[0.3em] text-primary opacity-70 mb-4">
           {context}
         </p>
 
@@ -165,7 +165,7 @@ export function ListeningMovement({
             "inline-flex flex-col items-center gap-5 rounded-lg p-6 md:p-8",
             "border backdrop-blur-[8px] transition-all duration-300",
             isActive
-              ? "bg-card/20 border-[hsl(var(--vow-yellow)/0.25)] card-sacred card-sacred-hover"
+              ? "bg-card/20 border-primary/25 card-sacred card-sacred-hover"
               : "bg-card/8 border-border/15"
           )}
         >
@@ -183,9 +183,9 @@ export function ListeningMovement({
               onClick={handleToggle}
               className={cn(
                 "w-12 h-12 rounded-full flex items-center justify-center transition-all duration-[180ms]",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)/0.6)]",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60",
                 isActive && isPlaying
-                  ? "bg-[hsl(var(--vow-yellow))] text-background hover:scale-[1.06]"
+                  ? "bg-primary text-primary-foreground hover:scale-[1.06]"
                   : "bg-foreground opacity-10 text-foreground hover:opacity-20 hover:scale-[1.06]"
               )}
               aria-label={isActive && isPlaying ? `Pause ${trackTitle}` : `Play ${trackTitle}`}

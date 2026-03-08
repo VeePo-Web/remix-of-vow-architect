@@ -74,8 +74,8 @@ export function EventsOffering() {
               className={cn(
                 "relative rounded-2xl p-8 transition-all duration-[500ms] flex flex-col backdrop-blur-[6px]",
                 t.isSelected
-                  ? "border-2 border-[hsl(var(--vow-yellow)/0.30)] hover:border-[hsl(var(--vow-yellow)/0.50)] shadow-[inset_0_1px_0_hsl(0_0%_100%/0.06),0_0_40px_hsl(var(--vow-yellow)/0.06)]"
-                  : "border border-[hsl(var(--vow-yellow)/0.06)] hover:border-[hsl(var(--vow-yellow)/0.15)] shadow-[inset_0_1px_0_hsl(0_0%_100%/0.04)]",
+                  ? "border-2 border-primary/30 hover:border-primary/50 shadow-[inset_0_1px_0_hsl(0_0%_100%/0.06),var(--shadow-sacred-glow)]"
+                  : "border border-primary/[0.06] hover:border-primary/15 shadow-[inset_0_1px_0_hsl(0_0%_100%/0.04)]",
                 "hover:-translate-y-1",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
@@ -90,7 +90,7 @@ export function EventsOffering() {
               <h3 className="font-display text-[22px] font-medium text-foreground mb-1">
                 {t.name}
               </h3>
-              <span className="font-sans text-[13px] text-[hsl(var(--vow-yellow))] tracking-[0.1em] mb-4 opacity-70">
+              <span className="font-sans text-[13px] text-primary tracking-[0.1em] mb-4 opacity-70">
                 {t.duration}
               </span>
               <p className="font-sans text-[15px] text-muted-foreground leading-relaxed mb-8 flex-1">
