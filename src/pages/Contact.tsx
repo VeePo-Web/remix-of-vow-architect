@@ -73,7 +73,7 @@ export default function Contact() {
       <MinimalHeader />
 
       {/* Section 1: Hero with atmospheric background */}
-      <section className="relative section-padding bg-background overflow-hidden">
+      <section className="relative section-padding bg-background overflow-hidden" aria-label="Hold your date">
         {/* Background image with overflow-hidden wrapper */}
         <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
           <div 
