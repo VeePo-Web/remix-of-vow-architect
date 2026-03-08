@@ -188,7 +188,7 @@ export function TheTransformation() {
           {/* Overline */}
           <p
             className={cn(
-              "text-xs uppercase tracking-[0.22em] text-foreground/50 mb-8 transition-all duration-700",
+              "text-xs uppercase tracking-[0.22em] text-muted-foreground mb-8 transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
             )}
             style={{ transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)" }}

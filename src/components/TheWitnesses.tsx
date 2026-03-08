@@ -137,7 +137,7 @@ export function TheWitnesses() {
                     aria-hidden="true"
                   />
                   <p
-                    className="font-display text-foreground/50"
+                    className="font-display text-muted-foreground"
                     style={{ fontSize: "12px", letterSpacing: "0.06em", textTransform: "uppercase" }}
                   >
                     {testimonial.venue}

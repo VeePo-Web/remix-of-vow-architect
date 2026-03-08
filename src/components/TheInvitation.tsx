@@ -322,7 +322,7 @@ export function TheInvitation() {
             {/* Inline Credentials */}
             <p
               className={cn(
-                'text-xs uppercase tracking-[0.22em] text-foreground/40 mt-10 transition-all duration-700',
+                'text-xs uppercase tracking-[0.22em] text-muted-foreground mt-10 transition-all duration-700',
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               )}
               style={{ transitionDelay: isVisible ? '900ms' : '0ms' }}
