@@ -20,7 +20,7 @@ export function MinimalScrollCue() {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       clearTimeout(showTimer);
       window.removeEventListener("scroll", handleScroll);
@@ -40,6 +40,8 @@ export function MinimalScrollCue() {
       style={{
         animation: isVisible && !hasScrolled ? "breathe-scroll 4s ease-in-out infinite" : undefined,
       }}
+      aria-label="Scroll to explore"
+      role="presentation"
     >
       {/* Vertical Line */}
       <div 
