@@ -3,9 +3,9 @@ import { StaggerChildren } from "@/components/animation";
 
 const addOns = [
   {
-    title: "Special Song Request",
+    title: "Custom Song Request",
     price: "$75–$150",
-    description: "A song outside my standard repertoire, learned and rehearsed for your ceremony. Submit at least 8 weeks prior — I will confirm feasibility within 7 days.",
+    description: "A song outside my standard repertoire, learned and rehearsed for your ceremony. Request at least 8 weeks prior — I will confirm feasibility within 7 days.",
   },
   {
     title: "Short-Notice Booking",

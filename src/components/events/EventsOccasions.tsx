@@ -13,7 +13,7 @@ const occasions = [
     icon: Church,
     title: "Church Services",
     description:
-      "Sunday worship, special liturgies, memorial services — reverent piano that supports the congregation without overwhelming the space.",
+      "Sunday worship, seasonal liturgies, memorial services — reverent piano that supports the congregation without overwhelming the space.",
   },
   {
     icon: Wine,

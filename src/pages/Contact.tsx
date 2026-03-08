@@ -377,7 +377,7 @@ export default function Contact() {
                         <Textarea
                           id="additionalNotes"
                           {...register("additionalNotes")}
-                          placeholder="Song requests, tone preferences, special moments..."
+                          placeholder="Song requests, tone preferences, meaningful moments..."
                           rows={4}
                           className="mt-2"
                         />
