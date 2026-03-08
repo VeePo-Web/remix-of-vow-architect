@@ -28,6 +28,7 @@ const eventsSections = [
 
 export default function Events() {
   usePageTheme();
+  useEffect(() => { document.title = "Private Events — Parker Gawryletz, Pianist"; }, []);
 
   return (
     <div className="min-h-screen">
