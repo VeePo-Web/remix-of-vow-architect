@@ -71,7 +71,7 @@ export function ComparisonTable() {
               </th>
               <th className="text-center px-4 py-4">
                 <div className="font-display text-sm font-medium text-primary">Parker</div>
-                <div className="text-[11px] text-primary/70 font-sans mt-0.5">$650–$1,200</div>
+                <div className="text-[11px] text-primary font-sans mt-0.5 opacity-70">$650–$1,200</div>
               </th>
             </tr>
           </thead>
