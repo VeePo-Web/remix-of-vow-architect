@@ -90,17 +90,23 @@ export function MinimalHeader() {
   const isArrival = isAtFooter && isScrolled;
 
   // Orchestrate arrival phases: dissolve nav → glide logo → reveal tagline
+  const arrivalTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => {
-    if (isArrival && arrivalPhase === 'none') {
-      setArrivalPhase('dissolving');
-      // After nav links finish dissolving (navLinks.length * 80ms + 260ms transition)
-      const dissolveTime = navLinks.length * 80 + 300;
-      const timer = setTimeout(() => setArrivalPhase('arrived'), dissolveTime);
-      return () => clearTimeout(timer);
-    } else if (!isArrival && arrivalPhase !== 'none') {
-      setArrivalPhase('none');
+    if (isArrival) {
+      if (arrivalPhase === 'none') {
+        setArrivalPhase('dissolving');
+        const dissolveTime = navLinks.length * 80 + 300;
+        arrivalTimerRef.current = setTimeout(() => setArrivalPhase('arrived'), dissolveTime);
+      }
+    } else {
+      if (arrivalTimerRef.current) {
+        clearTimeout(arrivalTimerRef.current);
+        arrivalTimerRef.current = null;
+      }
+      if (arrivalPhase !== 'none') setArrivalPhase('none');
     }
-  }, [isArrival, arrivalPhase]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isArrival]);
 
   return (
     <>
