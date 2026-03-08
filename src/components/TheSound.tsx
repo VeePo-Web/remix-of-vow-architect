@@ -523,7 +523,7 @@ export function TheSound() {
                 />
               </div>
               <blockquote className="relative z-10" cite="Parker Gawryletz">
-                <p className="text-lg font-display font-light italic text-foreground/80 blockquote-warm">
+                <p className="text-lg font-display font-light italic text-foreground blockquote-warm">
                   Every piece I play begins the same way — with someone in mind.
                 </p>
                 <footer className="mt-3">
