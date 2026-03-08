@@ -142,7 +142,6 @@ export function TheInvitation() {
           <div
             ref={imageColRef}
             className={cn(
-              'will-change-transform',
               !revealDone && 'transition-all duration-[900ms]',
               isVisible ? 'opacity-100' : 'opacity-0 translate-y-6'
             )}
