@@ -1229,15 +1229,15 @@ The semicolon is the threshold --- the patient pause between not-knowing and kno
 - **Transition out:** 100px whitespace. The palette holds warm.
 - **Visitor exits feeling:** "Others have walked this path and found their sound. I can too."
 
-#### Section 7: The Offering (Choice)
+#### Section 7: The Offering (Invitation)
 - **Spectrum position:** Point 6-7 — Breakthrough → Full Resonance
 - **Visitor enters feeling:** Ready to act. "Show me how to begin."
-- **Content:** The framing question: "Where are you in your relationship with the instrument?" Three tiers: The Conversation, The Practice (Most Chosen), The Devotion. Each tier has a 1-line description and a soft CTA.
-- **Copy structure:** Framing question in Cormorant Garamond, centered. Three tier cards using the piano-key visual metaphor. The Practice card has a "Most Chosen" pill in vow-yellow and a subtle border accent.
-- **Visual treatment:** Warm cream background. Tier cards with 1px warm-charcoal borders. Hover: 220ms lift (-2px) using **patience** easing. Most Chosen card has a 1px vow-yellow left border.
-- **Sacred objects:** Golden dots replace bullet points in tier feature lists.
-- **Transition out:** The golden thread extends from the bottom of the tier section to the final CTA.
-- **Visitor exits feeling:** "I know which option is right for me. The choice feels clear, not overwhelming."
+- **Content:** A single, clean statement. No tier cards. No feature bundles. The framing question: "Are you ready to sit down?" The price: "$60 per hour" in Inter, regular weight, understated — secondary to the invitation. The CTA: "Begin the conversation." Anti-anxiety: "$60 per hour. No packages. No commitments. One conversation at a time."
+- **Copy structure:** Framing question in Cormorant Garamond, centered. Price statement below in Inter, muted. CTA button below price. Anti-anxiety microcopy in Inter at smaller size beneath the CTA.
+- **Visual treatment:** Warm cream background. No cards. A centered, vertical flow: question → price → CTA → reassurance. The golden thread runs vertically through the center. Generous whitespace (120px+ above and below).
+- **Sacred objects:** Golden dot above the framing question. The golden thread extends from the dot to the CTA.
+- **Transition out:** The golden thread continues into the Crossing section.
+- **Visitor exits feeling:** "There is nothing to decide except whether I am ready. The simplicity itself is reassuring."
 
 #### Section 8: The Crossing (Commitment)
 - **Spectrum position:** Point 7 — Full Resonance
