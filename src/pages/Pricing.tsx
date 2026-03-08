@@ -138,7 +138,7 @@ export default function Pricing() {
                   
                   <div className="font-display text-[clamp(32px,4vw,48px)] font-light text-primary mb-2">$750</div>
                   <p className="p-body text-muted-foreground mb-6">
-                    Adds 30–60 minutes of pre-ceremony ambiance or cocktail piano. Great for longer guest mingling or two-location setups.
+                    Extended presence — from the quiet anticipation of guest arrival through the ceremony and into the first exhale of cocktails.
                   </p>
 
                   <ul className="space-y-2 mb-6 text-sm">
