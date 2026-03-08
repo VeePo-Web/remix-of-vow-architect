@@ -5263,19 +5263,19 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 /* Fix 8: Outer edge shadows on first and last white keys */
 .piano-keys-container > .contents:first-child .piano-white-key {
   box-shadow:
-    inset 2px 0 4px rgba(0,0,0,0.07),
-    inset -2px 0 4px rgba(0,0,0,0.07),
-    -4px 0 12px rgba(0,0,0,0.15),
-    0 8px 32px rgba(0,0,0,0.3),
-    0 2px 0 rgba(0,0,0,0.08);
+    inset 2px 0 4px hsl(var(--rich-black) / 0.07),
+    inset -2px 0 4px hsl(var(--rich-black) / 0.07),
+    -4px 0 12px hsl(var(--rich-black) / 0.15),
+    0 8px 32px hsl(var(--rich-black) / 0.3),
+    0 2px 0 hsl(var(--rich-black) / 0.08);
 }
 .piano-keys-container > .contents:last-child .piano-white-key {
   box-shadow:
-    inset 2px 0 4px rgba(0,0,0,0.07),
-    inset -2px 0 4px rgba(0,0,0,0.07),
-    4px 0 12px rgba(0,0,0,0.15),
-    0 8px 32px rgba(0,0,0,0.3),
-    0 2px 0 rgba(0,0,0,0.08);
+    inset 2px 0 4px hsl(var(--rich-black) / 0.07),
+    inset -2px 0 4px hsl(var(--rich-black) / 0.07),
+    4px 0 12px hsl(var(--rich-black) / 0.15),
+    0 8px 32px hsl(var(--rich-black) / 0.3),
+    0 2px 0 hsl(var(--rich-black) / 0.08);
 }
 
 @media (min-width: 768px) {
