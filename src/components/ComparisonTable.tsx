@@ -39,85 +39,79 @@ const comparisonData = [
   },
 ];
 
+/** Golden diamond for Parker's column */
+function GoldenCheck() {
+  return (
+    <span
+      className="inline-block w-3 h-3 rotate-45"
+      style={{
+        background: "hsl(var(--vow-yellow) / 0.8)",
+        boxShadow: "0 0 6px hsl(var(--vow-yellow) / 0.3)",
+      }}
+      aria-label="Included"
+    />
+  );
+}
+
 export function ComparisonTable() {
   return (
     <div className="w-full overflow-x-auto">
-      <table className="w-full border-collapse">
-        <thead>
-          <tr className="h-14 border-b-2 border-border">
-            <th className="text-left px-4 py-3 text-sm font-bold">Feature</th>
-            <th className="text-center px-4 py-3">
-              <div className="text-sm font-bold text-muted-foreground">DJ</div>
-              <div className="text-xs text-muted-foreground font-normal">≈ $1,500–$2,000</div>
-            </th>
-            <th className="text-center px-4 py-3">
-              <div className="text-sm font-bold text-muted-foreground">Band</div>
-              <div className="text-xs text-muted-foreground font-normal">≈ $3,500–$6,000</div>
-            </th>
-            <th className="text-center px-4 py-3">
-              <div className="text-sm font-bold text-primary">Parker</div>
-              <div className="text-xs text-primary/80 font-normal">$650–$1,200</div>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {comparisonData.map((row, i) => (
-            <tr
-              key={i}
-              className={`border-b border-border/30 ${
-                i % 2 === 0 ? "bg-primary/[0.02]" : ""
-              }`}
-            >
-              <td className="px-4 py-4 text-sm font-medium">{row.feature}</td>
-              <td className="text-center px-4 py-4">
-                {row.dj.value === true && (
-                  <Check size={18} className="inline text-accent" />
-                )}
-                {row.dj.value === false && (
-                  <X size={18} className="inline text-destructive/60" />
-                )}
-                {row.dj.value === "warning" && (
-                  <AlertTriangle size={18} className="inline text-primary/70" />
-                )}
-                {row.dj.label && (
-                  <div className="text-xs text-muted-foreground mt-1">{row.dj.label}</div>
-                )}
-              </td>
-              <td className="text-center px-4 py-4">
-                {row.band.value === true && (
-                  <Check size={18} className="inline text-accent" />
-                )}
-                {row.band.value === false && (
-                  <X size={18} className="inline text-destructive/60" />
-                )}
-                {row.band.value === "warning" && (
-                  <AlertTriangle size={18} className="inline text-primary/70" />
-                )}
-                {row.band.label && (
-                  <div className="text-xs text-muted-foreground mt-1">{row.band.label}</div>
-                )}
-              </td>
-              <td className="text-center px-4 py-4">
-                {row.parker.value === true && (
-                  <Check size={18} className="inline text-primary" />
-                )}
-                {row.parker.value === false && (
-                  <X size={18} className="inline text-destructive/60" />
-                )}
-                {row.parker.label && (
-                  <div className="text-xs text-muted-foreground mt-1">{row.parker.label}</div>
-                )}
-              </td>
+      <div className="bg-card/80 backdrop-blur-[8px] border border-border/50 rounded-lg shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)] overflow-hidden">
+        <table className="w-full border-collapse">
+          <thead>
+            <tr className="border-b border-border/40">
+              <th className="text-left px-5 py-4 text-[13px] font-sans font-medium uppercase tracking-[0.1em] text-muted-foreground">Feature</th>
+              <th className="text-center px-4 py-4">
+                <div className="font-display text-sm font-medium text-muted-foreground">DJ</div>
+                <div className="text-[11px] text-muted-foreground/60 font-sans mt-0.5">≈ $1,500–$2,000</div>
+              </th>
+              <th className="text-center px-4 py-4">
+                <div className="font-display text-sm font-medium text-muted-foreground">Band</div>
+                <div className="text-[11px] text-muted-foreground/60 font-sans mt-0.5">≈ $3,500–$6,000</div>
+              </th>
+              <th className="text-center px-4 py-4">
+                <div className="font-display text-sm font-medium text-primary">Parker</div>
+                <div className="text-[11px] text-primary/70 font-sans mt-0.5">$650–$1,200</div>
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {comparisonData.map((row, i) => (
+              <tr
+                key={i}
+                className={`border-b border-border/20 transition-colors duration-[180ms] hover:bg-primary/[0.02] ${
+                  i % 2 === 0 ? "bg-primary/[0.015]" : ""
+                }`}
+              >
+                <td className="px-5 py-4 text-[14px] font-display font-medium">{row.feature}</td>
+                <td className="text-center px-4 py-4">
+                  {row.dj.value === true && <Check size={16} className="inline text-accent" />}
+                  {row.dj.value === false && <X size={16} className="inline text-destructive/40" />}
+                  {row.dj.value === "warning" && <AlertTriangle size={16} className="inline text-primary/50" />}
+                  {row.dj.label && <div className="text-[12px] text-muted-foreground/70 mt-1 leading-snug">{row.dj.label}</div>}
+                </td>
+                <td className="text-center px-4 py-4">
+                  {row.band.value === true && <Check size={16} className="inline text-accent" />}
+                  {row.band.value === false && <X size={16} className="inline text-destructive/40" />}
+                  {row.band.value === "warning" && <AlertTriangle size={16} className="inline text-primary/50" />}
+                  {row.band.label && <div className="text-[12px] text-muted-foreground/70 mt-1 leading-snug">{row.band.label}</div>}
+                </td>
+                <td className="text-center px-4 py-4">
+                  {row.parker.value === true && <GoldenCheck />}
+                  {row.parker.value === false && <X size={16} className="inline text-destructive/40" />}
+                  {row.parker.label && <div className="text-[12px] text-muted-foreground mt-1.5 leading-snug">{row.parker.label}</div>}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-      <div className="mt-6 p-4 bg-muted/50 rounded-lg">
-        <p className="text-sm text-center font-medium">
+      <div className="mt-6 p-5 bg-card/60 backdrop-blur-[6px] border border-border/40 rounded-lg">
+        <p className="font-display text-[15px] text-center font-medium leading-relaxed">
           I am not entertainment. I am the person who ensures every word of your vows is heard.
         </p>
-        <p className="text-xs text-center text-muted-foreground mt-2">
+        <p className="text-[12px] text-center text-muted-foreground mt-2">
           * See policy details below for timing windows and exceptions.
         </p>
       </div>

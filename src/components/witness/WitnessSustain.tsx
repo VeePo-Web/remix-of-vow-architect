@@ -117,7 +117,7 @@ export function WitnessSustain() {
               <div 
                 key={item.label}
                 className={cn(
-                  "text-center transition-all duration-700",
+                  "text-center p-6 rounded-lg bg-card/60 backdrop-blur-[6px] border border-border/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-all duration-700",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 )}
                 style={{ transitionDelay: `${600 + index * 200}ms` }}
@@ -134,7 +134,7 @@ export function WitnessSustain() {
                 </h3>
                 
                 {/* Description */}
-                <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mx-auto">
+                <p className="text-muted-foreground text-[14px] leading-relaxed max-w-xs mx-auto">
                   {item.description}
                 </p>
               </div>
