@@ -239,50 +239,30 @@ People with a specific, time-sensitive goal: they want to play a piece at their 
 
 ---
 
-## 9. Service Offerings
+## 9. Service Offering
 
-The three tiers are framed as depth of relationship, not as feature bundles. The question I ask is not "which package do you want?" but "where are you in your relationship with the instrument?"
+### One Rate. One Relationship.
 
-### Tier 1: The Conversation
+**$60 per hour.** No tiers. No packages. No bundles. No upsells.
 
-**A single session.** For those who are curious, uncertain, or returning after years away.
+Every student receives the same thing: my full, undivided presence at the bench for one hour, with a bespoke mentorship pathway built around their goals, their pace, and their relationship with the instrument. The rate is the same whether it is your first session or your fiftieth. Whether you come weekly, biweekly, or once a month. Whether you are sitting at the piano for the first time or returning after a decade away.
 
-"Discover what the piano holds for you."
+There are no "starter packages," no "premium tiers," no "intensive programs." These structures belong to transactional models that measure value by features and frequency. My model measures value by depth — and depth does not come in tiers.
 
-This is the low-commitment entry point. One hour. One conversation. One opportunity to sit at the bench and find out what it feels like. There is no obligation to continue. The session is complete in itself — a full experience, not a trial or a sample.
+**How it works:**
 
-- Duration: 60 minutes
-- Format: In-person (Calgary) or virtual
-- Includes: The full First Conversation methodology — conversation before music, first touch, exploration
-- No obligation to continue
+- **Rate:** $60 per hour — flat, transparent, the same for every student
+- **Duration:** 60 minutes per session
+- **Frequency:** The student decides — weekly, biweekly, monthly, or as-needed. There are no minimum commitments, no term contracts, and no penalties for adjusting.
+- **Format:** In-person (Calgary, Alberta) or virtual (anywhere in North America). Same methodology, same presence, same rate.
+- **Cancellation:** Respectful communication. Life happens. There is no punitive cancellation policy — only the expectation of mutual respect for each other's time.
+- **No obligation to continue.** Every session is complete in itself. Students return because the mentorship serves them, not because they are locked into a plan.
 
-### Tier 2: The Practice (Most Chosen)
+**Why no tiers:**
 
-**Ongoing mentorship.** For those who are ready to commit to the bench.
+Parker's philosophy is "deep, not wide." Tiers create the perception that some students receive more depth than others based on what they pay. In this practice, every student receives maximum depth. The rate reflects the value of one hour of genuine, bespoke mentorship — not a position on a feature ladder.
 
-"The patient, steady work of finding your sound."
-
-This is the heart of the practice. Regular sessions — weekly or biweekly — where the mentorship deepens over time. Repertoire is chosen together. Technique is introduced as it becomes needed. The relationship with the instrument grows at the student's pace.
-
-- Duration: 60 minutes per session
-- Frequency: Weekly or biweekly (student's choice)
-- Format: In-person (Calgary) or virtual
-- Ongoing: No term limits, no semester structure. Pause or adjust anytime.
-- The student's pace is the only timeline.
-
-### Tier 3: The Devotion
-
-**Intensive mentorship.** For those with something urgent and beautiful to prepare for.
-
-"Accelerated depth for those with something urgent to say."
-
-For students preparing to play at a wedding, a memorial, a milestone event, or a personal turning point. The mentorship intensifies — more frequent sessions, more focused preparation — while maintaining the same patience and expression-first methodology.
-
-- Duration: 60 minutes per session
-- Frequency: Two or more sessions per week
-- Format: In-person (Calgary) or virtual
-- Goal-oriented: Working toward a specific performance or personal milestone
-- The urgency is the student's, not mine. I meet it with depth, not speed.
+The question is never "which package do you want?" It is simply: "Are you ready to sit down?"
 
 ---
 
