@@ -350,7 +350,7 @@ export function MinimalHeader() {
               onMouseLeave={() => setHoveredNavIndex(null)}
             >
               {navLinks.map((link, i) => {
-                // Reverse stagger on fade-out (recessional)
+                // Reverse stagger on fade-out (recessional dissolve)
                 const reverseI = navLinks.length - 1 - i;
                 const delay =
                   wasScrolled && !isScrolled
@@ -360,13 +360,17 @@ export function MinimalHeader() {
                 const isDimmed =
                   hoveredNavIndex !== null && hoveredNavIndex !== i;
 
+                // Arrival dissolve: reverse stagger, each link fades out
+                const isDissolving = arrivalPhase === 'dissolving' || arrivalPhase === 'arrived';
+                const dissolveDelay = reverseI * 80;
+
                 return (
                   <NavLink
                     key={link.to}
                     to={link.to}
                     className={({ isActive }) =>
                       cn(
-                        "relative nav-link opacity-0 animate-fade-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm transition-all duration-[180ms]",
+                        "relative nav-link opacity-0 animate-fade-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm transition-all",
                         isActive && "text-foreground",
                         isDimmed && "!opacity-[0.35]"
                       )
@@ -374,6 +378,15 @@ export function MinimalHeader() {
                     style={{
                       animationDelay: delay,
                       animationFillMode: "forwards",
+                      // Staggered dissolve during arrival
+                      ...(isDissolving && {
+                        opacity: 0,
+                        transform: 'translateY(-4px)',
+                        transitionDuration: '260ms',
+                        transitionDelay: `${dissolveDelay}ms`,
+                        transitionTimingFunction: 'cubic-bezier(0.22,0.61,0.36,1)',
+                        pointerEvents: 'none' as const,
+                      }),
                     }}
                     onMouseEnter={() => setHoveredNavIndex(i)}
                   >
