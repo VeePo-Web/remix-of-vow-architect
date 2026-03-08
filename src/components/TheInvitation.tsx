@@ -199,7 +199,7 @@ export function TheInvitation() {
             {/* Label */}
             <p
               className={cn(
-                'text-xs uppercase tracking-[0.22em] text-[hsl(45_60%_70%_/_0.5)] mb-8',
+                'text-xs uppercase tracking-[0.22em] text-muted-foreground mb-8',
                 'transition-all duration-500',
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               )}
@@ -269,7 +269,7 @@ export function TheInvitation() {
             {/* Body */}
             <p
               className={cn(
-                'text-lg font-sans font-light leading-[1.8] text-foreground/65 max-w-lg mt-8 transition-all duration-700',
+                'text-lg font-sans font-light leading-[1.8] text-muted-foreground max-w-lg mt-8 transition-all duration-700',
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               )}
               style={{ transitionDelay: isVisible ? '500ms' : '0ms' }}
@@ -279,7 +279,7 @@ export function TheInvitation() {
 
             <p
               className={cn(
-                'text-lg font-sans font-light leading-[1.8] text-foreground/65 max-w-lg mt-6 transition-all duration-700',
+                'text-lg font-sans font-light leading-[1.8] text-muted-foreground max-w-lg mt-6 transition-all duration-700',
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               )}
               style={{ transitionDelay: isVisible ? '600ms' : '0ms' }}
@@ -322,7 +322,7 @@ export function TheInvitation() {
             {/* Inline Credentials */}
             <p
               className={cn(
-                'text-xs uppercase tracking-[0.22em] text-foreground/40 mt-10 transition-all duration-700',
+                'text-xs uppercase tracking-[0.22em] text-muted-foreground mt-10 transition-all duration-700',
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               )}
               style={{ transitionDelay: isVisible ? '900ms' : '0ms' }}

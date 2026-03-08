@@ -112,7 +112,7 @@ export function TheWitnesses() {
                 }}
               >
                 <blockquote
-                  className="font-display font-light italic leading-relaxed mb-6 text-foreground/90 text-2xl max-w-[22ch] mx-auto"
+                  className="font-display font-light italic leading-relaxed mb-6 text-foreground text-2xl max-w-[22ch] mx-auto"
                   style={{ textWrap: "balance" as any }}
                 >
                   &ldquo;{testimonial.quote}&rdquo;
@@ -120,7 +120,7 @@ export function TheWitnesses() {
 
                 <div className="text-center">
                   <p
-                    className="font-display font-medium italic text-foreground/75"
+                    className="font-display font-medium italic text-muted-foreground"
                     style={{ fontSize: "15px", letterSpacing: "0.04em" }}
                   >
                     {testimonial.names}
@@ -137,7 +137,7 @@ export function TheWitnesses() {
                     aria-hidden="true"
                   />
                   <p
-                    className="font-display text-foreground/50"
+                    className="font-display text-muted-foreground"
                     style={{ fontSize: "12px", letterSpacing: "0.06em", textTransform: "uppercase" }}
                   >
                     {testimonial.venue}
