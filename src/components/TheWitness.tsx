@@ -227,9 +227,9 @@ function PreparationSection() {
                     )}
                     style={{
                       transitionDelay: isVisible ? `${500 + index * 100}ms` : "0ms",
-                      background: 'linear-gradient(180deg, hsl(45 25% 96% / 0.7) 0%, hsl(42 18% 90% / 0.5) 100%)',
-                      border: '1px solid hsl(45 20% 85% / 0.25)',
-                      borderTop: '1px solid hsl(45 30% 92% / 0.5)',
+                      background: 'linear-gradient(180deg, hsl(var(--warm-card-top) / 0.7) 0%, hsl(var(--warm-card-bottom) / 0.5) 100%)',
+                      border: '1px solid hsl(var(--warm-card-border) / 0.25)',
+                      borderTop: '1px solid hsl(var(--warm-card-highlight) / 0.5)',
                     }}
                   >
                     <span
