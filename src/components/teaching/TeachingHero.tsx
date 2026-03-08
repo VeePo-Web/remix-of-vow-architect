@@ -339,9 +339,9 @@ export function TeachingHero() {
         {/* ── Positioning subtitle ── */}
         <p
           className={cn(
-            "font-sans text-[clamp(13px,1.5vw,15px)] leading-[1.7] max-w-[320px] mx-auto transition-all duration-[1800ms]",
+            "font-sans text-[clamp(13px,1.5vw,15px)] leading-[1.7] max-w-[300px] mx-auto transition-all duration-[1800ms]",
             isRevealed
-              ? "opacity-45 translate-y-0"
+              ? "opacity-50 translate-y-0"
               : "opacity-0 translate-y-[8px]"
           )}
           style={{
