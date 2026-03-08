@@ -11,14 +11,15 @@ interface FullScreenMenuProps {
 }
 
 const menuItems = [
-  { number: "01", label: "Home", href: "/weddings" },
-  { number: "02", label: "Events", href: "/events" },
-  { number: "03", label: "Pricing", href: "/services" },
-  { number: "04", label: "About", href: "/about" },
-  { number: "05", label: "Proof", href: "/gallery" },
-  { number: "06", label: "FAQ", href: "/faq" },
-  { number: "07", label: "Listen", href: "/listen" },
-  { number: "08", label: "Contact", href: "/contact" },
+  { number: "01", label: "Weddings", href: "/weddings" },
+  { number: "02", label: "Teaching", href: "/teaching" },
+  { number: "03", label: "Events", href: "/events" },
+  { number: "04", label: "Services", href: "/services" },
+  { number: "05", label: "About", href: "/about" },
+  { number: "06", label: "Proof", href: "/gallery" },
+  { number: "07", label: "FAQ", href: "/faq" },
+  { number: "08", label: "Listen", href: "/listen" },
+  { number: "09", label: "Contact", href: "/contact" },
 ];
 
 /**
