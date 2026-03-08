@@ -127,7 +127,6 @@ export function TeachingMethodology() {
           backgroundImage: `url(${keysImg})`,
           opacity: 0.08,
           animation: "methodology-ken-burns 30s linear infinite alternate",
-          willChange: "transform",
         }}
         aria-hidden="true"
       />
