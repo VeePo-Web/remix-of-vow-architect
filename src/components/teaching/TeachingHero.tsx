@@ -158,36 +158,46 @@ export function TeachingHero() {
         aria-hidden="true"
       />
 
-      {/* ── Layer 1: Background bench — focus on the seat, not keys ── */}
+      {/* ── Layer 1: Background bench — cropped low to show only wood grain ── */}
       <div
         className="absolute inset-0"
         style={{
           backgroundImage: `url(${benchImg})`,
           backgroundSize: "cover",
-          backgroundPosition: "center 70%",
-          opacity: 0.10,
+          backgroundPosition: "center 90%",
+          opacity: 0.05,
           animation: "teaching-ken-burns 30s linear infinite alternate",
           willChange: "transform",
         }}
         aria-hidden="true"
       />
 
-      {/* ── Layer 2: Radial spotlight — draws eye to center ── */}
+      {/* ── Layer 2: Radial spotlight — tight center focus ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 65% 50% at 50% 46%, transparent 0%, hsl(0 0% 0% / 0.75) 100%)",
+            "radial-gradient(ellipse 55% 45% at 50% 46%, transparent 0%, hsl(0 0% 0% / 0.85) 100%)",
         }}
         aria-hidden="true"
       />
 
-      {/* ── Layer 3: Top & bottom darken — heavy top to kill piano keys ── */}
+      {/* ── Layer 3: Top & bottom darken — crush keys completely ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(180deg, hsl(0 0% 0% / 0.85) 0%, hsl(0 0% 0% / 0.3) 25%, transparent 45%, transparent 70%, hsl(0 0% 0% / 0.7) 100%)",
+            "linear-gradient(180deg, hsl(0 0% 0% / 0.95) 0%, hsl(0 0% 0% / 0.5) 20%, transparent 40%, transparent 65%, hsl(0 0% 0% / 0.8) 100%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* ── Layer 3b: Warm halo behind text — gives depth ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 35% 30% at 50% 46%, hsl(38 40% 50% / 0.04), transparent 100%)",
         }}
         aria-hidden="true"
       />
@@ -248,7 +258,7 @@ export function TeachingHero() {
         </p>
 
         {/* ── Tagline — character-by-character reveal ── */}
-        <h1 className="font-display tracking-tight leading-none">
+        <h1 className="font-display tracking-tight leading-none flex flex-col items-center gap-0">
           {/* Line 1: "From Silence" + semicolon ignition */}
           <CharReveal
             text="From Silence"
@@ -280,10 +290,11 @@ export function TeachingHero() {
             isRevealed={isRevealed}
             baseDelay={LINE2_BASE}
             charInterval={LINE2_INTERVAL}
-            className="block text-[clamp(36px,8vw,64px)] font-light mt-[6px]"
+            className="block text-[clamp(36px,8vw,64px)] font-light"
             style={{
               color: "hsl(40 18% 88%)",
               lineHeight: "1",
+              marginTop: "-10px",
               textShadow:
                 "0 1px 2px hsl(0 0% 0% / 0.6), 0 6px 30px hsl(0 0% 0% / 0.4)",
             }}
@@ -329,9 +340,9 @@ export function TeachingHero() {
         {/* ── Positioning subtitle ── */}
         <p
           className={cn(
-            "font-sans text-[clamp(13px,1.5vw,15px)] leading-[1.7] max-w-[320px] mx-auto transition-all duration-[1800ms]",
+            "font-sans text-[clamp(13px,1.5vw,15px)] leading-[1.7] max-w-[300px] mx-auto transition-all duration-[1800ms]",
             isRevealed
-              ? "opacity-45 translate-y-0"
+              ? "opacity-50 translate-y-0"
               : "opacity-0 translate-y-[8px]"
           )}
           style={{
@@ -403,8 +414,8 @@ export function TeachingHero() {
           50% { text-shadow: 0 0 40px hsl(var(--vow-yellow) / 0.6); }
         }
         @keyframes teaching-hero-vignette {
-          0%, 100% { opacity: 0.85; }
-          50% { opacity: 0.7; }
+          0%, 100% { opacity: 0.9; }
+          50% { opacity: 0.75; }
         }
         @keyframes scroll-chevron-bounce {
           0%, 100% { transform: translateY(0); opacity: 0.25; }
