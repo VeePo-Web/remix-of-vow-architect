@@ -1,33 +1,78 @@
 
 
-# Plan: Create Events Brand Identity Document
+# Plan: Add Luxurious Weighted Scroll — Fantasy.co / Igloo.inc Feel
 
-Create `.lovable/events-brand-identity.md` following the same structure as the wedding and teaching documents — Brand Truth Table, Non-Negotiables/Flex/Dealbreakers, Brand Spine, Positioning, Customer Identity Mirror, Messaging, Voice, and Visual direction.
+## The Intent
 
-## Key Differentiators from Other Verticals
+The scroll should feel like walking down a wedding aisle — weighted, deliberate, reverent. Every pixel of movement should carry gravity. This is achieved through **Lenis smooth scroll** with a heavy lerp value, creating the "molasses-elegant" inertia that Fantasy.co and Igloo.inc are known for.
 
-- **Tone:** Professional and polished, not sacred/vigil (weddings) or warm/mentorship (teaching)
-- **Category:** "Private Event Pianist" — not "sound director" or "mentor"
-- **Mission:** "I understand what live music does to a room" — atmospheric, not ceremonial
-- **Tagline adaptation:** "Every room has a sound it's waiting for."
-- **Enemy:** The generic playlist, the background-noise assumption, the DJ who drowns conversation
-- **Audience:** Hosts planning private dinners, church services, cocktail receptions, intimate celebrations — people who care about atmosphere and presence
+## What Changes
 
-## Document Structure (matching existing format)
+### 1. Install Lenis
+Add `lenis` package (lightweight, ~5KB gzipped).
 
-1. **Brand Truth Table** — Events-specific truths (500+ events, 4 occasion types, 500+ repertoire, room-reading ability)
-2. **Non-Negotiables / Flex / Dealbreakers** — Professional tone rules, no "sacred/vigil" language, no entertainment framing
-3. **Brand Spine** — Category stance, enemy, audience, promise, proof, personality
-4. **Positioning & Differentiators** — "Private Event Pianist" category, differentiator table vs DJs/playlists/bands
-5. **Customer Identity Mirror** — "You are my people if..." / "Not for you if..." for event hosts
-6. **Messaging Pillars** — Atmosphere, Adaptability, Professionalism
-7. **Voice & Lexicon** — Events-specific word choices (allowed/banned), CTA phrasing
-8. **Visual Direction** — How the events page differs aesthetically from weddings/teaching
-9. **Cross-Vertical Coherence** — How events connects to the broader Sacred Sound brand
+### 2. Create `SmoothScrollProvider` component
+A React context provider that initializes Lenis globally with sacred-weight settings:
 
-## File
+- **`lerp: 0.06`** — Very low interpolation for heavy, luxurious momentum (Fantasy.co uses ~0.05–0.08)
+- **`smoothWheel: true`** — Normalize wheel input across devices
+- **`wheelMultiplier: 0.8`** — Slightly dampen wheel speed for added weight
+- **`touchMultiplier: 1.0`** — Keep touch natural
+- **`autoRaf: true`** — Automatic frame loop
+- **Reduced motion fallback** — If `prefers-reduced-motion` is enabled, Lenis is not initialized; native scroll is used instead
 
-- **Create:** `.lovable/events-brand-identity.md`
+The provider will:
+- Create/destroy Lenis on mount/unmount
+- Pause Lenis when the document is hidden (visibility API)
+- Expose the Lenis instance via React context for programmatic `scrollTo` if needed
+- Respect `data-lenis-prevent` on elements like modals and the full-screen menu
 
-No code changes required.
+### 3. Wrap the app in `SmoothScrollProvider`
+In `App.tsx`, wrap the `<BrowserRouter>` inside `<SmoothScrollProvider>`.
+
+### 4. CSS adjustments in `index.css`
+- **Remove `scroll-behavior: smooth`** from `html` — Lenis handles this; the CSS property conflicts with Lenis's interpolation
+- **Add `html.lenis, html.lenis body { height: auto; scroll-behavior: auto; }`** — Required Lenis CSS for proper scroll container behavior
+- **Add `.lenis.lenis-smooth { scroll-behavior: auto; }`** — Prevents CSS smooth-scroll from fighting Lenis
+
+### 5. Prevent conflicts with existing scroll listeners
+The site already uses `window.addEventListener('scroll', ...)` in many components (PianoKeyNav, MinimalHeader, TheTransformation, etc.). These will continue to work because Lenis fires native scroll events — it just smooths the interpolation. No changes needed to existing scroll listeners.
+
+### 6. Handle route changes
+Add a `useEffect` that calls `lenis.scrollTo(0, { immediate: true })` on route change so page transitions start at the top without the weighted scroll animation.
+
+### 7. Handle FullScreenMenu
+Add `data-lenis-prevent` to the full-screen menu overlay to prevent scroll-through while the menu is open. Alternatively, call `lenis.stop()` on menu open and `lenis.start()` on close.
+
+## Files Touched
+
+| File | Action |
+|---|---|
+| `package.json` | Add `lenis` dependency |
+| `src/components/SmoothScrollProvider.tsx` | **Create** — Lenis provider with sacred-weight config |
+| `src/App.tsx` | Wrap app in `<SmoothScrollProvider>` |
+| `src/index.css` | Remove `scroll-behavior: smooth`, add Lenis CSS rules |
+| `src/components/FullScreenMenu.tsx` | Add `data-lenis-prevent` or stop/start Lenis on open/close |
+
+## Technical Details
+
+### Lenis Configuration
+```text
+lerp:             0.06    (heavy, reverent momentum)
+smoothWheel:      true    (normalize wheel across devices)
+wheelMultiplier:  0.8     (slightly dampen for weight)
+touchMultiplier:  1.0     (natural touch feel)
+autoRaf:          true    (automatic rAF loop)
+```
+
+### Why These Values
+- `lerp: 0.06` produces ~250–300ms of trailing momentum — the scroll "breathes" after the user stops input, like a piano sustain pedal releasing slowly
+- `wheelMultiplier: 0.8` ensures each scroll tick moves less distance, making the user feel the weight of each section
+- Combined, this creates the "walking down the aisle" cadence — deliberate, unhurried, sacred
+
+### Reduced Motion
+When `prefers-reduced-motion: reduce` is active, Lenis is not instantiated. The site falls back to native scroll with `scroll-behavior: auto`. All existing reduced-motion fallbacks in components remain untouched.
+
+### No Impact on Existing Animations
+Lenis does not change how `IntersectionObserver`, `requestAnimationFrame` scroll handlers, or CSS animations work. It only smooths the scroll position interpolation. All existing parallax, reveal, and vigil animations will continue to function — they will simply feel more fluid because scroll position updates are interpolated rather than jerky.
 
