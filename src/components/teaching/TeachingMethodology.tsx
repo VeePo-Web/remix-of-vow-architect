@@ -118,7 +118,7 @@ export function TeachingMethodology() {
       className="relative py-[140px] md:py-[180px] px-fitz-4 md:px-fitz-6 overflow-hidden"
       style={{ background: "hsl(30 8% 14%)" }}
       role="region"
-      aria-label="The First Question"
+      aria-label="The First Conversation"
     >
       {/* ── Layer 1: Background keys — Ken Burns drift ── */}
       <div
