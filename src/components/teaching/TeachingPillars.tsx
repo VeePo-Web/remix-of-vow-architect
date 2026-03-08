@@ -283,7 +283,7 @@ export function TeachingPillars() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 45%, hsl(40 25% 88% / 0.5) 100%)",
+            "radial-gradient(ellipse at center, transparent 45%, hsl(var(--teaching-vignette) / 0.5) 100%)",
           animation: "pillars-vignette-breathe 6s ease-in-out infinite",
         }}
         aria-hidden="true"
