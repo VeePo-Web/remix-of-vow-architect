@@ -124,7 +124,7 @@ export default function Contact() {
                 Tell me about your day — the venue, the feeling, the songs that matter.
                 I will respond within 24 hours with a personalized plan.
               </p>
-              <p className="caption mt-4">No obligation. Two-minute form.</p>
+              <p className="caption mt-4 text-center">No obligation. Two-minute form.</p>
             </div>
 
             {isSubmitted ? (
