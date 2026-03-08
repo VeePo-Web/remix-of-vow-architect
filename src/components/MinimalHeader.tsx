@@ -90,17 +90,23 @@ export function MinimalHeader() {
   const isArrival = isAtFooter && isScrolled;
 
   // Orchestrate arrival phases: dissolve nav → glide logo → reveal tagline
+  const arrivalTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => {
-    if (isArrival && arrivalPhase === 'none') {
-      setArrivalPhase('dissolving');
-      // After nav links finish dissolving (navLinks.length * 80ms + 260ms transition)
-      const dissolveTime = navLinks.length * 80 + 300;
-      const timer = setTimeout(() => setArrivalPhase('arrived'), dissolveTime);
-      return () => clearTimeout(timer);
-    } else if (!isArrival && arrivalPhase !== 'none') {
-      setArrivalPhase('none');
+    if (isArrival) {
+      if (arrivalPhase === 'none') {
+        setArrivalPhase('dissolving');
+        const dissolveTime = navLinks.length * 80 + 300;
+        arrivalTimerRef.current = setTimeout(() => setArrivalPhase('arrived'), dissolveTime);
+      }
+    } else {
+      if (arrivalTimerRef.current) {
+        clearTimeout(arrivalTimerRef.current);
+        arrivalTimerRef.current = null;
+      }
+      if (arrivalPhase !== 'none') setArrivalPhase('none');
     }
-  }, [isArrival, arrivalPhase]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isArrival]);
 
   return (
     <>
@@ -376,17 +382,17 @@ export function MinimalHeader() {
                       )
                     }
                     style={{
-                      animationDelay: delay,
-                      animationFillMode: "forwards",
+                      // When dissolving, kill the fill-forward animation so inline styles take effect
+                      animation: isDissolving ? 'none' : undefined,
+                      animationDelay: isDissolving ? undefined : delay,
+                      animationFillMode: isDissolving ? undefined : "forwards",
                       // Staggered dissolve during arrival
-                      ...(isDissolving && {
-                        opacity: 0,
-                        transform: 'translateY(-4px)',
-                        transitionDuration: '260ms',
-                        transitionDelay: `${dissolveDelay}ms`,
-                        transitionTimingFunction: 'cubic-bezier(0.22,0.61,0.36,1)',
-                        pointerEvents: 'none' as const,
-                      }),
+                      opacity: isDissolving ? 0 : undefined,
+                      transform: isDissolving ? 'translateY(-4px)' : undefined,
+                      transitionDuration: '260ms',
+                      transitionDelay: isDissolving ? `${dissolveDelay}ms` : undefined,
+                      transitionTimingFunction: 'cubic-bezier(0.22,0.61,0.36,1)',
+                      pointerEvents: isDissolving ? 'none' as const : undefined,
                     }}
                     onMouseEnter={() => setHoveredNavIndex(i)}
                   >
@@ -447,15 +453,20 @@ export function MinimalHeader() {
 
               {/* CTA — "Hold My Date" with warm glow — dissolves first during arrival */}
               <span
-                className="relative opacity-0 animate-fade-in transition-all"
+                className={cn(
+                  "relative transition-all",
+                  !(arrivalPhase === 'dissolving' || arrivalPhase === 'arrived') && "opacity-0 animate-fade-in"
+                )}
                 style={{
-                  animationDelay: `${navLinks.length * 80}ms`,
-                  animationFillMode: "forwards",
+                  ...(!(arrivalPhase === 'dissolving' || arrivalPhase === 'arrived') && {
+                    animationDelay: `${navLinks.length * 80}ms`,
+                    animationFillMode: "forwards",
+                  }),
                   ...((arrivalPhase === 'dissolving' || arrivalPhase === 'arrived') && {
                     opacity: 0,
                     transform: 'translateY(-4px)',
                     transitionDuration: '260ms',
-                    transitionDelay: '0ms', // CTA dissolves first
+                    transitionDelay: '0ms',
                     transitionTimingFunction: 'cubic-bezier(0.22,0.61,0.36,1)',
                     pointerEvents: 'none' as const,
                   }),
@@ -513,11 +524,14 @@ export function MinimalHeader() {
           <button
             onClick={() => setIsMenuOpen(true)}
             className={cn(
-              "flex items-center gap-2 opacity-0 animate-fade-in group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm transition-all duration-[260ms]",
+              "flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm transition-all duration-[260ms]",
+              arrivalPhase !== 'arrived' && "opacity-0 animate-fade-in"
             )}
             style={{
-              animationDelay: headerDelay,
-              animationFillMode: "forwards",
+              ...(arrivalPhase !== 'arrived' && {
+                animationDelay: headerDelay,
+                animationFillMode: "forwards",
+              }),
               // Soften opacity during arrival — menu is still accessible but whispers
               ...(arrivalPhase === 'arrived' && {
                 opacity: 0.4,
