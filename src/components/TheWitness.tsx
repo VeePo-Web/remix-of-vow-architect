@@ -426,7 +426,7 @@ function KitSection() {
               />
               <p
                 className={cn(
-                  "witness-closing-quote text-lg md:text-xl font-display font-light text-foreground/80 relative z-10 leading-relaxed",
+                  "witness-closing-quote text-lg md:text-xl font-display font-light text-foreground relative z-10 leading-relaxed",
                   "transition-[opacity,transform,filter] duration-700",
                   isVisible
                     ? "opacity-100 translate-y-0 blur-0"
