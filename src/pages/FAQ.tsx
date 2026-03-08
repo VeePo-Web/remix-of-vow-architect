@@ -31,6 +31,7 @@ export default function FAQ() {
       <MinimalHeader />
       <PianoKeyNav sections={faqSections} />
       
+      <main>
       {/* Section 1 — Hero with atmospheric gradient */}
       <section id="faq-hero" className="relative section-padding bg-background overflow-hidden piano-section-target">
         {/* Atmospheric background */}
@@ -174,6 +175,7 @@ export default function FAQ() {
           [style*="faq-vignette-breathe"] { animation: none !important; opacity: 0.7; }
         }
       `}</style>
+      </main>
     </div>
   );
 }
