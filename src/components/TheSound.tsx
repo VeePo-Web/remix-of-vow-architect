@@ -334,7 +334,7 @@ export function TheSound() {
         </div>
 
         {/* Vignette */}
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at center, transparent 25%, hsl(220 15% 4%) 100%)" }} aria-hidden="true" />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at center, transparent 25%, hsl(var(--transform-dark)) 100%)" }} aria-hidden="true" />
 
         {/* Warm floor */}
         <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 80% 50% at 50% 60%, hsl(30 40% 12% / 0.15) 0%, transparent 70%)" }} aria-hidden="true" />
