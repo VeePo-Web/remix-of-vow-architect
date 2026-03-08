@@ -377,7 +377,7 @@ export function TeachingStories() {
             }}
             aria-label="Closing annotation"
           >
-            — every story began at the bench
+            — every voice began at the bench
           </span>
         </div>
       </div>

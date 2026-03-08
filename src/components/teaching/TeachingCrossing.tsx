@@ -158,7 +158,7 @@ export function TeachingCrossing() {
       className="relative py-[140px] md:py-[180px] px-fitz-4 md:px-fitz-6 overflow-hidden"
       style={{ background: "hsl(38 35% 93%)" }}
       role="region"
-      aria-label="The Crossing"
+      aria-label="The Invitation"
     >
       {/* Bench photograph — occupied feeling */}
       <div

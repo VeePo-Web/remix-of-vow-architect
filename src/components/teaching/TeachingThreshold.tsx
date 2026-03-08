@@ -12,7 +12,7 @@ const fears = [
   {
     fear: "What if I can never play anything real?",
     resolution:
-      'The first real thing you play will not be a concerto. It will be a chord that makes you stop and think — "that is exactly what I meant." That single honest chord is the beginning. Everything else grows from that moment.',
+      'The first real thing you play will not be a concerto. It will be a chord that makes you stop and think — "that is exactly what I meant." That single honest chord is the beginning of everything.',
     underlineWord: "beginning",
   },
   {
