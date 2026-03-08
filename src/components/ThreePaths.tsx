@@ -112,7 +112,6 @@ export function ThreePaths() {
           style={{
             animation: 'paths-ken-burns 30s ease-in-out infinite alternate',
             filter: 'saturate(0.75) sepia(0.1) contrast(1.05) brightness(0.7)',
-            willChange: 'transform',
           }}
           loading="lazy"
           decoding="async"

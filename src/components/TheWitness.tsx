@@ -470,7 +470,6 @@ function KitSection() {
                 opacity: 0.28,
                 animation: 'witness-ken-burns 30s ease-in-out infinite alternate',
                 filter: 'saturate(0.6) sepia(0.2) contrast(1.1)',
-                willChange: 'transform',
               }}
               loading="lazy"
               decoding="async"
