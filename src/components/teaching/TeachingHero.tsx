@@ -210,7 +210,7 @@ export function TeachingHero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 55% 45% at 38% 52%, hsl(40 60% 50% / 0.02), transparent 70%), radial-gradient(ellipse 45% 35% at 64% 40%, hsl(40 50% 45% / 0.015), transparent 60%)",
+            "radial-gradient(ellipse 55% 45% at 38% 52%, hsl(var(--vow-yellow) / 0.02), transparent 70%), radial-gradient(ellipse 45% 35% at 64% 40%, hsl(var(--vow-yellow) / 0.015), transparent 60%)",
           animation: isRevealed
             ? "teaching-fog-drift 24s ease-in-out infinite alternate"
             : undefined,
