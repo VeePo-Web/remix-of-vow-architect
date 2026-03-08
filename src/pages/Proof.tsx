@@ -14,13 +14,13 @@ import { Shield, Zap, Layers, Clock } from "lucide-react";
 import galleryHeroImg from "@/assets/gallery-hero.jpg";
 
 const proofSections = [
-  { id: "proof-hero",        label: "Sound You Can See",  isBlackKey: false },
-  { id: "proof-spl",         label: "SPL Logs",           isBlackKey: true  },
-  { id: "proof-setup",       label: "Setup Gallery",      isBlackKey: false },
-  { id: "proof-insurance",   label: "Insurance",          isBlackKey: true  },
-  { id: "proof-redundancy",  label: "Redundancy",         isBlackKey: false },
-  { id: "proof-downloads",   label: "Downloads",          isBlackKey: false },
-  { id: "proof-cta",         label: "Begin",              isBlackKey: true  },
+  { id: "proof-hero",        label: "Overview",         isBlackKey: false },
+  { id: "proof-spl",         label: "Documentation",    isBlackKey: true  },
+  { id: "proof-setup",       label: "Setup Gallery",    isBlackKey: false },
+  { id: "proof-insurance",   label: "Insurance",        isBlackKey: true  },
+  { id: "proof-redundancy",  label: "Redundancy",       isBlackKey: false },
+  { id: "proof-downloads",   label: "Downloads",        isBlackKey: false },
+  { id: "proof-cta",         label: "Begin",            isBlackKey: true  },
 ];
 
 export default function Proof() {
