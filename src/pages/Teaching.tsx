@@ -72,6 +72,7 @@ function GoldenThread() {
 
 export default function Teaching() {
   usePageTheme();
+  useEffect(() => { document.title = "Piano Mentorship — Parker Gawryletz"; }, []);
 
   return (
     <div className="min-h-screen">
