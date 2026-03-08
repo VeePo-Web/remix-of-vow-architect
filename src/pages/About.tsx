@@ -42,6 +42,7 @@ const aboutSections = [
 
 export default function About() {
   usePageTheme();
+  useEffect(() => { document.title = "About — Parker Gawryletz, Sound Director"; }, []);
 
   return (
     <div className="min-h-screen bg-background">
