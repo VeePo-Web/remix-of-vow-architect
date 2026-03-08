@@ -32,7 +32,7 @@ export function WitnessSustain() {
       ref={ref as React.RefObject<HTMLElement>}
       className="relative py-[120px] px-4 piano-section-target"
       style={{
-        background: "linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--surface)) 100%)"
+        background: "linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--deep-graphite)) 100%)"
       }}
     >
       {/* Film grain */}
