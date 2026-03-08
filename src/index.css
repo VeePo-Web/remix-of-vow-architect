@@ -5029,9 +5029,9 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   padding: 40px 32px 32px;
   /* Convex surface: top highlight + ivory ridge + micro-texture + base gradient */
   background:
-    linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 8%, transparent 20%),
+    linear-gradient(180deg, hsl(0 0% 100% / 0.4) 0%, hsl(0 0% 100% / 0.1) 8%, transparent 20%),
     linear-gradient(90deg, hsl(45 12% 91%) 0%, hsl(45 18% 95%) 35%, hsl(45 20% 96%) 50%, hsl(45 18% 95%) 65%, hsl(45 12% 91%) 100%),
-    repeating-linear-gradient(90deg, rgba(0,0,0,0.006) 0px, transparent 1px, transparent 8px),
+    repeating-linear-gradient(90deg, hsl(var(--rich-black) / 0.006) 0px, transparent 1px, transparent 8px),
     linear-gradient(180deg, hsl(45 20% 96%) 0%, hsl(45 14% 91%) 100%);
   border-left: 1px solid hsl(45 10% 78%);
   border-right: 1px solid hsl(45 10% 82%);
