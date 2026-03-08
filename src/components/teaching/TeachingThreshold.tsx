@@ -413,7 +413,7 @@ export function TeachingThreshold() {
             }}
             aria-label="Closing annotation"
           >
-            — you are not too late
+            — you arrived exactly now
           </span>
         </div>
       </div>
