@@ -84,7 +84,7 @@ export function GenreCard({
         }}
         loading="lazy"
         decoding="async"
-        aria-hidden="true"
+      />
       />
 
       {/* Per-genre atmospheric gradient */}

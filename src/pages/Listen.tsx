@@ -200,7 +200,7 @@ export default function Listen() {
            style={{ animation: "ken-burns 25s ease-in-out infinite alternate", willChange: "transform" }}
            loading="eager"
            decoding="async"
-          aria-hidden="true"
+        />
         />
         {/* Vignette overlay */}
         <div
