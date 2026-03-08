@@ -16,6 +16,11 @@ import { useLocation } from 'react-router-dom';
  * 0.05–0.06  → Reverent narrative (emotional storytelling)
  * 0.065–0.07 → Breathing room (interactive sections, grids)
  * 0.08–0.09  → Utility comfort (FAQ, legal, forms)
+ *
+ * VELOCITY MODULATION:
+ * When the user scrolls fast (skimming), weight lightens slightly
+ * to honor their intent. When they slow down (reading), weight
+ * deepens — like the room getting quieter as they lean in.
  */
 
 // ── Page-level base weights (fallback when no section ID matches) ──
@@ -30,6 +35,11 @@ const PAGE_WEIGHTS: Record<string, number> = {
   '/listen':      0.06,   // Listen — immersive audio
   '/faq':         0.08,   // FAQ — utility, scan-friendly
   '/contact':     0.07,   // Contact — form usability matters
+  '/privacy-policy': 0.09, // Legal — maximum utility
+  '/terms':       0.09,
+  '/cookie-policy': 0.09,
+  '/accessibility': 0.09,
+  '/legal':       0.09,
 };
 
 // ── Section-specific weights (override page-level) ──
@@ -70,16 +80,28 @@ const SCROLL_WEIGHTS: Record<string, number> = {
   'teaching-offering':  0.065,  // Pricing — scannable
   'teaching-crossing':  0.045,  // CTA — commitment weight
 
-  // ── About page ──
-  'witness-hero':       0.04,   // About hero — cinematic
+  // ── About (Witness) page ──
+  'witness-hero':       0.04,   // The Resonance — cinematic entrance
+  'witness-origin':     0.05,   // The Origin — heavy, personal story
+  'witness-sustain':    0.055,  // The Sustain — contemplative
+  'witness-presence':   0.06,   // The Presence — credential browsing
+  'witness-covenant':   0.045,  // The Covenant — sacred weight
+  'witness-crossing':   0.045,  // The Crossing — commitment
 };
 
 const DEFAULT_LERP = 0.06;
 
-// Lerp transition uses its own interpolation factor.
-// Lower = slower, more luxurious weight transitions between sections.
-// 0.015 creates ~1.5s of gradual weight shift — like a hall reverb tail.
-const LERP_INTERPOLATION = 0.015;
+// How fast lerp interpolates between sections.
+// 0.012 creates ~2s of gradual weight shift — like a hall reverb tail.
+const LERP_INTERPOLATION = 0.012;
+
+// ── Velocity modulation constants ──
+// When scrolling fast, lighten weight by up to this factor
+const VELOCITY_LIGHTEN_MAX = 0.015;
+// Velocity threshold (px/frame) above which lightening kicks in
+const VELOCITY_THRESHOLD = 3;
+// How fast velocity influence decays back to zero
+const VELOCITY_DECAY = 0.92;
 
 const SmoothScrollContext = createContext<Lenis | null>(null);
 
@@ -96,8 +118,11 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
   const pageLerpRef = useRef(DEFAULT_LERP);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const lerpRafRef = useRef<number | null>(null);
+  const velocityInfluenceRef = useRef(0);
+  const lastScrollYRef = useRef(0);
+  const lastTimeRef = useRef(0);
 
-  // Smoothly interpolate lerp toward target — the transition itself feels luxurious
+  // Smoothly interpolate lerp toward target with velocity modulation
   const animateLerp = useCallback(() => {
     if (!lenisRef.current) return;
 
@@ -105,16 +130,48 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     const target = targetLerpRef.current;
     const diff = target - current;
 
-    if (Math.abs(diff) > 0.0005) {
-      // Slow, reverent interpolation — weight changes feel like tidal shifts
-      currentLerpRef.current = current + diff * LERP_INTERPOLATION;
-      (lenisRef.current as any).options.lerp = currentLerpRef.current;
-    } else {
-      currentLerpRef.current = target;
-      (lenisRef.current as any).options.lerp = target;
+    // Decay velocity influence each frame
+    velocityInfluenceRef.current *= VELOCITY_DECAY;
+    if (velocityInfluenceRef.current < 0.0001) {
+      velocityInfluenceRef.current = 0;
     }
 
+    if (Math.abs(diff) > 0.0005) {
+      currentLerpRef.current = current + diff * LERP_INTERPOLATION;
+    } else {
+      currentLerpRef.current = target;
+    }
+
+    // Apply velocity lightening — fast scroll = slightly lighter feel
+    const effectiveLerp = currentLerpRef.current + velocityInfluenceRef.current;
+    (lenisRef.current as any).options.lerp = Math.min(effectiveLerp, 0.12);
+
     lerpRafRef.current = requestAnimationFrame(animateLerp);
+  }, []);
+
+  // Track scroll velocity for modulation
+  const onScroll = useCallback(() => {
+    const now = performance.now();
+    const dt = now - lastTimeRef.current;
+    if (dt < 8) return; // Skip sub-frame updates
+
+    const scrollY = window.scrollY;
+    const velocity = Math.abs(scrollY - lastScrollYRef.current) / (dt / 16.67);
+
+    lastScrollYRef.current = scrollY;
+    lastTimeRef.current = now;
+
+    // When velocity exceeds threshold, lighten the weight
+    if (velocity > VELOCITY_THRESHOLD) {
+      const intensity = Math.min(
+        (velocity - VELOCITY_THRESHOLD) / 20,
+        1
+      );
+      velocityInfluenceRef.current = Math.max(
+        velocityInfluenceRef.current,
+        intensity * VELOCITY_LIGHTEN_MAX
+      );
+    }
   }, []);
 
   // Initialize Lenis
@@ -125,8 +182,8 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     const instance = new Lenis({
       lerp: DEFAULT_LERP,
       smoothWheel: true,
-      wheelMultiplier: 0.7,    // Dampened — each scroll tick is deliberate
-      touchMultiplier: 0.9,    // Slightly dampened touch for weight on mobile
+      wheelMultiplier: 0.7,
+      touchMultiplier: 0.9,
       autoRaf: true,
       anchors: {
         offset: -80,
@@ -145,7 +202,10 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     // Start lerp animation loop
     lerpRafRef.current = requestAnimationFrame(animateLerp);
 
-    // Visibility API — pause when tab hidden
+    // Track velocity via passive scroll listener
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Visibility API
     const onVisibility = () => {
       if (document.hidden) {
         instance.stop();
@@ -157,12 +217,13 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
 
     return () => {
       document.removeEventListener('visibilitychange', onVisibility);
+      window.removeEventListener('scroll', onScroll);
       if (lerpRafRef.current) cancelAnimationFrame(lerpRafRef.current);
       instance.destroy();
       lenisRef.current = null;
       setLenis(null);
     };
-  }, [animateLerp]);
+  }, [animateLerp, onScroll]);
 
   // IntersectionObserver for section-aware lerp modulation
   useEffect(() => {
@@ -183,7 +244,6 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
         if (activeSectionId && activeSectionId in SCROLL_WEIGHTS) {
           targetLerpRef.current = SCROLL_WEIGHTS[activeSectionId];
         } else if (activeSectionId) {
-          // Section exists but no custom weight — fall back to page weight
           targetLerpRef.current = pageLerpRef.current;
         }
       },
@@ -213,6 +273,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     pageLerpRef.current = pageWeight;
     targetLerpRef.current = pageWeight;
     currentLerpRef.current = pageWeight;
+    velocityInfluenceRef.current = 0;
     
     if (lenisRef.current) {
       (lenisRef.current as any).options.lerp = pageWeight;
