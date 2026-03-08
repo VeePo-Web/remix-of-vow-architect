@@ -170,7 +170,7 @@ export function ListeningMovement({
           )}
         >
           {/* Track title */}
-          <p className="font-display text-lg md:text-xl text-foreground/85">
+          <p className="font-display text-lg md:text-xl text-foreground">
             {trackTitle}
           </p>
 

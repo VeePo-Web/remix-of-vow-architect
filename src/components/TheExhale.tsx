@@ -113,7 +113,7 @@ export function TheExhale() {
         {/* Recognition Statement — Step 4: text-shadow for depth */}
         <p 
           className={`
-            font-serif text-foreground/90
+            font-serif text-foreground
             transition-all
             ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
           `}

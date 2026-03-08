@@ -370,7 +370,7 @@ export function ThreePaths() {
 
         <p
           className={cn(
-            "text-center text-sm text-muted-foreground/60 max-w-lg mx-auto transition-all duration-700",
+            "text-center text-sm text-muted-foreground max-w-lg mx-auto transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
           style={{
