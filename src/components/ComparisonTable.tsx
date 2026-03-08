@@ -63,7 +63,7 @@ export function ComparisonTable() {
               <th className="text-left px-5 py-4 text-[13px] font-sans font-medium uppercase tracking-[0.1em] text-muted-foreground">Feature</th>
               <th className="text-center px-4 py-4">
                 <div className="font-display text-sm font-medium text-muted-foreground">DJ</div>
-                <div className="text-[11px] text-muted-foreground/60 font-sans mt-0.5">≈ $1,500–$2,000</div>
+                <div className="text-[11px] text-muted-foreground font-sans mt-0.5 opacity-60">≈ $1,500–$2,000</div>
               </th>
               <th className="text-center px-4 py-4">
                 <div className="font-display text-sm font-medium text-muted-foreground">Band</div>
