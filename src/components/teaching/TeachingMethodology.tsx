@@ -9,7 +9,7 @@ export function TeachingMethodology() {
     <section
       id="teaching-methodology"
       ref={ref}
-      className="relative py-[120px] md:py-[160px] px-fitz-4 md:px-fitz-6 overflow-hidden"
+      className="relative py-[140px] md:py-[180px] px-fitz-4 md:px-fitz-6 overflow-hidden"
       style={{ background: "hsl(30 8% 14%)" }}
       role="region"
       aria-label="The First Question"
@@ -56,6 +56,37 @@ export function TeachingMethodology() {
       />
 
       <div className="relative z-10 max-w-[720px] mx-auto text-center">
+        {/* Whispered section label */}
+        <p
+          className={cn(
+            "font-sans text-[11px] uppercase tracking-[0.22em] mb-fitz-7 transition-all duration-[700ms]",
+            isVisible
+              ? "opacity-35 translate-y-0"
+              : "opacity-0 translate-y-[6px]"
+          )}
+          style={{
+            color: "hsl(40 15% 55%)",
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+          }}
+        >
+          The First Conversation
+        </p>
+
+        {/* Vertical golden thread — above quote */}
+        <div
+          className={cn(
+            "w-px h-[48px] mx-auto mb-fitz-7 origin-top transition-transform duration-[700ms]",
+            isVisible ? "scale-y-100" : "scale-y-0"
+          )}
+          style={{
+            background:
+              "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.06), hsl(var(--vow-yellow) / 0.25))",
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "150ms",
+          }}
+          aria-hidden="true"
+        />
+
         {/* The First Question */}
         <h2
           className={cn(
@@ -67,11 +98,27 @@ export function TeachingMethodology() {
           style={{
             color: "hsl(40 30% 90%)",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "200ms",
             textShadow:
               "0 1px 2px hsl(0 0% 0% / 0.3), 0 4px 16px hsl(0 0% 0% / 0.15)",
           }}
         >
-          "What do you want to say through this instrument?"
+          "What do you want to{" "}
+          <span className="relative inline-block">
+            say
+            <span
+              className={cn(
+                "absolute -bottom-1 left-0 w-full h-[2px] bg-[hsl(var(--vow-yellow))] origin-left transition-transform duration-[450ms]",
+                isVisible ? "scale-x-100" : "scale-x-0"
+              )}
+              style={{
+                transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
+                transitionDelay: "800ms",
+              }}
+              aria-hidden="true"
+            />
+          </span>{" "}
+          through this instrument?"
         </h2>
 
         {/* Narrative */}
@@ -85,7 +132,7 @@ export function TeachingMethodology() {
           style={{
             color: "hsl(40 20% 75%)",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-            transitionDelay: "300ms",
+            transitionDelay: "400ms",
           }}
         >
           The first question I ask is never about music. It is about you. What
@@ -94,7 +141,7 @@ export function TeachingMethodology() {
           conversation about the sound you carry inside.
         </p>
 
-        {/* Seed metaphor — new philosophical layer */}
+        {/* Seed metaphor */}
         <p
           className={cn(
             "font-display italic text-[16px] md:text-[18px] leading-[1.6] max-w-[520px] mx-auto mb-fitz-7 transition-all duration-[900ms]",
@@ -105,7 +152,7 @@ export function TeachingMethodology() {
           style={{
             color: "hsl(40 25% 70%)",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-            transitionDelay: "600ms",
+            transitionDelay: "700ms",
           }}
         >
           Every gift arrives as a seed. Your hands are the soil.
@@ -120,12 +167,27 @@ export function TeachingMethodology() {
           style={{
             color: "hsl(40 20% 65%)",
             transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
-            transitionDelay: "900ms",
+            transitionDelay: "1000ms",
           }}
           aria-label="Annotation: listen"
         >
           — listen
         </span>
+
+        {/* Closing golden thread */}
+        <div
+          className={cn(
+            "mx-auto h-px max-w-[80px] mt-fitz-8 transition-transform duration-[700ms] origin-center",
+            isVisible ? "scale-x-100" : "scale-x-0"
+          )}
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.2), transparent)",
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "1200ms",
+          }}
+          aria-hidden="true"
+        />
       </div>
 
       {/* Keyframes */}
