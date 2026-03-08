@@ -120,7 +120,7 @@ export function TheWitnesses() {
 
                 <div className="text-center">
                   <p
-                    className="font-display font-medium italic text-foreground/75"
+                    className="font-display font-medium italic text-muted-foreground"
                     style={{ fontSize: "15px", letterSpacing: "0.04em" }}
                   >
                     {testimonial.names}
