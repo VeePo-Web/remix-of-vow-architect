@@ -70,8 +70,8 @@ const buttonVariants = cva(
         "ghost-dark": [
           "bg-transparent text-ink-inverse border border-ink-inverse/60",
           "hover:bg-ink-inverse hover:text-ink-primary hover:border-ink-inverse",
-          "hover:shadow-[0_8px_24px_hsl(0_0%_100%/0.06)]",
-          "active:shadow-[0_2px_8px_hsl(0_0%_100%/0.04)]",
+          "hover:shadow-[0_8px_24px_hsl(var(--absolute-white)/0.06)]",
+          "active:shadow-[0_2px_8px_hsl(var(--absolute-white)/0.04)]",
         ].join(" "),
 
         /**
