@@ -363,7 +363,7 @@ export function TeachingCrossing() {
           }}
           aria-label="Closing annotation"
         >
-          — the bench has always been waiting
+          — the bench remembers everyone
         </span>
       </div>
 
