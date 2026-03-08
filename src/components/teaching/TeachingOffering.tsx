@@ -354,7 +354,7 @@ export function TeachingOffering() {
             style={{ color: "hsl(30 10% 45%)" }}
           >
             <ScrollAntiAnxiety
-              text="The first session begins with a question, not a scale."
+              text="The first session opens with a question, not a scale."
               underlineWord="question"
               isInView={ctaVisible}
             />

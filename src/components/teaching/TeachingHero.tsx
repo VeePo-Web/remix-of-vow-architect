@@ -332,7 +332,7 @@ export function TeachingHero() {
             transitionDelay: `${SUBTITLE_DELAY}ms`,
           }}
         >
-          I sit beside you until what you hear inside becomes music.
+          I sit beside you until what you hear becomes what you play.
         </p>
       </div>
 
