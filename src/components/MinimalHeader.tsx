@@ -498,7 +498,7 @@ export function MinimalHeader() {
                   className={cn(
                     "relative nav-link transition-all duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm",
                     isContactPage
-                      ? "text-foreground/50 cursor-default"
+                      ? "text-foreground opacity-50 cursor-default"
                       : "nav-link--cta hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)]",
                     hoveredNavIndex !== null &&
                       hoveredNavIndex !== navLinks.length &&
