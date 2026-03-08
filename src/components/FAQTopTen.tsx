@@ -19,7 +19,7 @@ const topTenFAQs = [
   },
   {
     question: "What happens if equipment fails?",
-    answer: "I bring triple redundancy: a second microphone, a second amplifier, a second instrument, and a pre-loaded speaker for critical cues.",
+    answer: "I bring triple redundancy: a second wireless unit, a second instrument, and a pre-loaded speaker for critical cues.",
     link: { to: "/proof", label: "See the redundancy plan" }
   },
   {
