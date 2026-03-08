@@ -50,12 +50,12 @@ export default function FAQ() {
             ]} />
 
             <div className="text-center mb-16">
-              <div className="overline mb-2">Risk Elimination</div>
-              <h1 className="mx-auto">Clear Answers, Zero Guesswork</h1>
+              <div className="overline mb-2">The Threshold</div>
+              <h1 className="mx-auto">Every question deserves a clear answer.</h1>
               <div className="chapter-rule mx-auto" />
               <p className="lead mx-auto text-muted-foreground mt-6">
-                I architect ceremony audio the way engineers ship aircraft: documented, redundant, and verified. 
-                Here's how your risks disappear.
+                I understand the weight of the decisions you are making.
+                Here is everything I would want to know if I were in your place.
               </p>
             </div>
           </div>
@@ -78,9 +78,9 @@ export default function FAQ() {
       <section className="section--dark section-padding">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="mb-4 text-ink-inverse">Every objection becomes a planning advantage.</h2>
+            <h2 className="mb-4 text-ink-inverse">Every arrangement begins with a conversation.</h2>
             <p className="lead text-ink-inverse/70 mb-8">
-              Where others cross fingers, I print plans. Get clarity now—before the stress hits.
+              Tell me about your day, and I will send you a personalized plan within 24 hours.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Button size="lg" variant="primary-dark" asChild>

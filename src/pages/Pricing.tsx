@@ -64,11 +64,11 @@ export default function Pricing() {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-12 animate-fade-in pt-24">
-            <div className="overline mb-2">Assured Ceremony Audio™</div>
-            <h1 className="h1 mx-auto mb-4">Pricing & Packages</h1>
+            <div className="overline mb-2">The Offering</div>
+            <h1 className="h1 mx-auto mb-4">Choose the presence that fits your day.</h1>
             <div className="chapter-rule mx-auto" />
             <p className="p-lead mx-auto text-muted-foreground mt-6 max-w-3xl">
-              I frame cost as clarity insurance—not entertainment—so your decision is fast, confident, and risk-free.
+              How deeply do you want me there? Every option includes the same devoted preparation — only the hours change.
             </p>
           </div>
 
@@ -90,21 +90,21 @@ export default function Pricing() {
             <div id="packages" className="max-w-6xl mx-auto mb-16 scroll-mt-24 piano-section-target">
               <div className="text-center mb-8">
                 <h2 className="h2 mb-3 mx-auto">
-                  Choose your coverage tier
+                  Three ways to be present.
                 </h2>
                 <p className="p-body text-muted-foreground">
-                  Every option includes full audio coverage—only your event length changes.
+                  Each begins with the same months of collaborative preparation. The only difference is how long I stay.
                 </p>
               </div>
 
               <StaggerChildren staggerDelay={120} className="grid md:grid-cols-3 gap-6">
                 {/* Ceremony Only — $650 */}
                 <Card className="relative p-6 bg-card/80 backdrop-blur-[8px] border-border/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)] hover:shadow-[0_0_24px_rgba(255,224,138,0.06)] transition-all duration-[180ms]">
-                  <h3 className="font-display text-[22px] font-medium leading-tight mb-4">Ceremony Only</h3>
+                  <h3 className="font-display text-[22px] font-medium leading-tight mb-4">The Vow</h3>
                   
                   <div className="font-display text-[clamp(32px,4vw,48px)] font-light text-primary mb-2">$650</div>
                   <p className="p-body text-muted-foreground mb-6">
-                    Best for 30–45 minute ceremonies. Includes everything above.
+                    The ceremony itself — 30 to 45 minutes of devoted presence at the most sacred hour of the day.
                   </p>
 
                   <ul className="space-y-2 mb-6 text-sm">
@@ -134,11 +134,11 @@ export default function Pricing() {
                 <Card className="relative p-6 bg-card/80 backdrop-blur-[8px] border-primary/15 border-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12),0_0_40px_hsl(var(--vow-yellow)/0.08)] hover:shadow-[0_0_32px_rgba(255,224,138,0.1)] transition-all duration-[180ms]">
                   <MostSelectedPill />
                   
-                  <h3 className="font-display text-[22px] font-medium leading-tight mb-4">Ceremony + Prelude/Cocktails</h3>
+                  <h3 className="font-display text-[22px] font-medium leading-tight mb-4">The Hour</h3>
                   
                   <div className="font-display text-[clamp(32px,4vw,48px)] font-light text-primary mb-2">$750</div>
                   <p className="p-body text-muted-foreground mb-6">
-                    Adds 30–60 minutes of pre-ceremony ambiance or cocktail piano. Great for longer guest mingling or two-location setups.
+                    Extended presence — from the quiet anticipation of guest arrival through the ceremony and into the first exhale of cocktails.
                   </p>
 
                   <ul className="space-y-2 mb-6 text-sm">
@@ -165,11 +165,11 @@ export default function Pricing() {
 
                 {/* Full Day — $1,200 */}
                 <Card className="relative p-6 bg-card/80 backdrop-blur-[8px] border-border/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)] hover:shadow-[0_0_24px_rgba(255,224,138,0.06)] transition-all duration-[180ms]">
-                  <h3 className="font-display text-[22px] font-medium leading-tight mb-4">Full Day</h3>
+                  <h3 className="font-display text-[22px] font-medium leading-tight mb-4">The Story</h3>
                   
                   <div className="font-display text-[clamp(32px,4vw,48px)] font-light text-primary mb-2">$1,200</div>
                   <p className="p-body text-muted-foreground mb-6">
-                    From guest arrival to dinner fade-out at conversational volume.
+                    The full-day witness — from the first guest arriving to the last note fading over dinner. I stay as long as the music matters.
                   </p>
 
                   <ul className="space-y-2 mb-6 text-sm">
@@ -267,13 +267,13 @@ export default function Pricing() {
           <RevealOnScroll variant="up">
             <div className="max-w-2xl mx-auto text-center mb-8 space-y-6">
               <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light mx-auto">
-                Your venue, your date, your plan—confirmed in 24 hours.
+                Every arrangement begins with a conversation.
               </h2>
               <p className="p-body text-muted-foreground">
-                Includes SPL summary, mic/power notes, and upgrade options.
+                Tell me about your day. I will respond within 24 hours with a personalized plan.
               </p>
               <Button size="lg" variant="primary-dark" className="hover-scale">
-                Hold my date & get my ceremony-audio plan
+                Hold my date
               </Button>
             </div>
           </RevealOnScroll>

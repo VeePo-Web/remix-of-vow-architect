@@ -267,47 +267,47 @@ export default function Contact() {
                           }
                           className="grid sm:grid-cols-2 gap-3 mt-3"
                         >
-                          <div className="flex items-center space-x-2 border border-border rounded-lg p-3 hover:border-primary transition-colors cursor-pointer">
+                          <div className="flex items-center space-x-2 border border-border rounded-lg p-3 hover:border-primary/30 transition-all duration-[180ms] cursor-pointer group">
                             <RadioGroupItem value="elegant" id="elegant" />
                             <Label htmlFor="elegant" className="cursor-pointer flex-1">
-                              <span className="font-semibold block">
-                                🎹 Elegant / Classical
+                              <span className="font-medium block group-hover:translate-y-[-1px] transition-transform duration-[180ms]">
+                                Elegant — Classical
                               </span>
                               <span className="text-xs text-muted-foreground">
-                                Timeless ceremony favorites
+                                Timeless ceremony compositions
                               </span>
                             </Label>
                           </div>
-                          <div className="flex items-center space-x-2 border border-border rounded-lg p-3 hover:border-primary transition-colors cursor-pointer">
+                          <div className="flex items-center space-x-2 border border-border rounded-lg p-3 hover:border-primary/30 transition-all duration-[180ms] cursor-pointer group">
                             <RadioGroupItem value="modern" id="modern" />
                             <Label htmlFor="modern" className="cursor-pointer flex-1">
-                              <span className="font-semibold block">
-                                💕 Modern Love Songs
+                              <span className="font-medium block group-hover:translate-y-[-1px] transition-transform duration-[180ms]">
+                                Modern — Love Songs
                               </span>
                               <span className="text-xs text-muted-foreground">
                                 Contemporary acoustic arrangements
                               </span>
                             </Label>
                           </div>
-                          <div className="flex items-center space-x-2 border border-border rounded-lg p-3 hover:border-primary transition-colors cursor-pointer">
+                          <div className="flex items-center space-x-2 border border-border rounded-lg p-3 hover:border-primary/30 transition-all duration-[180ms] cursor-pointer group">
                             <RadioGroupItem value="indie" id="indie" />
                             <Label htmlFor="indie" className="cursor-pointer flex-1">
-                              <span className="font-semibold block">
-                                🎸 Indie / Minimal
+                              <span className="font-medium block group-hover:translate-y-[-1px] transition-transform duration-[180ms]">
+                                Indie — Minimal
                               </span>
                               <span className="text-xs text-muted-foreground">
                                 Understated, curated selections
                               </span>
                             </Label>
                           </div>
-                          <div className="flex items-center space-x-2 border border-border rounded-lg p-3 hover:border-primary transition-colors cursor-pointer">
+                          <div className="flex items-center space-x-2 border border-border rounded-lg p-3 hover:border-primary/30 transition-all duration-[180ms] cursor-pointer group">
                             <RadioGroupItem value="surprise" id="surprise" />
                             <Label htmlFor="surprise" className="cursor-pointer flex-1">
-                              <span className="font-semibold block">
-                                ✨ Surprise Me
+                              <span className="font-medium block group-hover:translate-y-[-1px] transition-transform duration-[180ms]">
+                                I trust your ear
                               </span>
                               <span className="text-xs text-muted-foreground">
-                                I'll shape the sound to suit your venue
+                                Shape the sound to suit the venue and the moment
                               </span>
                             </Label>
                           </div>

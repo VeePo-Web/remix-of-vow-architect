@@ -55,11 +55,11 @@ export default function Proof() {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center space-y-6 animate-fade-in">
-            <div className="overline">Assured Ceremony Audio™</div>
-            <h1 className="h1 mx-auto">Sound You Can See.</h1>
+            <div className="overline">Covenants Kept</div>
+            <h1 className="h1 mx-auto">I do not just say it — I show it.</h1>
             <div className="chapter-rule mx-auto" />
             <p className="lead text-muted-foreground max-w-2xl mx-auto">
-              Backed by SPL logs, certified plans, and insured execution—this is wedding clarity you can measure.
+              Documentation, insurance, redundancy, and the quiet certainty that comes from preparation. This is what devotion looks like in practice.
             </p>
             
             <Button size="lg" variant="primary-dark" className="hover-scale mt-8">
@@ -144,7 +144,7 @@ export default function Proof() {
             <div className="container mx-auto px-4">
               <div className="max-w-3xl mx-auto text-center space-y-6">
                 <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light text-foreground">
-                  I don't just say it—I log it, show it, and guarantee it.
+                  Every arrangement begins with a conversation.
                 </h2>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button size="lg" variant="primary-dark" className="hover-scale">
