@@ -342,6 +342,7 @@ export default function Listen() {
           </p>
         </div>
       </section>
+      </main>
 
       {/* Now Playing mini bar */}
       <NowPlayingMini

@@ -335,6 +335,8 @@ export default function Pricing() {
         }
         @media (prefers-reduced-motion: reduce) {
           .grain, [style*="ken-burns"] { animation: none !important; }
+          [style*="pricing-vignette-breathe"] { animation: none !important; opacity: 0.7; }
+          [style*="pricing-dot-breathe"] { animation: none !important; opacity: 0.6; }
         }
       `}</style>
     </div>

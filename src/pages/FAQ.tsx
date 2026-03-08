@@ -171,6 +171,7 @@ export default function FAQ() {
         }
         @media (prefers-reduced-motion: reduce) {
           .grain, [style*="ken-burns"] { animation: none !important; }
+          [style*="faq-vignette-breathe"] { animation: none !important; opacity: 0.7; }
         }
       `}</style>
     </div>
