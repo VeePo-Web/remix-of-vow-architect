@@ -19,7 +19,7 @@ const tiers = [
     duration: "2–3 hours",
     description:
       "Full coverage from arrival through dinner. Repertoire shifts with the energy of the room — from ambient to engaging and back again.",
-    cta: "Tell me about your event",
+    cta: "Discuss your event",
     ctaHref: "/contact",
     isSelected: true,
   },
