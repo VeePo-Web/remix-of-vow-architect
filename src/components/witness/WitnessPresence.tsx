@@ -116,7 +116,7 @@ export function WitnessPresence() {
               )}
               style={{ transitionDelay: "500ms" }}
             >
-              events performed
+              ceremonies witnessed
             </p>
           </div>
 

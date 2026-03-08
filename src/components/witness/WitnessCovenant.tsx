@@ -185,7 +185,7 @@ export function WitnessCovenant() {
       {/* Section fade bottom → Crossing */}
       <div 
         className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
-        style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--rich-black)))" }}
+        style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--rich-black)) 85%)" }}
         aria-hidden="true"
       />
     </section>
