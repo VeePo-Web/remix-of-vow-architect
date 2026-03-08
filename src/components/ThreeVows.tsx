@@ -43,7 +43,14 @@ export function ThreeVows() {
             <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-6">
               THE VOW
             </p>
-            <h2 className="text-[clamp(28px,4vw,48px)] font-[300] font-display leading-tight mb-8">
+            <h2
+              id="three-vows-heading"
+              className={cn(
+                "text-[clamp(28px,4vw,48px)] font-[300] font-display leading-tight mb-8 transition-all duration-700",
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
+              )}
+              style={{ transitionDelay: isVisible ? "120ms" : "0ms" }}
+            >
               "Every word will reach every heart."
             </h2>
             
