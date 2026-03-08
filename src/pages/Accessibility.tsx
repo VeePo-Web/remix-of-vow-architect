@@ -6,7 +6,7 @@ export default function Accessibility() {
   return (
     <PolicyLayout
       title="Accessibility Statement"
-      lastUpdated="November 28, 2025"
+      lastUpdated="March 8, 2026"
       breadcrumbs={[
         { label: "Home", path: "/" },
         { label: "Legal", path: "/legal" },
