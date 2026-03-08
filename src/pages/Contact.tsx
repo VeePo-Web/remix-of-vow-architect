@@ -11,7 +11,7 @@ import { ContactFormSuccess } from "@/components/ContactFormSuccess";
 import { ContactSLATimeline } from "@/components/ContactSLATimeline";
 import { ContactTestimonials } from "@/components/ContactTestimonials";
 import { BentoSelector } from "@/components/BentoSelector";
-import { ValuePromiseBadge } from "@/components/ValuePromiseBadge";
+
 import { Upload, ChevronRight, ChevronLeft, DollarSign, RefreshCw, Clock, Shield } from "lucide-react";
 import { useState, useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
