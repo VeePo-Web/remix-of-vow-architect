@@ -56,7 +56,7 @@ export function FAQChips() {
                   <Badge
                     variant="outline"
                     className={`cursor-pointer transition-all duration-[180ms] hover:bg-primary/10 px-4 py-2.5 text-sm font-display ${
-                      openIndex === index ? "bg-primary/10 border-primary/50 shadow-[0_0_12px_rgba(255,224,138,0.08)]" : ""
+                      openIndex === index ? "bg-primary/10 border-primary/50 shadow-[0_0_12px_hsl(var(--vow-yellow)/0.08)]" : ""
                     }`}
                   >
                     {chip.question}
