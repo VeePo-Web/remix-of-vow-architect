@@ -268,6 +268,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
   }, [lenis, location.pathname]);
 
   // Set page-level base weight on route change
+  // Delay scroll reset to coordinate with PageTransition exit phase
   useEffect(() => {
     const pageWeight = PAGE_WEIGHTS[location.pathname] ?? DEFAULT_LERP;
     pageLerpRef.current = pageWeight;
@@ -275,12 +276,17 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     currentLerpRef.current = pageWeight;
     velocityInfluenceRef.current = 0;
     
-    if (lenisRef.current) {
-      (lenisRef.current as any).options.lerp = pageWeight;
-      lenisRef.current.scrollTo(0, { immediate: true });
-    } else {
-      window.scrollTo(0, 0);
-    }
+    // Wait for exit animation to complete before scrolling to top
+    const delay = setTimeout(() => {
+      if (lenisRef.current) {
+        (lenisRef.current as any).options.lerp = pageWeight;
+        lenisRef.current.scrollTo(0, { immediate: true });
+      } else {
+        window.scrollTo(0, 0);
+      }
+    }, 50);
+
+    return () => clearTimeout(delay);
   }, [location.pathname]);
 
   return (

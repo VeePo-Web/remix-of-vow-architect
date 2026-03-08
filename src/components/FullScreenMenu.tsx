@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSmoothScroll } from "@/components/SmoothScrollProvider";
+import { usePageTransition } from "@/hooks/usePageTransition";
 
 interface FullScreenMenuProps {
   isOpen: boolean;
