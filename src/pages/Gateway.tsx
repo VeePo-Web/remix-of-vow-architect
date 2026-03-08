@@ -209,7 +209,7 @@ export default function Gateway() {
         <p className="font-display text-[16px] font-light text-muted-foreground tracking-tight">
           'Til Death
           <span
-            className="semicolon-breathe text-[hsl(var(--vow-yellow))]"
+            className="semicolon-breathe text-primary"
             style={{ animation: "semicolon-breathe 4s ease-in-out infinite" }}
           >
             {" ; "}
