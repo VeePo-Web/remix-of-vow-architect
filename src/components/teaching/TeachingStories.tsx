@@ -28,10 +28,10 @@ function StoryCard({
   index: number;
 }) {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.3 });
-  const divRef = ref as unknown as React.RefObject<HTMLDivElement>;
 
   return (
-    <div ref={ref} className="mb-[100px] last:mb-0">
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    <div ref={ref as any} className="mb-[100px] last:mb-0">
       {/* Narrative — roman, measured */}
       <p
         className={cn(
