@@ -4506,7 +4506,7 @@ All colors MUST be HSL.
   @media (prefers-reduced-motion: reduce) {
     .cta-breathe-glow {
       animation: none;
-      box-shadow: 0 0 30px rgba(255, 224, 138, 0.2);
+      box-shadow: 0 0 30px hsl(var(--vow-yellow) / 0.2);
     }
     .vow-glow-breathe {
       animation: none;
