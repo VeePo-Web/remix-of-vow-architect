@@ -109,11 +109,11 @@ export default function Pricing() {
 
                   <ul className="space-y-2 mb-6 text-sm">
                     {[
-                      "All ceremony-proof clarity features",
-                      "Professional sound coverage",
-                      "Officiant + vow microphones",
-                      "Silent battery power system",
-                      "SPL log documentation",
+                      "Full ceremony audio — every word heard",
+                      "Officiant and vow amplification",
+                      "Silent power — no generator noise",
+                      "Custom cue sheet for your processional",
+                      "Post-ceremony documentation",
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
                         <Check size={16} className="text-accent mt-0.5 flex-shrink-0" />
