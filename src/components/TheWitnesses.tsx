@@ -112,7 +112,7 @@ export function TheWitnesses() {
                 }}
               >
                 <blockquote
-                  className="font-display font-light italic leading-relaxed mb-6 text-foreground/90 text-2xl max-w-[22ch] mx-auto"
+                  className="font-display font-light italic leading-relaxed mb-6 text-foreground text-2xl max-w-[22ch] mx-auto"
                   style={{ textWrap: "balance" as any }}
                 >
                   &ldquo;{testimonial.quote}&rdquo;
