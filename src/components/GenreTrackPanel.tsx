@@ -128,9 +128,9 @@ export function GenreTrackPanel({
               "font-display text-base font-light tracking-normal",
               "transition-all duration-[180ms]",
               isActive
-                ? "text-[hsl(var(--vow-yellow))]"
+                ? "text-primary"
                 : hasSrc
-                ? "text-foreground opacity-80 hover:text-foreground hover:bg-[hsl(var(--vow-yellow)/0.06)] cursor-pointer"
+                ? "text-foreground opacity-80 hover:text-foreground hover:bg-primary/[0.06] cursor-pointer"
                 : "text-foreground opacity-45 cursor-default"
             )}
             style={{

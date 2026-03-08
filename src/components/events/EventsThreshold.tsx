@@ -54,7 +54,7 @@ export function EventsThreshold() {
             <div
               key={i}
               className={cn(
-                "border-l-2 border-[hsl(var(--vow-yellow)/0.20)] pl-6 transition-all duration-[600ms]",
+                "border-l-2 border-primary/20 pl-6 transition-all duration-[600ms]",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{

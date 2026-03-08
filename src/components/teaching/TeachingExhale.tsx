@@ -158,7 +158,7 @@ function ScrollRevealBlock({ isInView }: { isInView: boolean }) {
                       {w.word}
                       <span
                         className={cn(
-                          "absolute -bottom-0.5 left-0 w-full h-[2px] bg-[hsl(var(--vow-yellow))] origin-left transition-transform duration-[450ms]",
+                          "absolute -bottom-0.5 left-0 w-full h-[2px] bg-primary origin-left transition-transform duration-[450ms]",
                           progress > 0.9 ? "scale-x-100" : "scale-x-0"
                         )}
                         style={{
