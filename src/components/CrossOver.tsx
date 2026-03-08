@@ -264,7 +264,7 @@ export function CrossOver() {
             )}
             style={{ transitionDelay: isVisible ? "150ms" : "0ms" }}
           >
-            <span className="font-light text-foreground/40 text-[0.8em] align-top -mr-[0.05em]">{"\u201C"}</span>
+            <span className="font-light text-muted-foreground text-[0.8em] align-top -mr-[0.05em]">{"\u201C"}</span>
           </span>
           {QUOTE_WORDS.map((word, i) => {
             const isLast = i === QUOTE_WORDS.length - 1;
