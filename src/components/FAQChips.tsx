@@ -12,7 +12,7 @@ const chips = [
   {
     question: "What if there is no power?",
     answer: "I use a silent battery system with backups — completely quiet.",
-    link: { to: "/proof", label: "See the equipment" }
+    link: { to: "/gallery", label: "See the equipment" }
   },
   {
     question: "Can I change my arrangement later?",
