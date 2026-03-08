@@ -100,7 +100,7 @@ function ScrollRevealWords({
             ) : (
               word
             )}
-            {i < words.length - 1 ? " " : ""}
+            
           </span>
         );
       })}
