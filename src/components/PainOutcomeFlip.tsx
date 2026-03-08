@@ -49,7 +49,7 @@ export function PainOutcomeFlip() {
           </div>
         </div>
 
-        <p className="text-center text-lg font-semibold max-w-2xl mx-auto">
+        <p className="text-center text-lg font-medium max-w-2xl mx-auto">
           This isn't "just music." It's <span className="text-primary">engineering a legal, intelligible ceremony</span>—with style.
         </p>
       </div>
