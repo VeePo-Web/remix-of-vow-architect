@@ -19,7 +19,7 @@ export default function PrivacyPolicy() {
           I serve Calgary, Cochrane, Canmore, and Banff.
         </p>
         <p>
-          Contact: <a href="mailto:parker@parkergawryletz.com" className="text-primary hover:text-primary/80">parker@parkergawryletz.com</a> • <a href="tel:+14038308930" className="text-primary hover:text-primary/80">+1-403-830-8930</a>
+          Contact: <a href="mailto:parker@parkergawryletz.com" className="text-primary hover:text-primary/80 transition-colors duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm">parker@parkergawryletz.com</a> • <a href="tel:+14038308930" className="text-primary hover:text-primary/80 transition-colors duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm">+1-403-830-8930</a>
         </p>
       </PolicySection>
 
@@ -119,7 +119,7 @@ export default function PrivacyPolicy() {
       <PolicySection title="Cookies & Tracking">
         <p>
           I use essential cookies for site function and analytics cookies to improve content. See{" "}
-          <a href="/cookie-policy" className="text-primary hover:text-primary/80">
+          <a href="/cookie-policy" className="text-primary hover:text-primary/80 transition-colors duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm">
             /cookie-policy
           </a>{" "}
           for details and opt-out options.
@@ -129,7 +129,7 @@ export default function PrivacyPolicy() {
       <PolicySection title="Your Rights">
         <p>
           Where applicable, you may access, correct, or request deletion of your data. Email{" "}
-          <a href="mailto:parker@parkergawryletz.com" className="text-primary hover:text-primary/80">
+          <a href="mailto:parker@parkergawryletz.com" className="text-primary hover:text-primary/80 transition-colors duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm">
             parker@parkergawryletz.com
           </a>{" "}
           with the subject "Privacy Request."

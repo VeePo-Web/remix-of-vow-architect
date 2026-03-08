@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { MinimalHeader } from "@/components/MinimalHeader";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
@@ -9,6 +10,7 @@ import { Link } from "react-router-dom";
 
 export default function Legal() {
   usePageTheme();
+  useEffect(() => { document.title = "Legal & Policies — Parker Gawryletz"; }, []);
 
   const policies = [
     {
@@ -61,7 +63,7 @@ export default function Legal() {
           />
           
           <div className="max-w-4xl mx-auto mt-8">
-            <h1 className="text-4xl md:text-5xl font-display font-light mb-4">Legal & Policies</h1>
+            <h1 className="h1">Legal & Policies</h1>
             <p className="text-lg text-muted-foreground mb-12">
               Clarity before commitment — every policy, in plain language.
             </p>
