@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 
 const covenantPromises = [
   "I will arrive an hour before you need me.",
-  "I will test every microphone before your guests arrive.",
+  "I will prepare as though your ceremony were my own.",
   "I will guard the silence between your words.",
   "I will carry your vows so they land where they belong.",
   "I will remember what was spoken when memory fades.",
