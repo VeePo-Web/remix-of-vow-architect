@@ -288,7 +288,7 @@ export default function Listen() {
         aria-hidden="true"
       />
 
-      {/* ── MOVEMENTS ── */}
+      <div id="listen-movements" className="piano-section-target">
       {movements.map((movement, i) => (
         <ListeningMovement
           key={movement.numeral}
