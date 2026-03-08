@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { TestimonialAvatar } from "@/components/TestimonialAvatar";
 import { Shield, FileCheck, Package } from "lucide-react";
-import { StaggerChildren } from "@/components/animation";
+import { RevealOnScroll, StaggerChildren } from "@/components/animation";
 
 const insuranceItems = [
   {
