@@ -44,7 +44,7 @@ const NotFound = () => {
           {/* Navigation links */}
           <nav className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
             <DirectionalLink to="/">Return home</DirectionalLink>
-            <DirectionalLink to="/services">Explore my offerings</DirectionalLink>
+            <DirectionalLink to="/weddings">Explore my offerings</DirectionalLink>
             <DirectionalLink to="/contact">Start a conversation</DirectionalLink>
           </nav>
 

@@ -187,7 +187,7 @@ export default function Listen() {
       <audio ref={audioRef} preload="none" />
 
       {/* Film grain */}
-      <div className="grain opacity-[0.06]" style={{ willChange: "opacity" }} />
+      <div className="grain opacity-[0.06]" style={{ willChange: "opacity" }} aria-hidden="true" />
 
       {/* ── HERO ── */}
       <section id="listen-hero" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden piano-section-target">
