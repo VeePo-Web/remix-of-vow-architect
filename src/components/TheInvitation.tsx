@@ -257,7 +257,7 @@ export function TheInvitation() {
                     transitionDelay: isVisible ? '1000ms' : '0ms',
                     transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
                     width: '100%',
-                    boxShadow: isVisible ? '0 0 8px hsl(45 90% 65% / 0.3)' : 'none',
+                    boxShadow: isVisible ? '0 0 8px hsl(var(--vow-yellow) / 0.3)' : 'none',
                     animation: isVisible ? 'invitation-yours-glow 800ms cubic-bezier(0.22, 0.61, 0.36, 1) 1700ms both' : 'none',
                   }}
                 />
