@@ -8,9 +8,9 @@ interface ReadingCardProps {
 }
 
 const readings: ReadingCardProps[] = [
-  { timestamp: "14:32", reading: "62 dBA", moment: "Prelude" },
-  { timestamp: "14:47", reading: "68 dBA", moment: "Vows" },
-  { timestamp: "15:02", reading: "72 dBA", moment: "Recession" },
+  { timestamp: "14:32", reading: "Gentle", moment: "Prelude" },
+  { timestamp: "14:47", reading: "Clear", moment: "Vows" },
+  { timestamp: "15:02", reading: "Joyful", moment: "Recession" },
 ];
 
 export function TheRecord() {

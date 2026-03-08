@@ -6,19 +6,19 @@ import { StaggerChildren } from "@/components/animation";
 
 const samplePlans = [
   {
-    title: "SPL Report + Cue Sheet",
+    title: "Volume Documentation & Cue Sheet",
     venue: "Cascade Gardens",
-    description: "Complete acoustic protocol with dBA readings",
+    description: "Verified readings with timestamps and ceremony timeline",
   },
   {
-    title: "Timeline PDF with Seating Arc",
+    title: "Ceremony Timeline with Seating Plan",
     venue: "Cochrane Ranch",
     description: "Visual layout and minute-by-minute timing",
   },
   {
-    title: "Planner Co-signed Cue Map",
+    title: "Planner-Coordinated Cue Map",
     venue: "Canmore Hall",
-    description: "Coordinated entrance/exit timing document",
+    description: "Co-authored entrance, vow, and exit timing",
   },
 ];
 
@@ -27,7 +27,7 @@ export function DownloadablePlans() {
     <section className="section--surface section-padding">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold mb-4 text-center">You Don't Get a Musician—You Get a Plan.</h2>
+          <h2 className="h2 mb-4 text-center">You do not get a musician — you get a plan.</h2>
           
           <StaggerChildren staggerDelay={80} className="grid md:grid-cols-3 gap-6 mb-8">
             {samplePlans.map((plan, i) => (
@@ -46,7 +46,7 @@ export function DownloadablePlans() {
           <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
             <Link to="/contact">
               <Button size="lg" className="hover-scale">
-                Want your venue's SPL plan? → Hold my date now
+                Hold my date
               </Button>
             </Link>
           </div>

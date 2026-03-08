@@ -7,21 +7,21 @@ import { StaggerChildren } from "@/components/animation";
 const setupImages = [
   {
     icon: Mic,
-    title: "Live Mic Mix, Cue Sheet Visible",
-    tooltip: "Cue Sheet—co-signed with planner & officiant; time-coded entrances, vows, exits.",
+    title: "Cue Sheet & Live Mix",
+    tooltip: "Co-authored with your planner and officiant — every entrance, vow, and exit is timed.",
     alt: "Wedding ceremony cue sheet with microphone mixing setup Calgary",
   },
   {
     icon: Zap,
-    title: "Covered, Battery-Powered Amp",
-    tooltip: "Generator-free; SPL-aware placement for distance and wind.",
+    title: "Silent Battery Power",
+    tooltip: "No generators, no noise — placement optimized for distance and wind.",
     alt: "Battery powered ceremony amplifier outdoor wedding Alberta",
   },
   {
     icon: Users,
-    title: "Proximity Seating Arc",
-    tooltip: "Natural projection layout so words and music carry—no shouty levels.",
-    alt: "Wedding ceremony seating arc acoustic projection layout",
+    title: "Natural Projection Layout",
+    tooltip: "Seating arranged so words and music carry naturally — without excessive volume.",
+    alt: "Wedding ceremony seating layout acoustic projection",
   },
 ];
 
@@ -30,7 +30,7 @@ export function SetupPhotoGallery() {
     <section className="section--default section-padding">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
-          <h2 className="h2 mb-12 text-center">Engineered Elegance in Action</h2>
+          <h2 className="h2 mb-12 text-center">Preparation in practice.</h2>
           
           <TooltipProvider>
             <StaggerChildren staggerDelay={80} className="grid md:grid-cols-3 gap-6 mb-8">

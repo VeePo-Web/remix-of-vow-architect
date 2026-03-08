@@ -5,26 +5,26 @@ import { StaggerChildren } from "@/components/animation";
 const failoverTiers = [
   {
     icon: Mic,
-    tier: "Primary Chain",
-    description: "Officiant/vow mic → live mix → battery amp → piano",
+    tier: "Primary System",
+    description: "Wireless microphones, live mix, battery-powered amplifier, and piano",
     highlight: true,
   },
   {
     icon: Zap,
-    tier: "Failover #1",
-    description: "Secondary amp + mic chain (independent channel)",
+    tier: "Second System",
+    description: "Independent backup microphone and amplifier on a separate channel",
     highlight: false,
   },
   {
     icon: Piano,
-    tier: "Failover #2",
-    description: "Secondary keyboard (analog fallback)",
+    tier: "Acoustic Fallback",
+    description: "Second keyboard ready — music never stops",
     highlight: false,
   },
   {
     icon: Speaker,
-    tier: "Failover #3",
-    description: "Portable speaker with pre-loaded processional & recessional",
+    tier: "Emergency Playback",
+    description: "Portable speaker with your processional and recessional pre-loaded",
     highlight: false,
   },
 ];

@@ -9,7 +9,7 @@ export function ContactTestimonials() {
         venue="Cochrane"
       />
       <MicroTestimonial
-        quote="The SPL plan let us skip a site visit. Parker mapped everything—even chair placement."
+        quote="The ceremony plan let us skip a site visit. Parker mapped everything — even seating placement."
         author="Rachel"
         venue="Calgary"
       />

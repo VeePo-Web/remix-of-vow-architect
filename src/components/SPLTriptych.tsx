@@ -6,20 +6,20 @@ import { RevealOnScroll, StaggerChildren } from "@/components/animation";
 const splReadings = [
   {
     phase: "Prelude",
-    range: "35–45 dBA",
-    description: "Baseline for guest arrival",
+    range: "Gentle ambiance",
+    description: "Quiet enough for conversation, present enough to set the tone",
     level: 30,
   },
   {
     phase: "Vows",
-    range: "55–65 dBA",
-    description: "Intelligibility window",
+    range: "Crystal clarity",
+    description: "Every word heard — even in the last row",
     level: 60,
   },
   {
     phase: "Recessional",
-    range: "70–75 dBA max",
-    description: "Celebratory peak",
+    range: "Joyful celebration",
+    description: "The exhale — music that matches the moment",
     level: 80,
   },
 ];
@@ -32,7 +32,7 @@ export function SPLTriptych() {
           <RevealOnScroll variant="up">
             <h2 className="h2 mb-4 text-center">Clarity. Documented.</h2>
             <p className="text-muted-foreground text-center max-w-3xl mx-auto mb-12">
-              I measure and log sound pressure levels at three critical moments — Prelude, Vows, and Recessional — so you (and your venue) can verify both audibility and policy compliance.
+              I measure and verify volume levels at three critical moments — Prelude, Vows, and Recessional — so you and your venue can confirm that every word carries.
             </p>
           </RevealOnScroll>
 
@@ -58,12 +58,12 @@ export function SPLTriptych() {
 
           <RevealOnScroll variant="up" delay={200}>
             <p className="text-sm text-muted-foreground text-center max-w-2xl mx-auto mb-8">
-              Logged with a professional dBA meter, timestamped and archived in your ceremony-audio plan. (Actual values adapt to venue, wind, and guest count.)
+              Volume is verified with professional instruments, timestamped, and included in your ceremony plan. Readings adapt to your venue, weather, and guest count.
             </p>
 
             <Card className="p-6 bg-card/80 backdrop-blur-[8px] border-primary/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)]">
               <p className="italic text-foreground mb-3">
-                "We used the SPL log in our permit application—approved instantly."
+                "We included the volume documentation in our permit application — approved instantly."
               </p>
               <div className="flex items-center gap-3">
                 <TestimonialAvatar
