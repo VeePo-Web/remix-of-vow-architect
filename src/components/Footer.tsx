@@ -224,7 +224,7 @@ export function Footer() {
                   <li key={link.to}>
                     <NavLink
                       to={link.to}
-                      className="text-foreground/50 hover:text-primary hover:translate-y-[1px] active:translate-y-[2px] group-hover/nav:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] story-link inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
+                      className="text-muted-foreground hover:text-primary hover:translate-y-[1px] active:translate-y-[2px] group-hover/nav:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] story-link inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
                     >
                       {link.label}
                     </NavLink>
