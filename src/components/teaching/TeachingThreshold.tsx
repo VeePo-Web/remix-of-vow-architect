@@ -292,7 +292,7 @@ export function TeachingThreshold() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at 25% 80%, hsl(30 12% 18% / 0.35), transparent 55%), radial-gradient(ellipse at 75% 20%, hsl(30 8% 16% / 0.3), transparent 50%)",
+            "radial-gradient(ellipse at 25% 80%, hsl(var(--teaching-studio-fog) / 0.35), transparent 55%), radial-gradient(ellipse at 75% 20%, hsl(var(--teaching-studio-fog-alt) / 0.3), transparent 50%)",
         }}
         aria-hidden="true"
       />
