@@ -417,7 +417,15 @@ export function TeachingHero() {
         />
       </div>
 
-      {/* ── Keyframes ── */}
+      {/* ── Bottom edge fade for seamless section transition ── */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        style={{
+          background: "linear-gradient(to bottom, transparent, hsl(0 0% 2%))",
+        }}
+        aria-hidden="true"
+      />
+
       <style>{`
         @keyframes teaching-ken-burns {
           0% { transform: scale(1) translate(0, 0); }
