@@ -81,7 +81,7 @@ export function Footer() {
         className="pointer-events-none absolute inset-0 z-[1]"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 40%, hsl(240 9% 2%) 100%)",
+            "radial-gradient(ellipse at center, transparent 40%, hsl(var(--rich-black)) 100%)",
         }}
         aria-hidden="true"
       />
