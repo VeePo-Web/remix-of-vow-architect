@@ -213,7 +213,7 @@ export function TeachingOffering() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 45%, hsl(38 25% 85% / 0.45) 100%)",
+            "radial-gradient(ellipse at center, transparent 45%, hsl(var(--teaching-vignette-alt) / 0.45) 100%)",
           animation: "offering-vignette 6s ease-in-out infinite",
         }}
         aria-hidden="true"
