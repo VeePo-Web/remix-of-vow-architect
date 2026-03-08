@@ -182,7 +182,7 @@ function PillarCard({
         {/* Description — scroll-linked word reveals */}
         <p
           className="font-sans text-[16px] leading-[1.7] max-w-[480px] mx-auto"
-          style={{ color: "hsl(30 10% 40%)" }}
+          style={{ color: "hsl(var(--teaching-text-body))" }}
         >
           <ScrollDescription
             text={pillar.description}
