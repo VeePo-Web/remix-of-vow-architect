@@ -299,7 +299,7 @@ export function TeachingMethodology() {
           }}
           aria-label="Annotation: listen"
         >
-          — listen before you teach
+          — listen before you play
         </span>
 
         {/* Closing golden thread */}
