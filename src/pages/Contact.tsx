@@ -327,7 +327,7 @@ export default function Contact() {
                   {/* Sidebar */}
                   <div className="lg:col-span-1 space-y-4">
                     {[
-                      { icon: DollarSign, text: "No cost to hold your date — take the time you need." },
+                      { icon: Clock, text: "No cost to hold your date — take the time you need." },
                       { icon: RefreshCw, text: "Full refund within 14 days — commitment without pressure." },
                       { icon: Clock, text: "Response within 24 hours — your personalized plan, always." },
                       { icon: Shield, text: "Insurance, redundancy, and documentation — included." },
