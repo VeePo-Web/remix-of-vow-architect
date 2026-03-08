@@ -292,7 +292,7 @@ export function TeachingMethodology() {
             isVisible ? "opacity-35" : "opacity-0"
           )}
           style={{
-            color: "hsl(40 20% 60%)",
+            color: "hsl(var(--teaching-studio-muted))",
             transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
             transitionDelay: "1000ms",
           }}

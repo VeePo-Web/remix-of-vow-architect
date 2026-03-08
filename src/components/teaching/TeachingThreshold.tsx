@@ -405,7 +405,7 @@ export function TeachingThreshold() {
               closingVisible ? "opacity-30" : "opacity-0"
             )}
             style={{
-              color: "hsl(40 15% 55%)",
+              color: "hsl(var(--teaching-studio-label))",
               transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
               transitionDelay: "500ms",
             }}
