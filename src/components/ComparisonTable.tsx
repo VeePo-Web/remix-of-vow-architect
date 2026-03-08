@@ -98,7 +98,7 @@ export function ComparisonTable() {
                 </td>
                 <td className="text-center px-4 py-4">
                   {row.parker.value === true && <GoldenCheck />}
-                  {row.parker.value === false && <X size={16} className="inline text-destructive/40" />}
+                  {row.parker.value === false && <X size={16} className="inline text-destructive opacity-40" />}
                   {row.parker.label && <div className="text-[12px] text-muted-foreground mt-1.5 leading-snug">{row.parker.label}</div>}
                 </td>
               </tr>
