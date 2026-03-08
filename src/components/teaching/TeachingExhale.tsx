@@ -3,11 +3,10 @@ import { cn } from "@/lib/utils";
 
 /**
  * TeachingExhale — Recognition / Sacred Pause
- * 
+ *
  * Dual-weight typographic reveal: italic (emotional) vs roman (declarative).
  * "I understand." breaks the italic pattern — a moment of grounded authority.
  * "The piano has been waiting." carries vow-yellow underline on "waiting."
- * Closing horizontal golden thread anchors the section.
  */
 
 const lines = [
@@ -23,7 +22,7 @@ const lines = [
   },
   {
     text: "I understand.",
-    italic: false, // Roman — declarative break
+    italic: false,
     size: "text-[18px] md:text-[24px]",
   },
   {
@@ -43,6 +42,9 @@ function renderLine(
     color: line.italic ? "hsl(30 10% 25%)" : "hsl(30 10% 35%)",
     transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
     transitionDelay: `${delay}ms`,
+    textShadow: line.italic
+      ? "0 1px 2px hsl(40 20% 80% / 0.25)"
+      : undefined,
   };
 
   if (!line.underlineWord) {
@@ -53,10 +55,7 @@ function renderLine(
     );
   }
 
-  // Render with vow-yellow underline on the target word
-  const idx = line.text
-    .toLowerCase()
-    .indexOf(line.underlineWord.toLowerCase());
+  const idx = line.text.toLowerCase().indexOf(line.underlineWord.toLowerCase());
   if (idx === -1) return <span style={baseStyle}>{line.text}</span>;
 
   const before = line.text.slice(0, idx);
@@ -121,18 +120,51 @@ export function TeachingExhale() {
       />
 
       <div className="relative z-10 max-w-[680px] mx-auto text-center">
+        {/* Whispered section label */}
+        <p
+          className={cn(
+            "font-sans text-[11px] uppercase tracking-[0.22em] mb-fitz-5 transition-all duration-[1800ms]",
+            isVisible
+              ? "opacity-45 translate-y-0"
+              : "opacity-0 translate-y-[8px]"
+          )}
+          style={{
+            color: "hsl(30 10% 45%)",
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+          }}
+        >
+          The recognition
+        </p>
+
         {/* Golden dot anchor — heartbeat */}
         <span
           className={cn(
-            "block w-2 h-2 rounded-full mx-auto mb-fitz-8 transition-all duration-[900ms]",
+            "block w-2 h-2 rounded-full mx-auto mb-fitz-5 transition-all duration-[900ms]",
             isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
           )}
           style={{
             background: "hsl(var(--vow-yellow))",
+            boxShadow: "0 0 8px 2px hsl(var(--vow-yellow) / 0.15)",
             animation: isVisible
               ? "exhale-dot-pulse 4s ease-in-out infinite"
               : undefined,
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "100ms",
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Vertical golden thread — dot to content */}
+        <div
+          className={cn(
+            "w-px h-[48px] mx-auto mb-fitz-8 origin-top transition-transform duration-[700ms]",
+            isVisible ? "scale-y-100" : "scale-y-0"
+          )}
+          style={{
+            background:
+              "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.25), hsl(var(--vow-yellow) / 0.04))",
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "200ms",
           }}
           aria-hidden="true"
         />
@@ -172,6 +204,22 @@ export function TeachingExhale() {
           }}
           aria-hidden="true"
         />
+
+        {/* Pencil annotation */}
+        <span
+          className={cn(
+            "block font-display italic text-[13px] mt-fitz-5 transition-all duration-[700ms]",
+            isVisible ? "opacity-30" : "opacity-0"
+          )}
+          style={{
+            color: "hsl(30 12% 50%)",
+            transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
+            transitionDelay: "2000ms",
+          }}
+          aria-label="Closing annotation"
+        >
+          — you already know the melody
+        </span>
       </div>
 
       {/* Keyframes */}

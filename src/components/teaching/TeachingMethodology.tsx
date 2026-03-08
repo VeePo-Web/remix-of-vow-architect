@@ -59,7 +59,7 @@ export function TeachingMethodology() {
         {/* Whispered section label */}
         <p
           className={cn(
-            "font-sans text-[11px] uppercase tracking-[0.22em] mb-fitz-7 transition-all duration-[700ms]",
+            "font-sans text-[11px] uppercase tracking-[0.22em] mb-fitz-5 transition-all duration-[700ms]",
             isVisible
               ? "opacity-35 translate-y-0"
               : "opacity-0 translate-y-[6px]"
@@ -72,7 +72,25 @@ export function TeachingMethodology() {
           The First Conversation
         </p>
 
-        {/* Vertical golden thread — above quote */}
+        {/* Golden dot anchor */}
+        <span
+          className={cn(
+            "block w-2 h-2 rounded-full mx-auto mb-fitz-5 transition-all duration-[900ms]",
+            isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
+          )}
+          style={{
+            background: "hsl(var(--vow-yellow))",
+            boxShadow: "0 0 8px 2px hsl(var(--vow-yellow) / 0.15)",
+            animation: isVisible
+              ? "methodology-dot-breathe 4s ease-in-out infinite"
+              : undefined,
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "100ms",
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Vertical golden thread — dot to quote */}
         <div
           className={cn(
             "w-px h-[48px] mx-auto mb-fitz-7 origin-top transition-transform duration-[700ms]",
@@ -80,7 +98,7 @@ export function TeachingMethodology() {
           )}
           style={{
             background:
-              "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.06), hsl(var(--vow-yellow) / 0.25))",
+              "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.25), hsl(var(--vow-yellow) / 0.06))",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             transitionDelay: "150ms",
           }}
@@ -153,6 +171,7 @@ export function TeachingMethodology() {
             color: "hsl(40 25% 70%)",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             transitionDelay: "700ms",
+            textShadow: "0 1px 2px hsl(0 0% 0% / 0.2)",
           }}
         >
           Every gift arrives as a seed. Your hands are the soil.
@@ -161,11 +180,11 @@ export function TeachingMethodology() {
         {/* Pencil annotation */}
         <span
           className={cn(
-            "inline-block font-display italic text-[14px] transition-all duration-[700ms]",
-            isVisible ? "opacity-50" : "opacity-0"
+            "inline-block font-display italic text-[13px] transition-all duration-[700ms]",
+            isVisible ? "opacity-35" : "opacity-0"
           )}
           style={{
-            color: "hsl(40 20% 65%)",
+            color: "hsl(40 20% 60%)",
             transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
             transitionDelay: "1000ms",
           }}
@@ -199,6 +218,10 @@ export function TeachingMethodology() {
         @keyframes methodology-vignette {
           0%, 100% { opacity: 0.6; }
           50% { opacity: 0.8; }
+        }
+        @keyframes methodology-dot-breathe {
+          0%, 100% { opacity: 0.4; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.15); }
         }
         @media (prefers-reduced-motion: reduce) {
           #teaching-methodology * {
