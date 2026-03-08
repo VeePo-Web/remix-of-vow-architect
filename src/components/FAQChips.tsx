@@ -38,9 +38,10 @@ export function FAQChips() {
     <section className="section--surface section-padding">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
-           <h2 className="text-center mb-2">Common questions.</h2>
+          <div className="overline text-center mb-2">Quick Answers</div>
+          <h2 className="text-center mb-2">Common questions.</h2>
           <div className="chapter-rule mx-auto" />
-          <p className="caption text-center text-muted-foreground mb-8">
+          <p className="text-[15px] text-center text-muted-foreground mb-8 leading-relaxed">
             Tap any question — every answer links to real documentation.
           </p>
 
@@ -54,16 +55,16 @@ export function FAQChips() {
                 <CollapsibleTrigger asChild>
                   <Badge
                     variant="outline"
-                    className={`cursor-pointer transition-all hover:bg-primary/10 px-4 py-2 text-sm ${
-                      openIndex === index ? "bg-primary/10 border-primary/50" : ""
+                    className={`cursor-pointer transition-all duration-[180ms] hover:bg-primary/10 px-4 py-2.5 text-sm font-display ${
+                      openIndex === index ? "bg-primary/10 border-primary/50 shadow-[0_0_12px_rgba(255,224,138,0.08)]" : ""
                     }`}
                   >
                     {chip.question}
                   </Badge>
                 </CollapsibleTrigger>
                 <CollapsibleContent className="mt-4 max-w-2xl mx-auto">
-                  <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
-                    <p className="text-sm text-muted-foreground mb-3">{chip.answer}</p>
+                  <div className="bg-card/80 backdrop-blur-[8px] border border-border/50 rounded-lg p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)]">
+                    <p className="text-[15px] text-muted-foreground mb-3 leading-relaxed">{chip.answer}</p>
                     <DirectionalLink to={chip.link.to}>{chip.link.label}</DirectionalLink>
                   </div>
                 </CollapsibleContent>

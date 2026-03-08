@@ -64,20 +64,24 @@ export function FAQTopTen() {
     <section className="section--default section-padding grain">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-center mb-4">Your concerns, addressed before you ask.</h2>
-          <div className="chapter-rule mx-auto mb-12" />
+          <div className="overline text-center mb-2">Common Fears</div>
+          <h2 className="text-center mb-3">Your concerns, addressed before you ask.</h2>
+          <div className="chapter-rule mx-auto mb-4" />
+          <p className="text-[15px] text-muted-foreground text-center mb-12 max-w-xl mx-auto leading-relaxed">
+            I have heard every fear. Here is how I resolve each one — with documentation, not promises.
+          </p>
 
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion type="single" collapsible className="space-y-3">
             {topTenFAQs.map((faq, index) => (
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="bg-card border border-border rounded-lg px-6"
+                className="bg-card/80 backdrop-blur-[8px] border border-border/50 rounded-lg px-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_4px_16px_rgba(0,0,0,0.08)] transition-all duration-[180ms] hover:shadow-[0_0_24px_rgba(255,224,138,0.04)]"
               >
-                <AccordionTrigger className="text-left font-semibold hover:no-underline">
+                <AccordionTrigger className="text-left font-display text-[18px] font-medium hover:no-underline">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">
+                <AccordionContent className="text-[15px] text-muted-foreground leading-relaxed">
                   <p className="mb-3">{faq.answer}</p>
                   <DirectionalLink to={faq.link.to}>{faq.link.label}</DirectionalLink>
                 </AccordionContent>

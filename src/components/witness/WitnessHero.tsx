@@ -35,11 +35,12 @@ export function WitnessHero() {
       {/* Film grain overlay */}
       <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
 
-      {/* Cinematic vignette */}
+      {/* Cinematic vignette with breathing */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 100%)"
+          background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 100%)",
+          animation: "witness-vignette-breathe 6s ease-in-out infinite",
         }}
         aria-hidden="true"
       />
