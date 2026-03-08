@@ -165,7 +165,7 @@ export default function Pricing() {
 
                 {/* Full Day — $1,200 */}
                 <Card className="relative p-6 bg-card/80 backdrop-blur-[8px] border-border/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)] hover:shadow-[0_0_24px_rgba(255,224,138,0.06)] transition-all duration-[180ms]">
-                  <h3 className="font-display text-[22px] font-medium leading-tight mb-4">Full Day</h3>
+                  <h3 className="font-display text-[22px] font-medium leading-tight mb-4">The Story</h3>
                   
                   <div className="font-display text-[clamp(32px,4vw,48px)] font-light text-primary mb-2">$1,200</div>
                   <p className="p-body text-muted-foreground mb-6">
