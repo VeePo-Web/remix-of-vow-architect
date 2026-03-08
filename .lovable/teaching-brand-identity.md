@@ -580,18 +580,58 @@ Each fear/resolution pair follows a three-beat structure:
 - "Sit down for the first time"
 - "Find what the piano holds for you"
 
+### Messaging Pillar 4: Piano as Life Philosophy
+
+**Meaning:** The piano is not just artistic expression. It is a philosophical framework for understanding life. Like chess players see the board as a metaphor for strategy and consequence, pianists see the keys as a metaphor for discipline, patience, emotion, and the relationship between effort and beauty. The body expresses the soul; the piano expresses the heart. Music transcends what words can carry.
+
+**Proof Points:**
+- Parker's own framing: "When you own the land, you can build whatever you want on it" --- mastery as freedom, not restriction
+- The body-soul metaphor: the body is the instrument of the soul, the piano is the instrument of the heart
+- Music reaching places words cannot: weddings, grief, joy, prayer
+- The chess parallel: players who see beyond the board, pianists who hear beyond the keys
+
+**Headlines:**
+1. "The piano is not a hobby. It is a philosophy."
+2. "Every seed needs soil. Every gift needs patience."
+3. "When you own the technique, you are free to say anything."
+4. "The piano teaches patience. Patience teaches everything else."
+5. "Music reaches where words stop."
+6. "When you own the land, you can build whatever you want on it."
+7. "The body expresses the soul. The piano expresses the heart."
+8. "Some things can only be said through the keys."
+9. "The instrument is not the destination. It is the language."
+10. "What the piano teaches you will outlast every song you learn."
+
+**Subheads:**
+1. "A framework for discipline, patience, and beauty."
+2. "The relationship between effort and expression."
+3. "Not a skill to acquire. A voice to discover."
+4. "What chess is to strategy, the piano is to the soul."
+5. "Technique is freedom. Patience is the path."
+
+**CTAs:**
+- "Discover what the piano holds for you."
+- "Begin the conversation."
+- "Sit down for the first time."
+
 ### Value Proposition Stack
 - **Primary:** "I sit beside you until the music sounds the way you hear it inside." (emotional core)
 - **Secondary:** "The piano is not a skill. It is a voice." (category redefinition)
 - **Tertiary:** "There is no graduation. Only growing." (long-term relationship)
+- **Quaternary:** "The piano is not a hobby. It is a philosophy." (life framework)
 
 ### Offer Architecture
-Three tiers framed as depth of relationship, not feature bundles:
-- **The Conversation** --- A single session. "Discover what the piano holds for you." For those who are curious, uncertain, or returning after years away.
-- **The Practice** --- Ongoing mentorship. "The patient, steady work of finding your sound." For those who are ready to commit to the bench. (Most Chosen)
-- **The Devotion** --- Intensive mentorship. "Accelerated depth for those with something urgent to say." For students preparing to play at a wedding, a memorial, or a personal milestone.
+**Flat rate: $60 per hour.** No tiers. No packages. No upselling.
 
-Framing question: "Where are you in your relationship with the instrument?"
+The simplicity is the signal. The absence of tiers communicates: this is not a business optimizing revenue. This is a mentor who charges fairly and gives fully.
+
+- **Framing:** "One rate. One hour. One bench."
+- **The First Conversation** is the entry point name --- the first session. It is not a separate tier. It is simply the first hour at the same rate. The only difference is that it begins with a question instead of a piece.
+- **Anti-anxiety microcopy:** "$60 per hour. No packages. No commitments. One conversation at a time."
+- **Visual treatment:** No tier cards. A single, clean statement. The price is secondary to the invitation. Display "$60 per hour" in Inter, regular weight, understated. The CTA ("Begin the conversation" / "Sit down with me") is the centerpiece, not the price.
+- **Framing question:** "Are you ready to sit down?" --- not "which package?" The visitor decides to begin or not. There is no shopping.
+
+**What this replaces:** The previous three-tier model (The Conversation / The Practice / The Devotion) was fabricated and contradicts the questionnaire (Q8.5, Q8.6: "No. Just hourly rate at $60/hr."). The tiers have been removed. The pricing psychology framework in Appendix D has been corrected accordingly.
 
 ### Claims You Can Make
 - "17 years playing piano"
