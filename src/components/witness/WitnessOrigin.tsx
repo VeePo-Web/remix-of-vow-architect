@@ -4,7 +4,7 @@ import aboutOriginImg from "@/assets/about-origin.jpg";
 
 /**
  * THE ORIGIN — The Single Moment
- * Asymmetric two-column layout: narrow text column + atmospheric image
+ * Asymmetric two-column layout: narrow text column + atmospheric image with frame
  */
 export function WitnessOrigin() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
@@ -42,9 +42,10 @@ export function WitnessOrigin() {
             {/* Label */}
             <p 
               className={cn(
-                "text-xs uppercase tracking-[0.3em] text-muted-foreground transition-all duration-700",
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                "text-xs uppercase tracking-[0.3em] transition-all duration-700",
+                isVisible ? "opacity-60 translate-y-0" : "opacity-0 translate-y-4"
               )}
+              style={{ color: "hsl(var(--muted-foreground))" }}
             >
               THE ORIGIN
             </p>
@@ -100,7 +101,7 @@ export function WitnessOrigin() {
             </div>
           </div>
 
-          {/* RIGHT: Atmospheric Image (60%) */}
+          {/* RIGHT: Atmospheric Image (60%) with frame treatment */}
           <div 
             className={cn(
               "md:col-span-3 relative transition-all duration-1000 rounded-sm",
@@ -108,7 +109,12 @@ export function WitnessOrigin() {
             )}
             style={{ transitionDelay: "400ms" }}
           >
-            <div className="relative aspect-[3/4] max-h-[560px] overflow-hidden rounded-sm">
+            <div 
+              className="relative aspect-[3/4] max-h-[560px] overflow-hidden rounded-sm"
+              style={{
+                boxShadow: "0 20px 60px hsl(var(--rich-black) / 0.15), 0 0 0 1px hsl(var(--primary) / 0.08)",
+              }}
+            >
               <img 
                 src={aboutOriginImg} 
                 alt="Empty wedding ceremony chairs at twilight with scattered petals"
@@ -137,7 +143,7 @@ export function WitnessOrigin() {
 
       {/* Section fade bottom → Sustain */}
       <div 
-        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
         style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--surface)))" }}
         aria-hidden="true"
       />

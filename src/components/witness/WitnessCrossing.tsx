@@ -70,7 +70,7 @@ export function WitnessCrossing() {
           <p 
             className={cn(
               "text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6 transition-all duration-700",
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              isVisible ? "opacity-60 translate-y-0" : "opacity-0 translate-y-4"
             )}
           >
             THE CROSSING
@@ -102,12 +102,21 @@ export function WitnessCrossing() {
           {/* CTA Button with breathing glow */}
           <div 
             className={cn(
-              "transition-all duration-700",
+              "relative inline-block transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
             style={{ transitionDelay: "600ms" }}
           >
-            <Button asChild size="lg" variant="primary-dark">
+            {/* Breathing halo behind button */}
+            <div 
+              className="absolute inset-0 -inset-x-4 -inset-y-3 rounded-lg pointer-events-none motion-reduce:hidden"
+              style={{
+                background: "radial-gradient(ellipse, hsl(var(--vow-yellow) / 0.12) 0%, transparent 70%)",
+                animation: "vigil-pulse 4s ease-in-out infinite",
+              }}
+              aria-hidden="true"
+            />
+            <Button asChild size="lg" variant="primary-dark" className="relative">
               <Link to="/contact">Hold my date</Link>
             </Button>
           </div>
@@ -136,7 +145,7 @@ export function WitnessCrossing() {
               style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.2), transparent)" }}
             />
             <p className="font-display text-xl text-foreground italic">
-              'Til Death<span className="text-primary">;</span> Unto Life.
+              'Til Death<span className="text-primary not-italic">;</span> Unto Life.
             </p>
           </div>
         </div>

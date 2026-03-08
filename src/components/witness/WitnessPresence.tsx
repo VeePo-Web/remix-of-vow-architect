@@ -56,9 +56,10 @@ export function WitnessPresence() {
           {/* Label */}
           <p 
             className={cn(
-              "text-xs uppercase tracking-[0.3em] text-muted-foreground text-center mb-4 transition-all duration-700",
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              "text-xs uppercase tracking-[0.3em] text-center mb-4 transition-all duration-700",
+              isVisible ? "opacity-60 translate-y-0" : "opacity-0 translate-y-4"
             )}
+            style={{ color: "hsl(var(--muted-foreground))" }}
           >
             THE PRESENCE
           </p>
@@ -68,6 +69,7 @@ export function WitnessPresence() {
 
           {/* The Big Number */}
           <div className="relative">
+            {/* Larger ambient glow */}
             <div 
               className={cn(
                 "absolute inset-0 flex items-center justify-center transition-all duration-1000",
@@ -75,9 +77,9 @@ export function WitnessPresence() {
               )}
             >
               <div 
-                className="w-96 h-96 rounded-full"
+                className="w-[500px] h-[500px] rounded-full motion-reduce:hidden"
                 style={{ 
-                  background: "radial-gradient(circle, hsl(var(--vow-yellow) / 0.05) 0%, transparent 70%)" 
+                  background: "radial-gradient(circle, hsl(var(--vow-yellow) / 0.08) 0%, hsl(var(--vow-yellow) / 0.03) 40%, transparent 70%)" 
                 }}
               />
             </div>
@@ -92,12 +94,19 @@ export function WitnessPresence() {
               <span 
                 className="font-display text-[clamp(100px,20vw,200px)] font-light text-foreground leading-none"
                 style={{ 
-                  textShadow: "0 0 80px hsl(var(--vow-yellow) / 0.2)"
+                  textShadow: "0 2px 4px hsl(var(--rich-black) / 0.3), 0 0 80px hsl(var(--vow-yellow) / 0.15), 0 0 160px hsl(var(--vow-yellow) / 0.08)"
                 }}
               >
                 500
               </span>
-              <span className="font-display text-[clamp(40px,8vw,80px)] font-light text-primary align-top">+</span>
+              <span 
+                className="font-display text-[clamp(40px,8vw,80px)] font-light text-primary align-top"
+                style={{
+                  textShadow: "0 0 40px hsl(var(--vow-yellow) / 0.3)"
+                }}
+              >
+                +
+              </span>
             </div>
 
             <p 
@@ -111,10 +120,10 @@ export function WitnessPresence() {
             </p>
           </div>
 
-          {/* Floating Witness Moments — elevated frosted glass cards */}
+          {/* Floating Witness Moments — editorial italic text, no heavy card styling */}
           <div 
             className={cn(
-              "mt-20 grid md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-700",
+              "mt-20 grid md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-700",
               isVisible ? "opacity-100" : "opacity-0"
             )}
             style={{ transitionDelay: "700ms" }}
@@ -123,12 +132,11 @@ export function WitnessPresence() {
               <div 
                 key={index}
                 className={cn(
-                  "p-6 rounded-lg border border-primary/[0.08] backdrop-blur-[12px] transition-all duration-500 hover:border-primary/20 card-sacred card-sacred-hover",
+                  "py-5 px-6 border-l border-primary/15 transition-all duration-500 hover:border-primary/30",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 )}
                 style={{ 
                   transitionDelay: `${900 + index * 100}ms`,
-                  background: "hsl(var(--card) / 0.3)",
                 }}
               >
                 <p className="text-sm text-muted-foreground leading-relaxed italic">
@@ -138,22 +146,28 @@ export function WitnessPresence() {
             ))}
           </div>
 
-          {/* Closing statement */}
-          <p 
+          {/* Closing statement — upgraded typography with golden thread */}
+          <div 
             className={cn(
-              "text-center text-muted-foreground mt-12 transition-all duration-700",
+              "mt-16 transition-all duration-700",
               isVisible ? "opacity-100" : "opacity-0"
             )}
             style={{ transitionDelay: "1500ms" }}
           >
-            Every one of them heard clearly.
-          </p>
+            <div 
+              className="h-px w-24 mx-auto mb-8"
+              style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)" }}
+            />
+            <p className="font-display text-xl text-center text-foreground italic">
+              Every one of them heard clearly.
+            </p>
+          </div>
         </div>
       </div>
 
       {/* Section fade bottom → Covenant */}
       <div 
-        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
         style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--surface)))" }}
         aria-hidden="true"
       />
