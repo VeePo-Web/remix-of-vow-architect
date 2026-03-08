@@ -8,8 +8,11 @@ function getNavLinks(pathname: string) {
   const aboutTo = pathname.startsWith('/events') ? '/events/about'
     : pathname.startsWith('/teaching') ? '/teaching/about'
     : '/about';
+  const pricingTo = pathname.startsWith('/events') ? '/events/pricing'
+    : pathname.startsWith('/teaching') ? '/teaching/pricing'
+    : '/pricing';
   return [
-    { to: "/pricing", label: "Services" },
+    { to: pricingTo, label: "Services" },
     { to: aboutTo, label: "About" },
     { to: "/proof", label: "Proof" },
   ];
