@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useEffect } from "react";
 import AmbientAudioPill from "@/components/AmbientAudioPill";
+import { usePageTheme } from "@/hooks/usePageTheme";
 import weddingsImg from "@/assets/gateway-weddings.jpg";
 import teachingImg from "@/assets/gateway-teaching.jpg";
 import eventsImg from "@/assets/gateway-events.jpg";
