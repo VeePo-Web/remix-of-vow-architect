@@ -40,8 +40,7 @@ export function ContactFormSuccess() {
             </Button>
           </div>
           <p className="text-xs text-muted-foreground text-left">
-            I speak planner. I send SPL data, power/setup notes, and cue formats they
-            already use.
+            I work with planners regularly — I will send venue notes, timeline details, and cue formats they already use.
           </p>
         </form>
 
