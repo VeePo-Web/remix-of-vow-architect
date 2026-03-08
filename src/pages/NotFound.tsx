@@ -12,7 +12,7 @@ const NotFound = () => {
 
   useEffect(() => {
     document.title = "Page Not Found — Parker Gawryletz";
-    document.querySelector('meta[name="description"]')?.setAttribute("content", "This page could not be found. Return home or explore my offerings as a wedding pianist, event performer, and piano mentor.");
+    document.querySelector('meta[name="description"]')?.setAttribute("content", "This page could not be found. Return home or explore my offerings as a wedding pianist, private event pianist, and piano mentor.");
   }, [location.pathname]);
 
   return (
