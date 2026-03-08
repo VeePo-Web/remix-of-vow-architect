@@ -76,7 +76,7 @@ function CardImage({ image, available }: { image: string; available: boolean }) 
 export default function Gateway() {
   usePageTheme();
   useEffect(() => {
-    document.title = "Parker Gawryletz — Sound Director";
+    document.title = "Parker Gawryletz — Ceremony Pianist";
     document.querySelector('meta[name="description"]')?.setAttribute("content", "Wedding pianist, private event performer, and piano mentor. Choose the path that fits your moment.");
   }, []);
 

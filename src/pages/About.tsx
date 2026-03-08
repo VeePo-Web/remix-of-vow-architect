@@ -43,8 +43,8 @@ const aboutSections = [
 export default function About() {
   usePageTheme();
   useEffect(() => {
-    document.title = "About — Parker Gawryletz, Sound Director";
-    document.querySelector('meta[name="description"]')?.setAttribute("content", "The origin, credentials, and philosophy behind every note. I exist to ensure every vow spoken becomes sacred the moment it is heard.");
+    document.title = "About — Parker Gawryletz, Ceremony Pianist";
+    document.querySelector('meta[name="description"]')?.setAttribute("content", "The origin, credentials, and philosophy behind every note. I exist to let my music sound like what your hearts feel like.");
   }, []);
 
   return (
