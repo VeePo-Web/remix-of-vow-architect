@@ -109,9 +109,9 @@ export default function Pricing() {
 
                   <ul className="space-y-2 mb-6 text-sm">
                     {[
-                      "Full ceremony audio — every word heard",
-                      "Officiant and vow amplification",
-                      "Silent power — no generator noise",
+                      "Full ceremony sound — every word heard",
+                      "Vow and officiant clarity, naturally balanced",
+                      "Silent battery power — no interruptions",
                       "Custom cue sheet for your processional",
                       "Post-ceremony documentation",
                     ].map((item, i) => (
@@ -126,7 +126,7 @@ export default function Pricing() {
 
                   <div className="space-y-2 text-xs text-muted-foreground">
                     <p className="font-medium">Booking: 50% deposit; balance due 14 days before the event.</p>
-                    <p className="italic">Bonus: Your personalized PDF plan (mic / power / SPL notes) delivered within 24 hours of inquiry.</p>
+                    <p className="italic">Bonus: Your personalized ceremony plan delivered within 24 hours of inquiry.</p>
                   </div>
                 </Card>
 
