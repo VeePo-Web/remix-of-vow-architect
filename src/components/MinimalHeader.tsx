@@ -555,11 +555,21 @@ export function MinimalHeader() {
             <span className="text-xs font-sans uppercase tracking-[0.22em] text-muted-foreground group-hover:text-primary transition-colors duration-[180ms]">
               Menu
             </span>
-            <Menu
-              size={20}
-              className="text-muted-foreground group-hover:text-primary transition-all duration-[180ms]"
-              strokeWidth={1.5}
-            />
+            {/* Bespoke Piano-String Hamburger — three lines of descending width */}
+            <div className="flex flex-col items-end gap-[5px] group-hover:[&>span]:w-[20px]" aria-hidden="true">
+              <span
+                className="block h-[1px] bg-muted-foreground group-hover:bg-primary transition-all duration-[180ms]"
+                style={{ width: 20, transitionTimingFunction: 'cubic-bezier(0.22,0.61,0.36,1)' }}
+              />
+              <span
+                className="block h-[1px] bg-muted-foreground group-hover:bg-primary transition-all duration-[180ms]"
+                style={{ width: 16, transitionTimingFunction: 'cubic-bezier(0.22,0.61,0.36,1)' }}
+              />
+              <span
+                className="block h-[1px] bg-muted-foreground group-hover:bg-primary transition-all duration-[180ms]"
+                style={{ width: 12, transitionTimingFunction: 'cubic-bezier(0.22,0.61,0.36,1)' }}
+              />
+            </div>
           </button>
         </div>
 
