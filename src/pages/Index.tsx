@@ -46,7 +46,7 @@ export default function Index() {
       <PianoKeyNav sections={pianoSections} />
       
       <main>
-      {/* SECTION 1 — Hero: Ultra-Minimal Fantasy.co Style with Vigil Sequence */}
+      {/* ACT I — Hero: The Vigil Sequence */}
       <section className="vigil-hero relative h-screen flex items-center justify-center overflow-hidden">
         {/* Layer 1: True Void (Pure Black) */}
         <div
