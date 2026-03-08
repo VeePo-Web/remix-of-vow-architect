@@ -1385,50 +1385,38 @@ The student leaves the room differently than they entered. The anxiety is gone. 
 
 ---
 
-## Appendix D: Pricing Psychology Framework
+## Appendix D: Pricing Philosophy (Flat Rate Model)
 
-### The Framing Principle
-Pricing in the teaching vertical follows the same anchoring + decoy logic as weddings, but adapted for the relational (not transactional) nature of mentorship. The visitor should never feel they are buying a "lesson package." They are choosing a depth of relationship.
+### The Principle
+Simplicity is the luxury. One price removes decision anxiety. The visitor does not shop — they decide to sit down or not. The absence of tiers, packages, and bundles is itself the strongest signal of what this mentorship is: relational, not transactional.
 
-### The Three Tiers
+### The Rate
+**$60 per hour.** This is the only number. It does not change based on frequency, commitment level, or student experience. The first conversation costs $60. The hundredth session costs $60. The consistency is the covenant.
 
-**Tier 1: The Conversation — $X (single session)**
-- **Psychological frame:** The low-commitment entry point. For the visitor who is 70% convinced but needs to experience the mentorship before committing. This tier exists to answer: "What does it feel like?"
-- **Fear it resolves:** "What if I commit and it's not right for me?"
-- **Visual treatment:** Clean, unadorned card. Charcoal text on cream. No accent colors. The visual simplicity signals: "This is the smallest step. There is no pressure."
-- **CTA:** "Discover what the piano holds for you."
-- **Anti-anxiety microcopy:** "No obligation. One conversation. Sixty minutes of listening."
+### Why No Tiers
+The previous version of this document contained a three-tier model (The Conversation, The Practice, The Devotion) with anchoring and decoy psychology. This was fabricated. The questionnaire (Q8.5, Q8.6) explicitly states: "No. Just hourly rate at $60/hr." The tiers have been permanently removed.
 
-**Tier 2: The Practice — $X/month (ongoing mentorship) — MOST CHOSEN**
-- **Psychological frame:** The compromise-effect target. Visually elevated, emotionally centered, and framed as the "natural" choice for someone who is ready. The "Most Chosen" pill triggers social proof without manufactured urgency.
-- **Fear it resolves:** "How do I maintain momentum? What if I lose the thread?"
-- **Visual treatment:** Elevated card with 1px vow-yellow left border. "Most Chosen" pill in vow-yellow at the top. Slightly larger typography for the tier name. The card is 4px higher than the other two (translateY(-4px) at rest).
-- **CTA:** "Find your sound."
-- **Anti-anxiety microcopy:** "Pause or adjust anytime. Your pace is the only timeline."
-- **Nudge logic:** This tier is the default selection. When a visitor arrives at the pricing section, the eye naturally lands here due to visual elevation, color accent, and the "Most Chosen" social proof. The other two tiers frame this one as the balanced choice.
-
-**Tier 3: The Devotion — $X/month (intensive mentorship)**
-- **Psychological frame:** The high anchor. Exists partly to make Tier 2 feel like a balanced choice, and partly for the genuine audience: students preparing to play at a milestone event (a wedding, a memorial, a gift performance).
-- **Fear it resolves:** "I have something specific I want to play, and I need to get there."
-- **Visual treatment:** Clean card, matching Tier 1 in simplicity but with a warm-charcoal background. Cream text. The darkest card signals seriousness of commitment. No vow-yellow accent (reserved for Tier 2).
-- **CTA:** "Tell me what you want to say."
-- **Anti-anxiety microcopy:** "For those with something urgent and beautiful to prepare for."
-
-### Visual Architecture
-The three tiers use the piano-key metaphor: three adjacent cards that feel like three white keys on a keyboard. The cards are separated by 2px gaps (the black-key spaces). The middle card (The Practice) is visually elevated --- the key being pressed.
+Tier logic belongs to transactional models — businesses optimizing average order value. This is a mentorship. The visitor's only decision is: "Am I ready to sit down?" Not "which package fits my budget?"
 
 ### Price Display Rules
-- Price is never the first thing visible on the card. The tier name and description come first. The price appears below the description, in Inter at regular weight, preceded by "from" when the price is variable.
-- The word "price" never appears. Use "investment" if a label is needed, but prefer no label at all --- just the figure.
-- Currency symbol is standard ($). No cents unless necessary. No strikethrough "original prices." No discounting language.
-- Below the price: the anti-anxiety microcopy. This is the last thing the visitor reads before the CTA, ensuring the final emotional note is reassurance, not cost.
+- "$60 per hour" in Inter, regular weight, at body size or slightly larger. Never in display type. Never the visual centerpiece.
+- The invitation ("Begin the conversation" / "Sit down with me") is always more prominent than the price.
+- No currency formatting flourishes. No "/hr" abbreviation. Write "per hour" in full.
+- No comparison to competitor pricing. No "affordable" language. No "value" language. The price is stated once, plainly, and the design moves on to the invitation.
+- The word "price" never appears. If a label is needed, use "rate" — but prefer no label at all.
+
+### Anti-Anxiety Architecture
+- **Primary microcopy:** "$60 per hour. No packages. No commitments."
+- **Secondary microcopy:** "One conversation at a time."
+- **Tertiary microcopy:** "The first session begins with a question, not a scale."
+- These lines appear beneath the CTA, in Inter at 12-13px, muted warm-gray. They are the last thing the visitor reads before deciding.
 
 ### The Framing Question
-Above the three tiers, a single question in Cormorant Garamond, centered:
+Above the price and CTA, a single question in Cormorant Garamond, centered:
 
-> "Where are you in your relationship with the instrument?"
+> "Are you ready to sit down?"
 
-This question reframes the choice from "which package do I buy?" to "who am I right now?" --- making the selection feel like self-identification rather than shopping.
+This replaces the previous "Where are you in your relationship with the instrument?" — which implied choosing a tier. The new question is binary: yes or not yet. There is no shopping. There is no comparison. There is only the bench.
 
 ---
 
