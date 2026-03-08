@@ -4823,12 +4823,16 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 }
 
 /* Header vine thread breathing — synced 4s cycle with footer-breathe */
-@keyframes header-vine-breathe {
+@keyframes vine-breathe {
   0%, 100% { filter: drop-shadow(0 0 4px hsl(45 100% 76% / 0.06)); }
-  50% { filter: drop-shadow(0 0 6px hsl(45 100% 76% / 0.1)); }
+  50% { filter: drop-shadow(0 0 8px hsl(45 100% 76% / 0.14)); }
 }
 .header-vine-breathe {
-  animation: header-vine-breathe 4s ease-in-out infinite;
+  animation: vine-breathe 4s ease-in-out infinite;
+}
+/* Footer vine thread — same keyframes, same timing = synchronized */
+.footer-vine-breathe {
+  animation: vine-breathe 4s ease-in-out infinite;
 }
 
 /* Header candlelight warmth pulse */
@@ -4905,7 +4909,8 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 
 @media (prefers-reduced-motion: reduce) {
   .footer-breathe,
-  .header-vine-breathe {
+  .header-vine-breathe,
+  .footer-vine-breathe {
     animation: none;
   }
 }
