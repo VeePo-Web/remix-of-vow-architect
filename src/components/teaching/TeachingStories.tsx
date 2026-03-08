@@ -174,8 +174,8 @@ function StoryCard({
         ref={quoteRef}
         className="font-display italic text-[20px] md:text-[24px] tracking-tight text-center"
         style={{
-          color: "hsl(30 20% 18%)",
-          textShadow: "0 1px 2px hsl(40 20% 80% / 0.3)",
+          color: "hsl(var(--teaching-text-quote))",
+          textShadow: "0 1px 2px hsl(var(--teaching-vignette) / 0.3)",
         }}
       >
         "
