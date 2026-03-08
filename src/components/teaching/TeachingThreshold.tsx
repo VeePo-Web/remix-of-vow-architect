@@ -59,58 +59,82 @@ function highlightWord(text: string, word: string, isVisible: boolean) {
 }
 
 export function TeachingThreshold() {
-  const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
+  const { ref, isVisible } = useScrollReveal({ threshold: 0.08 });
 
   return (
     <section
       id="teaching-threshold"
       ref={ref}
-      className="relative py-fitz-10 px-fitz-4 md:px-fitz-6"
+      className="relative py-[140px] md:py-[180px] px-fitz-4 md:px-fitz-6 overflow-hidden"
       style={{ background: "hsl(30 8% 14%)" }}
       role="region"
       aria-label="The Threshold"
     >
       {/* Grain */}
       <div
-        className="absolute inset-0 grain opacity-[0.035] pointer-events-none"
+        className="absolute inset-0 grain opacity-[0.04] pointer-events-none"
+        aria-hidden="true"
+      />
+
+      {/* Dual-origin fog */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at 25% 80%, hsl(30 12% 18% / 0.35), transparent 55%), radial-gradient(ellipse at 75% 20%, hsl(30 8% 16% / 0.3), transparent 50%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Breathing vignette */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, transparent 30%, hsl(30 8% 6% / 0.65) 100%)",
+          animation: isVisible
+            ? "threshold-vignette 6s ease-in-out infinite"
+            : undefined,
+        }}
         aria-hidden="true"
       />
 
       <div className="relative z-10 max-w-[640px] mx-auto">
         {fears.map((pair, i) => (
-          <div key={i} className="mb-fitz-10 last:mb-0">
+          <div key={i} className="mb-[120px] last:mb-0">
             {/* Fear */}
             <p
               className={cn(
-                "font-display italic text-[22px] md:text-[28px] tracking-tight text-center transition-all duration-[600ms]",
+                "font-display italic text-[22px] md:text-[28px] tracking-tight text-center transition-all duration-[700ms]",
                 isVisible
                   ? "opacity-70 translate-y-0"
-                  : "opacity-0 translate-y-3"
+                  : "opacity-0 translate-y-[12px]"
               )}
               style={{
                 color: "hsl(40 20% 70%)",
-                transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
-                transitionDelay: `${i * 200}ms`,
+                transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+                transitionDelay: `${i * 250}ms`,
+                textShadow: "0 1px 3px hsl(0 0% 0% / 0.2)",
               }}
             >
               "{pair.fear}"
             </p>
 
-            {/* Sacred pause */}
-            <div className="h-fitz-7 md:h-[60px]" aria-hidden="true" />
+            {/* Sacred pause — generous breathing room */}
+            <div className="h-[50px] md:h-[70px]" aria-hidden="true" />
 
             {/* Resolution */}
             <p
               className={cn(
-                "font-sans text-[16px] md:text-[18px] leading-[1.7] text-center transition-all duration-[600ms]",
+                "font-sans text-[16px] md:text-[18px] leading-[1.7] text-center transition-all duration-[700ms]",
                 isVisible
                   ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-3"
+                  : "opacity-0 translate-y-[12px]"
               )}
               style={{
                 color: "hsl(40 25% 85%)",
-                transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
-                transitionDelay: `${i * 200 + 300}ms`,
+                transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+                transitionDelay: `${i * 250 + 350}ms`,
               }}
             >
               {highlightWord(pair.resolution, pair.underlineWord, isVisible)}
@@ -119,18 +143,21 @@ export function TeachingThreshold() {
         ))}
 
         {/* Semicolon threshold marker */}
-        <div className="flex justify-center mt-fitz-10">
+        <div className="flex justify-center mt-[80px]">
           <span
             className={cn(
-              "font-display text-[48px] text-[hsl(var(--vow-yellow))] transition-all duration-[600ms]",
-              isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
+              "font-display text-[56px] transition-all duration-[900ms]",
+              isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"
             )}
             style={{
-              transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
-              transitionDelay: "1000ms",
+              color: "hsl(var(--vow-yellow))",
+              transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+              transitionDelay: "1200ms",
               animation: isVisible
                 ? "semicolon-breathe 3s ease-in-out infinite"
                 : undefined,
+              textShadow:
+                "0 0 24px hsl(var(--vow-yellow) / 0.3), 0 0 48px hsl(var(--vow-yellow) / 0.1)",
             }}
             aria-hidden="true"
           >
@@ -138,6 +165,20 @@ export function TeachingThreshold() {
           </span>
         </div>
       </div>
+
+      {/* Keyframes */}
+      <style>{`
+        @keyframes threshold-vignette {
+          0%, 100% { opacity: 0.65; }
+          50% { opacity: 0.82; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          #teaching-threshold * {
+            animation-duration: 0.01ms !important;
+            transition-duration: 120ms !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
