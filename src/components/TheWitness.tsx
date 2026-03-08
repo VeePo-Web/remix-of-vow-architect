@@ -73,7 +73,7 @@ function PreparationSection() {
       {/* Top fade from TheTransformation */}
       <div
         className="section-fade-top"
-        style={{ background: 'linear-gradient(to top, transparent, hsl(45 25% 96%))' }}
+        style={{ background: 'linear-gradient(to top, transparent, hsl(var(--warm-card-top)))' }}
         aria-hidden="true"
       />
 
