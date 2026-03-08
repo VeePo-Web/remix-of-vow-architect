@@ -104,7 +104,7 @@ export default function Pricing() {
                   
                   <div className="font-display text-[clamp(32px,4vw,48px)] font-light text-primary mb-2">$650</div>
                   <p className="p-body text-muted-foreground mb-6">
-                    Best for 30–45 minute ceremonies. Includes everything above.
+                    The ceremony itself — 30 to 45 minutes of devoted presence at the most sacred hour of the day.
                   </p>
 
                   <ul className="space-y-2 mb-6 text-sm">
