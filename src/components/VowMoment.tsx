@@ -20,7 +20,7 @@ export function VowMoment() {
       ref={sectionRef}
       className="section--dark section-grain piano-section-target relative min-h-screen flex items-center justify-center px-4 overflow-hidden"
       style={{
-        background: "radial-gradient(ellipse at center, hsl(240 12% 5%) 0%, hsl(240 9% 2%) 100%)",
+        background: "radial-gradient(ellipse at center, hsl(var(--deep-graphite)) 0%, hsl(var(--rich-black)) 100%)",
         minHeight: '100vh',
       }}
     >
