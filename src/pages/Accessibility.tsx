@@ -41,11 +41,11 @@ export default function Accessibility() {
         <PolicyHighlightBox variant="info">
           <p>
             If you experience any difficulty, email{" "}
-            <a href="mailto:parker@parkergawryletz.com" className="text-primary hover:text-primary/80">
+            <a href="mailto:parker@parkergawryletz.com" className="text-primary hover:text-primary/80 transition-colors duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm">
               parker@parkergawryletz.com
             </a>{" "}
             or call{" "}
-            <a href="tel:+14038308930" className="text-primary hover:text-primary/80">
+            <a href="tel:+14038308930" className="text-primary hover:text-primary/80 transition-colors duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm">
               +1-403-830-8930
             </a>
             . I'll provide an alternative format (e.g., accessible PDF, large print) within 5 business 

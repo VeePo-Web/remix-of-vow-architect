@@ -440,6 +440,8 @@ export default function Contact() {
         }
         @media (prefers-reduced-motion: reduce) {
           .grain { animation: none !important; }
+          [style*="contact-vignette-breathe"] { animation: none !important; opacity: 0.7 !important; }
+          [style*="ken-burns"] { animation: none !important; }
         }
       `}</style>
     </div>

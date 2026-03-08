@@ -36,7 +36,7 @@ export function PolicyLayout({ children, title, lastUpdated, breadcrumbs }: Poli
           
           <article className="max-w-3xl mx-auto mt-8">
             <header className="mb-12">
-              <h1 className="text-4xl md:text-5xl font-display font-light mb-4">{title}</h1>
+              <h1 className="h1 mb-4">{title}</h1>
               <p className="text-sm text-muted-foreground">
                 Last updated: {lastUpdated}
               </p>
