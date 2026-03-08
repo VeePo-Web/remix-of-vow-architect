@@ -112,12 +112,13 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
               onClick={() => handleKeyPress(section.id, i)}
               aria-label={section.label}
               aria-current={isActive ? 'true' : undefined}
-              className="w-[6px] h-[6px] rounded-full transition-all duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
+              className="w-[6px] h-[6px] rounded-full transition-all duration-[180ms] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-vow-yellow/40"
               style={{
                 background: isActive
                   ? 'hsl(var(--vow-yellow))'
                   : 'hsl(var(--foreground) / 0.25)',
                 transform: isPressed ? 'scale(1.4)' : 'scale(1)',
+                animation: isActive && !isPressed ? 'piano-mobile-dot-pulse 3s ease-in-out infinite' : 'none',
                 transition: 'transform 200ms cubic-bezier(0.22,0.61,0.36,1), background 180ms ease',
               }}
             />
@@ -159,15 +160,15 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
         return (
           <div key={section.id} className="relative flex items-center justify-end">
             {/* Tooltip */}
-            {isHovered && (
-              <div
-                className="piano-key-tooltip"
-                style={{ animationDelay: '0ms' }}
-              >
-                {section.label}
-                <span className="piano-key-tooltip-caret" aria-hidden="true" />
-              </div>
-            )}
+            <div
+              className={cn(
+                'piano-key-tooltip',
+                isHovered && 'piano-key-tooltip--visible'
+              )}
+            >
+              {section.label}
+              <span className="piano-key-tooltip-caret" aria-hidden="true" />
+            </div>
 
             {/* Key */}
             <button
@@ -183,7 +184,7 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
                 isBlack && 'piano-key--black',
                 isActive && 'piano-key--active',
                 isPressed && 'piano-key--pressed',
-                'focus-visible:outline-none focus-visible:ring-2'
+                'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-vow-yellow/40'
               )}
               style={
                 animated
