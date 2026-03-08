@@ -27,7 +27,7 @@ export default function FAQ() {
   useEffect(() => { document.title = "Questions Answered — Parker Gawryletz"; }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <MinimalHeader />
       <PianoKeyNav sections={faqSections} />
       
