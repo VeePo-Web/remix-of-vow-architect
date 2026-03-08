@@ -262,7 +262,7 @@ export function MinimalHeader() {
               strokeWidth="1"
               className="transition-all duration-[450ms]"
               style={{
-                filter: `drop-shadow(0 0 ${isArrival ? 6 : 4}px hsl(45 100% 76% / ${
+                filter: `drop-shadow(0 0 ${isArrival ? 6 : 4}px hsl(var(--vow-yellow) / ${
                   isArrival ? 0.1 : 0.04
                 }))`,
               }}
