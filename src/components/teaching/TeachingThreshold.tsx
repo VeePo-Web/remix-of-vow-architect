@@ -1,5 +1,6 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
+import benchImg from "@/assets/teaching-bench.jpg";
 
 const fears = [
   {
@@ -28,7 +29,7 @@ const fears = [
   },
 ];
 
-function highlightWord(text: string, word: string, isVisible: boolean) {
+function highlightWord(text: string, word: string, isVisible: boolean, fearIndex: number) {
   const idx = text.toLowerCase().indexOf(word.toLowerCase());
   if (idx === -1) return <>{text}</>;
 
@@ -48,7 +49,7 @@ function highlightWord(text: string, word: string, isVisible: boolean) {
           )}
           style={{
             transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
-            transitionDelay: "600ms",
+            transitionDelay: `${800 + fearIndex * 250}ms`,
           }}
           aria-hidden="true"
         />
@@ -70,6 +71,18 @@ export function TeachingThreshold() {
       role="region"
       aria-label="The Threshold"
     >
+      {/* Background bench — ghost presence */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${benchImg})`,
+          opacity: 0.05,
+          animation: "threshold-ken-burns 30s linear infinite alternate",
+          willChange: "transform",
+        }}
+        aria-hidden="true"
+      />
+
       {/* Grain */}
       <div
         className="absolute inset-0 grain opacity-[0.04] pointer-events-none"
@@ -100,9 +113,40 @@ export function TeachingThreshold() {
       />
 
       <div className="relative z-10 max-w-[640px] mx-auto">
+        {/* Whispered section label */}
+        <p
+          className={cn(
+            "font-sans text-[11px] uppercase tracking-[0.22em] text-center mb-fitz-5 transition-all duration-[1800ms]",
+            isVisible
+              ? "opacity-40 translate-y-0"
+              : "opacity-0 translate-y-[8px]"
+          )}
+          style={{
+            color: "hsl(40 15% 55%)",
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+          }}
+        >
+          What you might be thinking
+        </p>
+
+        {/* Vertical golden thread — label to content */}
+        <div
+          className={cn(
+            "w-px h-[48px] mx-auto mb-fitz-9 origin-top transition-transform duration-[700ms]",
+            isVisible ? "scale-y-100" : "scale-y-0"
+          )}
+          style={{
+            background:
+              "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.25), hsl(var(--vow-yellow) / 0.04))",
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "200ms",
+          }}
+          aria-hidden="true"
+        />
+
         {fears.map((pair, i) => (
           <div key={i} className="mb-[120px] last:mb-0">
-            {/* Fear */}
+            {/* Fear — italic, lighter weight */}
             <p
               className={cn(
                 "font-display italic text-[22px] md:text-[28px] tracking-tight text-center transition-all duration-[700ms]",
@@ -120,10 +164,10 @@ export function TeachingThreshold() {
               "{pair.fear}"
             </p>
 
-            {/* Sacred pause — generous breathing room */}
+            {/* Sacred pause */}
             <div className="h-[50px] md:h-[70px]" aria-hidden="true" />
 
-            {/* Resolution */}
+            {/* Resolution — roman, authoritative */}
             <p
               className={cn(
                 "font-sans text-[16px] md:text-[18px] leading-[1.7] text-center transition-all duration-[700ms]",
@@ -137,8 +181,27 @@ export function TeachingThreshold() {
                 transitionDelay: `${i * 250 + 350}ms`,
               }}
             >
-              {highlightWord(pair.resolution, pair.underlineWord, isVisible)}
+              {highlightWord(pair.resolution, pair.underlineWord, isVisible, i)}
             </p>
+
+            {/* Golden dot separator between fear pairs */}
+            {i < fears.length - 1 && (
+              <div className="flex justify-center mt-[100px]">
+                <span
+                  className={cn(
+                    "block w-1.5 h-1.5 rounded-full transition-all duration-[900ms]",
+                    isVisible ? "opacity-100 scale-100" : "opacity-0 scale-50"
+                  )}
+                  style={{
+                    background: "hsl(var(--vow-yellow))",
+                    boxShadow: "0 0 6px 2px hsl(var(--vow-yellow) / 0.12)",
+                    transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+                    transitionDelay: `${i * 250 + 600}ms`,
+                  }}
+                  aria-hidden="true"
+                />
+              </div>
+            )}
           </div>
         ))}
 
@@ -164,13 +227,37 @@ export function TeachingThreshold() {
             ;
           </span>
         </div>
+
+        {/* Pencil annotation */}
+        <span
+          className={cn(
+            "block font-display italic text-[13px] text-center mt-fitz-5 transition-all duration-[700ms]",
+            isVisible ? "opacity-30" : "opacity-0"
+          )}
+          style={{
+            color: "hsl(40 15% 55%)",
+            transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
+            transitionDelay: "1400ms",
+          }}
+          aria-label="Closing annotation"
+        >
+          — you are not too late
+        </span>
       </div>
 
       {/* Keyframes */}
       <style>{`
+        @keyframes threshold-ken-burns {
+          0% { transform: scale(1) translate(0, 0); }
+          100% { transform: scale(1.04) translate(-0.3%, 0.2%); }
+        }
         @keyframes threshold-vignette {
           0%, 100% { opacity: 0.65; }
           50% { opacity: 0.82; }
+        }
+        @keyframes semicolon-breathe {
+          0%, 100% { text-shadow: 0 0 20px hsl(var(--vow-yellow) / 0.4); }
+          50% { text-shadow: 0 0 40px hsl(var(--vow-yellow) / 0.7); }
         }
         @media (prefers-reduced-motion: reduce) {
           #teaching-threshold * {
