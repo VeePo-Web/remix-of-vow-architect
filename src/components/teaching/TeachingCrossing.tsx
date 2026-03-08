@@ -176,7 +176,6 @@ export function TeachingCrossing() {
           backgroundImage: `url(${benchImg})`,
           opacity: 0.07,
           animation: "crossing-ken-burns 30s linear infinite alternate",
-          willChange: "transform",
         }}
         aria-hidden="true"
       />

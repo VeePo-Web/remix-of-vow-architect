@@ -277,7 +277,6 @@ export function TeachingThreshold() {
           backgroundImage: `url(${benchImg})`,
           opacity: 0.05,
           animation: "threshold-ken-burns 30s linear infinite alternate",
-          willChange: "transform",
         }}
         aria-hidden="true"
       />
