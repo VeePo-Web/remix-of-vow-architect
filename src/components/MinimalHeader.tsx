@@ -376,17 +376,17 @@ export function MinimalHeader() {
                       )
                     }
                     style={{
-                      animationDelay: delay,
-                      animationFillMode: "forwards",
+                      // When dissolving, kill the fill-forward animation so inline styles take effect
+                      animation: isDissolving ? 'none' : undefined,
+                      animationDelay: isDissolving ? undefined : delay,
+                      animationFillMode: isDissolving ? undefined : "forwards",
                       // Staggered dissolve during arrival
-                      ...(isDissolving && {
-                        opacity: 0,
-                        transform: 'translateY(-4px)',
-                        transitionDuration: '260ms',
-                        transitionDelay: `${dissolveDelay}ms`,
-                        transitionTimingFunction: 'cubic-bezier(0.22,0.61,0.36,1)',
-                        pointerEvents: 'none' as const,
-                      }),
+                      opacity: isDissolving ? 0 : undefined,
+                      transform: isDissolving ? 'translateY(-4px)' : undefined,
+                      transitionDuration: '260ms',
+                      transitionDelay: isDissolving ? `${dissolveDelay}ms` : undefined,
+                      transitionTimingFunction: 'cubic-bezier(0.22,0.61,0.36,1)',
+                      pointerEvents: isDissolving ? 'none' as const : undefined,
                     }}
                     onMouseEnter={() => setHoveredNavIndex(i)}
                   >
