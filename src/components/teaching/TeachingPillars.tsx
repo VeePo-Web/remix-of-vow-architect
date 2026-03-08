@@ -6,14 +6,14 @@ const pillars = [
     numeral: "I",
     title: "Patience as Method",
     description:
-      "Your pace is the curriculum. There are no grades, no exams, no timelines imposed on your growth. Patience is not passive — it is the most active form of attention I can offer.",
+      "Your pace is the curriculum. There are no grades, no exams, no timelines imposed on your growth. Patience is not passive — it is the most active form of attention I know.",
     underlineWord: "pace",
   },
   {
     numeral: "II",
     title: "Voice Before Technique",
     description:
-      "The piano is not a skill to acquire. It is a voice to discover. Technique serves expression, never the reverse — every scale exists to unlock what you want to say.",
+      "The piano is not a skill to acquire. It is a voice to discover. Technique serves expression, never the reverse — every scale, every exercise exists only to unlock what you want to say.",
     underlineWord: "voice",
   },
   {
@@ -27,7 +27,7 @@ const pillars = [
     numeral: "IV",
     title: "No Graduation",
     description:
-      "There is no final lesson. Only growing. The mentorship evolves as you deepen your conversation with the keys — for years, not semesters.",
+      "There is no final lesson. Only growing. The mentorship deepens as you do — measured in years, not semesters.",
     underlineWord: "growing",
   },
 ];
@@ -387,7 +387,7 @@ export function TeachingPillars() {
             }}
             aria-label="Closing annotation"
           >
-            — four promises, one bench
+            — four truths, one bench
           </span>
         </div>
       </div>

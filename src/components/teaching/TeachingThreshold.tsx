@@ -6,7 +6,7 @@ const fears = [
   {
     fear: "What if I start and quit again?",
     resolution:
-      "You did not quit last time. You had a teacher who measured your progress by their timeline instead of yours. The guilt you carry about stopping belongs to the system that made you feel like stopping was failure. There is no timeline here. There is your pace, your sound, and my patience.",
+      "You did not quit. You were taught by someone who measured your progress by their timeline instead of yours. The guilt you carry about stopping belongs to the system that made you feel like stopping was failure. There is no timeline here. There is only your pace, your sound, and my patience.",
     underlineWord: "pace",
   },
   {
@@ -347,7 +347,7 @@ export function TeachingThreshold() {
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             }}
           >
-            What you might be thinking
+            What you carry in
           </p>
 
           <div

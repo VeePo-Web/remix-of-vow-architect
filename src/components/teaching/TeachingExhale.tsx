@@ -22,13 +22,13 @@ interface LineConfig {
 
 const lines: LineConfig[] = [
   {
-    text: "There is a sound inside you that your hands have never been able to reach.",
+    text: "There is a sound inside you that your hands have not yet learned to reach.",
     italic: true,
     size: "text-[20px] md:text-[28px]",
     shadowWeight: "medium",
   },
   {
-    text: "You hear it in the car. In the quiet. In the space between what you feel and what you can say.",
+    text: "You hear it in the car. In the quiet of an empty room. In the space between what you feel and what you can say.",
     italic: true,
     size: "text-[20px] md:text-[28px]",
     shadowWeight: "medium",
@@ -336,7 +336,7 @@ export function TeachingExhale() {
           }}
           aria-label="Closing annotation"
         >
-          — you already know the sound
+          — you have always known the sound
         </span>
       </div>
 

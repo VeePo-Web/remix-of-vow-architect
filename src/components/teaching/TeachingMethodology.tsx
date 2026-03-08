@@ -262,7 +262,7 @@ export function TeachingMethodology() {
           }}
         >
           <ScrollRevealWords
-            text="The first question I ask is never about music. It is about you. What brought you here. What you hear when no one is listening. We begin not with a scale or an exercise — but with a conversation about the sound you carry inside."
+            text="The first question I ask is never about music. It is about you. What brought you here. What you hear when no one else is listening. What the silence sounds like before you fill it. We begin there — not with a scale, but with the sound you carry inside."
             isInView={isVisible}
           />
         </p>
@@ -283,7 +283,7 @@ export function TeachingMethodology() {
               "0 1px 2px hsl(0 0% 0% / 0.2), 0 3px 12px hsl(0 0% 0% / 0.08)",
           }}
         >
-          Every gift arrives as a seed. Your hands are the soil.
+          Every gift arrives as a seed. Your hands are the soil. I am beside you while it grows.
         </p>
 
         {/* Pencil annotation */}
@@ -299,7 +299,7 @@ export function TeachingMethodology() {
           }}
           aria-label="Annotation: listen"
         >
-          — listen
+          — listen first
         </span>
 
         {/* Closing golden thread */}
