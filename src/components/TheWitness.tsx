@@ -56,7 +56,7 @@ function PreparationSection() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 35%, hsl(40 15% 75% / 0.18) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 35%, hsl(var(--warm-vignette) / 0.18) 100%)',
         }}
         aria-hidden="true"
       />
