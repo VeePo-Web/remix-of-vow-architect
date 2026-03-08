@@ -324,7 +324,7 @@ export function TeachingThreshold() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 30%, hsl(30 8% 6% / 0.65) 100%)",
+            "radial-gradient(ellipse at center, transparent 30%, hsl(var(--teaching-studio-vignette-deep) / 0.65) 100%)",
           animation: "threshold-vignette 6s ease-in-out infinite",
         }}
         aria-hidden="true"
