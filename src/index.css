@@ -1074,6 +1074,9 @@ All colors MUST be HSL.
     width: 24px;
     height: 22px;
   }
+  .piano-key-thread {
+    right: 18px;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════
