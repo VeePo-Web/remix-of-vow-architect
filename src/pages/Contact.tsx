@@ -108,16 +108,16 @@ export default function Contact() {
             />
 
             <div className="text-center mb-12">
-              <div className="overline mb-2">Clear, Fast, Certain</div>
+              <div className="overline mb-2">The Crossing</div>
               <h1 className="h1 mx-auto">
-                Hold your wedding date & get your ceremony-audio plan in 24h
+                Every arrangement begins with a conversation.
               </h1>
               <div className="chapter-rule mx-auto" />
               <p className="p-lead mx-auto text-muted-foreground mt-6">
-                Fill out this short form and I'll send your personalized SPL overview,
-                setup plan, and cue-integration sheet within one business day.
+                Tell me about your day — the venue, the feeling, the songs that matter.
+                I will respond within 24 hours with a personalized plan.
               </p>
-              <p className="caption mt-4">No sales call. No pressure. Just clarity.</p>
+              <p className="caption mt-4">No obligation. Two-minute form.</p>
             </div>
 
             {isSubmitted ? (
