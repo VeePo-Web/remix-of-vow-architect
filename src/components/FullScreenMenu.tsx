@@ -10,17 +10,30 @@ interface FullScreenMenuProps {
   onClose: () => void;
 }
 
-const menuItems = [
-  { number: "01", label: "Weddings", href: "/weddings" },
-  { number: "02", label: "Teaching", href: "/teaching" },
-  { number: "03", label: "Events", href: "/events" },
-  { number: "04", label: "Services", href: "/pricing" },
-  { number: "05", label: "About", href: "/about" },
-  { number: "06", label: "Proof", href: "/proof" },
-  { number: "07", label: "FAQ", href: "/faq" },
-  { number: "08", label: "Listen", href: "/listen" },
-  { number: "09", label: "Contact", href: "/contact" },
-];
+function getMenuItems(pathname: string) {
+  const isEvents = pathname.startsWith('/events');
+  const isTeaching = pathname.startsWith('/teaching');
+
+  const servicesHref = isEvents ? '/events/pricing'
+    : isTeaching ? '/teaching/pricing'
+    : '/pricing';
+
+  const aboutHref = isEvents ? '/events/about'
+    : isTeaching ? '/teaching/about'
+    : '/about';
+
+  return [
+    { number: "01", label: "Weddings", href: "/weddings" },
+    { number: "02", label: "Teaching", href: "/teaching" },
+    { number: "03", label: "Events", href: "/events" },
+    { number: "04", label: "Services", href: servicesHref },
+    { number: "05", label: "About", href: aboutHref },
+    { number: "06", label: "Proof", href: "/proof" },
+    { number: "07", label: "FAQ", href: "/faq" },
+    { number: "08", label: "Listen", href: "/listen" },
+    { number: "09", label: "Contact", href: "/contact" },
+  ];
+}
 
 /**
  * FullScreenMenu — "The Score"
