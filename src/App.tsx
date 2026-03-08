@@ -23,7 +23,9 @@ import Accessibility from "./pages/Accessibility";
 import Legal from "./pages/Legal";
 import Listen from "./pages/Listen";
 import EventsAbout from "./pages/EventsAbout";
+import EventsPricing from "./pages/EventsPricing";
 import TeachingAbout from "./pages/TeachingAbout";
+import TeachingPricing from "./pages/TeachingPricing";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,8 +39,10 @@ function AppRoutes() {
       <Route path="/weddings" element={<Index />} />
       <Route path="/teaching" element={<Teaching />} />
       <Route path="/teaching/about" element={<TeachingAbout />} />
+      <Route path="/teaching/pricing" element={<TeachingPricing />} />
       <Route path="/events" element={<Events />} />
       <Route path="/events/about" element={<EventsAbout />} />
+      <Route path="/events/pricing" element={<EventsPricing />} />
       <Route path="/pricing" element={<Pricing />} />
       <Route path="/services" element={<Navigate to="/pricing" replace />} />
       <Route path="/proof" element={<Proof />} />
