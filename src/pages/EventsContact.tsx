@@ -114,6 +114,7 @@ export default function EventsContact() {
             className="absolute inset-0 pointer-events-none"
             style={{
               background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 100%)",
+              animation: "contact-vignette-breathe 6s ease-in-out infinite",
             }}
             aria-hidden="true"
           />
