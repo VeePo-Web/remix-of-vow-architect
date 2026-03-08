@@ -223,7 +223,7 @@ export function TeachingHero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 28%, hsl(0 0% 0%) 100%)",
+            "radial-gradient(ellipse at center, transparent 28%, hsl(var(--rich-black)) 100%)",
           animation: isRevealed
             ? "teaching-hero-vignette 7s ease-in-out infinite"
             : undefined,
