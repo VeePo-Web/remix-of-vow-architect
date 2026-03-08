@@ -12,7 +12,7 @@ const NotFound = () => {
 
   useEffect(() => {
     document.title = "Page Not Found — Parker Gawryletz";
-    console.error("404 Error: User attempted to access non-existent route:", location.pathname);
+    document.querySelector('meta[name="description"]')?.setAttribute("content", "This page could not be found. Return home or explore my offerings as a wedding pianist, event performer, and piano mentor.");
   }, [location.pathname]);
 
   return (

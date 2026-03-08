@@ -50,7 +50,10 @@ function GoldenThread() {
 
 export default function Proof() {
   usePageTheme();
-  useEffect(() => { document.title = "Proof of Craft — Parker Gawryletz"; }, []);
+  useEffect(() => {
+    document.title = "Proof of Craft — Parker Gawryletz";
+    document.querySelector('meta[name="description"]')?.setAttribute("content", "Documentation, $4M insurance, triple redundancy, and downloadable ceremony-audio plans. This is what devotion looks like in practice.");
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">

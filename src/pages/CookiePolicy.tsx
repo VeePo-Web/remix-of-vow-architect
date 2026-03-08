@@ -22,6 +22,7 @@ export default function CookiePolicy() {
     <PolicyLayout
       title="Cookie Policy"
       lastUpdated="March 8, 2026"
+      metaDescription="What cookies this site uses, how long they last, and how to manage your preferences."
       breadcrumbs={[
         { label: "Home", path: "/" },
         { label: "Legal", path: "/legal" },

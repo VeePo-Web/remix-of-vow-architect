@@ -7,6 +7,7 @@ export default function Accessibility() {
     <PolicyLayout
       title="Accessibility Statement"
       lastUpdated="March 8, 2026"
+      metaDescription="How I make this site usable for everyone — high contrast, keyboard navigation, alt text, and accessible alternatives on request."
       breadcrumbs={[
         { label: "Home", path: "/" },
         { label: "Legal", path: "/legal" },
