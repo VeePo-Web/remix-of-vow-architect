@@ -29,7 +29,7 @@ function WaveformBars({ isPlaying }: { isPlaying: boolean }) {
           key={i}
           className={cn(
             "w-[3px] rounded-full transition-colors duration-300",
-            isPlaying ? "bg-[hsl(var(--vow-yellow))]" : "bg-foreground/15"
+            isPlaying ? "bg-primary" : "bg-foreground/15"
           )}
           style={{
             height: isPlaying
