@@ -5149,11 +5149,11 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   .piano-white-key--chosen:hover {
     transform: translateY(8px);
     box-shadow:
-      inset 2px 0 4px rgba(0,0,0,0.04),
-      inset -2px 0 4px rgba(0,0,0,0.04),
-      0 2px 16px rgba(255,224,138,0.2),
-      0 -4px 24px rgba(255,224,138,0.15),
-      0 1px 0 rgba(0,0,0,0.04);
+      inset 2px 0 4px hsl(var(--rich-black) / 0.04),
+      inset -2px 0 4px hsl(var(--rich-black) / 0.04),
+      0 2px 16px hsl(var(--vow-yellow) / 0.2),
+      0 -4px 24px hsl(var(--vow-yellow) / 0.15),
+      0 1px 0 hsl(var(--rich-black) / 0.04);
   }
   .piano-white-key--chosen:active {
     transform: translateY(10px);
