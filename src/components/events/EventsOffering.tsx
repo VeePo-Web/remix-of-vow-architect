@@ -10,7 +10,7 @@ const tiers = [
     duration: "1 hour",
     description:
       "A ceremony, a cocktail hour, or a dinner course. Focused, intentional piano for the part of your event that matters most.",
-    cta: "Tell me about your event",
+    cta: "Discuss your event",
     ctaHref: "/contact",
     isSelected: false,
   },
