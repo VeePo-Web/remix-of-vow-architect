@@ -74,8 +74,8 @@ export function EventsOffering() {
               className={cn(
                 "relative rounded-2xl p-8 transition-all duration-[500ms] flex flex-col backdrop-blur-[6px]",
                 t.isSelected
-                  ? "border-2 border-primary/30 hover:border-primary/50 shadow-[inset_0_1px_0_hsl(var(--ink-inverse)/0.06),var(--shadow-sacred-glow)]"
-                  : "border border-primary/[0.06] hover:border-primary/15 shadow-[inset_0_1px_0_hsl(var(--ink-inverse)/0.04)]",
+                  ? "border-2 border-primary/30 hover:border-primary/50 shadow-[inset_0_1px_0_hsl(var(--absolute-white)/0.06),var(--shadow-sacred-glow)]"
+                  : "border border-primary/[0.06] hover:border-primary/15 shadow-[inset_0_1px_0_hsl(var(--absolute-white)/0.04)]",
                 "hover:-translate-y-1",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
