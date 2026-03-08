@@ -5,15 +5,15 @@ import { StaggerChildren } from "@/components/animation";
 const addOns = [
   {
     icon: Music,
-    title: "Learning Fee",
+    title: "Special Song Request",
     price: "$75–$150",
-    description: "Request a special song outside my standard set. Includes rehearsal and live cue integration. (Submit 8 weeks prior; feasibility confirmed in 7 days.)",
+    description: "A song outside my standard repertoire, learned and rehearsed for your ceremony. Submit at least 8 weeks prior — I will confirm feasibility within 7 days.",
   },
   {
     icon: Clock,
-    title: "Expedited Booking",
-    price: "+$250 (< 8 weeks)",
-    description: "Covers urgent cue review + plan building under timeline pressure.",
+    title: "Short-Notice Booking",
+    price: "+$250 (under 8 weeks)",
+    description: "For ceremonies booked within 8 weeks — covers accelerated preparation and plan coordination.",
   },
   {
     icon: MapPin,

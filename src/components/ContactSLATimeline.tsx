@@ -1,25 +1,25 @@
 export function ContactSLATimeline() {
   const steps = [
     {
-      time: "0–24 hours",
+      time: "Within 24 hours",
       description:
-        "I send your ceremony-audio plan: SPL overview, proximity seating arc, mic/power notes, and a cue-sheet starter.",
+        "I send your personalized ceremony plan — venue considerations, suggested arrangements, and a timeline for your day.",
     },
     {
       time: "24–48 hours",
-      description: "Optional follow-up for song selections and planner/officiant sync.",
+      description: "An optional follow-up to discuss song selections, planner coordination, and any questions.",
     },
     {
       time: "By 72 hours",
       description:
-        "Your spot is held; I'll include an optional deposit link—no pressure.",
+        "Your date is held. I will include a simple deposit link — no pressure, no obligation.",
     },
   ];
 
   return (
     <div className="max-w-3xl mx-auto">
-      <h2 className="text-2xl font-semibold mb-8 text-center">
-        What happens after you submit this form?
+      <h2 className="font-display text-[clamp(24px,3vw,32px)] font-light mb-8 text-center">
+        What happens after you reach out?
       </h2>
       
       <div className="space-y-6">

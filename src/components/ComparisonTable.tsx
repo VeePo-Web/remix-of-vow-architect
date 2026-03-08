@@ -2,22 +2,22 @@ import { Check, X, AlertTriangle } from "lucide-react";
 
 const comparisonData = [
   { 
-    feature: "Ceremony mic", 
-    dj: { value: "warning", label: "Rental, low gain" }, 
+    feature: "Vow amplification", 
+    dj: { value: "warning", label: "Basic rental mic" }, 
     band: { value: false, label: "Often not included" }, 
-    parker: { value: true, label: "Pro-mixed lapel + handheld" } 
+    parker: { value: true, label: "Wireless lapel + handheld, live-mixed" } 
   },
   { 
-    feature: "Generator noise", 
-    dj: { value: false, label: "Typically used" }, 
+    feature: "Silent power", 
+    dj: { value: false, label: "Generator noise common" }, 
     band: { value: "warning", label: "Sometimes" }, 
-    parker: { value: true, label: "Silent battery amp" } 
+    parker: { value: true, label: "Battery system — no noise" } 
   },
   { 
-    feature: "SPL-aware mixing", 
+    feature: "Volume verification", 
     dj: { value: false, label: "Not measured" }, 
     band: { value: false, label: "" }, 
-    parker: { value: true, label: "Logged and delivered" } 
+    parker: { value: true, label: "Documented and delivered" } 
   },
   { 
     feature: "Refund policy", 
@@ -26,16 +26,16 @@ const comparisonData = [
     parker: { value: true, label: "14-day full refund window*" } 
   },
   { 
-    feature: "Cue-sheet co-authoring", 
+    feature: "Cue sheet collaboration", 
     dj: { value: false, label: "No involvement" }, 
     band: { value: false, label: "Music-only focus" }, 
-    parker: { value: true, label: "Direct planner support" } 
+    parker: { value: true, label: "Co-authored with your planner" } 
   },
   { 
     feature: "Backup systems", 
     dj: { value: "warning", label: "One level max" }, 
     band: { value: "warning", label: "Instrument only" }, 
-    parker: { value: true, label: "Triple-tier fallback" } 
+    parker: { value: true, label: "Triple redundancy" } 
   },
 ];
 
@@ -115,7 +115,7 @@ export function ComparisonTable() {
 
       <div className="mt-6 p-4 bg-muted/50 rounded-lg">
         <p className="text-sm text-center font-medium">
-          I'm not "affordable entertainment." I'm legally compliant, professionally directed clarity for your vows.
+          I am not entertainment. I am the person who ensures every word of your vows is heard.
         </p>
         <p className="text-xs text-center text-muted-foreground mt-2">
           * See policy details below for timing windows and exceptions.

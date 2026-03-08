@@ -20,8 +20,8 @@ const faqs = [
     answer: "Your credit can be transferred to a new date or used toward a referred musician—my contract lays out clear percentages by notice window.",
   },
   {
-    question: "How do I compare this to a DJ?",
-    answer: "Use the chart above—and ask any DJ for their SPL log and battery/no-generator plan for outdoor vows.",
+    question: "How does a ceremony pianist compare to a DJ?",
+    answer: "The comparison chart above outlines the differences. The simplest question to ask any alternative: how do they ensure your outdoor vows are heard without generator noise?",
   },
 ];
 
@@ -47,8 +47,8 @@ export function PricingFAQ() {
         </Accordion>
 
         <div className="flex flex-wrap justify-center gap-4 mt-8">
-          <DirectionalLink to="/gallery">View SPL Logs</DirectionalLink>
-          <DirectionalLink to="/contact">Hold Your Date</DirectionalLink>
+          <DirectionalLink to="/proof">See how I prepare</DirectionalLink>
+          <DirectionalLink to="/contact">Hold my date</DirectionalLink>
         </div>
       </div>
     </section>

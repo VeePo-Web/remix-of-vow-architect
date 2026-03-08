@@ -4,19 +4,19 @@ import { Card } from "@/components/ui/card";
 const reassuranceItems = [
   {
     icon: DollarSign,
-    text: "$0 to hold your date — lock the window, think clearly.",
+    text: "No cost to hold your date — take the time you need to decide.",
   },
   {
     icon: RefreshCw,
-    text: "Full refund within 14 days — low-risk commitment.",
+    text: "Full refund within 14 days — a commitment without pressure.",
   },
   {
     icon: Clock,
-    text: "Response within 24h, guaranteed — your plan arrives fast.",
+    text: "Response within 24 hours — your personalized plan, always.",
   },
   {
     icon: Shield,
-    text: "Backups, insurance, SPL logs included — standard, not add-ons.",
+    text: "Insurance, redundancy, and documentation — included in every arrangement.",
   },
 ];
 

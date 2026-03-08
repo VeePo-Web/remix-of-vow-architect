@@ -5,42 +5,42 @@ const inclusions = [
   { 
     icon: Music, 
     label: "Live piano",
-    description: "88-key digital grand; venue piano fallback if house instrument isn't show-ready"
+    description: "Full 88-key instrument — or venue piano if it meets the standard"
   },
   { 
     icon: Mic, 
-    label: "Officiant + vow mic",
-    description: "Wireless lapel + handheld; live-mixed for intelligibility"
+    label: "Amplification for vows",
+    description: "Wireless microphones for officiant and personal vows — every word heard"
   },
   { 
     icon: Battery, 
-    label: "Silent battery system",
-    description: "Generator-free, with backups"
+    label: "Silent power",
+    description: "Battery-powered system — no generator noise during your ceremony"
   },
   { 
     icon: Activity, 
-    label: "SPL log",
-    description: "Three readings: Prelude / Vows / Recessional"
+    label: "Volume documentation",
+    description: "Three verified readings across the ceremony — proof that it carried"
   },
   { 
     icon: Clock, 
-    label: "≥ 60-minute early arrival",
-    description: "Setup, sound test, cue checks"
+    label: "Early arrival",
+    description: "At least 60 minutes before guests — setup, sound check, final walk-through"
   },
   { 
     icon: Wrench, 
-    label: "Backup amp, mic, instrument",
-    description: "Layered fail-safes"
+    label: "Redundancy",
+    description: "Backup amplifier, microphone, and instrument — layered assurance"
   },
   { 
     icon: Shield, 
-    label: "Insurance",
-    description: "$2M professional + $2M general liability + $25k equipment"
+    label: "Full insurance",
+    description: "$2M professional liability, $2M general liability, $25k equipment coverage"
   },
   { 
     icon: FileCheck, 
-    label: "Co-authored cue sheet",
-    description: "With your planner/officiant"
+    label: "Collaborative cue sheet",
+    description: "Co-authored with your planner and officiant — every moment choreographed"
   },
 ];
 
@@ -49,10 +49,10 @@ export function InclusionBlock() {
     <div className="bg-card/80 backdrop-blur-[8px] border border-primary/10 rounded-lg p-8 mb-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)]">
       <div className="text-center mb-8">
         <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light text-center mb-3">
-          All Paths Include Ceremony-Proof Clarity
+          Every path includes the same devoted preparation.
         </h2>
         <p className="text-muted-foreground max-w-3xl mx-auto">
-          I bring everything required to make vows heard, cues flawless, and plans compliant—without you managing gear, power, or bylaws.
+          I bring everything required so you never have to think about sound, power, or logistics on your day.
         </p>
       </div>
 
@@ -73,7 +73,7 @@ export function InclusionBlock() {
       </StaggerChildren>
 
       <p className="text-center text-sm text-muted-foreground italic">
-        No upsell. No surprises. No wires. This is your base level of assurance.
+        No hidden fees. No surprises. This is your baseline of assurance.
       </p>
     </div>
   );
