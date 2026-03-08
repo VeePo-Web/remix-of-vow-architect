@@ -158,23 +158,23 @@ export function TeachingHero() {
         aria-hidden="true"
       />
 
-      {/* ── Layer 1: Background bench image — 30s Ken Burns drift ── */}
+       {/* ── Layer 1: Background bench image — 30s Ken Burns drift ── */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-[center_40%]"
         style={{
           backgroundImage: `url(${benchImg})`,
-          opacity: 0.22,
+          opacity: 0.16,
           animation: "teaching-ken-burns 30s linear infinite alternate",
           willChange: "transform",
         }}
         aria-hidden="true"
       />
 
-      {/* ── Layer 2: Dark gradient overlay for contrast ── */}
+      {/* ── Layer 2: Dark gradient overlay — strong center focus ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "linear-gradient(180deg, hsl(20 8% 6% / 0.5) 0%, hsl(20 8% 8% / 0.3) 40%, hsl(20 8% 6% / 0.6) 100%)",
+          background: "linear-gradient(180deg, hsl(20 8% 5% / 0.7) 0%, hsl(20 8% 8% / 0.2) 35%, hsl(20 8% 8% / 0.15) 50%, hsl(20 8% 6% / 0.65) 100%)",
         }}
         aria-hidden="true"
       />
