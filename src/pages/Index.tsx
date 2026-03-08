@@ -74,7 +74,7 @@ export default function Index() {
 
         {/* Layer 3: Vignette (Reduced opacity for breathing room) */}
         <div
-          className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 will-change-opacity ${
+          className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 ${
             vigilPhase.isRevealing || vigilPhase.isComplete ? "opacity-100" : "opacity-0"
           }`}
           style={{
@@ -85,7 +85,7 @@ export default function Index() {
 
         {/* Layer 4: Fog Overlay */}
         <div
-          className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 will-change-opacity ${
+          className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 ${
             vigilPhase.isRevealing || vigilPhase.isComplete ? "opacity-100" : "opacity-0"
           }`}
           style={{
@@ -96,7 +96,7 @@ export default function Index() {
 
         {/* Layer 5: Film Grain — Reduced, GPU-composited */}
         <div 
-          className={`absolute inset-0 grain transition-opacity duration-1000 will-change-opacity ${
+          className={`absolute inset-0 grain transition-opacity duration-1000 ${
             vigilPhase.isRevealing || vigilPhase.isComplete ? "opacity-[0.15]" : "opacity-0"
           }`}
           aria-hidden="true" 
