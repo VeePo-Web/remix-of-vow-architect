@@ -22,7 +22,7 @@ export function ProofBlock() {
           {splReadings.map((reading, index) => (
             <Card key={index} className="p-8">
               <h3 className="h4 mb-3">{reading.phase}</h3>
-              <p className="text-2xl font-bold text-primary price-numeral mb-2 font-display">
+              <p className="text-2xl font-display font-medium text-primary price-numeral mb-2">
                 {reading.reading}
               </p>
               <p className="p-small text-muted-foreground">

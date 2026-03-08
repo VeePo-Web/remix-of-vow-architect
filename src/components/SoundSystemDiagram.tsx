@@ -40,7 +40,7 @@ export function SoundSystemDiagram() {
         </StaggerChildren>
 
         <div className="flex flex-col items-center gap-6">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 text-accent rounded-lg text-sm font-semibold border border-accent/20">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 text-accent rounded-lg text-sm font-medium tracking-wide border border-accent/20">
             Power & Clarity Guarantee
           </div>
           <p className="text-sm text-muted-foreground">documented, insured, and remedy-backed.</p>

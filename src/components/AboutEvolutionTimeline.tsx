@@ -36,7 +36,7 @@ export function AboutEvolutionTimeline() {
         {milestones.map((milestone, index) => (
           <div key={index} className="space-y-4">
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center font-bold text-sm shrink-0">
+              <div className="w-12 h-12 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center font-display font-medium text-sm shrink-0">
                 {milestone.year}
               </div>
               <p className="text-sm leading-relaxed text-foreground pt-2">

@@ -216,7 +216,7 @@ export function ThreePaths() {
                         }}
                         aria-hidden="true"
                       />
-                      <span className="text-[10px] font-semibold tracking-[0.18em]" style={{ color: "hsl(var(--vow-yellow))" }}>
+                      <span className="text-[10px] font-medium tracking-[0.18em] text-primary">
                         MOST CHOSEN
                       </span>
                       <span
