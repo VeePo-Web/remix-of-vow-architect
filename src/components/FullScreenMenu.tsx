@@ -173,6 +173,42 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
           ATMOSPHERIC LAYERS — The Vigil Space
           ═══════════════════════════════════════════ */}
 
+      {/* Gold corner accent — top-left */}
+      <div
+        className={cn(
+          "absolute top-8 left-8 md:top-12 md:left-12 pointer-events-none transition-all duration-[400ms]",
+          isOpen ? "opacity-100 delay-[400ms]" : "opacity-0"
+        )}
+        aria-hidden="true"
+      >
+        <div className="w-6 h-[1px]" style={{ background: 'linear-gradient(90deg, hsl(var(--vow-yellow) / 0.3), transparent)' }} />
+        <div className="w-[1px] h-6" style={{ background: 'linear-gradient(180deg, hsl(var(--vow-yellow) / 0.3), transparent)' }} />
+      </div>
+
+      {/* Gold corner accent — bottom-right */}
+      <div
+        className={cn(
+          "absolute bottom-8 right-8 md:bottom-12 md:right-12 pointer-events-none transition-all duration-[400ms]",
+          isOpen ? "opacity-100 delay-[500ms]" : "opacity-0"
+        )}
+        aria-hidden="true"
+      >
+        <div className="flex flex-col items-end">
+          <div className="w-6 h-[1px]" style={{ background: 'linear-gradient(270deg, hsl(var(--vow-yellow) / 0.3), transparent)' }} />
+          <div className="w-[1px] h-6 self-end" style={{ background: 'linear-gradient(0deg, hsl(var(--vow-yellow) / 0.3), transparent)' }} />
+        </div>
+      </div>
+
+      {/* Center breathing diamond */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle, hsl(var(--vow-yellow) / 0.08) 0%, transparent 70%)',
+          animation: isOpen ? 'menu-diamond-breathe 5s ease-in-out infinite' : undefined,
+        }}
+        aria-hidden="true"
+      />
+
       {/* Layer 1: Film grain */}
       <div
         className="grain pointer-events-none"
