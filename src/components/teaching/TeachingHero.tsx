@@ -162,8 +162,8 @@ export function TeachingHero() {
           backgroundImage: `url(${benchImg})`,
           backgroundSize: "cover",
           backgroundPosition: "center 90%",
-          opacity: 0.06,
-          filter: "saturate(0.7) contrast(1.1)",
+          opacity: 0.035,
+          filter: "saturate(0.5) contrast(1.05) brightness(0.8)",
           animation: "teaching-ken-burns 30s linear infinite alternate",
           willChange: "transform",
         }}
@@ -175,7 +175,7 @@ export function TeachingHero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 50% 42% at 50% 46%, transparent 0%, hsl(0 0% 0% / 0.88) 100%)",
+            "radial-gradient(ellipse 45% 38% at 50% 46%, transparent 0%, hsl(0 0% 0% / 0.92) 100%)",
         }}
         aria-hidden="true"
       />
