@@ -1,4 +1,4 @@
-import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import benchImg from "@/assets/teaching-bench.jpg";
 
@@ -29,43 +29,226 @@ const fears = [
   },
 ];
 
-function highlightWord(text: string, word: string, isVisible: boolean, fearIndex: number) {
-  const idx = text.toLowerCase().indexOf(word.toLowerCase());
-  if (idx === -1) return <>{text}</>;
+/**
+ * Word-by-word scroll-linked reveal for resolution text.
+ * Each word fades from 0.08 → 1.0 based on scroll progress through its container.
+ */
+function ScrollResolution({
+  text,
+  underlineWord,
+  isInView,
+}: {
+  text: string;
+  underlineWord: string;
+  isInView: boolean;
+}) {
+  const containerRef = useRef<HTMLSpanElement>(null);
+  const [progress, setProgress] = useState(0);
+  const rafRef = useRef<number>(0);
 
-  const before = text.slice(0, idx);
-  const match = text.slice(idx, idx + word.length);
-  const after = text.slice(idx + word.length);
+  const updateProgress = useCallback(() => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const vh = window.innerHeight;
+    // Map: top enters 70% viewport → top reaches 25% viewport = full reveal
+    const raw = 1 - (rect.top - vh * 0.25) / (vh * 0.45);
+    setProgress(Math.max(0, Math.min(1, raw)));
+    rafRef.current = requestAnimationFrame(updateProgress);
+  }, []);
+
+  useEffect(() => {
+    if (!isInView) return;
+
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (prefersReduced) {
+      setProgress(1);
+      return;
+    }
+
+    rafRef.current = requestAnimationFrame(updateProgress);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [isInView, updateProgress]);
+
+  const words = text.split(" ");
 
   return (
-    <>
-      {before}
-      <span className="relative inline-block">
-        {match}
-        <span
+    <span ref={containerRef} className="inline">
+      {words.map((word, i) => {
+        const wordThreshold = i / words.length;
+        const wordOpacity = isInView
+          ? Math.max(0.08, Math.min(1, (progress - wordThreshold * 0.7) / 0.3))
+          : 0.08;
+
+        const cleanWord = word.toLowerCase().replace(/[^a-z]/g, "");
+        const isUnderline = cleanWord === underlineWord.toLowerCase();
+
+        return (
+          <span
+            key={i}
+            className="inline-block transition-opacity duration-[60ms]"
+            style={{ opacity: wordOpacity }}
+          >
+            {isUnderline ? (
+              <span className="relative inline-block">
+                {word}
+                <span
+                  className={cn(
+                    "absolute -bottom-0.5 left-0 w-full h-[2px] bg-[hsl(var(--vow-yellow))] origin-left transition-transform duration-[450ms]",
+                    progress > 0.88 ? "scale-x-100" : "scale-x-0"
+                  )}
+                  style={{
+                    transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
+                  }}
+                  aria-hidden="true"
+                />
+              </span>
+            ) : (
+              word
+            )}
+            {i < words.length - 1 ? " " : ""}
+          </span>
+        );
+      })}
+    </span>
+  );
+}
+
+/**
+ * Each fear/resolution pair has its own IntersectionObserver
+ * so they trigger independently as the user scrolls.
+ */
+function FearPair({
+  pair,
+  index,
+  isLast,
+}: {
+  pair: (typeof fears)[0];
+  index: number;
+  isLast: boolean;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" }
+    );
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className="mb-[160px] md:mb-[200px] last:mb-0">
+      {/* Fear question — italic, spectral */}
+      <p
+        className={cn(
+          "font-display italic text-[22px] md:text-[28px] tracking-tight text-center transition-all duration-[900ms]",
+          isVisible
+            ? "opacity-70 translate-y-0"
+            : "opacity-0 translate-y-[16px]"
+        )}
+        style={{
+          color: "hsl(40 20% 70%)",
+          transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+          textShadow: "0 1px 3px hsl(0 0% 0% / 0.2)",
+        }}
+      >
+        "{pair.fear}"
+      </p>
+
+      {/* Sacred pause — golden thread growing between fear and resolution */}
+      <div className="flex flex-col items-center py-[40px] md:py-[56px]">
+        <div
           className={cn(
-            "absolute -bottom-0.5 left-0 w-full h-[2px] bg-[hsl(var(--vow-yellow))] origin-left transition-transform duration-[450ms]",
-            isVisible ? "scale-x-100" : "scale-x-0"
+            "w-px h-[32px] origin-top transition-transform duration-[700ms]",
+            isVisible ? "scale-y-100" : "scale-y-0"
           )}
           style={{
-            transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
-            transitionDelay: `${800 + fearIndex * 250}ms`,
+            background:
+              "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.06), hsl(var(--vow-yellow) / 0.18), hsl(var(--vow-yellow) / 0.06))",
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "400ms",
           }}
           aria-hidden="true"
         />
-      </span>
-      {after}
-    </>
+      </div>
+
+      {/* Resolution — word-by-word scroll reveal */}
+      <p
+        className="font-sans text-[16px] md:text-[18px] leading-[1.75] text-center max-w-[580px] mx-auto"
+        style={{ color: "hsl(40 25% 85%)" }}
+      >
+        <ScrollResolution
+          text={pair.resolution}
+          underlineWord={pair.underlineWord}
+          isInView={isVisible}
+        />
+      </p>
+
+      {/* Golden dot separator between fear pairs */}
+      {!isLast && (
+        <div className="flex justify-center mt-[80px] md:mt-[100px]">
+          <span
+            className={cn(
+              "block w-1.5 h-1.5 rounded-full transition-all duration-[900ms]",
+              isVisible ? "opacity-100 scale-100" : "opacity-0 scale-50"
+            )}
+            style={{
+              background: "hsl(var(--vow-yellow))",
+              boxShadow: "0 0 6px 2px hsl(var(--vow-yellow) / 0.12)",
+              transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+              transitionDelay: "800ms",
+              animation: isVisible
+                ? "threshold-dot-breathe 4s ease-in-out infinite"
+                : undefined,
+            }}
+            aria-hidden="true"
+          />
+        </div>
+      )}
+    </div>
   );
 }
 
 export function TeachingThreshold() {
-  const { ref, isVisible } = useScrollReveal({ threshold: 0.08 });
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [headerVisible, setHeaderVisible] = useState(false);
+  const closingRef = useRef<HTMLDivElement>(null);
+  const [closingVisible, setClosingVisible] = useState(false);
+
+  useEffect(() => {
+    if (!headerRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setHeaderVisible(true);
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(headerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!closingRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setClosingVisible(true);
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(closingRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
       id="teaching-threshold"
-      ref={ref}
       className="relative py-[140px] md:py-[180px] px-fitz-4 md:px-fitz-6 overflow-hidden"
       style={{ background: "hsl(30 8% 14%)" }}
       role="region"
@@ -105,144 +288,99 @@ export function TeachingThreshold() {
         style={{
           background:
             "radial-gradient(ellipse at center, transparent 30%, hsl(30 8% 6% / 0.65) 100%)",
-          animation: isVisible
-            ? "threshold-vignette 6s ease-in-out infinite"
-            : undefined,
+          animation: "threshold-vignette 6s ease-in-out infinite",
         }}
         aria-hidden="true"
       />
 
       <div className="relative z-10 max-w-[640px] mx-auto">
-        {/* Whispered section label */}
-        <p
-          className={cn(
-            "font-sans text-[11px] uppercase tracking-[0.22em] text-center mb-fitz-5 transition-all duration-[1800ms]",
-            isVisible
-              ? "opacity-40 translate-y-0"
-              : "opacity-0 translate-y-[8px]"
-          )}
-          style={{
-            color: "hsl(40 15% 55%)",
-            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-          }}
-        >
-          What you might be thinking
-        </p>
-
-        {/* Vertical golden thread — label to content */}
-        <div
-          className={cn(
-            "w-px h-[48px] mx-auto mb-fitz-9 origin-top transition-transform duration-[700ms]",
-            isVisible ? "scale-y-100" : "scale-y-0"
-          )}
-          style={{
-            background:
-              "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.25), hsl(var(--vow-yellow) / 0.04))",
-            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-            transitionDelay: "200ms",
-          }}
-          aria-hidden="true"
-        />
-
-        {fears.map((pair, i) => (
-          <div key={i} className="mb-[120px] last:mb-0">
-            {/* Fear — italic, lighter weight */}
-            <p
-              className={cn(
-                "font-display italic text-[22px] md:text-[28px] tracking-tight text-center transition-all duration-[700ms]",
-                isVisible
-                  ? "opacity-70 translate-y-0"
-                  : "opacity-0 translate-y-[12px]"
-              )}
-              style={{
-                color: "hsl(40 20% 70%)",
-                transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-                transitionDelay: `${i * 250}ms`,
-                textShadow: "0 1px 3px hsl(0 0% 0% / 0.2)",
-              }}
-            >
-              "{pair.fear}"
-            </p>
-
-            {/* Sacred pause */}
-            <div className="h-[50px] md:h-[70px]" aria-hidden="true" />
-
-            {/* Resolution — roman, authoritative */}
-            <p
-              className={cn(
-                "font-sans text-[16px] md:text-[18px] leading-[1.7] text-center transition-all duration-[700ms]",
-                isVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-[12px]"
-              )}
-              style={{
-                color: "hsl(40 25% 85%)",
-                transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-                transitionDelay: `${i * 250 + 350}ms`,
-              }}
-            >
-              {highlightWord(pair.resolution, pair.underlineWord, isVisible, i)}
-            </p>
-
-            {/* Golden dot separator between fear pairs */}
-            {i < fears.length - 1 && (
-              <div className="flex justify-center mt-[100px]">
-                <span
-                  className={cn(
-                    "block w-1.5 h-1.5 rounded-full transition-all duration-[900ms]",
-                    isVisible ? "opacity-100 scale-100" : "opacity-0 scale-50"
-                  )}
-                  style={{
-                    background: "hsl(var(--vow-yellow))",
-                    boxShadow: "0 0 6px 2px hsl(var(--vow-yellow) / 0.12)",
-                    transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-                    transitionDelay: `${i * 250 + 600}ms`,
-                  }}
-                  aria-hidden="true"
-                />
-              </div>
-            )}
-          </div>
-        ))}
-
-        {/* Semicolon threshold marker */}
-        <div className="flex justify-center mt-[80px]">
-          <span
+        {/* Section header — independently observed */}
+        <div ref={headerRef}>
+          {/* Whispered section label */}
+          <p
             className={cn(
-              "font-display text-[56px] transition-all duration-[900ms]",
-              isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"
+              "font-sans text-[11px] uppercase tracking-[0.22em] text-center mb-fitz-5 transition-all duration-[1800ms]",
+              headerVisible
+                ? "opacity-40 translate-y-0"
+                : "opacity-0 translate-y-[8px]"
             )}
             style={{
-              color: "hsl(var(--vow-yellow))",
+              color: "hsl(40 15% 55%)",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-              transitionDelay: "1200ms",
-              animation: isVisible
-                ? "semicolon-breathe 3s ease-in-out infinite"
-                : undefined,
-              textShadow:
-                "0 0 24px hsl(var(--vow-yellow) / 0.3), 0 0 48px hsl(var(--vow-yellow) / 0.1)",
+            }}
+          >
+            What you might be thinking
+          </p>
+
+          {/* Vertical golden thread — label to content */}
+          <div
+            className={cn(
+              "w-px h-[48px] mx-auto mb-fitz-9 origin-top transition-transform duration-[700ms]",
+              headerVisible ? "scale-y-100" : "scale-y-0"
+            )}
+            style={{
+              background:
+                "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.25), hsl(var(--vow-yellow) / 0.04))",
+              transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+              transitionDelay: "200ms",
             }}
             aria-hidden="true"
-          >
-            ;
-          </span>
+          />
         </div>
 
-        {/* Pencil annotation */}
-        <span
-          className={cn(
-            "block font-display italic text-[13px] text-center mt-fitz-5 transition-all duration-[700ms]",
-            isVisible ? "opacity-30" : "opacity-0"
-          )}
-          style={{
-            color: "hsl(40 15% 55%)",
-            transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
-            transitionDelay: "1400ms",
-          }}
-          aria-label="Closing annotation"
-        >
-          — you are not too late
-        </span>
+        {/* Fear/Resolution pairs — each independently triggered */}
+        {fears.map((pair, i) => (
+          <FearPair
+            key={i}
+            pair={pair}
+            index={i}
+            isLast={i === fears.length - 1}
+          />
+        ))}
+
+        {/* Closing — independently observed */}
+        <div ref={closingRef}>
+          {/* Semicolon threshold marker */}
+          <div className="flex justify-center mt-[80px]">
+            <span
+              className={cn(
+                "font-display text-[56px] transition-all duration-[900ms]",
+                closingVisible
+                  ? "opacity-100 scale-100"
+                  : "opacity-0 scale-90"
+              )}
+              style={{
+                color: "hsl(var(--vow-yellow))",
+                transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+                transitionDelay: "200ms",
+                animation: closingVisible
+                  ? "semicolon-breathe 3s ease-in-out infinite"
+                  : undefined,
+                textShadow:
+                  "0 0 24px hsl(var(--vow-yellow) / 0.3), 0 0 48px hsl(var(--vow-yellow) / 0.1)",
+              }}
+              aria-hidden="true"
+            >
+              ;
+            </span>
+          </div>
+
+          {/* Pencil annotation */}
+          <span
+            className={cn(
+              "block font-display italic text-[13px] text-center mt-fitz-5 transition-all duration-[700ms]",
+              closingVisible ? "opacity-30" : "opacity-0"
+            )}
+            style={{
+              color: "hsl(40 15% 55%)",
+              transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
+              transitionDelay: "500ms",
+            }}
+            aria-label="Closing annotation"
+          >
+            — you are not too late
+          </span>
+        </div>
       </div>
 
       {/* Keyframes */}
@@ -258,6 +396,10 @@ export function TeachingThreshold() {
         @keyframes semicolon-breathe {
           0%, 100% { text-shadow: 0 0 20px hsl(var(--vow-yellow) / 0.4); }
           50% { text-shadow: 0 0 40px hsl(var(--vow-yellow) / 0.7); }
+        }
+        @keyframes threshold-dot-breathe {
+          0%, 100% { opacity: 0.5; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.2); }
         }
         @media (prefers-reduced-motion: reduce) {
           #teaching-threshold * {
