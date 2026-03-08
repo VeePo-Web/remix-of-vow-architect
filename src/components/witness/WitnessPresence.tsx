@@ -22,6 +22,7 @@ export function WitnessPresence() {
   return (
     <section 
       id="witness-presence"
+      aria-label="The Presence"
       ref={ref as React.RefObject<HTMLElement>}
       className="relative py-[120px] px-4 bg-background overflow-hidden piano-section-target"
     >
