@@ -25,7 +25,7 @@ export function EventsExhale() {
           <p
             key={i}
             className={cn(
-              "font-display italic text-[20px] md:text-[28px] leading-[1.5] tracking-tight text-foreground/90 transition-all duration-[600ms]",
+              "font-display italic text-[20px] md:text-[28px] leading-[1.5] tracking-tight text-foreground transition-all duration-[600ms]",
               i < lines.length - 1 ? "mb-fitz-5" : "mb-0",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
             )}

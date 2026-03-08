@@ -199,7 +199,7 @@ export function TheTransformation() {
           {/* Heading */}
           <h2
             className={cn(
-              "font-display text-2xl md:text-3xl font-light tracking-tight text-foreground/90 mb-8 md:mb-12 transition-all duration-700",
+              "font-display text-2xl md:text-3xl font-light tracking-tight text-foreground mb-8 md:mb-12 transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
             style={{

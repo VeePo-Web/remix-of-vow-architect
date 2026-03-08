@@ -201,7 +201,7 @@ function PreparationSection() {
             {/* Introductory paragraph */}
             <p
               className={cn(
-                "text-base md:text-lg leading-relaxed text-foreground/70 max-w-[38ch] mb-10 transition-all duration-700",
+                "text-base md:text-lg leading-relaxed text-muted-foreground max-w-[38ch] mb-10 transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
               )}
               style={{ transitionDelay: isVisible ? "350ms" : "0ms" }}
