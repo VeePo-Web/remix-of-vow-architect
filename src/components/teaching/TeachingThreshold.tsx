@@ -341,7 +341,7 @@ export function TeachingThreshold() {
                 : "opacity-0 translate-y-[8px]"
             )}
             style={{
-              color: "hsl(40 15% 55%)",
+              color: "hsl(var(--teaching-studio-label))",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             }}
           >
