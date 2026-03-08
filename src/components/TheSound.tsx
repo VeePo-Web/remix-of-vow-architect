@@ -320,7 +320,7 @@ export function TheSound() {
         aria-labelledby="sound-heading"
       >
         {/* Top fade */}
-        <div className="section-fade-top" style={{ background: "linear-gradient(to top, transparent, hsl(220 15% 8%))" }} aria-hidden="true" />
+        <div className="section-fade-top" style={{ background: "linear-gradient(to top, transparent, hsl(var(--rich-black)))" }} aria-hidden="true" />
 
         {/* Background image */}
         <div ref={parallaxBgRef} className="absolute inset-0 overflow-hidden" aria-hidden="true" style={{ willChange: "transform" }}>
@@ -537,7 +537,7 @@ export function TheSound() {
         </div>
 
         {/* Bottom fade */}
-        <div className="section-fade-bottom" style={{ background: "linear-gradient(to bottom, transparent, hsl(220 15% 8%))" }} aria-hidden="true" />
+        <div className="section-fade-bottom" style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--rich-black)))" }} aria-hidden="true" />
       </section>
 
       {/* Now Playing Mini-Bar */}

@@ -72,7 +72,7 @@ export function TheInvitation() {
       aria-labelledby="invitation-heading"
       className="relative py-28 md:py-40 overflow-hidden invitation-texture piano-section-target"
       style={{
-        background: 'linear-gradient(180deg, hsl(28 12% 16%) 0%, hsl(25 8% 8%) 100%)',
+        background: 'linear-gradient(180deg, hsl(var(--invitation-bg-top, 28 12% 16%)) 0%, hsl(var(--invitation-bg-bottom, 25 8% 8%)) 100%)',
         // @ts-ignore CSS custom property
         '--warmth': '0',
       } as React.CSSProperties}
@@ -98,7 +98,7 @@ export function TheInvitation() {
       {/* Layer 2: Top fade */}
       <div
         className="absolute top-0 left-0 right-0 h-[120px] z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to top, transparent, hsl(240 9% 4%))' }}
+        style={{ background: 'linear-gradient(to top, transparent, hsl(var(--rich-black)))' }}
         aria-hidden="true"
       />
 
