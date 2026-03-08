@@ -183,6 +183,7 @@ export default function Listen() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <MinimalHeader />
+      <PianoKeyNav sections={listenSections} />
       <audio ref={audioRef} preload="none" />
 
       {/* Film grain */}
