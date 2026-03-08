@@ -166,7 +166,7 @@ export default function Pricing() {
                 </Card>
 
                 {/* Ceremony + Prelude/Cocktails — $750 */}
-                <Card className="relative p-6 bg-card/80 backdrop-blur-[8px] border-primary/15 border-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12),0_0_40px_hsl(var(--vow-yellow)/0.08)] hover:shadow-[0_0_32px_rgba(255,224,138,0.1)] transition-all duration-[180ms]">
+                <Card className="relative p-6 bg-card/80 backdrop-blur-[8px] border-primary/15 border-2 card-sacred card-sacred-hover transition-all duration-[180ms]" style={{ boxShadow: 'var(--shadow-sacred-inset), var(--shadow-sacred-elevation), 0 0 40px hsl(var(--vow-yellow) / 0.08)' }}>
                   <MostSelectedPill />
                   
                   <h3 className="font-display text-[22px] font-medium leading-tight mb-4">The Hour</h3>
