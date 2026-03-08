@@ -16,7 +16,7 @@ const stories = [
   },
   {
     narrative:
-      "Sarah wanted to play one song at her own wedding. Not a performance — a promise to the person she was about to marry. We spent four months on three minutes of music. On her wedding day, her hands shook. But the music did not.",
+      "Sarah wanted to play one song at her own wedding. Not a performance — a promise to the person she was about to marry. We spent four months on three minutes of music. On the day, her hands shook. But the music did not.",
     quote: "My hands shook. But the music did not.",
     quoteUnderline: "music",
   },

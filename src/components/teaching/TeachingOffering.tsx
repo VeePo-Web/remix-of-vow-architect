@@ -307,7 +307,7 @@ export function TeachingOffering() {
             style={{ color: "hsl(30 10% 40%)" }}
           >
             <ScrollAntiAnxiety
-              text="No packages. No commitments. One hour, one question, one bench."
+              text="No packages. No commitments. One hour, one conversation, one bench."
               isInView={priceVisible}
             />
           </p>

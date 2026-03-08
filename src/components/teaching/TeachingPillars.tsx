@@ -387,7 +387,7 @@ export function TeachingPillars() {
             }}
             aria-label="Closing annotation"
           >
-            — four truths, one bench
+            — four convictions, one bench
           </span>
         </div>
       </div>
