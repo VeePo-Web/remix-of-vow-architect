@@ -194,9 +194,9 @@ export function AudioPlayer({ tracks, onPlayStateChange }: AudioPlayerProps) {
               className={cn(
                 "group relative rounded-lg p-5 text-left cursor-pointer transition-all select-none",
                 "border backdrop-blur-sm",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)/0.6)]",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60",
                 isActive
-                  ? "bg-card/30 border-[hsl(var(--vow-yellow)/0.3)]"
+                  ? "bg-card/30 border-primary/30"
                   : "bg-card/10 border-border/20 hover:bg-card/20",
                 hasError && "opacity-50 cursor-default"
               )}
