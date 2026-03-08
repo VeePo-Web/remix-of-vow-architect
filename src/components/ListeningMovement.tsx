@@ -147,7 +147,7 @@ export function ListeningMovement({
         </p>
 
         {/* Movement title */}
-        <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground/90 mb-3">
+        <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-3">
           {title}
         </h2>
 
