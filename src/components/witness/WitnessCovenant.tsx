@@ -73,10 +73,10 @@ export function WitnessCovenant() {
             <div className="absolute inset-0 grain opacity-[0.08] rounded-sm pointer-events-none" aria-hidden="true" />
 
             {/* Corner ornaments — larger, warmer */}
-            <div className="absolute top-5 left-5 w-16 h-16 border-l border-t border-primary/30" />
-            <div className="absolute top-5 right-5 w-16 h-16 border-r border-t border-primary/30" />
-            <div className="absolute bottom-5 left-5 w-16 h-16 border-l border-b border-primary/30" />
-            <div className="absolute bottom-5 right-5 w-16 h-16 border-r border-b border-primary/30" />
+            <div className="absolute top-5 left-5 w-16 h-16 border-l border-t border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
+            <div className="absolute top-5 right-5 w-16 h-16 border-r border-t border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
+            <div className="absolute bottom-5 left-5 w-16 h-16 border-l border-b border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
+            <div className="absolute bottom-5 right-5 w-16 h-16 border-r border-b border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
 
             {/* Certificate Header */}
             <div className="text-center mb-10 relative">
