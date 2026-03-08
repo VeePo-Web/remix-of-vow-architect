@@ -158,36 +158,46 @@ export function TeachingHero() {
         aria-hidden="true"
       />
 
-      {/* ── Layer 1: Background bench — focus on the seat, not keys ── */}
+      {/* ── Layer 1: Background bench — cropped low to show only wood grain ── */}
       <div
         className="absolute inset-0"
         style={{
           backgroundImage: `url(${benchImg})`,
           backgroundSize: "cover",
-          backgroundPosition: "center 70%",
-          opacity: 0.10,
+          backgroundPosition: "center 80%",
+          opacity: 0.07,
           animation: "teaching-ken-burns 30s linear infinite alternate",
           willChange: "transform",
         }}
         aria-hidden="true"
       />
 
-      {/* ── Layer 2: Radial spotlight — draws eye to center ── */}
+      {/* ── Layer 2: Radial spotlight — tight center focus ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 65% 50% at 50% 46%, transparent 0%, hsl(0 0% 0% / 0.75) 100%)",
+            "radial-gradient(ellipse 55% 45% at 50% 46%, transparent 0%, hsl(0 0% 0% / 0.85) 100%)",
         }}
         aria-hidden="true"
       />
 
-      {/* ── Layer 3: Top & bottom darken — heavy top to kill piano keys ── */}
+      {/* ── Layer 3: Top & bottom darken — crush keys completely ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(180deg, hsl(0 0% 0% / 0.85) 0%, hsl(0 0% 0% / 0.3) 25%, transparent 45%, transparent 70%, hsl(0 0% 0% / 0.7) 100%)",
+            "linear-gradient(180deg, hsl(0 0% 0% / 0.95) 0%, hsl(0 0% 0% / 0.5) 20%, transparent 40%, transparent 65%, hsl(0 0% 0% / 0.8) 100%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* ── Layer 3b: Warm halo behind text — gives depth ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 35% 30% at 50% 46%, hsl(38 40% 50% / 0.04), transparent 100%)",
         }}
         aria-hidden="true"
       />
