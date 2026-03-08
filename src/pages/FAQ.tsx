@@ -121,7 +121,7 @@ export default function FAQ() {
       </div>
 
       {/* Golden thread */}
-      <div className="relative py-1" aria-hidden="true">
+      <div className="relative py-6" aria-hidden="true">
         <div className="h-px max-w-xs mx-auto" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)" }} />
       </div>
 
