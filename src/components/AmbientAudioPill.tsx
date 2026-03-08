@@ -191,7 +191,7 @@ export default function AmbientAudioPill() {
               isPanelOpen ? "opacity-100" : "opacity-0 pointer-events-none"
             )}
           >
-            <X size={14} strokeWidth={2} className="text-foreground/70" />
+            <X size={14} strokeWidth={2} className="text-foreground opacity-70" />
           </span>
           {/* Play icon (idle) */}
           <span
