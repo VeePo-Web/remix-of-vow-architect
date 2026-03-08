@@ -10,11 +10,17 @@ interface PolicyLayoutProps {
   title: string;
   lastUpdated: string;
   breadcrumbs: Array<{ label: string; path: string }>;
+  metaDescription?: string;
 }
 
-export function PolicyLayout({ children, title, lastUpdated, breadcrumbs }: PolicyLayoutProps) {
+export function PolicyLayout({ children, title, lastUpdated, breadcrumbs, metaDescription }: PolicyLayoutProps) {
   usePageTheme();
-  useEffect(() => { document.title = `${title} — Parker Gawryletz`; }, [title]);
+  useEffect(() => {
+    document.title = `${title} — Parker Gawryletz`;
+    if (metaDescription) {
+      document.querySelector('meta[name="description"]')?.setAttribute("content", metaDescription);
+    }
+  }, [title, metaDescription]);
 
   return (
     <div className="min-h-screen flex flex-col bg-background relative">
