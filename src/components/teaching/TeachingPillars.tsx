@@ -13,7 +13,7 @@ const pillars = [
     numeral: "II",
     title: "Voice Before Technique",
     description:
-      "The piano is not a skill to acquire. It is a voice to discover. Technique serves expression, never the reverse — every scale exists to unlock what you want to say.",
+      "The piano is not a skill to acquire. It is a voice to discover. Technique serves expression, never the reverse — every scale, every exercise exists only to unlock what you want to say.",
     underlineWord: "voice",
   },
   {
