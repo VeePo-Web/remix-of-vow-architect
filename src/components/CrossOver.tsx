@@ -107,7 +107,7 @@ export function CrossOver() {
       <div 
         className="absolute inset-0 z-[1] pointer-events-none crossover-vignette-breathe"
         style={{
-          background: "radial-gradient(ellipse at center, transparent 25%, hsl(240 9% 2% / 0.85) 100%)",
+          background: "radial-gradient(ellipse at center, transparent 25%, hsl(var(--rich-black) / 0.85) 100%)",
           animation: "crossover-vignette-breathe 6s ease-in-out infinite",
         }}
         aria-hidden="true"
