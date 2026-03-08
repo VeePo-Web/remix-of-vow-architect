@@ -70,7 +70,7 @@ export default function FAQ() {
 
             <div className="text-center mb-16">
               <div className="overline mb-2">The Threshold</div>
-              <h1 className="mx-auto">Every question deserves a clear answer.</h1>
+              <h1 className="h1 mx-auto">Every question deserves a clear answer.</h1>
               <div className="chapter-rule mx-auto" />
               <p className="lead mx-auto text-muted-foreground mt-6">
                 I understand the weight of the decisions you are making.
