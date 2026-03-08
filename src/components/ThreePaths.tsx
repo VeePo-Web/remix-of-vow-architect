@@ -386,7 +386,7 @@ export function ThreePaths() {
       {/* Bottom fade */}
       <div
         className="section-fade-bottom"
-        style={{ background: 'linear-gradient(to bottom, transparent, hsl(45 20% 93%))' }}
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(var(--surface-warm)))' }}
         aria-hidden="true"
       />
     </section>
