@@ -103,7 +103,7 @@ export default function Gateway() {
           className="font-sans text-[11px] uppercase tracking-[0.22em] text-muted-foreground mt-1.5 opacity-0 animate-fade-in"
           style={{ animationDelay: "600ms", animationFillMode: "forwards" }}
         >
-          Sound Director
+          Ceremony Pianist
         </p>
       </header>
 
