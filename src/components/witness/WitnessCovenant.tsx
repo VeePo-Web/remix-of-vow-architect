@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 
 const covenantPromises = [
   "I will arrive an hour before you need me.",
-  "I will test every microphone before your guests arrive.",
+  "I will prepare as though your ceremony were my own.",
   "I will guard the silence between your words.",
   "I will carry your vows so they land where they belong.",
   "I will remember what was spoken when memory fades.",
@@ -33,7 +33,7 @@ export function WitnessCovenant() {
       ref={ref as React.RefObject<HTMLElement>}
       className="relative py-[120px] px-4 piano-section-target"
       style={{
-        background: "linear-gradient(180deg, hsl(var(--surface)) 0%, hsl(var(--surface-warm)) 100%)"
+        background: "linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--deep-graphite)) 100%)"
       }}
     >
       <div className="container mx-auto">
@@ -163,22 +163,6 @@ export function WitnessCovenant() {
             </div>
           </div>
 
-          {/* Tagline beneath — sacred semicolon treatment */}
-          <div 
-            className={cn(
-              "mt-12 transition-all duration-700",
-              isVisible ? "opacity-100" : "opacity-0"
-            )}
-            style={{ transitionDelay: "2000ms" }}
-          >
-            <div 
-              className="h-px w-16 mx-auto mb-6"
-              style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.2), transparent)" }}
-            />
-            <p className="font-display text-xl text-center text-foreground italic">
-              'Til Death<span className="text-primary not-italic">;</span> Unto Life.
-            </p>
-          </div>
         </div>
       </div>
 

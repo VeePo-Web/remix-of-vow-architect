@@ -79,7 +79,7 @@ export function WitnessOrigin() {
                 )}
                 style={{ transitionDelay: "600ms" }}
               >
-                I left the reception that night and started building a system to ensure every word would be heard—no matter the wind, the venue, or the distance.
+                I left the reception that night with a single promise: no couple would ever lose their words to the wind.
               </p>
             </div>
 
@@ -97,6 +97,9 @@ export function WitnessOrigin() {
               />
               <p className="font-display text-xl italic text-primary">
                 "No couple should ever wonder if their guests heard their vows."
+              </p>
+              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mt-3 opacity-50">
+                — Parker
               </p>
             </div>
           </div>

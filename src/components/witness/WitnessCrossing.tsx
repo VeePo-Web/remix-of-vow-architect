@@ -69,9 +69,10 @@ export function WitnessCrossing() {
           {/* Label */}
           <p 
             className={cn(
-              "text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6 transition-all duration-700",
-              isVisible ? "opacity-60 translate-y-0" : "opacity-0 translate-y-4"
+              "text-xs uppercase tracking-[0.3em] mb-6 transition-all duration-700",
+              isVisible ? "opacity-50 translate-y-0" : "opacity-0 translate-y-4"
             )}
+            style={{ color: "hsl(var(--vow-yellow))" }}
           >
             THE CROSSING
           </p>
