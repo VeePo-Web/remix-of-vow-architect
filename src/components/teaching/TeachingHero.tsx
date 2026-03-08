@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import benchImg from "@/assets/teaching-bench.jpg";
 
 export function TeachingHero() {
   const [isRevealed, setIsRevealed] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef(0);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsRevealed(true), 600);
@@ -19,12 +21,38 @@ export function TeachingHero() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Mouse-reactive parallax — subtle content tilt
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!contentRef.current) return;
+    cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => {
+      if (!contentRef.current) return;
+      const rect = contentRef.current.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / rect.width;
+      const dy = (e.clientY - cy) / rect.height;
+      contentRef.current.style.transform = `translate3d(${dx * 6}px, ${dy * 4}px, 0)`;
+    });
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    if (!contentRef.current) return;
+    contentRef.current.style.transition = "transform 600ms cubic-bezier(.22,.61,.36,1)";
+    contentRef.current.style.transform = "translate3d(0,0,0)";
+    setTimeout(() => {
+      if (contentRef.current) contentRef.current.style.transition = "";
+    }, 600);
+  }, []);
+
   return (
     <section
       id="teaching-hero"
       className="relative h-screen w-full overflow-hidden flex items-center justify-center"
       style={{ background: "hsl(40 30% 95%)" }}
       aria-label="The Empty Bench"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
     >
       {/* Background bench image — 30s Ken Burns drift */}
       <div
@@ -54,6 +82,19 @@ export function TeachingHero() {
         aria-hidden="true"
       />
 
+      {/* Warm light bloom — top-center */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at 50% 20%, hsl(var(--vow-yellow) / 0.03), transparent 50%)",
+          animation: isRevealed
+            ? "hero-light-bloom 8s ease-in-out infinite"
+            : undefined,
+        }}
+        aria-hidden="true"
+      />
+
       {/* Breathing vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -67,8 +108,12 @@ export function TeachingHero() {
         aria-hidden="true"
       />
 
-      {/* Content */}
-      <div className="relative z-10 text-center px-fitz-4 md:px-fitz-6">
+      {/* Content — parallax container */}
+      <div
+        ref={contentRef}
+        className="relative z-10 text-center px-fitz-4 md:px-fitz-6"
+        style={{ willChange: "transform" }}
+      >
         {/* Role label */}
         <p
           className={cn(
@@ -99,7 +144,8 @@ export function TeachingHero() {
               color: "hsl(30 10% 20%)",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
               transitionDelay: "800ms",
-              textShadow: "0 1px 2px hsl(40 20% 80% / 0.3)",
+              textShadow:
+                "0 1px 2px hsl(40 20% 80% / 0.3), 0 4px 20px hsl(40 30% 70% / 0.08)",
             }}
           >
             From Silence
@@ -126,7 +172,8 @@ export function TeachingHero() {
               color: "hsl(30 10% 20%)",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
               transitionDelay: "1100ms",
-              textShadow: "0 1px 2px hsl(40 20% 80% / 0.3)",
+              textShadow:
+                "0 1px 2px hsl(40 20% 80% / 0.3), 0 4px 20px hsl(40 30% 70% / 0.08)",
             }}
           >
             Unto Sound
@@ -147,7 +194,7 @@ export function TeachingHero() {
         >
           <div
             className={cn(
-              "h-px w-12 mx-auto origin-left transition-transform duration-[700ms]",
+              "h-px w-12 mx-auto origin-center transition-transform duration-[700ms]",
               isRevealed ? "scale-x-100" : "scale-x-0"
             )}
             style={{
@@ -174,14 +221,15 @@ export function TeachingHero() {
             transitionDelay: "1600ms",
           }}
         >
-          I teach you to speak through the instrument — at your pace, in your voice.
+          I teach you to speak through the instrument — at your pace, in your
+          voice.
         </p>
       </div>
 
-      {/* Breathing scroll cue — golden dot */}
+      {/* Breathing scroll cue — chevron + dot */}
       <div
         className={cn(
-          "absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 transition-opacity duration-[700ms]",
+          "absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-opacity duration-[700ms]",
           isRevealed && !hasScrolled ? "opacity-100" : "opacity-0",
           hasScrolled && "pointer-events-none"
         )}
@@ -192,6 +240,26 @@ export function TeachingHero() {
         >
           Scroll to begin
         </span>
+        {/* Animated chevron */}
+        <svg
+          width="14"
+          height="8"
+          viewBox="0 0 14 8"
+          fill="none"
+          className="opacity-40"
+          style={{
+            animation: "scroll-chevron-bounce 2.4s ease-in-out infinite",
+          }}
+          aria-hidden="true"
+        >
+          <path
+            d="M1 1L7 7L13 1"
+            stroke="hsl(30 10% 40%)"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
         <span
           className="block w-2 h-2 rounded-full bg-[hsl(var(--vow-yellow))]"
           style={{
@@ -219,6 +287,14 @@ export function TeachingHero() {
         @keyframes teaching-hero-vignette {
           0%, 100% { opacity: 0.6; }
           50% { opacity: 0.78; }
+        }
+        @keyframes hero-light-bloom {
+          0%, 100% { opacity: 0.6; }
+          50% { opacity: 1; }
+        }
+        @keyframes scroll-chevron-bounce {
+          0%, 100% { transform: translateY(0); opacity: 0.35; }
+          50% { transform: translateY(4px); opacity: 0.6; }
         }
         @media (prefers-reduced-motion: reduce) {
           #teaching-hero * {

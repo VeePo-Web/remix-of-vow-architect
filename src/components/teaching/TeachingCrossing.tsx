@@ -66,16 +66,34 @@ export function TeachingCrossing() {
       />
 
       <div className="relative z-10 max-w-[600px] mx-auto text-center">
+        {/* Whispered section label */}
+        <p
+          className={cn(
+            "font-sans text-[11px] uppercase tracking-[0.22em] mb-fitz-5 transition-all duration-[700ms]",
+            isVisible
+              ? "opacity-40 translate-y-0"
+              : "opacity-0 translate-y-[6px]"
+          )}
+          style={{
+            color: "hsl(30 10% 45%)",
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "100ms",
+          }}
+        >
+          The invitation
+        </p>
+
         {/* Golden dot — arrival marker */}
         <span
           className={cn(
-            "block w-2 h-2 rounded-full mx-auto mb-fitz-8 transition-all duration-[900ms]",
+            "block w-2 h-2 rounded-full mx-auto mb-fitz-7 transition-all duration-[900ms]",
             isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
           )}
           style={{
             background: "hsl(var(--vow-yellow))",
             boxShadow: "0 0 8px 2px hsl(var(--vow-yellow) / 0.15)",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "150ms",
           }}
           aria-hidden="true"
         />
@@ -91,7 +109,8 @@ export function TeachingCrossing() {
           style={{
             color: "hsl(30 10% 20%)",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-            transitionDelay: "200ms",
+            transitionDelay: "300ms",
+            textShadow: "0 1px 2px hsl(40 20% 80% / 0.25)",
           }}
         >
           From Silence
@@ -110,23 +129,35 @@ export function TeachingCrossing() {
           <span className="text-[hsl(var(--vow-yellow))]">.</span>
         </p>
 
-        {/* CTA */}
+        {/* CTA — warm glow halo behind button */}
         <div
           className={cn(
-            "mb-fitz-6 transition-all duration-[700ms]",
+            "relative mb-fitz-6 transition-all duration-[700ms]",
             isVisible
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-[8px]"
           )}
           style={{
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-            transitionDelay: "400ms",
+            transitionDelay: "500ms",
           }}
         >
+          {/* Ambient halo behind CTA */}
+          <div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[60px] rounded-full pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(ellipse, hsl(var(--vow-yellow) / 0.12), transparent 70%)",
+              animation: isVisible
+                ? "cta-halo-breathe 4s ease-in-out infinite"
+                : undefined,
+            }}
+            aria-hidden="true"
+          />
           <Button
             asChild
             size="lg"
-            className="font-sans text-[14px] uppercase tracking-[0.14em] bg-[hsl(var(--vow-yellow))] text-[hsl(30_10%_12%)] hover:bg-[hsl(var(--vow-yellow)/0.85)] transition-colors duration-[180ms] border-2 border-[hsl(var(--vow-yellow))] rounded-md px-10 py-3.5"
+            className="relative font-sans text-[14px] uppercase tracking-[0.14em] bg-[hsl(var(--vow-yellow))] text-[hsl(30_10%_12%)] hover:bg-[hsl(var(--vow-yellow)/0.85)] border-2 border-[hsl(var(--vow-yellow))] rounded-md px-10 py-3.5 transition-all duration-[260ms] hover:shadow-[0_4px_20px_hsl(var(--vow-yellow)/0.25)] hover:-translate-y-[1px]"
           >
             <Link to="/contact">Sit down with me.</Link>
           </Button>
@@ -143,7 +174,7 @@ export function TeachingCrossing() {
           style={{
             color: "hsl(30 10% 35%)",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-            transitionDelay: "600ms",
+            transitionDelay: "700ms",
           }}
         >
           Response within 24 hours.{" "}
@@ -156,7 +187,7 @@ export function TeachingCrossing() {
               )}
               style={{
                 transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
-                transitionDelay: "900ms",
+                transitionDelay: "1000ms",
               }}
               aria-hidden="true"
             />
@@ -173,7 +204,7 @@ export function TeachingCrossing() {
           style={{
             color: "hsl(30 10% 40%)",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-            transitionDelay: "700ms",
+            transitionDelay: "800ms",
           }}
         >
           This is a conversation, not a commitment.
@@ -189,7 +220,7 @@ export function TeachingCrossing() {
             background:
               "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.20), hsl(var(--vow-yellow) / 0.04))",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-            transitionDelay: "1000ms",
+            transitionDelay: "1100ms",
           }}
           aria-hidden="true"
         />
@@ -203,7 +234,7 @@ export function TeachingCrossing() {
           style={{
             color: "hsl(30 12% 50%)",
             transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
-            transitionDelay: "1200ms",
+            transitionDelay: "1300ms",
           }}
           aria-label="Closing annotation"
         >
@@ -224,6 +255,10 @@ export function TeachingCrossing() {
         @keyframes semicolon-breathe {
           0%, 100% { text-shadow: 0 0 20px hsl(var(--vow-yellow) / 0.4); }
           50% { text-shadow: 0 0 40px hsl(var(--vow-yellow) / 0.7); }
+        }
+        @keyframes cta-halo-breathe {
+          0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+          50% { opacity: 0.85; transform: translate(-50%, -50%) scale(1.08); }
         }
         @media (prefers-reduced-motion: reduce) {
           #teaching-crossing * {
