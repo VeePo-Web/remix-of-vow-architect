@@ -42,7 +42,7 @@ export function WitnessCrossing() {
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at center, transparent 20%, hsl(240 12% 6%) 80%)"
+          background: "radial-gradient(ellipse at center, transparent 20%, hsl(var(--deep-graphite)) 80%)"
         }}
         aria-hidden="true"
       />

@@ -188,7 +188,7 @@ export function TheWitnesses() {
       {/* Bottom fade */}
       <div
         className="section-fade-bottom"
-        style={{ background: 'linear-gradient(to bottom, transparent, hsl(240 9% 2%))' }}
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(var(--rich-black)))' }}
         aria-hidden="true"
       />
     </section>
