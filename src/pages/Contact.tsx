@@ -384,12 +384,12 @@ export default function Contact() {
                       {/* Submit Button */}
                       <div className="space-y-3">
                         <div className="flex items-center gap-2">
-                          <Button
+                           <Button
                             type="submit"
                             size="lg"
                             className="flex-1 hover-scale"
                           >
-                            Get my ceremony-audio plan
+                            Hold my date
                           </Button>
                           <ValuePromiseBadge />
                         </div>
