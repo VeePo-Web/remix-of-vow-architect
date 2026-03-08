@@ -1,15 +1,23 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { cn } from "@/lib/utils";
 
 /**
  * TeachingExhale — Recognition / Sacred Pause
  *
- * Dual-weight typographic reveal: italic (emotional) vs roman (declarative).
- * "I understand." breaks the italic pattern — a moment of grounded authority.
- * "The piano has been waiting." carries vow-yellow underline on "waiting."
+ * Scroll-linked word-by-word opacity reveals: each word fades from 0.10 → 1.0
+ * as the user scrolls through the section. The underline on "waiting" appears
+ * at 90% scroll progress. Inspired by Fantasy.co's scroll-driven typography.
  */
 
-const lines = [
+interface LineConfig {
+  text: string;
+  italic: boolean;
+  size: string;
+  underlineWord?: string;
+}
+
+const lines: LineConfig[] = [
   {
     text: "You have a song inside you that you have never been able to play.",
     italic: true,
@@ -33,59 +41,133 @@ const lines = [
   },
 ];
 
-function renderLine(
-  line: (typeof lines)[number],
-  isVisible: boolean,
-  delay: number
-) {
-  const baseStyle = {
-    color: line.italic ? "hsl(30 10% 25%)" : "hsl(30 10% 35%)",
-    transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-    transitionDelay: `${delay}ms`,
-    textShadow: line.italic
-      ? "0 1px 2px hsl(40 20% 80% / 0.25)"
-      : undefined,
-  };
+/**
+ * Flatten all words across all lines into a single array
+ * so scroll progress maps linearly across the entire text block.
+ */
+function buildWordMap(lineConfigs: LineConfig[]) {
+  const words: { word: string; lineIdx: number; isUnderline: boolean }[] = [];
+  lineConfigs.forEach((line, li) => {
+    line.text.split(" ").forEach((w) => {
+      const isUnderline =
+        !!line.underlineWord &&
+        w.toLowerCase().replace(/[^a-z]/g, "") ===
+          line.underlineWord.toLowerCase();
+      words.push({ word: w, lineIdx: li, isUnderline });
+    });
+  });
+  return words;
+}
 
-  if (!line.underlineWord) {
-    return (
-      <span style={baseStyle} className="block">
-        {line.text}
-      </span>
-    );
-  }
+const allWords = buildWordMap(lines);
 
-  const idx = line.text.toLowerCase().indexOf(line.underlineWord.toLowerCase());
-  if (idx === -1) return <span style={baseStyle}>{line.text}</span>;
+function ScrollRevealBlock({ isInView }: { isInView: boolean }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [progress, setProgress] = useState(0);
+  const rafRef = useRef(0);
 
-  const before = line.text.slice(0, idx);
-  const match = line.text.slice(idx, idx + line.underlineWord.length);
-  const after = line.text.slice(idx + line.underlineWord.length);
+  const update = useCallback(() => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const vh = window.innerHeight;
+    // 0 when top enters bottom of viewport, 1 when top reaches 25% from top
+    const raw = 1 - (rect.top - vh * 0.25) / (vh * 0.55);
+    setProgress(Math.max(0, Math.min(1, raw)));
+    rafRef.current = requestAnimationFrame(update);
+  }, []);
+
+  useEffect(() => {
+    if (!isInView) return;
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (prefersReduced) {
+      setProgress(1);
+      return;
+    }
+    rafRef.current = requestAnimationFrame(update);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [isInView, update]);
+
+  // Group words back into lines for rendering
+  let globalIdx = 0;
 
   return (
-    <span style={baseStyle} className="block">
-      {before}
-      <span className="relative inline-block">
-        {match}
-        <span
-          className={cn(
-            "absolute -bottom-0.5 left-0 w-full h-[2px] bg-[hsl(var(--vow-yellow))] origin-left transition-transform duration-[450ms]",
-            isVisible ? "scale-x-100" : "scale-x-0"
-          )}
-          style={{
-            transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
-            transitionDelay: `${delay + 400}ms`,
-          }}
-          aria-hidden="true"
-        />
-      </span>
-      {after}
-    </span>
+    <div ref={containerRef}>
+      {lines.map((line, li) => {
+        const lineWords = allWords.filter((w) => w.lineIdx === li);
+        return (
+          <p
+            key={li}
+            className={cn(
+              "font-display tracking-tight leading-[1.5]",
+              line.size,
+              line.italic ? "italic" : "font-medium not-italic",
+              li < lines.length - 1 ? "mb-fitz-5" : "mb-0"
+            )}
+            style={{
+              color: line.italic ? "hsl(30 10% 25%)" : "hsl(30 10% 35%)",
+              textShadow: line.italic
+                ? "0 1px 2px hsl(40 20% 80% / 0.25)"
+                : undefined,
+            }}
+          >
+            {lineWords.map((w, wi) => {
+              const wordGlobalIdx = globalIdx++;
+              const threshold = wordGlobalIdx / allWords.length;
+              const opacity = isInView
+                ? Math.max(
+                    0.1,
+                    Math.min(1, (progress - threshold * 0.75) / 0.25)
+                  )
+                : 0.1;
+
+              if (w.isUnderline) {
+                return (
+                  <span
+                    key={wi}
+                    className="inline-block transition-opacity duration-[80ms]"
+                    style={{ opacity }}
+                  >
+                    <span className="relative inline-block">
+                      {w.word}
+                      <span
+                        className={cn(
+                          "absolute -bottom-0.5 left-0 w-full h-[2px] bg-[hsl(var(--vow-yellow))] origin-left transition-transform duration-[450ms]",
+                          progress > 0.9 ? "scale-x-100" : "scale-x-0"
+                        )}
+                        style={{
+                          transitionTimingFunction:
+                            "cubic-bezier(.16,1,.3,1)",
+                        }}
+                        aria-hidden="true"
+                      />
+                    </span>
+                    {wi < lineWords.length - 1 ? " " : ""}
+                  </span>
+                );
+              }
+
+              return (
+                <span
+                  key={wi}
+                  className="inline-block transition-opacity duration-[80ms]"
+                  style={{ opacity }}
+                >
+                  {w.word}
+                  {wi < lineWords.length - 1 ? "\u00A0" : ""}
+                </span>
+              );
+            })}
+          </p>
+        );
+      })}
+    </div>
   );
 }
 
 export function TeachingExhale() {
-  const { ref, isVisible } = useScrollReveal({ threshold: 0.3 });
+  const { ref, isVisible } = useScrollReveal({ threshold: 0.15 });
 
   return (
     <section
@@ -169,26 +251,8 @@ export function TeachingExhale() {
           aria-hidden="true"
         />
 
-        {lines.map((line, i) => (
-          <p
-            key={i}
-            className={cn(
-              "font-display tracking-tight transition-all duration-[700ms] leading-[1.5]",
-              line.size,
-              line.italic ? "italic" : "font-medium not-italic",
-              i < lines.length - 1 ? "mb-fitz-5" : "mb-0",
-              isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-[12px]"
-            )}
-            style={{
-              transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-              transitionDelay: `${300 + i * 400}ms`,
-            }}
-          >
-            {renderLine(line, isVisible, 300 + i * 400)}
-          </p>
-        ))}
+        {/* Scroll-linked word-by-word reveals */}
+        <ScrollRevealBlock isInView={isVisible} />
 
         {/* Closing horizontal golden thread */}
         <div
@@ -200,7 +264,7 @@ export function TeachingExhale() {
             background:
               "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-            transitionDelay: "1800ms",
+            transitionDelay: "600ms",
           }}
           aria-hidden="true"
         />
@@ -214,7 +278,7 @@ export function TeachingExhale() {
           style={{
             color: "hsl(30 12% 50%)",
             transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
-            transitionDelay: "2000ms",
+            transitionDelay: "800ms",
           }}
           aria-label="Closing annotation"
         >
