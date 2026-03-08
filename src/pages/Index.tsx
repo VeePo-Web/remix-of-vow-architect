@@ -51,8 +51,7 @@ export default function Index() {
           aria-hidden="true"
         />
 
-        {/* Preload hero image for LCP */}
-        <link rel="preload" as="image" href={heroImage} />
+        {/* Hero image preloaded via index.html for LCP */}
 
         {/* Layer 2: Hero Image with Bottom-Weighted Gradient + Ken Burns */}
         <VigilReveal 
