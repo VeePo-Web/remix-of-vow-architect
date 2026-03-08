@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Check, FileDown } from "lucide-react";
+import { FileDown } from "lucide-react";
 
 const policyItems = [
   "Refund structure: full refund within 14 days; transferable credit after that, with clear timelines.",
@@ -14,20 +14,29 @@ export function FAQPolicyDownload() {
     <section className="section--surface section-padding">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
+          <div className="overline text-center mb-2">Policies</div>
           <h2 className="text-center mb-2">Total transparency — my full booking terms.</h2>
           <div className="chapter-rule mx-auto mb-12" />
 
-          <div className="bg-card border border-border rounded-lg p-8 shadow-sm">
+          <div className="bg-card/80 backdrop-blur-[8px] border border-border/50 rounded-lg p-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)]">
             <ul className="space-y-4 mb-8">
               {policyItems.map((item, index) => (
                 <li key={index} className="flex gap-3">
-                  <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                  <span className="text-muted-foreground">{item}</span>
+                  {/* Golden diamond instead of generic checkmark */}
+                  <span
+                    className="shrink-0 mt-1.5 w-2.5 h-2.5 rotate-45"
+                    style={{
+                      background: "hsl(var(--vow-yellow) / 0.7)",
+                      boxShadow: "0 0 6px hsl(var(--vow-yellow) / 0.3)",
+                    }}
+                    aria-hidden="true"
+                  />
+                  <span className="text-[15px] text-muted-foreground leading-relaxed">{item}</span>
                 </li>
               ))}
             </ul>
 
-            <Button size="lg" className="w-full sm:w-auto">
+            <Button size="lg" variant="primary-dark" className="hover-scale">
               <FileDown className="w-4 h-4 mr-2" />
               Download my full policy sheet
             </Button>

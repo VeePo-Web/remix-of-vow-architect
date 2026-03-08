@@ -34,21 +34,28 @@ export function FAQTrustStack() {
     <section className="section--accent-soft section-padding">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-center mb-12">Why couples trust this process.</h2>
+          <div className="overline text-center mb-2">The Covenant Kept</div>
+          <h2 className="text-center mb-3">Why couples trust this process.</h2>
+          <div className="chapter-rule mx-auto mb-12" />
 
           <div className="grid md:grid-cols-3 gap-6 mb-16">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-card border border-border rounded-lg p-6 shadow-sm">
-                <p className="text-sm text-muted-foreground italic mb-4">
-                  "{testimonial.quote}"
-                </p>
+              <div
+                key={index}
+                className="bg-card/80 backdrop-blur-[8px] border border-border/50 rounded-lg p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)] hover:shadow-[0_0_24px_rgba(255,224,138,0.06)] transition-all duration-[180ms]"
+              >
+                <blockquote className="border-l-2 border-[hsl(var(--vow-yellow)/0.4)] pl-4 mb-4">
+                  <p className="font-display text-[15px] text-foreground italic leading-relaxed">
+                    "{testimonial.quote}"
+                  </p>
+                </blockquote>
                 <div className="flex items-center gap-3">
                   <TestimonialAvatar
                     alt={testimonial.name}
                     fallback={testimonial.initials}
                   />
                   <div>
-                    <div className="font-semibold text-sm">{testimonial.name}</div>
+                    <div className="font-display text-sm font-medium">{testimonial.name}</div>
                     <div className="text-xs text-muted-foreground">{testimonial.location}</div>
                   </div>
                 </div>
@@ -57,7 +64,7 @@ export function FAQTrustStack() {
           </div>
 
           {/* Psychological Journey */}
-          <div className="bg-muted/20 rounded-lg p-8">
+          <div className="bg-card/60 backdrop-blur-[6px] border border-border/40 rounded-lg p-8">
             <div className="grid grid-cols-4 gap-4 max-w-2xl mx-auto">
               {journeySteps.map((step, index) => (
                 <div key={index} className="relative">
@@ -65,12 +72,15 @@ export function FAQTrustStack() {
                     <div className={`${step.color} transition-colors`}>
                       <step.icon className="w-8 h-8" />
                     </div>
-                    <span className={`text-sm font-medium ${step.color}`}>
+                    <span className={`text-sm font-display font-medium ${step.color}`}>
                       {step.label}
                     </span>
                   </div>
                   {index < journeySteps.length - 1 && (
-                    <div className="absolute top-4 left-[60%] w-[80%] h-[2px] bg-border hidden sm:block" />
+                    <div
+                      className="absolute top-4 left-[60%] w-[80%] h-px hidden sm:block"
+                      style={{ background: "linear-gradient(90deg, hsl(var(--border)), hsl(var(--vow-yellow) / 0.2))" }}
+                    />
                   )}
                 </div>
               ))}
