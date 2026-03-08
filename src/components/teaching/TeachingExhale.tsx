@@ -211,7 +211,7 @@ export function TeachingExhale() {
       className="relative py-[120px] md:py-[160px] px-fitz-4 md:px-fitz-6 overflow-hidden"
       style={{ background: "hsl(40 30% 95%)" }}
       role="region"
-      aria-label="Recognition"
+      aria-label="The Exhale"
     >
       {/* ── Layer 1: Warm ambient glow ── */}
       <div

@@ -150,7 +150,7 @@ export function TeachingHero() {
       id="teaching-hero"
       className="relative h-screen w-full overflow-hidden flex items-center justify-center"
       style={{ background: "hsl(40 30% 95%)" }}
-      aria-label="The Empty Bench"
+      aria-label="The Waiting Bench"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
