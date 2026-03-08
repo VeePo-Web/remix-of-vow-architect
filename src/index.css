@@ -889,6 +889,7 @@ All colors MUST be HSL.
 
 .piano-key-thread-fill {
   width: 100%;
+  position: relative;
   background: linear-gradient(
     to bottom,
     hsl(var(--vow-yellow) / 0.3),
@@ -896,6 +897,20 @@ All colors MUST be HSL.
   );
   transition: height 450ms cubic-bezier(0.22, 0.61, 0.36, 1);
   box-shadow: 0 0 6px hsl(var(--vow-yellow) / 0.06);
+}
+
+.piano-key-thread-fill::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: hsl(var(--vow-yellow) / 0.6);
+  box-shadow: 0 0 6px hsl(var(--vow-yellow) / 0.3);
+  animation: piano-thread-dot 3s ease-in-out infinite;
 }
 
 .piano-key--active {
