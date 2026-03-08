@@ -148,7 +148,7 @@ export function WitnessPresence() {
 
           {/* Closing statement — upgraded typography with golden thread */}
           <div 
-            className={cn(
+            className={cn("text-center",
               "mt-16 transition-all duration-700",
               isVisible ? "opacity-100" : "opacity-0"
             )}
@@ -168,7 +168,7 @@ export function WitnessPresence() {
       {/* Section fade bottom → Covenant */}
       <div 
         className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
-        style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--surface)))" }}
+        style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--background)))" }}
         aria-hidden="true"
       />
     </section>

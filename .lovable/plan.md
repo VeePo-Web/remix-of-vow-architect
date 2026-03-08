@@ -1,35 +1,33 @@
 
 
-# About Page — Round 4: Transition Seams and Alignment Fixes
+# Plan: Create Events Brand Identity Document
 
-## Issues Found in Visual Audit
+Create `.lovable/events-brand-identity.md` following the same structure as the wedding and teaching documents — Brand Truth Table, Non-Negotiables/Flex/Dealbreakers, Brand Spine, Positioning, Customer Identity Mirror, Messaging, Voice, and Visual direction.
 
-### 1. Sustain Section Fades to Light Gray — Breaks Dark Page Rhythm
-The Sustain section background gradient goes from `hsl(var(--background))` (dark) to `hsl(var(--surface))` (light cream/gray). On dark theme, `--surface` resolves to a light value, creating a washed-out gray lower half clearly visible in the screenshot. This breaks the dark vigil mood and creates hard seams on both sides (Origin→Sustain and Sustain→Presence).
+## Key Differentiators from Other Verticals
 
-**Fix in `WitnessSustain.tsx` line 35:** Change gradient endpoint from `--surface` to `hsl(var(--deep-graphite))` to stay within the dark palette.
+- **Tone:** Professional and polished, not sacred/vigil (weddings) or warm/mentorship (teaching)
+- **Category:** "Private Event Pianist" — not "sound director" or "mentor"
+- **Mission:** "I understand what live music does to a room" — atmospheric, not ceremonial
+- **Tagline adaptation:** "Every room has a sound it's waiting for."
+- **Enemy:** The generic playlist, the background-noise assumption, the DJ who drowns conversation
+- **Audience:** Hosts planning private dinners, church services, cocktail receptions, intimate celebrations — people who care about atmosphere and presence
 
-### 2. Presence → Covenant Transition Has Visible Cream Band
-The Presence section bottom fade (line 171) targets `hsl(var(--surface))` — a light color. The Covenant section starts with `hsl(var(--background))` (dark). This mismatch creates a visible cream/light horizontal stripe between the two sections.
+## Document Structure (matching existing format)
 
-**Fix in `WitnessPresence.tsx` line 171:** Change from `hsl(var(--surface))` to `hsl(var(--background))` to match the Covenant section's starting color.
+1. **Brand Truth Table** — Events-specific truths (500+ events, 4 occasion types, 500+ repertoire, room-reading ability)
+2. **Non-Negotiables / Flex / Dealbreakers** — Professional tone rules, no "sacred/vigil" language, no entertainment framing
+3. **Brand Spine** — Category stance, enemy, audience, promise, proof, personality
+4. **Positioning & Differentiators** — "Private Event Pianist" category, differentiator table vs DJs/playlists/bands
+5. **Customer Identity Mirror** — "You are my people if..." / "Not for you if..." for event hosts
+6. **Messaging Pillars** — Atmosphere, Adaptability, Professionalism
+7. **Voice & Lexicon** — Events-specific word choices (allowed/banned), CTA phrasing
+8. **Visual Direction** — How the events page differs aesthetically from weddings/teaching
+9. **Cross-Vertical Coherence** — How events connects to the broader Sacred Sound brand
 
-### 3. "ceremonies witnessed" and Closing Statement Appear Left-Offset
-The text "ceremonies witnessed" and "Every one of them heard clearly." visually render left of center despite having `text-center` class. This is because the parent `div` wrapper for the closing statement has no `text-center` on it — the italic serif font combined with the `max-w-6xl` wide container creates a visual asymmetry.
+## File
 
-**Fix in `WitnessPresence.tsx`:** Add `text-center` to the closing statement wrapper div (line 151) to ensure inheritance is explicit.
+- **Create:** `.lovable/events-brand-identity.md`
 
-### 4. Section Labels Appear Left-Aligned
-"THE SUSTAIN", "THE PRESENCE", and "THE COVENANT" labels all render visually left of center. They have `text-center` on the `p` tag, which should work, but the visual impression is that they sit left. This is likely because the labels are very short text inside very wide containers. No structural code fix needed — this is actually centered but appears off due to the tiny text and wide container. However, to be safe, will verify all labels have `text-center` properly applied.
-
----
-
-## Files to Modify
-
-| File | Change |
-|------|--------|
-| `WitnessSustain.tsx` | Change section gradient from `--surface` to `--deep-graphite` |
-| `WitnessPresence.tsx` | Change bottom fade from `--surface` to `--background`; add `text-center` to closing wrapper |
-
-2 files, minimal changes, focused on fixing the two visible transition seams and alignment.
+No code changes required.
 
