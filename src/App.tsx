@@ -37,6 +37,7 @@ function AppRoutes() {
       <Route path="/weddings" element={<Index />} />
       <Route path="/teaching" element={<Teaching />} />
       <Route path="/events" element={<Events />} />
+      <Route path="/events/about" element={<EventsAbout />} />
       <Route path="/pricing" element={<Pricing />} />
       <Route path="/services" element={<Navigate to="/pricing" replace />} />
       <Route path="/proof" element={<Proof />} />
