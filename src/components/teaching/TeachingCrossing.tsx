@@ -99,7 +99,7 @@ function ScrollTagline({ isInView }: { isInView: boolean }) {
           return (
             <span
               key={i}
-              className="inline-block text-[hsl(var(--vow-yellow))] transition-opacity duration-[80ms]"
+              className="inline-block text-primary transition-opacity duration-[80ms]"
               style={{ opacity: periodOpacity }}
             >
               {seg.text}

@@ -299,7 +299,7 @@ export function TeachingHero() {
             specialChar={{
               char: ".",
               delay: 200,
-              className: "text-[hsl(var(--vow-yellow))]",
+              className: "text-primary",
               style: {
                 textShadow: "0 0 14px hsl(var(--vow-yellow) / 0.25)",
               },

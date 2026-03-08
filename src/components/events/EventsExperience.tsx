@@ -78,7 +78,7 @@ export function EventsExperience() {
               >
                 {v.narrative}
               </p>
-              <blockquote className="border-l-2 border-[hsl(var(--vow-yellow))] pl-4">
+              <blockquote className="border-l-2 border-primary pl-4">
                 <p
                   className="font-display italic text-[16px]"
                   style={{ color: "hsl(var(--events-warm-text-deep))" }}
