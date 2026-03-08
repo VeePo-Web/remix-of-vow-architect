@@ -286,7 +286,7 @@ export function TeachingOffering() {
               textShadow: "0 1px 2px hsl(40 20% 80% / 0.25)",
             }}
           >
-            Are you ready to sit down?
+            Would you like to sit down?
           </h2>
         </div>
 
