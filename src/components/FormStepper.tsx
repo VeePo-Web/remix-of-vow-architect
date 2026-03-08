@@ -4,7 +4,7 @@ interface FormStepperProps {
 
 export function FormStepper({ currentStep }: FormStepperProps) {
   return (
-    <div className="flex items-center justify-center gap-3 mb-6">
+    <div className="flex items-center justify-center gap-3 mb-6" role="progressbar" aria-valuenow={currentStep} aria-valuemin={1} aria-valuemax={2} aria-label={`Step ${currentStep} of 2`}>
       <div className="flex items-center gap-2">
         <div
           className={`w-3 h-3 rounded-full transition-colors ${

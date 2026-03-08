@@ -15,7 +15,7 @@ export function EventsHero() {
     const handleScroll = () => {
       if (window.scrollY > 80) setHasScrolled(true);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 

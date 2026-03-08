@@ -40,6 +40,8 @@ export function MinimalScrollCue() {
       style={{
         animation: isVisible && !hasScrolled ? "breathe-scroll 4s ease-in-out infinite" : undefined,
       }}
+      aria-label="Scroll to explore"
+      role="presentation"
     >
       {/* Vertical Line */}
       <div 

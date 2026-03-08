@@ -32,8 +32,16 @@ function ScrollTagline({ isInView }: { isInView: boolean }) {
       setProgress(1);
       return;
     }
-    rafRef.current = requestAnimationFrame(updateProgress);
-    return () => cancelAnimationFrame(rafRef.current);
+    const onScroll = () => {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(updateProgress);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll(); // initial calc
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(rafRef.current);
+    };
   }, [isInView, updateProgress]);
 
   // Words with special tokens for semicolon and period

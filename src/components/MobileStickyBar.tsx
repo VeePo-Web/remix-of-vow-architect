@@ -99,6 +99,6 @@ export function MobileStickyBar() {
           </Link>
         </div>
       </div>
-    </div>
+    </nav>
   );
 }
