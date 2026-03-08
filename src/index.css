@@ -992,6 +992,16 @@ All colors MUST be HSL.
   }
 }
 
+@keyframes piano-active-breathe {
+  0%, 100% { box-shadow: -4px 0 12px hsl(var(--vow-yellow) / 0.08); }
+  50% { box-shadow: -6px 0 18px hsl(var(--vow-yellow) / 0.18); }
+}
+
+@keyframes piano-thread-dot {
+  0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.4); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .piano-key {
     animation: none !important;
