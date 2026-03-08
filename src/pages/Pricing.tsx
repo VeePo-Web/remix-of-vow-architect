@@ -126,7 +126,7 @@ export default function Pricing() {
 
                   <div className="space-y-2 text-xs text-muted-foreground">
                     <p className="font-medium">Booking: 50% deposit; balance due 14 days before the event.</p>
-                    <p className="italic">Bonus: Your personalized PDF plan (mic / power / SPL notes) delivered within 24 hours of inquiry.</p>
+                    <p className="italic">Bonus: Your personalized ceremony plan delivered within 24 hours of inquiry.</p>
                   </div>
                 </Card>
 

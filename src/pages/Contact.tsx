@@ -247,7 +247,7 @@ export default function Contact() {
                             className="mt-2"
                           />
                           <p className="text-xs text-muted-foreground mt-1">
-                            Helps tune audibility and seating arc.
+                            Helps me ensure every word carries to every seat.
                           </p>
                           {errors.guestCount && (
                             <p className="text-xs text-destructive mt-1">
