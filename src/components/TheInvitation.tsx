@@ -199,7 +199,7 @@ export function TheInvitation() {
             {/* Label */}
             <p
               className={cn(
-                'text-xs uppercase tracking-[0.22em] text-[hsl(45_60%_70%_/_0.5)] mb-8',
+                'text-xs uppercase tracking-[0.22em] text-muted-foreground mb-8',
                 'transition-all duration-500',
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               )}
