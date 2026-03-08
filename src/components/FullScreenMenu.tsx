@@ -106,12 +106,17 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
 
   const handleItemClick = useCallback((index: number) => {
     setPressedIndex(index);
-    // Tactile delay — feel the key depress before navigating
+    const targetPath = menuItems[index].href;
+    // Tactile delay — feel the key depress, then transition gracefully
     setTimeout(() => {
       setPressedIndex(null);
       onClose();
+      // Use graceful transition if navigating to a different page
+      if (targetPath !== location.pathname) {
+        navigateWithTransition(targetPath);
+      }
     }, 120);
-  }, [onClose]);
+  }, [onClose, location.pathname, navigateWithTransition]);
 
   return (
     <div
