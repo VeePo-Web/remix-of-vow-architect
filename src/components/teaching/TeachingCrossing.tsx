@@ -156,7 +156,7 @@ export function TeachingCrossing() {
       id="teaching-crossing"
       ref={ref}
       className="relative py-[140px] md:py-[180px] px-fitz-4 md:px-fitz-6 overflow-hidden"
-      style={{ background: "hsl(38 35% 93%)" }}
+      style={{ background: "hsl(var(--teaching-bg-alt))" }}
       role="region"
       aria-label="The Invitation"
     >
@@ -187,7 +187,7 @@ export function TeachingCrossing() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 45%, hsl(38 25% 85% / 0.5) 100%)",
+            "radial-gradient(ellipse at center, transparent 45%, hsl(var(--teaching-vignette-alt) / 0.5) 100%)",
           animation: "crossing-vignette 6s ease-in-out infinite",
         }}
         aria-hidden="true"
@@ -217,7 +217,7 @@ export function TeachingCrossing() {
               : "opacity-0 translate-y-[6px]"
           )}
           style={{
-            color: "hsl(30 10% 45%)",
+            color: "hsl(var(--teaching-text-label))",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             transitionDelay: "100ms",
           }}
@@ -244,8 +244,8 @@ export function TeachingCrossing() {
         <h2
           className="font-display text-[28px] md:text-[40px] font-light tracking-tight mb-fitz-7"
           style={{
-            color: "hsl(30 10% 20%)",
-            textShadow: "0 1px 2px hsl(40 20% 80% / 0.25)",
+            color: "hsl(var(--teaching-text-heading))",
+            textShadow: "0 1px 2px hsl(var(--teaching-vignette) / 0.25)",
           }}
         >
           <ScrollTagline isInView={isVisible} />
@@ -296,7 +296,7 @@ export function TeachingCrossing() {
                 : "opacity-0 translate-y-[6px]"
             )}
             style={{
-              color: "hsl(30 10% 35%)",
+              color: "hsl(var(--teaching-text-body) / 0.85)",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
               transitionDelay: "400ms",
             }}
@@ -326,7 +326,7 @@ export function TeachingCrossing() {
                 : "opacity-0 translate-y-[4px]"
             )}
             style={{
-              color: "hsl(30 10% 40%)",
+              color: "hsl(var(--teaching-text-body))",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
               transitionDelay: "500ms",
             }}
@@ -357,7 +357,7 @@ export function TeachingCrossing() {
             ctaVisible ? "opacity-35" : "opacity-0"
           )}
           style={{
-            color: "hsl(30 12% 50%)",
+            color: "hsl(var(--teaching-text-cite))",
             transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
             transitionDelay: "1000ms",
           }}

@@ -106,6 +106,18 @@ All colors MUST be HSL.
     --events-warm-cite: 30 8% 50%;
     --events-approach-bg: 30 8% 14%;
 
+    /* Teaching Vertical Warm Palette */
+    --teaching-bg: 40 30% 95%;
+    --teaching-bg-alt: 38 35% 93%;
+    --teaching-vignette: 40 25% 88%;
+    --teaching-vignette-alt: 38 25% 85%;
+    --teaching-text-heading: 30 10% 20%;
+    --teaching-text-body: 30 10% 40%;
+    --teaching-text-label: 30 10% 45%;
+    --teaching-text-cite: 30 12% 50%;
+    --teaching-text-narrative: 30 12% 30%;
+    --teaching-text-quote: 30 20% 18%;
+
     /* Fitzgerald Typography Scale */
     --font-display: "Cormorant Garamond", "DM Serif Display", "Times New Roman", serif;
     --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;

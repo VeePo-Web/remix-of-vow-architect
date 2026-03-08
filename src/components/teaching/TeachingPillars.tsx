@@ -170,8 +170,8 @@ function PillarCard({
               : "opacity-0 translate-y-[12px]"
           )}
           style={{
-            color: "hsl(30 10% 20%)",
-            textShadow: "0 1px 2px hsl(40 20% 80% / 0.25)",
+            color: "hsl(var(--teaching-text-heading))",
+            textShadow: "0 1px 2px hsl(var(--teaching-vignette) / 0.25)",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             transitionDelay: "120ms",
           }}
@@ -182,7 +182,7 @@ function PillarCard({
         {/* Description — scroll-linked word reveals */}
         <p
           className="font-sans text-[16px] leading-[1.7] max-w-[480px] mx-auto"
-          style={{ color: "hsl(30 10% 40%)" }}
+          style={{ color: "hsl(var(--teaching-text-body))" }}
         >
           <ScrollDescription
             text={pillar.description}
@@ -274,7 +274,7 @@ export function TeachingPillars() {
     <section
       id="teaching-pillars"
       className="relative py-[140px] md:py-[180px] px-fitz-4 md:px-fitz-6 overflow-hidden"
-      style={{ background: "hsl(40 30% 95%)" }}
+      style={{ background: "hsl(var(--teaching-bg))" }}
       role="region"
       aria-label="What I Hold to Be True"
     >
@@ -283,7 +283,7 @@ export function TeachingPillars() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 45%, hsl(40 25% 88% / 0.5) 100%)",
+            "radial-gradient(ellipse at center, transparent 45%, hsl(var(--teaching-vignette) / 0.5) 100%)",
           animation: "pillars-vignette-breathe 6s ease-in-out infinite",
         }}
         aria-hidden="true"
@@ -310,7 +310,7 @@ export function TeachingPillars() {
                 : "opacity-0 translate-y-[8px]"
             )}
             style={{
-              color: "hsl(30 10% 45%)",
+              color: "hsl(var(--teaching-text-label))",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
               transitionDelay: "100ms",
             }}
@@ -381,7 +381,7 @@ export function TeachingPillars() {
               closingVisible ? "opacity-30" : "opacity-0"
             )}
             style={{
-              color: "hsl(30 12% 50%)",
+              color: "hsl(var(--teaching-text-cite))",
               transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
               transitionDelay: "400ms",
             }}

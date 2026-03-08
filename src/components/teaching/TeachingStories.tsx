@@ -147,7 +147,7 @@ function StoryCard({
       {/* Narrative — scroll-linked word-by-word */}
       <p
         className="font-sans text-[16px] leading-[1.75] text-center mb-fitz-7"
-        style={{ color: "hsl(30 12% 30%)" }}
+        style={{ color: "hsl(var(--teaching-text-narrative))" }}
       >
         <ScrollNarrative text={story.narrative} isInView={isVisible} />
       </p>
@@ -174,8 +174,8 @@ function StoryCard({
         ref={quoteRef}
         className="font-display italic text-[20px] md:text-[24px] tracking-tight text-center"
         style={{
-          color: "hsl(30 20% 18%)",
-          textShadow: "0 1px 2px hsl(40 20% 80% / 0.3)",
+          color: "hsl(var(--teaching-text-quote))",
+          textShadow: "0 1px 2px hsl(var(--teaching-vignette) / 0.3)",
         }}
       >
         "
@@ -280,7 +280,7 @@ export function TeachingStories() {
     <section
       id="teaching-stories"
       className="relative py-[140px] md:py-[180px] px-fitz-4 md:px-fitz-6 overflow-hidden"
-      style={{ background: "hsl(38 35% 93%)" }}
+      style={{ background: "hsl(var(--teaching-bg-alt))" }}
       role="region"
       aria-label="Those Who Sat Down"
     >
@@ -299,7 +299,7 @@ export function TeachingStories() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 50%, hsl(38 25% 85% / 0.5) 100%)",
+            "radial-gradient(ellipse at center, transparent 50%, hsl(var(--teaching-vignette-alt) / 0.5) 100%)",
           animation: "stories-vignette 6s ease-in-out infinite",
         }}
         aria-hidden="true"
@@ -316,7 +316,7 @@ export function TeachingStories() {
                 : "opacity-0 translate-y-[8px]"
             )}
             style={{
-              color: "hsl(30 10% 45%)",
+              color: "hsl(var(--teaching-text-label))",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             }}
           >
@@ -371,7 +371,7 @@ export function TeachingStories() {
               closingVisible ? "opacity-30" : "opacity-0"
             )}
             style={{
-              color: "hsl(30 12% 50%)",
+              color: "hsl(var(--teaching-text-cite))",
               transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
               transitionDelay: "400ms",
             }}
