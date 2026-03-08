@@ -187,6 +187,7 @@ export function ProcessSection() {
           <img 
             src={ceremonyImg} 
             alt="" 
+            aria-hidden="true"
             className="process-closing__backdrop-img"
             loading="lazy"
             decoding="async"

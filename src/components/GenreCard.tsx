@@ -74,6 +74,7 @@ export function GenreCard({
       <img
         src={image}
         alt=""
+        aria-hidden="true"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         style={{
           opacity: isActive ? 0.35 : 0.2,
@@ -83,7 +84,6 @@ export function GenreCard({
         }}
         loading="lazy"
         decoding="async"
-        aria-hidden="true"
       />
 
       {/* Per-genre atmospheric gradient */}
