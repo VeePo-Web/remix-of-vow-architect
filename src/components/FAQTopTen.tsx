@@ -30,7 +30,7 @@ const topTenFAQs = [
   {
     question: "How do I know my officiant will be coordinated?",
     answer: "I co-author your cue sheet with your officiant and planner — every entrance, every vow, every exit is timed and agreed upon in advance.",
-    link: { to: "/gallery", label: "See a sample plan" }
+    link: { to: "/proof", label: "See a sample plan" }
   },
   {
     question: "Will people in the back hear our vows?",
