@@ -64,7 +64,7 @@ export function FAQTopTen() {
     <section className="section--default section-padding grain">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-center mb-4">Your concerns, solved before you ask.</h2>
+          <h2 className="text-center mb-4">Your concerns, addressed before you ask.</h2>
           <div className="chapter-rule mx-auto mb-12" />
 
           <Accordion type="single" collapsible className="space-y-4">

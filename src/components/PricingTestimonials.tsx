@@ -3,17 +3,17 @@ import { TestimonialAvatar } from "./TestimonialAvatar";
 
 const testimonials = [
   {
-    quote: "Worth more than a DJ. Parker nailed every cue—no mic feedback, no delays.",
+    quote: "Worth more than any DJ. Every cue was seamless — no feedback, no delays, just music.",
     author: "Jessica M.",
     venue: "Lake Louise",
-    package: "Ceremony Only — $650",
+    package: "The Vow — $650",
     initials: "JM",
   },
   {
-    quote: "The pricing made us skeptical—the delivery made us believers.",
+    quote: "The pricing seemed too good to be true — the experience proved it was real.",
     author: "Mike & Aria",
     venue: "Canmore",
-    package: "Ceremony + Prelude/Cocktails — $750",
+    package: "The Hour — $750",
     initials: "MA",
   },
 ];

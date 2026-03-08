@@ -2,11 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Check, FileDown } from "lucide-react";
 
 const policyItems = [
-  "Refund structure: 14-day full refund; after, credit/transfer rules by notice window.",
-  "Weather relocation policy: pre-approved Plan B positions and timing.",
-  "Backup protocol: triple failover across mic, amp, instrument.",
-  "Timeline changes: upgrade window up to 2 weeks prior.",
-  "Response SLA: written confirmations and plan delivery within 24 hours."
+  "Refund structure: full refund within 14 days; transferable credit after that, with clear timelines.",
+  "Weather relocation: pre-approved backup positions and timing, agreed in advance.",
+  "Redundancy: triple failover across microphone, amplifier, and instrument.",
+  "Flexibility: upgrade your arrangement up to 2 weeks before your ceremony.",
+  "Response commitment: written confirmation and personalized plan within 24 hours."
 ];
 
 export function FAQPolicyDownload() {

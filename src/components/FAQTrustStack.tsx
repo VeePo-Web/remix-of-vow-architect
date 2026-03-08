@@ -34,7 +34,7 @@ export function FAQTrustStack() {
     <section className="section--accent-soft section-padding">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-center mb-12">Why no couple regrets choosing Parker.</h2>
+          <h2 className="text-center mb-12">Why couples trust this process.</h2>
 
           <div className="grid md:grid-cols-3 gap-6 mb-16">
             {testimonials.map((testimonial, index) => (

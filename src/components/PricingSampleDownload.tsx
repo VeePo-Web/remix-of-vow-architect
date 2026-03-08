@@ -6,12 +6,12 @@ export function PricingSampleDownload() {
   return (
     <section id="download" className="py-16 px-4 bg-muted/30">
       <div className="container mx-auto max-w-4xl">
-        <div className="text-center mb-8">
+         <div className="text-center mb-8">
           <h2 className="h2 text-center mb-4">
-            Still comparing?
+            See what a ceremony plan looks like.
           </h2>
           <p className="p-lead text-muted-foreground max-w-2xl mx-auto">
-            Download a real SPL log, cue sheet, and plan summary from a recent $750 path—see exactly how I document power, mic placement, and legal clarity.
+            Download a real plan from a recent ceremony — venue considerations, timeline, and documentation included.
           </p>
         </div>
 
@@ -21,9 +21,9 @@ export function PricingSampleDownload() {
               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-3">
                 <Activity size={24} className="text-primary" />
               </div>
-              <h3 className="font-semibold mb-1">SPL Log</h3>
+              <h3 className="font-semibold mb-1">Volume Documentation</h3>
               <p className="text-sm text-muted-foreground">
-                Three readings with timestamps
+                Three verified readings with timestamps
               </p>
             </div>
             
@@ -33,7 +33,7 @@ export function PricingSampleDownload() {
               </div>
               <h3 className="font-semibold mb-1">Cue Sheet</h3>
               <p className="text-sm text-muted-foreground">
-                Co-authored with planner
+                Co-authored with your planner
               </p>
             </div>
             
@@ -41,9 +41,9 @@ export function PricingSampleDownload() {
               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-3">
                 <Mic size={24} className="text-primary" />
               </div>
-              <h3 className="font-semibold mb-1">Plan Summary</h3>
+              <h3 className="font-semibold mb-1">Ceremony Plan</h3>
               <p className="text-sm text-muted-foreground">
-                Power, mic, and compliance notes
+                Venue, power, and timeline notes
               </p>
             </div>
           </div>
@@ -51,7 +51,7 @@ export function PricingSampleDownload() {
           <div className="flex justify-center">
             <Button size="lg" className="gap-2">
               <Download size={20} />
-              See what a ceremony-audio plan actually looks like
+              Download a sample ceremony plan
             </Button>
           </div>
         </Card>
