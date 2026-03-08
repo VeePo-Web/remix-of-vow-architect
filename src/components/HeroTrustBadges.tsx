@@ -1,10 +1,10 @@
 import { Check, Mic, Battery, Activity, ShieldCheck } from "lucide-react";
 
 const badges = [
-  { icon: Mic, label: "Officiant/vow mic included" },
-  { icon: Battery, label: "Silent battery (no generators)" },
-  { icon: Activity, label: "SPL log with 3 readings" },
-  { icon: ShieldCheck, label: "Insurance: $2M professional + $2M general liability + $25k equipment" },
+  { icon: Mic, label: "Sound system included" },
+  { icon: Battery, label: "Silent battery power" },
+  { icon: Activity, label: "Volume verified at three key moments" },
+  { icon: ShieldCheck, label: "Fully insured — $2M liability + $25k equipment" },
 ];
 
 export function HeroTrustBadges() {

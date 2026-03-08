@@ -6,18 +6,18 @@ import { StaggerChildren } from "@/components/animation";
 const systemCards = [
   {
     icon: Mic,
-    title: "Live-mixed vows, crystal clear—even in wind.",
-    description: "I place and mix your officiant/vow mic so words land without 'shouty' volume.",
+    title: "Every word carries — even outdoors.",
+    description: "I position and balance sound so your vows land clearly in every seat, without feeling amplified or unnatural.",
   },
   {
     icon: Battery,
-    title: "Generator-free, silent battery",
-    description: "with ≥2.5× ceremony runtime and on-site backups. No hum. No drama.",
+    title: "Silent power, zero interruptions.",
+    description: "Battery-powered systems with on-site backups ensure clean, quiet operation throughout your ceremony.",
   },
   {
     icon: Activity,
-    title: "Measured clarity",
-    description: "within local limits; I log three readings (Prelude / Vows / Recessional) and adjust in real time.",
+    title: "Verified at three key moments.",
+    description: "I check volume during the Prelude, Vows, and Recessional — adjusting in real time so every phase sounds exactly right.",
   },
 ];
 

@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { TestimonialAvatar } from "@/components/TestimonialAvatar";
 import { Shield, FileCheck, Package } from "lucide-react";
-import { StaggerChildren } from "@/components/animation";
+import { RevealOnScroll, StaggerChildren } from "@/components/animation";
 
 const insuranceItems = [
   {
@@ -27,7 +27,12 @@ export function InsuranceDocuments() {
     <section className="section--surface section-padding">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
-          <h2 className="h2 mb-12 text-center">Fully Insured. Fully Transparent.</h2>
+          <RevealOnScroll variant="up">
+            <h2 className="h2 mb-4 text-center">Fully Insured. Fully Transparent.</h2>
+            <p className="text-muted-foreground text-center max-w-3xl mx-auto mb-12">
+              Every performance is backed by comprehensive coverage — sent to your venue and planner before the day arrives.
+            </p>
+          </RevealOnScroll>
           
           <StaggerChildren staggerDelay={80} className="grid md:grid-cols-3 gap-6 mb-8">
             {insuranceItems.map((item, i) => (
