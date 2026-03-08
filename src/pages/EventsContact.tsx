@@ -137,7 +137,7 @@ export default function EventsContact() {
                 <p className="p-lead mx-auto text-muted-foreground mt-6">
                   Share the details — I will respond within 24 hours with a tailored proposal.
                 </p>
-                <p className="caption mt-4 text-center">No obligation. Two-minute form.</p>
+                <p className="text-xs text-muted-foreground mt-3">No obligation — one-minute form.</p>
               </div>
 
               {isSubmitted ? (
