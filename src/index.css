@@ -161,7 +161,18 @@ All colors MUST be HSL.
     --teaching-text-heading-light: 40 18% 88%;
     --teaching-scroll-cue: 40 10% 38%;
 
-    /* Fitzgerald Typography Scale */
+    /* Teaching Dark Studio Palette (Methodology/Threshold warm browns) */
+    --teaching-studio-bg: 30 8% 14%;
+    --teaching-studio-fog: 30 12% 18%;
+    --teaching-studio-fog-alt: 30 10% 16%;
+    --teaching-studio-vignette: 30 8% 8%;
+    --teaching-studio-vignette-deep: 30 8% 6%;
+    --teaching-studio-label: 40 15% 55%;
+    --teaching-studio-heading: 40 30% 90%;
+    --teaching-studio-body: 40 20% 75%;
+    --teaching-studio-accent: 40 25% 70%;
+    --teaching-studio-muted: 40 20% 60%;
+
     --font-display: "Cormorant Garamond", "DM Serif Display", "Times New Roman", serif;
     --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     

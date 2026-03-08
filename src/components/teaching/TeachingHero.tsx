@@ -153,7 +153,7 @@ export function TeachingHero() {
       onMouseLeave={handleMouseLeave}
     >
       {/* ── Layer 0: True black base ── */}
-      <div className="absolute inset-0" style={{ background: "hsl(0 0% 2%)" }} aria-hidden="true" />
+      <div className="absolute inset-0" style={{ background: "hsl(var(--rich-black))" }} aria-hidden="true" />
 
       {/* ── Layer 1: Background bench — only warm wood grain texture ── */}
       <div
@@ -174,7 +174,7 @@ export function TeachingHero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 45% 38% at 50% 46%, transparent 0%, hsl(0 0% 0% / 0.92) 100%)",
+            "radial-gradient(ellipse 45% 38% at 50% 46%, transparent 0%, hsl(var(--rich-black) / 0.92) 100%)",
         }}
         aria-hidden="true"
       />
@@ -184,7 +184,7 @@ export function TeachingHero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(180deg, hsl(0 0% 0% / 0.97) 0%, hsl(0 0% 0% / 0.6) 18%, transparent 38%, transparent 62%, hsl(0 0% 0% / 0.85) 100%)",
+            "linear-gradient(180deg, hsl(var(--rich-black) / 0.97) 0%, hsl(var(--rich-black) / 0.6) 18%, transparent 38%, transparent 62%, hsl(var(--rich-black) / 0.85) 100%)",
         }}
         aria-hidden="true"
       />
@@ -194,7 +194,7 @@ export function TeachingHero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 40% 35% at 50% 46%, hsl(38 45% 50% / 0.05), transparent 100%)",
+            "radial-gradient(ellipse 40% 35% at 50% 46%, hsl(var(--vow-yellow) / 0.05), transparent 100%)",
           animation: isRevealed
             ? "teaching-halo-breathe 8s ease-in-out infinite"
             : undefined,
@@ -210,7 +210,7 @@ export function TeachingHero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 55% 45% at 38% 52%, hsl(40 60% 50% / 0.02), transparent 70%), radial-gradient(ellipse 45% 35% at 64% 40%, hsl(40 50% 45% / 0.015), transparent 60%)",
+            "radial-gradient(ellipse 55% 45% at 38% 52%, hsl(var(--vow-yellow) / 0.02), transparent 70%), radial-gradient(ellipse 45% 35% at 64% 40%, hsl(var(--vow-yellow) / 0.015), transparent 60%)",
           animation: isRevealed
             ? "teaching-fog-drift 24s ease-in-out infinite alternate"
             : undefined,
@@ -223,7 +223,7 @@ export function TeachingHero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 28%, hsl(0 0% 0%) 100%)",
+            "radial-gradient(ellipse at center, transparent 28%, hsl(var(--rich-black)) 100%)",
           animation: isRevealed
             ? "teaching-hero-vignette 7s ease-in-out infinite"
             : undefined,
@@ -267,7 +267,7 @@ export function TeachingHero() {
               color: "hsl(var(--teaching-text-heading-light))",
               lineHeight: "1",
               textShadow:
-                "0 1px 3px hsl(0 0% 0% / 0.7), 0 4px 20px hsl(0 0% 0% / 0.5), 0 12px 48px hsl(0 0% 0% / 0.3)",
+                "0 1px 3px hsl(var(--rich-black) / 0.7), 0 4px 20px hsl(var(--rich-black) / 0.5), 0 12px 48px hsl(var(--rich-black) / 0.3)",
             }}
             specialChar={{
               char: ";",
@@ -293,7 +293,7 @@ export function TeachingHero() {
               lineHeight: "1",
               marginTop: "-8px",
               textShadow:
-                "0 1px 3px hsl(0 0% 0% / 0.7), 0 4px 20px hsl(0 0% 0% / 0.5), 0 12px 48px hsl(0 0% 0% / 0.3)",
+                "0 1px 3px hsl(var(--rich-black) / 0.7), 0 4px 20px hsl(var(--rich-black) / 0.5), 0 12px 48px hsl(var(--rich-black) / 0.3)",
             }}
             specialChar={{
               char: ".",
@@ -420,7 +420,7 @@ export function TeachingHero() {
       <div
         className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
         style={{
-          background: "linear-gradient(to bottom, transparent, hsl(0 0% 2%))",
+          background: "linear-gradient(to bottom, transparent, hsl(var(--rich-black)))",
         }}
         aria-hidden="true"
       />

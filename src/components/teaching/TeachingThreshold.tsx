@@ -169,7 +169,7 @@ function FearPair({
           color: "hsl(var(--vow-yellow) / 0.7)",
           transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
           textShadow:
-            "0 1px 3px hsl(0 0% 0% / 0.2), 0 3px 12px hsl(0 0% 0% / 0.08)",
+            "0 1px 3px hsl(var(--rich-black) / 0.2), 0 3px 12px hsl(var(--rich-black) / 0.08)",
         }}
       >
         "{pair.fear}"
@@ -196,8 +196,8 @@ function FearPair({
       <p
         className="font-sans text-[16px] md:text-[18px] leading-[1.75] text-center max-w-[580px] mx-auto"
         style={{
-          color: "hsl(40 25% 85%)",
-          textShadow: "0 1px 3px hsl(0 0% 0% / 0.12)",
+          color: "hsl(var(--teaching-studio-heading))",
+          textShadow: "0 1px 3px hsl(var(--rich-black) / 0.12)",
         }}
       >
         <ScrollResolution
@@ -266,7 +266,7 @@ export function TeachingThreshold() {
     <section
       id="teaching-threshold"
       className="relative py-[140px] md:py-[180px] px-fitz-4 md:px-fitz-6 overflow-hidden"
-      style={{ background: "hsl(30 8% 14%)" }}
+      style={{ background: "hsl(var(--teaching-studio-bg))" }}
       role="region"
       aria-label="The Threshold"
     >
@@ -292,7 +292,7 @@ export function TeachingThreshold() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at 25% 80%, hsl(30 12% 18% / 0.35), transparent 55%), radial-gradient(ellipse at 75% 20%, hsl(30 8% 16% / 0.3), transparent 50%)",
+            "radial-gradient(ellipse at 25% 80%, hsl(var(--teaching-studio-fog) / 0.35), transparent 55%), radial-gradient(ellipse at 75% 20%, hsl(var(--teaching-studio-fog-alt) / 0.3), transparent 50%)",
         }}
         aria-hidden="true"
       />
@@ -302,7 +302,7 @@ export function TeachingThreshold() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at 60% 70%, hsl(30 10% 15% / 0.25), transparent 45%), radial-gradient(ellipse at 40% 25%, hsl(30 8% 17% / 0.2), transparent 40%)",
+            "radial-gradient(ellipse at 60% 70%, hsl(var(--teaching-studio-fog-alt) / 0.25), transparent 45%), radial-gradient(ellipse at 40% 25%, hsl(var(--teaching-studio-fog-alt) / 0.2), transparent 40%)",
           animation: "threshold-fog-drift 20s ease-in-out infinite alternate",
         }}
         aria-hidden="true"
@@ -324,7 +324,7 @@ export function TeachingThreshold() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 30%, hsl(30 8% 6% / 0.65) 100%)",
+            "radial-gradient(ellipse at center, transparent 30%, hsl(var(--teaching-studio-vignette-deep) / 0.65) 100%)",
           animation: "threshold-vignette 6s ease-in-out infinite",
         }}
         aria-hidden="true"
@@ -341,7 +341,7 @@ export function TeachingThreshold() {
                 : "opacity-0 translate-y-[8px]"
             )}
             style={{
-              color: "hsl(40 15% 55%)",
+              color: "hsl(var(--teaching-studio-label))",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             }}
           >
@@ -405,7 +405,7 @@ export function TeachingThreshold() {
               closingVisible ? "opacity-30" : "opacity-0"
             )}
             style={{
-              color: "hsl(40 15% 55%)",
+              color: "hsl(var(--teaching-studio-label))",
               transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
               transitionDelay: "500ms",
             }}

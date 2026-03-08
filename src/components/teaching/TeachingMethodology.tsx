@@ -116,7 +116,7 @@ export function TeachingMethodology() {
       id="teaching-methodology"
       ref={ref}
       className="relative py-[140px] md:py-[180px] px-fitz-4 md:px-fitz-6 overflow-hidden"
-      style={{ background: "hsl(30 8% 14%)" }}
+      style={{ background: "hsl(var(--teaching-studio-bg))" }}
       role="region"
       aria-label="The First Conversation"
     >
@@ -142,7 +142,7 @@ export function TeachingMethodology() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at 30% 70%, hsl(30 15% 20% / 0.3), transparent 60%), radial-gradient(ellipse at 70% 30%, hsl(30 10% 18% / 0.25), transparent 55%)",
+            "radial-gradient(ellipse at 30% 70%, hsl(var(--teaching-studio-fog) / 0.3), transparent 60%), radial-gradient(ellipse at 70% 30%, hsl(var(--teaching-studio-fog-alt) / 0.25), transparent 55%)",
         }}
         aria-hidden="true"
       />
@@ -152,7 +152,7 @@ export function TeachingMethodology() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 80%, hsl(30 12% 16% / 0.3), transparent 50%), radial-gradient(ellipse at 20% 20%, hsl(30 10% 18% / 0.15), transparent 40%)",
+            "radial-gradient(ellipse at 50% 80%, hsl(var(--teaching-studio-fog-alt) / 0.3), transparent 50%), radial-gradient(ellipse at 20% 20%, hsl(var(--teaching-studio-fog-alt) / 0.15), transparent 40%)",
           animation: isVisible
             ? "methodology-fog-drift 22s ease-in-out infinite alternate"
             : undefined,
@@ -178,7 +178,7 @@ export function TeachingMethodology() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 35%, hsl(30 8% 8% / 0.6) 100%)",
+            "radial-gradient(ellipse at center, transparent 35%, hsl(var(--teaching-studio-vignette) / 0.6) 100%)",
           animation: isVisible
             ? "methodology-vignette 6s ease-in-out infinite"
             : undefined,
@@ -196,7 +196,7 @@ export function TeachingMethodology() {
               : "opacity-0 translate-y-[6px]"
           )}
           style={{
-            color: "hsl(40 15% 55%)",
+            color: "hsl(var(--teaching-studio-label))",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
           }}
         >
@@ -240,9 +240,9 @@ export function TeachingMethodology() {
         <h2
           className="font-display text-[32px] md:text-[48px] font-light tracking-tight leading-[1.15] mb-fitz-8"
           style={{
-            color: "hsl(40 30% 90%)",
+            color: "hsl(var(--teaching-studio-heading))",
             textShadow:
-              "0 1px 2px hsl(0 0% 0% / 0.3), 0 4px 16px hsl(0 0% 0% / 0.15)",
+              "0 1px 2px hsl(var(--rich-black) / 0.3), 0 4px 16px hsl(var(--rich-black) / 0.15)",
           }}
         >
           <ScrollRevealWords
@@ -256,8 +256,8 @@ export function TeachingMethodology() {
         <p
           className="font-sans text-[16px] md:text-[18px] leading-[1.7] max-w-[600px] mx-auto mb-fitz-7"
           style={{
-            color: "hsl(40 20% 75%)",
-            textShadow: "0 1px 3px hsl(0 0% 0% / 0.15)",
+            color: "hsl(var(--teaching-studio-body))",
+            textShadow: "0 1px 3px hsl(var(--rich-black) / 0.15)",
           }}
         >
           <ScrollRevealWords
@@ -275,11 +275,11 @@ export function TeachingMethodology() {
               : "opacity-0 translate-y-[6px]"
           )}
           style={{
-            color: "hsl(40 25% 70%)",
+            color: "hsl(var(--teaching-studio-accent))",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             transitionDelay: "700ms",
             textShadow:
-              "0 1px 2px hsl(0 0% 0% / 0.2), 0 3px 12px hsl(0 0% 0% / 0.08)",
+              "0 1px 2px hsl(var(--rich-black) / 0.2), 0 3px 12px hsl(var(--rich-black) / 0.08)",
           }}
         >
           Every voice arrives as a seed. Your hands are the soil. I keep vigil while it takes root.
@@ -292,7 +292,7 @@ export function TeachingMethodology() {
             isVisible ? "opacity-35" : "opacity-0"
           )}
           style={{
-            color: "hsl(40 20% 60%)",
+            color: "hsl(var(--teaching-studio-muted))",
             transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
             transitionDelay: "1000ms",
           }}
