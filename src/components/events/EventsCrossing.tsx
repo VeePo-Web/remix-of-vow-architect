@@ -78,8 +78,8 @@ export function EventsCrossing() {
         </p>
         <p
           className={cn(
-            "font-sans text-[12px] text-muted-foreground/60 mt-1 transition-all duration-[700ms]",
-            isVisible ? "opacity-100" : "opacity-0"
+            "font-sans text-[12px] text-muted-foreground mt-1 transition-all duration-[700ms]",
+            isVisible ? "opacity-60" : "opacity-0"
           )}
           style={{ transitionDelay: "850ms" }}
         >

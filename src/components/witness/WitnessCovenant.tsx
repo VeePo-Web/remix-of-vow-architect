@@ -91,7 +91,7 @@ export function WitnessCovenant() {
                 <p 
                   key={index}
                   className={cn(
-                    "font-display text-lg text-foreground/90 text-center leading-relaxed transition-all duration-500",
+                    "font-display text-lg text-foreground text-center leading-relaxed transition-all duration-500",
                     isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                   )}
                   style={{ transitionDelay: `${400 + index * 150}ms` }}
