@@ -13,7 +13,7 @@ const steps = [
 export function SetupTimeline() {
   return (
     <div className="relative">
-      <h3 className="text-xl font-bold text-center mb-8">Setup timeline</h3>
+      <h3 className="font-display text-xl font-light text-center mb-8">Setup timeline</h3>
       
       <div className="flex overflow-x-auto pb-4 snap-x snap-mandatory gap-4 scrollbar-thin">
         {steps.map((step, index) => (
