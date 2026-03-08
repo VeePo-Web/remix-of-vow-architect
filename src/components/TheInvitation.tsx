@@ -241,7 +241,7 @@ export function TheInvitation() {
             <h2
               id="invitation-heading"
               className={cn(
-                'text-[clamp(26px,4vw,40px)] font-display font-light leading-tight text-white max-w-lg text-pretty',
+                'text-[clamp(26px,4vw,40px)] font-display font-light leading-tight text-foreground max-w-lg text-pretty',
                 'transition-all duration-700',
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               )}
