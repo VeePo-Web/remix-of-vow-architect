@@ -5225,11 +5225,11 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   right: 0;
   height: 8%;
   background: linear-gradient(180deg,
-    rgba(255,255,255,0.14) 0%,
-    rgba(255,255,255,0.08) 40%,
-    rgba(255,255,255,0.02) 100%
+    hsl(0 0% 100% / 0.14) 0%,
+    hsl(0 0% 100% / 0.08) 40%,
+    hsl(0 0% 100% / 0.02) 100%
   );
-  border-bottom: 2px solid rgba(255,255,255,0.06);
+  border-bottom: 2px solid hsl(0 0% 100% / 0.06);
   border-radius: 0 0 2px 2px;
   pointer-events: none;
 }
