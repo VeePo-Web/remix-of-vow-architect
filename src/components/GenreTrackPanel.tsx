@@ -67,7 +67,7 @@ export function GenreTrackPanel({
         backdropFilter: "blur(16px)",
         WebkitBackdropFilter: "blur(16px)",
         border: "1px solid hsl(var(--vow-yellow) / 0.18)",
-        boxShadow: `inset 0 1px 0 rgba(255,255,255,0.10), 0 16px 60px rgba(0,0,0,0.4), 0 0 20px hsl(var(--vow-yellow) / 0.04)${isPlaying ? ", inset 0 0 40px hsl(var(--vow-yellow) / 0.03)" : ""}`,
+        boxShadow: `inset 0 1px 0 hsl(0 0% 100% / 0.10), 0 16px 60px hsl(var(--rich-black) / 0.4), 0 0 20px hsl(var(--vow-yellow) / 0.04)${isPlaying ? ", inset 0 0 40px hsl(var(--vow-yellow) / 0.03)" : ""}`,
         opacity: 0,
         transform: "translateY(-8px)",
         transition: reducedMotion ? "none" : "opacity 400ms ease-out, transform 400ms cubic-bezier(0.22,0.61,0.36,1), box-shadow 700ms ease",
