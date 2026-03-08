@@ -241,7 +241,7 @@ export function TheInvitation() {
             <h2
               id="invitation-heading"
               className={cn(
-                'text-[clamp(26px,4vw,40px)] font-display font-light leading-tight text-white max-w-lg text-pretty',
+                'text-[clamp(26px,4vw,40px)] font-display font-light leading-tight text-foreground max-w-lg text-pretty',
                 'transition-all duration-700',
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               )}
@@ -270,7 +270,7 @@ export function TheInvitation() {
             {/* Body */}
             <p
               className={cn(
-                'text-lg font-sans font-light leading-[1.8] text-white/65 max-w-lg mt-8 transition-all duration-700',
+                'text-lg font-sans font-light leading-[1.8] text-foreground/65 max-w-lg mt-8 transition-all duration-700',
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               )}
               style={{ transitionDelay: isVisible ? '500ms' : '0ms' }}
@@ -280,7 +280,7 @@ export function TheInvitation() {
 
             <p
               className={cn(
-                'text-lg font-sans font-light leading-[1.8] text-white/65 max-w-lg mt-6 transition-all duration-700',
+                'text-lg font-sans font-light leading-[1.8] text-foreground/65 max-w-lg mt-6 transition-all duration-700',
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               )}
               style={{ transitionDelay: isVisible ? '600ms' : '0ms' }}
@@ -323,7 +323,7 @@ export function TheInvitation() {
             {/* Inline Credentials */}
             <p
               className={cn(
-                'text-xs uppercase tracking-[0.22em] text-white/40 mt-10 transition-all duration-700',
+                'text-xs uppercase tracking-[0.22em] text-foreground/40 mt-10 transition-all duration-700',
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               )}
               style={{ transitionDelay: isVisible ? '900ms' : '0ms' }}
