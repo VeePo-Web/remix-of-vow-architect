@@ -24,7 +24,7 @@ function WaveformBars({ isPlaying, reducedMotion }: { isPlaying: boolean; reduce
           className={cn(
             "w-[3px] rounded-full transition-all",
             isPlaying
-              ? "bg-[hsl(var(--vow-yellow))]"
+              ? "bg-primary"
               : "bg-muted-foreground/30"
           )}
           style={{
@@ -194,9 +194,9 @@ export function AudioPlayer({ tracks, onPlayStateChange }: AudioPlayerProps) {
               className={cn(
                 "group relative rounded-lg p-5 text-left cursor-pointer transition-all select-none",
                 "border backdrop-blur-sm",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)/0.6)]",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60",
                 isActive
-                  ? "bg-card/30 border-[hsl(var(--vow-yellow)/0.3)]"
+                  ? "bg-card/30 border-primary/30"
                   : "bg-card/10 border-border/20 hover:bg-card/20",
                 hasError && "opacity-50 cursor-default"
               )}
@@ -225,7 +225,7 @@ export function AudioPlayer({ tracks, onPlayStateChange }: AudioPlayerProps) {
                     className={cn(
                       "w-8 h-8 rounded-full flex items-center justify-center transition-all",
                       isTrackPlaying
-                        ? "bg-[hsl(var(--vow-yellow))] text-background"
+                        ? "bg-primary text-primary-foreground"
                         : "bg-foreground opacity-10 text-foreground group-hover:opacity-[0.15]"
                     )}
                     style={{ transition: "all 180ms cubic-bezier(.22,.61,.36,1)" }}
