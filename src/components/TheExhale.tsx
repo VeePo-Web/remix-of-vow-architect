@@ -125,7 +125,7 @@ export function TheExhale() {
             lineHeight: 1.25,
             maxWidth: '18ch',
             margin: '0 auto',
-            textShadow: '0 2px 24px rgba(0,0,0,0.4)',
+            textShadow: '0 2px 24px hsl(var(--rich-black) / 0.4)',
           }}
         >
           You're about to make a promise that will echo beyond your lifetime.

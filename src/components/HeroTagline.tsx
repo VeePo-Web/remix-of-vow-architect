@@ -25,7 +25,7 @@ export function HeroTagline() {
       </p>
 
       {/* Main Tagline */}
-      <h1 className="font-display text-[clamp(28px,4.5vw,56px)] leading-[1.05] tracking-[-0.03em] text-foreground" style={{ textShadow: '0 2px 16px rgba(0,0,0,0.5)' }}>
+      <h1 className="font-display text-[clamp(28px,4.5vw,56px)] leading-[1.05] tracking-[-0.03em] text-foreground" style={{ textShadow: '0 2px 16px hsl(var(--rich-black) / 0.5)' }}>
         {/* Line 1: Death Theme */}
         <span 
           className="block opacity-0 animate-fade-in"

@@ -56,7 +56,7 @@ function GoldenCheck() {
 export function ComparisonTable() {
   return (
     <div className="w-full overflow-x-auto">
-      <div className="bg-card/80 backdrop-blur-[8px] border border-border/50 rounded-lg shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)] overflow-hidden">
+      <div className="bg-card/80 backdrop-blur-[8px] border border-border/50 rounded-lg card-sacred overflow-hidden">
         <table className="w-full border-collapse">
           <thead>
             <tr className="border-b border-border/40">

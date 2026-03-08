@@ -376,7 +376,7 @@ export function ThreePaths() {
           )}
           style={{
             transitionDelay: isVisible ? "880ms" : "0ms",
-            textShadow: "0 1px 8px rgba(0,0,0,0.3)",
+            textShadow: "0 1px 8px hsl(var(--rich-black) / 0.3)",
           }}
         >
           You can move between these at any time — no penalty until two weeks before your ceremony.

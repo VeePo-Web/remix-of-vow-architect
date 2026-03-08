@@ -120,8 +120,8 @@ const buttonVariants = cva(
         secondary: [
           "bg-secondary text-secondary-foreground",
           "hover:bg-secondary/80",
-          "hover:shadow-[0_6px_16px_rgba(0,0,0,0.08)]",
-          "active:shadow-[0_2px_8px_rgba(0,0,0,0.06)]",
+          "hover:shadow-[0_6px_16px_hsl(var(--rich-black)/0.08)]",
+          "active:shadow-[0_2px_8px_hsl(var(--rich-black)/0.06)]",
         ].join(" "),
 
         ghost: "hover:bg-accent hover:text-accent-foreground",
