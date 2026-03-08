@@ -142,7 +142,7 @@ export function GenreCard({
         />
 
         {/* Genre label — Cormorant light (300-400 rule) */}
-        <span className="text-[13px] uppercase tracking-[0.18em] font-display font-light text-foreground/80">
+        <span className="text-[13px] uppercase tracking-[0.18em] font-display font-light text-foreground opacity-80">
           {label}
         </span>
 
