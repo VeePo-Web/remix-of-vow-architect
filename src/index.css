@@ -21,6 +21,19 @@ All colors MUST be HSL.
     --vow-yellow: 45 100% 76%;
     --vine-green: 88 76% 62%;
     --aura-glow: 100 87% 93%;
+    --flame-core: 39 100% 60%;
+    
+    /* Genre Accent Palette */
+    --genre-hymns: 35 60% 55%;
+    --genre-worship: 45 70% 60%;
+    --genre-pop: 350 50% 55%;
+    --genre-classical: 40 30% 70%;
+    --genre-film: 200 30% 55%;
+    --genre-hymns-glow: 35 60% 20%;
+    --genre-worship-glow: 45 50% 18%;
+    --genre-pop-glow: 350 40% 18%;
+    --genre-classical-glow: 40 25% 16%;
+    --genre-film-glow: 200 30% 15%;
     
     /* State Colors */
     --success: 142 71% 45%;

@@ -241,15 +241,15 @@ export function MinimalHeader() {
                 <stop offset="0%" stopColor="transparent" />
                 <stop
                   offset="20%"
-                  stopColor={`hsl(45 100% 76% / ${isArrival ? 0.3 : 0.12})`}
+                  stopColor={`hsl(var(--vow-yellow) / ${isArrival ? 0.3 : 0.12})`}
                 />
                 <stop
                   offset="50%"
-                  stopColor={`hsl(45 100% 76% / ${isArrival ? 0.35 : 0.15})`}
+                  stopColor={`hsl(var(--vow-yellow) / ${isArrival ? 0.35 : 0.15})`}
                 />
                 <stop
                   offset="80%"
-                  stopColor={`hsl(45 100% 76% / ${isArrival ? 0.3 : 0.12})`}
+                  stopColor={`hsl(var(--vow-yellow) / ${isArrival ? 0.3 : 0.12})`}
                 />
                 <stop offset="100%" stopColor="transparent" />
               </linearGradient>
@@ -262,7 +262,7 @@ export function MinimalHeader() {
               strokeWidth="1"
               className="transition-all duration-[450ms]"
               style={{
-                filter: `drop-shadow(0 0 ${isArrival ? 6 : 4}px hsl(45 100% 76% / ${
+                filter: `drop-shadow(0 0 ${isArrival ? 6 : 4}px hsl(var(--vow-yellow) / ${
                   isArrival ? 0.1 : 0.04
                 }))`,
               }}

@@ -1,22 +1,22 @@
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
-/* ─── Genre accent colors (muted, warm) ─── */
+/* ─── Genre accent colors (muted, warm) — governed by design tokens ─── */
 const genreAccents: Record<string, string> = {
-  hymns: "hsl(35 60% 55%)",
-  worship: "hsl(45 70% 60%)",
-  pop: "hsl(350 50% 55%)",
-  classical: "hsl(40 30% 70%)",
-  film: "hsl(200 30% 55%)",
+  hymns: "hsl(var(--genre-hymns))",
+  worship: "hsl(var(--genre-worship))",
+  pop: "hsl(var(--genre-pop))",
+  classical: "hsl(var(--genre-classical))",
+  film: "hsl(var(--genre-film))",
 };
 
 /* ─── Per-genre atmospheric gradients ─── */
 const genreGradients: Record<string, string> = {
-  hymns: "radial-gradient(ellipse at 50% 40%, hsl(35 60% 20% / 0.4) 0%, transparent 70%)",
-  worship: "radial-gradient(ellipse at 50% 40%, hsl(45 50% 18% / 0.35) 0%, transparent 70%)",
-  pop: "radial-gradient(ellipse at 50% 40%, hsl(350 40% 18% / 0.3) 0%, transparent 70%)",
-  classical: "radial-gradient(ellipse at 50% 40%, hsl(40 25% 16% / 0.3) 0%, transparent 70%)",
-  film: "radial-gradient(ellipse at 50% 40%, hsl(200 30% 15% / 0.35) 0%, transparent 70%)",
+  hymns: "radial-gradient(ellipse at 50% 40%, hsl(var(--genre-hymns-glow) / 0.4) 0%, transparent 70%)",
+  worship: "radial-gradient(ellipse at 50% 40%, hsl(var(--genre-worship-glow) / 0.35) 0%, transparent 70%)",
+  pop: "radial-gradient(ellipse at 50% 40%, hsl(var(--genre-pop-glow) / 0.3) 0%, transparent 70%)",
+  classical: "radial-gradient(ellipse at 50% 40%, hsl(var(--genre-classical-glow) / 0.3) 0%, transparent 70%)",
+  film: "radial-gradient(ellipse at 50% 40%, hsl(var(--genre-film-glow) / 0.35) 0%, transparent 70%)",
 };
 
 interface GenreCardProps {
@@ -100,7 +100,7 @@ export function GenreCard({
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "linear-gradient(180deg, hsl(220 15% 6% / 0.40) 0%, hsl(220 15% 4% / 0.50) 100%)",
+          background: "linear-gradient(180deg, hsl(var(--transform-dark) / 0.40) 0%, hsl(var(--rich-black) / 0.50) 100%)",
         }}
         aria-hidden="true"
       />
