@@ -229,7 +229,7 @@ export default function Contact() {
                             className="mt-2"
                           />
                           <p className="text-xs text-muted-foreground mt-1">
-                            I align music + mics to this.
+                            I align music to your timeline.
                           </p>
                           {errors.ceremonyTime && (
                             <p className="text-xs text-destructive mt-1">
