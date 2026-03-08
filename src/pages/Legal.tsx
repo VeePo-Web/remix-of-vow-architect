@@ -63,7 +63,7 @@ export default function Legal() {
           <div className="max-w-4xl mx-auto mt-8">
             <h1 className="text-4xl md:text-5xl font-display font-light mb-4">Legal & Policies</h1>
             <p className="text-lg text-muted-foreground mb-12">
-              All the policies in one place.
+              Clarity before commitment — every policy, in plain language.
             </p>
 
             <div className="grid md:grid-cols-2 gap-6 mb-12">
