@@ -1,48 +1,52 @@
-import { Shield, Music, Mic, Users, Wrench, Clock, Battery, FileCheck, Activity } from "lucide-react";
 import { StaggerChildren } from "@/components/animation";
 
 const inclusions = [
   { 
-    icon: Music, 
     label: "Live piano",
     description: "Full 88-key instrument — or venue piano if it meets the standard"
   },
   { 
-    icon: Mic, 
     label: "Clarity for every word",
     description: "Wireless sound for your officiant and personal vows — every word heard, naturally"
   },
   { 
-    icon: Battery, 
     label: "Silent power",
     description: "Battery-powered system — quiet, clean, and unobtrusive throughout your ceremony"
   },
   { 
-    icon: Activity, 
     label: "Volume documentation",
     description: "Three verified readings across the ceremony — proof that it carried"
   },
   { 
-    icon: Clock, 
     label: "Early arrival",
     description: "At least 60 minutes before guests — setup, final adjustments, and walk-through"
   },
   { 
-    icon: Wrench, 
     label: "Redundancy",
     description: "Backup systems at every level — layered assurance so nothing is left to chance"
   },
   { 
-    icon: Shield, 
     label: "Full insurance",
     description: "$2M professional liability, $2M general liability, $25k equipment coverage"
   },
   { 
-    icon: FileCheck, 
     label: "Collaborative cue sheet",
     description: "Co-authored with your planner and officiant — every moment choreographed"
   },
 ];
+
+function GoldenDiamond() {
+  return (
+    <span
+      className="inline-block w-2.5 h-2.5 rotate-45 flex-shrink-0 mt-1.5"
+      style={{
+        background: "hsl(var(--vow-yellow) / 0.7)",
+        boxShadow: "0 0 6px hsl(var(--vow-yellow) / 0.25)",
+      }}
+      aria-hidden="true"
+    />
+  );
+}
 
 export function InclusionBlock() {
   return (
@@ -58,13 +62,11 @@ export function InclusionBlock() {
 
       <StaggerChildren staggerDelay={80} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         {inclusions.map((item, i) => (
-          <div key={i} className="flex flex-col items-start gap-3">
-            <div className="w-10 h-10 rounded-lg bg-primary/[0.06] border border-primary/10 flex items-center justify-center flex-shrink-0">
-              <item.icon size={20} className="text-primary" />
-            </div>
+          <div key={i} className="flex items-start gap-3">
+            <GoldenDiamond />
             <div>
               <h3 className="font-display text-base font-medium mb-1">{item.label}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-[14px] text-muted-foreground leading-relaxed">
                 {item.description}
               </p>
             </div>
@@ -72,7 +74,7 @@ export function InclusionBlock() {
         ))}
       </StaggerChildren>
 
-      <p className="text-center text-sm text-muted-foreground italic">
+      <p className="text-center text-[14px] text-muted-foreground italic">
         No hidden fees. No surprises. This is your baseline of assurance.
       </p>
     </div>

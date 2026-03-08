@@ -12,7 +12,7 @@ import { PricingFAQ } from "@/components/PricingFAQ";
 import { PricingSampleDownload } from "@/components/PricingSampleDownload";
 import { MostSelectedPill } from "@/components/MostSelectedPill";
 import { RevealOnScroll, StaggerChildren } from "@/components/animation";
-import { Check } from "lucide-react";
+
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { Link } from "react-router-dom";
 import servicesHeroImg from "@/assets/services-hero.jpg";
