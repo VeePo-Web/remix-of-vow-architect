@@ -540,6 +540,14 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
               parker@parkergawryletz.com
             </a>
           </p>
+          <p
+            className={cn(
+              "text-[0.65rem] italic text-foreground/[0.15] mt-1 transition-all duration-[300ms]",
+              isOpen ? "opacity-100 translate-y-0 delay-[700ms]" : "opacity-0 translate-y-2"
+            )}
+          >
+            Response within 24 hours · Always
+          </p>
         </div>
 
         {/* ═══════════════════════════════════════════
