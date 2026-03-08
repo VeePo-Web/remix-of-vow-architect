@@ -35,10 +35,10 @@ function AppRoutes() {
       <Route path="/weddings" element={<Index />} />
       <Route path="/teaching" element={<Teaching />} />
       <Route path="/events" element={<Events />} />
-      <Route path="/services" element={<Pricing />} />
-      <Route path="/pricing" element={<Navigate to="/services" replace />} />
-      <Route path="/gallery" element={<Proof />} />
-      <Route path="/proof" element={<Navigate to="/gallery" replace />} />
+      <Route path="/pricing" element={<Pricing />} />
+      <Route path="/services" element={<Navigate to="/pricing" replace />} />
+      <Route path="/proof" element={<Proof />} />
+      <Route path="/gallery" element={<Navigate to="/proof" replace />} />
       <Route path="/about" element={<About />} />
       <Route path="/listen" element={<Listen />} />
       <Route path="/faq" element={<FAQ />} />

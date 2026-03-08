@@ -5,9 +5,9 @@ import { cn } from "@/lib/utils";
 import { FullScreenMenu } from "./FullScreenMenu";
 
 const navLinks = [
-  { to: "/services", label: "Services" },
+  { to: "/pricing", label: "Services" },
   { to: "/about", label: "About" },
-  { to: "/gallery", label: "Proof" },
+  { to: "/proof", label: "Proof" },
 ];
 
 /**

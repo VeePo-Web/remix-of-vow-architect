@@ -7,9 +7,9 @@ const pageConfig: Record<string, { text: string; cta: string }> = {
   "/weddings": { text: "I would be honored to be there", cta: "Hold my date" },
   "/teaching": { text: "Begin the conversation", cta: "Begin the conversation" },
   "/events": { text: "Discuss your event", cta: "Discuss your event" },
-  "/services": { text: "Find the right presence", cta: "Hold my date" },
+  "/pricing": { text: "Find the right presence", cta: "Hold my date" },
   "/about": { text: "The witness behind the keys", cta: "Hold my date" },
-  "/gallery": { text: "500+ ceremonies performed", cta: "Hold my date" },
+  "/proof": { text: "500+ ceremonies performed", cta: "Hold my date" },
   "/faq": { text: "Every question, answered", cta: "Hold my date" },
   "/listen": { text: "Hear what your ceremony could sound like", cta: "Hold my date" },
 };

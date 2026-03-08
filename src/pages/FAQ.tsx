@@ -149,7 +149,7 @@ export default function FAQ() {
                 </DirectionalLink>
               </Button>
               <Button variant="ghost-dark" size="lg" asChild>
-                <DirectionalLink to="/gallery">
+                <DirectionalLink to="/proof">
                   See how I prepare
                 </DirectionalLink>
               </Button>

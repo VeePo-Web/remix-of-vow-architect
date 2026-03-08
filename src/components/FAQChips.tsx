@@ -7,17 +7,17 @@ const chips = [
   {
     question: "Will every word be heard clearly?",
     answer: "Yes. I include a dedicated wireless system, balanced in real time so every word carries.",
-    link: { to: "/gallery", label: "See how I prepare" }
+    link: { to: "/proof", label: "See how I prepare" }
   },
   {
     question: "What if there is no power?",
     answer: "I use a silent battery system with backups — completely quiet.",
-    link: { to: "/gallery", label: "See the equipment" }
+    link: { to: "/proof", label: "See the equipment" }
   },
   {
     question: "Can I change my arrangement later?",
     answer: "Yes. Upgrade up to 2 weeks before your date.",
-    link: { to: "/services", label: "See the options" }
+    link: { to: "/pricing", label: "See the options" }
   },
   {
     question: "What is the refund policy?",
@@ -27,7 +27,7 @@ const chips = [
   {
     question: "Do I receive a plan — or just a performance?",
     answer: "You receive a personalized ceremony plan within 24 hours — venue, timeline, and arrangements.",
-    link: { to: "/gallery", label: "See a sample plan" }
+    link: { to: "/proof", label: "See a sample plan" }
   }
 ];
 

@@ -10,17 +10,17 @@ const topTenFAQs = [
   {
     question: "Will every word carry outdoors?",
     answer: "Yes. Wind and distance make it difficult for guests to hear unaided vows. I include a dedicated wireless system, balanced in real time so every word carries — even to the last row.",
-    link: { to: "/gallery", label: "See how I prepare" }
+    link: { to: "/proof", label: "See how I prepare" }
   },
   {
     question: "What if the venue has no power?",
     answer: "I use a silent battery system — no noise, no permits required, completely quiet during your ceremony.",
-    link: { to: "/gallery", label: "See the equipment" }
+    link: { to: "/proof", label: "See the equipment" }
   },
   {
     question: "What happens if equipment fails?",
     answer: "I bring triple redundancy: a second wireless unit, a second instrument, and a pre-loaded speaker for critical cues.",
-    link: { to: "/gallery", label: "See the redundancy plan" }
+    link: { to: "/proof", label: "See the redundancy plan" }
   },
   {
     question: "Can I cancel or change my mind after booking?",
@@ -30,12 +30,12 @@ const topTenFAQs = [
   {
     question: "How do I know my officiant will be coordinated?",
     answer: "I co-author your cue sheet with your officiant and planner — every entrance, every vow, every exit is timed and agreed upon in advance.",
-    link: { to: "/gallery", label: "See a sample plan" }
+    link: { to: "/proof", label: "See a sample plan" }
   },
   {
     question: "Will people in the back hear our vows?",
     answer: "Yes. I measure and verify volume levels at multiple distances during setup to ensure clarity reaches every seat.",
-    link: { to: "/gallery", label: "See the documentation" }
+    link: { to: "/proof", label: "See the documentation" }
   },
   {
     question: "What if it rains or snows?",
@@ -45,7 +45,7 @@ const topTenFAQs = [
   {
     question: "Can I see an example plan before I commit?",
     answer: "Yes. I share a real sample ceremony plan so you can see exactly what you will receive.",
-    link: { to: "/gallery", label: "See a sample plan" }
+    link: { to: "/proof", label: "See a sample plan" }
   },
   {
     question: "How quickly do I hear back after reaching out?",
@@ -55,7 +55,7 @@ const topTenFAQs = [
   {
     question: "How does a ceremony pianist compare to a DJ or band?",
     answer: "The simplest question to ask any alternative: how do they ensure your outdoor vows are heard clearly and quietly? The comparison chart on the services page outlines the differences.",
-    link: { to: "/services", label: "See the comparison" }
+    link: { to: "/pricing", label: "See the comparison" }
   }
 ];
 

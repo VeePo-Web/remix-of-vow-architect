@@ -29,9 +29,9 @@ const PAGE_WEIGHTS: Record<string, number> = {
   '/weddings':    0.055,  // Wedding homepage — sacred narrative
   '/events':      0.06,   // Events — warm but weighted
   '/teaching':    0.06,   // Teaching — contemplative
-  '/services':    0.07,   // Pricing — needs scannability
+  '/pricing':    0.07,   // Pricing — needs scannability
   '/about':       0.055,  // About — personal, intimate
-  '/gallery':     0.065,  // Proof — gallery browsing needs flow
+  '/proof':       0.065,  // Proof — gallery browsing needs flow
   '/listen':      0.06,   // Listen — immersive audio
   '/faq':         0.08,   // FAQ — utility, scan-friendly
   '/contact':     0.07,   // Contact — form usability matters
