@@ -80,7 +80,7 @@ export function WitnessCrossing() {
           {/* Headline */}
           <h2 
             className={cn(
-              "font-display text-[clamp(28px,4vw,44px)] font-light text-white leading-tight mb-6 transition-all duration-700",
+              "font-display text-[clamp(28px,4vw,44px)] font-light text-foreground leading-tight mb-6 transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             )}
             style={{ transitionDelay: "200ms" }}
