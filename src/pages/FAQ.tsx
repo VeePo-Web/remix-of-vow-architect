@@ -46,7 +46,7 @@ export default function FAQ() {
           <div className="max-w-3xl mx-auto animate-fade-in">
             <Breadcrumbs items={[
               { label: "Home", path: "/" },
-              { label: "FAQ / Risk Elimination" }
+              { label: "Questions" }
             ]} />
 
             <div className="text-center mb-16">
@@ -85,12 +85,12 @@ export default function FAQ() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Button size="lg" variant="primary-dark" asChild>
                 <DirectionalLink to="/contact">
-                  Hold my date & get my ceremony-audio plan
+                  Hold my date
                 </DirectionalLink>
               </Button>
               <Button variant="ghost-dark" size="lg" asChild>
                 <DirectionalLink to="/proof">
-                  Download a sample plan (SPL + cue sheet)
+                  See how I prepare
                 </DirectionalLink>
               </Button>
             </div>

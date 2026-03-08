@@ -109,11 +109,11 @@ export default function Pricing() {
 
                   <ul className="space-y-2 mb-6 text-sm">
                     {[
-                      "All ceremony-proof clarity features",
-                      "Professional sound coverage",
-                      "Officiant + vow microphones",
-                      "Silent battery power system",
-                      "SPL log documentation",
+                      "Full ceremony audio — every word heard",
+                      "Officiant and vow amplification",
+                      "Silent power — no generator noise",
+                      "Custom cue sheet for your processional",
+                      "Post-ceremony documentation",
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
                         <Check size={16} className="text-accent mt-0.5 flex-shrink-0" />
@@ -143,11 +143,11 @@ export default function Pricing() {
 
                   <ul className="space-y-2 mb-6 text-sm">
                     {[
-                      "Everything in Ceremony Only",
-                      "Pre-ceremony guest arrival music",
-                      "Cocktail hour piano (30–60 min)",
-                      "Seamless transitions",
-                      "Extended sound coverage",
+                      "Everything in The Vow",
+                      "Guest arrival ambiance — setting the tone",
+                      "Cocktail hour piano — 30 to 60 minutes",
+                      "Seamless musical transitions between moments",
+                      "Extended presence throughout the afternoon",
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
                         <Check size={16} className="text-accent mt-0.5 flex-shrink-0" />
@@ -174,11 +174,11 @@ export default function Pricing() {
 
                   <ul className="space-y-2 mb-6 text-sm">
                     {[
-                      "Everything in Ceremony + Cocktails",
-                      "Dinner background music",
-                      "Conversational volume mixing",
-                      "All-in-one venue optimization",
-                      "Extra 1-hour transition buffer for moves",
+                      "Everything in The Hour",
+                      "Dinner ambiance — music that lets conversation breathe",
+                      "Volume shaped to each moment of the day",
+                      "Multi-space venue coordination",
+                      "One-hour transition buffer between locations",
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
                         <Check size={16} className="text-accent mt-0.5 flex-shrink-0" />
@@ -219,7 +219,7 @@ export default function Pricing() {
             <div id="compare" className="max-w-5xl mx-auto mb-16 scroll-mt-24 piano-section-target">
               <div className="text-center mb-8">
                 <h2 className="h2 mb-3 mx-auto">
-                  Compare me to the alternatives
+                  What sets a ceremony pianist apart.
                 </h2>
               </div>
               

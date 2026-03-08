@@ -25,10 +25,10 @@ const contactFormSchema = z.object({
   name: z.string().min(2, "Please add your name"),
   email: z.string().email("Please add your email so I can send your plan"),
   phone: z.string().optional(),
-  eventDate: z.string().min(1, "Pick a date—even an estimate helps me map power and timing"),
-  venue: z.string().min(2, "Venue name or city helps me tailor SPL and seating notes"),
-  ceremonyTime: z.string().min(1, "Ceremony time helps align music and mics"),
-  guestCount: z.string().min(1, "Guest count helps tune audibility"),
+  eventDate: z.string().min(1, "An approximate date helps me begin planning"),
+  venue: z.string().min(2, "Knowing the venue helps me shape the sound to fit the space"),
+  ceremonyTime: z.string().min(1, "This helps me align the music to your timeline"),
+  guestCount: z.string().min(1, "Guest count helps me ensure every word carries"),
   vibe: z.enum(["elegant", "modern", "indie", "surprise"], {
     required_error: "Please select a ceremony vibe",
   }),
@@ -108,16 +108,16 @@ export default function Contact() {
             />
 
             <div className="text-center mb-12">
-              <div className="overline mb-2">Clear, Fast, Certain</div>
+              <div className="overline mb-2">The Crossing</div>
               <h1 className="h1 mx-auto">
-                Hold your wedding date & get your ceremony-audio plan in 24h
+                Every arrangement begins with a conversation.
               </h1>
               <div className="chapter-rule mx-auto" />
               <p className="p-lead mx-auto text-muted-foreground mt-6">
-                Fill out this short form and I'll send your personalized SPL overview,
-                setup plan, and cue-integration sheet within one business day.
+                Tell me about your day — the venue, the feeling, the songs that matter.
+                I will respond within 24 hours with a personalized plan.
               </p>
-              <p className="caption mt-4">No sales call. No pressure. Just clarity.</p>
+              <p className="caption mt-4">No obligation. Two-minute form.</p>
             </div>
 
             {isSubmitted ? (
@@ -384,18 +384,18 @@ export default function Contact() {
                       {/* Submit Button */}
                       <div className="space-y-3">
                         <div className="flex items-center gap-2">
-                          <Button
+                           <Button
                             type="submit"
                             size="lg"
                             className="flex-1 hover-scale"
                           >
-                            Get my ceremony-audio plan
+                            Hold my date
                           </Button>
                           <ValuePromiseBadge />
                         </div>
                         <p className="text-xs text-muted-foreground text-center">
-                          You'll receive a custom SPL map, timeline support, and a
-                          clarity checklist. I only use your info to build your plan.
+                          You will receive a personalized ceremony plan within 24 hours.
+                          I only use your information to prepare your arrangement.
                         </p>
                       </div>
                     </form>

@@ -147,15 +147,15 @@ export default function Proof() {
                   Every arrangement begins with a conversation.
                 </h2>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button size="lg" variant="primary-dark" className="hover-scale">
-                    Hold my date & receive my ceremony-audio plan
+                   <Button size="lg" variant="primary-dark" className="hover-scale">
+                    Hold my date
                   </Button>
                   <Button variant="ghost-dark" size="lg" className="hover-scale">
-                    Download a full SPL report & timeline sample →
+                    Download a sample ceremony plan
                   </Button>
                 </div>
-                <p className="text-sm text-muted-foreground">
-                  Response in 24 hours. Your trust starts with proof.
+                 <p className="text-sm text-muted-foreground">
+                  Response within 24 hours. Always.
                 </p>
               </div>
             </div>
