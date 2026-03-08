@@ -156,7 +156,7 @@ export function GenreTrackPanel({
             />
             {/* Track number */}
             {!isActive && (
-              <span className="text-[10px] font-mono text-foreground/20 tabular-nums w-5 shrink-0 text-right">
+              <span className="text-[10px] font-mono text-foreground opacity-20 tabular-nums w-5 shrink-0 text-right">
                 {String(tIdx + 1).padStart(2, "0")}
               </span>
             )}
