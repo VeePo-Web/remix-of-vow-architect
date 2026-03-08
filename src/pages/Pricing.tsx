@@ -169,7 +169,7 @@ export default function Pricing() {
                   
                   <div className="font-display text-[clamp(32px,4vw,48px)] font-light text-primary mb-2">$1,200</div>
                   <p className="p-body text-muted-foreground mb-6">
-                    From guest arrival to dinner fade-out at conversational volume.
+                    The full-day witness — from the first guest arriving to the last note fading over dinner. I stay as long as the music matters.
                   </p>
 
                   <ul className="space-y-2 mb-6 text-sm">
