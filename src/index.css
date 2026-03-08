@@ -5075,7 +5075,7 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   top: -2px; left: 0; right: 0;
   height: 8px;
   background: linear-gradient(180deg,
-    rgba(0,0,0,0.15) 0%,
+    hsl(var(--rich-black) / 0.15) 0%,
     transparent 100%
   );
   pointer-events: none;
