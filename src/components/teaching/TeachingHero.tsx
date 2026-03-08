@@ -363,7 +363,7 @@ export function TeachingHero() {
               : "opacity-0 translate-y-[8px]"
           )}
           style={{
-            color: "hsl(40 12% 58%)",
+            color: "hsl(var(--teaching-text-cite))",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             transitionDelay: `${SUBTITLE_DELAY}ms`,
             letterSpacing: "0.015em",
