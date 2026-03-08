@@ -275,11 +275,11 @@ export function TeachingMethodology() {
               : "opacity-0 translate-y-[6px]"
           )}
           style={{
-            color: "hsl(40 25% 70%)",
+            color: "hsl(var(--teaching-studio-accent))",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             transitionDelay: "700ms",
             textShadow:
-              "0 1px 2px hsl(0 0% 0% / 0.2), 0 3px 12px hsl(0 0% 0% / 0.08)",
+              "0 1px 2px hsl(var(--rich-black) / 0.2), 0 3px 12px hsl(var(--rich-black) / 0.08)",
           }}
         >
           Every voice arrives as a seed. Your hands are the soil. I keep vigil while it takes root.
