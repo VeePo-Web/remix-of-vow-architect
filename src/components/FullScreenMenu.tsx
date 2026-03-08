@@ -338,8 +338,8 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
             ═══════════════════════════════════════════ */}
         <div
           className={cn(
-            "flex flex-col md:flex-row gap-3 md:gap-8 mb-8 md:mb-10 transition-all duration-[300ms]",
-            isOpen ? "opacity-100 translate-y-0 delay-[200ms]" : "opacity-0 translate-y-4"
+            "flex flex-col md:flex-row gap-3 md:gap-6 mb-8 md:mb-10 justify-center transition-all duration-[300ms]",
+            isOpen ? "opacity-100 translate-y-0 delay-[300ms]" : "opacity-0 translate-y-4"
           )}
           onMouseLeave={() => setHoveredVertical(null)}
         >
