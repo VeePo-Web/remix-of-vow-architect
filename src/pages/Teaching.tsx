@@ -39,7 +39,7 @@ function SectionFade({
 }) {
   return (
     <div
-      className="relative h-[80px] md:h-[120px] w-full pointer-events-none -mt-[80px] md:-mt-[120px] z-[5]"
+      className="relative h-[120px] md:h-[160px] w-full pointer-events-none -mt-[120px] md:-mt-[160px] z-[5]"
       style={{
         background: `linear-gradient(to bottom, ${from}, ${to})`,
       }}
@@ -94,7 +94,7 @@ export default function Teaching() {
 
         {/* Pillars (warm cream) → Methodology (dark charcoal) */}
         <SectionFade
-          from="hsl(var(--teaching-bg) / 0)"
+          from="hsl(var(--teaching-bg) / 0.15)"
           to="hsl(var(--events-approach-bg))"
         />
         <TeachingMethodology />
@@ -105,7 +105,7 @@ export default function Teaching() {
 
         {/* Threshold (dark charcoal) → Stories (warm cream) */}
         <SectionFade
-          from="hsl(var(--events-approach-bg) / 0)"
+          from="hsl(var(--events-approach-bg) / 0.15)"
           to="hsl(var(--teaching-bg-alt))"
         />
         <TeachingStories />
