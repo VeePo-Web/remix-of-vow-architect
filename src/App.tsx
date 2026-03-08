@@ -23,7 +23,9 @@ import Accessibility from "./pages/Accessibility";
 import Legal from "./pages/Legal";
 import Listen from "./pages/Listen";
 import EventsAbout from "./pages/EventsAbout";
+import EventsPricing from "./pages/EventsPricing";
 import TeachingAbout from "./pages/TeachingAbout";
+import TeachingPricing from "./pages/TeachingPricing";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
