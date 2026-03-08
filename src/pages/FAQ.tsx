@@ -46,7 +46,7 @@ export default function FAQ() {
           <div className="max-w-3xl mx-auto animate-fade-in">
             <Breadcrumbs items={[
               { label: "Home", path: "/" },
-              { label: "FAQ / Risk Elimination" }
+              { label: "Questions" }
             ]} />
 
             <div className="text-center mb-16">
