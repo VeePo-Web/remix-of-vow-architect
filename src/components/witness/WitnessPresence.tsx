@@ -8,7 +8,7 @@ import aboutPresenceImg from "@/assets/about-presence.jpg";
  */
 
 const witnessedMoments = [
-  "The bride who forgot her vows and winged it beautifully",
+  "The bride who forgot her vows—and spoke from the heart instead",
   "The groom who cried before he could say 'I do'",
   "The ring bearer who dropped the rings—twice",
   "The officiant who lost their place and laughed",
