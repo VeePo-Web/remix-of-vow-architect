@@ -6,19 +6,19 @@ import { StaggerChildren } from "@/components/animation";
 
 const samplePlans = [
   {
-    title: "SPL Report + Cue Sheet",
+    title: "Volume Documentation & Cue Sheet",
     venue: "Cascade Gardens",
-    description: "Complete acoustic protocol with dBA readings",
+    description: "Verified readings with timestamps and ceremony timeline",
   },
   {
-    title: "Timeline PDF with Seating Arc",
+    title: "Ceremony Timeline with Seating Plan",
     venue: "Cochrane Ranch",
     description: "Visual layout and minute-by-minute timing",
   },
   {
-    title: "Planner Co-signed Cue Map",
+    title: "Planner-Coordinated Cue Map",
     venue: "Canmore Hall",
-    description: "Coordinated entrance/exit timing document",
+    description: "Co-authored entrance, vow, and exit timing",
   },
 ];
 
