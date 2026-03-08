@@ -72,7 +72,7 @@ export function TheInvitation() {
       aria-labelledby="invitation-heading"
       className="relative py-28 md:py-40 overflow-hidden invitation-texture piano-section-target"
       style={{
-        background: 'linear-gradient(180deg, hsl(28 12% 16%) 0%, hsl(25 8% 8%) 100%)',
+        background: 'linear-gradient(180deg, hsl(var(--invitation-bg-top, 28 12% 16%)) 0%, hsl(var(--invitation-bg-bottom, 25 8% 8%)) 100%)',
         // @ts-ignore CSS custom property
         '--warmth': '0',
       } as React.CSSProperties}
