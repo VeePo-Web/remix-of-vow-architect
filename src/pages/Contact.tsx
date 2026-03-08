@@ -260,7 +260,7 @@ export default function Contact() {
                                 onClick={() => setShowStep3(true)}
                                 className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-[180ms] underline underline-offset-2"
                               >
-                                Add ceremony time, phone, planner email, song requests, or file upload
+                                Add ceremony time, planner details, or song requests
                               </button>
                             </div>
                           ) : (
