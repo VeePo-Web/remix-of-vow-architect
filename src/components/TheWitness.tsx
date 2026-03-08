@@ -107,7 +107,7 @@ function PreparationSection() {
             <div className="witness-frame-shimmer absolute inset-0 pointer-events-none" aria-hidden="true" />
             <div
               className="absolute inset-0 pointer-events-none"
-              style={{ background: 'radial-gradient(ellipse at center, transparent 30%, hsl(45 20% 93% / 0.75) 100%)' }}
+              style={{ background: 'radial-gradient(ellipse at center, transparent 30%, hsl(var(--warm-cream-mid) / 0.75) 100%)' }}
               aria-hidden="true"
             />
             <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" aria-hidden="true" />
