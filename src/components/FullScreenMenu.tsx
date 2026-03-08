@@ -173,6 +173,42 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
           ATMOSPHERIC LAYERS — The Vigil Space
           ═══════════════════════════════════════════ */}
 
+      {/* Gold corner accent — top-left */}
+      <div
+        className={cn(
+          "absolute top-8 left-8 md:top-12 md:left-12 pointer-events-none transition-all duration-[400ms]",
+          isOpen ? "opacity-100 delay-[400ms]" : "opacity-0"
+        )}
+        aria-hidden="true"
+      >
+        <div className="w-6 h-[1px]" style={{ background: 'linear-gradient(90deg, hsl(var(--vow-yellow) / 0.3), transparent)' }} />
+        <div className="w-[1px] h-6" style={{ background: 'linear-gradient(180deg, hsl(var(--vow-yellow) / 0.3), transparent)' }} />
+      </div>
+
+      {/* Gold corner accent — bottom-right */}
+      <div
+        className={cn(
+          "absolute bottom-8 right-8 md:bottom-12 md:right-12 pointer-events-none transition-all duration-[400ms]",
+          isOpen ? "opacity-100 delay-[500ms]" : "opacity-0"
+        )}
+        aria-hidden="true"
+      >
+        <div className="flex flex-col items-end">
+          <div className="w-6 h-[1px]" style={{ background: 'linear-gradient(270deg, hsl(var(--vow-yellow) / 0.3), transparent)' }} />
+          <div className="w-[1px] h-6 self-end" style={{ background: 'linear-gradient(0deg, hsl(var(--vow-yellow) / 0.3), transparent)' }} />
+        </div>
+      </div>
+
+      {/* Center breathing diamond */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle, hsl(var(--vow-yellow) / 0.08) 0%, transparent 70%)',
+          animation: isOpen ? 'menu-diamond-breathe 5s ease-in-out infinite' : undefined,
+        }}
+        aria-hidden="true"
+      />
+
       {/* Layer 1: Film grain */}
       <div
         className="grain pointer-events-none"
@@ -308,17 +344,18 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
           })}
         </div>
 
-        {/* Golden thread separator between zones */}
+        {/* Golden thread separator — animated scale-x reveal */}
         <div
           className={cn(
-            "w-24 md:w-32 mb-8 md:mb-10 transition-all duration-[400ms]",
-            isOpen ? "opacity-100 delay-[350ms]" : "opacity-0"
+            "w-24 md:w-32 mb-8 md:mb-10 transition-all duration-[600ms] origin-left",
+            isOpen ? "opacity-100 scale-x-100 delay-[200ms]" : "opacity-0 scale-x-0"
           )}
+          style={{ transitionTimingFunction: 'cubic-bezier(0.22,0.61,0.36,1)' }}
         >
           <div
             className="h-px"
             style={{
-              background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.25), hsl(var(--vow-yellow) / 0.08), transparent)",
+              background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.35), hsl(var(--vow-yellow) / 0.12), transparent)",
             }}
             aria-hidden="true"
           />
@@ -380,10 +417,10 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
 
                   {/* Label */}
                   <span
-                    className={cn(
-                      "relative font-display transition-all",
+                   className={cn(
+                      "relative font-display transition-all flex items-baseline gap-3",
                       "text-2xl md:text-3xl lg:text-4xl",
-                      isBlackKey && "md:pl-2 lg:pl-3",
+                      isBlackKey && "md:pl-4 lg:pl-6",
                       isActive
                         ? "text-foreground"
                         : "text-foreground opacity-75 group-hover:opacity-100"
@@ -405,7 +442,10 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
                         : "none",
                     }}
                   >
-                    {item.label}
+                    <span className="text-[0.5rem] tracking-[0.15em] text-foreground/20 tabular-nums font-sans" style={{ fontFeatureSettings: '"tnum"' }}>
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <span>{item.label}</span>
 
                     {/* Underline */}
                     <span
@@ -429,19 +469,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
                       aria-hidden="true"
                     />
 
-                    {/* Black key shadow */}
-                    {isBlackKey && (
-                      <span
-                        className="absolute -left-2 lg:-left-3 top-1/2 -translate-y-1/2 w-[2px] h-[60%] rounded-full pointer-events-none"
-                        style={{
-                          background: `linear-gradient(to bottom, transparent, hsl(var(--foreground) / ${
-                            isHovered ? 0.08 : 0.03
-                          }), transparent)`,
-                          transition: "background 180ms ease",
-                        }}
-                        aria-hidden="true"
-                      />
-                    )}
+                    {/* Black key — clean indentation only, no shadow */}
                   </span>
                 </Link>
               </div>
@@ -512,6 +540,14 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
               parker@parkergawryletz.com
             </a>
           </p>
+          <p
+            className={cn(
+              "text-[0.65rem] italic text-foreground/[0.15] mt-1 transition-all duration-[300ms]",
+              isOpen ? "opacity-100 translate-y-0 delay-[700ms]" : "opacity-0 translate-y-2"
+            )}
+          >
+            Response within 24 hours · Always
+          </p>
         </div>
 
         {/* ═══════════════════════════════════════════
@@ -572,6 +608,14 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
             opacity: 0.8;
             box-shadow: 0 0 10px hsl(var(--vow-yellow) / 0.18);
           }
+        }
+        @keyframes menu-diamond-breathe {
+          0%, 100% { opacity: 0.05; }
+          50% { opacity: 0.12; }
+        }
+        @keyframes shimmer-sweep {
+          0% { transform: translateX(-100%) skewX(-20deg); }
+          100% { transform: translateX(400%) skewX(-20deg); }
         }
         @media (prefers-reduced-motion: reduce) {
           [role="dialog"] * {
