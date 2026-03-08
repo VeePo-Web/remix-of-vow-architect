@@ -344,17 +344,18 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
           })}
         </div>
 
-        {/* Golden thread separator between zones */}
+        {/* Golden thread separator — animated scale-x reveal */}
         <div
           className={cn(
-            "w-24 md:w-32 mb-8 md:mb-10 transition-all duration-[400ms]",
-            isOpen ? "opacity-100 delay-[350ms]" : "opacity-0"
+            "w-24 md:w-32 mb-8 md:mb-10 transition-all duration-[600ms] origin-left",
+            isOpen ? "opacity-100 scale-x-100 delay-[200ms]" : "opacity-0 scale-x-0"
           )}
+          style={{ transitionTimingFunction: 'cubic-bezier(0.22,0.61,0.36,1)' }}
         >
           <div
             className="h-px"
             style={{
-              background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.25), hsl(var(--vow-yellow) / 0.08), transparent)",
+              background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.35), hsl(var(--vow-yellow) / 0.12), transparent)",
             }}
             aria-hidden="true"
           />
