@@ -15,10 +15,10 @@ export function ContactFormSuccess() {
   return (
     <div className="text-center py-8 animate-fade-in">
       <div className="mb-6">
-        <CheckCircle2 className="mx-auto text-[#9BE15D] mb-4" size={64} />
+        <CheckCircle2 className="mx-auto text-accent mb-4" size={64} />
         <h2 className="text-3xl font-bold mb-2">Clarity secured.</h2>
         <p className="text-lg text-muted-foreground">
-          You'll receive your personalized ceremony-audio plan within 24 hours.
+          You will receive your personalized ceremony plan within 24 hours.
         </p>
       </div>
 
