@@ -331,11 +331,9 @@ export default function Listen() {
             Every arrangement begins with a conversation.
           </h2>
           <div className="chapter-rule mx-auto mb-8" />
-          <Link to="/contact">
-            <Button variant="primary-dark" size="lg" className="hover-scale">
-              Hold My Date
-            </Button>
-          </Link>
+          <Button variant="primary-dark" size="lg" className="hover-scale" asChild>
+            <Link to="/contact">Hold my date</Link>
+          </Button>
           <p className="text-xs text-muted-foreground/60 mt-4">
             Response within 24 hours. Always.
           </p>
