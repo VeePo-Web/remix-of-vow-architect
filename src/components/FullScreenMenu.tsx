@@ -31,7 +31,7 @@ function getMenuItems(pathname: string) {
     { number: "06", label: "Proof", href: "/proof" },
     { number: "07", label: "FAQ", href: "/faq" },
     { number: "08", label: "Listen", href: "/listen" },
-    { number: "09", label: "Contact", href: "/contact" },
+    { number: "09", label: "Contact", href: isEvents ? '/events/contact' : isTeaching ? '/teaching/contact' : '/contact' },
   ];
 }
 
