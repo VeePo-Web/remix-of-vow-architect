@@ -36,7 +36,7 @@ function PreparationSection() {
       aria-label="The Preparation"
       className="relative section--surface py-[80px] md:py-[120px] piano-section-target overflow-hidden min-h-[400px]"
       style={{
-        background: "linear-gradient(180deg, hsl(40 18% 94%) 0%, hsl(45 22% 95%) 45%, hsl(40 18% 94%) 100%)",
+        background: "linear-gradient(180deg, hsl(var(--warm-cream)) 0%, hsl(var(--warm-cream-mid)) 45%, hsl(var(--warm-cream)) 100%)",
       }}
     >
       <span className="sr-only">
