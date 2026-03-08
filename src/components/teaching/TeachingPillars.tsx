@@ -310,7 +310,7 @@ export function TeachingPillars() {
                 : "opacity-0 translate-y-[8px]"
             )}
             style={{
-              color: "hsl(30 10% 45%)",
+              color: "hsl(var(--teaching-text-label))",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
               transitionDelay: "100ms",
             }}
