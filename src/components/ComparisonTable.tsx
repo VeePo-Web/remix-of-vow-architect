@@ -88,7 +88,7 @@ export function ComparisonTable() {
                   {row.dj.value === true && <Check size={16} className="inline text-accent" />}
                   {row.dj.value === false && <X size={16} className="inline text-destructive/40" />}
                   {row.dj.value === "warning" && <AlertTriangle size={16} className="inline text-primary/50" />}
-                  {row.dj.label && <div className="text-[12px] text-muted-foreground/70 mt-1 leading-snug">{row.dj.label}</div>}
+                  {row.dj.label && <div className="text-[12px] text-muted-foreground mt-1 leading-snug opacity-70">{row.dj.label}</div>}
                 </td>
                 <td className="text-center px-4 py-4">
                   {row.band.value === true && <Check size={16} className="inline text-accent" />}
