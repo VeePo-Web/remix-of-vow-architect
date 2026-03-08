@@ -196,8 +196,8 @@ function FearPair({
       <p
         className="font-sans text-[16px] md:text-[18px] leading-[1.75] text-center max-w-[580px] mx-auto"
         style={{
-          color: "hsl(40 25% 85%)",
-          textShadow: "0 1px 3px hsl(0 0% 0% / 0.12)",
+          color: "hsl(var(--teaching-studio-heading))",
+          textShadow: "0 1px 3px hsl(var(--rich-black) / 0.12)",
         }}
       >
         <ScrollResolution
