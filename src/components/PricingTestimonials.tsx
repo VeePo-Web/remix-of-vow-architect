@@ -20,28 +20,37 @@ const testimonials = [
 
 export function PricingTestimonials() {
   return (
-    <section className="section--accent-soft py-16 px-4">
+    <section className="py-16 px-4">
       <div className="container mx-auto max-w-4xl">
+        <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light text-center mb-8">
+          What couples say about the investment.
+        </h2>
+
         <div className="grid md:grid-cols-2 gap-6">
           {testimonials.map((testimonial, index) => (
-            <Card key={index} className="p-6 card-keyline">
+            <Card
+              key={index}
+              className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)] hover:shadow-[0_0_24px_rgba(255,224,138,0.06)] transition-all duration-[180ms]"
+            >
               <div className="flex items-start gap-4 mb-4">
                 <TestimonialAvatar
                   alt={testimonial.author}
                   fallback={testimonial.initials}
                 />
                 <div>
-                  <p className="font-semibold">{testimonial.author}</p>
+                  <p className="font-display text-base font-medium">{testimonial.author}</p>
                   <p className="text-sm text-muted-foreground">{testimonial.venue}</p>
                 </div>
               </div>
               
-              <p className="text-base text-foreground italic mb-4 leading-relaxed">
-                "{testimonial.quote}"
-              </p>
+              <blockquote className="border-l-2 border-[hsl(var(--vow-yellow)/0.4)] pl-4 mb-4">
+                <p className="font-display text-base text-foreground italic leading-relaxed">
+                  "{testimonial.quote}"
+                </p>
+              </blockquote>
               
-              <div className="pt-3 border-t border-border/50">
-                <p className="text-xs font-semibold text-primary">
+              <div className="pt-3 border-t border-border/30">
+                <p className="text-xs font-sans tracking-[0.1em] text-primary/80 uppercase">
                   {testimonial.package}
                 </p>
               </div>
