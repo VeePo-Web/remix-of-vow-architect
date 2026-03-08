@@ -1,33 +1,28 @@
 
 
-# Plan: Create Events Brand Identity Document
+# About Page — Round 7: Remaining Label Centering and Minor Polish
 
-Create `.lovable/events-brand-identity.md` following the same structure as the wedding and teaching documents — Brand Truth Table, Non-Negotiables/Flex/Dealbreakers, Brand Spine, Positioning, Customer Identity Mirror, Messaging, Voice, and Visual direction.
+## Issue Identified
 
-## Key Differentiators from Other Verticals
+The `pl-[0.3em]` approach for compensating letter-spacing optical shift is insufficient. The labels still appear left of center because the `text-center` class on the `p` element centers the text box, but `pl-[0.3em]` adds padding to the left side of the element itself — which doesn't affect inline text centering within a block-level centered element.
 
-- **Tone:** Professional and polished, not sacred/vigil (weddings) or warm/mentorship (teaching)
-- **Category:** "Private Event Pianist" — not "sound director" or "mentor"
-- **Mission:** "I understand what live music does to a room" — atmospheric, not ceremonial
-- **Tagline adaptation:** "Every room has a sound it's waiting for."
-- **Enemy:** The generic playlist, the background-noise assumption, the DJ who drowns conversation
-- **Audience:** Hosts planning private dinners, church services, cocktail receptions, intimate celebrations — people who care about atmosphere and presence
+The correct fix is different: instead of `pl-[0.3em]` on the `p` tag, the text itself needs optical compensation. The standard CSS approach is to add **equal `padding-left` to the text inline** or use `text-indent` equal to the tracking value. However, the cleanest solution for centered text with letter-spacing is simply to **not add `pl-[0.3em]` at all** (it's doing nothing useful on a `text-center` block) and instead accept that the visual offset on short uppercase labels at `0.3em` tracking is within acceptable tolerance (~2px).
 
-## Document Structure (matching existing format)
+Alternatively, we can remove `pl-[0.3em]` and instead set `margin-left: 0.15em` on the text wrapper, which shifts the entire text block rightward by half the letter-spacing — the mathematically correct optical centering for tracked text.
 
-1. **Brand Truth Table** — Events-specific truths (500+ events, 4 occasion types, 500+ repertoire, room-reading ability)
-2. **Non-Negotiables / Flex / Dealbreakers** — Professional tone rules, no "sacred/vigil" language, no entertainment framing
-3. **Brand Spine** — Category stance, enemy, audience, promise, proof, personality
-4. **Positioning & Differentiators** — "Private Event Pianist" category, differentiator table vs DJs/playlists/bands
-5. **Customer Identity Mirror** — "You are my people if..." / "Not for you if..." for event hosts
-6. **Messaging Pillars** — Atmosphere, Adaptability, Professionalism
-7. **Voice & Lexicon** — Events-specific word choices (allowed/banned), CTA phrasing
-8. **Visual Direction** — How the events page differs aesthetically from weddings/teaching
-9. **Cross-Vertical Coherence** — How events connects to the broader Sacred Sound brand
+## Recommended Fix
 
-## File
+Replace `pl-[0.3em]` with `ml-[0.15em]` on all section labels. This shifts the rendered text block by half the letter-spacing value, achieving true optical center.
 
-- **Create:** `.lovable/events-brand-identity.md`
+## Files to Modify
 
-No code changes required.
+| File | Change |
+|------|--------|
+| WitnessHero.tsx | Replace `pl-[0.3em]` with `ml-[0.15em]` on label |
+| WitnessSustain.tsx | Replace `pl-[0.3em]` with `ml-[0.15em]` on label |
+| WitnessPresence.tsx | Replace `pl-[0.3em]` with `ml-[0.15em]` on label |
+| WitnessCovenant.tsx | Replace `pl-[0.3em]` with `ml-[0.15em]` on label |
+| WitnessCrossing.tsx | Replace `pl-[0.3em]` with `ml-[0.15em]` on label |
+
+5 files, single class swap each.
 
