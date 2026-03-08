@@ -4,11 +4,17 @@ import { NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { FullScreenMenu } from "./FullScreenMenu";
 
-const navLinks = [
-  { to: "/pricing", label: "Services" },
-  { to: "/about", label: "About" },
-  { to: "/proof", label: "Proof" },
-];
+function getNavLinks(pathname: string) {
+  const aboutTo = pathname.startsWith('/events') ? '/events/about'
+    : pathname.startsWith('/teaching') ? '/teaching/about'
+    : '/about';
+  return [
+    { to: "/pricing", label: "Services" },
+    { to: aboutTo, label: "About" },
+    { to: "/proof", label: "Proof" },
+  ];
+}
+
 
 /**
  * MinimalHeader — "The Ceremony Arch"
