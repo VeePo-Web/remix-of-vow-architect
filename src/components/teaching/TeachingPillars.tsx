@@ -170,8 +170,8 @@ function PillarCard({
               : "opacity-0 translate-y-[12px]"
           )}
           style={{
-            color: "hsl(30 10% 20%)",
-            textShadow: "0 1px 2px hsl(40 20% 80% / 0.25)",
+            color: "hsl(var(--teaching-text-heading))",
+            textShadow: "0 1px 2px hsl(var(--teaching-vignette) / 0.25)",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             transitionDelay: "120ms",
           }}
