@@ -1,33 +1,39 @@
 
 
-# Plan: Create Events Brand Identity Document
+# Footer — Add "Powered by VeePo" Attribution + Nav Menu Verification
 
-Create `.lovable/events-brand-identity.md` following the same structure as the wedding and teaching documents — Brand Truth Table, Non-Negotiables/Flex/Dealbreakers, Brand Spine, Positioning, Customer Identity Mirror, Messaging, Voice, and Visual direction.
+## What We Are Doing
 
-## Key Differentiators from Other Verticals
+Adding a subtle "locally powered by veepo.ca" credit line to the footer, styled to match the sacred brand aesthetic (not the FlexServices style which uses colored hover states and a logo image). This will be text-only, typographic, and link directly to the veepo.ca case studies page.
 
-- **Tone:** Professional and polished, not sacred/vigil (weddings) or warm/mentorship (teaching)
-- **Category:** "Private Event Pianist" — not "sound director" or "mentor"
-- **Mission:** "I understand what live music does to a room" — atmospheric, not ceremonial
-- **Tagline adaptation:** "Every room has a sound it's waiting for."
-- **Enemy:** The generic playlist, the background-noise assumption, the DJ who drowns conversation
-- **Audience:** Hosts planning private dinners, church services, cocktail receptions, intimate celebrations — people who care about atmosphere and presence
+## Implementation — 2 Files
 
-## Document Structure (matching existing format)
+### 1. `src/components/Footer.tsx`
 
-1. **Brand Truth Table** — Events-specific truths (500+ events, 4 occasion types, 500+ repertoire, room-reading ability)
-2. **Non-Negotiables / Flex / Dealbreakers** — Professional tone rules, no "sacred/vigil" language, no entertainment framing
-3. **Brand Spine** — Category stance, enemy, audience, promise, proof, personality
-4. **Positioning & Differentiators** — "Private Event Pianist" category, differentiator table vs DJs/playlists/bands
-5. **Customer Identity Mirror** — "You are my people if..." / "Not for you if..." for event hosts
-6. **Messaging Pillars** — Atmosphere, Adaptability, Professionalism
-7. **Voice & Lexicon** — Events-specific word choices (allowed/banned), CTA phrasing
-8. **Visual Direction** — How the events page differs aesthetically from weddings/teaching
-9. **Cross-Vertical Coherence** — How events connects to the broader Sacred Sound brand
+Add a new line between the legal links row and the covenant bookend (after line ~327, before the bookend div).
 
-## File
+The markup:
+- A single `<a>` tag linking to `https://veepo.ca/case-studies` with `target="_blank" rel="noopener noreferrer"`
+- Text: "This website locally powered by veepo.ca" — styled as `text-xs text-muted-foreground/40` (very subtle, not competing with the covenant bookend)
+- On hover: text brightens to `text-muted-foreground/70` and "veepo.ca" portion shifts to `text-primary` (vow-yellow) with the standard 180ms transition
+- Centered, with `mt-4` spacing
+- No logo image, no scale effects — pure typographic, matching the editorial restraint of this brand
 
-- **Create:** `.lovable/events-brand-identity.md`
+### 2. Copy the VeePo logo asset (optional — skip)
 
-No code changes required.
+Per the brand's luxury editorial standard, we will NOT use a logo image. The text-only approach is more consistent with the sacred aesthetic. "veepo.ca" as highlighted text within the sentence is sufficient attribution.
+
+## Visual Placement
+
+```text
+Privacy  |  Terms  |  Cookies  |  Accessibility
+
+      This website locally powered by veepo.ca      ← new line
+
+              ── golden thread ──
+                    ● dot
+           'Til Death ; Unto Life.
+```
+
+The attribution sits quietly between the legal links and the covenant bookend — visible but never competing with the sacred close.
 
