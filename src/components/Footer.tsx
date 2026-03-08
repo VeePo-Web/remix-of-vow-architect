@@ -12,17 +12,20 @@ export function Footer() {
 
   // Detect arrival state — when the covenant bookend is visible
   useEffect(() => {
+    let observer: IntersectionObserver | null = null;
     const timer = setTimeout(() => {
       const bookend = document.querySelector('[data-footer-bookend]');
       if (!bookend) return;
-      const observer = new IntersectionObserver(
+      observer = new IntersectionObserver(
         ([entry]) => setIsArrival(entry.isIntersecting),
         { threshold: 0.5 }
       );
       observer.observe(bookend);
-      return () => observer.disconnect();
     }, 100);
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      observer?.disconnect();
+    };
   }, []);
 
   return (

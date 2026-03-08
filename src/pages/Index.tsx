@@ -37,6 +37,7 @@ const pianoSections = [
 
 export default function Index() {
   usePageTheme();
+  useEffect(() => { document.title = "Parker Gawryletz — Wedding Pianist, Calgary to Banff"; }, []);
   const vigilPhase = useVigilSequence();
 
   return (
