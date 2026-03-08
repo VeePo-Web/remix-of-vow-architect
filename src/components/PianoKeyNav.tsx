@@ -159,15 +159,15 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
         return (
           <div key={section.id} className="relative flex items-center justify-end">
             {/* Tooltip */}
-            {isHovered && (
-              <div
-                className="piano-key-tooltip"
-                style={{ animationDelay: '0ms' }}
-              >
-                {section.label}
-                <span className="piano-key-tooltip-caret" aria-hidden="true" />
-              </div>
-            )}
+            <div
+              className={cn(
+                'piano-key-tooltip',
+                isHovered && 'piano-key-tooltip--visible'
+              )}
+            >
+              {section.label}
+              <span className="piano-key-tooltip-caret" aria-hidden="true" />
+            </div>
 
             {/* Key */}
             <button
