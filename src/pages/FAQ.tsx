@@ -143,7 +143,7 @@ export default function FAQ() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="h2 mb-4 text-ink-inverse">Every arrangement begins with a conversation.</h2>
-            <p className="lead text-muted-foreground mb-8">
+            <p className="p-lead text-muted-foreground mb-8">
               Tell me about your day, and I will send you a personalized plan within 24 hours.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
