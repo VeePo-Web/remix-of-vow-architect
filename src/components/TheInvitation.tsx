@@ -279,7 +279,7 @@ export function TheInvitation() {
 
             <p
               className={cn(
-                'text-lg font-sans font-light leading-[1.8] text-foreground/65 max-w-lg mt-6 transition-all duration-700',
+                'text-lg font-sans font-light leading-[1.8] text-muted-foreground max-w-lg mt-6 transition-all duration-700',
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               )}
               style={{ transitionDelay: isVisible ? '600ms' : '0ms' }}
