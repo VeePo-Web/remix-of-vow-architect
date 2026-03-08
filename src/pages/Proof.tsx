@@ -154,8 +154,8 @@ export default function Proof() {
                     Download a sample ceremony plan
                   </Button>
                 </div>
-                <p className="text-sm text-muted-foreground">
-                  Response in 24 hours. Your trust starts with proof.
+                 <p className="text-sm text-muted-foreground">
+                  Response within 24 hours. Always.
                 </p>
               </div>
             </div>

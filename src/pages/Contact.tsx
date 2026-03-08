@@ -394,8 +394,8 @@ export default function Contact() {
                           <ValuePromiseBadge />
                         </div>
                         <p className="text-xs text-muted-foreground text-center">
-                          You'll receive a custom SPL map, timeline support, and a
-                          clarity checklist. I only use your info to build your plan.
+                          You will receive a personalized ceremony plan within 24 hours.
+                          I only use your information to prepare your arrangement.
                         </p>
                       </div>
                     </form>

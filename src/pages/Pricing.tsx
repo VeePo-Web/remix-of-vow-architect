@@ -219,7 +219,7 @@ export default function Pricing() {
             <div id="compare" className="max-w-5xl mx-auto mb-16 scroll-mt-24 piano-section-target">
               <div className="text-center mb-8">
                 <h2 className="h2 mb-3 mx-auto">
-                  Compare me to the alternatives
+                  What sets a ceremony pianist apart.
                 </h2>
               </div>
               
