@@ -156,6 +156,7 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
         const isPressed = pressedIndex === i;
         const enterDelay = reducedMotion ? 0 : i * 40;
         const animated = hasAnimated;
+        const isDamped = hoveredIndex !== null && !isHovered && !isActive;
 
         return (
           <div key={section.id} className="relative flex items-center justify-end">
