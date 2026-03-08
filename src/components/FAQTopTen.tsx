@@ -40,7 +40,7 @@ const topTenFAQs = [
   {
     question: "What if it rains or snows?",
     answer: "All equipment is weather-protected. We agree on a Plan B location in advance, and I can relocate within minutes.",
-    link: { to: "#weather", label: "Weather contingency details" }
+    link: { to: "/terms", label: "See the contingency policy" }
   },
   {
     question: "Can I see an example plan before I commit?",
