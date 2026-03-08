@@ -24,8 +24,7 @@ export function EventsHero() {
       id="events-hero"
       className="relative h-screen w-full overflow-hidden flex items-center justify-center"
       style={{ background: "hsl(var(--rich-black))" }}
-      role="banner"
-      aria-label="Events Hero"
+      aria-label="Events hero"
     >
       {/* Background image with Ken Burns */}
       <div
