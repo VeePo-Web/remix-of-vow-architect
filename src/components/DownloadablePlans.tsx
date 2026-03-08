@@ -27,7 +27,7 @@ export function DownloadablePlans() {
     <section className="section--surface section-padding">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold mb-4 text-center">You Don't Get a Musician—You Get a Plan.</h2>
+          <h2 className="h2 mb-4 text-center">You do not get a musician — you get a plan.</h2>
           
           <StaggerChildren staggerDelay={80} className="grid md:grid-cols-3 gap-6 mb-8">
             {samplePlans.map((plan, i) => (
