@@ -31,7 +31,7 @@ export default function Events() {
   useEffect(() => { document.title = "Private Events — Parker Gawryletz, Pianist"; }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <MinimalHeader />
       <PianoKeyNav sections={eventsSections} />
 

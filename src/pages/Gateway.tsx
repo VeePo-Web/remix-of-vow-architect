@@ -67,7 +67,7 @@ function CardImage({ image, available }: { image: string; available: boolean }) 
             ? "opacity-[0.35] group-hover:opacity-[0.45]"
             : "opacity-[0.20]"
         )}
-        style={{ backgroundImage: `url(${image})` }}
+        style={{ backgroundImage: `url(${image})`, willChange: 'transform' }}
       />
     </div>
   );
@@ -78,7 +78,7 @@ export default function Gateway() {
   useEffect(() => { document.title = "Parker Gawryletz — Sound Director"; }, []);
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-[hsl(var(--rich-black))] flex flex-col items-center py-8 md:py-0 md:justify-center relative" role="main" aria-label="Choose your path">
+    <main className="h-screen w-screen overflow-hidden bg-[hsl(var(--rich-black))] flex flex-col items-center py-8 md:py-0 md:justify-center relative" aria-label="Choose your path">
       {/* Film grain */}
       <div className="absolute inset-0 grain opacity-[0.10] pointer-events-none" aria-hidden="true" />
       {/* Breathing warm vignette */}
@@ -195,7 +195,9 @@ export default function Gateway() {
           50% { opacity: 1; }
         }
         @media (prefers-reduced-motion: reduce) {
-          .semicolon-breathe { animation: none !important; }
+          .semicolon-breathe,
+          [style*="gateway-vignette-breathe"] { animation: none !important; }
+          .animate-fade-in { animation: none !important; opacity: 1 !important; }
         }
       `}</style>
 
@@ -217,6 +219,6 @@ export default function Gateway() {
       </footer>
 
       <AmbientAudioPill />
-    </div>
+    </main>
   );
 }

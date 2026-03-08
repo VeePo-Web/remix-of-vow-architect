@@ -75,7 +75,7 @@ export default function Teaching() {
   useEffect(() => { document.title = "Piano Mentorship — Parker Gawryletz"; }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <MinimalHeader />
       <PianoKeyNav sections={teachingSections} />
 
