@@ -67,7 +67,7 @@ function CardImage({ image, available }: { image: string; available: boolean }) 
             ? "opacity-[0.35] group-hover:opacity-[0.45]"
             : "opacity-[0.20]"
         )}
-        style={{ backgroundImage: `url(${image})`, willChange: 'transform' }}
+        style={{ backgroundImage: `url(${image})` }}
       />
     </div>
   );
