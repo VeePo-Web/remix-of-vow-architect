@@ -194,7 +194,7 @@ function StoryCard({
           return (
             <span
               key={i}
-              className="inline-block transition-opacity duration-[60ms]"
+              className="inline-block mr-[0.25em] transition-opacity duration-[60ms]"
               style={{ opacity: wordOpacity }}
             >
               {isUnderline ? (
@@ -214,7 +214,6 @@ function StoryCard({
               ) : (
                 word
               )}
-              {i < quoteWords.length - 1 ? " " : ""}
             </span>
           );
         })}
