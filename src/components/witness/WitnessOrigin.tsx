@@ -79,7 +79,7 @@ export function WitnessOrigin() {
                 )}
                 style={{ transitionDelay: "600ms" }}
               >
-                I left the reception that night and started building the Ceremony-Audio Plan—a way to make audibility inevitable.
+                I left the reception that night and started building a system to ensure every word would be heard—no matter the wind, the venue, or the distance.
               </p>
             </div>
 
