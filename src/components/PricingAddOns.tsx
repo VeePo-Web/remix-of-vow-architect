@@ -5,9 +5,9 @@ import { StaggerChildren } from "@/components/animation";
 const addOns = [
   {
     icon: Music,
-    title: "Learning Fee",
+    title: "Special Song Request",
     price: "$75–$150",
-    description: "Request a special song outside my standard set. Includes rehearsal and live cue integration. (Submit 8 weeks prior; feasibility confirmed in 7 days.)",
+    description: "A song outside my standard repertoire, learned and rehearsed for your ceremony. Submit at least 8 weeks prior — I will confirm feasibility within 7 days.",
   },
   {
     icon: Clock,
