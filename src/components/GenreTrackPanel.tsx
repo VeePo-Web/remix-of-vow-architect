@@ -130,8 +130,8 @@ export function GenreTrackPanel({
               isActive
                 ? "text-[hsl(var(--vow-yellow))]"
                 : hasSrc
-                ? "text-foreground/80 hover:text-foreground hover:bg-[hsl(var(--vow-yellow)/0.06)] cursor-pointer"
-                : "text-foreground/45 cursor-default"
+                ? "text-foreground opacity-80 hover:text-foreground hover:bg-[hsl(var(--vow-yellow)/0.06)] cursor-pointer"
+                : "text-foreground opacity-45 cursor-default"
             )}
             style={{
               background: isActive
