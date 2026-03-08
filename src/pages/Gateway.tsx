@@ -195,7 +195,9 @@ export default function Gateway() {
           50% { opacity: 1; }
         }
         @media (prefers-reduced-motion: reduce) {
-          .semicolon-breathe { animation: none !important; }
+          .semicolon-breathe,
+          [style*="gateway-vignette-breathe"] { animation: none !important; }
+          .animate-fade-in { animation: none !important; opacity: 1 !important; }
         }
       `}</style>
 
