@@ -89,6 +89,7 @@ export default function Teaching() {
       </main>
 
       <Footer />
+      <MobileStickyBar />
     </div>
   );
 }

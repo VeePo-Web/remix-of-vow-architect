@@ -78,9 +78,9 @@ export default function FAQ() {
       <section className="section--dark section-padding">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="mb-4 text-ink-inverse">Every objection becomes a planning advantage.</h2>
+            <h2 className="mb-4 text-ink-inverse">Every arrangement begins with a conversation.</h2>
             <p className="lead text-ink-inverse/70 mb-8">
-              Where others cross fingers, I print plans. Get clarity now—before the stress hits.
+              Tell me about your day, and I will send you a personalized plan within 24 hours.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Button size="lg" variant="primary-dark" asChild>

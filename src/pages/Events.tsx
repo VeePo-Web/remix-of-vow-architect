@@ -45,6 +45,7 @@ export default function Events() {
       </main>
 
       <Footer />
+      <MobileStickyBar />
     </div>
   );
 }

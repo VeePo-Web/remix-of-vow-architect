@@ -144,7 +144,7 @@ export default function Proof() {
             <div className="container mx-auto px-4">
               <div className="max-w-3xl mx-auto text-center space-y-6">
                 <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light text-foreground">
-                  I don't just say it—I log it, show it, and guarantee it.
+                  Every arrangement begins with a conversation.
                 </h2>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button size="lg" variant="primary-dark" className="hover-scale">

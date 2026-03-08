@@ -267,13 +267,13 @@ export default function Pricing() {
           <RevealOnScroll variant="up">
             <div className="max-w-2xl mx-auto text-center mb-8 space-y-6">
               <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light mx-auto">
-                Your venue, your date, your plan—confirmed in 24 hours.
+                Every arrangement begins with a conversation.
               </h2>
               <p className="p-body text-muted-foreground">
-                Includes SPL summary, mic/power notes, and upgrade options.
+                Tell me about your day. I will respond within 24 hours with a personalized plan.
               </p>
               <Button size="lg" variant="primary-dark" className="hover-scale">
-                Hold my date & get my ceremony-audio plan
+                Hold my date
               </Button>
             </div>
           </RevealOnScroll>
