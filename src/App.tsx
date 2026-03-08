@@ -24,8 +24,10 @@ import Legal from "./pages/Legal";
 import Listen from "./pages/Listen";
 import EventsAbout from "./pages/EventsAbout";
 import EventsPricing from "./pages/EventsPricing";
+import EventsContact from "./pages/EventsContact";
 import TeachingAbout from "./pages/TeachingAbout";
 import TeachingPricing from "./pages/TeachingPricing";
+import TeachingContact from "./pages/TeachingContact";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
