@@ -165,6 +165,8 @@ export default function FAQ() {
         </div>
       </section>
 
+      </main>
+
       <Footer />
       <MobileStickyBar />
 
@@ -178,7 +180,6 @@ export default function FAQ() {
           [style*="faq-vignette-breathe"] { animation: none !important; opacity: 0.7; }
         }
       `}</style>
-      </main>
     </div>
   );
 }
