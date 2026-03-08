@@ -160,7 +160,7 @@ export function CrossOver() {
       {/* 13b: Warm-to-cold intermediate layer */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 80% 30% at 50% 0%, hsl(35 40% 50% / 0.04) 0%, transparent 100%)" }}
+        style={{ background: "radial-gradient(ellipse 80% 30% at 50% 0%, hsl(var(--vow-yellow) / 0.04) 0%, transparent 100%)" }}
         aria-hidden="true"
       />
 
@@ -182,7 +182,7 @@ export function CrossOver() {
       <div
         className="section-fade-top"
         style={{
-          background: 'linear-gradient(to top, transparent 0%, hsl(240 9% 4% / 0.3) 20%, hsl(240 9% 3% / 0.6) 45%, hsl(240 9% 2% / 0.85) 70%, hsl(240 9% 2%) 100%)',
+          background: 'linear-gradient(to top, transparent 0%, hsl(var(--rich-black) / 0.3) 20%, hsl(var(--rich-black) / 0.6) 45%, hsl(var(--rich-black) / 0.85) 70%, hsl(var(--rich-black)) 100%)',
           height: '240px',
         }}
         aria-hidden="true"
@@ -299,13 +299,13 @@ export function CrossOver() {
             {/* 10e: Outer halo glow */}
             <div
               className="absolute -inset-x-16 -inset-y-8 rounded-full pointer-events-none"
-              style={{ background: 'radial-gradient(ellipse at center, hsl(45 100% 76% / 0.05) 0%, transparent 80%)' }}
+              style={{ background: 'radial-gradient(ellipse at center, hsl(var(--vow-yellow) / 0.05) 0%, transparent 80%)' }}
               aria-hidden="true"
             />
             {/* 10e: Inner core glow */}
             <div
               className="absolute -inset-x-10 -inset-y-5 rounded-full pointer-events-none"
-              style={{ background: 'radial-gradient(ellipse at center, hsl(45 100% 76% / 0.12) 0%, transparent 40%)' }}
+              style={{ background: 'radial-gradient(ellipse at center, hsl(var(--vow-yellow) / 0.12) 0%, transparent 40%)' }}
               aria-hidden="true"
             />
             <Button 

@@ -129,7 +129,7 @@ export function TheInvitation() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 40%, hsl(25 8% 6% / 0.6) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 40%, hsl(var(--rich-black) / 0.6) 100%)',
         }}
         aria-hidden="true"
       />
@@ -163,7 +163,7 @@ export function TheInvitation() {
                   border: '1px solid hsl(var(--vow-yellow) / 0.12)',
                   boxShadow: [
                     'inset 0 0 60px hsl(var(--vow-yellow) / 0.08)',
-                    'inset 0 1px 0 hsl(0 0% 100% / 0.06)',
+                    'inset 0 1px 0 hsl(var(--foreground) / 0.06)',
                     '0 0 40px hsl(var(--vow-yellow) / 0.06)',
                     '0 40px 100px -20px hsl(var(--rich-black) / 0.5)',
                   ].join(', '),
@@ -182,7 +182,7 @@ export function TheInvitation() {
                 <div
                   className="absolute inset-0 pointer-events-none"
                   style={{
-                    background: 'radial-gradient(ellipse at center, transparent 40%, hsl(240 12% 3% / 0.4) 100%)',
+                    background: 'radial-gradient(ellipse at center, transparent 40%, hsl(var(--rich-black) / 0.4) 100%)',
                   }}
                   aria-hidden="true"
                 />
@@ -257,7 +257,7 @@ export function TheInvitation() {
                     transitionDelay: isVisible ? '1000ms' : '0ms',
                     transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
                     width: '100%',
-                    boxShadow: isVisible ? '0 0 8px hsl(45 90% 65% / 0.3)' : 'none',
+                    boxShadow: isVisible ? '0 0 8px hsl(var(--vow-yellow) / 0.3)' : 'none',
                     animation: isVisible ? 'invitation-yours-glow 800ms cubic-bezier(0.22, 0.61, 0.36, 1) 1700ms both' : 'none',
                   }}
                 />
@@ -339,7 +339,7 @@ export function TheInvitation() {
       {/* Bottom fade */}
       <div
         className="absolute bottom-0 left-0 right-0 h-[120px] z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to bottom, transparent, hsl(220 15% 8%))' }}
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(var(--deep-graphite)))' }}
         aria-hidden="true"
       />
     </section>
