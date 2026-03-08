@@ -15,16 +15,16 @@ interface KeyTier {
 
 const tiers: KeyTier[] = [
   {
-    name: "The Ceremony",
+    name: "The Vow",
     price: "$650",
-    description: "I play your ceremony — processional through recessional.",
+    description: "The ceremony itself — 30 to 45 minutes of devoted presence at the most sacred hour.",
     sentence: "Your vows, carried by piano. Nothing more, nothing less.",
     ctaText: "Hold my date",
   },
   {
-    name: "The Prelude",
+    name: "The Hour",
     price: "$750",
-    description: "30 minutes of piano as your guests arrive, then your full ceremony.",
+    description: "Extended presence — from guest arrival through the ceremony and into cocktails.",
     sentence: "The room is already sacred before the first word is spoken.",
     ctaText: "Hold my date",
     isChosen: true,
@@ -32,7 +32,7 @@ const tiers: KeyTier[] = [
   {
     name: "The Story",
     price: "$1,200",
-    description: "Prelude, ceremony, and live piano for cocktail hour.",
+    description: "Full-day witness — from the first guest arriving to the last note over dinner.",
     sentence: "From the first guest to the last glass raised — I am there.",
     ctaText: "Hold my date",
   },
