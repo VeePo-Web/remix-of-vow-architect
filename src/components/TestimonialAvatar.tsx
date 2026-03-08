@@ -8,7 +8,7 @@ interface TestimonialAvatarProps {
 
 export function TestimonialAvatar({ src, alt, fallback }: TestimonialAvatarProps) {
   return (
-    <Avatar className="w-12 h-12 ring-1 ring-[#9BE15D]">
+    <Avatar className="w-12 h-12 ring-1 ring-[hsl(var(--vine-green))]">
       <AvatarImage src={src} alt={alt} />
       <AvatarFallback className="bg-card text-foreground">
         {fallback}
