@@ -5424,7 +5424,7 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid hsl(var(--vow-yellow) / 0.3);
   border-radius: 20px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.3), 0 0 20px rgba(255,224,138,0.06);
+  box-shadow: 0 4px 16px hsl(var(--rich-black) / 0.3), 0 0 20px hsl(var(--vow-yellow) / 0.06);
   animation: badge-glow-breathe 4s ease-in-out infinite;
 }
 
