@@ -262,7 +262,7 @@ export function TeachingMethodology() {
           }}
         >
           <ScrollRevealWords
-            text="The first question I ask is never about music. It is about you. What brought you here. What you hear when no one is listening. What the silence holds before you fill it. We begin there — not with a scale, but with the sound you carry inside."
+            text="The first question I ask is never about music. It is about you. What brought you to the bench. What you hear when no one is listening. What the silence holds before you fill it. We begin there — not with a scale, but with the sound you carry inside."
             isInView={isVisible}
           />
         </p>
@@ -283,7 +283,7 @@ export function TeachingMethodology() {
               "0 1px 2px hsl(0 0% 0% / 0.2), 0 3px 12px hsl(0 0% 0% / 0.08)",
           }}
         >
-          Every voice arrives as a seed. Your hands are the soil. I am beside you while it takes root.
+          Every voice arrives as a seed. Your hands are the soil. I keep watch while it takes root.
         </p>
 
         {/* Pencil annotation */}
