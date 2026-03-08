@@ -16,7 +16,7 @@ export function WitnessOrigin() {
       className="relative py-[120px] px-4 bg-background overflow-hidden piano-section-target"
     >
       {/* Grain overlay */}
-      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
+      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
 
       {/* Breathing vignette */}
       <div 
