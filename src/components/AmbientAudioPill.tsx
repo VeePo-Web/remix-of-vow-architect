@@ -200,7 +200,7 @@ export default function AmbientAudioPill() {
               !isPanelOpen && !isPlaying ? "opacity-100" : "opacity-0 pointer-events-none"
             )}
           >
-            <Play size={14} strokeWidth={2} className="text-foreground/70 translate-x-[1px]" />
+            <Play size={14} strokeWidth={2} className="text-foreground opacity-70 translate-x-[1px]" />
           </span>
           {/* Mini waveform icon (playing, panel closed) */}
           <span
