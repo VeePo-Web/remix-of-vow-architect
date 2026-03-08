@@ -2,17 +2,49 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 
-const pageConfig: Record<string, { text: string; cta: string }> = {
-  "/": { text: "Three paths, one pianist", cta: "Start a conversation" },
-  "/weddings": { text: "I would be honored to be there", cta: "Hold my date" },
-  "/teaching": { text: "Begin the conversation", cta: "Begin the conversation" },
-  "/events": { text: "Discuss your event", cta: "Discuss your event" },
-  "/pricing": { text: "Find the right presence", cta: "Hold my date" },
-  "/about": { text: "The witness behind the keys", cta: "Hold my date" },
-  "/proof": { text: "500+ ceremonies performed", cta: "Hold my date" },
-  "/faq": { text: "Every question, answered", cta: "Hold my date" },
-  "/listen": { text: "Hear what your ceremony could sound like", cta: "Hold my date" },
-};
+// Vertical-aware page config with correct contact routing
+function getPageConfig(pathname: string) {
+  const isEvents = pathname.startsWith('/events');
+  const isTeaching = pathname.startsWith('/teaching');
+  
+  const contactHref = isEvents ? '/events/contact'
+    : isTeaching ? '/teaching/contact'
+    : '/contact';
+
+  // Default config for weddings vertical
+  let config = { text: "I would be honored to be there", cta: "Hold my date", contactHref };
+
+  // Gateway
+  if (pathname === '/') {
+    config = { text: "Three paths, one pianist", cta: "Start a conversation", contactHref: '/contact' };
+  }
+  // Teaching vertical
+  else if (isTeaching) {
+    config = { text: "Begin the conversation", cta: "Begin the conversation", contactHref };
+  }
+  // Events vertical
+  else if (isEvents) {
+    config = { text: "Discuss your event", cta: "Discuss your event", contactHref };
+  }
+  // Weddings-specific pages
+  else if (pathname === '/pricing') {
+    config = { ...config, text: "Find the right presence" };
+  }
+  else if (pathname === '/about') {
+    config = { ...config, text: "The witness behind the keys" };
+  }
+  else if (pathname === '/proof') {
+    config = { ...config, text: "500+ ceremonies performed" };
+  }
+  else if (pathname === '/faq') {
+    config = { ...config, text: "Every question, answered" };
+  }
+  else if (pathname === '/listen') {
+    config = { ...config, text: "Hear what your ceremony could sound like" };
+  }
+
+  return config;
+}
 
 export function MobileStickyBar() {
   const [isVisible, setIsVisible] = useState(false);
@@ -20,8 +52,8 @@ export function MobileStickyBar() {
   const [isFooterCtaVisible, setIsFooterCtaVisible] = useState(false);
   const location = useLocation();
 
-  // Hide entirely on contact page
-  const isContact = location.pathname === "/contact";
+  // Hide entirely on contact pages
+  const isContact = location.pathname.includes('/contact');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,7 +68,7 @@ export function MobileStickyBar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Fade out when footer CTA becomes visible — avoid duplicate CTAs
+  // Fade out when footer CTA becomes visible
   useEffect(() => {
     const bookend = document.querySelector('[data-footer-bookend]');
     if (!bookend) return;
@@ -50,9 +82,7 @@ export function MobileStickyBar() {
 
   if (isContact) return null;
 
-  const config = pageConfig[location.pathname] || { text: "I would be honored to be there", cta: "Hold my date" };
-  const leftText = config.text;
-  const ctaText = config.cta;
+  const config = getPageConfig(location.pathname);
 
   return (
     <nav
@@ -82,7 +112,7 @@ export function MobileStickyBar() {
 
       <div className="relative flex items-center justify-between gap-3 p-3">
         <span className="text-sm font-display text-muted-foreground">
-          {leftText}
+          {config.text}
         </span>
         <div className="relative">
           <div
@@ -93,8 +123,8 @@ export function MobileStickyBar() {
             aria-hidden="true"
           />
           <Button size="sm" variant="primary-dark" className="relative hover-scale cta-breathe-glow" asChild>
-            <Link to="/contact">
-              {ctaText}
+            <Link to={config.contactHref}>
+              {config.cta}
             </Link>
           </Button>
         </div>
