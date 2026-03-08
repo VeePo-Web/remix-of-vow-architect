@@ -62,12 +62,12 @@ export function WitnessCovenant() {
           {/* Certificate Container — upgraded ornaments and warmth */}
           <div 
             className={cn(
-              "relative p-12 md:p-16 bg-card border border-primary/15 rounded-sm transition-all duration-1000",
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              "relative p-12 md:p-16 bg-[hsl(var(--deep-graphite))] border border-primary/20 rounded-sm transition-all duration-1000",
+              isVisible ? "opacity-100 translate-y-0 blur-none" : "opacity-0 translate-y-8 blur-sm"
             )}
             style={{ 
               transitionDelay: "200ms",
-              boxShadow: "0 20px 60px hsl(var(--rich-black) / 0.08), 0 0 0 1px hsl(var(--primary) / 0.06), inset 0 0 80px hsl(var(--vow-yellow) / 0.04)"
+              boxShadow: "0 20px 60px hsl(var(--rich-black) / 0.12), 0 0 0 1px hsl(var(--primary) / 0.08), inset 0 0 80px hsl(var(--vow-yellow) / 0.05)"
             }}
           >
             {/* Film grain texture on certificate */}

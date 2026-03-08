@@ -111,9 +111,9 @@ export function WitnessCrossing() {
           >
             {/* Breathing halo behind button */}
             <div 
-              className="absolute inset-0 -inset-x-4 -inset-y-3 rounded-lg pointer-events-none motion-reduce:hidden"
+              className="absolute -inset-x-8 -inset-y-5 rounded-lg pointer-events-none motion-reduce:hidden"
               style={{
-                background: "radial-gradient(ellipse, hsl(var(--vow-yellow) / 0.12) 0%, transparent 70%)",
+                background: "radial-gradient(ellipse, hsl(var(--vow-yellow) / 0.15) 0%, transparent 70%)",
                 animation: "vigil-pulse 4s ease-in-out infinite",
               }}
               aria-hidden="true"

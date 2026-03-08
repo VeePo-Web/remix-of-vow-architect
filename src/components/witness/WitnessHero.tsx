@@ -81,8 +81,8 @@ export function WitnessHero() {
             }`}
             style={{ transitionDelay: "500ms" }}
           >
-            <div className="absolute inset-0 bg-primary/40 vibrating-string" />
-            <div className="absolute inset-0 bg-primary blur-sm vibrating-string" style={{ animationDelay: "50ms" }} />
+            <div className="absolute inset-0 bg-primary/40 vibrating-string motion-reduce:animate-none" />
+            <div className="absolute inset-0 bg-primary blur-sm vibrating-string motion-reduce:animate-none" style={{ animationDelay: "50ms" }} />
             {/* Center glow point with breathing */}
             <div 
               className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-primary motion-reduce:animate-none"

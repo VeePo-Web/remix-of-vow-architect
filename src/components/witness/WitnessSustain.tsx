@@ -29,6 +29,7 @@ export function WitnessSustain() {
   return (
     <section 
       id="witness-sustain"
+      aria-label="The Sustain"
       ref={ref as React.RefObject<HTMLElement>}
       className="relative py-[120px] px-4 piano-section-target"
       style={{
