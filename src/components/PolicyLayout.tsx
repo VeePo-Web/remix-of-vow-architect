@@ -14,6 +14,7 @@ interface PolicyLayoutProps {
 
 export function PolicyLayout({ children, title, lastUpdated, breadcrumbs }: PolicyLayoutProps) {
   usePageTheme();
+  useEffect(() => { document.title = `${title} — Parker Gawryletz`; }, [title]);
 
   return (
     <div className="min-h-screen flex flex-col bg-background relative">
