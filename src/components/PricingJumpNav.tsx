@@ -5,7 +5,7 @@ const navItems = [
   { id: "compare", label: "Compare" },
   { id: "addons", label: "Add-ons" },
   { id: "faqs", label: "FAQs" },
-  { id: "download", label: "Download Sample Plan" },
+  { id: "download", label: "Download" },
 ];
 
 export function PricingJumpNav() {
@@ -44,14 +44,14 @@ export function PricingJumpNav() {
   };
 
   return (
-    <nav className="sticky top-16 z-40 bg-background/95 backdrop-blur-sm border-b border-border mb-12">
+    <nav className="sticky top-16 z-40 bg-background/90 backdrop-blur-[8px] border-b border-border/40 mb-12">
       <div className="container mx-auto px-4">
         <div className="flex gap-1 overflow-x-auto scrollbar-hide py-3 snap-x snap-mandatory">
           {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className={`px-4 py-2 text-sm font-medium whitespace-nowrap snap-start transition-all ${
+              className={`px-4 py-2 text-[13px] font-display font-medium whitespace-nowrap snap-start transition-all duration-[180ms] rounded-sm ${
                 activeId === item.id
                   ? "text-primary border-b-2 border-primary"
                   : "text-muted-foreground hover:text-foreground"

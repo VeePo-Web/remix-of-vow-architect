@@ -12,28 +12,30 @@ export function PricingPreview() {
   return (
     <section className="section--surface py-24 px-4">
       <div className="container mx-auto max-w-6xl">
-        <h2 className="h2 text-center mb-4 mx-auto">
-          Three quick picks
+        <div className="overline text-center mb-2">The Offering</div>
+        <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light text-center mb-3 mx-auto">
+          Three paths to presence.
         </h2>
+        <div className="chapter-rule mx-auto mb-12" />
 
         <StaggerChildren staggerDelay={80} className="grid md:grid-cols-3 gap-6 mb-8">
           {packages.map((pkg, index) => (
-            <Card key={index} className="p-8 text-center hover-scale">
-              <h3 className="h4 mb-4">{pkg.name}</h3>
-              <p className="text-4xl font-bold price-numeral mb-2 font-display">
+            <Card key={index} className="p-8 text-center bg-card/80 backdrop-blur-[8px] border-border/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)] hover:shadow-[0_0_24px_rgba(255,224,138,0.06)] transition-all duration-[180ms]">
+              <h3 className="font-display text-lg font-medium mb-4">{pkg.name}</h3>
+              <p className="font-display text-[clamp(32px,4vw,48px)] font-light text-primary mb-2">
                 ${pkg.price}
               </p>
             </Card>
           ))}
         </StaggerChildren>
 
-        <p className="text-center text-sm text-muted-foreground mb-8 italic">
+        <p className="text-center text-[14px] text-muted-foreground mb-8 italic leading-relaxed">
           Includes mic, power, SPL, backups, and bylaw-aware mixing.
         </p>
 
         <div className="text-center space-y-2 mb-8">
-          <p className="text-sm text-muted-foreground">
-            50% deposit • Refundable within 14 days • Upgrade/add-ons anytime • Balance due 14 days prior.
+          <p className="text-[13px] text-muted-foreground leading-relaxed">
+            50% deposit · Refundable within 14 days · Upgrade anytime · Balance due 14 days prior.
           </p>
         </div>
 
