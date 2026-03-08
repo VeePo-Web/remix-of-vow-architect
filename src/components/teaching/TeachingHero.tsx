@@ -164,8 +164,8 @@ export function TeachingHero() {
         style={{
           backgroundImage: `url(${benchImg})`,
           backgroundSize: "cover",
-          backgroundPosition: "center 62%",
-          opacity: 0.12,
+          backgroundPosition: "center 70%",
+          opacity: 0.10,
           animation: "teaching-ken-burns 30s linear infinite alternate",
           willChange: "transform",
         }}
@@ -177,17 +177,17 @@ export function TeachingHero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 70% 55% at 50% 48%, transparent 0%, hsl(0 0% 0% / 0.7) 100%)",
+            "radial-gradient(ellipse 65% 50% at 50% 46%, transparent 0%, hsl(0 0% 0% / 0.75) 100%)",
         }}
         aria-hidden="true"
       />
 
-      {/* ── Layer 3: Top & bottom darken for composition balance ── */}
+      {/* ── Layer 3: Top & bottom darken — heavy top to kill piano keys ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(180deg, hsl(0 0% 0% / 0.6) 0%, transparent 30%, transparent 70%, hsl(0 0% 0% / 0.7) 100%)",
+            "linear-gradient(180deg, hsl(0 0% 0% / 0.85) 0%, hsl(0 0% 0% / 0.3) 25%, transparent 45%, transparent 70%, hsl(0 0% 0% / 0.7) 100%)",
         }}
         aria-hidden="true"
       />
