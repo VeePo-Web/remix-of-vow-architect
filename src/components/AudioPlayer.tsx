@@ -24,7 +24,7 @@ function WaveformBars({ isPlaying, reducedMotion }: { isPlaying: boolean; reduce
           className={cn(
             "w-[3px] rounded-full transition-all",
             isPlaying
-              ? "bg-[hsl(var(--vow-yellow))]"
+              ? "bg-primary"
               : "bg-muted-foreground/30"
           )}
           style={{
