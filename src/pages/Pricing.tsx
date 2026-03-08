@@ -90,10 +90,10 @@ export default function Pricing() {
             <div id="packages" className="max-w-6xl mx-auto mb-16 scroll-mt-24 piano-section-target">
               <div className="text-center mb-8">
                 <h2 className="h2 mb-3 mx-auto">
-                  Choose your coverage tier
+                  Three ways to be present.
                 </h2>
                 <p className="p-body text-muted-foreground">
-                  Every option includes full audio coverage—only your event length changes.
+                  Each begins with the same months of collaborative preparation. The only difference is how long I stay.
                 </p>
               </div>
 
