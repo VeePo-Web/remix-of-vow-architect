@@ -26,13 +26,14 @@ export function TeachingHero() {
       style={{ background: "hsl(40 30% 95%)" }}
       aria-label="The Empty Bench"
     >
-      {/* Background bench image — Ken Burns drift */}
+      {/* Background bench image — 30s Ken Burns drift */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage: `url(${benchImg})`,
           opacity: 0.13,
-          animation: "teaching-ken-burns 35s linear infinite alternate",
+          animation: "teaching-ken-burns 30s linear infinite alternate",
+          willChange: "transform",
         }}
         aria-hidden="true"
       />
@@ -43,22 +44,25 @@ export function TeachingHero() {
         aria-hidden="true"
       />
 
-      {/* Warm fog */}
+      {/* Dual-origin fog */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 60%, hsl(40 40% 90% / 0.4), transparent 70%)",
+            "radial-gradient(ellipse at 35% 65%, hsl(40 35% 88% / 0.35), transparent 55%), radial-gradient(ellipse at 65% 35%, hsl(40 30% 90% / 0.3), transparent 50%)",
         }}
         aria-hidden="true"
       />
 
-      {/* Vignette */}
+      {/* Breathing vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
             "radial-gradient(ellipse at center, transparent 40%, hsl(40 20% 88% / 0.6) 100%)",
+          animation: isRevealed
+            ? "teaching-hero-vignette 6s ease-in-out infinite"
+            : undefined,
         }}
         aria-hidden="true"
       />
@@ -71,11 +75,11 @@ export function TeachingHero() {
             "font-sans text-[11px] uppercase tracking-[0.22em] mb-fitz-5 transition-all duration-[1800ms]",
             isRevealed
               ? "opacity-60 translate-y-0"
-              : "opacity-0 translate-y-2"
+              : "opacity-0 translate-y-[8px]"
           )}
           style={{
             color: "hsl(30 10% 35%)",
-            transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             transitionDelay: "400ms",
           }}
         >
@@ -89,12 +93,13 @@ export function TeachingHero() {
               "block text-[40px] md:text-[64px] font-light transition-all duration-[1800ms]",
               isRevealed
                 ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-3"
+                : "opacity-0 translate-y-[12px]"
             )}
             style={{
               color: "hsl(30 10% 20%)",
-              transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
+              transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
               transitionDelay: "800ms",
+              textShadow: "0 1px 2px hsl(40 20% 80% / 0.3)",
             }}
           >
             From Silence
@@ -115,12 +120,13 @@ export function TeachingHero() {
               "block text-[40px] md:text-[64px] font-light transition-all duration-[1800ms]",
               isRevealed
                 ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-3"
+                : "opacity-0 translate-y-[12px]"
             )}
             style={{
               color: "hsl(30 10% 20%)",
-              transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
+              transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
               transitionDelay: "1100ms",
+              textShadow: "0 1px 2px hsl(40 20% 80% / 0.3)",
             }}
           >
             Unto Sound
@@ -132,7 +138,7 @@ export function TeachingHero() {
       {/* Breathing scroll cue — golden dot */}
       <div
         className={cn(
-          "absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 transition-opacity duration-500",
+          "absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 transition-opacity duration-[700ms]",
           isRevealed && !hasScrolled ? "opacity-100" : "opacity-0",
           hasScrolled && "pointer-events-none"
         )}
@@ -146,7 +152,8 @@ export function TeachingHero() {
         <span
           className="block w-2 h-2 rounded-full bg-[hsl(var(--vow-yellow))]"
           style={{
-            animation: "teaching-dot-breathe 3s ease-in-out infinite",
+            animation: "teaching-dot-breathe 4s ease-in-out infinite",
+            boxShadow: "0 0 6px 2px hsl(var(--vow-yellow) / 0.15)",
           }}
           aria-hidden="true"
         />
@@ -156,7 +163,7 @@ export function TeachingHero() {
       <style>{`
         @keyframes teaching-ken-burns {
           0% { transform: scale(1) translate(0, 0); }
-          100% { transform: scale(1.03) translate(-1%, 0.5%); }
+          100% { transform: scale(1.04) translate(-0.5%, 0.3%); }
         }
         @keyframes teaching-dot-breathe {
           0%, 100% { opacity: 0.4; transform: scale(1); }
@@ -165,6 +172,10 @@ export function TeachingHero() {
         @keyframes semicolon-breathe {
           0%, 100% { text-shadow: 0 0 20px hsl(var(--vow-yellow) / 0.4); }
           50% { text-shadow: 0 0 40px hsl(var(--vow-yellow) / 0.7); }
+        }
+        @keyframes teaching-hero-vignette {
+          0%, 100% { opacity: 0.6; }
+          50% { opacity: 0.78; }
         }
         @media (prefers-reduced-motion: reduce) {
           #teaching-hero * {
