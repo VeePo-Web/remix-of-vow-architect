@@ -337,7 +337,7 @@ export function TheSound() {
         <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at center, transparent 25%, hsl(var(--transform-dark)) 100%)" }} aria-hidden="true" />
 
         {/* Warm floor */}
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 80% 50% at 50% 60%, hsl(30 40% 12% / 0.15) 0%, transparent 70%)" }} aria-hidden="true" />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 80% 50% at 50% 60%, hsl(var(--events-dark) / 0.15) 0%, transparent 70%)" }} aria-hidden="true" />
 
         {/* Bokeh overlay */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
