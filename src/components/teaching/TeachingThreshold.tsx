@@ -16,7 +16,7 @@ const fears = [
     underlineWord: "beginning",
   },
   {
-    fear: "What if it feels like school?",
+    fear: "What if it feels like lessons?",
     resolution:
       "There is no curriculum. No homework. No grades. There is a bench, an instrument, and a question: what do you want to say? That is as far from school as silence is from sound.",
     underlineWord: "question",
