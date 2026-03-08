@@ -42,11 +42,6 @@ export default function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [fileName, setFileName] = useState<string | null>(null);
   
-  // Call usePageTheme in useEffect to ensure context is ready
-  useEffect(() => {
-    // This will trigger the theme change after mount
-  }, []);
-  
   usePageTheme();
 
   const {
