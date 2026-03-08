@@ -522,7 +522,7 @@ export function MinimalHeader() {
                         "translateY(0)")
                     }
                   >
-                    {isContactPage ? "You're here" : "Hold My Date"}
+                    {ctaLabel}
                   </span>
                 </NavLink>
               </span>
