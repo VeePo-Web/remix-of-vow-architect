@@ -17,7 +17,7 @@ const chips = [
   {
     question: "Can I change my arrangement later?",
     answer: "Yes. Upgrade up to 2 weeks before your date.",
-    link: { to: "/services", label: "See the options" }
+    link: { to: "/pricing", label: "See the options" }
   },
   {
     question: "What is the refund policy?",
