@@ -342,7 +342,7 @@ export function TheSound() {
 
         {/* Bokeh overlay */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-          <img src={soundBokeh} alt="" className="w-full h-full object-cover opacity-[0.05] pointer-events-none" loading="lazy" style={{ mixBlendMode: "screen" }} />
+          <img src={soundBokeh} alt="" className="w-full h-full object-cover opacity-[0.05] pointer-events-none" loading="lazy" decoding="async" style={{ mixBlendMode: "screen" }} />
         </div>
 
         {/* Film grain overlay */}

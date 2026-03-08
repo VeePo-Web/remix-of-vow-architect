@@ -44,7 +44,7 @@ const buttonVariants = cva(
         default: [
           "bg-primary text-primary-foreground",
           "shadow-[0_8px_24px_rgba(255,224,138,0.18)]",
-          "hover:bg-[hsl(45,100%,70%)]",
+          "hover:bg-[hsl(var(--vow-yellow)/0.85)]",
           "hover:shadow-[0_12px_32px_rgba(255,224,138,0.28),0_0_16px_rgba(255,224,138,0.08)]",
           "active:shadow-[0_4px_12px_rgba(255,224,138,0.12)]",
         ].join(" "),
@@ -93,7 +93,7 @@ const buttonVariants = cva(
         accent: [
           "bg-accent text-accent-foreground border border-accent",
           "shadow-[0_4px_16px_rgba(155,225,93,0.12)]",
-          "hover:bg-[hsl(95,65%,62%)] hover:border-[hsl(95,65%,62%)]",
+          "hover:bg-[hsl(var(--vine-green)/0.85)] hover:border-[hsl(var(--vine-green)/0.85)]",
           "hover:shadow-[0_8px_24px_rgba(155,225,93,0.18)]",
           "active:shadow-[0_2px_8px_rgba(155,225,93,0.1)]",
         ].join(" "),

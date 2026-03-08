@@ -247,7 +247,7 @@ export function TeachingHero() {
               : "opacity-0 translate-y-[8px]"
           )}
           style={{
-            color: "hsl(40 14% 56%)",
+            color: "hsl(var(--teaching-text-label))",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             transitionDelay: `${ROLE_DELAY}ms`,
           }}
@@ -265,7 +265,7 @@ export function TeachingHero() {
             charInterval={LINE1_INTERVAL}
             className="block text-[clamp(34px,8vw,68px)] font-light"
             style={{
-              color: "hsl(40 18% 88%)",
+              color: "hsl(var(--teaching-text-heading-light))",
               lineHeight: "1",
               textShadow:
                 "0 1px 3px hsl(0 0% 0% / 0.7), 0 4px 20px hsl(0 0% 0% / 0.5), 0 12px 48px hsl(0 0% 0% / 0.3)",
@@ -290,7 +290,7 @@ export function TeachingHero() {
             charInterval={LINE2_INTERVAL}
             className="block text-[clamp(34px,8vw,68px)] font-light"
             style={{
-              color: "hsl(40 18% 88%)",
+              color: "hsl(var(--teaching-text-heading-light))",
               lineHeight: "1",
               marginTop: "-8px",
               textShadow:
@@ -363,7 +363,7 @@ export function TeachingHero() {
               : "opacity-0 translate-y-[8px]"
           )}
           style={{
-            color: "hsl(40 12% 58%)",
+            color: "hsl(var(--teaching-text-cite))",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             transitionDelay: `${SUBTITLE_DELAY}ms`,
             letterSpacing: "0.015em",
@@ -383,7 +383,7 @@ export function TeachingHero() {
       >
         <span
           className="text-[10px] uppercase tracking-[0.28em] font-sans"
-          style={{ color: "hsl(40 10% 38%)" }}
+          style={{ color: "hsl(var(--teaching-scroll-cue))" }}
         >
           Scroll to sit down
         </span>
@@ -400,7 +400,7 @@ export function TeachingHero() {
         >
           <path
             d="M1 1L6 6L11 1"
-            stroke="hsl(40 10% 38%)"
+            stroke="hsl(var(--teaching-scroll-cue))"
             strokeWidth="1"
             strokeLinecap="round"
             strokeLinejoin="round"
