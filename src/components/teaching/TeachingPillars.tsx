@@ -6,7 +6,7 @@ const pillars = [
     numeral: "I",
     title: "Patience as Method",
     description:
-      "Your pace is the curriculum. There are no grades, no exams, no timelines imposed on your growth. Patience is not passive — it is the most active form of attention I can offer.",
+      "Your pace is the curriculum. There are no grades, no exams, no timelines imposed on your growth. Patience is not passive — it is the most active form of attention I know.",
     underlineWord: "pace",
   },
   {
