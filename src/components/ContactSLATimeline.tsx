@@ -19,7 +19,7 @@ export function ContactSLATimeline() {
   return (
     <div className="max-w-3xl mx-auto">
       <h2 className="font-display text-[clamp(24px,3vw,32px)] font-light mb-8 text-center">
-        What happens after you reach out?
+        What happens after you reach out
       </h2>
       
       <div className="space-y-6">
@@ -27,11 +27,11 @@ export function ContactSLATimeline() {
           <div key={index} className="flex gap-4 items-start">
             <div className="shrink-0">
               <div className="w-12 h-12 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center">
-                <span className="text-sm font-bold text-primary">{index + 1}</span>
+                <span className="text-sm font-medium text-primary">{index + 1}</span>
               </div>
             </div>
             <div className="pt-2">
-              <h4 className="font-semibold text-foreground mb-1">{step.time}</h4>
+              <h4 className="font-display text-base font-light text-foreground mb-1">{step.time}</h4>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 {step.description}
               </p>
@@ -41,7 +41,7 @@ export function ContactSLATimeline() {
       </div>
 
       <p className="text-xs text-muted-foreground text-center mt-8 italic">
-        Nothing is final until you say so—I'm securing your clarity window.
+        Nothing is final until you say so — I am securing your clarity window.
       </p>
     </div>
   );
