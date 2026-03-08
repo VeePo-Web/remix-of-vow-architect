@@ -53,7 +53,7 @@ My students are not defined by skill level. I do not use the labels "beginner," 
 
 ### Capacity
 
-I intentionally limit the number of students I work with at any given time. This is not a scarcity tactic — it is a consequence of the model. One-to-one mentorship that operates with genuine patience and presence requires that I do not overextend. Every student receives the same depth of attention. I would rather work with fewer students deeply than with many students superficially.
+I work with a maximum of 10 students at any given time. This is not a scarcity tactic — it is the direct consequence of the "deep, not wide" philosophy that governs the entire practice. Ten students is the number at which I can offer genuine, bespoke mentorship — custom-built pathways, preparation outside of session time, and the emotional presence each student deserves — without dilution. Every student receives the same depth of attention. I would rather work with 10 students deeply than with 40 students superficially. When capacity is full, a waitlist opens with honest communication: "I will reach out when a space opens."
 
 ---
 
