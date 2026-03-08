@@ -6,13 +6,13 @@ const failoverTiers = [
   {
     icon: Mic,
     tier: "Primary System",
-    description: "Wireless microphones, live mix, battery-powered amplifier, and piano",
+    description: "Wireless sound, live balance, battery power, and piano",
     highlight: true,
   },
   {
     icon: Zap,
     tier: "Second System",
-    description: "Independent backup microphone and amplifier on a separate channel",
+    description: "Independent backup wireless unit and sound system on a separate channel",
     highlight: false,
   },
   {

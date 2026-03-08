@@ -13,7 +13,7 @@ const vows: VowProps[] = [
   {
     number: "02",
     title: "POWERED",
-    description: "Silent batteries. Zero generator hum.",
+    description: "Silent batteries. Zero noise.",
   },
   {
     number: "03",

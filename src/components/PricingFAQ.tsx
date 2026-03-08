@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     question: "How does a ceremony pianist compare to a DJ?",
-    answer: "The comparison chart above outlines the differences. The simplest question to ask any alternative: how do they ensure your outdoor vows are heard without generator noise?",
+    answer: "The comparison chart above outlines the differences. The simplest question to ask any alternative: how do they ensure your outdoor vows are heard clearly and quietly?",
   },
 ];
 

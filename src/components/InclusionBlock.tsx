@@ -9,13 +9,13 @@ const inclusions = [
   },
   { 
     icon: Mic, 
-    label: "Amplification for vows",
-    description: "Wireless microphones for officiant and personal vows — every word heard"
+    label: "Clarity for every word",
+    description: "Wireless sound for your officiant and personal vows — every word heard, naturally"
   },
   { 
     icon: Battery, 
     label: "Silent power",
-    description: "Battery-powered system — no generator noise during your ceremony"
+    description: "Battery-powered system — quiet, clean, and unobtrusive throughout your ceremony"
   },
   { 
     icon: Activity, 
@@ -25,12 +25,12 @@ const inclusions = [
   { 
     icon: Clock, 
     label: "Early arrival",
-    description: "At least 60 minutes before guests — setup, sound check, final walk-through"
+    description: "At least 60 minutes before guests — setup, final adjustments, and walk-through"
   },
   { 
     icon: Wrench, 
     label: "Redundancy",
-    description: "Backup amplifier, microphone, and instrument — layered assurance"
+    description: "Backup systems at every level — layered assurance so nothing is left to chance"
   },
   { 
     icon: Shield, 

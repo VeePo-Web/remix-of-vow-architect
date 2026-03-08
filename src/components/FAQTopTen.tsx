@@ -8,18 +8,18 @@ import { DirectionalLink } from "@/components/DirectionalLink";
 
 const topTenFAQs = [
   {
-    question: "Do I need amplification for an outdoor ceremony?",
-    answer: "Yes. Wind and distance make it difficult for guests to hear unamplified vows. I include wireless microphones, live-mixed so every word carries — even to the last row.",
+    question: "Will every word carry outdoors?",
+    answer: "Yes. Wind and distance make it difficult for guests to hear unaided vows. I include a dedicated wireless system, balanced in real time so every word carries — even to the last row.",
     link: { to: "/proof", label: "See how I prepare" }
   },
   {
     question: "What if the venue has no power?",
-    answer: "I use a silent battery system — no generators, no permits, no noise during your ceremony.",
+    answer: "I use a silent battery system — no noise, no permits required, completely quiet during your ceremony.",
     link: { to: "/proof", label: "See the equipment" }
   },
   {
     question: "What happens if equipment fails?",
-    answer: "I bring triple redundancy: a second microphone, a second amplifier, a second instrument, and a pre-loaded speaker for critical cues.",
+    answer: "I bring triple redundancy: a second wireless unit, a second instrument, and a pre-loaded speaker for critical cues.",
     link: { to: "/proof", label: "See the redundancy plan" }
   },
   {
@@ -54,7 +54,7 @@ const topTenFAQs = [
   },
   {
     question: "How does a ceremony pianist compare to a DJ or band?",
-    answer: "The simplest question to ask any alternative: how do they ensure your outdoor vows are heard without generator noise? The comparison chart on the pricing page outlines the differences.",
+    answer: "The simplest question to ask any alternative: how do they ensure your outdoor vows are heard clearly and quietly? The comparison chart on the pricing page outlines the differences.",
     link: { to: "/pricing", label: "See the comparison" }
   }
 ];
