@@ -175,7 +175,7 @@ export function TeachingHero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 50% 42% at 50% 46%, transparent 0%, hsl(0 0% 0% / 0.88) 100%)",
+            "radial-gradient(ellipse 45% 38% at 50% 46%, transparent 0%, hsl(0 0% 0% / 0.92) 100%)",
         }}
         aria-hidden="true"
       />
