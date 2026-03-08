@@ -118,7 +118,7 @@ export function TeachingHero() {
       const cy = rect.top + rect.height / 2;
       const dx = (e.clientX - cx) / rect.width;
       const dy = (e.clientY - cy) / rect.height;
-      contentRef.current.style.transform = `translate3d(${dx * 6}px, ${dy * 4}px, 0)`;
+      contentRef.current.style.transform = `translate3d(${dx * 5}px, ${dy * 3}px, 0)`;
     });
   }, []);
 
@@ -137,75 +137,75 @@ export function TeachingHero() {
   const LINE1_BASE = 900;
   const LINE1_INTERVAL = 45;
   const SEMICOLON_EXTRA = 300;
-  const LINE2_BASE = LINE1_BASE + "From Silence".length * LINE1_INTERVAL + SEMICOLON_EXTRA + 200;
+  const LINE2_BASE =
+    LINE1_BASE + "From Silence".length * LINE1_INTERVAL + SEMICOLON_EXTRA + 200;
   const LINE2_INTERVAL = 45;
-  const THREAD_DELAY = LINE2_BASE + "Unto Sound".length * LINE2_INTERVAL + 400;
+  const THREAD_DELAY =
+    LINE2_BASE + "Unto Sound".length * LINE2_INTERVAL + 400;
   const SUBTITLE_DELAY = THREAD_DELAY + 300;
 
   return (
     <section
       id="teaching-hero"
       className="relative h-screen w-full overflow-hidden flex items-center justify-center"
-      style={{ background: "hsl(var(--background))" }}
       aria-label="The Waiting Bench"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* ── Layer 0: Dark base fill ── */}
+      {/* ── Layer 0: True black base ── */}
       <div
-        className="absolute inset-0"
-        style={{ background: "hsl(20 8% 8%)" }}
+        className="absolute inset-0 bg-black"
         aria-hidden="true"
       />
 
-       {/* ── Layer 1: Background bench image — 30s Ken Burns drift ── */}
+      {/* ── Layer 1: Background bench — focus on the seat, not keys ── */}
       <div
-        className="absolute inset-0 bg-cover bg-[center_40%]"
+        className="absolute inset-0"
         style={{
           backgroundImage: `url(${benchImg})`,
-          opacity: 0.16,
+          backgroundSize: "cover",
+          backgroundPosition: "center 62%",
+          opacity: 0.12,
           animation: "teaching-ken-burns 30s linear infinite alternate",
           willChange: "transform",
         }}
         aria-hidden="true"
       />
 
-      {/* ── Layer 2: Dark gradient overlay — strong center focus ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: "linear-gradient(180deg, hsl(20 8% 5% / 0.7) 0%, hsl(20 8% 8% / 0.2) 35%, hsl(20 8% 8% / 0.15) 50%, hsl(20 8% 6% / 0.65) 100%)",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* ── Layer 3: Grain overlay ── */}
-      <div
-        className="absolute inset-0 grain opacity-[0.06] pointer-events-none"
-        aria-hidden="true"
-      />
-
-      {/* ── Layer 4: Dual-origin warm fog — very subtle ── */}
+      {/* ── Layer 2: Radial spotlight — draws eye to center ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at 35% 65%, hsl(var(--vow-yellow) / 0.03), transparent 55%), radial-gradient(ellipse at 65% 35%, hsl(var(--vow-yellow) / 0.025), transparent 50%)",
+            "radial-gradient(ellipse 70% 55% at 50% 48%, transparent 0%, hsl(0 0% 0% / 0.7) 100%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* ── Layer 3: Top & bottom darken for composition balance ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(180deg, hsl(0 0% 0% / 0.6) 0%, transparent 30%, transparent 70%, hsl(0 0% 0% / 0.7) 100%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* ── Layer 4: Grain texture ── */}
+      <div
+        className="absolute inset-0 grain opacity-[0.05] pointer-events-none"
+        aria-hidden="true"
+      />
+
+      {/* ── Layer 5: Warm candlelight fog — asymmetric, barely there ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 50% at 40% 55%, hsl(40 60% 50% / 0.025), transparent 70%), radial-gradient(ellipse 50% 40% at 62% 42%, hsl(40 50% 45% / 0.02), transparent 60%)",
           animation: isRevealed
             ? "teaching-fog-drift 20s ease-in-out infinite alternate"
-            : undefined,
-        }}
-        aria-hidden="true"
-      />
-
-      {/* ── Layer 5: Warm light bloom — top-center ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 25%, hsl(var(--vow-yellow) / 0.04), transparent 50%)",
-          animation: isRevealed
-            ? "hero-light-bloom 8s ease-in-out infinite"
             : undefined,
         }}
         aria-hidden="true"
@@ -216,7 +216,7 @@ export function TeachingHero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 35%, hsl(20 8% 6%) 100%)",
+            "radial-gradient(ellipse at center, transparent 30%, hsl(0 0% 0%) 100%)",
           animation: isRevealed
             ? "teaching-hero-vignette 6s ease-in-out infinite"
             : undefined,
@@ -227,19 +227,19 @@ export function TeachingHero() {
       {/* ── Content — parallax container ── */}
       <div
         ref={contentRef}
-        className="relative z-10 text-center px-fitz-4 md:px-fitz-6"
+        className="relative z-10 text-center px-6 md:px-12"
         style={{ willChange: "transform" }}
       >
         {/* Role label */}
         <p
           className={cn(
-            "font-sans text-[11px] uppercase tracking-[0.22em] mb-fitz-5 transition-all duration-[1800ms]",
+            "font-sans text-[11px] uppercase tracking-[0.25em] mb-8 transition-all duration-[1800ms]",
             isRevealed
-              ? "opacity-60 translate-y-0"
+              ? "opacity-50 translate-y-0"
               : "opacity-0 translate-y-[8px]"
           )}
           style={{
-            color: "hsl(40 15% 65%)",
+            color: "hsl(40 15% 58%)",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             transitionDelay: `${ROLE_DELAY}ms`,
           }}
@@ -248,47 +248,52 @@ export function TeachingHero() {
         </p>
 
         {/* ── Tagline — character-by-character reveal ── */}
-        <h1 className="font-display tracking-tight">
+        <h1 className="font-display tracking-tight leading-none">
           {/* Line 1: "From Silence" + semicolon ignition */}
           <CharReveal
             text="From Silence"
             isRevealed={isRevealed}
             baseDelay={LINE1_BASE}
             charInterval={LINE1_INTERVAL}
-            className="block text-[40px] md:text-[64px] font-light leading-[1.05]"
+            className="block text-[clamp(36px,8vw,64px)] font-light"
             style={{
-              color: "hsl(40 20% 90%)",
+              color: "hsl(40 18% 88%)",
+              lineHeight: "1.08",
               textShadow:
-                "0 1px 3px hsl(20 8% 6% / 0.5), 0 4px 24px hsl(20 8% 6% / 0.3)",
+                "0 1px 2px hsl(0 0% 0% / 0.6), 0 6px 30px hsl(0 0% 0% / 0.4)",
             }}
             specialChar={{
               char: ";",
               delay: SEMICOLON_EXTRA,
               className: "text-[hsl(var(--vow-yellow))]",
               style: {
-                textShadow: "0 0 20px hsl(var(--vow-yellow) / 0.4)",
+                textShadow: "0 0 24px hsl(var(--vow-yellow) / 0.35)",
               },
               breatheAnimation:
                 "semicolon-breathe 3s ease-in-out 1s infinite",
             }}
           />
 
-          {/* Line 2: "Unto Sound." */}
+          {/* Line 2: "Unto Sound." — tightly coupled */}
           <CharReveal
             text="Unto Sound"
             isRevealed={isRevealed}
             baseDelay={LINE2_BASE}
             charInterval={LINE2_INTERVAL}
-            className="block text-[40px] md:text-[64px] font-light leading-[1.05] -mt-1"
+            className="block text-[clamp(36px,8vw,64px)] font-light mt-[0.08em]"
             style={{
-              color: "hsl(40 20% 90%)",
+              color: "hsl(40 18% 88%)",
+              lineHeight: "1.08",
               textShadow:
-                "0 1px 3px hsl(20 8% 6% / 0.5), 0 4px 24px hsl(20 8% 6% / 0.3)",
+                "0 1px 2px hsl(0 0% 0% / 0.6), 0 6px 30px hsl(0 0% 0% / 0.4)",
             }}
             specialChar={{
               char: ".",
               delay: 200,
               className: "text-[hsl(var(--vow-yellow))]",
+              style: {
+                textShadow: "0 0 12px hsl(var(--vow-yellow) / 0.2)",
+              },
             }}
           />
         </h1>
@@ -296,7 +301,7 @@ export function TeachingHero() {
         {/* ── Golden thread — tagline to subtitle ── */}
         <div
           className={cn(
-            "mx-auto mt-8 mb-6 transition-all",
+            "mx-auto mt-7 mb-6 transition-all",
             isRevealed ? "opacity-100" : "opacity-0"
           )}
           style={{
@@ -307,12 +312,12 @@ export function TeachingHero() {
         >
           <div
             className={cn(
-              "h-[1px] w-16 mx-auto origin-center transition-transform",
+              "h-[1px] w-14 mx-auto origin-center transition-transform",
               isRevealed ? "scale-x-100" : "scale-x-0"
             )}
             style={{
               background:
-                "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.6), transparent)",
+                "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.5), transparent)",
               transitionDuration: "700ms",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
               transitionDelay: `${THREAD_DELAY}ms`,
@@ -324,13 +329,13 @@ export function TeachingHero() {
         {/* ── Positioning subtitle ── */}
         <p
           className={cn(
-            "font-sans text-[clamp(13px,1.6vw,16px)] leading-relaxed max-w-[340px] mx-auto transition-all duration-[1800ms]",
+            "font-sans text-[clamp(13px,1.5vw,15px)] leading-[1.7] max-w-[320px] mx-auto transition-all duration-[1800ms]",
             isRevealed
-              ? "opacity-60 translate-y-0"
+              ? "opacity-45 translate-y-0"
               : "opacity-0 translate-y-[8px]"
           )}
           style={{
-            color: "hsl(40 12% 60%)",
+            color: "hsl(40 10% 55%)",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             transitionDelay: `${SUBTITLE_DELAY}ms`,
           }}
@@ -348,35 +353,36 @@ export function TeachingHero() {
         )}
       >
         <span
-          className="text-[10px] uppercase tracking-[0.22em] font-sans"
-          style={{ color: "hsl(40 12% 50%)" }}
+          className="text-[10px] uppercase tracking-[0.25em] font-sans"
+          style={{ color: "hsl(40 10% 42%)" }}
         >
           Scroll to sit down
         </span>
         <svg
-          width="14"
-          height="8"
-          viewBox="0 0 14 8"
+          width="12"
+          height="7"
+          viewBox="0 0 12 7"
           fill="none"
-          className="opacity-40"
+          className="opacity-30"
           style={{
             animation: "scroll-chevron-bounce 2.4s ease-in-out infinite",
           }}
           aria-hidden="true"
         >
           <path
-            d="M1 1L7 7L13 1"
-            stroke="hsl(40 12% 50%)"
-            strokeWidth="1.5"
+            d="M1 1L6 6L11 1"
+            stroke="hsl(40 10% 42%)"
+            strokeWidth="1.2"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
         </svg>
         <span
-          className="block w-2 h-2 rounded-full bg-[hsl(var(--vow-yellow))]"
+          className="block w-[6px] h-[6px] rounded-full"
           style={{
+            background: "hsl(var(--vow-yellow))",
             animation: "teaching-dot-breathe 4s ease-in-out infinite",
-            boxShadow: "0 0 6px 2px hsl(var(--vow-yellow) / 0.15)",
+            boxShadow: "0 0 8px 2px hsl(var(--vow-yellow) / 0.12)",
           }}
           aria-hidden="true"
         />
@@ -386,31 +392,27 @@ export function TeachingHero() {
       <style>{`
         @keyframes teaching-ken-burns {
           0% { transform: scale(1) translate(0, 0); }
-          100% { transform: scale(1.04) translate(-0.5%, 0.3%); }
+          100% { transform: scale(1.05) translate(-0.4%, 0.2%); }
         }
         @keyframes teaching-dot-breathe {
-          0%, 100% { opacity: 0.4; transform: scale(1); }
-          50% { opacity: 1; transform: scale(1.15); }
+          0%, 100% { opacity: 0.3; transform: scale(1); }
+          50% { opacity: 0.8; transform: scale(1.2); }
         }
         @keyframes semicolon-breathe {
-          0%, 100% { text-shadow: 0 0 20px hsl(var(--vow-yellow) / 0.4); }
-          50% { text-shadow: 0 0 40px hsl(var(--vow-yellow) / 0.7); }
+          0%, 100% { text-shadow: 0 0 24px hsl(var(--vow-yellow) / 0.35); }
+          50% { text-shadow: 0 0 40px hsl(var(--vow-yellow) / 0.6); }
         }
         @keyframes teaching-hero-vignette {
-          0%, 100% { opacity: 0.8; }
-          50% { opacity: 0.65; }
-        }
-        @keyframes hero-light-bloom {
-          0%, 100% { opacity: 0.6; }
-          50% { opacity: 1; }
+          0%, 100% { opacity: 0.85; }
+          50% { opacity: 0.7; }
         }
         @keyframes scroll-chevron-bounce {
-          0%, 100% { transform: translateY(0); opacity: 0.35; }
-          50% { transform: translateY(4px); opacity: 0.6; }
+          0%, 100% { transform: translateY(0); opacity: 0.25; }
+          50% { transform: translateY(3px); opacity: 0.5; }
         }
         @keyframes teaching-fog-drift {
           0% { transform: translate(0, 0) scale(1); }
-          100% { transform: translate(2%, -1%) scale(1.03); }
+          100% { transform: translate(1.5%, -0.8%) scale(1.02); }
         }
         @media (prefers-reduced-motion: reduce) {
           #teaching-hero * {
