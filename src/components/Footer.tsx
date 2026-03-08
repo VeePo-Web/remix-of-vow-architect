@@ -242,10 +242,10 @@ export function Footer() {
             )}
             style={{ transitionDelay: isVisible ? "300ms" : "0ms" }}
           >
-            <h4 className="font-display text-xs uppercase tracking-[0.22em] mb-6 text-foreground/80">
+            <h4 className="font-display text-xs uppercase tracking-[0.22em] mb-6 text-foreground opacity-80">
               Reach Me
             </h4>
-            <ul className="space-y-3 text-foreground/50">
+            <ul className="space-y-3 text-muted-foreground">
               <li>Calgary, Cochrane, Canmore and Banff</li>
               <li>
                 <a href="mailto:parker@parkergawryletz.com" className="hover:text-primary transition-all duration-[180ms] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background" aria-label="Email me at parker@parkergawryletz.com">
