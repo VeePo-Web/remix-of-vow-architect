@@ -91,7 +91,7 @@ export function WitnessCrossing() {
           {/* Subtext */}
           <p 
             className={cn(
-              "text-lg text-white/60 mb-10 transition-all duration-700",
+              "text-lg text-foreground/60 mb-10 transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
             style={{ transitionDelay: "400ms" }}
