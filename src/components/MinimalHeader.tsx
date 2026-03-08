@@ -386,7 +386,7 @@ export function MinimalHeader() {
                 style={{ animationDelay: '200ms', animationFillMode: 'forwards' }}
               >
                 <span className="w-1 h-1 rounded-full" style={{ background: 'hsl(var(--vow-yellow) / 0.3)' }} aria-hidden="true" />
-                <span className="text-[0.55rem] tracking-[0.18em] uppercase text-muted-foreground/40 font-sans">
+                <span className="text-[0.55rem] tracking-[0.18em] uppercase text-muted-foreground opacity-40 font-sans">
                   {pathname === '/' || pathname === '/weddings' ? 'Home' : pathname.split('/').pop()?.replace(/-/g, ' ')}
                 </span>
               </span>

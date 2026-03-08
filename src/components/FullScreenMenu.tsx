@@ -521,80 +521,89 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
         </nav>
 
         {/* ═══════════════════════════════════════════
-            VINE THREAD SEPARATOR
+            VERTICAL-AWARE CTA BUTTON
             ═══════════════════════════════════════════ */}
         <div
           className={cn(
-            "mt-10 md:mt-12 w-32 transition-all duration-[400ms] overflow-visible",
-            isOpen ? "opacity-100 delay-[800ms]" : "opacity-0"
+            "mt-8 md:mt-10 transition-all duration-[400ms]",
+            isOpen ? "opacity-100 translate-y-0 delay-[800ms]" : "opacity-0 translate-y-4"
           )}
         >
-          <svg
-            width="100%"
-            height="6"
-            viewBox="0 0 128 6"
-            preserveAspectRatio="none"
-            aria-hidden="true"
+          <Button
+            variant="ghost-dark"
+            size="lg"
+            asChild
+            className="relative overflow-hidden group/cta"
           >
-            <defs>
-              <linearGradient
-                id="menu-vine-gradient"
-                x1="0%"
-                y1="0%"
-                x2="100%"
-                y2="0%"
-              >
-                <stop offset="0%" stopColor="hsl(var(--vow-yellow) / 0.3)" />
-                <stop offset="50%" stopColor="hsl(var(--vow-yellow) / 0.12)" />
-                <stop offset="100%" stopColor="transparent" />
-              </linearGradient>
-            </defs>
-            <path
-              d="M0,3 Q16,1.2 32,3 T64,3 Q80,4.8 96,3 T128,3"
-              fill="none"
-              stroke="url(#menu-vine-gradient)"
-              strokeWidth="1"
-              style={{
-                filter: "drop-shadow(0 0 3px hsl(var(--vow-yellow) / 0.06))",
-              }}
-            />
-          </svg>
-        </div>
-
-        {/* ═══════════════════════════════════════════
-            CONTACT INFO
-            ═══════════════════════════════════════════ */}
-        <div
-          className={cn(
-            "mt-6 space-y-2 text-sm transition-all duration-[300ms]",
-            isOpen
-              ? "opacity-100 translate-y-0 delay-[850ms]"
-              : "opacity-0 translate-y-4"
-          )}
-        >
-          <p className="text-muted-foreground opacity-60">
-            Calgary, Cochrane, Canmore &amp; Banff
-          </p>
-          <p>
-            <a
-              href="mailto:parker@parkergawryletz.com"
-              className="text-muted-foreground opacity-60 hover:text-primary hover:opacity-100 transition-colors duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm"
+            <Link
+              to={(() => {
+                if (location.pathname.startsWith('/events')) return '/events/contact';
+                if (location.pathname.startsWith('/teaching')) return '/teaching/contact';
+                return '/contact';
+              })()}
+              onClick={onClose}
             >
-              parker@parkergawryletz.com
-            </a>
-          </p>
-          <p
-            className={cn(
-              "text-[0.65rem] italic text-foreground/[0.15] mt-1 transition-all duration-[300ms]",
-              isOpen ? "opacity-100 translate-y-0 delay-[700ms]" : "opacity-0 translate-y-2"
-            )}
-          >
-            Response within 24 hours · Always
-          </p>
+              {(() => {
+                if (location.pathname.startsWith('/events')) return 'Discuss Your Event';
+                if (location.pathname.startsWith('/teaching')) return 'Begin Lessons';
+                return 'Hold My Date';
+              })()}
+              {/* Diagonal shimmer sweep on hover */}
+              <span
+                className="absolute inset-0 pointer-events-none opacity-0 group-hover/cta:opacity-100 transition-opacity duration-[450ms]"
+                style={{
+                  background: 'linear-gradient(110deg, transparent 30%, hsl(var(--vow-yellow) / 0.15) 45%, hsl(var(--vow-yellow) / 0.25) 50%, hsl(var(--vow-yellow) / 0.15) 55%, transparent 70%)',
+                  animation: 'shimmer-sweep 1.5s ease-in-out infinite',
+                  animationPlayState: 'paused',
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.animationPlayState = 'running';
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.animationPlayState = 'paused';
+                }}
+                aria-hidden="true"
+              />
+            </Link>
+          </Button>
         </div>
 
         {/* ═══════════════════════════════════════════
-            COVENANT BOOKEND
+            CONTACT INFO FOOTER — Repositioned to bottom
+            ═══════════════════════════════════════════ */}
+        <div
+          className={cn(
+            "absolute bottom-8 left-0 right-0 flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4 text-sm transition-all duration-[400ms]",
+            isOpen ? "opacity-100 translate-y-0 delay-[900ms]" : "opacity-0 translate-y-4"
+          )}
+        >
+          <span className="text-muted-foreground opacity-60">
+            Calgary, Cochrane, Canmore & Banff
+          </span>
+          <span className="hidden md:block text-muted-foreground opacity-30">—</span>
+          <a
+            href="mailto:parker@parkergawryletz.com"
+            className="text-muted-foreground opacity-60 hover:text-primary hover:opacity-100 transition-colors duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm"
+          >
+            parker@parkergawryletz.com
+          </a>
+          <span className="hidden md:block text-muted-foreground opacity-30">—</span>
+          <span
+            className="w-1.5 h-1.5 rounded-full"
+            style={{
+              background: 'hsl(var(--vow-yellow) / 0.35)',
+              boxShadow: '0 0 6px hsl(var(--vow-yellow) / 0.1)',
+              animation: isOpen ? 'menu-dot-breathe 4s ease-in-out infinite 2s' : undefined,
+            }}
+            aria-hidden="true"
+          />
+          <span className="text-[0.65rem] italic text-muted-foreground opacity-40">
+            Response within 24 hours
+          </span>
+        </div>
+
+        {/* ═══════════════════════════════════════════
+            COVENANT BOOKEND (kept for tagline only)
             ═══════════════════════════════════════════ */}
         <div
           className={cn(
