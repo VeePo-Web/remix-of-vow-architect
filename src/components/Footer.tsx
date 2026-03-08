@@ -326,6 +326,27 @@ export function Footer() {
           </div>
         </div>
 
+        {/* === VeePo Attribution === */}
+        <div
+          className={cn(
+            "text-center mt-4 transition-all duration-700",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          )}
+          style={{ transitionDelay: isVisible ? "550ms" : "0ms" }}
+        >
+          <a
+            href="https://veepo.ca/case-studies"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-muted-foreground/40 hover:text-muted-foreground/70 transition-all duration-[180ms] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            This website locally powered by{" "}
+            <span className="hover:text-primary transition-colors duration-[180ms]">
+              veepo.ca
+            </span>
+          </a>
+        </div>
+
         {/* === Closing Covenant Bookend — delay 600ms === */}
         <div
           data-footer-bookend
