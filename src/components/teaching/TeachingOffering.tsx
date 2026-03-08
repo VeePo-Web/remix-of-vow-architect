@@ -351,7 +351,7 @@ export function TeachingOffering() {
           {/* Anti-anxiety secondary — scroll-linked */}
           <p
             className="font-sans text-[12px] mb-fitz-2"
-            style={{ color: "hsl(30 10% 45%)" }}
+            style={{ color: "hsl(var(--teaching-text-label))" }}
           >
             <ScrollAntiAnxiety
               text="The first session opens with a question, not a scale."
