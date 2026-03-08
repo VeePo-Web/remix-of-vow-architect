@@ -165,7 +165,7 @@ export function ListeningMovement({
             "inline-flex flex-col items-center gap-5 rounded-lg p-6 md:p-8",
             "border backdrop-blur-[8px] transition-all duration-300",
             isActive
-              ? "bg-card/20 border-[hsl(var(--vow-yellow)/0.25)] card-sacred card-sacred-hover"
+              ? "bg-card/20 border-primary/25 card-sacred card-sacred-hover"
               : "bg-card/8 border-border/15"
           )}
         >
