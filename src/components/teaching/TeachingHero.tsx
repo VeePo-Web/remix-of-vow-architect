@@ -163,7 +163,7 @@ export function TeachingHero() {
           backgroundSize: "cover",
           backgroundPosition: "center 90%",
           opacity: 0.035,
-          filter: "saturate(0.7) contrast(1.1)",
+          filter: "saturate(0.5) contrast(1.05) brightness(0.8)",
           animation: "teaching-ken-burns 30s linear infinite alternate",
           willChange: "transform",
         }}
