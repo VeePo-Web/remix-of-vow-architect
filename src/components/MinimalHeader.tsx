@@ -261,11 +261,22 @@ export function MinimalHeader() {
         <div
           className={cn(
             "flex items-center h-full px-[var(--hero-space-edge,24px)] md:px-[var(--hero-space-edge,48px)] py-6 relative",
-            isArrival ? "justify-center" : "justify-between"
+            "justify-between"
           )}
         >
-          {/* Logo with candle warmth glow */}
-          <div className="relative">
+          {/* Logo with candle warmth glow — glides to center during arrival */}
+          <div
+            className="relative transition-all"
+            style={{
+              // Transform-based centering: logo glides from left to center
+              transform: arrivalPhase === 'arrived'
+                ? 'translateX(calc(50vw - 50% - var(--hero-space-edge, 48px)))'
+                : 'translateX(0)',
+              transitionDuration: '450ms',
+              transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+              transitionDelay: arrivalPhase === 'arrived' ? '0ms' : '0ms',
+            }}
+          >
             {/* Candle warmth pool behind logo */}
             <div
               className={cn(
@@ -274,7 +285,7 @@ export function MinimalHeader() {
               )}
               style={{
                 background: `radial-gradient(circle 60px at center, hsl(var(--vow-yellow) / ${
-                  isArrival ? 0.06 : 0.03
+                  arrivalPhase === 'arrived' ? 0.08 : isArrival ? 0.06 : 0.03
                 }) 0%, transparent 70%)`,
               }}
               aria-hidden="true"
@@ -290,24 +301,26 @@ export function MinimalHeader() {
               style={{
                 animationDelay: headerDelay,
                 animationFillMode: "forwards",
-                // Subtle text shadow during arrival — the logo glows
-                textShadow: isArrival
-                  ? "0 0 20px hsl(var(--vow-yellow) / 0.08)"
+                textShadow: arrivalPhase === 'arrived'
+                  ? "0 0 24px hsl(var(--vow-yellow) / 0.1), 0 0 60px hsl(var(--vow-yellow) / 0.04)"
                   : "none",
+                transition: 'text-shadow 700ms ease',
               }}
             >
               Parker Gawryletz
-              {/* Vow-yellow underline draw — only during arrival */}
+              {/* Vow-yellow underline draw — only during full arrival */}
               <span
                 className={cn(
-                  "absolute -bottom-1 left-0 w-full h-[1px] origin-center transition-transform duration-[450ms]",
-                  isArrival ? "scale-x-100" : "scale-x-0"
+                  "absolute -bottom-1 left-0 w-full h-[1px] origin-center transition-transform",
+                  arrivalPhase === 'arrived' ? "scale-x-100" : "scale-x-0"
                 )}
                 style={{
                   background:
                     "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.4), transparent)",
+                  transitionDuration: "450ms",
+                  transitionDelay: arrivalPhase === 'arrived' ? "200ms" : "0ms",
                   transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
-                  boxShadow: isArrival
+                  boxShadow: arrivalPhase === 'arrived'
                     ? "0 0 8px hsl(var(--vow-yellow) / 0.12)"
                     : "none",
                 }}
