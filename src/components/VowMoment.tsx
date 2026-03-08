@@ -60,7 +60,7 @@ export function VowMoment() {
       {/* Step 6: Top fade from Process warm cream — color at top fading to transparent downward */}
       <div
         className="section-fade-top"
-        style={{ background: 'linear-gradient(180deg, hsl(40 25% 90%) 0%, transparent 100%)' }}
+        style={{ background: 'linear-gradient(180deg, hsl(var(--surface-warm)) 0%, transparent 100%)' }}
         aria-hidden="true"
       />
 
