@@ -19,7 +19,7 @@ export default function PrivacyPolicy() {
           I serve Calgary, Cochrane, Canmore, and Banff.
         </p>
         <p>
-          Contact: <a href="mailto:ParJorFraGaw@gmail.com" className="text-primary hover:text-primary/80">ParJorFraGaw@gmail.com</a> • <a href="tel:+14038308930" className="text-primary hover:text-primary/80">+1-403-830-8930</a>
+          Contact: <a href="mailto:parker@parkergawryletz.com" className="text-primary hover:text-primary/80">parker@parkergawryletz.com</a> • <a href="tel:+14038308930" className="text-primary hover:text-primary/80">+1-403-830-8930</a>
         </p>
       </PolicySection>
 
