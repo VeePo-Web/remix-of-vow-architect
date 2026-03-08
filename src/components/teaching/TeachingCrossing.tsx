@@ -174,7 +174,7 @@ export function TeachingCrossing() {
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage: `url(${benchImg})`,
-          opacity: 0.07,
+          opacity: 0.04,
           animation: "crossing-ken-burns 30s linear infinite alternate",
         }}
         aria-hidden="true"
