@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSmoothScroll } from "@/components/SmoothScrollProvider";
 import { usePageTransition } from "@/hooks/usePageTransition";
+import { Button } from "@/components/ui/button";
 
 interface FullScreenMenuProps {
   isOpen: boolean;
