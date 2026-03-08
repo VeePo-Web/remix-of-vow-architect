@@ -104,14 +104,14 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
     return () => window.removeEventListener("keydown", trap);
   }, [isOpen]);
 
-  const handleItemClick = useCallback((index: number) => {
+  const handleItemClick = useCallback((e: React.MouseEvent, index: number) => {
+    e.preventDefault();
     setPressedIndex(index);
     const targetPath = menuItems[index].href;
     // Tactile delay — feel the key depress, then transition gracefully
     setTimeout(() => {
       setPressedIndex(null);
       onClose();
-      // Use graceful transition if navigating to a different page
       if (targetPath !== location.pathname) {
         navigateWithTransition(targetPath);
       }
