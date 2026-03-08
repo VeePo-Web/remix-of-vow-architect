@@ -338,21 +338,26 @@ export function Footer() {
             href="https://veepo.ca/case-studies"
             target="_blank"
             rel="noopener noreferrer"
-            className="group/veepo max-w-sm w-full block border border-white/[0.06] hover:border-white/[0.12] bg-white/[0.02] hover:bg-white/[0.04] rounded-lg px-6 py-4 transition-all duration-[260ms] hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="group/veepo max-w-md w-full block border border-white/[0.08] hover:border-white/[0.18] bg-white/[0.03] hover:bg-white/[0.06] rounded-lg px-8 py-5 transition-all duration-[260ms] hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-[11px] tracking-[0.22em] uppercase text-muted-foreground/50">
-                  Locally powered by{" "}
-                  <span className="font-display font-medium text-[13px] tracking-[0.18em] text-foreground/90 group-hover/veepo:text-primary transition-colors duration-[180ms]">
+                <p className="text-[12px] tracking-[0.22em] uppercase text-muted-foreground/60">
+                  Locally powered by
+                </p>
+                <span
+                  className="block mt-1 font-sans font-semibold text-[22px] tracking-[0.25em] uppercase text-foreground/90 transition-colors duration-[180ms]"
+                  style={{ color: undefined }}
+                >
+                  <span className="group-hover/veepo:[color:hsl(166,72%,47%)] transition-colors duration-[180ms]">
                     VEEPO
                   </span>
-                </p>
-                <p className="text-[10px] tracking-[0.15em] text-muted-foreground/30 italic mt-1">
+                </span>
+                <p className="text-[11px] tracking-[0.15em] text-muted-foreground/45 italic mt-1.5">
                   Where vision meets precision
                 </p>
               </div>
-              <span className="text-muted-foreground/40 group-hover/veepo:text-muted-foreground/70 transition-all duration-[180ms] group-hover/veepo:translate-x-1 ml-4" aria-hidden="true">
+              <span className="text-lg text-muted-foreground/40 group-hover/veepo:text-muted-foreground/70 transition-all duration-[180ms] group-hover/veepo:translate-x-1 ml-4" aria-hidden="true">
                 →
               </span>
             </div>
