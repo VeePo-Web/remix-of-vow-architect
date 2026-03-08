@@ -989,6 +989,11 @@ All colors MUST be HSL.
   transform: translateY(-50%) translateX(0);
 }
 
+.piano-key-tooltip.piano-key-tooltip--active {
+  border-left: 2px solid hsl(var(--vow-yellow) / 0.6);
+  color: hsl(var(--foreground) / 0.9);
+}
+
 .piano-key-tooltip-caret {
   position: absolute;
   right: -4px;
