@@ -15,29 +15,60 @@ export function TeachingOffering() {
       role="region"
       aria-label="The Offering"
     >
-      {/* Warm radial glow — subtle vow-yellow presence */}
+      {/* Warm radial glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 50%, hsl(var(--vow-yellow) / 0.03), transparent 65%)",
+            "radial-gradient(ellipse at 50% 50%, hsl(var(--vow-yellow) / 0.04), transparent 60%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Breathing vignette */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, transparent 45%, hsl(38 25% 85% / 0.45) 100%)",
+          animation: isVisible
+            ? "offering-vignette 6s ease-in-out infinite"
+            : undefined,
         }}
         aria-hidden="true"
       />
 
       <div className="relative z-10 max-w-[560px] mx-auto text-center">
+        {/* Whispered section label */}
+        <p
+          className={cn(
+            "font-sans text-[11px] uppercase tracking-[0.22em] mb-fitz-5 transition-all duration-[1800ms]",
+            isVisible
+              ? "opacity-50 translate-y-0"
+              : "opacity-0 translate-y-[8px]"
+          )}
+          style={{
+            color: "hsl(30 10% 45%)",
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+          }}
+        >
+          The offering
+        </p>
+
         {/* Golden dot anchor */}
         <span
           className={cn(
-            "block w-2 h-2 rounded-full mx-auto mb-fitz-9 transition-all duration-[900ms]",
+            "block w-2 h-2 rounded-full mx-auto mb-fitz-5 transition-all duration-[900ms]",
             isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
           )}
           style={{
             background: "hsl(var(--vow-yellow))",
+            boxShadow: "0 0 8px 2px hsl(var(--vow-yellow) / 0.15)",
             animation: isVisible
               ? "offering-dot-breathe 4s ease-in-out infinite"
               : undefined,
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "100ms",
           }}
           aria-hidden="true"
         />
@@ -69,12 +100,13 @@ export function TeachingOffering() {
             color: "hsl(30 15% 20%)",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             transitionDelay: "300ms",
+            textShadow: "0 1px 2px hsl(40 20% 80% / 0.25)",
           }}
         >
           Are you ready to sit down?
         </h2>
 
-        {/* Price — understated, secondary */}
+        {/* Price — understated */}
         <p
           className={cn(
             "font-sans text-[18px] md:text-[20px] font-normal tracking-[0.01em] mb-fitz-3 transition-all duration-[700ms]",
@@ -108,7 +140,7 @@ export function TeachingOffering() {
           No packages. No commitments. One conversation at a time.
         </p>
 
-        {/* CTA — the centerpiece */}
+        {/* CTA */}
         <div
           className={cn(
             "mb-fitz-6 transition-all duration-[700ms]",
@@ -130,10 +162,10 @@ export function TeachingOffering() {
           </Button>
         </div>
 
-        {/* Anti-anxiety secondary */}
+        {/* Anti-anxiety secondary with underline on "question" */}
         <p
           className={cn(
-            "font-sans text-[12px] transition-all duration-[700ms]",
+            "font-sans text-[12px] mb-fitz-2 transition-all duration-[700ms]",
             isVisible
               ? "opacity-40 translate-y-0"
               : "opacity-0 translate-y-[4px]"
@@ -144,13 +176,44 @@ export function TeachingOffering() {
             transitionDelay: "850ms",
           }}
         >
-          The first session begins with a question, not a scale.
+          The first session begins with a{" "}
+          <span className="relative inline-block">
+            question
+            <span
+              className={cn(
+                "absolute -bottom-0.5 left-0 w-full h-[1.5px] bg-[hsl(var(--vow-yellow))] origin-left transition-transform duration-[450ms]",
+                isVisible ? "scale-x-100" : "scale-x-0"
+              )}
+              style={{
+                transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
+                transitionDelay: "1100ms",
+              }}
+              aria-hidden="true"
+            />
+          </span>
+          , not a scale.
         </p>
+
+        {/* Pencil annotation */}
+        <span
+          className={cn(
+            "inline-block font-display italic text-[13px] mt-fitz-4 mb-fitz-7 transition-all duration-[700ms]",
+            isVisible ? "opacity-30" : "opacity-0"
+          )}
+          style={{
+            color: "hsl(30 12% 50%)",
+            transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
+            transitionDelay: "1000ms",
+          }}
+          aria-label="Annotation"
+        >
+          — what do you want to say?
+        </span>
 
         {/* Vertical golden thread — content to bottom */}
         <div
           className={cn(
-            "w-px h-[60px] mx-auto mt-fitz-9 origin-top transition-transform duration-[700ms]",
+            "w-px h-[60px] mx-auto origin-top transition-transform duration-[700ms]",
             isVisible ? "scale-y-100" : "scale-y-0"
           )}
           style={{
@@ -168,6 +231,10 @@ export function TeachingOffering() {
         @keyframes offering-dot-breathe {
           0%, 100% { opacity: 0.6; transform: scale(1); }
           50% { opacity: 1; transform: scale(1.2); }
+        }
+        @keyframes offering-vignette {
+          0%, 100% { opacity: 0.45; }
+          50% { opacity: 0.6; }
         }
         @media (prefers-reduced-motion: reduce) {
           #teaching-offering * {
