@@ -96,8 +96,15 @@ export default function Contact() {
         </div>
         {/* Warm fog */}
         <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)" }} aria-hidden="true" />
-        {/* Cinematic vignette */}
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 100%)" }} aria-hidden="true" />
+        {/* Breathing vignette */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 100%)",
+            animation: "contact-vignette-breathe 6s ease-in-out infinite",
+          }}
+          aria-hidden="true"
+        />
         {/* Film grain */}
         <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
 
