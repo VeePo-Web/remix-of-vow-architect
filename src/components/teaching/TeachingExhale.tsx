@@ -22,13 +22,13 @@ interface LineConfig {
 
 const lines: LineConfig[] = [
   {
-    text: "You have a song inside you that you have never been able to play.",
+    text: "There is a sound inside you that your hands have never been able to reach.",
     italic: true,
     size: "text-[20px] md:text-[28px]",
     shadowWeight: "medium",
   },
   {
-    text: "You have heard it in the car, in the quiet, in the space between what you feel and what you can say.",
+    text: "You hear it in the car. In the quiet. In the space between what you feel and what you can say.",
     italic: true,
     size: "text-[20px] md:text-[28px]",
     shadowWeight: "medium",
@@ -40,7 +40,7 @@ const lines: LineConfig[] = [
     shadowWeight: "light",
   },
   {
-    text: "The piano has been waiting.",
+    text: "The bench has been waiting.",
     italic: true,
     size: "text-[20px] md:text-[28px]",
     underlineWord: "waiting",
