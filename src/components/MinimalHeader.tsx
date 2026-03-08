@@ -89,6 +89,19 @@ export function MinimalHeader() {
 
   const isArrival = isAtFooter && isScrolled;
 
+  // Orchestrate arrival phases: dissolve nav → glide logo → reveal tagline
+  useEffect(() => {
+    if (isArrival && arrivalPhase === 'none') {
+      setArrivalPhase('dissolving');
+      // After nav links finish dissolving (navLinks.length * 80ms + 260ms transition)
+      const dissolveTime = navLinks.length * 80 + 300;
+      const timer = setTimeout(() => setArrivalPhase('arrived'), dissolveTime);
+      return () => clearTimeout(timer);
+    } else if (!isArrival && arrivalPhase !== 'none') {
+      setArrivalPhase('none');
+    }
+  }, [isArrival, arrivalPhase]);
+
   return (
     <>
       {/* Fixed Header */}
