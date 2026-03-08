@@ -139,7 +139,7 @@ function NowPlayingBar({
             <span className="text-[10px] uppercase tracking-[0.15em] text-[hsl(var(--vow-yellow))] opacity-70 block leading-none mb-0.5">
               {displayCategory}
             </span>
-            <span className="text-xs text-foreground/80 font-display truncate block">{displayTitle}</span>
+            <span className="text-xs text-foreground opacity-80 font-display truncate block">{displayTitle}</span>
           </div>
         </div>
         <span className="text-[9px] text-foreground/30 font-mono tabular-nums shrink-0 ml-1">
