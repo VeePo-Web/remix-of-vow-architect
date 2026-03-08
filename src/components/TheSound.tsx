@@ -110,7 +110,7 @@ function NowPlayingBar({
           <div className="h-full bg-primary transition-none" style={{ width: `${percent}%` }} />
           <div
             className={cn(
-              "absolute top-1/2 w-[6px] h-[6px] rounded-full bg-[hsl(var(--vow-yellow))] transition-opacity duration-150",
+              "absolute top-1/2 w-[6px] h-[6px] rounded-full bg-primary transition-opacity duration-150",
               isPlaying ? "opacity-0 group-hover/seek:opacity-100" : "opacity-80"
             )}
             style={{
