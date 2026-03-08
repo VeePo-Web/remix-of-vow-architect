@@ -1,33 +1,34 @@
 
 
-# Plan: Create Events Brand Identity Document
+# VeePo Footer Attribution — Add Brand Colors (Orange + Teal)
 
-Create `.lovable/events-brand-identity.md` following the same structure as the wedding and teaching documents — Brand Truth Table, Non-Negotiables/Flex/Dealbreakers, Brand Spine, Positioning, Customer Identity Mirror, Messaging, Voice, and Visual direction.
+## What Changed
+The user wants the VeePo attribution to incorporate VeePo's actual brand colors: **Orange** (`hsl(28, 87%, 58%)`) and **Green/Teal** (`hsl(166, 72%, 47%)`), making it bolder and more visually distinct as an advertisement.
 
-## Key Differentiators from Other Verticals
+## Design
 
-- **Tone:** Professional and polished, not sacred/vigil (weddings) or warm/mentorship (teaching)
-- **Category:** "Private Event Pianist" — not "sound director" or "mentor"
-- **Mission:** "I understand what live music does to a room" — atmospheric, not ceremonial
-- **Tagline adaptation:** "Every room has a sound it's waiting for."
-- **Enemy:** The generic playlist, the background-noise assumption, the DJ who drowns conversation
-- **Audience:** Hosts planning private dinners, church services, cocktail receptions, intimate celebrations — people who care about atmosphere and presence
+The current card hovers VEEPO to teal only. The upgrade adds both brand colors as visual accents:
 
-## Document Structure (matching existing format)
+```text
+┌──────────────────────────────────────────────────────────┐
+│                                                            │
+│  ◼ Locally powered by                                      │
+│  VEEPO                                              →      │
+│  Where vision meets precision                              │
+│                                                            │
+└──────────────────────────────────────────────────────────┘
+    ↑ orange/teal gradient bottom border on hover
+```
 
-1. **Brand Truth Table** — Events-specific truths (500+ events, 4 occasion types, 500+ repertoire, room-reading ability)
-2. **Non-Negotiables / Flex / Dealbreakers** — Professional tone rules, no "sacred/vigil" language, no entertainment framing
-3. **Brand Spine** — Category stance, enemy, audience, promise, proof, personality
-4. **Positioning & Differentiators** — "Private Event Pianist" category, differentiator table vs DJs/playlists/bands
-5. **Customer Identity Mirror** — "You are my people if..." / "Not for you if..." for event hosts
-6. **Messaging Pillars** — Atmosphere, Adaptability, Professionalism
-7. **Voice & Lexicon** — Events-specific word choices (allowed/banned), CTA phrasing
-8. **Visual Direction** — How the events page differs aesthetically from weddings/teaching
-9. **Cross-Vertical Coherence** — How events connects to the broader Sacred Sound brand
+### Specific Changes (1 file: `src/components/Footer.tsx`, lines 329-365)
 
-## File
+1. **Bottom border accent**: Add a 2px bottom border that transitions from transparent to a `linear-gradient(to right, hsl(28,87%,58%), hsl(166,72%,47%))` on hover — the VeePo orange-to-teal signature. Use a pseudo-element via an inner `<div>` with `absolute bottom-0` since Tailwind can't do gradient borders natively.
 
-- **Create:** `.lovable/events-brand-identity.md`
+2. **VEEPO wordmark hover**: Keep the teal hover on the text (`hsl(166,72%,47%)`), but add a subtle orange glow behind it via `text-shadow: 0 0 20px hsl(28,87%,58%,0.15)` on hover — creates a warm halo that references both brand colors.
 
-No code changes required.
+3. **Small brand dot**: Before "Locally powered by", add a tiny 6px circle with a `background: linear-gradient(135deg, hsl(28,87%,58%), hsl(166,72%,47%))` — a permanent VeePo brand mark that's always visible, acting as a geometric identity marker (inspired by coloursandshapes.com's ownable primitives).
+
+4. **Arrow**: On hover, shift arrow color to the orange (`hsl(28,87%,58%)`) instead of just brightening — ties the interaction to the brand.
+
+5. **Container border hover**: Shift from `border-white/[0.18]` to a very subtle warm tint — `border-[hsl(28,87%,58%,0.15)]` — so the entire card gains a warm VeePo aura on hover.
 
