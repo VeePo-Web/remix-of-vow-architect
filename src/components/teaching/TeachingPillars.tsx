@@ -274,7 +274,7 @@ export function TeachingPillars() {
     <section
       id="teaching-pillars"
       className="relative py-[140px] md:py-[180px] px-fitz-4 md:px-fitz-6 overflow-hidden"
-      style={{ background: "hsl(40 30% 95%)" }}
+      style={{ background: "hsl(var(--teaching-bg))" }}
       role="region"
       aria-label="What I Hold to Be True"
     >
