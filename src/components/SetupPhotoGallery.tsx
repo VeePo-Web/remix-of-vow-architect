@@ -56,7 +56,7 @@ export function SetupPhotoGallery() {
             </StaggerChildren>
           </TooltipProvider>
 
-          <Card className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)]">
+          <Card className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred">
             <blockquote className="border-l-2 border-[hsl(var(--vow-yellow)/0.4)] pl-4 mb-4">
               <p className="font-display text-[15px] text-foreground italic leading-relaxed">
                 "Our planner called Parker the most prepared musician she's worked with."
