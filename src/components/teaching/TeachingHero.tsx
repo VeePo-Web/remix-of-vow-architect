@@ -332,8 +332,7 @@ export function TeachingHero() {
             transitionDelay: `${SUBTITLE_DELAY}ms`,
           }}
         >
-          I teach you to speak through the instrument — at your pace, in your
-          voice.
+          The first question I ask is never about music. It is about you.
         </p>
       </div>
 
