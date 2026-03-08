@@ -220,6 +220,7 @@ Parker Gawryletz is a piano mentor who teaches one student at a time --- shaping
 - **"I don't know what I want to play."** --- That is exactly where we begin. The first conversation is not about repertoire. It is about you.
 - **"How long until I can play something?"** --- That depends on what "something" means to you. I will not give you a timeline. I will give you my attention, my patience, and my presence until it sounds right.
 - **"I tried before and quit."** --- You didn't fail. You had a teacher who measured your progress by their standards instead of yours. We will measure yours by what it sounds like when you sit down and the music feels like you.
+- **"I don't have natural talent."** --- Every single gift comes in the form of a seed. Every plant, every animal, and every gift needs to be developed and nurtured. Everyone starts at level zero. The question is not whether you have talent — the question is whether you are willing to water the seed. "Every gift arrives as a seed. Your hands are the soil."
 
 ---
 
