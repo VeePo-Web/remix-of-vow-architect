@@ -11,6 +11,7 @@ const NotFound = () => {
   usePageTheme();
 
   useEffect(() => {
+    document.title = "Page Not Found — Parker Gawryletz";
     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
   }, [location.pathname]);
 

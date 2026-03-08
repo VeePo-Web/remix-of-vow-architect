@@ -20,6 +20,7 @@ import { PianoKeyNav } from "@/components/PianoKeyNav";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { useVigilSequence } from "@/hooks/useVigilSequence";
 import heroImage from "@/assets/hero-wedding.jpg";
+import { useEffect } from "react";
 
 const pianoSections = [
   { id: "the-exhale",         label: "The Exhale",         isBlackKey: false },
@@ -36,6 +37,7 @@ const pianoSections = [
 
 export default function Index() {
   usePageTheme();
+  useEffect(() => { document.title = "Parker Gawryletz — Wedding Pianist, Calgary to Banff"; }, []);
   const vigilPhase = useVigilSequence();
 
   return (
