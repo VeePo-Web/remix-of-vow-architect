@@ -211,7 +211,7 @@ export function Footer() {
                   { to: "/weddings", label: "Weddings" },
                   { to: "/teaching", label: "Teaching" },
                   { to: "/events", label: "Events" },
-                  { to: "/services", label: "Pricing" },
+                  { to: "/services", label: "Services" },
                   { to: "/about", label: "About" },
                   { to: "/gallery", label: "Proof" },
                   { to: "/faq", label: "FAQ" },
