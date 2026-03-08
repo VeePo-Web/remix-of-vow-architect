@@ -296,7 +296,7 @@ export function TheInvitation() {
               style={{ transitionDelay: isVisible ? '700ms' : '0ms' }}
             >
               Every arrangement I write begins with a single question{' '}
-              <span className="text-[hsl(var(--vow-yellow))] opacity-60">— what was playing when you knew.</span>
+              <span className="text-primary opacity-60">— what was playing when you knew.</span>
             </p>
 
             {/* CTA — breathing glow */}
