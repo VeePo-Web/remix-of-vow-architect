@@ -154,7 +154,7 @@ export function WitnessCovenant() {
                 )}
                 style={{ transitionDelay: "200ms" }}
               >
-                Ceremony Sound Director
+                Ceremony Pianist
               </p>
             </div>
           </div>

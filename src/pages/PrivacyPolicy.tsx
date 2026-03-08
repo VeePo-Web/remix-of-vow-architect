@@ -17,7 +17,7 @@ export default function PrivacyPolicy() {
     >
       <PolicySection title="Who I Am">
         <p>
-          I'm Parker Gawryletz, Sound Director. 
+          I'm Parker Gawryletz, ceremony pianist. 
           I serve Calgary, Cochrane, Canmore, and Banff.
         </p>
         <p>
