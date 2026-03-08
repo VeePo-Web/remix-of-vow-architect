@@ -5130,11 +5130,11 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   border-top: 2px solid hsl(var(--vow-yellow) / 0.35);
   animation: chosen-key-breathe 4s ease-in-out infinite;
   box-shadow:
-    inset 2px 0 4px rgba(0,0,0,0.04),
-    inset -2px 0 4px rgba(0,0,0,0.04),
-    0 4px 24px rgba(0,0,0,0.18),
-    0 2px 12px rgba(255,224,138,0.15),
-    0 -4px 20px rgba(255,224,138,0.12);
+    inset 2px 0 4px hsl(var(--rich-black) / 0.04),
+    inset -2px 0 4px hsl(var(--rich-black) / 0.04),
+    0 4px 24px hsl(var(--rich-black) / 0.18),
+    0 2px 12px hsl(var(--vow-yellow) / 0.15),
+    0 -4px 20px hsl(var(--vow-yellow) / 0.12);
 }
 
 @keyframes chosen-key-breathe {
