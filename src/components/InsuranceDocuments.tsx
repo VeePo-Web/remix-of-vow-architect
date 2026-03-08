@@ -28,8 +28,10 @@ export function InsuranceDocuments() {
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
           <RevealOnScroll variant="up">
-            <h2 className="h2 mb-4 text-center">Fully Insured. Fully Transparent.</h2>
-            <p className="text-muted-foreground text-center max-w-3xl mx-auto mb-12">
+            <div className="overline text-center mb-2">Insurance</div>
+            <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light text-center mb-3">Fully Insured. Fully Transparent.</h2>
+            <div className="chapter-rule mx-auto mb-4" />
+            <p className="text-[15px] text-muted-foreground text-center max-w-2xl mx-auto mb-12 leading-relaxed">
               Every performance is backed by comprehensive coverage — sent to your venue and planner before the day arrives.
             </p>
           </RevealOnScroll>
@@ -41,32 +43,31 @@ export function InsuranceDocuments() {
                   <item.icon className="text-primary" size={24} />
                 </div>
                 <h3 className="font-display text-base font-medium mb-2">{item.title}</h3>
-                <p className="text-sm text-muted-foreground">{item.description}</p>
+                <p className="text-[14px] text-muted-foreground leading-relaxed">{item.description}</p>
               </Card>
             ))}
           </StaggerChildren>
 
           <div className="text-center mb-8">
-            <Button variant="outline" size="lg" className="hover-scale">
-              <FileCheck size={18} className="mr-2" />
-              Download Sample Certificate of Insurance (PDF)
+            <Button variant="outline" size="lg" className="hover-scale gap-2">
+              <FileCheck size={18} />
+              Download sample certificate of insurance
             </Button>
-            <p className="text-sm text-muted-foreground mt-3">
-              I send certificates to your venue and planner in advance—no chasing forms.
+            <p className="text-[14px] text-muted-foreground mt-3 leading-relaxed">
+              I send certificates to your venue and planner in advance — no chasing forms.
             </p>
           </div>
 
-          <Card className="p-6 bg-card/80 backdrop-blur-[8px] border-primary/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)]">
-            <p className="italic text-foreground mb-3">
-              "The venue waived their deposit—policy covered everything."
-            </p>
+          <Card className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)]">
+            <blockquote className="border-l-2 border-[hsl(var(--vow-yellow)/0.4)] pl-4 mb-4">
+              <p className="font-display text-[15px] text-foreground italic leading-relaxed">
+                "The venue waived their deposit — policy covered everything."
+              </p>
+            </blockquote>
             <div className="flex items-center gap-3">
-              <TestimonialAvatar
-                alt="Jasmine & Colin"
-                fallback="JC"
-              />
+              <TestimonialAvatar alt="Jasmine & Colin" fallback="JC" />
               <div className="text-sm">
-                <p className="font-semibold text-foreground">Jasmine & Colin</p>
+                <p className="font-display font-medium text-foreground">Jasmine & Colin</p>
                 <p className="text-muted-foreground">Calgary</p>
               </div>
             </div>
