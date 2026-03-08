@@ -197,7 +197,7 @@ export default function Listen() {
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover opacity-[0.08] pointer-events-none"
-           style={{ animation: "ken-burns 25s ease-in-out infinite alternate", willChange: "transform" }}
+           style={{ animation: "ken-burns 25s ease-in-out infinite alternate" }}
            loading="eager"
            decoding="async"
         />

@@ -51,7 +51,7 @@ export function VowMoment() {
 
       {/* Step 5: Breathing Vow-Yellow Radial Glow */}
       <div
-        className="absolute inset-0 pointer-events-none vow-glow-breathe will-change-[opacity]"
+        className="absolute inset-0 pointer-events-none vow-glow-breathe"
         style={{
           background: "radial-gradient(circle at center, hsl(var(--vow-yellow) / 0.05) 0%, transparent 50%)",
         }}
