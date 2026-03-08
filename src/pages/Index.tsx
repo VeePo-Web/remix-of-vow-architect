@@ -76,7 +76,7 @@ export default function Index() {
             vigilPhase.isRevealing || vigilPhase.isComplete ? "opacity-100" : "opacity-0"
           }`}
           style={{
-            background: "radial-gradient(circle at center, transparent 0%, rgba(10, 10, 12, 0.45) 100%)",
+            background: "radial-gradient(circle at center, transparent 0%, hsl(var(--rich-black) / 0.45) 100%)",
           }}
           aria-hidden="true"
         />
