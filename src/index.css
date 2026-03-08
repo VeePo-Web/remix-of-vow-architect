@@ -5456,10 +5456,10 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   }
   .piano-white-key:hover {
     box-shadow:
-      inset 2px 0 4px rgba(0,0,0,0.04),
-      inset -2px 0 4px rgba(0,0,0,0.04),
-      0 8px 32px rgba(0,0,0,0.3),
-      0 4px 20px rgba(255,224,138,0.08);
+      inset 2px 0 4px hsl(var(--rich-black) / 0.04),
+      inset -2px 0 4px hsl(var(--rich-black) / 0.04),
+      0 8px 32px hsl(var(--rich-black) / 0.3),
+      0 4px 20px hsl(var(--vow-yellow) / 0.08);
   }
   .paths-chosen-badge {
     backdrop-filter: none;
