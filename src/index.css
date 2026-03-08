@@ -4909,7 +4909,8 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 
 @media (prefers-reduced-motion: reduce) {
   .footer-breathe,
-  .header-vine-breathe {
+  .header-vine-breathe,
+  .footer-vine-breathe {
     animation: none;
   }
 }
