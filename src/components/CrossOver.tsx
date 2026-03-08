@@ -98,7 +98,7 @@ export function CrossOver() {
       <div 
         className="absolute inset-0 z-[1] pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at center, transparent 30%, hsl(240 9% 2% / 0.75) 100%)"
+          background: "radial-gradient(ellipse at center, transparent 30%, hsl(var(--rich-black) / 0.75) 100%)"
         }}
         aria-hidden="true"
       />
