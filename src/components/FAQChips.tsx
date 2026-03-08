@@ -5,29 +5,29 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 
 const chips = [
   {
-    question: "Do I need a mic for vows?",
-    answer: "Yes. I include lapel + handheld, both live-mixed for clarity.",
-    link: { to: "/proof", label: "See proof (SPL logs)" }
+    question: "Do I need amplification for vows?",
+    answer: "Yes. I include wireless microphones, live-mixed so every word carries.",
+    link: { to: "/proof", label: "See how I prepare" }
   },
   {
-    question: "What if there's no power?",
-    answer: "I run a silent, generator-free battery system with backups.",
-    link: { to: "/faq", label: "See FAQ" }
+    question: "What if there is no power?",
+    answer: "I use a silent battery system with backups — no generators.",
+    link: { to: "/proof", label: "See the equipment" }
   },
   {
-    question: "Can I change my path later?",
+    question: "Can I change my arrangement later?",
     answer: "Yes. Upgrade up to 2 weeks before your date.",
-    link: { to: "/pricing", label: "See Pricing" }
+    link: { to: "/pricing", label: "See the options" }
   },
   {
-    question: "What's your refund policy?",
-    answer: "14-day full refund on deposit; after that, credit is transferable.",
-    link: { to: "#", label: "See Policy PDF" }
+    question: "What is the refund policy?",
+    answer: "Full refund within 14 days. After that, your deposit becomes transferable credit.",
+    link: { to: "#", label: "See policy details" }
   },
   {
-    question: "Do I get a plan—or just showtime?",
-    answer: "You get a written ceremony-audio plan in 24 hours: SPL, power, mic, cues.",
-    link: { to: "/proof", label: "See Sample Plan" }
+    question: "Do I receive a plan — or just a performance?",
+    answer: "You receive a personalized ceremony plan within 24 hours — venue, timeline, and arrangements.",
+    link: { to: "/proof", label: "See a sample plan" }
   }
 ];
 
