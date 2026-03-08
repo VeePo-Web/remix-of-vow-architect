@@ -65,7 +65,7 @@ export function CrossOver() {
       aria-label="Final call to action"
       className="section--dark section-grain piano-section-target relative overflow-hidden min-h-[50vh] md:min-h-[60vh] py-[80px] md:py-[120px] px-4 md:px-6 lg:px-8"
       style={{
-        background: "radial-gradient(ellipse at center, hsl(240 12% 5%) 0%, hsl(240 9% 2%) 100%)",
+        background: "radial-gradient(ellipse at center, hsl(var(--deep-graphite)) 0%, hsl(var(--rich-black)) 100%)",
         '--crossing-warmth': '0.02',
       } as React.CSSProperties}
     >
