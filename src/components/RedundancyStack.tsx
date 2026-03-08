@@ -6,7 +6,7 @@ const failoverTiers = [
   {
     icon: Mic,
     tier: "Primary System",
-    description: "Wireless microphones, live mix, battery-powered amplifier, and piano",
+    description: "Wireless sound, live balance, battery power, and piano",
     highlight: true,
   },
   {
