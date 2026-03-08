@@ -113,7 +113,7 @@ export function TheExhale() {
         {/* Recognition Statement — Step 4: text-shadow for depth */}
         <p 
           className={`
-            font-serif text-foreground
+            font-display text-foreground
             transition-all
             ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
           `}
@@ -210,7 +210,7 @@ export function TheExhale() {
         {/* Singular Purpose — Step 4: increased scale */}
         <p 
           className={`
-            font-serif text-foreground
+            font-display text-foreground
             mt-6 md:mt-8
             transition-all
             ${purposeVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
