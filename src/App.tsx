@@ -31,6 +31,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+        <SmoothScrollProvider>
         <Routes>
           <Route path="/" element={<Gateway />} />
           <Route path="/weddings" element={<Index />} />
