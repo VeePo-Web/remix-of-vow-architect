@@ -182,7 +182,7 @@ export function TheInvitation() {
                 <div
                   className="absolute inset-0 pointer-events-none"
                   style={{
-                    background: 'radial-gradient(ellipse at center, transparent 40%, hsl(240 12% 3% / 0.4) 100%)',
+                    background: 'radial-gradient(ellipse at center, transparent 40%, hsl(var(--rich-black) / 0.4) 100%)',
                   }}
                   aria-hidden="true"
                 />
