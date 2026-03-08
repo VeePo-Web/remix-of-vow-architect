@@ -74,6 +74,7 @@ export function CrossOver() {
         <img
           src={crossoverDance}
           alt=""
+          aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover opacity-[0.10] pointer-events-none"
           style={{
             animation: 'crossover-ken-burns 30s ease-in-out infinite alternate',

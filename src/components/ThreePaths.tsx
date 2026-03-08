@@ -108,6 +108,7 @@ export function ThreePaths() {
         <img
           src={pathsPianoCandle}
           alt=""
+          aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover opacity-[0.14] pointer-events-none"
           style={{
             animation: 'paths-ken-burns 30s ease-in-out infinite alternate',
