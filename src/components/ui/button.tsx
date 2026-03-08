@@ -106,8 +106,8 @@ const buttonVariants = cva(
         outline: [
           "border-[1.5px] border-primary text-primary bg-transparent",
           "hover:bg-primary hover:text-primary-foreground",
-          "hover:shadow-[0_8px_24px_rgba(255,224,138,0.16)]",
-          "active:shadow-[0_4px_12px_rgba(255,224,138,0.1)]",
+          "hover:shadow-[0_8px_24px_hsl(var(--vow-yellow)/0.16)]",
+          "active:shadow-[0_4px_12px_hsl(var(--vow-yellow)/0.1)]",
         ].join(" "),
 
         destructive: [
