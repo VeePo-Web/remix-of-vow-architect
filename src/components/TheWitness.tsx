@@ -303,7 +303,7 @@ function KitSection() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 35%, hsl(42 15% 75% / 0.15) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 35%, hsl(var(--warm-vignette-alt) / 0.15) 100%)',
         }}
         aria-hidden="true"
       />
