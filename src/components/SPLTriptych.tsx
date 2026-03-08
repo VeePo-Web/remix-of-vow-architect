@@ -58,12 +58,12 @@ export function SPLTriptych() {
 
           <RevealOnScroll variant="up" delay={200}>
             <p className="text-sm text-muted-foreground text-center max-w-2xl mx-auto mb-8">
-              Logged with a professional dBA meter, timestamped and archived in your ceremony-audio plan. (Actual values adapt to venue, wind, and guest count.)
+              Volume is verified with professional instruments, timestamped, and included in your ceremony plan. Readings adapt to your venue, weather, and guest count.
             </p>
 
             <Card className="p-6 bg-card/80 backdrop-blur-[8px] border-primary/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)]">
               <p className="italic text-foreground mb-3">
-                "We used the SPL log in our permit application—approved instantly."
+                "We included the volume documentation in our permit application — approved instantly."
               </p>
               <div className="flex items-center gap-3">
                 <TestimonialAvatar

@@ -46,7 +46,7 @@ export function DownloadablePlans() {
           <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
             <Link to="/contact">
               <Button size="lg" className="hover-scale">
-                Want your venue's SPL plan? → Hold my date now
+                Hold my date
               </Button>
             </Link>
           </div>

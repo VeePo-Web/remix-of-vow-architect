@@ -30,7 +30,7 @@ export function SetupPhotoGallery() {
     <section className="section--default section-padding">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
-          <h2 className="h2 mb-12 text-center">Engineered Elegance in Action</h2>
+          <h2 className="h2 mb-12 text-center">Preparation in practice.</h2>
           
           <TooltipProvider>
             <StaggerChildren staggerDelay={80} className="grid md:grid-cols-3 gap-6 mb-8">
