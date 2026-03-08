@@ -4,14 +4,12 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ContactFormSuccess } from "@/components/ContactFormSuccess";
 import { ContactSLATimeline } from "@/components/ContactSLATimeline";
 import { BentoSelector } from "@/components/BentoSelector";
 
-import { ChevronRight, ChevronLeft, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import contactHeroImg from "@/assets/contact-hero.jpg";
@@ -53,6 +51,8 @@ const reassuranceLines = [
   "Response within 24 hours — your personalized plan, always.",
   "Insurance, redundancy, and documentation — included.",
 ];
+
+const stepLabels = ["Your day", "The sound", "Final details"];
 
 export default function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -100,8 +100,6 @@ export default function Contact() {
     if (file) setFileName(file.name);
   };
 
-  const stepLabels = ["Your day", "The sound", "Final details"];
-
   return (
     <div className="min-h-screen bg-background">
       <MinimalHeader />
@@ -134,8 +132,6 @@ export default function Contact() {
 
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-4xl mx-auto animate-fade-in">
-              <Breadcrumbs items={[{ label: "Home", path: "/" }, { label: "Hold Your Date" }]} />
-
               <div className="text-center mb-12">
                 <div className="overline mb-2">The Crossing</div>
                 <h1 className="h1 mx-auto">Every arrangement begins with a conversation.</h1>
@@ -148,30 +144,19 @@ export default function Contact() {
               </div>
 
               {isSubmitted ? (
-                <Card className="p-8 bg-card border-border card-keyline">
+                <div className="p-8 bg-card/40 backdrop-blur-[8px] rounded-lg">
                   <ContactFormSuccess />
-                </Card>
+                </div>
               ) : (
                 <div className="grid lg:grid-cols-3 gap-8">
-                  <Card className="lg:col-span-2 p-8 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred card-keyline">
-                    {/* Step indicator */}
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className="flex items-center gap-1.5">
-                        {[1, 2, 3].map((s, i) => (
-                          <div key={s} className="flex items-center gap-1.5">
-                            <div
-                              className={`w-2.5 h-2.5 rounded-full transition-all duration-[180ms] ${
-                                step === s ? "bg-primary scale-110" : step > s ? "bg-primary/40" : "bg-muted-foreground/30"
-                              }`}
-                            />
-                            {i < 2 && (
-                              <div className={`w-4 h-px transition-colors duration-[180ms] ${step > s ? "bg-primary/30" : "bg-muted-foreground/20"}`} />
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                      <span className="text-xs text-muted-foreground transition-opacity duration-[260ms]">
+                  <div className="lg:col-span-2 p-8 bg-card/40 backdrop-blur-[8px] rounded-lg">
+                    {/* Step indicator — typographic fraction */}
+                    <div className="flex items-baseline gap-3 mb-6">
+                      <span className="font-display italic text-sm text-foreground/80">
                         {stepLabels[step - 1]}
+                      </span>
+                      <span className="font-mono text-[10px] text-muted-foreground/40">
+                        {step} / 3
                       </span>
                     </div>
 
@@ -208,7 +193,6 @@ export default function Contact() {
                           </div>
                           <Button type="button" size="lg" variant="primary-dark" className="w-full" onClick={handleStep1Next}>
                             Continue
-                            <ChevronRight size={16} className="ml-1" />
                           </Button>
                         </div>
                       )}
@@ -244,12 +228,10 @@ export default function Contact() {
 
                           <div className="flex gap-3">
                             <Button type="button" variant="outline" onClick={() => setStep(1)}>
-                              <ChevronLeft size={16} className="mr-1" />
                               Back
                             </Button>
                             <Button type="button" size="lg" variant="primary-dark" className="flex-1" onClick={handleStep2Next}>
                               Continue
-                              <ChevronRight size={16} className="ml-1" />
                             </Button>
                           </div>
                         </div>
@@ -294,7 +276,7 @@ export default function Contact() {
                                 <Textarea id="additionalNotes" {...register("additionalNotes")} placeholder="Song requests, tone preferences, meaningful moments..." rows={3} className="mt-2" />
                               </div>
 
-                              {/* Inline file attach — no dashed box */}
+                              {/* Inline file attach */}
                               <div>
                                 <input id="fileUpload" type="file" accept=".pdf,.docx,.jpg,.jpeg,.png,.mp3" onChange={handleFileChange} className="hidden" />
                                 {fileName ? (
@@ -324,7 +306,6 @@ export default function Contact() {
                           <div className="space-y-3">
                             <div className="flex gap-3">
                               <Button type="button" variant="outline" onClick={() => setStep(2)}>
-                                <ChevronLeft size={16} className="mr-1" />
                                 Back
                               </Button>
                               <Button type="submit" size="lg" variant="primary-dark" className="flex-1 hover-scale">
@@ -338,11 +319,11 @@ export default function Contact() {
                         </div>
                       )}
                     </form>
-                  </Card>
+                  </div>
 
-                  {/* Sidebar — typographic reassurance, no icons */}
-                  <div className="lg:col-span-1">
-                    <div className="border border-border/30 rounded-lg p-5 space-y-0">
+                  {/* Sidebar — floating reassurance + SLA */}
+                  <div className="lg:col-span-1 space-y-0">
+                    <div className="space-y-0">
                       {reassuranceLines.map((line, i) => (
                         <div key={i}>
                           <div className="flex items-start gap-2.5 py-3">
@@ -350,7 +331,7 @@ export default function Contact() {
                             <p className="text-sm text-foreground/80 leading-relaxed">{line}</p>
                           </div>
                           {i < reassuranceLines.length - 1 && (
-                            <div className="h-px bg-border/30" />
+                            <div className="h-px bg-border/20" />
                           )}
                         </div>
                       ))}
@@ -363,20 +344,17 @@ export default function Contact() {
                       </p>
                       <p className="text-xs text-muted-foreground mt-1">Sandra & Leo · Cochrane</p>
                     </div>
+
+                    {/* SLA Timeline — inline in sidebar */}
+                    <div className="mt-8 pt-6 border-t border-border/20">
+                      <ContactSLATimeline />
+                    </div>
                   </div>
                 </div>
               )}
             </div>
           </div>
         </section>
-
-        {!isSubmitted && (
-          <section className="section--surface section-padding">
-            <div className="container mx-auto px-4">
-              <ContactSLATimeline />
-            </div>
-          </section>
-        )}
       </main>
       <Footer />
       <MobileStickyBar />

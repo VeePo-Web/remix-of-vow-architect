@@ -59,7 +59,7 @@ export function BentoSelector({ items, value, onChange, columns = 2, label }: Be
               onClick={() => onChange(item.id)}
               onKeyDown={(e) => handleKeyDown(e, index)}
               className={cn(
-                "relative text-left rounded-2xl border p-5 cursor-pointer transition-all duration-[180ms]",
+                "relative text-left rounded-lg border p-5 cursor-pointer transition-all duration-[180ms]",
                 "hover:-translate-y-px hover:shadow-md",
                 "active:scale-[0.98] active:translate-y-0",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
