@@ -82,7 +82,7 @@ export default function PrivacyPolicy() {
       <PolicySection title="Legal Basis (plain English)">
         <ul className="list-disc pl-6 space-y-2">
           <li>
-            <strong>Consent:</strong> when you submit forms or opt in to resources.
+            <strong>Consent:</strong> when you send forms or opt in to resources.
           </li>
           <li>
             <strong>Contract:</strong> to provide the services you ask me to perform.

@@ -310,7 +310,7 @@ export function CrossOver() {
             />
             <Button 
               size="lg" 
-              className="relative h-auto px-10 py-5 text-base rounded-[6px] font-sans font-medium cta-commitment cta-breathe-glow crossing-cta-hover focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[hsl(240_9%_2%)]"
+              className="relative h-auto px-10 py-5 text-base rounded-[6px] font-sans font-medium cta-commitment cta-breathe-glow crossing-cta-hover focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[hsl(var(--rich-black))]"
               asChild
             >
               <Link to="/contact" aria-describedby="crossing-trust-anchor" className="tracking-[0.02em]">Hold my date.</Link>
