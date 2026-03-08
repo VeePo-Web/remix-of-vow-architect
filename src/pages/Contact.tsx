@@ -70,8 +70,9 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <MinimalHeader />
+      <main>
 
       {/* Section 1: Hero with atmospheric background */}
       <section className="relative section-padding bg-background overflow-hidden" aria-label="Hold your date">
@@ -430,6 +431,7 @@ export default function Contact() {
         </section>
       )}
 
+      </main>
       <Footer />
       <MobileStickyBar />
 

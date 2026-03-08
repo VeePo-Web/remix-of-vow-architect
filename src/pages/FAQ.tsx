@@ -27,7 +27,7 @@ export default function FAQ() {
   useEffect(() => { document.title = "Questions Answered — Parker Gawryletz"; }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <MinimalHeader />
       <PianoKeyNav sections={faqSections} />
       
@@ -138,7 +138,7 @@ export default function FAQ() {
         />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="mb-4 text-ink-inverse">Every arrangement begins with a conversation.</h2>
+            <h2 className="h2 mb-4 text-ink-inverse">Every arrangement begins with a conversation.</h2>
             <p className="lead text-ink-inverse/70 mb-8">
               Tell me about your day, and I will send you a personalized plan within 24 hours.
             </p>

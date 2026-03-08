@@ -53,9 +53,10 @@ export default function Proof() {
   useEffect(() => { document.title = "Proof of Craft — Parker Gawryletz"; }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <MinimalHeader />
       <PianoKeyNav sections={proofSections} />
+      <main>
       
       {/* Section 1 - Hero */}
       <section id="proof-hero" className="relative section-padding bg-background overflow-hidden piano-section-target">
@@ -207,6 +208,7 @@ export default function Proof() {
         </div>
       </section>
 
+      </main>
       <Footer />
       <MobileStickyBar />
 
