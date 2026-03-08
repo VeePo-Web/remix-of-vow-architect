@@ -243,7 +243,7 @@ function PreparationSection() {
                       }}
                       aria-hidden="true"
                     />
-                    <p className="text-base md:text-lg font-display font-light leading-relaxed text-foreground/90">
+                    <p className="text-base md:text-lg font-display font-light leading-relaxed text-foreground">
                       {declaration}
                     </p>
                   </div>
