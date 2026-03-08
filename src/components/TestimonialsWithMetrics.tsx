@@ -39,7 +39,7 @@ export function TestimonialsWithMetrics() {
                   fallback={testimonial.initials}
                 />
                 <div>
-                  <p className="font-bold font-sans">{testimonial.author}</p>
+                  <p className="font-medium font-sans">{testimonial.author}</p>
                   <p className="p-small text-muted-foreground">{testimonial.venue}</p>
                 </div>
               </div>
