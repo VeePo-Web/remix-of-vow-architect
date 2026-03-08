@@ -89,8 +89,8 @@ export default function Teaching() {
 
         {/* Pillars (warm cream) → Methodology (dark charcoal) */}
         <SectionFade
-          from="hsl(40 30% 95% / 0)"
-          to="hsl(30 8% 14%)"
+          from="hsl(var(--teaching-bg) / 0)"
+          to="hsl(var(--events-approach-bg))"
         />
         <TeachingMethodology />
 
@@ -100,8 +100,8 @@ export default function Teaching() {
 
         {/* Threshold (dark charcoal) → Stories (warm cream) */}
         <SectionFade
-          from="hsl(30 8% 14% / 0)"
-          to="hsl(38 35% 93%)"
+          from="hsl(var(--events-approach-bg) / 0)"
+          to="hsl(var(--teaching-bg-alt))"
         />
         <TeachingStories />
 

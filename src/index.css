@@ -106,6 +106,30 @@ All colors MUST be HSL.
     --events-warm-cite: 30 8% 50%;
     --events-approach-bg: 30 8% 14%;
 
+    /* Life-Space Warm Surfaces (shared across Witness, Transformation, etc.) */
+    --warm-cream: 40 18% 94%;
+    --warm-cream-mid: 45 22% 95%;
+    --warm-cream-deep: 42 20% 94%;
+    --warm-cream-dark: 40 16% 90%;
+    --warm-glow-soft: 40 45% 80%;
+    --warm-vignette: 40 15% 75%;
+    --warm-vignette-alt: 42 15% 75%;
+    --warm-card-top: 45 25% 96%;
+    --warm-card-bottom: 42 18% 90%;
+    --warm-card-border: 45 20% 85%;
+    --warm-card-highlight: 45 30% 92%;
+    --warm-card-kit-top: 45 24% 95%;
+    --warm-card-kit-bottom: 42 18% 91%;
+    --warm-card-kit-highlight: 45 28% 93%;
+    --warm-radial-soft: 42 40% 82%;
+    --warm-frame-vignette: 42 20% 92%;
+    
+    /* Transformation gradient stops */
+    --transform-dark: 220 15% 8%;
+    --transform-mid: 230 12% 18%;
+    --transform-warm: 40 20% 80%;
+    --transform-light: 45 30% 92%;
+
     /* Teaching Vertical Warm Palette */
     --teaching-bg: 40 30% 95%;
     --teaching-bg-alt: 38 35% 93%;

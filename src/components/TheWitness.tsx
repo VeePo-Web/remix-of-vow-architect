@@ -36,7 +36,7 @@ function PreparationSection() {
       aria-label="The Preparation"
       className="relative section--surface py-[80px] md:py-[120px] piano-section-target overflow-hidden min-h-[400px]"
       style={{
-        background: "linear-gradient(180deg, hsl(40 18% 94%) 0%, hsl(45 22% 95%) 45%, hsl(40 18% 94%) 100%)",
+        background: "linear-gradient(180deg, hsl(var(--warm-cream)) 0%, hsl(var(--warm-cream-mid)) 45%, hsl(var(--warm-cream)) 100%)",
       }}
     >
       <span className="sr-only">
@@ -49,14 +49,14 @@ function PreparationSection() {
         <div
           className="absolute inset-0"
           style={{
-            background: 'radial-gradient(ellipse at 40% 40%, hsl(40 45% 80% / 0.08) 0%, transparent 80%)',
+            background: 'radial-gradient(ellipse at 40% 40%, hsl(var(--warm-glow-soft) / 0.08) 0%, transparent 80%)',
           }}
         />
       </div>
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 35%, hsl(40 15% 75% / 0.18) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 35%, hsl(var(--warm-vignette) / 0.18) 100%)',
         }}
         aria-hidden="true"
       />
@@ -73,7 +73,7 @@ function PreparationSection() {
       {/* Top fade from TheTransformation */}
       <div
         className="section-fade-top"
-        style={{ background: 'linear-gradient(to top, transparent, hsl(45 25% 96%))' }}
+        style={{ background: 'linear-gradient(to top, transparent, hsl(var(--warm-card-top)))' }}
         aria-hidden="true"
       />
 
@@ -107,7 +107,7 @@ function PreparationSection() {
             <div className="witness-frame-shimmer absolute inset-0 pointer-events-none" aria-hidden="true" />
             <div
               className="absolute inset-0 pointer-events-none"
-              style={{ background: 'radial-gradient(ellipse at center, transparent 30%, hsl(45 20% 93% / 0.75) 100%)' }}
+              style={{ background: 'radial-gradient(ellipse at center, transparent 30%, hsl(var(--warm-cream-mid) / 0.75) 100%)' }}
               aria-hidden="true"
             />
             <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" aria-hidden="true" />
@@ -227,9 +227,9 @@ function PreparationSection() {
                     )}
                     style={{
                       transitionDelay: isVisible ? `${500 + index * 100}ms` : "0ms",
-                      background: 'linear-gradient(180deg, hsl(45 25% 96% / 0.7) 0%, hsl(42 18% 90% / 0.5) 100%)',
-                      border: '1px solid hsl(45 20% 85% / 0.25)',
-                      borderTop: '1px solid hsl(45 30% 92% / 0.5)',
+                      background: 'linear-gradient(180deg, hsl(var(--warm-card-top) / 0.7) 0%, hsl(var(--warm-card-bottom) / 0.5) 100%)',
+                      border: '1px solid hsl(var(--warm-card-border) / 0.25)',
+                      borderTop: '1px solid hsl(var(--warm-card-highlight) / 0.5)',
                     }}
                   >
                     <span
@@ -284,7 +284,7 @@ function KitSection() {
       aria-label="The Kit — Everything I bring"
       className="relative section--surface py-[80px] md:py-[120px] overflow-hidden min-h-[400px]"
       style={{
-        background: "linear-gradient(180deg, hsl(42 20% 94%) 0%, hsl(44 22% 93%) 50%, hsl(40 16% 90%) 100%)",
+        background: "linear-gradient(180deg, hsl(var(--warm-cream-deep)) 0%, hsl(var(--warm-cream-mid)) 50%, hsl(var(--warm-cream-dark)) 100%)",
       }}
     >
       <span className="sr-only">
@@ -296,14 +296,14 @@ function KitSection() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at 60% 50%, hsl(42 40% 82% / 0.06) 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse at 60% 50%, hsl(var(--warm-radial-soft) / 0.06) 0%, transparent 70%)',
         }}
         aria-hidden="true"
       />
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 35%, hsl(42 15% 75% / 0.15) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 35%, hsl(var(--warm-vignette-alt) / 0.15) 100%)',
         }}
         aria-hidden="true"
       />
@@ -368,9 +368,9 @@ function KitSection() {
                     )}
                     style={{
                       transitionDelay: isVisible ? `${300 + index * 80}ms` : "0ms",
-                      background: 'linear-gradient(180deg, hsl(45 24% 95% / 0.6) 0%, hsl(42 18% 91% / 0.4) 100%)',
-                      border: '1px solid hsl(45 20% 85% / 0.25)',
-                      borderTop: '1px solid hsl(45 28% 93% / 0.45)',
+                      background: 'linear-gradient(180deg, hsl(var(--warm-card-kit-top) / 0.6) 0%, hsl(var(--warm-card-kit-bottom) / 0.4) 100%)',
+                      border: '1px solid hsl(var(--warm-card-border) / 0.25)',
+                      borderTop: '1px solid hsl(var(--warm-card-kit-highlight) / 0.45)',
                     }}
                   >
                     <span
@@ -479,7 +479,7 @@ function KitSection() {
             <div className="witness-frame-shimmer absolute inset-0 pointer-events-none" aria-hidden="true" />
             <div
               className="absolute inset-0 pointer-events-none"
-              style={{ background: 'radial-gradient(ellipse at center, transparent 30%, hsl(42 20% 92% / 0.75) 100%)' }}
+              style={{ background: 'radial-gradient(ellipse at center, transparent 30%, hsl(var(--warm-frame-vignette) / 0.75) 100%)' }}
               aria-hidden="true"
             />
             <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" aria-hidden="true" />
@@ -505,7 +505,7 @@ function KitSection() {
         className="absolute bottom-0 left-0 right-0 pointer-events-none"
         style={{
           height: '120px',
-          background: 'linear-gradient(to bottom, transparent, hsl(240 9% 4%))',
+          background: 'linear-gradient(to bottom, transparent, hsl(var(--rich-black)))',
         }}
         aria-hidden="true"
       />

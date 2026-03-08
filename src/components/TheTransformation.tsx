@@ -82,7 +82,7 @@ export function TheTransformation() {
       aria-label="The Transformation — fears honoured, promises made"
       style={{
         background:
-          "linear-gradient(180deg, hsl(220 15% 8%) 0%, hsl(220 15% 8%) 30%, hsl(230 12% 18%) 48%, hsl(40 20% 80%) 68%, hsl(45 30% 92%) 100%)",
+          "linear-gradient(180deg, hsl(var(--transform-dark)) 0%, hsl(var(--transform-dark)) 30%, hsl(var(--transform-mid)) 48%, hsl(var(--transform-warm)) 68%, hsl(var(--transform-light)) 100%)",
       }}
     >
       {/* sr-only narrative */}
@@ -94,7 +94,7 @@ export function TheTransformation() {
       {/* Top fade — seamless from The Sound */}
       <div
         className="section-fade-top"
-        style={{ background: "linear-gradient(to top, transparent, hsl(220 15% 8%))" }}
+        style={{ background: "linear-gradient(to top, transparent, hsl(var(--transform-dark)))" }}
         aria-hidden="true"
       />
 
@@ -141,7 +141,7 @@ export function TheTransformation() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at 50% 20%, hsl(220 20% 6% / 0.4) 0%, transparent 55%)",
+          background: "radial-gradient(ellipse at 50% 20%, hsl(var(--transform-dark) / 0.4) 0%, transparent 55%)",
         }}
         aria-hidden="true"
       />
@@ -165,14 +165,14 @@ export function TheTransformation() {
       {/* Layer 2e: Life-space warm depth vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at 50% 80%, hsl(35 30% 75% / 0.15) 0%, transparent 50%)" }}
+        style={{ background: "radial-gradient(ellipse at 50% 80%, hsl(var(--warm-vignette) / 0.15) 0%, transparent 50%)" }}
         aria-hidden="true"
       />
 
       {/* Layer 3: Vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at center, transparent 40%, hsl(220 15% 8% / 0.5) 100%)" }}
+        style={{ background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--transform-dark) / 0.5) 100%)" }}
         aria-hidden="true"
       />
 
@@ -366,7 +366,7 @@ export function TheTransformation() {
       {/* Bottom fade into TheWitness */}
       <div
         className="section-fade-bottom"
-        style={{ background: "linear-gradient(to bottom, transparent, hsl(45 25% 96%))" }}
+        style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--surface)))" }}
         aria-hidden="true"
       />
     </section>

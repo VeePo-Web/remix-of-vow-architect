@@ -194,7 +194,7 @@ export function TeachingOffering() {
     <section
       id="teaching-offering"
       className="relative py-[140px] md:py-[180px] px-fitz-4 md:px-fitz-6 overflow-hidden"
-      style={{ background: "hsl(38 35% 93%)" }}
+      style={{ background: "hsl(var(--teaching-bg-alt))" }}
       role="region"
       aria-label="The Offering"
     >
@@ -213,7 +213,7 @@ export function TeachingOffering() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 45%, hsl(38 25% 85% / 0.45) 100%)",
+            "radial-gradient(ellipse at center, transparent 45%, hsl(var(--teaching-vignette-alt) / 0.45) 100%)",
           animation: "offering-vignette 6s ease-in-out infinite",
         }}
         aria-hidden="true"
@@ -231,7 +231,7 @@ export function TeachingOffering() {
                 : "opacity-0 translate-y-[8px]"
             )}
             style={{
-              color: "hsl(30 10% 45%)",
+              color: "hsl(var(--teaching-text-label))",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             }}
           >
@@ -280,7 +280,7 @@ export function TeachingOffering() {
                 : "opacity-0 translate-y-[12px]"
             )}
             style={{
-              color: "hsl(30 15% 20%)",
+              color: "hsl(var(--teaching-text-heading))",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
               transitionDelay: "300ms",
               textShadow: "0 1px 2px hsl(40 20% 80% / 0.25)",
@@ -294,7 +294,7 @@ export function TeachingOffering() {
         <div ref={priceRef} className="mb-fitz-3">
           <p
             className="font-sans text-[18px] md:text-[20px] font-normal tracking-[0.01em]"
-            style={{ color: "hsl(30 12% 30%)" }}
+            style={{ color: "hsl(var(--teaching-text-narrative))" }}
           >
             <ScrollPrice isInView={priceVisible} />
           </p>
@@ -304,7 +304,7 @@ export function TeachingOffering() {
         <div className="mb-fitz-8">
           <p
             className="font-sans text-[13px] tracking-[0.02em]"
-            style={{ color: "hsl(30 10% 40%)" }}
+            style={{ color: "hsl(var(--teaching-text-body))" }}
           >
             <ScrollAntiAnxiety
               text="No packages. No commitments. One hour, one conversation, one bench."
@@ -351,7 +351,7 @@ export function TeachingOffering() {
           {/* Anti-anxiety secondary — scroll-linked */}
           <p
             className="font-sans text-[12px] mb-fitz-2"
-            style={{ color: "hsl(30 10% 45%)" }}
+            style={{ color: "hsl(var(--teaching-text-label))" }}
           >
             <ScrollAntiAnxiety
               text="The first session opens with a question, not a scale."
@@ -367,7 +367,7 @@ export function TeachingOffering() {
               ctaVisible ? "opacity-30" : "opacity-0"
             )}
             style={{
-              color: "hsl(30 12% 50%)",
+              color: "hsl(var(--teaching-text-cite))",
               transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
               transitionDelay: "600ms",
             }}
