@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { SmoothScrollProvider } from "@/components/SmoothScrollProvider";
 import Gateway from "./pages/Gateway";
 import Index from "./pages/Index";
 import Events from "./pages/Events";
@@ -30,6 +31,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+        <SmoothScrollProvider>
         <Routes>
           <Route path="/" element={<Gateway />} />
           <Route path="/weddings" element={<Index />} />
@@ -51,6 +53,7 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </SmoothScrollProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

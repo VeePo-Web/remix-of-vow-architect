@@ -278,8 +278,18 @@ All colors MUST be HSL.
     @apply border-border;
   }
   
+  /* Lenis smooth scroll rules */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+    scroll-behavior: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto;
+  }
+
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     transition: background-color 260ms ease, color 260ms ease;
   }
 
