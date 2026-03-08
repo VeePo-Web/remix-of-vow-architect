@@ -147,7 +147,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 25%, hsl(240 9% 2% / 0.6) 70%, hsl(240 9% 1%) 100%)",
+            "radial-gradient(ellipse at center, transparent 25%, hsl(var(--rich-black) / 0.6) 70%, hsl(var(--rich-black)) 100%)",
         }}
         aria-hidden="true"
       />
@@ -180,7 +180,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at 70% 80%, hsl(222 10% 7% / 0.4) 0%, transparent 45%)",
+            "radial-gradient(ellipse at 70% 80%, hsl(var(--ebon-charcoal) / 0.4) 0%, transparent 45%)",
           animation: isOpen
             ? "menu-fog-drift 18s ease-in-out infinite alternate"
             : undefined,

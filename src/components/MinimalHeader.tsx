@@ -490,7 +490,7 @@ export function MinimalHeader() {
                   style={{
                     background: isContactPage
                       ? "none"
-                      : "radial-gradient(ellipse at center, hsl(45 100% 76% / 0.06) 0%, transparent 70%)",
+                      : "radial-gradient(ellipse at center, hsl(var(--vow-yellow) / 0.06) 0%, transparent 70%)",
                   }}
                   aria-hidden="true"
                 />

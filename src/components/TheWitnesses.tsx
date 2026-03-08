@@ -19,14 +19,14 @@ export function TheWitnesses() {
       data-theme="life"
       className="relative py-[80px] md:py-[120px] piano-section-target overflow-hidden"
       style={{
-        background: 'linear-gradient(180deg, hsl(45 25% 96%) 0%, hsl(45 20% 93%) 100%)',
+        background: 'linear-gradient(180deg, hsl(var(--surface)) 0%, hsl(var(--surface-warm)) 100%)',
       }}
     >
       {/* Vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 40%, hsl(45 20% 93% / 0.8) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 40%, hsl(var(--surface-warm) / 0.8) 100%)',
         }}
         aria-hidden="true"
       />
@@ -37,7 +37,7 @@ export function TheWitnesses() {
       {/* Top fade */}
       <div
         className="section-fade-top"
-        style={{ background: 'linear-gradient(to top, transparent, hsl(240 9% 4%))' }}
+        style={{ background: 'linear-gradient(to top, transparent, hsl(var(--rich-black)))' }}
         aria-hidden="true"
       />
 
@@ -188,7 +188,7 @@ export function TheWitnesses() {
       {/* Bottom fade */}
       <div
         className="section-fade-bottom"
-        style={{ background: 'linear-gradient(to bottom, transparent, hsl(240 9% 2%))' }}
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(var(--rich-black)))' }}
         aria-hidden="true"
       />
     </section>

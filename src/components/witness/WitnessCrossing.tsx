@@ -17,7 +17,7 @@ export function WitnessCrossing() {
       ref={ref as React.RefObject<HTMLElement>}
       className="relative py-[120px] px-4 overflow-hidden piano-section-target"
       style={{
-        background: "linear-gradient(180deg, hsl(var(--rich-black)) 0%, hsl(240 12% 6%) 100%)"
+        background: "linear-gradient(180deg, hsl(var(--rich-black)) 0%, hsl(var(--deep-graphite)) 100%)"
       }}
     >
       {/* Background image with Ken Burns */}
@@ -42,7 +42,7 @@ export function WitnessCrossing() {
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at center, transparent 20%, hsl(240 12% 6%) 80%)"
+          background: "radial-gradient(ellipse at center, transparent 20%, hsl(var(--deep-graphite)) 80%)"
         }}
         aria-hidden="true"
       />
