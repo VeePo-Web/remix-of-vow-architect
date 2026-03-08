@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Menu } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -10,6 +10,23 @@ const navLinks = [
   { to: "/gallery", label: "Proof" },
 ];
 
+/**
+ * MinimalHeader — "The Ceremony Arch"
+ * 
+ * A bespoke navigation header that transforms through three states:
+ * 
+ * 1. VIGIL (top of page): Transparent, logo + menu only. The held breath.
+ * 2. SCROLLED (past 1vh): Glass-morphic bar with nav links, atmospheric
+ *    candlelight warmth, film grain, and organic vine-thread bottom edge.
+ * 3. ARRIVAL (footer visible): The Ceremony Arch. Nav links dissolve
+ *    in reverse-staggered recessional (80ms intervals). Logo glides to
+ *    center. Vine thread synchronizes its breathing with the footer's
+ *    golden thread (4s cycle). The header becomes the top frame of a
+ *    unified ceremonial bookend with the footer.
+ * 
+ * The transition from Vigil → Scrolled → Arrival mirrors the wedding
+ * journey: preparation → ceremony → covenant.
+ */
 export function MinimalHeader() {
   const hasPlayed = typeof window !== 'undefined' && sessionStorage.getItem('vigil-complete') === 'true';
   const headerDelay = hasPlayed ? '0ms' : '6200ms';
@@ -18,20 +35,36 @@ export function MinimalHeader() {
   const [isAtFooter, setIsAtFooter] = useState(false);
   const [wasScrolled, setWasScrolled] = useState(false);
   const [hoveredNavIndex, setHoveredNavIndex] = useState<number | null>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const location = useLocation();
   const isContactPage = location.pathname === '/contact';
   const navRef = useRef<HTMLElement>(null);
+  const rafRef = useRef<number>(0);
+
+  // Scroll tracking with rAF for smooth progress
+  const updateScroll = useCallback(() => {
+    const scrolled = window.scrollY > window.innerHeight;
+    setIsScrolled(scrolled);
+    if (scrolled) setWasScrolled(true);
+
+    // Scroll progress for golden thread
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (docHeight > 0) {
+      setScrollProgress(Math.min(window.scrollY / docHeight, 1));
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrolled = window.scrollY > window.innerHeight;
-      setIsScrolled(scrolled);
-      if (scrolled) setWasScrolled(true);
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(updateScroll);
     };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      cancelAnimationFrame(rafRef.current);
+    };
+  }, [updateScroll]);
 
   // Reset wasScrolled when transitioning back to not scrolled
   useEffect(() => {
@@ -58,48 +91,101 @@ export function MinimalHeader() {
   return (
     <>
       {/* Fixed Header */}
-      <header 
+      <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-[260ms]",
+          "fixed top-0 left-0 right-0 z-50 transition-all",
           isScrolled && "backdrop-blur-md"
         )}
-        style={{ 
+        style={{
           height: isScrolled ? "56px" : "auto",
           background: isScrolled ? "rgba(10,10,12,0.94)" : undefined,
+          transitionDuration: "260ms",
+          transitionTimingFunction: "cubic-bezier(0.22,0.61,0.36,1)",
         }}
       >
-        {/* === Atmospheric Layers (only when scrolled) === */}
+        {/* ═══════════════════════════════════════════
+            ATMOSPHERIC LAYERS (only when scrolled)
+            ═══════════════════════════════════════════ */}
         {isScrolled && (
           <>
-            {/* Candlelight warmth — radial glow from center-bottom */}
+            {/* Layer 1: Candlelight warmth — radial glow from center-bottom */}
             <div
               className={cn(
                 "absolute inset-0 pointer-events-none transition-opacity duration-[900ms]",
                 isArrival ? "header-candle header-candle--arrival" : "header-candle"
               )}
               style={{
-                background: "radial-gradient(ellipse 80% 120% at 50% 100%, hsl(var(--vow-yellow) / 0.025) 0%, transparent 60%)",
+                background: `radial-gradient(ellipse 80% 120% at 50% 100%, hsl(var(--vow-yellow) / ${
+                  isArrival ? 0.04 : 0.025
+                }) 0%, transparent 60%)`,
               }}
               aria-hidden="true"
             />
-            {/* Vignette — darkened edges */}
+
+            {/* Layer 2: Secondary warmth pool — centered, breathing */}
             <div
               className="absolute inset-0 pointer-events-none"
               style={{
-                background: "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.15) 100%)",
+                background: `radial-gradient(ellipse 60% 100% at 50% 50%, hsl(var(--vow-yellow) / ${
+                  isArrival ? 0.018 : 0.008
+                }) 0%, transparent 50%)`,
+                animation: isArrival
+                  ? "header-warmth-bloom 6s ease-in-out infinite"
+                  : undefined,
+                transition: "opacity 700ms ease",
               }}
               aria-hidden="true"
             />
-            {/* Film grain — subtle texture */}
-            <div 
-              className="grain pointer-events-none" 
-              style={{ opacity: 0.03, willChange: "opacity" }} 
-              aria-hidden="true" 
+
+            {/* Layer 3: Vignette — darkened edges for depth */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background:
+                  "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.18) 100%)",
+              }}
+              aria-hidden="true"
+            />
+
+            {/* Layer 4: Film grain — sacred texture */}
+            <div
+              className="grain pointer-events-none"
+              style={{
+                opacity: isArrival ? 0.05 : 0.03,
+                transition: "opacity 700ms ease",
+                willChange: "opacity",
+              }}
+              aria-hidden="true"
             />
           </>
         )}
 
-        {/* === Organic Vine Thread — replaces flat golden border === */}
+        {/* ═══════════════════════════════════════════
+            SCROLL PROGRESS THREAD — Top Edge
+            Golden thread that fills left-to-right with scroll
+            ═══════════════════════════════════════════ */}
+        {isScrolled && (
+          <div
+            className="absolute top-0 left-0 h-[1px] pointer-events-none"
+            style={{
+              width: `${scrollProgress * 100}%`,
+              background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${
+                isArrival ? 0.5 : 0.3
+              }), hsl(var(--vow-yellow) / ${isArrival ? 0.7 : 0.45}))`,
+              boxShadow: `0 0 ${isArrival ? 8 : 4}px hsl(var(--vow-yellow) / ${
+                isArrival ? 0.15 : 0.08
+              })`,
+              transition: "width 100ms linear, box-shadow 700ms ease",
+            }}
+            aria-hidden="true"
+          />
+        )}
+
+        {/* ═══════════════════════════════════════════
+            ORGANIC VINE THREAD — Bottom Edge
+            Replaces flat golden border with undulating SVG path.
+            During arrival, synchronized 4s breathing with footer.
+            ═══════════════════════════════════════════ */}
         {isScrolled && (
           <svg
             className={cn(
@@ -107,20 +193,35 @@ export function MinimalHeader() {
               isArrival && "header-vine-breathe"
             )}
             style={{
-              animationDuration: '450ms',
-              animationFillMode: 'forwards',
-              height: '6px',
+              animationDuration: "450ms",
+              animationFillMode: "forwards",
+              height: "6px",
             }}
             viewBox="0 0 1200 6"
             preserveAspectRatio="none"
             aria-hidden="true"
           >
             <defs>
-              <linearGradient id="vine-thread-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <linearGradient
+                id="vine-thread-gradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="0%"
+              >
                 <stop offset="0%" stopColor="transparent" />
-                <stop offset="20%" stopColor={`hsl(45 100% 76% / ${isArrival ? 0.25 : 0.12})`} />
-                <stop offset="50%" stopColor={`hsl(45 100% 76% / ${isArrival ? 0.3 : 0.15})`} />
-                <stop offset="80%" stopColor={`hsl(45 100% 76% / ${isArrival ? 0.25 : 0.12})`} />
+                <stop
+                  offset="20%"
+                  stopColor={`hsl(45 100% 76% / ${isArrival ? 0.3 : 0.12})`}
+                />
+                <stop
+                  offset="50%"
+                  stopColor={`hsl(45 100% 76% / ${isArrival ? 0.35 : 0.15})`}
+                />
+                <stop
+                  offset="80%"
+                  stopColor={`hsl(45 100% 76% / ${isArrival ? 0.3 : 0.12})`}
+                />
                 <stop offset="100%" stopColor="transparent" />
               </linearGradient>
             </defs>
@@ -131,36 +232,54 @@ export function MinimalHeader() {
               stroke="url(#vine-thread-gradient)"
               strokeWidth="1"
               className="transition-all duration-[450ms]"
-              style={{ filter: `drop-shadow(0 0 4px hsl(45 100% 76% / ${isArrival ? 0.08 : 0.04}))` }}
+              style={{
+                filter: `drop-shadow(0 0 ${isArrival ? 6 : 4}px hsl(45 100% 76% / ${
+                  isArrival ? 0.1 : 0.04
+                }))`,
+              }}
             />
           </svg>
         )}
 
-        <div className={cn(
-          "flex items-center h-full px-[var(--hero-space-edge,24px)] md:px-[var(--hero-space-edge,48px)] py-6 relative",
-          isArrival ? "justify-center" : "justify-between"
-        )}>
-          {/* Logo with candle warmth glow behind it */}
+        {/* ═══════════════════════════════════════════
+            CONTENT — Logo, Nav, Menu
+            ═══════════════════════════════════════════ */}
+        <div
+          className={cn(
+            "flex items-center h-full px-[var(--hero-space-edge,24px)] md:px-[var(--hero-space-edge,48px)] py-6 relative",
+            isArrival ? "justify-center" : "justify-between"
+          )}
+        >
+          {/* Logo with candle warmth glow */}
           <div className="relative">
             {/* Candle warmth pool behind logo */}
             <div
               className={cn(
-                "absolute inset-0 -inset-x-8 -inset-y-4 pointer-events-none transition-opacity duration-[900ms]",
+                "absolute inset-0 -inset-x-8 -inset-y-4 pointer-events-none transition-all duration-[900ms]",
                 isArrival ? "header-candle" : ""
               )}
               style={{
-                background: `radial-gradient(circle 60px at center, hsl(var(--vow-yellow) / ${isArrival ? 0.05 : 0.03}) 0%, transparent 70%)`,
+                background: `radial-gradient(circle 60px at center, hsl(var(--vow-yellow) / ${
+                  isArrival ? 0.06 : 0.03
+                }) 0%, transparent 70%)`,
               }}
               aria-hidden="true"
             />
-            <NavLink 
+            <NavLink
               to="/"
               className={cn(
-                "relative font-display text-base tracking-wide text-foreground opacity-0 animate-fade-in hover:text-primary transition-all duration-[260ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm",
+                "relative font-display text-base tracking-wide text-foreground opacity-0 animate-fade-in transition-all duration-[260ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm",
+                isArrival
+                  ? "hover:text-foreground"
+                  : "hover:text-primary"
               )}
-              style={{ 
+              style={{
                 animationDelay: headerDelay,
-                animationFillMode: "forwards"
+                animationFillMode: "forwards",
+                // Subtle text shadow during arrival — the logo glows
+                textShadow: isArrival
+                  ? "0 0 20px hsl(var(--vow-yellow) / 0.08)"
+                  : "none",
               }}
             >
               Parker Gawryletz
@@ -171,15 +290,21 @@ export function MinimalHeader() {
                   isArrival ? "scale-x-100" : "scale-x-0"
                 )}
                 style={{
-                  background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.4), transparent)",
+                  background:
+                    "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.4), transparent)",
                   transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
+                  boxShadow: isArrival
+                    ? "0 0 8px hsl(var(--vow-yellow) / 0.12)"
+                    : "none",
                 }}
                 aria-hidden="true"
               />
             </NavLink>
           </div>
 
-          {/* Navigation Links with key depression hover & spotlight dimming */}
+          {/* ═══════════════════════════════════════════
+              NAVIGATION LINKS — Piano Key Depression + Spotlight
+              ═══════════════════════════════════════════ */}
           {isScrolled && (
             <nav
               ref={navRef}
@@ -187,26 +312,33 @@ export function MinimalHeader() {
                 "hidden md:flex items-center gap-8 transition-all duration-[260ms]",
                 isArrival && "opacity-0 w-0 overflow-hidden pointer-events-none"
               )}
+              style={{
+                transitionTimingFunction: "cubic-bezier(0.22,0.61,0.36,1)",
+              }}
               onMouseLeave={() => setHoveredNavIndex(null)}
             >
               {navLinks.map((link, i) => {
-                // Reverse stagger on fade-out
+                // Reverse stagger on fade-out (recessional)
                 const reverseI = navLinks.length - 1 - i;
-                const delay = wasScrolled && !isScrolled
-                  ? `${reverseI * 80}ms`
-                  : `${i * 80}ms`;
+                const delay =
+                  wasScrolled && !isScrolled
+                    ? `${reverseI * 80}ms`
+                    : `${i * 80}ms`;
 
-                const isDimmed = hoveredNavIndex !== null && hoveredNavIndex !== i;
+                const isDimmed =
+                  hoveredNavIndex !== null && hoveredNavIndex !== i;
 
                 return (
                   <NavLink
                     key={link.to}
                     to={link.to}
-                    className={({ isActive }) => cn(
-                      "relative nav-link opacity-0 animate-fade-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm transition-all duration-[180ms]",
-                      isActive && "text-foreground",
-                      isDimmed && "!opacity-[0.4]"
-                    )}
+                    className={({ isActive }) =>
+                      cn(
+                        "relative nav-link opacity-0 animate-fade-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm transition-all duration-[180ms]",
+                        isActive && "text-foreground",
+                        isDimmed && "!opacity-[0.35]"
+                      )
+                    }
                     style={{
                       animationDelay: delay,
                       animationFillMode: "forwards",
@@ -214,17 +346,51 @@ export function MinimalHeader() {
                     onMouseEnter={() => setHoveredNavIndex(i)}
                   >
                     {({ isActive }) => (
-                      <span className="inline-block transition-transform duration-[180ms] hover:translate-y-[1px] active:translate-y-[2px]">
-                        {link.label}
-                        {/* Vow-yellow underline — draws from center when active or hovered */}
+                      <span
+                        className="inline-block transition-transform"
+                        style={{
+                          // Piano key depression: 1px hover, 2px press
+                          transitionDuration: "180ms",
+                          transitionTimingFunction:
+                            "cubic-bezier(0.22,0.61,0.36,1)",
+                        }}
+                        onMouseDown={(e) =>
+                          ((e.currentTarget as HTMLElement).style.transform =
+                            "translateY(2px)")
+                        }
+                        onMouseUp={(e) =>
+                          ((e.currentTarget as HTMLElement).style.transform =
+                            "translateY(1px)")
+                        }
+                        onMouseLeave={(e) =>
+                          ((e.currentTarget as HTMLElement).style.transform =
+                            "translateY(0)")
+                        }
+                      >
+                        <span
+                          className={cn(
+                            "inline-block transition-transform duration-[180ms]",
+                            hoveredNavIndex === i && "translate-y-[1px]"
+                          )}
+                        >
+                          {link.label}
+                        </span>
+                        {/* Vow-yellow underline — draws from center */}
                         <span
                           className={cn(
                             "absolute -bottom-1 left-0 w-full h-[1px] origin-center transition-transform duration-[450ms]",
-                            isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                            isActive
+                              ? "scale-x-100"
+                              : "scale-x-0 group-hover:scale-x-100"
                           )}
                           style={{
-                            background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.4), transparent)",
-                            transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
+                            background:
+                              "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.4), transparent)",
+                            transitionTimingFunction:
+                              "cubic-bezier(0.22, 0.61, 0.36, 1)",
+                            boxShadow: isActive
+                              ? "0 0 6px hsl(var(--vow-yellow) / 0.1)"
+                              : "none",
                           }}
                           aria-hidden="true"
                         />
@@ -233,6 +399,8 @@ export function MinimalHeader() {
                   </NavLink>
                 );
               })}
+
+              {/* CTA — "Hold My Date" with warm glow */}
               <span
                 className="relative opacity-0 animate-fade-in"
                 style={{
@@ -245,8 +413,8 @@ export function MinimalHeader() {
                   className="absolute inset-0 -inset-x-4 -inset-y-2 rounded-full pointer-events-none"
                   style={{
                     background: isContactPage
-                      ? 'none'
-                      : 'radial-gradient(ellipse at center, hsl(45 100% 76% / 0.06) 0%, transparent 70%)',
+                      ? "none"
+                      : "radial-gradient(ellipse at center, hsl(45 100% 76% / 0.06) 0%, transparent 70%)",
                   }}
                   aria-hidden="true"
                 />
@@ -257,10 +425,30 @@ export function MinimalHeader() {
                     isContactPage
                       ? "text-foreground/50 cursor-default"
                       : "nav-link--cta hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)]",
-                    hoveredNavIndex !== null && hoveredNavIndex !== navLinks.length && "!opacity-[0.4]"
+                    hoveredNavIndex !== null &&
+                      hoveredNavIndex !== navLinks.length &&
+                      "!opacity-[0.35]"
                   )}
                 >
-                  <span className="inline-block transition-transform duration-[180ms] hover:translate-y-[1px] active:translate-y-[2px]">
+                  <span
+                    className="inline-block transition-transform duration-[180ms]"
+                    style={{
+                      transitionTimingFunction:
+                        "cubic-bezier(0.22,0.61,0.36,1)",
+                    }}
+                    onMouseDown={(e) =>
+                      ((e.currentTarget as HTMLElement).style.transform =
+                        "translateY(2px)")
+                    }
+                    onMouseUp={(e) =>
+                      ((e.currentTarget as HTMLElement).style.transform =
+                        "translateY(1px)")
+                    }
+                    onMouseLeave={(e) =>
+                      ((e.currentTarget as HTMLElement).style.transform =
+                        "translateY(0)")
+                    }
+                  >
                     {isContactPage ? "You're here" : "Hold My Date"}
                   </span>
                 </NavLink>
@@ -268,29 +456,80 @@ export function MinimalHeader() {
             </nav>
           )}
 
-          {/* Menu Button — always visible, absolute-positioned during arrival */}
+          {/* Menu Button — always visible */}
           <button
             onClick={() => setIsMenuOpen(true)}
             className={cn(
               "flex items-center gap-2 opacity-0 animate-fade-in group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm transition-all duration-[260ms]",
-              isArrival && "absolute right-[var(--hero-space-edge,24px)] md:right-[var(--hero-space-edge,48px)] top-1/2 -translate-y-1/2"
+              isArrival &&
+                "absolute right-[var(--hero-space-edge,24px)] md:right-[var(--hero-space-edge,48px)] top-1/2 -translate-y-1/2"
             )}
-            style={{ 
+            style={{
               animationDelay: headerDelay,
-              animationFillMode: "forwards"
+              animationFillMode: "forwards",
             }}
             aria-label="Open menu"
           >
             <span className="text-xs font-sans uppercase tracking-[0.22em] text-muted-foreground group-hover:text-primary transition-colors duration-[180ms]">
               Menu
             </span>
-            <Menu size={20} className="text-muted-foreground group-hover:text-primary transition-colors duration-[180ms]" strokeWidth={1.5} />
+            <Menu
+              size={20}
+              className="text-muted-foreground group-hover:text-primary transition-all duration-[180ms]"
+              strokeWidth={1.5}
+            />
           </button>
         </div>
+
+        {/* ═══════════════════════════════════════════
+            ARRIVAL TAGLINE — appears only during arrival
+            The header echoes the footer's covenant text
+            ═══════════════════════════════════════════ */}
+        {isArrival && (
+          <div
+            className="absolute bottom-[8px] left-1/2 -translate-x-1/2 pointer-events-none animate-fade-in"
+            style={{
+              animationDuration: "700ms",
+              animationFillMode: "forwards",
+            }}
+            aria-hidden="true"
+          >
+            <p className="font-display text-[10px] text-foreground/15 tracking-[0.18em] whitespace-nowrap">
+              'Til Death
+              <span
+                className="text-primary/25"
+                style={{
+                  animation: "semicolon-heartbeat 2s ease-in-out infinite",
+                }}
+              >
+                {" ; "}
+              </span>
+              Unto Life.
+            </p>
+          </div>
+        )}
       </header>
 
       {/* Full Screen Menu Overlay */}
-      <FullScreenMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <FullScreenMenu
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+      />
+
+      {/* ═══════════════════════════════════════════
+          KEYFRAME ANIMATIONS
+          ═══════════════════════════════════════════ */}
+      <style>{`
+        @keyframes header-warmth-bloom {
+          0%, 100% { opacity: 0.6; }
+          50% { opacity: 1; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          header * {
+            transition-duration: 120ms !important;
+          }
+        }
+      `}</style>
     </>
   );
 }
