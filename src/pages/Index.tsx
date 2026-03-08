@@ -113,34 +113,34 @@ export default function Index() {
         <MinimalScrollCue />
       </section>
 
-      {/* THE EXHALE — Sacred Pause (Emotional Recognition) */}
+      {/* ACT II — The Exhale: Sacred Pause */}
       <TheExhale />
 
-      {/* SECTION 2 — Sheet Music That Writes Itself */}
+      {/* ACT III — The Preparation: Composer's Journal */}
       <ProcessSection />
 
-      {/* SECTION 2.5 — VOW MOMENT (Altar Interstitial) */}
+      {/* ACT IV — The Vow Moment: Altar Interstitial */}
       <VowMoment />
 
-      {/* SECTION 3 — The Invitation (Meet the Owner) */}
+      {/* ACT V — The Invitation: Meet the Witness */}
       <TheInvitation />
 
-      {/* SECTION 3.5 — The Sound (Dark Listening Environment) */}
+      {/* ACT VI — The Sound: Dark Listening Environment */}
       <TheSound />
 
-      {/* SECTION 4 — The Transformation (Full-Width Split) */}
+      {/* ACT VII — The Transformation: Fear to Life */}
       <TheTransformation />
 
-      {/* SECTION 4 — The Witness (Exhale - Surface) */}
+      {/* ACT VIII — The Witness: Exhale Surface */}
       <TheWitness />
 
-      {/* SECTION 5 — Three Paths (Inhale - Dark) */}
+      {/* ACT IX — Three Paths: The Offering */}
       <ThreePaths />
 
-      {/* SECTION 8 — The Witnesses (Exhale - Surface) */}
+      {/* ACT X — The Covenant Kept: Testimonials */}
       <TheWitnesses />
 
-      {/* SECTION 9 — Cross Over (Final CTA) */}
+      {/* ACT XI — The Crossing: Final CTA */}
       <CrossOver />
       </main>
 
