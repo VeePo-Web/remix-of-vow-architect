@@ -62,7 +62,7 @@ export default function Index() {
           <div
             className="absolute inset-0 bg-cover bg-center will-change-transform"
             style={{
-              backgroundImage: `linear-gradient(rgba(10, 10, 12, 0.35) 0%, rgba(10, 10, 12, 0.75) 100%), url(${heroImage})`,
+              backgroundImage: `linear-gradient(hsl(var(--rich-black) / 0.35) 0%, hsl(var(--rich-black) / 0.75) 100%), url(${heroImage})`,
               filter: "brightness(0.75) contrast(1.08) saturate(0.9)",
               animation: vigilPhase.isRevealing || vigilPhase.isComplete ? "ken-burns 60s var(--ease-sacred) infinite" : undefined,
             }}
