@@ -34,6 +34,38 @@ export function Footer() {
       {/* === Color bridge from CrossOver === */}
       <div className="footer-fade-bridge" aria-hidden="true" />
 
+      {/* === Organic Vine Thread — Top Edge (mirrors header's bottom vine) === */}
+      <svg
+        className={cn(
+          "absolute top-0 left-0 w-full pointer-events-none z-[3]",
+          isArrival && "footer-vine-breathe"
+        )}
+        style={{ height: "6px" }}
+        viewBox="0 0 1200 6"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id="footer-vine-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="transparent" />
+            <stop offset="20%" stopColor={`hsl(45 100% 76% / ${isArrival ? 0.3 : 0.1})`} />
+            <stop offset="50%" stopColor={`hsl(45 100% 76% / ${isArrival ? 0.35 : 0.12})`} />
+            <stop offset="80%" stopColor={`hsl(45 100% 76% / ${isArrival ? 0.3 : 0.1})`} />
+            <stop offset="100%" stopColor="transparent" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M0,3 Q50,4.5 100,3 T200,3 Q250,1.5 300,3 T400,3 Q450,4.5 500,3 T600,3 Q650,1.5 700,3 T800,3 Q850,4.5 900,3 T1000,3 Q1050,1.5 1100,3 T1200,3"
+          fill="none"
+          stroke="url(#footer-vine-gradient)"
+          strokeWidth="1"
+          className="transition-all duration-[450ms]"
+          style={{
+            filter: `drop-shadow(0 0 ${isArrival ? 6 : 3}px hsl(45 100% 76% / ${isArrival ? 0.1 : 0.03}))`,
+          }}
+        />
+      </svg>
+
       {/* === Screen reader narrative === */}
       <span className="sr-only">Site footer with navigation, contact information, and social links</span>
 
