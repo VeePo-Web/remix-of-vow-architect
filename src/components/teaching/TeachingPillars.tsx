@@ -6,23 +6,57 @@ const pillars = [
     title: "Patient Mentorship",
     description:
       "Your pace is the curriculum. There are no grades, no exams, no timelines imposed on your growth.",
+    underlineWord: "pace",
   },
   {
     title: "Emotional Fluency",
     description:
       "The piano is not a skill to acquire. It is a voice to discover. I teach you to speak through the instrument.",
+    underlineWord: "voice",
   },
   {
     title: "Piano as Philosophy",
     description:
       "Like chess players see the board as a metaphor for consequence, pianists see the keys as a framework for patience, discipline, and beauty. When you own the technique, you are free to say anything.",
+    underlineWord: "free",
   },
   {
     title: "Lifelong Relationship",
     description:
       "There is no graduation. Only growing. The mentorship evolves as you deepen your conversation with the keys.",
+    underlineWord: "growing",
   },
 ];
+
+function highlightWord(text: string, word: string, isVisible: boolean, delayBase: number) {
+  const idx = text.toLowerCase().indexOf(word.toLowerCase());
+  if (idx === -1) return <>{text}</>;
+
+  const before = text.slice(0, idx);
+  const match = text.slice(idx, idx + word.length);
+  const after = text.slice(idx + word.length);
+
+  return (
+    <>
+      {before}
+      <span className="relative inline-block">
+        {match}
+        <span
+          className={cn(
+            "absolute -bottom-0.5 left-0 w-full h-[1.5px] bg-[hsl(var(--vow-yellow))] origin-left transition-transform duration-[450ms]",
+            isVisible ? "scale-x-100" : "scale-x-0"
+          )}
+          style={{
+            transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
+            transitionDelay: `${delayBase + 400}ms`,
+          }}
+          aria-hidden="true"
+        />
+      </span>
+      {after}
+    </>
+  );
+}
 
 export function TeachingPillars() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
@@ -63,7 +97,7 @@ export function TeachingPillars() {
         {/* Whispered section label */}
         <p
           className={cn(
-            "font-sans text-[11px] uppercase tracking-[0.22em] text-center mb-fitz-9 transition-all duration-[700ms]",
+            "font-sans text-[11px] uppercase tracking-[0.22em] text-center mb-fitz-5 transition-all duration-[700ms]",
             isVisible
               ? "opacity-45 translate-y-0"
               : "opacity-0 translate-y-[8px]"
@@ -77,19 +111,32 @@ export function TeachingPillars() {
           What I believe
         </p>
 
-        {/* Golden thread vertical — the spine */}
+        {/* Golden dot — top anchor */}
+        <span
+          className={cn(
+            "block w-2 h-2 rounded-full mx-auto mb-fitz-5 transition-all duration-[900ms]",
+            isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
+          )}
+          style={{
+            background: "hsl(var(--vow-yellow))",
+            boxShadow: "0 0 8px 2px hsl(var(--vow-yellow) / 0.15)",
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "150ms",
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Vertical golden thread — top to first pillar */}
         <div
           className={cn(
-            "absolute left-1/2 -translate-x-1/2 top-[140px] md:top-[180px] bottom-[140px] md:bottom-[180px] w-px origin-top transition-transform duration-[1200ms]",
+            "w-px h-[48px] mx-auto mb-fitz-7 origin-top transition-transform duration-[700ms]",
             isVisible ? "scale-y-100" : "scale-y-0"
           )}
           style={{
             background:
-              "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.06), hsl(var(--vow-yellow) / 0.20) 20%, hsl(var(--vow-yellow) / 0.20) 80%, hsl(var(--vow-yellow) / 0.06))",
-            animation: isVisible
-              ? "pillars-thread-breathe 4s ease-in-out infinite"
-              : undefined,
+              "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.25), hsl(var(--vow-yellow) / 0.04))",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "200ms",
           }}
           aria-hidden="true"
         />
@@ -98,7 +145,7 @@ export function TeachingPillars() {
           <div key={p.title}>
             <div
               className={cn(
-                "relative text-center py-fitz-8 transition-all duration-[700ms]",
+                "relative text-center py-fitz-7 transition-all duration-[700ms]",
                 isVisible
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-[12px]"
@@ -108,19 +155,11 @@ export function TeachingPillars() {
                 transitionDelay: `${300 + i * 200}ms`,
               }}
             >
-              {/* Golden dot — node on the thread */}
-              <span
-                className="block w-2.5 h-2.5 rounded-full mx-auto mb-fitz-5"
-                style={{
-                  background: "hsl(var(--vow-yellow))",
-                  boxShadow: "0 0 8px 2px hsl(var(--vow-yellow) / 0.15)",
-                }}
-                aria-hidden="true"
-              />
               <h2
                 className="font-display text-[28px] md:text-[36px] font-light tracking-tight mb-fitz-3"
                 style={{
                   color: "hsl(30 10% 20%)",
+                  textShadow: "0 1px 2px hsl(40 20% 80% / 0.25)",
                 }}
               >
                 {p.title}
@@ -129,7 +168,7 @@ export function TeachingPillars() {
                 className="font-sans text-[16px] leading-[1.7] max-w-[480px] mx-auto"
                 style={{ color: "hsl(30 10% 40%)" }}
               >
-                {p.description}
+                {highlightWord(p.description, p.underlineWord, isVisible, 300 + i * 200)}
               </p>
             </div>
 
@@ -151,14 +190,41 @@ export function TeachingPillars() {
             )}
           </div>
         ))}
+
+        {/* Closing horizontal golden thread */}
+        <div
+          className={cn(
+            "mx-auto h-px max-w-[120px] mt-fitz-8 transition-transform duration-[700ms] origin-center",
+            isVisible ? "scale-x-100" : "scale-x-0"
+          )}
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.25), transparent)",
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "1200ms",
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Pencil annotation */}
+        <span
+          className={cn(
+            "block font-display italic text-[13px] text-center mt-fitz-5 transition-all duration-[700ms]",
+            isVisible ? "opacity-30" : "opacity-0"
+          )}
+          style={{
+            color: "hsl(30 12% 50%)",
+            transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
+            transitionDelay: "1400ms",
+          }}
+          aria-label="Closing annotation"
+        >
+          — four promises, one bench
+        </span>
       </div>
 
       {/* Keyframes */}
       <style>{`
-        @keyframes pillars-thread-breathe {
-          0%, 100% { opacity: 0.12; }
-          50% { opacity: 0.28; }
-        }
         @keyframes pillars-vignette-breathe {
           0%, 100% { opacity: 0.5; }
           50% { opacity: 0.7; }
