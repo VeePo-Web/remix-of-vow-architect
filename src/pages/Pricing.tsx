@@ -143,11 +143,11 @@ export default function Pricing() {
 
                   <ul className="space-y-2 mb-6 text-sm">
                     {[
-                      "Everything in Ceremony Only",
-                      "Pre-ceremony guest arrival music",
-                      "Cocktail hour piano (30–60 min)",
-                      "Seamless transitions",
-                      "Extended sound coverage",
+                      "Everything in The Vow",
+                      "Guest arrival ambiance — setting the tone",
+                      "Cocktail hour piano — 30 to 60 minutes",
+                      "Seamless musical transitions between moments",
+                      "Extended presence throughout the afternoon",
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
                         <Check size={16} className="text-accent mt-0.5 flex-shrink-0" />
