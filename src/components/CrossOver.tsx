@@ -78,7 +78,6 @@ export function CrossOver() {
           style={{
             animation: 'crossover-ken-burns 30s ease-in-out infinite alternate',
             filter: 'brightness(0.75) contrast(1.08) saturate(0.9)',
-            willChange: 'transform',
           }}
           loading="lazy"
           decoding="async"
