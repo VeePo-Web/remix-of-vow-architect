@@ -291,7 +291,7 @@ export function Footer() {
             }}
             aria-hidden="true"
           />
-          <p className="font-display text-sm text-foreground/50">
+          <p className="font-display text-sm text-muted-foreground">
             Ready to begin?
           </p>
           <Button variant="ghost-dark" size="sm" asChild>
