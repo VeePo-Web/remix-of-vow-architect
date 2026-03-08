@@ -132,7 +132,7 @@ export default function Gateway() {
                   "font-display tracking-tight",
                   s.available
                     ? "text-[30px] font-normal text-foreground"
-                    : "text-[28px] font-light text-foreground/70"
+                    : "text-[28px] font-light text-muted-foreground"
                 )}>
                   {s.title}
                 </h2>
