@@ -148,7 +148,7 @@ export function WitnessPresence() {
 
           {/* Closing statement — upgraded typography with golden thread */}
           <div 
-            className={cn(
+            className={cn("text-center",
               "mt-16 transition-all duration-700",
               isVisible ? "opacity-100" : "opacity-0"
             )}
