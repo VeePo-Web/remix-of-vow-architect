@@ -125,9 +125,9 @@ export default {
         'mood': 'cubic-bezier(0.4, 0, 0.2, 1)',
       },
       boxShadow: {
-        'fantasy-card': '0 6px 30px rgba(0, 0, 0, 0.35)',
-        'fantasy-cta': '0 8px 24px rgba(255, 224, 138, 0.18)',
-        'fantasy-cta-hover': '0 12px 32px rgba(255, 224, 138, 0.24)',
+        'fantasy-card': '0 6px 30px hsl(var(--rich-black) / 0.35)',
+        'fantasy-cta': '0 8px 24px hsl(var(--vow-yellow) / 0.18)',
+        'fantasy-cta-hover': '0 12px 32px hsl(var(--vow-yellow) / 0.24)',
       },
     },
   },
