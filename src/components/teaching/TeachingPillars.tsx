@@ -276,7 +276,7 @@ export function TeachingPillars() {
       className="relative py-[140px] md:py-[180px] px-fitz-4 md:px-fitz-6 overflow-hidden"
       style={{ background: "hsl(40 30% 95%)" }}
       role="region"
-      aria-label="Four Pillars"
+      aria-label="What I Hold True"
     >
       {/* Breathing vignette */}
       <div
