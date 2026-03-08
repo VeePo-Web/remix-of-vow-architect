@@ -112,12 +112,13 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
               onClick={() => handleKeyPress(section.id, i)}
               aria-label={section.label}
               aria-current={isActive ? 'true' : undefined}
-              className="w-[6px] h-[6px] rounded-full transition-all duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70"
+              className="w-[6px] h-[6px] rounded-full transition-all duration-[180ms] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-vow-yellow/40"
               style={{
                 background: isActive
                   ? 'hsl(var(--vow-yellow))'
                   : 'hsl(var(--foreground) / 0.25)',
                 transform: isPressed ? 'scale(1.4)' : 'scale(1)',
+                animation: isActive && !isPressed ? 'piano-mobile-dot-pulse 3s ease-in-out infinite' : 'none',
                 transition: 'transform 200ms cubic-bezier(0.22,0.61,0.36,1), background 180ms ease',
               }}
             />
