@@ -267,7 +267,7 @@ export function TeachingHero() {
               color: "hsl(var(--teaching-text-heading-light))",
               lineHeight: "1",
               textShadow:
-                "0 1px 3px hsl(0 0% 0% / 0.7), 0 4px 20px hsl(0 0% 0% / 0.5), 0 12px 48px hsl(0 0% 0% / 0.3)",
+                "0 1px 3px hsl(var(--rich-black) / 0.7), 0 4px 20px hsl(var(--rich-black) / 0.5), 0 12px 48px hsl(var(--rich-black) / 0.3)",
             }}
             specialChar={{
               char: ";",
