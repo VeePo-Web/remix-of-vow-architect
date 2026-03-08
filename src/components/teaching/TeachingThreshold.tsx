@@ -30,8 +30,7 @@ const fears = [
 ];
 
 /**
- * Word-by-word scroll-linked reveal for resolution text.
- * Each word fades from 0.08 → 1.0 based on scroll progress through its container.
+ * Word-by-word scroll-linked reveal with Y-drift and ease-in-out progress.
  */
 function ScrollResolution({
   text,
@@ -50,15 +49,19 @@ function ScrollResolution({
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const vh = window.innerHeight;
-    // Map: top enters 70% viewport → top reaches 25% viewport = full reveal
     const raw = 1 - (rect.top - vh * 0.25) / (vh * 0.45);
-    setProgress(Math.max(0, Math.min(1, raw)));
+    const clamped = Math.max(0, Math.min(1, raw));
+    // Ease-in-out for breathing rhythm
+    const eased =
+      clamped < 0.5
+        ? 2 * clamped * clamped
+        : 1 - Math.pow(-2 * clamped + 2, 2) / 2;
+    setProgress(eased);
     rafRef.current = requestAnimationFrame(updateProgress);
   }, []);
 
   useEffect(() => {
     if (!isInView) return;
-
     const prefersReduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
@@ -66,7 +69,6 @@ function ScrollResolution({
       setProgress(1);
       return;
     }
-
     rafRef.current = requestAnimationFrame(updateProgress);
     return () => cancelAnimationFrame(rafRef.current);
   }, [isInView, updateProgress]);
@@ -80,6 +82,9 @@ function ScrollResolution({
         const wordOpacity = isInView
           ? Math.max(0.08, Math.min(1, (progress - wordThreshold * 0.7) / 0.3))
           : 0.08;
+        const yDrift = isInView
+          ? Math.max(0, 3 * (1 - (progress - wordThreshold * 0.7) / 0.3))
+          : 3;
 
         const cleanWord = word.toLowerCase().replace(/[^a-z]/g, "");
         const isUnderline = cleanWord === underlineWord.toLowerCase();
@@ -87,8 +92,13 @@ function ScrollResolution({
         return (
           <span
             key={i}
-            className="inline-block transition-opacity duration-[60ms]"
-            style={{ opacity: wordOpacity }}
+            className="inline-block"
+            style={{
+              opacity: wordOpacity,
+              transform: `translateY(${yDrift}px)`,
+              transition: "opacity 80ms linear, transform 120ms ease-out",
+              willChange: "opacity, transform",
+            }}
           >
             {isUnderline ? (
               <span className="relative inline-block">
@@ -100,6 +110,10 @@ function ScrollResolution({
                   )}
                   style={{
                     transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
+                    boxShadow:
+                      progress > 0.88
+                        ? "0 0 8px 2px hsl(var(--vow-yellow) / 0.25)"
+                        : "none",
                   }}
                   aria-hidden="true"
                 />
@@ -116,8 +130,7 @@ function ScrollResolution({
 }
 
 /**
- * Each fear/resolution pair has its own IntersectionObserver
- * so they trigger independently as the user scrolls.
+ * Each fear/resolution pair — independently observed.
  */
 function FearPair({
   pair,
@@ -156,13 +169,14 @@ function FearPair({
         style={{
           color: "hsl(40 20% 70%)",
           transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-          textShadow: "0 1px 3px hsl(0 0% 0% / 0.2)",
+          textShadow:
+            "0 1px 3px hsl(0 0% 0% / 0.2), 0 3px 12px hsl(0 0% 0% / 0.08)",
         }}
       >
         "{pair.fear}"
       </p>
 
-      {/* Sacred pause — golden thread growing between fear and resolution */}
+      {/* Sacred pause — golden thread */}
       <div className="flex flex-col items-center py-[40px] md:py-[56px]">
         <div
           className={cn(
@@ -179,10 +193,13 @@ function FearPair({
         />
       </div>
 
-      {/* Resolution — word-by-word scroll reveal */}
+      {/* Resolution — word-by-word scroll reveal with Y-drift */}
       <p
         className="font-sans text-[16px] md:text-[18px] leading-[1.75] text-center max-w-[580px] mx-auto"
-        style={{ color: "hsl(40 25% 85%)" }}
+        style={{
+          color: "hsl(40 25% 85%)",
+          textShadow: "0 1px 3px hsl(0 0% 0% / 0.12)",
+        }}
       >
         <ScrollResolution
           text={pair.resolution}
@@ -191,7 +208,7 @@ function FearPair({
         />
       </p>
 
-      {/* Golden dot separator between fear pairs */}
+      {/* Golden dot separator */}
       {!isLast && (
         <div className="flex justify-center mt-[80px] md:mt-[100px]">
           <span
@@ -254,7 +271,7 @@ export function TeachingThreshold() {
       role="region"
       aria-label="The Threshold"
     >
-      {/* Background bench — ghost presence */}
+      {/* ── Layer 1: Background bench — ghost presence ── */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
@@ -266,13 +283,13 @@ export function TeachingThreshold() {
         aria-hidden="true"
       />
 
-      {/* Grain */}
+      {/* ── Layer 2a: Grain ── */}
       <div
         className="absolute inset-0 grain opacity-[0.04] pointer-events-none"
         aria-hidden="true"
       />
 
-      {/* Dual-origin fog */}
+      {/* ── Layer 2b: Dual-origin fog ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -282,7 +299,29 @@ export function TeachingThreshold() {
         aria-hidden="true"
       />
 
-      {/* Breathing vignette */}
+      {/* ── Layer 2c: Secondary depth fog — drifts ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at 60% 70%, hsl(30 10% 15% / 0.25), transparent 45%), radial-gradient(ellipse at 40% 25%, hsl(30 8% 17% / 0.2), transparent 40%)",
+          animation: "threshold-fog-drift 20s ease-in-out infinite alternate",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* ── Layer 3: Warm golden presence — barely perceptible ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at 50% 40%, hsl(var(--vow-yellow) / 0.012), transparent 40%)",
+          animation: "threshold-bloom 8s ease-in-out infinite",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* ── Layer 4: Breathing vignette ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -294,9 +333,8 @@ export function TeachingThreshold() {
       />
 
       <div className="relative z-10 max-w-[640px] mx-auto">
-        {/* Section header — independently observed */}
+        {/* Section header */}
         <div ref={headerRef}>
-          {/* Whispered section label */}
           <p
             className={cn(
               "font-sans text-[11px] uppercase tracking-[0.22em] text-center mb-fitz-5 transition-all duration-[1800ms]",
@@ -312,7 +350,6 @@ export function TeachingThreshold() {
             What you might be thinking
           </p>
 
-          {/* Vertical golden thread — label to content */}
           <div
             className={cn(
               "w-px h-[48px] mx-auto mb-fitz-9 origin-top transition-transform duration-[700ms]",
@@ -328,7 +365,7 @@ export function TeachingThreshold() {
           />
         </div>
 
-        {/* Fear/Resolution pairs — each independently triggered */}
+        {/* Fear/Resolution pairs */}
         {fears.map((pair, i) => (
           <FearPair
             key={i}
@@ -338,9 +375,8 @@ export function TeachingThreshold() {
           />
         ))}
 
-        {/* Closing — independently observed */}
+        {/* Closing */}
         <div ref={closingRef}>
-          {/* Semicolon threshold marker */}
           <div className="flex justify-center mt-[80px]">
             <span
               className={cn(
@@ -365,7 +401,6 @@ export function TeachingThreshold() {
             </span>
           </div>
 
-          {/* Pencil annotation */}
           <span
             className={cn(
               "block font-display italic text-[13px] text-center mt-fitz-5 transition-all duration-[700ms]",
@@ -400,6 +435,14 @@ export function TeachingThreshold() {
         @keyframes threshold-dot-breathe {
           0%, 100% { opacity: 0.5; transform: scale(1); }
           50% { opacity: 1; transform: scale(1.2); }
+        }
+        @keyframes threshold-fog-drift {
+          0% { transform: translate(0, 0) scale(1); }
+          100% { transform: translate(-1%, 0.5%) scale(1.02); }
+        }
+        @keyframes threshold-bloom {
+          0%, 100% { opacity: 0.5; }
+          50% { opacity: 1; }
         }
         @media (prefers-reduced-motion: reduce) {
           #teaching-threshold * {
