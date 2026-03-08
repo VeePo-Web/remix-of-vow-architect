@@ -120,9 +120,9 @@ export default function PrivacyPolicy() {
       <PolicySection title="Cookies & Tracking">
         <p>
           I use essential cookies for site function and analytics cookies to improve content. See{" "}
-          <a href="/cookie-policy" className="text-primary hover:text-primary/80 transition-colors duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm">
-            /cookie-policy
-          </a>{" "}
+          <Link to="/cookie-policy" className="text-primary hover:text-primary/80 transition-colors duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm">
+            Cookie Policy
+          </Link>{" "}
           for details and opt-out options.
         </p>
       </PolicySection>
