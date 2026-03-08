@@ -43,11 +43,12 @@ export default function Index() {
       <MinimalHeader />
       <PianoKeyNav sections={pianoSections} />
       
+      <main>
       {/* SECTION 1 — Hero: Ultra-Minimal Fantasy.co Style with Vigil Sequence */}
       <section className="vigil-hero relative h-screen flex items-center justify-center overflow-hidden">
         {/* Layer 1: True Void (Pure Black) */}
         <div
-          className="absolute inset-0 bg-black"
+          className="absolute inset-0 bg-[hsl(var(--rich-black))]"
           aria-hidden="true"
         />
 
@@ -139,6 +140,7 @@ export default function Index() {
 
       {/* SECTION 9 — Cross Over (Final CTA) */}
       <CrossOver />
+      </main>
 
       <Footer />
       <MobileStickyBar />

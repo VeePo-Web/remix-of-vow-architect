@@ -59,6 +59,7 @@ export default function Pricing() {
       <MinimalHeader />
       <PianoKeyNav sections={pricingSections} />
 
+      <main>
       {/* Hero */}
       <section id="pricing-hero" className="relative section-padding bg-background piano-section-target overflow-hidden">
         <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
@@ -320,6 +321,7 @@ export default function Pricing() {
           </div>
         </div>
       </section>
+      </main>
 
       <Footer />
       <MobileStickyBar />
