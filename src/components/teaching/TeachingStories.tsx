@@ -147,7 +147,7 @@ function StoryCard({
       {/* Narrative — scroll-linked word-by-word */}
       <p
         className="font-sans text-[16px] leading-[1.75] text-center mb-fitz-7"
-        style={{ color: "hsl(30 12% 30%)" }}
+        style={{ color: "hsl(var(--teaching-text-narrative))" }}
       >
         <ScrollNarrative text={story.narrative} isInView={isVisible} />
       </p>
