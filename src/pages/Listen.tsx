@@ -308,12 +308,13 @@ export default function Listen() {
           onInView={handleInView}
         />
       ))}
+      </div>
 
       {/* Section fade before crossing */}
       <div className="section-fade-bottom" style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--vigil-void)))", height: "80px", position: "relative", zIndex: 2 }} aria-hidden="true" />
 
       {/* ── THE CROSSING CTA ── */}
-      <section className="relative min-h-[60vh] flex items-center justify-center px-6">
+      <section id="listen-crossing" className="relative min-h-[60vh] flex items-center justify-center px-6 piano-section-target">
         <div className="text-center max-w-lg">
           <p className="text-[11px] md:text-xs uppercase tracking-[0.3em] text-[hsl(var(--vow-yellow)/0.6)] mb-4">
             The Crossing
@@ -340,8 +341,8 @@ export default function Listen() {
         onToggle={togglePlayPause}
       />
 
-
       <Footer />
+      <MobileStickyBar />
     </div>
   );
 }

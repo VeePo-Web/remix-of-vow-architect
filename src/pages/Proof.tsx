@@ -63,7 +63,7 @@ export default function Proof() {
             </p>
             
             <Button size="lg" variant="primary-dark" className="hover-scale mt-8">
-              Download a Sample Plan & SPL Log
+              Download a sample ceremony plan
             </Button>
 
             {/* Trust stack */}
