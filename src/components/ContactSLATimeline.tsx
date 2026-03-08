@@ -18,31 +18,50 @@ export function ContactSLATimeline() {
 
   return (
     <div className="max-w-3xl mx-auto">
-      <h2 className="font-display text-[clamp(24px,3vw,32px)] font-light mb-8 text-center">
+      <h2 className="font-display text-[clamp(24px,3vw,32px)] font-light mb-10 text-center">
         What happens after you reach out
       </h2>
-      
-      <div className="space-y-6">
-        {steps.map((step, index) => (
-          <div key={index} className="flex gap-4 items-start">
-            <div className="shrink-0">
-              <div className="w-12 h-12 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center">
-                <span className="text-sm font-medium text-primary">{index + 1}</span>
-              </div>
-            </div>
-            <div className="pt-2">
-              <h4 className="font-display text-base font-light text-foreground mb-1">{step.time}</h4>
+
+      <div className="relative pl-6">
+        {/* Golden vertical thread */}
+        <div
+          className="absolute left-0 top-1 bottom-1 w-px bg-primary/20"
+          style={{ animation: "golden-thread-breathe 4s ease-in-out infinite" }}
+          aria-hidden="true"
+        />
+
+        <div className="space-y-8">
+          {steps.map((step, index) => (
+            <div key={index} className="relative">
+              {/* Em-dash marker on the thread */}
+              <span
+                className="absolute -left-6 top-[0.35em] w-4 h-px bg-primary/40"
+                aria-hidden="true"
+              />
+              <h4 className="font-display text-sm italic text-foreground/80 mb-1">
+                {step.time}
+              </h4>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 {step.description}
               </p>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
-      <p className="text-xs text-muted-foreground text-center mt-8 italic">
+      <p className="text-xs text-muted-foreground text-center mt-10 italic">
         Nothing is final until you say so — I am securing your clarity window.
       </p>
+
+      <style>{`
+        @keyframes golden-thread-breathe {
+          0%, 100% { opacity: 0.15; }
+          50% { opacity: 0.35; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          [style*="golden-thread-breathe"] { animation: none !important; opacity: 0.25 !important; }
+        }
+      `}</style>
     </div>
   );
 }

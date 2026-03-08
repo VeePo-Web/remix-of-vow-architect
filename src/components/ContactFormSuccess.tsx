@@ -1,4 +1,3 @@
-import { CheckCircle2, Mail, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
@@ -15,7 +14,17 @@ export function ContactFormSuccess() {
   return (
     <div className="text-center py-8 animate-fade-in">
       <div className="mb-6">
-        <CheckCircle2 className="mx-auto text-accent mb-4" size={48} />
+        {/* Glowing semicolon — brand threshold symbol */}
+        <span
+          className="inline-block font-display text-[40px] font-light text-primary mb-4"
+          style={{
+            textShadow: "0 0 20px hsl(var(--vow-yellow) / 0.4), 0 0 40px hsl(var(--vow-yellow) / 0.15)",
+            animation: "semicolon-success-glow 4s ease-in-out infinite",
+          }}
+          aria-hidden="true"
+        >
+          ;
+        </span>
         <h2 className="font-display text-[clamp(24px,3vw,32px)] font-light mb-2">
           Your details have been received.
         </h2>
@@ -29,11 +38,9 @@ export function ContactFormSuccess() {
           <button
             type="button"
             onClick={() => setShowPlanner(true)}
-            className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors duration-[180ms]"
+            className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-[180ms] underline underline-offset-2"
           >
-            <Mail size={14} />
             Add my planner to the correspondence
-            <ChevronDown size={12} />
           </button>
         ) : (
           <form onSubmit={handleAddPlanner} className="space-y-3 animate-fade-in">
@@ -57,6 +64,16 @@ export function ContactFormSuccess() {
           </form>
         )}
       </div>
+
+      <style>{`
+        @keyframes semicolon-success-glow {
+          0%, 100% { text-shadow: 0 0 20px hsl(var(--vow-yellow) / 0.4), 0 0 40px hsl(var(--vow-yellow) / 0.15); }
+          50% { text-shadow: 0 0 28px hsl(var(--vow-yellow) / 0.55), 0 0 56px hsl(var(--vow-yellow) / 0.2); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          [style*="semicolon-success-glow"] { animation: none !important; }
+        }
+      `}</style>
     </div>
   );
 }

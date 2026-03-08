@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
-import { CheckCircle2, Shield, Clock, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { useForm } from "react-hook-form";
@@ -39,6 +39,12 @@ const durationItems = [
   { id: "1hr", label: "1 hour", description: "Focused, single set" },
   { id: "2-3hr", label: "2–3 hours", description: "Extended atmosphere" },
   { id: "4hr+", label: "4+ hours", description: "Full-day presence" },
+];
+
+const reassuranceLines = [
+  "No cost to inquire — take the time you need.",
+  "Response within 24 hours, always.",
+  "Insured, self-sufficient, and fully prepared.",
 ];
 
 export default function EventsContact() {
@@ -80,6 +86,8 @@ export default function EventsContact() {
     console.log("Events inquiry:", data);
     setIsSubmitted(true);
   };
+
+  const stepLabels = ["Your gathering", "The occasion"];
 
   return (
     <div className="min-h-screen bg-background">
@@ -144,7 +152,17 @@ export default function EventsContact() {
               {isSubmitted ? (
                 <Card className="p-8 bg-card border-border card-keyline animate-fade-in">
                   <div className="text-center space-y-4">
-                    <CheckCircle2 className="mx-auto text-accent" size={48} />
+                    {/* Glowing semicolon */}
+                    <span
+                      className="inline-block font-display text-[40px] font-light text-primary"
+                      style={{
+                        textShadow: "0 0 20px hsl(var(--vow-yellow) / 0.4), 0 0 40px hsl(var(--vow-yellow) / 0.15)",
+                        animation: "semicolon-success-glow 4s ease-in-out infinite",
+                      }}
+                      aria-hidden="true"
+                    >
+                      ;
+                    </span>
                     <h2 className="font-display text-[clamp(20px,2.5vw,28px)] font-light">
                       Your details have been received.
                     </h2>
@@ -157,14 +175,20 @@ export default function EventsContact() {
               ) : (
                 <div className="grid lg:grid-cols-3 gap-8">
                   <Card className="lg:col-span-2 p-8 bg-card/80 backdrop-blur-[8px] border-border/50 card-keyline">
-                    {/* Step indicator */}
+                    {/* Step indicator — crossfading labels */}
                     <div className="flex items-center gap-3 mb-6">
-                      <div className="flex items-center gap-2">
-                        <div className={`w-2.5 h-2.5 rounded-full transition-colors duration-[180ms] ${step === 1 ? "bg-primary" : "bg-primary/40"}`} />
-                        <div className={`w-2.5 h-2.5 rounded-full transition-colors duration-[180ms] ${step === 2 ? "bg-primary" : "bg-muted-foreground/30"}`} />
+                      <div className="flex items-center gap-1.5">
+                        {[1, 2].map((s, i) => (
+                          <div key={s} className="flex items-center gap-1.5">
+                            <div className={`w-2.5 h-2.5 rounded-full transition-all duration-[180ms] ${step === s ? "bg-primary scale-110" : step > s ? "bg-primary/40" : "bg-muted-foreground/30"}`} />
+                            {i < 1 && (
+                              <div className={`w-4 h-px transition-colors duration-[180ms] ${step > s ? "bg-primary/30" : "bg-muted-foreground/20"}`} />
+                            )}
+                          </div>
+                        ))}
                       </div>
-                      <span className="text-xs text-muted-foreground">
-                        Step {step} of 2
+                      <span className="text-xs text-muted-foreground transition-opacity duration-[260ms]">
+                        {stepLabels[step - 1]}
                       </span>
                     </div>
 
@@ -289,21 +313,24 @@ export default function EventsContact() {
                     </form>
                   </Card>
 
-                  {/* Sidebar reassurance */}
-                  <div className="lg:col-span-1 space-y-4">
-                    {[
-                      { icon: Clock, text: "No cost to inquire — take the time you need." },
-                      { icon: Clock, text: "Response within 24 hours, always." },
-                      { icon: Shield, text: "Insured, self-sufficient, and fully prepared." },
-                    ].map((item, i) => (
-                      <Card key={i} className="bg-card/50 border-border p-4 flex items-start gap-3">
-                        <item.icon className="text-primary shrink-0 mt-0.5" size={18} />
-                        <p className="text-sm text-foreground leading-relaxed">{item.text}</p>
-                      </Card>
-                    ))}
+                  {/* Sidebar — typographic reassurance */}
+                  <div className="lg:col-span-1">
+                    <div className="border border-border/30 rounded-lg p-5 space-y-0">
+                      {reassuranceLines.map((line, i) => (
+                        <div key={i}>
+                          <div className="flex items-start gap-2.5 py-3">
+                            <span className="text-primary/50 shrink-0 text-sm leading-relaxed" aria-hidden="true">—</span>
+                            <p className="text-sm text-foreground/80 leading-relaxed">{line}</p>
+                          </div>
+                          {i < reassuranceLines.length - 1 && (
+                            <div className="h-px bg-border/30" />
+                          )}
+                        </div>
+                      ))}
+                    </div>
 
                     {/* Micro testimonial */}
-                    <div className="pt-4 border-t border-border/50 mt-2">
+                    <div className="mt-6 pt-4">
                       <p className="text-xs text-muted-foreground italic leading-relaxed">
                         "He arrived early, set up quietly, and played for three hours without a single break in atmosphere. Our guests are still talking about it."
                       </p>
@@ -324,10 +351,15 @@ export default function EventsContact() {
           0%, 100% { opacity: 0.8; }
           50% { opacity: 0.65; }
         }
+        @keyframes semicolon-success-glow {
+          0%, 100% { text-shadow: 0 0 20px hsl(var(--vow-yellow) / 0.4), 0 0 40px hsl(var(--vow-yellow) / 0.15); }
+          50% { text-shadow: 0 0 28px hsl(var(--vow-yellow) / 0.55), 0 0 56px hsl(var(--vow-yellow) / 0.2); }
+        }
         @media (prefers-reduced-motion: reduce) {
           .grain { animation: none !important; }
           [style*="contact-vignette-breathe"] { animation: none !important; opacity: 0.7 !important; }
           [style*="ken-burns"] { animation: none !important; }
+          [style*="semicolon-success-glow"] { animation: none !important; }
         }
       `}</style>
     </div>
