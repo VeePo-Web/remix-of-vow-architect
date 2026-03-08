@@ -50,7 +50,7 @@ export function MinimalHeader() {
   // Vertical-aware CTA label — adapts to the emotional temperature of each vertical
   const ctaLabel = (() => {
     if (isContactPage) return "You're here";
-    const path = location.pathname;
+    const path = pathname;
     if (path.startsWith('/teaching')) return 'Begin the Conversation';
     if (path.startsWith('/events')) return 'Discuss Your Event';
     return 'Hold My Date';
