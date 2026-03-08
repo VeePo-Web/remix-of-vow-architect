@@ -1011,6 +1011,11 @@ All colors MUST be HSL.
   50% { opacity: 1; transform: translateX(-50%) scale(1.4); }
 }
 
+@keyframes piano-mobile-dot-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .piano-key {
     animation: none !important;

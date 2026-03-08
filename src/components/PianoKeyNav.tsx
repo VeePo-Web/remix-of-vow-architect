@@ -184,7 +184,7 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
                 isBlack && 'piano-key--black',
                 isActive && 'piano-key--active',
                 isPressed && 'piano-key--pressed',
-                'focus-visible:outline-none focus-visible:ring-2'
+                'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-vow-yellow/40'
               )}
               style={
                 animated
