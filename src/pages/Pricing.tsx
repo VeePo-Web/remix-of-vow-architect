@@ -53,7 +53,10 @@ function GoldenThread() {
 
 export default function Pricing() {
   usePageTheme();
-  useEffect(() => { document.title = "The Offering — Parker Gawryletz, Ceremony Piano"; }, []);
+  useEffect(() => {
+    document.title = "The Offering — Parker Gawryletz, Ceremony Piano";
+    document.querySelector('meta[name="description"]')?.setAttribute("content", "Three presences — ceremony, extended, or full-day. Transparent pricing with triple redundancy and Banff Mode included.");
+  }, []);
   return (
     <div className="min-h-screen bg-background">
       <MinimalHeader />

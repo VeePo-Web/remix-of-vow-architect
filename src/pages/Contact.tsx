@@ -43,7 +43,10 @@ export default function Contact() {
   const [fileName, setFileName] = useState<string | null>(null);
   
   usePageTheme();
-  useEffect(() => { document.title = "Hold My Date — Parker Gawryletz"; }, []);
+  useEffect(() => {
+    document.title = "Hold My Date — Parker Gawryletz";
+    document.querySelector('meta[name="description"]')?.setAttribute("content", "Every arrangement begins with a conversation. Hold your date and receive a personalized ceremony plan within 24 hours.");
+  }, []);
 
   const {
     register,

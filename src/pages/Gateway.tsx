@@ -75,7 +75,10 @@ function CardImage({ image, available }: { image: string; available: boolean }) 
 
 export default function Gateway() {
   usePageTheme();
-  useEffect(() => { document.title = "Parker Gawryletz — Sound Director"; }, []);
+  useEffect(() => {
+    document.title = "Parker Gawryletz — Sound Director";
+    document.querySelector('meta[name="description"]')?.setAttribute("content", "Wedding pianist, private event performer, and piano mentor. Choose the path that fits your moment.");
+  }, []);
 
   return (
     <main className="h-screen w-screen overflow-hidden bg-background flex flex-col items-center py-8 md:py-0 md:justify-center relative" aria-label="Choose your path">
