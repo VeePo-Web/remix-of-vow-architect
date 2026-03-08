@@ -148,18 +148,22 @@ export default function Contact() {
                   <Card className="lg:col-span-2 p-8 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred card-keyline">
                     {/* Step indicator */}
                     <div className="flex items-center gap-3 mb-6">
-                      <div className="flex items-center gap-2">
-                        {[1, 2, 3].map((s) => (
-                          <div
-                            key={s}
-                            className={`w-2.5 h-2.5 rounded-full transition-colors duration-[180ms] ${
-                              step === s ? "bg-primary" : step > s ? "bg-primary/40" : "bg-muted-foreground/30"
-                            }`}
-                          />
+                      <div className="flex items-center gap-1.5">
+                        {[1, 2, 3].map((s, i) => (
+                          <div key={s} className="flex items-center gap-1.5">
+                            <div
+                              className={`w-2.5 h-2.5 rounded-full transition-all duration-[180ms] ${
+                                step === s ? "bg-primary scale-110" : step > s ? "bg-primary/40" : "bg-muted-foreground/30"
+                              }`}
+                            />
+                            {i < 2 && (
+                              <div className={`w-4 h-px transition-colors duration-[180ms] ${step > s ? "bg-primary/30" : "bg-muted-foreground/20"}`} />
+                            )}
+                          </div>
                         ))}
                       </div>
-                      <span className="text-xs text-muted-foreground">
-                        Step {step} of 3 {step === 3 && "· Optional details"}
+                      <span className="text-xs text-muted-foreground transition-opacity duration-[260ms]">
+                        {step === 1 ? "Your day" : step === 2 ? "The sound" : "Final details"}
                       </span>
                     </div>
 
