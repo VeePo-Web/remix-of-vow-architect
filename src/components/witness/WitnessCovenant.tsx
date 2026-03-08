@@ -65,7 +65,7 @@ export function WitnessCovenant() {
             )}
             style={{ 
               transitionDelay: "200ms",
-              boxShadow: "0 20px 60px rgba(0,0,0,0.08), inset 0 0 80px hsl(var(--vow-yellow) / 0.03)"
+              boxShadow: "0 20px 60px hsl(var(--rich-black) / 0.08), inset 0 0 80px hsl(var(--vow-yellow) / 0.03)"
             }}
           >
             {/* Film grain texture on certificate — refined opacity */}

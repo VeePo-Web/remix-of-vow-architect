@@ -127,7 +127,7 @@ export function MinimalHeader() {
         )}
         style={{
           height: isScrolled ? "56px" : "auto",
-          background: isScrolled ? "rgba(10,10,12,0.94)" : undefined,
+          background: isScrolled ? "hsl(var(--rich-black) / 0.94)" : undefined,
           transitionDuration: "260ms",
           transitionTimingFunction: "cubic-bezier(0.22,0.61,0.36,1)",
         }}
@@ -171,7 +171,7 @@ export function MinimalHeader() {
               className="absolute inset-0 pointer-events-none"
               style={{
                 background:
-                  "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.18) 100%)",
+                  "radial-gradient(ellipse at center, transparent 40%, hsl(var(--rich-black) / 0.18) 100%)",
               }}
               aria-hidden="true"
             />

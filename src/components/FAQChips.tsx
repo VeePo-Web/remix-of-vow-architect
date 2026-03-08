@@ -56,14 +56,14 @@ export function FAQChips() {
                   <Badge
                     variant="outline"
                     className={`cursor-pointer transition-all duration-[180ms] hover:bg-primary/10 px-4 py-2.5 text-sm font-display ${
-                      openIndex === index ? "bg-primary/10 border-primary/50 shadow-[0_0_12px_rgba(255,224,138,0.08)]" : ""
+                      openIndex === index ? "bg-primary/10 border-primary/50 shadow-[0_0_12px_hsl(var(--vow-yellow)/0.08)]" : ""
                     }`}
                   >
                     {chip.question}
                   </Badge>
                 </CollapsibleTrigger>
                 <CollapsibleContent className="mt-4 max-w-2xl mx-auto">
-                  <div className="bg-card/80 backdrop-blur-[8px] border border-border/50 rounded-lg p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)]">
+                  <div className="bg-card/80 backdrop-blur-[8px] border border-border/50 rounded-lg p-6 card-sacred">
                     <p className="text-[15px] text-muted-foreground mb-3 leading-relaxed">{chip.answer}</p>
                     <DirectionalLink to={chip.link.to}>{chip.link.label}</DirectionalLink>
                   </div>
