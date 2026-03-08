@@ -1,9 +1,102 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import keysImg from "@/assets/teaching-keys.jpg";
 
+/**
+ * Split text into words with individual opacity control
+ * driven by scroll progress through the section.
+ */
+function ScrollRevealWords({
+  text,
+  isInView,
+  underlineWord,
+}: {
+  text: string;
+  isInView: boolean;
+  underlineWord?: string;
+}) {
+  const containerRef = useRef<HTMLSpanElement>(null);
+  const [progress, setProgress] = useState(0);
+  const rafRef = useRef<number>(0);
+
+  const updateProgress = useCallback(() => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const vh = window.innerHeight;
+    // Map: top enters bottom of viewport (0) → top reaches 30% from top (1)
+    const raw = 1 - (rect.top - vh * 0.3) / (vh * 0.5);
+    setProgress(Math.max(0, Math.min(1, raw)));
+    rafRef.current = requestAnimationFrame(updateProgress);
+  }, []);
+
+  useEffect(() => {
+    if (!isInView) return;
+
+    // Check reduced motion
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (prefersReduced) {
+      setProgress(1);
+      return;
+    }
+
+    rafRef.current = requestAnimationFrame(updateProgress);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [isInView, updateProgress]);
+
+  const words = text.split(" ");
+
+  return (
+    <span ref={containerRef} className="inline">
+      {words.map((word, i) => {
+        // Each word fades in at a slightly different scroll threshold
+        const wordThreshold = i / words.length;
+        const wordOpacity = isInView
+          ? Math.max(0.12, Math.min(1, (progress - wordThreshold * 0.7) / 0.3))
+          : 0.12;
+
+        const isUnderline =
+          underlineWord &&
+          word.toLowerCase().replace(/[^a-z]/g, "") ===
+            underlineWord.toLowerCase();
+
+        return (
+          <span
+            key={i}
+            className="inline-block transition-opacity duration-[80ms]"
+            style={{
+              opacity: wordOpacity,
+            }}
+          >
+            {isUnderline ? (
+              <span className="relative inline-block">
+                {word}
+                <span
+                  className={cn(
+                    "absolute -bottom-0.5 left-0 w-full h-[2px] bg-[hsl(var(--vow-yellow))] origin-left transition-transform duration-[450ms]",
+                    progress > 0.85 ? "scale-x-100" : "scale-x-0"
+                  )}
+                  style={{
+                    transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
+                  }}
+                  aria-hidden="true"
+                />
+              </span>
+            ) : (
+              word
+            )}
+            {i < words.length - 1 ? " " : ""}
+          </span>
+        );
+      })}
+    </span>
+  );
+}
+
 export function TeachingMethodology() {
-  const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
+  const { ref, isVisible } = useScrollReveal({ threshold: 0.15 });
 
   return (
     <section
@@ -105,58 +198,31 @@ export function TeachingMethodology() {
           aria-hidden="true"
         />
 
-        {/* The First Question */}
+        {/* The First Question — scroll-linked word reveals */}
         <h2
-          className={cn(
-            "font-display text-[32px] md:text-[48px] font-light tracking-tight leading-[1.15] mb-fitz-8 transition-all duration-[900ms]",
-            isVisible
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-[12px]"
-          )}
+          className="font-display text-[32px] md:text-[48px] font-light tracking-tight leading-[1.15] mb-fitz-8"
           style={{
             color: "hsl(40 30% 90%)",
-            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-            transitionDelay: "200ms",
             textShadow:
               "0 1px 2px hsl(0 0% 0% / 0.3), 0 4px 16px hsl(0 0% 0% / 0.15)",
           }}
         >
-          "What do you want to{" "}
-          <span className="relative inline-block">
-            say
-            <span
-              className={cn(
-                "absolute -bottom-1 left-0 w-full h-[2px] bg-[hsl(var(--vow-yellow))] origin-left transition-transform duration-[450ms]",
-                isVisible ? "scale-x-100" : "scale-x-0"
-              )}
-              style={{
-                transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
-                transitionDelay: "800ms",
-              }}
-              aria-hidden="true"
-            />
-          </span>{" "}
-          through this instrument?"
+          <ScrollRevealWords
+            text={'"What do you want to say through this instrument?"'}
+            isInView={isVisible}
+            underlineWord="say"
+          />
         </h2>
 
-        {/* Narrative */}
+        {/* Narrative — scroll-linked word reveals */}
         <p
-          className={cn(
-            "font-sans text-[16px] md:text-[18px] leading-[1.7] max-w-[600px] mx-auto mb-fitz-7 transition-all duration-[900ms]",
-            isVisible
-              ? "opacity-80 translate-y-0"
-              : "opacity-0 translate-y-[8px]"
-          )}
-          style={{
-            color: "hsl(40 20% 75%)",
-            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-            transitionDelay: "400ms",
-          }}
+          className="font-sans text-[16px] md:text-[18px] leading-[1.7] max-w-[600px] mx-auto mb-fitz-7"
+          style={{ color: "hsl(40 20% 75%)" }}
         >
-          The first question I ask is never about music. It is about you. What
-          brought you here. What you hear when no one is listening. The
-          mentorship begins not with a scale or an exercise — but with a
-          conversation about the sound you carry inside.
+          <ScrollRevealWords
+            text="The first question I ask is never about music. It is about you. What brought you here. What you hear when no one is listening. The mentorship begins not with a scale or an exercise — but with a conversation about the sound you carry inside."
+            isInView={isVisible}
+          />
         </p>
 
         {/* Seed metaphor */}
