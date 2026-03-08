@@ -362,7 +362,7 @@ export function Footer() {
                 <span
                   className="block mt-1 font-sans font-semibold text-[22px] tracking-[0.25em] uppercase text-foreground/90 transition-all duration-[180ms] group-hover/veepo:[color:hsl(166,72%,47%)] group-hover/veepo:[text-shadow:0_0_20px_hsl(28,87%,58%,0.15)]"
                 >
-                  VEEPO
+                  VEEPO<span className="text-[16px] opacity-70">.CA</span>
                 </span>
                 <p className="text-[11px] tracking-[0.15em] text-muted-foreground/45 italic mt-1.5">
                   Where vision meets precision
