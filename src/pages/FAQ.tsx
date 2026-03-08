@@ -50,12 +50,12 @@ export default function FAQ() {
             ]} />
 
             <div className="text-center mb-16">
-              <div className="overline mb-2">Risk Elimination</div>
-              <h1 className="mx-auto">Clear Answers, Zero Guesswork</h1>
+              <div className="overline mb-2">The Threshold</div>
+              <h1 className="mx-auto">Every question deserves a clear answer.</h1>
               <div className="chapter-rule mx-auto" />
               <p className="lead mx-auto text-muted-foreground mt-6">
-                I architect ceremony audio the way engineers ship aircraft: documented, redundant, and verified. 
-                Here's how your risks disappear.
+                I understand the weight of the decisions you are making.
+                Here is everything I would want to know if I were in your place.
               </p>
             </div>
           </div>
