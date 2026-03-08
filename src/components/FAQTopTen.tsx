@@ -20,7 +20,7 @@ const topTenFAQs = [
   {
     question: "What happens if equipment fails?",
     answer: "I bring triple redundancy: a second wireless unit, a second instrument, and a pre-loaded speaker for critical cues.",
-    link: { to: "/gallery", label: "See the redundancy plan" }
+    link: { to: "/proof", label: "See the redundancy plan" }
   },
   {
     question: "Can I cancel or change my mind after booking?",
