@@ -48,6 +48,7 @@ export function MinimalHeader() {
   const [hoveredNavIndex, setHoveredNavIndex] = useState<number | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [arrivalPhase, setArrivalPhase] = useState<'none' | 'dissolving' | 'arrived'>('none');
+  const [isHeaderHidden, setIsHeaderHidden] = useState(false);
   const isContactPage = pathname === '/contact';
   
   // Vertical-aware CTA label — adapts to the emotional temperature of each vertical
@@ -60,6 +61,7 @@ export function MinimalHeader() {
   })();
   const navRef = useRef<HTMLElement>(null);
   const rafRef = useRef<number>(0);
+  const lastScrollY = useRef(0);
 
   // Scroll tracking with rAF for smooth progress
   const updateScroll = useCallback(() => {
