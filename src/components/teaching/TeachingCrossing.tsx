@@ -296,7 +296,7 @@ export function TeachingCrossing() {
                 : "opacity-0 translate-y-[6px]"
             )}
             style={{
-              color: "hsl(30 10% 35%)",
+              color: "hsl(var(--teaching-text-body) / 0.85)",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
               transitionDelay: "400ms",
             }}
