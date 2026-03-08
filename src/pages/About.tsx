@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { MinimalHeader } from "@/components/MinimalHeader";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
@@ -41,6 +42,7 @@ const aboutSections = [
 
 export default function About() {
   usePageTheme();
+  useEffect(() => { document.title = "About — Parker Gawryletz, Sound Director"; }, []);
 
   return (
     <div className="min-h-screen bg-background">

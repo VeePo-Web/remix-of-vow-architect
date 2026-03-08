@@ -14,7 +14,7 @@ import { ContactTestimonials } from "@/components/ContactTestimonials";
 import { ContactFormSuccess } from "@/components/ContactFormSuccess";
 import { ValuePromiseBadge } from "@/components/ValuePromiseBadge";
 import { Upload } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import contactHeroImg from "@/assets/contact-hero.jpg";
 import { useForm } from "react-hook-form";
@@ -43,6 +43,7 @@ export default function Contact() {
   const [fileName, setFileName] = useState<string | null>(null);
   
   usePageTheme();
+  useEffect(() => { document.title = "Hold My Date — Parker Gawryletz"; }, []);
 
   const {
     register,

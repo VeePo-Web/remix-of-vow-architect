@@ -100,6 +100,7 @@ function NowPlayingMini({
 /* ── Page ── */
 export default function Listen() {
   usePageTheme();
+  useEffect(() => { document.title = "Listen — Parker Gawryletz, Pianist"; }, []);
 
   const audioRef = useRef<HTMLAudioElement>(null);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);

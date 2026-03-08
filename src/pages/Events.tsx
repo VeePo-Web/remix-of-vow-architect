@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { MinimalHeader } from "@/components/MinimalHeader";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
@@ -27,6 +28,7 @@ const eventsSections = [
 
 export default function Events() {
   usePageTheme();
+  useEffect(() => { document.title = "Private Events — Parker Gawryletz, Pianist"; }, []);
 
   return (
     <div className="min-h-screen">

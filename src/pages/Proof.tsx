@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { MinimalHeader } from "@/components/MinimalHeader";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
@@ -49,6 +50,7 @@ function GoldenThread() {
 
 export default function Proof() {
   usePageTheme();
+  useEffect(() => { document.title = "Proof of Craft — Parker Gawryletz"; }, []);
 
   return (
     <div className="min-h-screen">

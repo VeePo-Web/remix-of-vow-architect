@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { MinimalHeader } from "@/components/MinimalHeader";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
@@ -23,6 +24,7 @@ const faqSections = [
 
 export default function FAQ() {
   usePageTheme();
+  useEffect(() => { document.title = "Questions Answered — Parker Gawryletz"; }, []);
 
   return (
     <div className="min-h-screen">
