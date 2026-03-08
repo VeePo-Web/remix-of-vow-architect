@@ -5200,19 +5200,19 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   border-radius: 0 0 4px 4px;
   transform: translateY(-4px);
   background:
-    linear-gradient(90deg, transparent 35%, rgba(255,255,255,0.04) 48%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.04) 52%, transparent 65%),
-    linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 20%),
+    linear-gradient(90deg, transparent 35%, hsl(0 0% 100% / 0.04) 48%, hsl(0 0% 100% / 0.06) 50%, hsl(0 0% 100% / 0.04) 52%, transparent 65%),
+    linear-gradient(180deg, hsl(0 0% 100% / 0.08) 0%, transparent 20%),
     linear-gradient(180deg, hsl(222 12% 12%) 0%, hsl(240 9% 6%) 85%, hsl(240 9% 4%) 100%);
   box-shadow:
-    inset 2px 0 4px rgba(0,0,0,0.3),
-    inset -2px 0 4px rgba(0,0,0,0.3),
-    0 2px 4px rgba(0,0,0,0.6),
-    0 8px 16px rgba(0,0,0,0.5),
-    0 16px 40px rgba(0,0,0,0.4),
-    -3px 4px 12px rgba(0,0,0,0.35),
-    3px 4px 12px rgba(0,0,0,0.35);
+    inset 2px 0 4px hsl(var(--rich-black) / 0.3),
+    inset -2px 0 4px hsl(var(--rich-black) / 0.3),
+    0 2px 4px hsl(var(--rich-black) / 0.6),
+    0 8px 16px hsl(var(--rich-black) / 0.5),
+    0 16px 40px hsl(var(--rich-black) / 0.4),
+    -3px 4px 12px hsl(var(--rich-black) / 0.35),
+    3px 4px 12px hsl(var(--rich-black) / 0.35);
   z-index: 10;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid hsl(0 0% 100% / 0.08);
   border-left: 1px solid hsl(222 12% 20%);
   border-right: 1px solid hsl(222 12% 12%);
 }
