@@ -190,7 +190,7 @@ export default function Listen() {
       <div className="grain opacity-[0.06]" style={{ willChange: "opacity" }} />
 
       {/* ── HERO ── */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+      <section id="listen-hero" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden piano-section-target">
         {/* Hero background image */}
         <img
           src={listenHero}
