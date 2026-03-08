@@ -11,8 +11,8 @@ import { ContactFormSuccess } from "@/components/ContactFormSuccess";
 import { ContactSLATimeline } from "@/components/ContactSLATimeline";
 import { ContactTestimonials } from "@/components/ContactTestimonials";
 import { BentoSelector } from "@/components/BentoSelector";
-import { ValuePromiseBadge } from "@/components/ValuePromiseBadge";
-import { Upload, ChevronRight, ChevronLeft, DollarSign, RefreshCw, Clock, Shield } from "lucide-react";
+
+import { Upload, ChevronRight, ChevronLeft, RefreshCw, Clock, Shield } from "lucide-react";
 import { useState, useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import contactHeroImg from "@/assets/contact-hero.jpg";
@@ -136,7 +136,7 @@ export default function Contact() {
                   Tell me about your day — the venue, the feeling, the songs that matter.
                   I will respond within 24 hours with a personalized plan.
                 </p>
-                <p className="caption mt-4 text-center">No obligation. Two-minute form.</p>
+                <p className="text-xs text-muted-foreground mt-3">No obligation — two minutes is all it takes.</p>
               </div>
 
               {isSubmitted ? (
@@ -148,18 +148,22 @@ export default function Contact() {
                   <Card className="lg:col-span-2 p-8 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred card-keyline">
                     {/* Step indicator */}
                     <div className="flex items-center gap-3 mb-6">
-                      <div className="flex items-center gap-2">
-                        {[1, 2, 3].map((s) => (
-                          <div
-                            key={s}
-                            className={`w-2.5 h-2.5 rounded-full transition-colors duration-[180ms] ${
-                              step === s ? "bg-primary" : step > s ? "bg-primary/40" : "bg-muted-foreground/30"
-                            }`}
-                          />
+                      <div className="flex items-center gap-1.5">
+                        {[1, 2, 3].map((s, i) => (
+                          <div key={s} className="flex items-center gap-1.5">
+                            <div
+                              className={`w-2.5 h-2.5 rounded-full transition-all duration-[180ms] ${
+                                step === s ? "bg-primary scale-110" : step > s ? "bg-primary/40" : "bg-muted-foreground/30"
+                              }`}
+                            />
+                            {i < 2 && (
+                              <div className={`w-4 h-px transition-colors duration-[180ms] ${step > s ? "bg-primary/30" : "bg-muted-foreground/20"}`} />
+                            )}
+                          </div>
                         ))}
                       </div>
-                      <span className="text-xs text-muted-foreground">
-                        Step {step} of 3 {step === 3 && "· Optional details"}
+                      <span className="text-xs text-muted-foreground transition-opacity duration-[260ms]">
+                        {step === 1 ? "Your day" : step === 2 ? "The sound" : "Final details"}
                       </span>
                     </div>
 
@@ -256,7 +260,7 @@ export default function Contact() {
                                 onClick={() => setShowStep3(true)}
                                 className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-[180ms] underline underline-offset-2"
                               >
-                                Add ceremony time, phone, planner email, song requests, or file upload
+                                Add ceremony time, planner details, or song requests
                               </button>
                             </div>
                           ) : (
@@ -307,12 +311,9 @@ export default function Contact() {
                                 <ChevronLeft size={16} className="mr-1" />
                                 Back
                               </Button>
-                              <div className="flex-1 flex items-center gap-2">
-                                <Button type="submit" size="lg" variant="primary-dark" className="flex-1 hover-scale">
-                                  Hold my date
-                                </Button>
-                                <ValuePromiseBadge />
-                              </div>
+                              <Button type="submit" size="lg" variant="primary-dark" className="flex-1 hover-scale">
+                                Hold my date
+                              </Button>
                             </div>
                             <p className="text-xs text-muted-foreground text-center">
                               You will receive a personalized ceremony plan within 24 hours.
@@ -326,7 +327,7 @@ export default function Contact() {
                   {/* Sidebar */}
                   <div className="lg:col-span-1 space-y-4">
                     {[
-                      { icon: DollarSign, text: "No cost to hold your date — take the time you need." },
+                      { icon: Clock, text: "No cost to hold your date — take the time you need." },
                       { icon: RefreshCw, text: "Full refund within 14 days — commitment without pressure." },
                       { icon: Clock, text: "Response within 24 hours — your personalized plan, always." },
                       { icon: Shield, text: "Insurance, redundancy, and documentation — included." },

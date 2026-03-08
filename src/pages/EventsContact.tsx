@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
-import { CheckCircle2, Shield, Clock, DollarSign, ChevronRight } from "lucide-react";
+import { CheckCircle2, Shield, Clock, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { useForm } from "react-hook-form";
@@ -114,6 +114,7 @@ export default function EventsContact() {
             className="absolute inset-0 pointer-events-none"
             style={{
               background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 100%)",
+              animation: "contact-vignette-breathe 6s ease-in-out infinite",
             }}
             aria-hidden="true"
           />
@@ -137,7 +138,7 @@ export default function EventsContact() {
                 <p className="p-lead mx-auto text-muted-foreground mt-6">
                   Share the details — I will respond within 24 hours with a tailored proposal.
                 </p>
-                <p className="caption mt-4 text-center">No obligation. Two-minute form.</p>
+                <p className="text-xs text-muted-foreground mt-3">No obligation — one-minute form.</p>
               </div>
 
               {isSubmitted ? (
@@ -291,7 +292,7 @@ export default function EventsContact() {
                   {/* Sidebar reassurance */}
                   <div className="lg:col-span-1 space-y-4">
                     {[
-                      { icon: DollarSign, text: "No cost to inquire — take the time you need." },
+                      { icon: Clock, text: "No cost to inquire — take the time you need." },
                       { icon: Clock, text: "Response within 24 hours, always." },
                       { icon: Shield, text: "Insured, self-sufficient, and fully prepared." },
                     ].map((item, i) => (
@@ -300,6 +301,14 @@ export default function EventsContact() {
                         <p className="text-sm text-foreground leading-relaxed">{item.text}</p>
                       </Card>
                     ))}
+
+                    {/* Micro testimonial */}
+                    <div className="pt-4 border-t border-border/50 mt-2">
+                      <p className="text-xs text-muted-foreground italic leading-relaxed">
+                        "He arrived early, set up quietly, and played for three hours without a single break in atmosphere. Our guests are still talking about it."
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-1">Rachel · Corporate Holiday Dinner</p>
+                    </div>
                   </div>
                 </div>
               )}
@@ -311,8 +320,13 @@ export default function EventsContact() {
       <MobileStickyBar />
 
       <style>{`
+        @keyframes contact-vignette-breathe {
+          0%, 100% { opacity: 0.8; }
+          50% { opacity: 0.65; }
+        }
         @media (prefers-reduced-motion: reduce) {
           .grain { animation: none !important; }
+          [style*="contact-vignette-breathe"] { animation: none !important; opacity: 0.7 !important; }
           [style*="ken-burns"] { animation: none !important; }
         }
       `}</style>

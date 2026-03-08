@@ -221,7 +221,7 @@ export default function TeachingContact() {
                       key={i}
                       className="flex items-center gap-3 text-muted-foreground"
                     >
-                      <item.icon size={14} className="text-primary/60 shrink-0" />
+                      <item.icon size={16} className="text-primary/60 shrink-0" />
                       <span className="text-xs">{item.text}</span>
                     </div>
                   ))}
