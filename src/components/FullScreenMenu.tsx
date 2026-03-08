@@ -440,7 +440,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
               stroke="url(#menu-vine-gradient)"
               strokeWidth="1"
               style={{
-                filter: "drop-shadow(0 0 3px hsl(45 100% 76% / 0.06))",
+                filter: "drop-shadow(0 0 3px hsl(var(--vow-yellow) / 0.06))",
               }}
             />
           </svg>

@@ -24,8 +24,8 @@ export function VigilFlame({ isVisible, isDissolving }: VigilFlameProps) {
       <div
         className="w-1.5 h-2.5 rounded-full"
         style={{
-          background: "radial-gradient(circle at center, hsl(var(--vow-yellow)) 0%, hsl(39 100% 60%) 50%, transparent 100%)",
-          boxShadow: "0 0 24px hsl(var(--vow-yellow) / 0.7), 0 0 48px hsl(39 100% 60% / 0.35)",
+          background: "radial-gradient(circle at center, hsl(var(--vow-yellow)) 0%, hsl(var(--flame-core)) 50%, transparent 100%)",
+          boxShadow: "0 0 24px hsl(var(--vow-yellow) / 0.7), 0 0 48px hsl(var(--flame-core) / 0.35)",
           animation: isVisible && !isDissolving ? "flame-breathe 4s ease-in-out infinite" : undefined,
         }}
       />
