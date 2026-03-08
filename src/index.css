@@ -154,6 +154,8 @@ All colors MUST be HSL.
     --teaching-text-cite: 30 12% 50%;
     --teaching-text-narrative: 30 12% 30%;
     --teaching-text-quote: 30 20% 18%;
+    --teaching-text-heading-light: 40 18% 88%;
+    --teaching-scroll-cue: 40 10% 38%;
 
     /* Fitzgerald Typography Scale */
     --font-display: "Cormorant Garamond", "DM Serif Display", "Times New Roman", serif;
