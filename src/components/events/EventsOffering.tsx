@@ -28,7 +28,7 @@ const tiers = [
     duration: "4+ hours",
     description:
       "Complete musical direction for extended events. Multiple phases, curated transitions, and the flexibility to read the room all night.",
-    cta: "Tell me about your event",
+    cta: "Discuss your event",
     ctaHref: "/contact",
     isSelected: false,
   },
