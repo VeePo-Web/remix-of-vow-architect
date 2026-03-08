@@ -35,7 +35,7 @@ const topTenFAQs = [
   {
     question: "Will people in the back hear our vows?",
     answer: "Yes. I measure and verify volume levels at multiple distances during setup to ensure clarity reaches every seat.",
-    link: { to: "/proof", label: "See the documentation" }
+    link: { to: "/gallery", label: "See the documentation" }
   },
   {
     question: "What if it rains or snows?",

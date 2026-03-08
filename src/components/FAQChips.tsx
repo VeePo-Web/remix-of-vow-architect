@@ -27,7 +27,7 @@ const chips = [
   {
     question: "Do I receive a plan — or just a performance?",
     answer: "You receive a personalized ceremony plan within 24 hours — venue, timeline, and arrangements.",
-    link: { to: "/proof", label: "See a sample plan" }
+    link: { to: "/gallery", label: "See a sample plan" }
   }
 ];
 
