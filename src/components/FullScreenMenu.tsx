@@ -609,6 +609,14 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
             box-shadow: 0 0 10px hsl(var(--vow-yellow) / 0.18);
           }
         }
+        @keyframes menu-diamond-breathe {
+          0%, 100% { opacity: 0.05; }
+          50% { opacity: 0.12; }
+        }
+        @keyframes shimmer-sweep {
+          0% { transform: translateX(-100%) skewX(-20deg); }
+          100% { transform: translateX(400%) skewX(-20deg); }
+        }
         @media (prefers-reduced-motion: reduce) {
           [role="dialog"] * {
             animation-duration: 0.01ms !important;

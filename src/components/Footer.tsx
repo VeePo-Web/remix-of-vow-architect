@@ -329,7 +329,7 @@ export function Footer() {
         {/* === VeePo Attribution === */}
         <div
           className={cn(
-            "flex justify-center mt-4 transition-all duration-700",
+            "flex justify-center mt-6 md:mt-8 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
           style={{ transitionDelay: isVisible ? "550ms" : "0ms" }}
@@ -338,39 +338,70 @@ export function Footer() {
             href="https://veepo.ca/case-studies"
             target="_blank"
             rel="noopener noreferrer"
-            className="group/veepo max-w-md w-full block relative overflow-hidden border border-white/[0.08] hover:border-[hsl(28,87%,58%,0.15)] bg-white/[0.03] hover:bg-white/[0.06] rounded-lg px-8 py-5 transition-all duration-[260ms] hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="group/veepo max-w-lg md:max-w-xl w-full block relative overflow-hidden border border-white/[0.06] hover:border-[hsl(28,87%,58%,0.2)] rounded-lg px-10 py-8 md:px-16 md:py-10 transition-all duration-[260ms] hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            style={{
+              background: 'radial-gradient(ellipse at center, rgba(255,140,42,0.04) 0%, transparent 70%), hsl(var(--rich-black) / 0.6)',
+            }}
           >
+            {/* Gradient top border accent — always visible, subtle */}
+            <div
+              className="absolute top-0 left-0 w-full h-[1px] opacity-30 group-hover/veepo:opacity-60 transition-opacity duration-[260ms]"
+              style={{ background: 'linear-gradient(to right, transparent, hsl(166,72%,47%), hsl(28,87%,58%), transparent)' }}
+              aria-hidden="true"
+            />
             {/* Gradient bottom border accent — appears on hover */}
             <div
               className="absolute bottom-0 left-0 w-full h-[2px] opacity-0 group-hover/veepo:opacity-100 transition-opacity duration-[260ms]"
-              style={{ background: 'linear-gradient(to right, hsl(28,87%,58%), hsl(166,72%,47%))' }}
+              style={{ background: 'linear-gradient(to left, transparent, hsl(28,87%,58%), hsl(166,72%,47%), transparent)' }}
               aria-hidden="true"
             />
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="flex items-center gap-2">
-                  {/* Brand dot — orange/teal gradient identity marker */}
-                  <div
-                    className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                    style={{ background: 'linear-gradient(135deg, hsl(28,87%,58%), hsl(166,72%,47%))' }}
-                    aria-hidden="true"
-                  />
-                  <p className="text-[12px] tracking-[0.22em] uppercase text-muted-foreground/60">
-                    Locally powered by
-                  </p>
-                </div>
-                <span
-                  className="block mt-1 font-sans font-semibold text-[22px] tracking-[0.25em] uppercase text-foreground/90 transition-all duration-[180ms] group-hover/veepo:[color:hsl(166,72%,47%)] group-hover/veepo:[text-shadow:0_0_20px_hsl(28,87%,58%,0.15)]"
-                >
-                  VEEPO<span className="text-[16px] opacity-70">.CA</span>
-                </span>
-                <p className="text-[11px] tracking-[0.15em] text-muted-foreground/45 italic mt-1.5">
+            {/* Shimmer sweep overlay */}
+            <div
+              className="absolute inset-0 opacity-0 group-hover/veepo:opacity-100 pointer-events-none"
+              aria-hidden="true"
+            >
+              <div
+                className="absolute top-0 -left-full w-1/2 h-full skew-x-[-20deg] group-hover/veepo:animate-[shimmer-sweep_1.2s_ease-in-out_forwards]"
+                style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent)' }}
+              />
+            </div>
+            {/* Hover outer glow */}
+            <div
+              className="absolute inset-0 rounded-lg opacity-0 group-hover/veepo:opacity-100 transition-opacity duration-[400ms] pointer-events-none"
+              style={{ boxShadow: '0 0 60px rgba(255,140,42,0.08), 0 0 120px rgba(46,175,75,0.04)' }}
+              aria-hidden="true"
+            />
+            
+            <div className="flex flex-col items-center text-center relative z-[1]">
+              {/* Micro-label */}
+              <p className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground/40 mb-4">
+                This experience was crafted by
+              </p>
+              {/* Orange-teal accent divider */}
+              <div
+                className="w-8 h-[1px] mb-5"
+                style={{ background: 'linear-gradient(90deg, hsl(28,87%,58%), hsl(166,72%,47%))' }}
+                aria-hidden="true"
+              />
+              {/* VeePo logo */}
+              <img
+                src={veepoLogo}
+                alt="VeePo.ca"
+                className="h-12 md:h-16 w-auto mb-4 transition-all duration-[260ms] group-hover/veepo:drop-shadow-[0_0_20px_rgba(255,140,42,0.2)]"
+              />
+              {/* Domain */}
+              <span className="text-[11px] tracking-[0.2em] uppercase text-muted-foreground/50 group-hover/veepo:[color:hsl(166,72%,47%)] transition-colors duration-[180ms] mb-3">
+                veepo.ca
+              </span>
+              {/* Tagline + arrow */}
+              <div className="flex items-center gap-2">
+                <p className="text-[11px] tracking-[0.12em] text-muted-foreground/35 italic">
                   Where vision meets precision
                 </p>
+                <span className="text-sm text-muted-foreground/30 group-hover/veepo:[color:hsl(28,87%,58%)] transition-all duration-[180ms] group-hover/veepo:translate-x-1" aria-hidden="true">
+                  →
+                </span>
               </div>
-              <span className="text-lg text-muted-foreground/40 group-hover/veepo:[color:hsl(28,87%,58%)] transition-all duration-[180ms] group-hover/veepo:translate-x-1 ml-4" aria-hidden="true">
-                →
-              </span>
             </div>
           </a>
         </div>
