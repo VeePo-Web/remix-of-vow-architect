@@ -430,7 +430,7 @@ export function CrossOver() {
       <div
         className="section-fade-bottom"
         style={{
-          background: 'linear-gradient(to bottom, transparent 0%, hsl(240 9% 3% / 0.4) 30%, hsl(240 9% 2% / 0.8) 65%, hsl(240 9% 2%) 100%)',
+          background: 'linear-gradient(to bottom, transparent 0%, hsl(var(--rich-black) / 0.4) 30%, hsl(var(--rich-black) / 0.8) 65%, hsl(var(--rich-black)) 100%)',
           height: '120px',
         }}
         aria-hidden="true"

@@ -132,7 +132,7 @@ export function ThreePaths() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 20%, hsl(240 9% 4%) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 20%, hsl(var(--rich-black)) 100%)',
         }}
         aria-hidden="true"
       />
