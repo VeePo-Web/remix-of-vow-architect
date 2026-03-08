@@ -163,10 +163,10 @@ export default function AmbientAudioPill() {
           "transition-[background-color,border-color] duration-[180ms]",
           "border",
           isPanelOpen
-            ? "bg-black/50"
+            ? "bg-background/50"
             : isPlaying
-            ? "bg-black/50"
-            : "bg-black/40 hover:bg-black/45"
+            ? "bg-background/50"
+            : "bg-background/40 hover:bg-background/45"
         )}
         style={{
           animation: !entranceComplete

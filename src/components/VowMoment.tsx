@@ -29,6 +29,7 @@ export function VowMoment() {
         <img
           src={vowMomentAltar}
           alt=""
+          aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover opacity-[0.08] pointer-events-none"
           style={{
             animation: 'vow-ken-burns 30s ease-in-out infinite alternate',

@@ -185,7 +185,7 @@ export function ListeningMovement({
                 "w-12 h-12 rounded-full flex items-center justify-center transition-all duration-[180ms]",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)/0.6)]",
                 isActive && isPlaying
-                  ? "bg-[hsl(var(--vow-yellow))] text-black hover:scale-[1.06]"
+                  ? "bg-[hsl(var(--vow-yellow))] text-background hover:scale-[1.06]"
                   : "bg-foreground/10 text-foreground/70 hover:bg-foreground/20 hover:scale-[1.06]"
               )}
               aria-label={isActive && isPlaying ? `Pause ${trackTitle}` : `Play ${trackTitle}`}

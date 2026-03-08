@@ -225,7 +225,7 @@ export function AudioPlayer({ tracks, onPlayStateChange }: AudioPlayerProps) {
                     className={cn(
                       "w-8 h-8 rounded-full flex items-center justify-center transition-all",
                       isTrackPlaying
-                        ? "bg-[hsl(var(--vow-yellow))] text-black"
+                        ? "bg-[hsl(var(--vow-yellow))] text-background"
                         : "bg-foreground/10 text-foreground/70 group-hover:bg-foreground/15"
                     )}
                     style={{ transition: "all 180ms cubic-bezier(.22,.61,.36,1)" }}
