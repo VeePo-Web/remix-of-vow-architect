@@ -66,8 +66,8 @@ export function WitnessHero() {
         <div className="max-w-4xl mx-auto text-center">
           {/* The Label */}
           <p 
-            className={`text-xs uppercase tracking-[0.3em] text-muted-foreground mb-8 transition-all duration-700 ${
-              isVisible ? "opacity-60 translate-y-0" : "opacity-0 translate-y-4"
+            className={`text-xs uppercase tracking-[0.3em] text-muted-foreground text-center mb-8 transition-all duration-700 ${
+              isVisible ? "opacity-70 translate-y-0" : "opacity-0 translate-y-4"
             }`}
             style={{ transitionDelay: "200ms" }}
           >
