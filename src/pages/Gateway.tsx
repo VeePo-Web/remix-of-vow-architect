@@ -159,7 +159,7 @@ export default function Gateway() {
             s.available ? "border border-[hsl(var(--vow-yellow)/0.08)]" : "border border-white/[0.06]",
             "transition-all duration-300 opacity-0 animate-fade-in",
             s.available
-              ? "cursor-pointer hover:-translate-y-2 hover:scale-[1.015] hover:border-[hsl(var(--vow-yellow)/0.25)] hover:shadow-[0_16px_48px_rgba(255,224,138,0.08)]"
+              ? "cursor-pointer hover:-translate-y-2 hover:scale-[1.015] hover:border-[hsl(var(--vow-yellow)/0.25)] hover:shadow-[0_16px_48px_hsl(var(--vow-yellow)/0.08)]"
               : "cursor-default"
           );
 

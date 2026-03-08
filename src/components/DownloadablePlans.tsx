@@ -33,7 +33,7 @@ export function DownloadablePlans() {
           
           <StaggerChildren staggerDelay={80} className="grid md:grid-cols-3 gap-6 mb-8">
             {samplePlans.map((plan, i) => (
-              <Card key={i} className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)] hover:shadow-[0_0_24px_rgba(255,224,138,0.06)] transition-all duration-[180ms] group cursor-pointer">
+              <Card key={i} className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred card-sacred-hover transition-all duration-[180ms] group cursor-pointer">
                 <div className="aspect-[3/4] bg-muted/40 border border-border/30 rounded-md flex flex-col items-center justify-center mb-4 group-hover:border-primary/20 transition-colors duration-[180ms]">
                   <FileText className="text-muted-foreground/60 mb-2" size={48} />
                   <Download className="text-muted-foreground/30 group-hover:text-primary/50 transition-colors duration-[180ms]" size={20} />
