@@ -256,8 +256,8 @@ export function TeachingMethodology() {
         <p
           className="font-sans text-[16px] md:text-[18px] leading-[1.7] max-w-[600px] mx-auto mb-fitz-7"
           style={{
-            color: "hsl(40 20% 75%)",
-            textShadow: "0 1px 3px hsl(0 0% 0% / 0.15)",
+            color: "hsl(var(--teaching-studio-body))",
+            textShadow: "0 1px 3px hsl(var(--rich-black) / 0.15)",
           }}
         >
           <ScrollRevealWords
