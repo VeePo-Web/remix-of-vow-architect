@@ -11,6 +11,7 @@ import { DownloadablePlans } from "@/components/DownloadablePlans";
 import { RevealOnScroll } from "@/components/animation";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { Shield, Zap, Layers, Clock } from "lucide-react";
+import { Link } from "react-router-dom";
 import galleryHeroImg from "@/assets/gallery-hero.jpg";
 
 const proofSections = [
@@ -22,6 +23,29 @@ const proofSections = [
   { id: "proof-downloads",   label: "Downloads",        isBlackKey: false },
   { id: "proof-cta",         label: "Begin",            isBlackKey: true  },
 ];
+
+/** Golden thread separator between sections */
+function GoldenThread() {
+  return (
+    <div className="relative py-2" aria-hidden="true">
+      <div
+        className="h-px max-w-xs mx-auto"
+        style={{
+          background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)",
+        }}
+      />
+      {/* Breathing dot at center */}
+      <div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-1 rounded-full"
+        style={{
+          background: "hsl(var(--vow-yellow) / 0.6)",
+          boxShadow: "0 0 8px hsl(var(--vow-yellow) / 0.3)",
+          animation: "golden-dot-breathe 3s ease-in-out infinite",
+        }}
+      />
+    </div>
+  );
+}
 
 export default function Proof() {
   usePageTheme();
@@ -45,12 +69,18 @@ export default function Proof() {
             }}
           />
         </div>
+        {/* Warm fog */}
         <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)" }} aria-hidden="true" />
+        {/* Cinematic vignette with breathing */}
         <div 
           className="absolute inset-0 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at center, transparent 30%, hsl(var(--background)) 90%)" }}
+          style={{
+            background: "radial-gradient(ellipse at center, transparent 30%, hsl(var(--background)) 90%)",
+            animation: "vignette-breathe 6s ease-in-out infinite",
+          }}
           aria-hidden="true"
         />
+        {/* Film grain */}
         <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
 
         <div className="container mx-auto px-4 relative z-10">
@@ -84,8 +114,7 @@ export default function Proof() {
         </div>
       </section>
 
-      {/* Golden thread */}
-      <div className="h-[1px] max-w-xs mx-auto my-0" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
+      <GoldenThread />
 
       {/* Section 2 - SPL Log Triptych */}
       <div id="proof-spl" className="piano-section-target">
@@ -94,8 +123,7 @@ export default function Proof() {
         </RevealOnScroll>
       </div>
 
-      {/* Golden thread */}
-      <div className="h-[1px] max-w-xs mx-auto" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
+      <GoldenThread />
 
       {/* Section 3 - Setup Photos */}
       <div id="proof-setup" className="piano-section-target">
@@ -104,8 +132,7 @@ export default function Proof() {
         </RevealOnScroll>
       </div>
 
-      {/* Golden thread */}
-      <div className="h-[1px] max-w-xs mx-auto" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
+      <GoldenThread />
 
       {/* Section 4 - Insurance */}
       <div id="proof-insurance" className="piano-section-target">
@@ -114,8 +141,7 @@ export default function Proof() {
         </RevealOnScroll>
       </div>
 
-      {/* Golden thread */}
-      <div className="h-[1px] max-w-xs mx-auto" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
+      <GoldenThread />
 
       {/* Section 5 - Redundancy */}
       <div id="proof-redundancy" className="piano-section-target">
@@ -124,8 +150,7 @@ export default function Proof() {
         </RevealOnScroll>
       </div>
 
-      {/* Golden thread */}
-      <div className="h-[1px] max-w-xs mx-auto" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
+      <GoldenThread />
 
       {/* Section 6 - Downloadable Plans */}
       <div id="proof-downloads" className="piano-section-target">
@@ -134,27 +159,34 @@ export default function Proof() {
         </RevealOnScroll>
       </div>
 
-      {/* Golden thread */}
-      <div className="h-[1px] max-w-xs mx-auto" style={{ background: 'linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)' }} aria-hidden="true" />
+      <GoldenThread />
 
       {/* Final CTA */}
       <div id="proof-cta" className="piano-section-target">
         <RevealOnScroll variant="up">
-          <section className="section--dark section-padding">
-            <div className="container mx-auto px-4">
+          <section className="relative section--dark section-padding overflow-hidden">
+            {/* Warm glow behind CTA */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: "radial-gradient(ellipse 50% 60% at 50% 50%, hsl(var(--vow-yellow) / 0.04) 0%, transparent 70%)",
+              }}
+              aria-hidden="true"
+            />
+            <div className="container mx-auto px-4 relative z-10">
               <div className="max-w-3xl mx-auto text-center space-y-6">
                 <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light text-foreground">
                   Every arrangement begins with a conversation.
                 </h2>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                   <Button size="lg" variant="primary-dark" className="hover-scale">
-                    Hold my date
+                  <Button size="lg" variant="primary-dark" className="hover-scale" asChild>
+                    <Link to="/contact">Hold my date</Link>
                   </Button>
                   <Button variant="ghost-dark" size="lg" className="hover-scale">
                     Download a sample ceremony plan
                   </Button>
                 </div>
-                 <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground">
                   Response within 24 hours. Always.
                 </p>
               </div>
@@ -176,6 +208,20 @@ export default function Proof() {
 
       <Footer />
       <MobileStickyBar />
+
+      <style>{`
+        @keyframes vignette-breathe {
+          0%, 100% { opacity: 0.75; }
+          50% { opacity: 0.65; }
+        }
+        @keyframes golden-dot-breathe {
+          0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
+          50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.5); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .grain, [style*="ken-burns"] { animation: none !important; }
+        }
+      `}</style>
     </div>
   );
 }
