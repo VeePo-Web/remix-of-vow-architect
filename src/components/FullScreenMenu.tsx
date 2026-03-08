@@ -462,9 +462,8 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
                   {/* Label */}
                   <span
                    className={cn(
-                      "relative font-display transition-all flex items-baseline gap-3",
+                      "relative font-display transition-all flex items-center justify-center gap-3",
                       "text-2xl md:text-3xl lg:text-4xl",
-                      isBlackKey && "md:pl-4 lg:pl-6",
                       isActive
                         ? "text-foreground"
                         : "text-foreground opacity-75 group-hover:opacity-100"
