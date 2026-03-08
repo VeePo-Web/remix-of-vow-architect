@@ -10,11 +10,19 @@ interface FullScreenMenuProps {
   onClose: () => void;
 }
 
-function getMenuItems(pathname: string) {
+// Zone 1: The Three Paths — vertical selection
+const verticals = [
+  { label: "Weddings", href: "/weddings", base: "/weddings" },
+  { label: "Private Events", href: "/events", base: "/events" },
+  { label: "Piano Lessons", href: "/teaching", base: "/teaching" },
+];
+
+// Zone 2: Contextual page navigation (returns vertical-aware hrefs)
+function getPageItems(pathname: string) {
   const isEvents = pathname.startsWith('/events');
   const isTeaching = pathname.startsWith('/teaching');
 
-  const servicesHref = isEvents ? '/events/pricing'
+  const pricingHref = isEvents ? '/events/pricing'
     : isTeaching ? '/teaching/pricing'
     : '/pricing';
 
@@ -22,38 +30,46 @@ function getMenuItems(pathname: string) {
     : isTeaching ? '/teaching/about'
     : '/about';
 
+  const contactHref = isEvents ? '/events/contact'
+    : isTeaching ? '/teaching/contact'
+    : '/contact';
+
   return [
-    { number: "01", label: "Weddings", href: "/weddings" },
-    { number: "02", label: "Teaching", href: "/teaching" },
-    { number: "03", label: "Events", href: "/events" },
-    { number: "04", label: "Services", href: servicesHref },
-    { number: "05", label: "About", href: aboutHref },
-    { number: "06", label: "Proof", href: "/proof" },
-    { number: "07", label: "FAQ", href: "/faq" },
-    { number: "08", label: "Listen", href: "/listen" },
-    { number: "09", label: "Contact", href: isEvents ? '/events/contact' : isTeaching ? '/teaching/contact' : '/contact' },
+    { label: "Offerings", href: pricingHref },
+    { label: "About", href: aboutHref },
+    { label: "Proof", href: "/proof" },
+    { label: "FAQ", href: "/faq" },
+    { label: "Listen", href: "/listen" },
+    { label: "Get in Touch", href: contactHref },
   ];
+}
+
+function getActiveVertical(pathname: string): string {
+  if (pathname.startsWith('/events')) return '/events';
+  if (pathname.startsWith('/teaching')) return '/teaching';
+  return '/weddings';
 }
 
 /**
  * FullScreenMenu — "The Score"
  * 
- * A bespoke piano-themed navigation overlay that feels like opening
- * a musical score. Each menu item is a "key" — white and black keys
- * alternate, with tactile hover depression and golden thread connections.
+ * A bespoke piano-themed navigation overlay structured as two zones:
+ * 1. The Three Paths — vertical selection (Weddings, Events, Teaching)
+ * 2. Within This Path — contextual page links
  * 
- * The overlay is the vigil space — dark, sacred, reverent — mirroring
- * the Death side of the brand dichotomy. Opening it is an inhale;
- * closing it is an exhale.
+ * The overlay is the vigil space — dark, sacred, reverent.
  */
 export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [pressedIndex, setPressedIndex] = useState<number | null>(null);
+  const [hoveredVertical, setHoveredVertical] = useState<number | null>(null);
   const lenis = useSmoothScroll();
   const { navigateWithTransition } = usePageTransition();
-  const menuItems = getMenuItems(location.pathname);
+  
+  const pageItems = getPageItems(location.pathname);
+  const activeVertical = getActiveVertical(location.pathname);
 
   // Stop/start Lenis when menu opens/closes
   useEffect(() => {
@@ -82,6 +98,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
     if (!isOpen) {
       setHoveredIndex(null);
       setPressedIndex(null);
+      setHoveredVertical(null);
     }
   }, [isOpen]);
 
@@ -119,11 +136,18 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
     return () => window.removeEventListener("keydown", trap);
   }, [isOpen]);
 
-  const handleItemClick = useCallback((e: React.MouseEvent, index: number) => {
+  const handleVerticalClick = useCallback((e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    onClose();
+    if (href !== location.pathname && !location.pathname.startsWith(href)) {
+      navigateWithTransition(href);
+    }
+  }, [onClose, location.pathname, navigateWithTransition]);
+
+  const handlePageClick = useCallback((e: React.MouseEvent, index: number) => {
     e.preventDefault();
     setPressedIndex(index);
-    const targetPath = menuItems[index].href;
-    // Tactile delay — feel the key depress, then transition gracefully
+    const targetPath = pageItems[index].href;
     setTimeout(() => {
       setPressedIndex(null);
       onClose();
@@ -131,7 +155,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
         navigateWithTransition(targetPath);
       }
     }, 120);
-  }, [onClose, location.pathname, navigateWithTransition]);
+  }, [onClose, location.pathname, navigateWithTransition, pageItems]);
 
   return (
     <div
@@ -149,14 +173,14 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
           ATMOSPHERIC LAYERS — The Vigil Space
           ═══════════════════════════════════════════ */}
 
-      {/* Layer 1: Film grain — sacred texture */}
+      {/* Layer 1: Film grain */}
       <div
         className="grain pointer-events-none"
         style={{ opacity: 0.06 }}
         aria-hidden="true"
       />
 
-      {/* Layer 2: Edge vignette — concentrates focus inward */}
+      {/* Layer 2: Edge vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -166,7 +190,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
         aria-hidden="true"
       />
 
-      {/* Layer 3: Primary candlelight — warm pool from left where items sit */}
+      {/* Layer 3: Primary candlelight */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -176,7 +200,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
         aria-hidden="true"
       />
 
-      {/* Layer 4: Secondary candle warmth — center glow, breathing */}
+      {/* Layer 4: Secondary candle warmth */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -189,7 +213,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
         aria-hidden="true"
       />
 
-      {/* Layer 5: Deep charcoal fog — drifts slowly */}
+      {/* Layer 5: Deep charcoal fog */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -203,7 +227,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
       />
 
       {/* ═══════════════════════════════════════════
-          CLOSE BUTTON — aligned with header menu
+          CLOSE BUTTON
           ═══════════════════════════════════════════ */}
       <div className="fixed top-0 right-0 z-10 px-[var(--hero-space-edge,24px)] md:px-[var(--hero-space-edge,48px)] py-6">
         <button
@@ -226,75 +250,102 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
       </div>
 
       {/* ═══════════════════════════════════════════
-          THE SCORE — Menu Items as Piano Keys
+          MENU CONTENT — Two Zones
           ═══════════════════════════════════════════ */}
       <div className="flex flex-col justify-center items-start min-h-screen px-8 md:px-16 lg:px-24">
 
-        {/* Musical staff lines — faint horizontal rules behind menu items */}
+        {/* ═══════════════════════════════════════════
+            ZONE 1: The Three Paths — Vertical Selection
+            ═══════════════════════════════════════════ */}
         <div
           className={cn(
-            "absolute left-0 right-0 pointer-events-none transition-opacity duration-[700ms]",
-            isOpen ? "opacity-100" : "opacity-0"
+            "flex flex-col md:flex-row gap-3 md:gap-8 mb-8 md:mb-10 transition-all duration-[300ms]",
+            isOpen ? "opacity-100 translate-y-0 delay-[200ms]" : "opacity-0 translate-y-4"
           )}
-          style={{ top: "50%", transform: "translateY(-50%)" }}
-          aria-hidden="true"
+          onMouseLeave={() => setHoveredVertical(null)}
         >
-          {[0, 1, 2, 3, 4].map((line) => (
-            <div
-              key={line}
-              className="w-full h-px"
-              style={{
-                background: `linear-gradient(90deg, transparent 5%, hsl(var(--foreground) / ${
-                  line === 2 ? 0.04 : 0.025
-                }) 20%, hsl(var(--foreground) / ${
-                  line === 2 ? 0.04 : 0.025
-                }) 80%, transparent 95%)`,
-                marginBottom: line < 4 ? "48px" : "0",
-                transitionDelay: `${600 + line * 60}ms`,
-              }}
-            />
-          ))}
+          {verticals.map((vertical, idx) => {
+            const isActive = activeVertical === vertical.base;
+            const isHovered = hoveredVertical === idx;
+            const isDimmed = hoveredVertical !== null && hoveredVertical !== idx;
+            
+            return (
+              <Link
+                key={vertical.base}
+                to={vertical.href}
+                onClick={(e) => handleVerticalClick(e, vertical.href)}
+                onMouseEnter={() => setHoveredVertical(idx)}
+                className={cn(
+                  "relative font-display text-lg md:text-xl transition-all duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm",
+                  isActive
+                    ? "text-foreground"
+                    : isDimmed
+                    ? "text-foreground/30"
+                    : "text-foreground/50 hover:text-foreground/80"
+                )}
+                style={{
+                  transitionTimingFunction: "cubic-bezier(0.22,0.61,0.36,1)",
+                }}
+              >
+                {vertical.label}
+                {/* Golden underline for active vertical */}
+                <span
+                  className={cn(
+                    "absolute -bottom-1 left-0 h-px origin-left transition-all duration-[350ms]",
+                    isActive ? "w-full" : isHovered ? "w-full" : "w-0"
+                  )}
+                  style={{
+                    background: isActive
+                      ? "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.5), hsl(var(--vow-yellow) / 0.15))"
+                      : "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.25), transparent)",
+                    boxShadow: isActive ? "0 0 8px hsl(var(--vow-yellow) / 0.1)" : "none",
+                    transitionTimingFunction: "cubic-bezier(0.22,0.61,0.36,1)",
+                  }}
+                  aria-hidden="true"
+                />
+              </Link>
+            );
+          })}
         </div>
 
+        {/* Golden thread separator between zones */}
+        <div
+          className={cn(
+            "w-24 md:w-32 mb-8 md:mb-10 transition-all duration-[400ms]",
+            isOpen ? "opacity-100 delay-[350ms]" : "opacity-0"
+          )}
+        >
+          <div
+            className="h-px"
+            style={{
+              background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.25), hsl(var(--vow-yellow) / 0.08), transparent)",
+            }}
+            aria-hidden="true"
+          />
+        </div>
+
+        {/* ═══════════════════════════════════════════
+            ZONE 2: Within This Path — Page Navigation
+            ═══════════════════════════════════════════ */}
         <nav
-          className="space-y-4 md:space-y-5 relative z-[2]"
+          className="space-y-3 md:space-y-4 relative z-[2]"
           onMouseLeave={() => setHoveredIndex(null)}
         >
-          {menuItems.map((item, index) => {
+          {pageItems.map((item, index) => {
             const isActive = location.pathname === item.href;
             const isDimmed = hoveredIndex !== null && hoveredIndex !== index;
             const isHovered = hoveredIndex === index;
             const isPressed = pressedIndex === index;
 
-            // Alternating "key" pattern: even = white key, odd = black key
+            // Alternating key pattern
             const isBlackKey = index % 2 === 1;
 
             return (
-              <div key={item.number} className="relative group">
-                {/* Golden connecting thread between items */}
-                {index > 0 && (
-                  <div
-                    className={cn(
-                      "absolute -top-[10px] md:-top-[10px] left-[52px] md:left-[68px] w-px h-[10px] transition-all duration-[400ms]",
-                      isOpen ? "opacity-100" : "opacity-0"
-                    )}
-                    style={{
-                      background: `linear-gradient(to bottom, hsl(var(--vow-yellow) / ${
-                        isHovered || (hoveredIndex === index - 1) ? 0.25 : 0.06
-                      }), hsl(var(--vow-yellow) / ${
-                        isHovered || (hoveredIndex === index - 1) ? 0.25 : 0.06
-                      }))`,
-                      transitionDelay: `${350 + index * 50}ms`,
-                      transitionTimingFunction: "cubic-bezier(0.22,0.61,0.36,1)",
-                    }}
-                    aria-hidden="true"
-                  />
-                )}
-
+              <div key={item.label} className="relative group">
                 <Link
                   to={item.href}
                   className={cn(
-                    "relative flex items-baseline gap-4 md:gap-6 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm",
+                    "relative flex items-center gap-3 md:gap-4 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm",
                     isOpen ? "translate-y-0" : "translate-y-6",
                     isOpen
                       ? isDimmed
@@ -304,10 +355,10 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
                   )}
                   style={{
                     transitionDuration: "260ms",
-                    transitionDelay: isOpen ? `${300 + index * 60}ms` : "0ms",
+                    transitionDelay: isOpen ? `${400 + index * 60}ms` : "0ms",
                     transitionTimingFunction: "cubic-bezier(0.22,0.61,0.36,1)",
                   }}
-                  onClick={(e) => handleItemClick(e, index)}
+                  onClick={(e) => handlePageClick(e, index)}
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseDown={() => setPressedIndex(index)}
                   onMouseUp={() => setPressedIndex(null)}
@@ -315,7 +366,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
                   {/* Active indicator — golden dash */}
                   <span
                     className={cn(
-                      "w-4 h-[1px] transition-all duration-[260ms] self-center flex-shrink-0",
+                      "w-3 h-px transition-all duration-[260ms] flex-shrink-0",
                       isActive ? "opacity-100" : "opacity-0 w-0"
                     )}
                     style={{
@@ -327,37 +378,17 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
                     aria-hidden="true"
                   />
 
-                  {/* Number — muted, shifts color on hover */}
-                  <span
-                    className={cn(
-                      "text-xs font-sans min-w-[2.5ch] tabular-nums transition-all duration-[180ms]",
-                      isActive
-                        ? "text-primary opacity-50"
-                        : "text-muted-foreground opacity-40 group-hover:text-primary group-hover:opacity-25"
-                    )}
-                    style={{
-                      transform: isPressed ? "translateY(1px)" : "translateY(0)",
-                      transitionTimingFunction: "cubic-bezier(0.22,0.61,0.36,1)",
-                    }}
-                  >
-                    {item.number}
-                  </span>
-
-                  {/* Label — the "key" */}
+                  {/* Label */}
                   <span
                     className={cn(
                       "relative font-display transition-all",
-                      // Size hierarchy
-                      "text-3xl md:text-4xl lg:text-5xl",
-                      // Black keys are slightly recessed
-                      isBlackKey && "md:pl-3 lg:pl-4",
-                      // Color states
+                      "text-2xl md:text-3xl lg:text-4xl",
+                      isBlackKey && "md:pl-2 lg:pl-3",
                       isActive
                         ? "text-foreground"
                         : "text-foreground opacity-75 group-hover:opacity-100"
                     )}
                     style={{
-                      // Piano key depression physics: 1px hover, 2px press
                       transform: isPressed
                         ? "translateY(2px)"
                         : isHovered
@@ -367,7 +398,6 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
                       transitionTimingFunction: isPressed
                         ? "cubic-bezier(0.4, 0, 1, 1)"
                         : "cubic-bezier(0.22,0.61,0.36,1)",
-                      // Text shadow — golden warmth on hover
                       textShadow: isHovered
                         ? "0 0 30px hsl(var(--vow-yellow) / 0.08)"
                         : isActive
@@ -377,10 +407,10 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
                   >
                     {item.label}
 
-                    {/* Underline — draws from left on hover, persists on active */}
+                    {/* Underline */}
                     <span
                       className={cn(
-                        "absolute -bottom-1 left-0 h-[1px] origin-left transition-transform",
+                        "absolute -bottom-1 left-0 h-px origin-left transition-transform",
                         isActive || isHovered ? "scale-x-100" : "scale-x-0"
                       )}
                       style={{
@@ -399,10 +429,10 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
                       aria-hidden="true"
                     />
 
-                    {/* Black key shadow — subtle depth on odd items */}
+                    {/* Black key shadow */}
                     {isBlackKey && (
                       <span
-                        className="absolute -left-3 lg:-left-4 top-1/2 -translate-y-1/2 w-[3px] h-[60%] rounded-full pointer-events-none"
+                        className="absolute -left-2 lg:-left-3 top-1/2 -translate-y-1/2 w-[2px] h-[60%] rounded-full pointer-events-none"
                         style={{
                           background: `linear-gradient(to bottom, transparent, hsl(var(--foreground) / ${
                             isHovered ? 0.08 : 0.03
@@ -420,12 +450,12 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
         </nav>
 
         {/* ═══════════════════════════════════════════
-            ORGANIC VINE THREAD — "Bar Line" separator
+            VINE THREAD SEPARATOR
             ═══════════════════════════════════════════ */}
         <div
           className={cn(
-            "mt-12 md:mt-14 w-32 transition-all duration-[400ms] overflow-visible",
-            isOpen ? "opacity-100 delay-[700ms]" : "opacity-0"
+            "mt-10 md:mt-12 w-32 transition-all duration-[400ms] overflow-visible",
+            isOpen ? "opacity-100 delay-[800ms]" : "opacity-0"
           )}
         >
           <svg
@@ -461,13 +491,13 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
         </div>
 
         {/* ═══════════════════════════════════════════
-            CONTACT — Location & Email
+            CONTACT INFO
             ═══════════════════════════════════════════ */}
         <div
           className={cn(
             "mt-6 space-y-2 text-sm transition-all duration-[300ms]",
             isOpen
-              ? "opacity-100 translate-y-0 delay-[750ms]"
+              ? "opacity-100 translate-y-0 delay-[850ms]"
               : "opacity-0 translate-y-4"
           )}
         >
@@ -485,15 +515,14 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
         </div>
 
         {/* ═══════════════════════════════════════════
-            COVENANT BOOKEND — "Coda" of the Score
+            COVENANT BOOKEND
             ═══════════════════════════════════════════ */}
         <div
           className={cn(
             "mt-10 md:mt-12 transition-all duration-[400ms]",
-            isOpen ? "opacity-100 delay-[850ms]" : "opacity-0"
+            isOpen ? "opacity-100 delay-[900ms]" : "opacity-0"
           )}
         >
-          {/* Breathing golden dot — 4s cycle */}
           <div
             className="w-1.5 h-1.5 rounded-full mb-4"
             style={{
