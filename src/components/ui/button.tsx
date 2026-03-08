@@ -92,10 +92,10 @@ const buttonVariants = cva(
          */
         accent: [
           "bg-accent text-accent-foreground border border-accent",
-          "shadow-[0_4px_16px_rgba(155,225,93,0.12)]",
+          "shadow-[0_4px_16px_hsl(var(--vine-green)/0.12)]",
           "hover:bg-[hsl(var(--vine-green)/0.85)] hover:border-[hsl(var(--vine-green)/0.85)]",
-          "hover:shadow-[0_8px_24px_rgba(155,225,93,0.18)]",
-          "active:shadow-[0_2px_8px_rgba(155,225,93,0.1)]",
+          "hover:shadow-[0_8px_24px_hsl(var(--vine-green)/0.18)]",
+          "active:shadow-[0_2px_8px_hsl(var(--vine-green)/0.1)]",
         ].join(" "),
 
         /**
