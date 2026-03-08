@@ -54,7 +54,7 @@ export function MinimalScrollCue() {
       {/* Chevron Only */}
       <ChevronDown 
         size={14} 
-        className="text-[hsl(var(--vow-yellow))]" 
+        className="text-primary" 
         strokeWidth={1.5}
         style={{ opacity: 0.5 }}
       />

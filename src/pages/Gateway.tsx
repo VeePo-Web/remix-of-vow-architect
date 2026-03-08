@@ -214,7 +214,7 @@ export default function Gateway() {
           >
             {" ; "}
           </span>
-          Unto Life<span className="text-[hsl(var(--vow-yellow))]">.</span>
+          Unto Life<span className="text-primary">.</span>
         </p>
       </footer>
 

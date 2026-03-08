@@ -77,7 +77,7 @@ export function EventsHero() {
           }}
         >
           Every room has a sound it's waiting for
-          <span className="text-[hsl(var(--vow-yellow))]">.</span>
+          <span className="text-primary">.</span>
         </h1>
       </div>
 
