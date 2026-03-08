@@ -55,7 +55,8 @@ export function MobileStickyBar() {
   const ctaText = config.cta;
 
   return (
-    <div 
+    <nav
+      aria-label="Quick contact"
       className={`md:hidden fixed bottom-0 left-0 right-0 z-40 backdrop-blur-md overflow-hidden transition-all duration-[260ms] ease-[cubic-bezier(0.22,0.61,0.36,1)] ${
         isVisible && !isFooterCtaVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
       }`}
