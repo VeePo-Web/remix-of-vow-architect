@@ -124,13 +124,12 @@ export function WitnessPresence() {
               <div 
                 key={index}
                 className={cn(
-                  "p-6 rounded-lg border border-primary/[0.08] backdrop-blur-[12px] transition-all duration-500 hover:border-primary/20 hover:shadow-[0_0_24px_rgba(255,224,138,0.06)]",
+                  "p-6 rounded-lg border border-primary/[0.08] backdrop-blur-[12px] transition-all duration-500 hover:border-primary/20 card-sacred card-sacred-hover",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 )}
                 style={{ 
                   transitionDelay: `${900 + index * 100}ms`,
                   background: "hsl(var(--card) / 0.3)",
-                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05), 0 8px 32px rgba(0,0,0,0.15)",
                 }}
               >
                 <p className="text-sm text-muted-foreground leading-relaxed italic">
