@@ -35,8 +35,8 @@ export function DownloadablePlans() {
             {samplePlans.map((plan, i) => (
               <Card key={i} className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred card-sacred-hover transition-all duration-[180ms] group cursor-pointer">
                 <div className="aspect-[3/4] bg-muted/40 border border-border/30 rounded-md flex flex-col items-center justify-center mb-4 group-hover:border-primary/20 transition-colors duration-[180ms]">
-                  <FileText className="text-muted-foreground/60 mb-2" size={48} />
-                  <Download className="text-muted-foreground/30 group-hover:text-primary/50 transition-colors duration-[180ms]" size={20} />
+                  <FileText className="text-muted-foreground opacity-60 mb-2" size={48} />
+                  <Download className="text-muted-foreground opacity-30 group-hover:text-primary group-hover:opacity-50 transition-colors duration-[180ms]" size={20} />
                 </div>
                 <h3 className="font-display text-base font-medium mb-1">{plan.title}</h3>
                 <p className="text-[14px] text-primary mb-2">{plan.venue}</p>

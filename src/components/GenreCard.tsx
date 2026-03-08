@@ -149,7 +149,7 @@ export function GenreCard({
         {/* Context phrase — Inter (body sans, not display italic) */}
         <span
           className={cn(
-            "text-[11px] font-sans text-foreground/40 mt-1.5 text-center leading-tight",
+            "text-[11px] font-sans text-muted-foreground mt-1.5 text-center leading-tight",
             "transition-opacity duration-[180ms]",
             isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
           )}
