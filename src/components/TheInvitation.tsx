@@ -339,7 +339,7 @@ export function TheInvitation() {
       {/* Bottom fade */}
       <div
         className="absolute bottom-0 left-0 right-0 h-[120px] z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to bottom, transparent, hsl(220 15% 8%))' }}
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(var(--deep-graphite)))' }}
         aria-hidden="true"
       />
     </section>

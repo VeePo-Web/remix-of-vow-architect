@@ -305,7 +305,7 @@ export function CrossOver() {
             {/* 10e: Inner core glow */}
             <div
               className="absolute -inset-x-10 -inset-y-5 rounded-full pointer-events-none"
-              style={{ background: 'radial-gradient(ellipse at center, hsl(45 100% 76% / 0.12) 0%, transparent 40%)' }}
+              style={{ background: 'radial-gradient(ellipse at center, hsl(var(--vow-yellow) / 0.12) 0%, transparent 40%)' }}
               aria-hidden="true"
             />
             <Button 
