@@ -321,6 +321,7 @@ export default function Pricing() {
           </div>
         </div>
       </section>
+      </main>
 
       <Footer />
       <MobileStickyBar />
