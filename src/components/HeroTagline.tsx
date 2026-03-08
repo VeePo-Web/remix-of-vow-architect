@@ -21,7 +21,7 @@ export function HeroTagline() {
           animationFillMode: "forwards",
         }}
       >
-        Wedding Pianist
+        Sound Director
       </p>
 
       {/* Main Tagline */}
