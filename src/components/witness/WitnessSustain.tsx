@@ -89,7 +89,7 @@ export function WitnessSustain() {
               {/* Connecting line — elegant dashed */}
               <line 
                 x1="60" y1="20" x2="340" y2="20" 
-                stroke="hsl(45 80% 75%)" 
+                stroke="hsl(var(--vow-yellow))" 
                 strokeWidth="1" 
                 opacity="0.15"
                 strokeDasharray="4 8"
