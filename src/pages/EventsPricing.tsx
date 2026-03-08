@@ -58,14 +58,14 @@ const presences = [
   },
 ];
 
-const comparisonData = [
-  { feature: "Room-reading",         me: true,      playlist: false,   dj: "warning", band: "warning" },
-  { feature: "Volume sensitivity",   me: true,      playlist: false,   dj: "warning", band: false     },
-  { feature: "Setup footprint",      me: true,      playlist: true,    dj: "warning", band: false     },
-  { feature: "Conversation-friendly",me: true,      playlist: "warning", dj: false,   band: false     },
-  { feature: "Repertoire depth",     me: true,      playlist: true,    dj: true,      band: "warning" },
-  { feature: "Live presence",        me: true,      playlist: false,   dj: false,     band: true      },
-  { feature: "Adaptive energy",      me: true,      playlist: false,   dj: "warning", band: "warning" },
+const comparisonData: { feature: string; me: boolean | "warning"; playlist: boolean | "warning"; dj: boolean | "warning"; band: boolean | "warning" }[] = [
+  { feature: "Room-reading",          me: true,  playlist: false,     dj: "warning", band: "warning" },
+  { feature: "Volume sensitivity",    me: true,  playlist: false,     dj: "warning", band: false     },
+  { feature: "Setup footprint",       me: true,  playlist: true,      dj: "warning", band: false     },
+  { feature: "Conversation-friendly", me: true,  playlist: "warning", dj: false,     band: false     },
+  { feature: "Repertoire depth",      me: true,  playlist: true,      dj: true,      band: "warning" },
+  { feature: "Live presence",         me: true,  playlist: false,     dj: false,     band: true      },
+  { feature: "Adaptive energy",       me: true,  playlist: false,     dj: "warning", band: "warning" },
 ];
 
 const faqs = [
