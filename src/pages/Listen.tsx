@@ -314,8 +314,16 @@ export default function Listen() {
       <div className="section-fade-bottom" style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--vigil-void)))", height: "80px", position: "relative", zIndex: 2 }} aria-hidden="true" />
 
       {/* ── THE CROSSING CTA ── */}
-      <section id="listen-crossing" className="relative min-h-[60vh] flex items-center justify-center px-6 piano-section-target">
-        <div className="text-center max-w-lg">
+      <section id="listen-crossing" className="relative min-h-[60vh] flex items-center justify-center px-6 piano-section-target overflow-hidden">
+        {/* Warm radial glow */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse 50% 60% at 50% 50%, hsl(var(--vow-yellow) / 0.04) 0%, transparent 70%)",
+          }}
+          aria-hidden="true"
+        />
+        <div className="text-center max-w-lg relative z-10">
           <p className="text-[11px] md:text-xs uppercase tracking-[0.3em] text-[hsl(var(--vow-yellow)/0.6)] mb-4">
             The Crossing
           </p>
@@ -324,10 +332,13 @@ export default function Listen() {
           </h2>
           <div className="chapter-rule mx-auto mb-8" />
           <Link to="/contact">
-            <Button variant="outline" size="lg">
+            <Button variant="primary-dark" size="lg" className="hover-scale">
               Hold My Date
             </Button>
           </Link>
+          <p className="text-xs text-muted-foreground/60 mt-4">
+            Response within 24 hours. Always.
+          </p>
         </div>
       </section>
 

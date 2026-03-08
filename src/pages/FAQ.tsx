@@ -1,6 +1,7 @@
 import { MinimalHeader } from "@/components/MinimalHeader";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
+import { PianoKeyNav } from "@/components/PianoKeyNav";
 import { DirectionalLink } from "@/components/DirectionalLink";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { usePageTheme } from "@/hooks/usePageTheme";
@@ -11,15 +12,25 @@ import { FAQPolicyDownload } from "@/components/FAQPolicyDownload";
 import { FAQTrustStack } from "@/components/FAQTrustStack";
 import faqHeroImg from "@/assets/faq-hero.jpg";
 
+const faqSections = [
+  { id: "faq-hero",      label: "The Threshold",  isBlackKey: false },
+  { id: "faq-chips",     label: "Quick Answers",  isBlackKey: true  },
+  { id: "faq-fears",     label: "Common Fears",   isBlackKey: false },
+  { id: "faq-policy",    label: "Policies",        isBlackKey: true  },
+  { id: "faq-trust",     label: "Trust",           isBlackKey: false },
+  { id: "faq-crossing",  label: "The Crossing",   isBlackKey: false },
+];
+
 export default function FAQ() {
   usePageTheme();
 
   return (
     <div className="min-h-screen">
       <MinimalHeader />
+      <PianoKeyNav sections={faqSections} />
       
       {/* Section 1 — Hero with atmospheric gradient */}
-      <section className="relative section-padding bg-background overflow-hidden">
+      <section id="faq-hero" className="relative section-padding bg-background overflow-hidden piano-section-target">
         {/* Atmospheric background */}
         <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
           <div 
@@ -37,8 +48,15 @@ export default function FAQ() {
         </div>
         {/* Warm fog */}
         <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)" }} aria-hidden="true" />
-        {/* Cinematic vignette */}
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 100%)" }} aria-hidden="true" />
+        {/* Breathing vignette */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 100%)",
+            animation: "faq-vignette-breathe 6s ease-in-out infinite",
+          }}
+          aria-hidden="true"
+        />
         {/* Film grain */}
         <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
 
@@ -62,21 +80,62 @@ export default function FAQ() {
         </div>
       </section>
 
+      {/* Golden thread */}
+      <div className="relative py-1" aria-hidden="true">
+        <div className="h-px max-w-xs mx-auto" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)" }} />
+      </div>
+
       {/* Section 2 — Micro Q&A Chips */}
-      <FAQChips />
+      <div id="faq-chips" className="piano-section-target">
+        <FAQChips />
+      </div>
+
+      {/* Golden thread */}
+      <div className="relative py-1" aria-hidden="true">
+        <div className="h-px max-w-xs mx-auto" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)" }} />
+      </div>
 
       {/* Section 3 — Top 10 Ceremony Fears */}
-      <FAQTopTen />
+      <div id="faq-fears" className="piano-section-target">
+        <FAQTopTen />
+      </div>
+
+      {/* Golden thread */}
+      <div className="relative py-1" aria-hidden="true">
+        <div className="h-px max-w-xs mx-auto" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)" }} />
+      </div>
 
       {/* Section 4 — Policy Download */}
-      <FAQPolicyDownload />
+      <div id="faq-policy" className="piano-section-target">
+        <FAQPolicyDownload />
+      </div>
+
+      {/* Golden thread */}
+      <div className="relative py-1" aria-hidden="true">
+        <div className="h-px max-w-xs mx-auto" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)" }} />
+      </div>
 
       {/* Section 5 — Psychological Trust Stack */}
-      <FAQTrustStack />
+      <div id="faq-trust" className="piano-section-target">
+        <FAQTrustStack />
+      </div>
+
+      {/* Golden thread */}
+      <div className="relative py-1" aria-hidden="true">
+        <div className="h-px max-w-xs mx-auto" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)" }} />
+      </div>
 
       {/* Section 6 — Final CTA */}
-      <section className="section--dark section-padding">
-        <div className="container mx-auto px-4">
+      <section id="faq-crossing" className="relative section--dark section-padding overflow-hidden piano-section-target">
+        {/* Warm glow */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse 50% 60% at 50% 50%, hsl(var(--vow-yellow) / 0.04) 0%, transparent 70%)",
+          }}
+          aria-hidden="true"
+        />
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="mb-4 text-ink-inverse">Every arrangement begins with a conversation.</h2>
             <p className="lead text-ink-inverse/70 mb-8">
@@ -103,6 +162,16 @@ export default function FAQ() {
 
       <Footer />
       <MobileStickyBar />
+
+      <style>{`
+        @keyframes faq-vignette-breathe {
+          0%, 100% { opacity: 0.8; }
+          50% { opacity: 0.65; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .grain, [style*="ken-burns"] { animation: none !important; }
+        }
+      `}</style>
     </div>
   );
 }
