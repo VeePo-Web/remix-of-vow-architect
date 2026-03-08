@@ -294,7 +294,7 @@ export function TeachingOffering() {
         <div ref={priceRef} className="mb-fitz-3">
           <p
             className="font-sans text-[18px] md:text-[20px] font-normal tracking-[0.01em]"
-            style={{ color: "hsl(30 12% 30%)" }}
+            style={{ color: "hsl(var(--teaching-text-narrative))" }}
           >
             <ScrollPrice isInView={priceVisible} />
           </p>
