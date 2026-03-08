@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 const pillars = [
   {
     numeral: "I",
-    title: "Patience as Method",
+    title: "Patience as Practice",
     description:
       "Your pace is the curriculum. There are no grades, no exams, no timelines imposed on your growth. Patience is not passive — it is the most active form of attention I know.",
     underlineWord: "pace",
@@ -20,7 +20,7 @@ const pillars = [
     numeral: "III",
     title: "Freedom Through Fluency",
     description:
-      "When your hands know the instrument deeply enough, they stop translating and start speaking. That is fluency. And fluency is freedom — the freedom to say anything the moment asks for.",
+      "When your hands know the instrument deeply enough, they stop translating and start saying what you mean. That is fluency. And fluency is freedom — the freedom to say anything the moment asks for.",
     underlineWord: "freedom",
   },
   {
