@@ -413,8 +413,8 @@ export function TeachingHero() {
           50% { text-shadow: 0 0 40px hsl(var(--vow-yellow) / 0.6); }
         }
         @keyframes teaching-hero-vignette {
-          0%, 100% { opacity: 0.85; }
-          50% { opacity: 0.7; }
+          0%, 100% { opacity: 0.9; }
+          50% { opacity: 0.75; }
         }
         @keyframes scroll-chevron-bounce {
           0%, 100% { transform: translateY(0); opacity: 0.25; }
