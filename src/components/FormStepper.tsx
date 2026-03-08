@@ -13,7 +13,7 @@ export function FormStepper({ currentStep }: FormStepperProps) {
         />
         <div
           className={`w-3 h-3 rounded-full transition-colors ${
-            currentStep === 2 ? "bg-primary" : "bg-[#2A2F37]"
+            currentStep === 2 ? "bg-primary" : "bg-muted-foreground/30"
           }`}
         />
       </div>

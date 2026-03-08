@@ -48,7 +48,7 @@ export function ContactFormSuccess() {
           <Button variant="outline" size="lg" className="w-full" asChild>
             <a href="/sample-plan.pdf" download>
               <FileDown className="mr-2" size={16} />
-              Download Sample Plan + SPL PDF
+              Download a sample ceremony plan
             </a>
           </Button>
         </div>

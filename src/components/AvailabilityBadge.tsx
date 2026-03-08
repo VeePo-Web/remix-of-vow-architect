@@ -6,13 +6,13 @@ export function AvailabilityBadge({ status }: AvailabilityBadgeProps) {
   const config = {
     available: {
       label: "Available",
-      color: "text-[#22C55E]",
-      dotColor: "bg-[#22C55E]",
+      color: "text-accent",
+      dotColor: "bg-accent",
     },
     hold: {
       label: "On Hold",
-      color: "text-[#F59E0B]",
-      dotColor: "bg-[#F59E0B]",
+      color: "text-primary",
+      dotColor: "bg-primary",
     },
     booked: {
       label: "Booked",
