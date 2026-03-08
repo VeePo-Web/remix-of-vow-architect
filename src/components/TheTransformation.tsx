@@ -125,7 +125,7 @@ export function TheTransformation() {
           src={transformationLifeImg}
           alt=""
           aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none will-change-transform"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
           style={{
             opacity: 0.12,
             filter: "brightness(1.1) contrast(0.95) saturate(0.4)",
