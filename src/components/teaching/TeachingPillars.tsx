@@ -27,7 +27,7 @@ const pillars = [
     numeral: "IV",
     title: "No Graduation",
     description:
-      "There is no final lesson. Only deepening. The mentorship deepens as you do — measured in years, not semesters.",
+      "There is no final lesson. Only deepening. The mentorship evolves as you do — measured in years, not semesters.",
     underlineWord: "deepening",
   },
 ];
