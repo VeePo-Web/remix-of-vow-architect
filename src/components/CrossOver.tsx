@@ -140,7 +140,6 @@ export function CrossOver() {
           width: '200px', height: '200px', top: '30%', left: '20%',
           background: "radial-gradient(circle, hsl(var(--vow-yellow) / 0.02) 0%, transparent 70%)",
           animation: "crossover-mote-a 14s ease-in-out infinite",
-          willChange: 'transform',
         }}
         aria-hidden="true"
       />
