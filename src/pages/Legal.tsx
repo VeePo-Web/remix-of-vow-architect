@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { MinimalHeader } from "@/components/MinimalHeader";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
@@ -9,6 +10,7 @@ import { Link } from "react-router-dom";
 
 export default function Legal() {
   usePageTheme();
+  useEffect(() => { document.title = "Legal & Policies — Parker Gawryletz"; }, []);
 
   const policies = [
     {
