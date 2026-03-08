@@ -99,6 +99,30 @@ The first question I ask is never about music. It is about you.
 
 This is the secondary tagline — usable across all channels, all touchpoints, all contexts. It captures the core differentiator in a single breath: conversation before music, listening before teaching, the student before the instrument.
 
+### 3.1 The Governing Paradox: Gentle and Rigorous
+
+This practice holds a creative tension that must never collapse into one side:
+
+- **Gentle *and* rigorous.** Deep *and* playful. Structured *and* organic. Creative *and* disciplined.
+- The paradox is not a contradiction — it is the brand. A mentor who never rushes *and* never accepts less than your best. Patience that is not passive. Warmth that does not excuse laziness. Encouragement that is honest, never hollow.
+
+**Governance rule:** Every piece of copy, every design decision, every section must hold both poles simultaneously. If it feels only gentle, it lacks authority. If it feels only rigorous, it lacks warmth.
+
+**Copy test:** Can this sentence be said by both a patient mentor *and* a demanding craftsman? If not, revise.
+
+**Examples:**
+- ✅ "I will sit beside you until it sounds right — and I will not pretend it sounds right before it does."
+- ✅ "There is no timeline. But there is intention."
+- ❌ "Take your time, no pressure!" (too casual, no rigor)
+- ❌ "Master the fundamentals through disciplined daily practice." (no warmth, no relationship)
+
+### 3.2 Deep Not Wide: Capacity as Identity Signal
+
+- **10 students maximum** at any given time. This is not a limitation — it is a standard. Depth requires it.
+- **Copy direction:** "I take on few students. Not because I have to — but because depth requires it."
+- **Visual signal:** No "100+ students taught" counters. No scale language. The scarcity is communicated through warmth, not urgency. The number 10 may appear once, understated, in the methodology or about section — never as a countdown or urgency device.
+- **Anti-pattern:** Never use "limited spots available" or "only X slots left." The constraint is philosophical, not manufactured.
+
 ---
 
 ## 4. Positioning and Category Ownership
