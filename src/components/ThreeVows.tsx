@@ -1,3 +1,6 @@
+import { cn } from "@/lib/utils";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
+
 interface VowProps {
   number: string;
   title: string;
@@ -23,8 +26,16 @@ const vows: VowProps[] = [
 ];
 
 export function ThreeVows() {
+  const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.2 });
+
   return (
-    <section className="section--surface section-padding-cinematic">
+    <section
+      id="three-vows"
+      ref={sectionRef}
+      role="region"
+      aria-labelledby="three-vows-heading"
+      className="section--surface section-padding-cinematic"
+    >
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           {/* Sacred Intro */}
@@ -32,7 +43,14 @@ export function ThreeVows() {
             <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground mb-6">
               THE VOW
             </p>
-            <h2 className="text-[clamp(28px,4vw,48px)] font-[300] font-display leading-tight mb-8">
+            <h2
+              id="three-vows-heading"
+              className={cn(
+                "text-[clamp(28px,4vw,48px)] font-[300] font-display leading-tight mb-8 transition-all duration-700",
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
+              )}
+              style={{ transitionDelay: isVisible ? "120ms" : "0ms" }}
+            >
               "Every word will reach every heart."
             </h2>
             

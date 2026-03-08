@@ -236,7 +236,6 @@ export function CrossOver() {
         >
           <p 
             className="font-display font-light text-[28px] md:text-[34px] uppercase tracking-[0.22em] text-foreground/70"
-            role="text"
             style={{ textShadow: '0 1px 12px hsl(var(--rich-black) / 0.3)' }}
           >
             {"\u2018"}TIL DEATH{" "}
