@@ -658,6 +658,12 @@ export function MinimalHeader() {
             transform: translateY(0) translateX(-50%);
           }
         }
+        @keyframes header-shimmer {
+          0% { opacity: 0; transform: translateX(-100%); }
+          20% { opacity: 1; }
+          80% { opacity: 1; }
+          100% { opacity: 0; transform: translateX(100%); }
+        }
         @media (prefers-reduced-motion: reduce) {
           header * {
             transition-duration: 120ms !important;
@@ -665,6 +671,10 @@ export function MinimalHeader() {
           @keyframes arrival-tagline-rise {
             from { opacity: 0; }
             to { opacity: 1; }
+          }
+          @keyframes header-shimmer {
+            from { opacity: 0; }
+            to { opacity: 0; }
           }
         }
       `}</style>
