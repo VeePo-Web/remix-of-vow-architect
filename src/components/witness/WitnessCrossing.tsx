@@ -115,7 +115,7 @@ export function WitnessCrossing() {
           {/* Promise */}
           <p 
             className={cn(
-              "text-sm text-foreground/40 mt-8 transition-all duration-700",
+              "text-sm text-muted-foreground mt-8 transition-all duration-700",
               isVisible ? "opacity-100" : "opacity-0"
             )}
             style={{ transitionDelay: "800ms" }}
