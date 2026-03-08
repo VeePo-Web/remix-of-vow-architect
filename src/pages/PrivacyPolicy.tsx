@@ -8,6 +8,7 @@ export default function PrivacyPolicy() {
     <PolicyLayout
       title="Privacy Policy"
       lastUpdated="March 8, 2026"
+      metaDescription="How I collect, use, and protect your information. Plain-language privacy practices for wedding, event, and teaching clients."
       breadcrumbs={[
         { label: "Home", path: "/" },
         { label: "Legal", path: "/legal" },

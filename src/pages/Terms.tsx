@@ -7,6 +7,7 @@ export default function Terms() {
     <PolicyLayout
       title="Terms & Conditions"
       lastUpdated="March 8, 2026"
+      metaDescription="Bookings, payments, cancellations, and responsibilities — in plain English. Review before securing your date."
       breadcrumbs={[
         { label: "Home", path: "/" },
         { label: "Legal", path: "/legal" },
