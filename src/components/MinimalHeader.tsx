@@ -36,6 +36,7 @@ export function MinimalHeader() {
   const [wasScrolled, setWasScrolled] = useState(false);
   const [hoveredNavIndex, setHoveredNavIndex] = useState<number | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [arrivalPhase, setArrivalPhase] = useState<'none' | 'dissolving' | 'arrived'>('none');
   const location = useLocation();
   const isContactPage = location.pathname === '/contact';
   const navRef = useRef<HTMLElement>(null);
