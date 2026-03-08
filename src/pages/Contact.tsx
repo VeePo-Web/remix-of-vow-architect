@@ -43,6 +43,7 @@ export default function Contact() {
   const [fileName, setFileName] = useState<string | null>(null);
   
   usePageTheme();
+  useEffect(() => { document.title = "Hold My Date — Parker Gawryletz"; }, []);
 
   const {
     register,

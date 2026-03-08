@@ -50,6 +50,7 @@ function GoldenThread() {
 
 export default function Proof() {
   usePageTheme();
+  useEffect(() => { document.title = "Proof of Craft — Parker Gawryletz"; }, []);
 
   return (
     <div className="min-h-screen">

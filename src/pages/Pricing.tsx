@@ -53,7 +53,7 @@ function GoldenThread() {
 
 export default function Pricing() {
   usePageTheme();
-
+  useEffect(() => { document.title = "Pricing — Parker Gawryletz, Ceremony Piano"; }, []);
   return (
     <div className="min-h-screen">
       <MinimalHeader />

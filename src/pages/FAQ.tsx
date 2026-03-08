@@ -24,6 +24,7 @@ const faqSections = [
 
 export default function FAQ() {
   usePageTheme();
+  useEffect(() => { document.title = "Questions Answered — Parker Gawryletz"; }, []);
 
   return (
     <div className="min-h-screen">
