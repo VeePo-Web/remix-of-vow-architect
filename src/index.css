@@ -5403,7 +5403,7 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 
 .piano-key__cta--chosen:active {
   transform: scale(0.98);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 8px hsl(var(--rich-black) / 0.15);
   transition-duration: 60ms;
 }
 
