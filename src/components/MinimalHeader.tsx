@@ -337,10 +337,15 @@ export function MinimalHeader() {
               ref={navRef}
               className={cn(
                 "hidden md:flex items-center gap-8 transition-all duration-[260ms]",
-                isArrival && "opacity-0 w-0 overflow-hidden pointer-events-none"
               )}
               style={{
                 transitionTimingFunction: "cubic-bezier(0.22,0.61,0.36,1)",
+                // During arrival dissolve, shrink and hide after animation completes
+                ...(arrivalPhase === 'arrived' && {
+                  width: 0,
+                  overflow: 'hidden',
+                  pointerEvents: 'none' as const,
+                }),
               }}
               onMouseLeave={() => setHoveredNavIndex(null)}
             >
