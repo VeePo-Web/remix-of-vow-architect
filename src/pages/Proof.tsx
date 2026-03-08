@@ -221,6 +221,8 @@ export default function Proof() {
         }
         @media (prefers-reduced-motion: reduce) {
           .grain, [style*="ken-burns"] { animation: none !important; }
+          [style*="vignette-breathe"] { animation: none !important; opacity: 0.7; }
+          [style*="golden-dot-breathe"] { animation: none !important; opacity: 0.6; }
         }
       `}</style>
     </div>

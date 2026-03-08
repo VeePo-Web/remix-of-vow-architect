@@ -190,6 +190,7 @@ export default function Listen() {
       {/* Film grain */}
       <div className="grain opacity-[0.06]" aria-hidden="true" />
 
+      <main>
       {/* ── HERO ── */}
       <section id="listen-hero" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden piano-section-target">
         {/* Hero background image */}
@@ -341,6 +342,7 @@ export default function Listen() {
           </p>
         </div>
       </section>
+      </main>
 
       {/* Now Playing mini bar */}
       <NowPlayingMini
