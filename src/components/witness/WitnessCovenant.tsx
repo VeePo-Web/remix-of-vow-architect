@@ -163,22 +163,6 @@ export function WitnessCovenant() {
             </div>
           </div>
 
-          {/* Tagline beneath — sacred semicolon treatment */}
-          <div 
-            className={cn(
-              "mt-12 transition-all duration-700",
-              isVisible ? "opacity-100" : "opacity-0"
-            )}
-            style={{ transitionDelay: "2000ms" }}
-          >
-            <div 
-              className="h-px w-16 mx-auto mb-6"
-              style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.2), transparent)" }}
-            />
-            <p className="font-display text-xl text-center text-foreground italic">
-              'Til Death<span className="text-primary not-italic">;</span> Unto Life.
-            </p>
-          </div>
         </div>
       </div>
 

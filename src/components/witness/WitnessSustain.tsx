@@ -101,7 +101,7 @@ export function WitnessSustain() {
               {/* Three nodes with boosted glow */}
               {[60, 200, 340].map((cx, i) => (
                 <g key={i} filter="url(#nodeGlow)">
-                  <circle cx={cx} cy="20" r="14" fill="hsl(var(--vow-yellow))" opacity="0.12">
+                  <circle cx={cx} cy="20" r="18" fill="hsl(var(--vow-yellow))" opacity="0.12">
                     <animate attributeName="opacity" values="0.08;0.16;0.08" dur={`${3 + i * 0.5}s`} repeatCount="indefinite" />
                   </circle>
                   <circle cx={cx} cy="20" r="7" fill="hsl(var(--vow-yellow))" opacity="0.3">
