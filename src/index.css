@@ -1024,7 +1024,7 @@ All colors MUST be HSL.
     border-radius: 18px;
     border: 1px solid hsl(var(--lines));
     padding: var(--space-6);
-    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 18px 38px hsl(var(--rich-black) / 0.04);
     transition:
       transform var(--transition-default),
       box-shadow var(--transition-default);
