@@ -100,8 +100,8 @@ export default function Teaching() {
 
         {/* Threshold (dark charcoal) → Stories (warm cream) */}
         <SectionFade
-          from="hsl(30 8% 14% / 0)"
-          to="hsl(38 35% 93%)"
+          from="hsl(var(--events-approach-bg) / 0)"
+          to="hsl(var(--teaching-bg-alt))"
         />
         <TeachingStories />
 

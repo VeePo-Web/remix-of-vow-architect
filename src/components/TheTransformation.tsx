@@ -94,7 +94,7 @@ export function TheTransformation() {
       {/* Top fade — seamless from The Sound */}
       <div
         className="section-fade-top"
-        style={{ background: "linear-gradient(to top, transparent, hsl(220 15% 8%))" }}
+        style={{ background: "linear-gradient(to top, transparent, hsl(var(--transform-dark)))" }}
         aria-hidden="true"
       />
 
