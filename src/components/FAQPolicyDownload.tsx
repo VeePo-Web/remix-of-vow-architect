@@ -18,7 +18,7 @@ export function FAQPolicyDownload() {
           <h2 className="text-center mb-2">Total transparency — my full booking terms.</h2>
           <div className="chapter-rule mx-auto mb-12" />
 
-          <div className="bg-card/80 backdrop-blur-[8px] border border-border/50 rounded-lg p-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)]">
+          <div className="bg-card/80 backdrop-blur-[8px] border border-border/50 rounded-lg p-8 card-sacred">
             <ul className="space-y-4 mb-8">
               {policyItems.map((item, index) => (
                 <li key={index} className="flex gap-3">

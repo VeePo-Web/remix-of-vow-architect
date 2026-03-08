@@ -39,7 +39,7 @@ export function SetupPhotoGallery() {
               {setupImages.map((item, i) => (
                 <Tooltip key={i}>
                   <TooltipTrigger asChild>
-                    <Card className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)] hover:shadow-[0_0_24px_rgba(255,224,138,0.06)] transition-all duration-[180ms] cursor-help">
+                    <Card className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred card-sacred-hover transition-all duration-[180ms] cursor-help">
                       <div className="flex flex-col items-center text-center">
                         <div className="w-20 h-20 rounded-full bg-primary/[0.06] border border-primary/10 flex items-center justify-center mb-5">
                           <item.icon className="text-primary" size={40} />
