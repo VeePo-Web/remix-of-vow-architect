@@ -88,7 +88,7 @@ export function WitnessPresence() {
             <div 
               className={cn(
                 "relative text-center transition-all duration-1000",
-                isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
+                isVisible ? "opacity-100 scale-100 blur-none" : "opacity-0 scale-95 blur-sm"
               )}
               style={{ transitionDelay: "300ms" }}
             >
