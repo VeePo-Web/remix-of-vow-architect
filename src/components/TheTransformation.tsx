@@ -323,11 +323,10 @@ export function TheTransformation() {
               "font-display text-2xl md:text-3xl font-light tracking-tight mb-8 md:mb-12 transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
-            style={{
-              color: "hsl(var(--rich-black))",
-              transitionDelay: isVisible ? "1000ms" : "0ms",
-              transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
-            }}
+                style={{
+                  transitionDelay: isVisible ? "1000ms" : "0ms",
+                  transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
+                }}
           >
             So here is what I do about it
           </h3>
