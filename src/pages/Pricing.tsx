@@ -109,9 +109,9 @@ export default function Pricing() {
 
                   <ul className="space-y-2 mb-6 text-sm">
                     {[
-                      "Full ceremony audio — every word heard",
-                      "Officiant and vow amplification",
-                      "Silent power — no generator noise",
+                      "Full ceremony sound — every word heard",
+                      "Vow and officiant clarity, naturally balanced",
+                      "Silent battery power — no interruptions",
                       "Custom cue sheet for your processional",
                       "Post-ceremony documentation",
                     ].map((item, i) => (
