@@ -244,8 +244,8 @@ export function TeachingCrossing() {
         <h2
           className="font-display text-[28px] md:text-[40px] font-light tracking-tight mb-fitz-7"
           style={{
-            color: "hsl(30 10% 20%)",
-            textShadow: "0 1px 2px hsl(40 20% 80% / 0.25)",
+            color: "hsl(var(--teaching-text-heading))",
+            textShadow: "0 1px 2px hsl(var(--teaching-vignette) / 0.25)",
           }}
         >
           <ScrollTagline isInView={isVisible} />
