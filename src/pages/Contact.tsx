@@ -383,7 +383,7 @@ export default function Contact() {
                         />
                       </div>
 
-                      {/* Submit Button */}
+                      {/* Primary CTA */}
                       <div className="space-y-3">
                         <div className="flex items-center gap-2">
                            <Button
