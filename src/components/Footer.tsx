@@ -338,26 +338,37 @@ export function Footer() {
             href="https://veepo.ca/case-studies"
             target="_blank"
             rel="noopener noreferrer"
-            className="group/veepo max-w-md w-full block border border-white/[0.08] hover:border-white/[0.18] bg-white/[0.03] hover:bg-white/[0.06] rounded-lg px-8 py-5 transition-all duration-[260ms] hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="group/veepo max-w-md w-full block relative overflow-hidden border border-white/[0.08] hover:border-[hsl(28,87%,58%,0.15)] bg-white/[0.03] hover:bg-white/[0.06] rounded-lg px-8 py-5 transition-all duration-[260ms] hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
+            {/* Gradient bottom border accent — appears on hover */}
+            <div
+              className="absolute bottom-0 left-0 w-full h-[2px] opacity-0 group-hover/veepo:opacity-100 transition-opacity duration-[260ms]"
+              style={{ background: 'linear-gradient(to right, hsl(28,87%,58%), hsl(166,72%,47%))' }}
+              aria-hidden="true"
+            />
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-[12px] tracking-[0.22em] uppercase text-muted-foreground/60">
-                  Locally powered by
-                </p>
+                <div className="flex items-center gap-2">
+                  {/* Brand dot — orange/teal gradient identity marker */}
+                  <div
+                    className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                    style={{ background: 'linear-gradient(135deg, hsl(28,87%,58%), hsl(166,72%,47%))' }}
+                    aria-hidden="true"
+                  />
+                  <p className="text-[12px] tracking-[0.22em] uppercase text-muted-foreground/60">
+                    Locally powered by
+                  </p>
+                </div>
                 <span
-                  className="block mt-1 font-sans font-semibold text-[22px] tracking-[0.25em] uppercase text-foreground/90 transition-colors duration-[180ms]"
-                  style={{ color: undefined }}
+                  className="block mt-1 font-sans font-semibold text-[22px] tracking-[0.25em] uppercase text-foreground/90 transition-all duration-[180ms] group-hover/veepo:[color:hsl(166,72%,47%)] group-hover/veepo:[text-shadow:0_0_20px_hsl(28,87%,58%,0.15)]"
                 >
-                  <span className="group-hover/veepo:[color:hsl(166,72%,47%)] transition-colors duration-[180ms]">
-                    VEEPO
-                  </span>
+                  VEEPO
                 </span>
                 <p className="text-[11px] tracking-[0.15em] text-muted-foreground/45 italic mt-1.5">
                   Where vision meets precision
                 </p>
               </div>
-              <span className="text-lg text-muted-foreground/40 group-hover/veepo:text-muted-foreground/70 transition-all duration-[180ms] group-hover/veepo:translate-x-1 ml-4" aria-hidden="true">
+              <span className="text-lg text-muted-foreground/40 group-hover/veepo:[color:hsl(28,87%,58%)] transition-all duration-[180ms] group-hover/veepo:translate-x-1 ml-4" aria-hidden="true">
                 →
               </span>
             </div>
