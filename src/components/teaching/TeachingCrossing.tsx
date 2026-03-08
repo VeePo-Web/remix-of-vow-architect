@@ -301,7 +301,7 @@ export function TeachingCrossing() {
               transitionDelay: "400ms",
             }}
           >
-            Response within 24 hours.{" "}
+            A response within 24 hours.{" "}
             <span className="relative inline-block">
               Always
               <span

@@ -28,7 +28,7 @@ const lines: LineConfig[] = [
     shadowWeight: "medium",
   },
   {
-    text: "You hear it in the car. In the quiet of an empty room. In the space between what you feel and what you can say.",
+    text: "You hear it in the car. In the stillness before sleep. In the space between what you feel and what you can say.",
     italic: true,
     size: "text-[20px] md:text-[28px]",
     shadowWeight: "medium",
