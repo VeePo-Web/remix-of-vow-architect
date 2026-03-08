@@ -6,20 +6,20 @@ import { RevealOnScroll, StaggerChildren } from "@/components/animation";
 const splReadings = [
   {
     phase: "Prelude",
-    range: "35–45 dBA",
-    description: "Baseline for guest arrival",
+    range: "Gentle ambiance",
+    description: "Quiet enough for conversation, present enough to set the tone",
     level: 30,
   },
   {
     phase: "Vows",
-    range: "55–65 dBA",
-    description: "Intelligibility window",
+    range: "Crystal clarity",
+    description: "Every word heard — even in the last row",
     level: 60,
   },
   {
     phase: "Recessional",
-    range: "70–75 dBA max",
-    description: "Celebratory peak",
+    range: "Joyful celebration",
+    description: "The exhale — music that matches the moment",
     level: 80,
   },
 ];
