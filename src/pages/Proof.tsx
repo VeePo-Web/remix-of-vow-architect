@@ -92,8 +92,8 @@ export default function Proof() {
               Documentation, insurance, redundancy, and the quiet certainty that comes from preparation. This is what devotion looks like in practice.
             </p>
             
-            <Button size="lg" variant="primary-dark" className="hover-scale mt-8">
-              Download a sample ceremony plan
+            <Button size="lg" variant="primary-dark" className="hover-scale mt-8" asChild>
+              <Link to="/contact">Request a sample plan</Link>
             </Button>
 
             {/* Trust stack */}
