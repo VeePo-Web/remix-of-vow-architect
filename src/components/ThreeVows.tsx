@@ -26,8 +26,16 @@ const vows: VowProps[] = [
 ];
 
 export function ThreeVows() {
+  const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.2 });
+
   return (
-    <section className="section--surface section-padding-cinematic">
+    <section
+      id="three-vows"
+      ref={sectionRef}
+      role="region"
+      aria-labelledby="three-vows-heading"
+      className="section--surface section-padding-cinematic"
+    >
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           {/* Sacred Intro */}
