@@ -368,7 +368,7 @@ export function TeachingHero() {
             letterSpacing: "0.015em",
           }}
         >
-          I sit beside you until what you hear finds its way through your hands.
+          I sit beside you until what you hear inside finds its way through your hands.
         </p>
       </div>
 
