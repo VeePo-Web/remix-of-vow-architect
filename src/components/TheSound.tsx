@@ -142,7 +142,7 @@ function NowPlayingBar({
             <span className="text-xs text-foreground opacity-80 font-display truncate block">{displayTitle}</span>
           </div>
         </div>
-        <span className="text-[9px] text-foreground/30 font-mono tabular-nums shrink-0 ml-1">
+        <span className="text-[9px] text-foreground opacity-30 font-mono tabular-nums shrink-0 ml-1">
           {formatTime(progress)}/{formatTime(duration)}
         </span>
       </div>

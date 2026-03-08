@@ -333,7 +333,7 @@ export default function PianoPanel({
                     "transition-colors duration-[180ms]",
                     isActive
                       ? "text-[hsl(var(--vow-yellow))]"
-                      : "text-foreground/70 hover:text-foreground hover:bg-[hsl(var(--vow-yellow)/0.03)]"
+                      : "text-foreground opacity-70 hover:text-foreground hover:bg-[hsl(var(--vow-yellow)/0.03)]"
                   )}
                   style={{
                     opacity: isOpen ? 1 : 0,
