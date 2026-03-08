@@ -52,7 +52,7 @@ export function TheRecord() {
                 )}
                 style={{
                   background: "hsl(var(--ebon-charcoal) / 0.8)",
-                  boxShadow: "0 4px 16px rgba(0,0,0,0.3)",
+                  boxShadow: "0 4px 16px hsl(var(--rich-black) / 0.3)",
                   transitionDelay: isVisible ? `${300 + index * 150}ms` : "0ms",
                   transitionTimingFunction: "var(--easing-std)",
                 }}

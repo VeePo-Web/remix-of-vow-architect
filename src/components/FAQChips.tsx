@@ -63,7 +63,7 @@ export function FAQChips() {
                   </Badge>
                 </CollapsibleTrigger>
                 <CollapsibleContent className="mt-4 max-w-2xl mx-auto">
-                  <div className="bg-card/80 backdrop-blur-[8px] border border-border/50 rounded-lg p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.12)]">
+                  <div className="bg-card/80 backdrop-blur-[8px] border border-border/50 rounded-lg p-6 card-sacred">
                     <p className="text-[15px] text-muted-foreground mb-3 leading-relaxed">{chip.answer}</p>
                     <DirectionalLink to={chip.link.to}>{chip.link.label}</DirectionalLink>
                   </div>
