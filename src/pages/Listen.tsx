@@ -330,7 +330,7 @@ export default function Listen() {
           <p className="text-[11px] md:text-xs uppercase tracking-[0.3em] text-[hsl(var(--vow-yellow)/0.6)] mb-4">
             The Crossing
           </p>
-          <h2 className="font-display text-2xl md:text-3xl lg:text-4xl text-foreground/90 mb-3">
+          <h2 className="font-display text-2xl md:text-3xl lg:text-4xl text-foreground mb-3">
             Every arrangement begins with a conversation.
           </h2>
           <div className="chapter-rule mx-auto mb-8" />
