@@ -78,7 +78,7 @@ export default function Gateway() {
   useEffect(() => { document.title = "Parker Gawryletz — Sound Director"; }, []);
 
   return (
-    <main className="h-screen w-screen overflow-hidden bg-[hsl(var(--rich-black))] flex flex-col items-center py-8 md:py-0 md:justify-center relative" aria-label="Choose your path">
+    <main className="h-screen w-screen overflow-hidden bg-background flex flex-col items-center py-8 md:py-0 md:justify-center relative" aria-label="Choose your path">
       {/* Film grain */}
       <div className="absolute inset-0 grain opacity-[0.10] pointer-events-none" aria-hidden="true" />
       {/* Breathing warm vignette */}
@@ -108,7 +108,7 @@ export default function Gateway() {
       <div className="relative flex flex-col md:flex-row gap-3 md:gap-6 px-6 max-w-5xl w-full flex-1 md:flex-initial min-h-0">
         {/* Golden Thread */}
         <div
-          className="absolute pointer-events-none opacity-0 animate-fade-in left-1/2 top-6 bottom-6 w-px md:left-6 md:right-6 md:top-1/2 md:w-auto md:h-px bg-[hsl(var(--vow-yellow)/0.15)]"
+          className="absolute pointer-events-none opacity-0 animate-fade-in left-1/2 top-6 bottom-6 w-px md:left-6 md:right-6 md:top-1/2 md:w-auto md:h-px bg-primary/15"
           style={{ animationDelay: "1600ms", animationFillMode: "forwards" }}
           aria-hidden="true"
         />
@@ -160,7 +160,7 @@ export default function Gateway() {
 
           const cardClasses = cn(
             "group relative overflow-hidden rounded-2xl flex-1 min-h-0 md:flex-none md:aspect-[6/7]",
-            s.available ? "border border-[hsl(var(--vow-yellow)/0.08)]" : "border border-white/[0.06]",
+            s.available ? "border border-[hsl(var(--vow-yellow)/0.08)]" : "border border-border/[0.06]",
             "transition-all duration-300 opacity-0 animate-fade-in",
             s.available
               ? "cursor-pointer hover:-translate-y-2 hover:scale-[1.015] hover:border-[hsl(var(--vow-yellow)/0.25)] hover:shadow-[0_16px_48px_hsl(var(--vow-yellow)/0.08)]"

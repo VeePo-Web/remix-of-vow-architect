@@ -96,7 +96,7 @@ export function EventsHero() {
           Scroll to begin
         </span>
         <span
-          className="w-1.5 h-1.5 rounded-full bg-[hsl(var(--vow-yellow))]"
+          className="w-1.5 h-1.5 rounded-full bg-primary"
           style={{ animation: "events-dot-breathe 3s ease-in-out infinite" }}
         />
       </div>

@@ -290,7 +290,7 @@ export default function AmbientAudioPill() {
         {/* Progress line */}
         <div className="absolute bottom-0 left-0 right-0 h-[2px] rounded-b-full overflow-hidden">
           <div
-            className="h-full bg-[hsl(var(--vow-yellow)/0.4)]"
+            className="h-full bg-primary/40"
             style={{ width: `${pct}%` }}
           />
         </div>

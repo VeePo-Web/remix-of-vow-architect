@@ -342,7 +342,7 @@ export function TeachingOffering() {
             <Button
               asChild
               size="lg"
-              className="relative font-sans text-[14px] uppercase tracking-[0.14em] bg-[hsl(var(--vow-yellow))] text-[hsl(var(--teaching-text-heading))] hover:bg-[hsl(var(--vow-yellow)/0.85)] transition-all duration-[260ms] border-2 border-[hsl(var(--vow-yellow))] rounded-md px-10 py-3.5 hover:shadow-[0_4px_20px_hsl(var(--vow-yellow)/0.25)] hover:-translate-y-[1px]"
+              className="relative font-sans text-[14px] uppercase tracking-[0.14em] bg-primary text-primary-foreground hover:bg-primary/85 transition-all duration-[260ms] border-2 border-primary rounded-md px-10 py-3.5 hover:shadow-[0_4px_20px_hsl(var(--vow-yellow)/0.25)] hover:-translate-y-[1px]"
             >
               <Link to="/contact">Open the conversation</Link>
             </Button>

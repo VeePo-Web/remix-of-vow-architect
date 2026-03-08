@@ -267,7 +267,7 @@ export function AudioPlayer({ tracks, onPlayStateChange }: AudioPlayerProps) {
                 aria-valuemax={isActive ? 100 : undefined}
               >
                 <div
-                  className="h-full bg-[hsl(var(--vow-yellow))] transition-none"
+                  className="h-full bg-primary transition-none"
                   style={{ width: isActive ? `${progressPercent}%` : "0%" }}
                 />
               </div>

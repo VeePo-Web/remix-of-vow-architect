@@ -50,7 +50,7 @@ export default function Index() {
       <section className="vigil-hero relative h-screen flex items-center justify-center overflow-hidden">
         {/* Layer 1: True Void (Pure Black) */}
         <div
-          className="absolute inset-0 bg-[hsl(var(--rich-black))]"
+          className="absolute inset-0 bg-background"
           aria-hidden="true"
         />
 

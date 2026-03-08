@@ -107,7 +107,7 @@ function NowPlayingBar({
         }}
       >
         <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-foreground/5 group-hover/seek:h-[4px] transition-all duration-150 relative">
-          <div className="h-full bg-[hsl(var(--vow-yellow))] transition-none" style={{ width: `${percent}%` }} />
+          <div className="h-full bg-primary transition-none" style={{ width: `${percent}%` }} />
           <div
             className={cn(
               "absolute top-1/2 w-[6px] h-[6px] rounded-full bg-[hsl(var(--vow-yellow))] transition-opacity duration-150",
