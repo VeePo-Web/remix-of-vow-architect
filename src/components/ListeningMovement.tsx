@@ -142,7 +142,7 @@ export function ListeningMovement({
         )}
       >
         {/* Context label */}
-        <p className="text-[11px] md:text-xs uppercase tracking-[0.3em] text-[hsl(var(--vow-yellow))] opacity-70 mb-4">
+        <p className="text-[11px] md:text-xs uppercase tracking-[0.3em] text-primary opacity-70 mb-4">
           {context}
         </p>
 
