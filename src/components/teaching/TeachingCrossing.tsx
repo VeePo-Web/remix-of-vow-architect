@@ -132,7 +132,7 @@ export function TeachingCrossing() {
           </Button>
         </div>
 
-        {/* Anti-anxiety */}
+        {/* Anti-anxiety with vow-yellow underline on "Always" */}
         <p
           className={cn(
             "font-sans text-[14px] leading-relaxed mb-fitz-2 transition-all duration-[700ms]",
@@ -146,7 +146,22 @@ export function TeachingCrossing() {
             transitionDelay: "600ms",
           }}
         >
-          Response within 24 hours. Always.
+          Response within 24 hours.{" "}
+          <span className="relative inline-block">
+            Always
+            <span
+              className={cn(
+                "absolute -bottom-0.5 left-0 w-full h-[1.5px] bg-[hsl(var(--vow-yellow))] origin-left transition-transform duration-[450ms]",
+                isVisible ? "scale-x-100" : "scale-x-0"
+              )}
+              style={{
+                transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
+                transitionDelay: "900ms",
+              }}
+              aria-hidden="true"
+            />
+          </span>
+          .
         </p>
         <p
           className={cn(
@@ -163,6 +178,37 @@ export function TeachingCrossing() {
         >
           This is a conversation, not a commitment.
         </p>
+
+        {/* Closing golden thread — page terminus */}
+        <div
+          className={cn(
+            "w-px h-[60px] mx-auto mt-fitz-9 origin-top transition-transform duration-[700ms]",
+            isVisible ? "scale-y-100" : "scale-y-0"
+          )}
+          style={{
+            background:
+              "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.20), hsl(var(--vow-yellow) / 0.04))",
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "1000ms",
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Pencil annotation — page closing */}
+        <span
+          className={cn(
+            "inline-block font-display italic text-[13px] mt-fitz-4 transition-all duration-[700ms]",
+            isVisible ? "opacity-35" : "opacity-0"
+          )}
+          style={{
+            color: "hsl(30 12% 50%)",
+            transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
+            transitionDelay: "1200ms",
+          }}
+          aria-label="Closing annotation"
+        >
+          — the bench is ready
+        </span>
       </div>
 
       {/* Keyframes */}
@@ -174,6 +220,10 @@ export function TeachingCrossing() {
         @keyframes crossing-vignette {
           0%, 100% { opacity: 0.5; }
           50% { opacity: 0.68; }
+        }
+        @keyframes semicolon-breathe {
+          0%, 100% { text-shadow: 0 0 20px hsl(var(--vow-yellow) / 0.4); }
+          50% { text-shadow: 0 0 40px hsl(var(--vow-yellow) / 0.7); }
         }
         @media (prefers-reduced-motion: reduce) {
           #teaching-crossing * {
