@@ -311,12 +311,9 @@ export default function Contact() {
                                 <ChevronLeft size={16} className="mr-1" />
                                 Back
                               </Button>
-                              <div className="flex-1 flex items-center gap-2">
-                                <Button type="submit" size="lg" variant="primary-dark" className="flex-1 hover-scale">
-                                  Hold my date
-                                </Button>
-                                <ValuePromiseBadge />
-                              </div>
+                              <Button type="submit" size="lg" variant="primary-dark" className="flex-1 hover-scale">
+                                Hold my date
+                              </Button>
                             </div>
                             <p className="text-xs text-muted-foreground text-center">
                               You will receive a personalized ceremony plan within 24 hours.
