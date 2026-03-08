@@ -1,5 +1,7 @@
 import { MinimalHeader } from "@/components/MinimalHeader";
+import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
+import { PianoKeyNav } from "@/components/PianoKeyNav";
 import {
   TeachingHero,
   TeachingExhale,
@@ -11,6 +13,17 @@ import {
   TeachingCrossing,
 } from "@/components/teaching";
 import { usePageTheme } from "@/hooks/usePageTheme";
+
+const teachingSections = [
+  { id: "teaching-hero",        label: "The Opening",     isBlackKey: false },
+  { id: "teaching-exhale",      label: "The Exhale",      isBlackKey: true  },
+  { id: "teaching-pillars",     label: "The Pillars",     isBlackKey: false },
+  { id: "teaching-methodology", label: "The Method",      isBlackKey: true  },
+  { id: "teaching-threshold",   label: "The Threshold",   isBlackKey: false },
+  { id: "teaching-stories",     label: "The Stories",     isBlackKey: true  },
+  { id: "teaching-offering",    label: "The Offering",    isBlackKey: false },
+  { id: "teaching-crossing",    label: "The Crossing",    isBlackKey: false },
+];
 
 /**
  * Section transition fade — gradient overlay that bleeds one section
