@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { MinimalHeader } from "@/components/MinimalHeader";
+import { MobileStickyBar } from "@/components/MobileStickyBar";
+import { PianoKeyNav } from "@/components/PianoKeyNav";
 import { Footer } from "@/components/Footer";
 import { ListeningMovement } from "@/components/ListeningMovement";
 import { Button } from "@/components/ui/button";
@@ -8,6 +10,12 @@ import { Play, Pause } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import listenHero from "@/assets/listen-hero.jpg";
+
+const listenSections = [
+  { id: "listen-hero",     label: "The Room",       isBlackKey: false },
+  { id: "listen-movements", label: "The Movements", isBlackKey: true  },
+  { id: "listen-crossing",  label: "The Crossing",  isBlackKey: false },
+];
 
 /* ── Track data ── */
 const movements = [
@@ -175,13 +183,14 @@ export default function Listen() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <MinimalHeader />
+      <PianoKeyNav sections={listenSections} />
       <audio ref={audioRef} preload="none" />
 
       {/* Film grain */}
       <div className="grain opacity-[0.06]" style={{ willChange: "opacity" }} />
 
       {/* ── HERO ── */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+      <section id="listen-hero" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden piano-section-target">
         {/* Hero background image */}
         <img
           src={listenHero}
@@ -279,7 +288,7 @@ export default function Listen() {
         aria-hidden="true"
       />
 
-      {/* ── MOVEMENTS ── */}
+      <div id="listen-movements" className="piano-section-target">
       {movements.map((movement, i) => (
         <ListeningMovement
           key={movement.numeral}
@@ -299,12 +308,13 @@ export default function Listen() {
           onInView={handleInView}
         />
       ))}
+      </div>
 
       {/* Section fade before crossing */}
       <div className="section-fade-bottom" style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--vigil-void)))", height: "80px", position: "relative", zIndex: 2 }} aria-hidden="true" />
 
       {/* ── THE CROSSING CTA ── */}
-      <section className="relative min-h-[60vh] flex items-center justify-center px-6">
+      <section id="listen-crossing" className="relative min-h-[60vh] flex items-center justify-center px-6 piano-section-target">
         <div className="text-center max-w-lg">
           <p className="text-[11px] md:text-xs uppercase tracking-[0.3em] text-[hsl(var(--vow-yellow)/0.6)] mb-4">
             The Crossing
@@ -331,8 +341,8 @@ export default function Listen() {
         onToggle={togglePlayPause}
       />
 
-
       <Footer />
+      <MobileStickyBar />
     </div>
   );
 }

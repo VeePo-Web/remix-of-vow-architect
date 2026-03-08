@@ -77,7 +77,7 @@ export function ComparisonTable() {
                   <X size={18} className="inline text-destructive/60" />
                 )}
                 {row.dj.value === "warning" && (
-                  <AlertTriangle size={18} className="inline text-yellow-600" />
+                  <AlertTriangle size={18} className="inline text-primary/70" />
                 )}
                 {row.dj.label && (
                   <div className="text-xs text-muted-foreground mt-1">{row.dj.label}</div>
@@ -91,7 +91,7 @@ export function ComparisonTable() {
                   <X size={18} className="inline text-destructive/60" />
                 )}
                 {row.band.value === "warning" && (
-                  <AlertTriangle size={18} className="inline text-yellow-600" />
+                  <AlertTriangle size={18} className="inline text-primary/70" />
                 )}
                 {row.band.label && (
                   <div className="text-xs text-muted-foreground mt-1">{row.band.label}</div>

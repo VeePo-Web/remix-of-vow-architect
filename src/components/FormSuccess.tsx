@@ -28,8 +28,8 @@ END:VCALENDAR`;
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <div className="flex items-start gap-3 p-6 bg-[#22C55E]/10 border border-[#22C55E]/20 rounded-lg">
-        <CheckCircle2 className="text-[#22C55E] mt-0.5 flex-shrink-0" size={24} />
+      <div className="flex items-start gap-3 p-6 bg-accent/10 border border-accent/20 rounded-lg">
+        <CheckCircle2 className="text-accent mt-0.5 flex-shrink-0" size={24} />
         <div className="space-y-2">
           <h3 className="font-semibold text-foreground">
             Thanks—your request is in.

@@ -14,14 +14,14 @@ export function PolicyHighlightBox({ variant = "info", children }: PolicyHighlig
       icon: <Info className="w-5 h-5 text-primary shrink-0" />,
     },
     warning: {
-      bg: "bg-yellow-500/10",
-      border: "border-yellow-500/30",
-      icon: <AlertTriangle className="w-5 h-5 text-yellow-500 shrink-0" />,
+      bg: "bg-primary/10",
+      border: "border-primary/30",
+      icon: <AlertTriangle className="w-5 h-5 text-primary shrink-0" />,
     },
     success: {
-      bg: "bg-green-500/10",
-      border: "border-green-500/30",
-      icon: <CheckCircle className="w-5 h-5 text-green-500 shrink-0" />,
+      bg: "bg-accent/10",
+      border: "border-accent/30",
+      icon: <CheckCircle className="w-5 h-5 text-accent shrink-0" />,
     },
   };
 
