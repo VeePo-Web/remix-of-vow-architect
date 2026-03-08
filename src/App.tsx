@@ -22,6 +22,8 @@ import CookiePolicy from "./pages/CookiePolicy";
 import Accessibility from "./pages/Accessibility";
 import Legal from "./pages/Legal";
 import Listen from "./pages/Listen";
+import EventsAbout from "./pages/EventsAbout";
+import TeachingAbout from "./pages/TeachingAbout";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
