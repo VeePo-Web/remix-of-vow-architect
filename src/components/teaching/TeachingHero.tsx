@@ -236,7 +236,7 @@ export function TeachingHero() {
       <div
         ref={contentRef}
         className="relative z-10 text-center px-6 md:px-12"
-        style={{ willChange: "transform", marginTop: "-2vh" }}
+        style={{ willChange: "transform", marginTop: "-1vh" }}
       >
         {/* Role label */}
         <p
