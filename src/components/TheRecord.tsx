@@ -104,10 +104,10 @@ export function TheRecord() {
               aria-hidden="true"
             />
 
-            <p className="text-2xl font-display font-light italic text-foreground/90 mb-2 text-center">
+            <p className="text-2xl font-display font-light italic text-foreground opacity-90 mb-2 text-center">
               {"\u201C"}If all failsafes fail,
             </p>
-            <p className="text-2xl font-display font-light italic text-foreground/90 mb-8 text-center">
+            <p className="text-2xl font-display font-light italic text-foreground opacity-90 mb-8 text-center">
               your remedy is automatic.{"\u201D"}
             </p>
 

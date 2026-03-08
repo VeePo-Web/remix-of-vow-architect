@@ -128,7 +128,7 @@ function NowPlayingBar({
             onClick={handleToggle}
             className={cn(
               "w-7 h-7 rounded-full flex items-center justify-center shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)/0.4)]",
-              isPlaying ? "bg-[hsl(var(--vow-yellow))] text-background" : "text-foreground/70"
+              isPlaying ? "bg-[hsl(var(--vow-yellow))] text-background" : "text-foreground opacity-70"
             )}
             style={{ transition: "all 180ms cubic-bezier(.22,.61,.36,1)", background: isPlaying ? undefined : "linear-gradient(135deg, hsl(0 0% 100% / 0.06), hsl(var(--vow-yellow) / 0.04))" }}
             aria-label={isPlaying ? "Pause" : "Play"}
@@ -136,13 +136,13 @@ function NowPlayingBar({
             {isPlaying ? <Pause size={12} strokeWidth={2} /> : <Play size={12} strokeWidth={2} className="ml-0.5" />}
           </button>
           <div className="min-w-0" style={{ opacity: titleFade ? 1 : 0, transition: "opacity 120ms ease" }}>
-            <span className="text-[10px] uppercase tracking-[0.15em] text-[hsl(var(--vow-yellow)/0.7)] block leading-none mb-0.5">
+            <span className="text-[10px] uppercase tracking-[0.15em] text-[hsl(var(--vow-yellow))] opacity-70 block leading-none mb-0.5">
               {displayCategory}
             </span>
-            <span className="text-xs text-foreground/80 font-display truncate block">{displayTitle}</span>
+            <span className="text-xs text-foreground opacity-80 font-display truncate block">{displayTitle}</span>
           </div>
         </div>
-        <span className="text-[9px] text-foreground/30 font-mono tabular-nums shrink-0 ml-1">
+        <span className="text-[9px] text-foreground opacity-30 font-mono tabular-nums shrink-0 ml-1">
           {formatTime(progress)}/{formatTime(duration)}
         </span>
       </div>

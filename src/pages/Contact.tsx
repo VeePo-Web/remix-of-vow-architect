@@ -89,7 +89,7 @@ export default function Contact() {
               animation: "ken-burns 25s ease-in-out infinite alternate",
             }}
           />
-          <img src={contactHeroImg} alt="" className="hidden" loading="eager" decoding="async" />
+          
         </div>
         {/* Warm fog */}
         <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)" }} aria-hidden="true" />

@@ -491,10 +491,10 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
             }}
             aria-hidden="true"
           />
-          <p className="font-display text-sm text-foreground/25 tracking-wide">
+          <p className="font-display text-sm text-foreground opacity-25 tracking-wide">
             'Til Death
             <span
-              className="text-primary/40"
+              className="text-primary opacity-40"
               style={{
                 animation: isOpen
                   ? "semicolon-heartbeat 2s ease-in-out infinite"

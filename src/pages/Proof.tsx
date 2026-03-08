@@ -67,6 +67,8 @@ export default function Proof() {
               backgroundImage: `url(${galleryHeroImg})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
+              maskImage: "linear-gradient(to bottom, black 0%, transparent 50%)",
+              WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 50%)",
               animation: "ken-burns 30s ease-in-out infinite alternate",
             }}
           />

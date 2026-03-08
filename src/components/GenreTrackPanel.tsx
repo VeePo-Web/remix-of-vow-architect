@@ -86,13 +86,13 @@ export function GenreTrackPanel({
       <div className="px-5 pt-4 pb-3" style={{ borderBottom: "1px solid hsl(var(--vow-yellow) / 0.06)" }}>
         <div className="flex items-center justify-between">
           <span
-            className="text-xs uppercase tracking-[0.18em] font-display font-light text-foreground/60"
+            className="text-xs uppercase tracking-[0.18em] font-display font-light text-foreground opacity-60"
             role="heading"
             aria-level={3}
           >
             {category.label}
           </span>
-          <span className="text-[10px] uppercase tracking-[0.15em] text-foreground/30 font-mono tabular-nums">
+          <span className="text-[10px] uppercase tracking-[0.15em] text-foreground opacity-30 font-mono tabular-nums">
             {category.tracks.length} tracks
           </span>
         </div>
@@ -130,8 +130,8 @@ export function GenreTrackPanel({
               isActive
                 ? "text-[hsl(var(--vow-yellow))]"
                 : hasSrc
-                ? "text-foreground/80 hover:text-foreground hover:bg-[hsl(var(--vow-yellow)/0.06)] cursor-pointer"
-                : "text-foreground/45 cursor-default"
+                ? "text-foreground opacity-80 hover:text-foreground hover:bg-[hsl(var(--vow-yellow)/0.06)] cursor-pointer"
+                : "text-foreground opacity-45 cursor-default"
             )}
             style={{
               background: isActive
@@ -156,7 +156,7 @@ export function GenreTrackPanel({
             />
             {/* Track number */}
             {!isActive && (
-              <span className="text-[10px] font-mono text-foreground/20 tabular-nums w-5 shrink-0 text-right">
+              <span className="text-[10px] font-mono text-foreground opacity-20 tabular-nums w-5 shrink-0 text-right">
                 {String(tIdx + 1).padStart(2, "0")}
               </span>
             )}
@@ -179,7 +179,7 @@ export function GenreTrackPanel({
 
       {/* Footer */}
       <div className="px-5 pt-3 pb-4 text-center">
-        <p className="text-xs text-foreground/35 italic font-display">
+        <p className="text-xs text-foreground opacity-35 italic font-display">
           Each piece, arranged for your ceremony.{" "}
           <Link
             to="/contact"

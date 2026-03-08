@@ -498,7 +498,7 @@ export function MinimalHeader() {
                   className={cn(
                     "relative nav-link transition-all duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm",
                     isContactPage
-                      ? "text-foreground/50 cursor-default"
+                      ? "text-foreground opacity-50 cursor-default"
                       : "nav-link--cta hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)]",
                     hoveredNavIndex !== null &&
                       hoveredNavIndex !== navLinks.length &&
@@ -587,10 +587,10 @@ export function MinimalHeader() {
             }}
             aria-hidden="true"
           >
-            <p className="font-display text-[10px] text-foreground/15 tracking-[0.18em] whitespace-nowrap">
+            <p className="font-display text-[10px] text-foreground opacity-[0.15] tracking-[0.18em] whitespace-nowrap">
               'Til Death
               <span
-                className="text-primary/25"
+                className="text-primary opacity-25"
                 style={{
                   animation: "semicolon-heartbeat 2s ease-in-out infinite 1s",
                 }}

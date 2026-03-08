@@ -112,7 +112,7 @@ export function ListeningMovement({
         aria-hidden="true"
       >
         <span
-          className="font-display text-[20vw] md:text-[16vw] leading-none text-foreground/[0.03]"
+          className="font-display text-[20vw] md:text-[16vw] leading-none text-foreground opacity-[0.03]"
           style={{ fontWeight: 300 }}
         >
           {numeral}
@@ -142,7 +142,7 @@ export function ListeningMovement({
         )}
       >
         {/* Context label */}
-        <p className="text-[11px] md:text-xs uppercase tracking-[0.3em] text-[hsl(var(--vow-yellow)/0.7)] mb-4">
+        <p className="text-[11px] md:text-xs uppercase tracking-[0.3em] text-[hsl(var(--vow-yellow))] opacity-70 mb-4">
           {context}
         </p>
 
@@ -186,7 +186,7 @@ export function ListeningMovement({
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)/0.6)]",
                 isActive && isPlaying
                   ? "bg-[hsl(var(--vow-yellow))] text-background hover:scale-[1.06]"
-                  : "bg-foreground/10 text-foreground/70 hover:bg-foreground/20 hover:scale-[1.06]"
+                  : "bg-foreground opacity-10 text-foreground hover:opacity-20 hover:scale-[1.06]"
               )}
               aria-label={isActive && isPlaying ? `Pause ${trackTitle}` : `Play ${trackTitle}`}
             >
