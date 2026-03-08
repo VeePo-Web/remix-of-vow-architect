@@ -143,7 +143,7 @@ export default function Gateway() {
                   className={cn(
                     "mt-3 font-sans text-[12px] uppercase tracking-[0.18em] inline-flex items-center gap-1.5",
                     s.available
-                      ? "text-[hsl(var(--vow-yellow))]"
+                      ? "text-primary"
                       : "text-muted-foreground opacity-50"
                   )}
                 >
