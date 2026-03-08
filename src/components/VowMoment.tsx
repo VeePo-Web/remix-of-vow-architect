@@ -36,6 +36,7 @@ export function VowMoment() {
             willChange: 'transform',
           }}
           loading="lazy"
+          decoding="async"
         />
       </div>
 

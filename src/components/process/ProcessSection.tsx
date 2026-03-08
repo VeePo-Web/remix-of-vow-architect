@@ -189,6 +189,7 @@ export function ProcessSection() {
             alt="" 
             className="process-closing__backdrop-img"
             loading="lazy"
+            decoding="async"
           />
           <div className="process-closing__backdrop-overlay" />
         </div>

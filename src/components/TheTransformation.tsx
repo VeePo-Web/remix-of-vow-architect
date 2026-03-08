@@ -132,6 +132,7 @@ export function TheTransformation() {
             animation: !reducedMotion ? "transform-life-kb 35s ease-in-out infinite alternate" : "none",
           }}
           loading="lazy"
+          decoding="async"
         />
       </div>
 

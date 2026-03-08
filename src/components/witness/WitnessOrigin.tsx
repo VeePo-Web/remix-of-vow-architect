@@ -114,6 +114,7 @@ export function WitnessOrigin() {
                 alt="Empty wedding ceremony chairs at twilight with scattered petals"
                 className="w-full h-full object-cover"
                 loading="lazy"
+                decoding="async"
                 style={{ 
                   animation: "ken-burns 30s ease-in-out infinite alternate",
                   willChange: "transform",

@@ -82,6 +82,7 @@ export function GenreCard({
           transition: "opacity 400ms cubic-bezier(0.4,0,0.2,1)",
         }}
         loading="lazy"
+        decoding="async"
         aria-hidden="true"
       />
 

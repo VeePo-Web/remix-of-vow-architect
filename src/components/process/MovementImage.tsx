@@ -77,6 +77,7 @@ export function MovementImage({
             alt={alt}
             className="movement-image__photo"
             loading="lazy"
+            decoding="async"
           />
         )}
       </div>
