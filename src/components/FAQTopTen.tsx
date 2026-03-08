@@ -15,7 +15,7 @@ const topTenFAQs = [
   {
     question: "What if the venue has no power?",
     answer: "I use a silent battery system — no noise, no permits required, completely quiet during your ceremony.",
-    link: { to: "/proof", label: "See the equipment" }
+    link: { to: "/gallery", label: "See the equipment" }
   },
   {
     question: "What happens if equipment fails?",
