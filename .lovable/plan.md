@@ -1,122 +1,33 @@
 
 
-# Premium Navigation Menu Overhaul — Fantasy.co Quality
+# Plan: Create Events Brand Identity Document
 
-## Current State Audit
+Create `.lovable/events-brand-identity.md` following the same structure as the wedding and teaching documents — Brand Truth Table, Non-Negotiables/Flex/Dealbreakers, Brand Spine, Positioning, Customer Identity Mirror, Messaging, Voice, and Visual direction.
 
-**What's cheap/confusing:**
-1. **Menu layout imbalance** — All content left-aligned with dead space on right (amateur composition)
-2. **Black-key indentation** — Alternating page link indent creates visual noise, not hierarchy
-3. **Icon clutter** — Multiple Lucide icons (Mail, MapPin, Shield) feel generic/software-y
-4. **Disconnected zones** — "Verticals" and "Page links" feel like two separate menus forced together
-5. **No brand presence** — Missing the pianist's name/identity in the menu itself
-6. **Weak CTA hierarchy** — Contact info buried inline, no clear conversion path
-7. **Scroll-behavior gap** — Header always visible when scrolled; hickoryandrose hides on scroll-down to reduce clutter
+## Key Differentiators from Other Verticals
 
-## hickoryandrose Benchmark Insights
+- **Tone:** Professional and polished, not sacred/vigil (weddings) or warm/mentorship (teaching)
+- **Category:** "Private Event Pianist" — not "sound director" or "mentor"
+- **Mission:** "I understand what live music does to a room" — atmospheric, not ceremonial
+- **Tagline adaptation:** "Every room has a sound it's waiting for."
+- **Enemy:** The generic playlist, the background-noise assumption, the DJ who drowns conversation
+- **Audience:** Hosts planning private dinners, church services, cocktail receptions, intimate celebrations — people who care about atmosphere and presence
 
-After analyzing the reference project:
-- **Center-balanced composition** — All menu content centered vertically and horizontally for symmetry
-- **Brand mark prominence** — "Hickory & Rose" displayed at top with subtle shimmer
-- **Minimal iconography** — No generic icons; uses custom divider lines and typography
-- **Clear CTA** — "Inquire" button with border + gold shimmer sweep on hover
-- **Scroll direction awareness** — Header hides on scroll-down (past threshold), reveals on scroll-up
-- **Breathing animations** — Subtle gold accents pulse/breathe rather than static
+## Document Structure (matching existing format)
 
-## Proposed Changes
+1. **Brand Truth Table** — Events-specific truths (500+ events, 4 occasion types, 500+ repertoire, room-reading ability)
+2. **Non-Negotiables / Flex / Dealbreakers** — Professional tone rules, no "sacred/vigil" language, no entertainment framing
+3. **Brand Spine** — Category stance, enemy, audience, promise, proof, personality
+4. **Positioning & Differentiators** — "Private Event Pianist" category, differentiator table vs DJs/playlists/bands
+5. **Customer Identity Mirror** — "You are my people if..." / "Not for you if..." for event hosts
+6. **Messaging Pillars** — Atmosphere, Adaptability, Professionalism
+7. **Voice & Lexicon** — Events-specific word choices (allowed/banned), CTA phrasing
+8. **Visual Direction** — How the events page differs aesthetically from weddings/teaching
+9. **Cross-Vertical Coherence** — How events connects to the broader Sacred Sound brand
 
-### 1. FullScreenMenu — Centered Symphony Layout
+## File
 
-**Brand mark introduction:**
-- Add "Parker Gawryletz" in Cormorant at top of menu with 4s shimmer sweep
-- Golden divider line beneath (1px, centered, breathing pulse)
+- **Create:** `.lovable/events-brand-identity.md`
 
-**Layout restructure:**
-- Change container from `items-start` → `items-center text-center`
-- All content centered for premium symmetry
-
-**Zone 1 (Verticals):**
-- Keep horizontal row, add `justify-center`
-- Reduce gap for tighter grouping
-- Remove any icon decorations
-
-**Golden thread separator:**
-- Center with `mx-auto`, add subtle breathing animation
-
-**Zone 2 (Page links):**
-- **Remove all black-key indentation** — uniform center alignment for clean scan path
-- Keep numbered indices (01-06) positioned consistently left of labels
-- Remove all Lucide icons from link labels
-
-**CTA addition:**
-- Add vertical-aware CTA button below page links:
-  - Weddings: "Hold My Date"
-  - Events: "Discuss Your Event"
-  - Teaching: "Begin Lessons"
-- Styled with `border border-foreground/20 text-foreground hover:border-primary`
-- Diagonal shimmer sweep on hover (like hickoryandrose "Inquire")
-
-**Contact info repositioning:**
-- Move location/email/trust signal to `absolute bottom-8` centered footer row
-- Replace icons with simple text dividers (en-dash separators)
-- Breathing gold dot separator between items
-
-### 2. MinimalHeader — Scroll Direction Intelligence
-
-**Hide/show pattern:**
-- Track scroll direction via `lastScrollY` ref in existing `updateScroll` callback
-- Hide header on scroll-down past 300px: `transform: translateY(-100%)`
-- Reveal on scroll-up: `transform: translateY(0)`
-- Transition: `400ms cubic-bezier(0.4, 0, 0.2, 1)`
-
-**Token governance fix:**
-- Replace `text-muted-foreground/40` → `text-muted-foreground opacity-40`
-
-### 3. Animation Keyframes
-
-**Add to FullScreenMenu inline styles:**
-- Reuse existing `shimmer-sweep` for CTA and brand mark
-- Add `menu-brand-shimmer` for the pianist name (4s delay, 6s duration, infinite)
-
-## Technical Implementation
-
-**Files modified:**
-1. `src/components/FullScreenMenu.tsx`
-   - Layout: items-center text-center
-   - Add brand mark with shimmer
-   - Remove black-key indent
-   - Remove Lucide icons
-   - Add vertical-aware CTA button
-   - Reposition contact footer
-
-2. `src/components/MinimalHeader.tsx`
-   - Add scroll direction state
-   - Add transform logic
-   - Fix opacity token
-
-**Dependencies:** None (uses existing hooks/components)
-
-**Performance:** All GPU-accelerated transforms, no layout thrashing
-
-**Accessibility:**
-- Maintain 44×44px touch targets
-- ARIA labels for icon-free links
-- Reduced motion fallbacks (opacity-only)
-
-## Removed "Cheap" Elements
-
-- ❌ Lucide Mail/MapPin/Shield icons (replaced with typography)
-- ❌ Black-key alternating indent (uniform alignment)
-- ❌ Left-aligned asymmetry (centered composition)
-- ❌ Static header on scroll (direction-aware hide/show)
-- ❌ Inline contact clutter (footer row)
-
-## Added Premium Elements
-
-- ✅ Centered brand mark with shimmer
-- ✅ Diagonal shimmer CTA (hickoryandrose pattern)
-- ✅ Breathing golden dividers
-- ✅ Scroll-direction header intelligence
-- ✅ Symmetrical composition (Fantasy.co balance)
-- ✅ Semantic token governance compliance
+No code changes required.
 

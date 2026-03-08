@@ -48,6 +48,7 @@ export function MinimalHeader() {
   const [hoveredNavIndex, setHoveredNavIndex] = useState<number | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [arrivalPhase, setArrivalPhase] = useState<'none' | 'dissolving' | 'arrived'>('none');
+  const [isHeaderHidden, setIsHeaderHidden] = useState(false);
   const isContactPage = pathname === '/contact';
   
   // Vertical-aware CTA label — adapts to the emotional temperature of each vertical
@@ -60,19 +61,33 @@ export function MinimalHeader() {
   })();
   const navRef = useRef<HTMLElement>(null);
   const rafRef = useRef<number>(0);
+  const lastScrollY = useRef(0);
 
-  // Scroll tracking with rAF for smooth progress
+  // Scroll tracking with rAF for smooth progress + direction awareness
   const updateScroll = useCallback(() => {
-    const scrolled = window.scrollY > window.innerHeight;
+    const currentScrollY = window.scrollY;
+    const scrolled = currentScrollY > window.innerHeight;
     setIsScrolled(scrolled);
     if (scrolled) setWasScrolled(true);
+
+    // Scroll direction detection — hide on down, show on up
+    if (currentScrollY > 300) {
+      if (currentScrollY > lastScrollY.current && !isHeaderHidden) {
+        setIsHeaderHidden(true);
+      } else if (currentScrollY < lastScrollY.current && isHeaderHidden) {
+        setIsHeaderHidden(false);
+      }
+    } else {
+      if (isHeaderHidden) setIsHeaderHidden(false);
+    }
+    lastScrollY.current = currentScrollY;
 
     // Scroll progress for golden thread
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     if (docHeight > 0) {
-      setScrollProgress(Math.min(window.scrollY / docHeight, 1));
+      setScrollProgress(Math.min(currentScrollY / docHeight, 1));
     }
-  }, []);
+  }, [isHeaderHidden]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -138,8 +153,9 @@ export function MinimalHeader() {
         style={{
           height: isScrolled ? "56px" : "auto",
           background: isScrolled ? "hsl(var(--rich-black) / 0.94)" : undefined,
-          transitionDuration: "260ms",
-          transitionTimingFunction: "cubic-bezier(0.22,0.61,0.36,1)",
+          transform: isHeaderHidden ? 'translateY(-100%)' : 'translateY(0)',
+          transitionDuration: "400ms",
+          transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
         }}
       >
         {/* ═══════════════════════════════════════════
@@ -370,7 +386,7 @@ export function MinimalHeader() {
                 style={{ animationDelay: '200ms', animationFillMode: 'forwards' }}
               >
                 <span className="w-1 h-1 rounded-full" style={{ background: 'hsl(var(--vow-yellow) / 0.3)' }} aria-hidden="true" />
-                <span className="text-[0.55rem] tracking-[0.18em] uppercase text-muted-foreground/40 font-sans">
+                <span className="text-[0.55rem] tracking-[0.18em] uppercase text-muted-foreground opacity-40 font-sans">
                   {pathname === '/' || pathname === '/weddings' ? 'Home' : pathname.split('/').pop()?.replace(/-/g, ' ')}
                 </span>
               </span>
