@@ -172,7 +172,7 @@ export function TheTransformation() {
       {/* Layer 3: Vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at center, transparent 40%, hsl(220 15% 8% / 0.5) 100%)" }}
+        style={{ background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--transform-dark) / 0.5) 100%)" }}
         aria-hidden="true"
       />
 
