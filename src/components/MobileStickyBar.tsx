@@ -50,7 +50,9 @@ export function MobileStickyBar() {
 
   if (isContact) return null;
 
-  const leftText = pageConfig[location.pathname] || "I would be honored to be there";
+  const config = pageConfig[location.pathname] || { text: "I would be honored to be there", cta: "Hold my date" };
+  const leftText = config.text;
+  const ctaText = config.cta;
 
   return (
     <div 
