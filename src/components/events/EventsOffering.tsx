@@ -98,13 +98,8 @@ export function EventsOffering() {
               </p>
               <Button
                 asChild
-                variant={t.isSelected ? "default" : "outline"}
-                className={cn(
-                  "w-full",
-                  t.isSelected
-                    ? "bg-[hsl(var(--vow-yellow))] text-[hsl(var(--rich-black))] hover:bg-[hsl(var(--vow-yellow)/0.9)]"
-                    : "border-foreground/20 text-foreground hover:bg-foreground/5"
-                )}
+                variant={t.isSelected ? "primary-dark" : "ghost-dark"}
+                className="w-full"
               >
                 <Link to={t.ctaHref}>{t.cta}</Link>
               </Button>

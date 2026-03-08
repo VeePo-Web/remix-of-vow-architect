@@ -136,7 +136,7 @@ export function WitnessCrossing() {
               className="h-[1px] w-full mb-8"
               style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.2), transparent)" }}
             />
-            <p className="font-display text-xl text-white/80 italic">
+            <p className="font-display text-xl text-foreground/80 italic">
               'Til Death<span className="text-primary">;</span> Unto Life.
             </p>
           </div>
