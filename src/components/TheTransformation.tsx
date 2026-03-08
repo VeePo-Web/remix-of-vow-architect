@@ -165,7 +165,7 @@ export function TheTransformation() {
       {/* Layer 2e: Life-space warm depth vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at 50% 80%, hsl(35 30% 75% / 0.15) 0%, transparent 50%)" }}
+        style={{ background: "radial-gradient(ellipse at 50% 80%, hsl(var(--warm-vignette) / 0.15) 0%, transparent 50%)" }}
         aria-hidden="true"
       />
 
