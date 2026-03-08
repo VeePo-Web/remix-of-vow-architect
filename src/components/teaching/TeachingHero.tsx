@@ -4,21 +4,18 @@ import benchImg from "@/assets/teaching-bench.jpg";
 
 /* ─────────────────────────────────────────────
  * Character-by-character staggered reveal
- * Each character fades in with a slight Y-drift,
- * the semicolon ignites as the final dramatic beat.
  * ───────────────────────────────────────────── */
 
 interface CharRevealProps {
   text: string;
   isRevealed: boolean;
-  baseDelay: number; // ms before first char starts
-  charInterval: number; // ms between each char
+  baseDelay: number;
+  charInterval: number;
   className?: string;
   style?: React.CSSProperties;
-  /** Render a special element for this character */
   specialChar?: {
     char: string;
-    delay: number; // additional ms after last normal char
+    delay: number;
     className?: string;
     style?: React.CSSProperties;
     breatheAnimation?: string;
@@ -110,7 +107,7 @@ export function TeachingHero() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Mouse-reactive parallax — subtle content drift
+  // Mouse-reactive parallax
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     if (!contentRef.current) return;
     cancelAnimationFrame(rafRef.current);
@@ -135,7 +132,7 @@ export function TeachingHero() {
     }, 600);
   }, []);
 
-  /* Timing constants (ms) — orchestrated reveal score */
+  /* Timing constants */
   const ROLE_DELAY = 400;
   const LINE1_BASE = 900;
   const LINE1_INTERVAL = 45;
@@ -149,45 +146,51 @@ export function TeachingHero() {
     <section
       id="teaching-hero"
       className="relative h-screen w-full overflow-hidden flex items-center justify-center"
-      style={{ background: "hsl(40 30% 95%)" }}
+      style={{ background: "hsl(var(--background))" }}
       aria-label="The Waiting Bench"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
+      {/* ── Layer 0: Dark base fill ── */}
+      <div
+        className="absolute inset-0"
+        style={{ background: "hsl(20 8% 8%)" }}
+        aria-hidden="true"
+      />
+
       {/* ── Layer 1: Background bench image — 30s Ken Burns drift ── */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage: `url(${benchImg})`,
-          opacity: 0.13,
+          opacity: 0.22,
           animation: "teaching-ken-burns 30s linear infinite alternate",
           willChange: "transform",
         }}
         aria-hidden="true"
       />
 
-      {/* ── Layer 2a: Grain overlay ── */}
+      {/* ── Layer 2: Dark gradient overlay for contrast ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "linear-gradient(180deg, hsl(20 8% 6% / 0.5) 0%, hsl(20 8% 8% / 0.3) 40%, hsl(20 8% 6% / 0.6) 100%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* ── Layer 3: Grain overlay ── */}
       <div
         className="absolute inset-0 grain opacity-[0.06] pointer-events-none"
         aria-hidden="true"
       />
 
-      {/* ── Layer 2b: Dual-origin fog ── */}
+      {/* ── Layer 4: Dual-origin warm fog — very subtle ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at 35% 65%, hsl(40 35% 88% / 0.35), transparent 55%), radial-gradient(ellipse at 65% 35%, hsl(40 30% 90% / 0.3), transparent 50%)",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* ── Layer 2c: Secondary ambient fog — adds depth ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 80%, hsl(40 25% 85% / 0.2), transparent 45%)",
+            "radial-gradient(ellipse at 35% 65%, hsl(var(--vow-yellow) / 0.03), transparent 55%), radial-gradient(ellipse at 65% 35%, hsl(var(--vow-yellow) / 0.025), transparent 50%)",
           animation: isRevealed
             ? "teaching-fog-drift 20s ease-in-out infinite alternate"
             : undefined,
@@ -195,12 +198,12 @@ export function TeachingHero() {
         aria-hidden="true"
       />
 
-      {/* ── Layer 3a: Warm light bloom — top-center ── */}
+      {/* ── Layer 5: Warm light bloom — top-center ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 20%, hsl(var(--vow-yellow) / 0.03), transparent 50%)",
+            "radial-gradient(ellipse at 50% 25%, hsl(var(--vow-yellow) / 0.04), transparent 50%)",
           animation: isRevealed
             ? "hero-light-bloom 8s ease-in-out infinite"
             : undefined,
@@ -208,12 +211,12 @@ export function TeachingHero() {
         aria-hidden="true"
       />
 
-      {/* ── Layer 3b: Breathing vignette ── */}
+      {/* ── Layer 6: Breathing vignette ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 40%, hsl(40 20% 88% / 0.6) 100%)",
+            "radial-gradient(ellipse at center, transparent 35%, hsl(20 8% 6%) 100%)",
           animation: isRevealed
             ? "teaching-hero-vignette 6s ease-in-out infinite"
             : undefined,
@@ -236,7 +239,7 @@ export function TeachingHero() {
               : "opacity-0 translate-y-[8px]"
           )}
           style={{
-            color: "hsl(30 10% 35%)",
+            color: "hsl(40 15% 65%)",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             transitionDelay: `${ROLE_DELAY}ms`,
           }}
@@ -254,9 +257,9 @@ export function TeachingHero() {
             charInterval={LINE1_INTERVAL}
             className="block text-[40px] md:text-[64px] font-light leading-[1.05]"
             style={{
-              color: "hsl(30 10% 20%)",
+              color: "hsl(40 20% 90%)",
               textShadow:
-                "0 1px 2px hsl(40 20% 80% / 0.3), 0 4px 20px hsl(40 30% 70% / 0.08)",
+                "0 1px 3px hsl(20 8% 6% / 0.5), 0 4px 24px hsl(20 8% 6% / 0.3)",
             }}
             specialChar={{
               char: ";",
@@ -278,9 +281,9 @@ export function TeachingHero() {
             charInterval={LINE2_INTERVAL}
             className="block text-[40px] md:text-[64px] font-light leading-[1.05] mt-1"
             style={{
-              color: "hsl(30 10% 20%)",
+              color: "hsl(40 20% 90%)",
               textShadow:
-                "0 1px 2px hsl(40 20% 80% / 0.3), 0 4px 20px hsl(40 30% 70% / 0.08)",
+                "0 1px 3px hsl(20 8% 6% / 0.5), 0 4px 24px hsl(20 8% 6% / 0.3)",
             }}
             specialChar={{
               char: ".",
@@ -323,11 +326,11 @@ export function TeachingHero() {
           className={cn(
             "font-sans text-[clamp(13px,1.6vw,16px)] leading-relaxed max-w-[340px] mx-auto transition-all duration-[1800ms]",
             isRevealed
-              ? "opacity-55 translate-y-0"
+              ? "opacity-60 translate-y-0"
               : "opacity-0 translate-y-[8px]"
           )}
           style={{
-            color: "hsl(30 10% 35%)",
+            color: "hsl(40 12% 60%)",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             transitionDelay: `${SUBTITLE_DELAY}ms`,
           }}
@@ -346,7 +349,7 @@ export function TeachingHero() {
       >
         <span
           className="text-[10px] uppercase tracking-[0.22em] font-sans"
-          style={{ color: "hsl(30 10% 45%)" }}
+          style={{ color: "hsl(40 12% 50%)" }}
         >
           Scroll to sit down
         </span>
@@ -363,7 +366,7 @@ export function TeachingHero() {
         >
           <path
             d="M1 1L7 7L13 1"
-            stroke="hsl(30 10% 40%)"
+            stroke="hsl(40 12% 50%)"
             strokeWidth="1.5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -394,8 +397,8 @@ export function TeachingHero() {
           50% { text-shadow: 0 0 40px hsl(var(--vow-yellow) / 0.7); }
         }
         @keyframes teaching-hero-vignette {
-          0%, 100% { opacity: 0.6; }
-          50% { opacity: 0.78; }
+          0%, 100% { opacity: 0.8; }
+          50% { opacity: 0.65; }
         }
         @keyframes hero-light-bloom {
           0%, 100% { opacity: 0.6; }
