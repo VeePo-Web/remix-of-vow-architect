@@ -368,9 +368,9 @@ function KitSection() {
                     )}
                     style={{
                       transitionDelay: isVisible ? `${300 + index * 80}ms` : "0ms",
-                      background: 'linear-gradient(180deg, hsl(45 24% 95% / 0.6) 0%, hsl(42 18% 91% / 0.4) 100%)',
-                      border: '1px solid hsl(45 20% 85% / 0.25)',
-                      borderTop: '1px solid hsl(45 28% 93% / 0.45)',
+                      background: 'linear-gradient(180deg, hsl(var(--warm-card-kit-top) / 0.6) 0%, hsl(var(--warm-card-kit-bottom) / 0.4) 100%)',
+                      border: '1px solid hsl(var(--warm-card-border) / 0.25)',
+                      borderTop: '1px solid hsl(var(--warm-card-kit-highlight) / 0.45)',
                     }}
                   >
                     <span
