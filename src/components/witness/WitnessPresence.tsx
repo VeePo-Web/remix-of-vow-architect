@@ -57,7 +57,7 @@ export function WitnessPresence() {
           {/* Label */}
           <p 
             className={cn(
-              "text-xs uppercase tracking-[0.3em] pl-[0.3em] text-center mb-4 transition-all duration-700",
+              "text-xs uppercase tracking-[0.3em] ml-[0.15em] text-center mb-4 transition-all duration-700",
               isVisible ? "opacity-60 translate-y-0" : "opacity-0 translate-y-4"
             )}
             style={{ color: "hsl(var(--muted-foreground))" }}
