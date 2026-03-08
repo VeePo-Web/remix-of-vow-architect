@@ -296,7 +296,7 @@ export function TeachingHero() {
         {/* ── Golden thread — tagline to subtitle ── */}
         <div
           className={cn(
-            "mx-auto mt-fitz-5 mb-fitz-4 transition-all",
+            "mx-auto mt-8 mb-6 transition-all",
             isRevealed ? "opacity-100" : "opacity-0"
           )}
           style={{
@@ -307,12 +307,12 @@ export function TeachingHero() {
         >
           <div
             className={cn(
-              "h-px w-12 mx-auto origin-center transition-transform",
+              "h-[1px] w-16 mx-auto origin-center transition-transform",
               isRevealed ? "scale-x-100" : "scale-x-0"
             )}
             style={{
               background:
-                "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.4), transparent)",
+                "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.6), transparent)",
               transitionDuration: "700ms",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
               transitionDelay: `${THREAD_DELAY}ms`,
