@@ -304,7 +304,7 @@ export function TeachingOffering() {
         <div className="mb-fitz-8">
           <p
             className="font-sans text-[13px] tracking-[0.02em]"
-            style={{ color: "hsl(30 10% 40%)" }}
+            style={{ color: "hsl(var(--teaching-text-body))" }}
           >
             <ScrollAntiAnxiety
               text="No packages. No commitments. One hour, one conversation, one bench."
