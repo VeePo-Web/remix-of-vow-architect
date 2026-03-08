@@ -20,7 +20,7 @@ export function VowMoment() {
       ref={sectionRef}
       className="section--dark section-grain piano-section-target relative min-h-screen flex items-center justify-center px-4 overflow-hidden"
       style={{
-        background: "radial-gradient(ellipse at center, hsl(240 12% 5%) 0%, hsl(240 9% 2%) 100%)",
+        background: "radial-gradient(ellipse at center, hsl(var(--deep-graphite)) 0%, hsl(var(--rich-black)) 100%)",
         minHeight: '100vh',
       }}
     >
@@ -36,6 +36,7 @@ export function VowMoment() {
             willChange: 'transform',
           }}
           loading="lazy"
+          decoding="async"
         />
       </div>
 
@@ -43,7 +44,7 @@ export function VowMoment() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(circle at 50% 40%, hsl(40 60% 50% / 0.025) 0%, transparent 60%)",
+          background: "radial-gradient(circle at 50% 40%, hsl(var(--vow-yellow) / 0.025) 0%, transparent 60%)",
         }}
         aria-hidden="true"
       />
@@ -60,7 +61,7 @@ export function VowMoment() {
       {/* Step 6: Top fade from Process warm cream — color at top fading to transparent downward */}
       <div
         className="section-fade-top"
-        style={{ background: 'linear-gradient(180deg, hsl(40 25% 90%) 0%, transparent 100%)' }}
+        style={{ background: 'linear-gradient(180deg, hsl(var(--surface-warm)) 0%, transparent 100%)' }}
         aria-hidden="true"
       />
 
@@ -119,7 +120,7 @@ export function VowMoment() {
       {/* Step 6: Bottom fade into TheInvitation */}
       <div
         className="section-fade-bottom"
-        style={{ background: 'linear-gradient(to bottom, transparent, hsl(45 25% 96%))' }}
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(var(--surface)))' }}
         aria-hidden="true"
       />
     </section>

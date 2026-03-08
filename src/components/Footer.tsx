@@ -48,9 +48,9 @@ export function Footer() {
         <defs>
           <linearGradient id="footer-vine-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="transparent" />
-            <stop offset="20%" stopColor={`hsl(45 100% 76% / ${isArrival ? 0.3 : 0.1})`} />
-            <stop offset="50%" stopColor={`hsl(45 100% 76% / ${isArrival ? 0.35 : 0.12})`} />
-            <stop offset="80%" stopColor={`hsl(45 100% 76% / ${isArrival ? 0.3 : 0.1})`} />
+            <stop offset="20%" stopColor={`hsl(var(--vow-yellow) / ${isArrival ? 0.3 : 0.1})`} />
+            <stop offset="50%" stopColor={`hsl(var(--vow-yellow) / ${isArrival ? 0.35 : 0.12})`} />
+            <stop offset="80%" stopColor={`hsl(var(--vow-yellow) / ${isArrival ? 0.3 : 0.1})`} />
             <stop offset="100%" stopColor="transparent" />
           </linearGradient>
         </defs>
@@ -61,7 +61,7 @@ export function Footer() {
           strokeWidth="1"
           className="transition-all duration-[450ms]"
           style={{
-            filter: `drop-shadow(0 0 ${isArrival ? 6 : 3}px hsl(45 100% 76% / ${isArrival ? 0.1 : 0.03}))`,
+            filter: `drop-shadow(0 0 ${isArrival ? 6 : 3}px hsl(var(--vow-yellow) / ${isArrival ? 0.1 : 0.03}))`,
           }}
         />
       </svg>

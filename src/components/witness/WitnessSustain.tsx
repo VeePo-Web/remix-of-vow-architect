@@ -89,7 +89,7 @@ export function WitnessSustain() {
               {/* Connecting line — elegant dashed */}
               <line 
                 x1="60" y1="20" x2="340" y2="20" 
-                stroke="hsl(45 80% 75%)" 
+                stroke="hsl(var(--vow-yellow))" 
                 strokeWidth="1" 
                 opacity="0.15"
                 strokeDasharray="4 8"
@@ -97,13 +97,13 @@ export function WitnessSustain() {
               {/* Three nodes with glow filter */}
               {[60, 200, 340].map((cx, i) => (
                 <g key={i} filter="url(#nodeGlow)">
-                  <circle cx={cx} cy="20" r="12" fill="hsl(45 80% 75%)" opacity="0.08">
+                  <circle cx={cx} cy="20" r="12" fill="hsl(var(--vow-yellow))" opacity="0.08">
                     <animate attributeName="opacity" values="0.06;0.12;0.06" dur={`${3 + i * 0.5}s`} repeatCount="indefinite" />
                   </circle>
-                  <circle cx={cx} cy="20" r="6" fill="hsl(45 80% 75%)" opacity="0.15">
+                  <circle cx={cx} cy="20" r="6" fill="hsl(var(--vow-yellow))" opacity="0.15">
                     <animate attributeName="opacity" values="0.12;0.22;0.12" dur={`${3 + i * 0.5}s`} repeatCount="indefinite" />
                   </circle>
-                  <circle cx={cx} cy="20" r="3" fill="hsl(45 80% 75%)" opacity="0.8">
+                  <circle cx={cx} cy="20" r="3" fill="hsl(var(--vow-yellow))" opacity="0.8">
                     <animate attributeName="opacity" values="0.7;1;0.7" dur={`${3 + i * 0.5}s`} repeatCount="indefinite" />
                   </circle>
                 </g>

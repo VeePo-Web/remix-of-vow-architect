@@ -329,6 +329,7 @@ export function TheSound() {
             alt=""
             className="w-full h-full object-cover opacity-[0.12] pointer-events-none"
             loading="lazy"
+            decoding="async"
             style={{ filter: "saturate(0.5) contrast(1.1)" }}
           />
         </div>

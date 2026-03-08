@@ -81,6 +81,7 @@ export function CrossOver() {
             willChange: 'transform',
           }}
           loading="lazy"
+          decoding="async"
         />
       </div>
 

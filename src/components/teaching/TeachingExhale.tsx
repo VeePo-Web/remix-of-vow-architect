@@ -67,9 +67,9 @@ const allWords = buildWordMap(lines);
 
 /* ── Text shadow presets ── */
 const TEXT_SHADOWS: Record<string, string> = {
-  light: "0 1px 3px hsl(40 20% 80% / 0.2)",
+  light: "0 1px 3px hsl(var(--teaching-vignette) / 0.2)",
   medium:
-    "0 1px 2px hsl(40 20% 80% / 0.25), 0 4px 16px hsl(40 30% 70% / 0.06)",
+    "0 1px 2px hsl(var(--teaching-vignette) / 0.25), 0 4px 16px hsl(var(--teaching-vignette-alt) / 0.06)",
 };
 
 /* ── Scroll-linked word reveal block ── */
@@ -123,7 +123,7 @@ function ScrollRevealBlock({ isInView }: { isInView: boolean }) {
               li < lines.length - 1 ? "mb-fitz-5" : "mb-0"
             )}
             style={{
-              color: line.italic ? "hsl(30 10% 25%)" : "hsl(30 10% 35%)",
+              color: line.italic ? "hsl(var(--teaching-text-narrative))" : "hsl(var(--teaching-text-body))",
               textShadow: TEXT_SHADOWS[line.shadowWeight],
             }}
           >
@@ -209,7 +209,7 @@ export function TeachingExhale() {
       id="teaching-exhale"
       ref={ref}
       className="relative py-[120px] md:py-[160px] px-fitz-4 md:px-fitz-6 overflow-hidden"
-      style={{ background: "hsl(40 30% 95%)" }}
+      style={{ background: "hsl(var(--teaching-bg))" }}
       role="region"
       aria-label="The Exhale"
     >
@@ -228,7 +228,7 @@ export function TeachingExhale() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at 30% 70%, hsl(40 30% 88% / 0.25), transparent 50%), radial-gradient(ellipse at 70% 30%, hsl(40 25% 90% / 0.2), transparent 45%)",
+            "radial-gradient(ellipse at 30% 70%, hsl(var(--teaching-vignette) / 0.25), transparent 50%), radial-gradient(ellipse at 70% 30%, hsl(var(--teaching-vignette) / 0.2), transparent 45%)",
           animation: isVisible
             ? "exhale-fog-drift 18s ease-in-out infinite alternate"
             : undefined,
@@ -247,7 +247,7 @@ export function TeachingExhale() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 50%, hsl(40 25% 88% / 0.5) 100%)",
+            "radial-gradient(ellipse at center, transparent 50%, hsl(var(--teaching-vignette) / 0.5) 100%)",
           animation: isVisible
             ? "exhale-vignette-breathe 6s ease-in-out infinite"
             : undefined,
@@ -265,7 +265,7 @@ export function TeachingExhale() {
               : "opacity-0 translate-y-[8px]"
           )}
           style={{
-            color: "hsl(30 10% 45%)",
+            color: "hsl(var(--teaching-text-label))",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
           }}
         >
@@ -330,7 +330,7 @@ export function TeachingExhale() {
             isVisible ? "opacity-30" : "opacity-0"
           )}
           style={{
-            color: "hsl(30 12% 50%)",
+            color: "hsl(var(--teaching-text-cite))",
             transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
             transitionDelay: "800ms",
           }}
