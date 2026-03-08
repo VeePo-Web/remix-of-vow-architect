@@ -4,11 +4,17 @@ import { NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { FullScreenMenu } from "./FullScreenMenu";
 
-const navLinks = [
-  { to: "/pricing", label: "Services" },
-  { to: "/about", label: "About" },
-  { to: "/proof", label: "Proof" },
-];
+function getNavLinks(pathname: string) {
+  const aboutTo = pathname.startsWith('/events') ? '/events/about'
+    : pathname.startsWith('/teaching') ? '/teaching/about'
+    : '/about';
+  return [
+    { to: "/pricing", label: "Services" },
+    { to: aboutTo, label: "About" },
+    { to: "/proof", label: "Proof" },
+  ];
+}
+
 
 /**
  * MinimalHeader — "The Ceremony Arch"
@@ -28,6 +34,8 @@ const navLinks = [
  * journey: preparation → ceremony → covenant.
  */
 export function MinimalHeader() {
+  const { pathname } = useLocation();
+  const navLinks = getNavLinks(pathname);
   const hasPlayed = typeof window !== 'undefined' && sessionStorage.getItem('vigil-complete') === 'true';
   const headerDelay = hasPlayed ? '0ms' : '6200ms';
   const [isScrolled, setIsScrolled] = useState(false);
@@ -37,13 +45,12 @@ export function MinimalHeader() {
   const [hoveredNavIndex, setHoveredNavIndex] = useState<number | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [arrivalPhase, setArrivalPhase] = useState<'none' | 'dissolving' | 'arrived'>('none');
-  const location = useLocation();
-  const isContactPage = location.pathname === '/contact';
+  const isContactPage = pathname === '/contact';
   
   // Vertical-aware CTA label — adapts to the emotional temperature of each vertical
   const ctaLabel = (() => {
     if (isContactPage) return "You're here";
-    const path = location.pathname;
+    const path = pathname;
     if (path.startsWith('/teaching')) return 'Begin the Conversation';
     if (path.startsWith('/events')) return 'Discuss Your Event';
     return 'Hold My Date';

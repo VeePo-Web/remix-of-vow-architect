@@ -22,6 +22,8 @@ import CookiePolicy from "./pages/CookiePolicy";
 import Accessibility from "./pages/Accessibility";
 import Legal from "./pages/Legal";
 import Listen from "./pages/Listen";
+import EventsAbout from "./pages/EventsAbout";
+import TeachingAbout from "./pages/TeachingAbout";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,7 +36,9 @@ function AppRoutes() {
       <Route path="/" element={<Gateway />} />
       <Route path="/weddings" element={<Index />} />
       <Route path="/teaching" element={<Teaching />} />
+      <Route path="/teaching/about" element={<TeachingAbout />} />
       <Route path="/events" element={<Events />} />
+      <Route path="/events/about" element={<EventsAbout />} />
       <Route path="/pricing" element={<Pricing />} />
       <Route path="/services" element={<Navigate to="/pricing" replace />} />
       <Route path="/proof" element={<Proof />} />
