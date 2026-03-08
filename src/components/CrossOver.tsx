@@ -235,7 +235,7 @@ export function CrossOver() {
           )}
         >
           <p 
-            className="font-display font-light text-[28px] md:text-[34px] uppercase tracking-[0.22em] text-foreground/70"
+            className="font-display font-light text-[28px] md:text-[34px] uppercase tracking-[0.22em] text-foreground opacity-70"
             style={{ textShadow: '0 1px 12px hsl(var(--rich-black) / 0.3)' }}
           >
             {"\u2018"}TIL DEATH{" "}
@@ -264,7 +264,7 @@ export function CrossOver() {
             )}
             style={{ transitionDelay: isVisible ? "150ms" : "0ms" }}
           >
-            <span className="font-light text-foreground/40 text-[0.8em] align-top -mr-[0.05em]">{"\u201C"}</span>
+            <span className="font-light text-muted-foreground text-[0.8em] align-top -mr-[0.05em]">{"\u201C"}</span>
           </span>
           {QUOTE_WORDS.map((word, i) => {
             const isLast = i === QUOTE_WORDS.length - 1;
@@ -279,7 +279,7 @@ export function CrossOver() {
                   style={{ transitionDelay: isVisible ? `${delay}ms` : "0ms" }}
                 >
                   {word}
-                  {isLast && <span className="font-light text-foreground/40 text-[0.8em]">{"\u201D"}</span>}
+                  {isLast && <span className="font-light text-muted-foreground text-[0.8em]">{"\u201D"}</span>}
                 </span>
                 {!isLast && " "}
               </span>

@@ -198,7 +198,7 @@ export function ListeningMovement({
             </button>
 
             {isActive && (
-              <span className="text-xs tabular-nums text-muted-foreground/60 font-sans">
+              <span className="text-xs tabular-nums text-muted-foreground opacity-60 font-sans">
                 {formatTime(progress)} / {formatTime(duration)}
               </span>
             )}

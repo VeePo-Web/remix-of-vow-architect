@@ -151,17 +151,17 @@ export function Footer() {
             >
               Parker Gawryletz
             </h3>
-            <p className="font-display italic text-sm text-foreground/40 mt-1 mb-4">
+            <p className="font-display italic text-sm text-muted-foreground mt-1 mb-4">
               Sound Director
             </p>
-            <p className="text-foreground/70 mb-8 max-w-md leading-relaxed">
+            <p className="text-foreground mb-8 max-w-md leading-relaxed opacity-70">
               I carry your vows so they can carry your guests.
             </p>
             {/* Social icons with spotlight hover */}
             <div className="group/icons flex items-center gap-4">
               <a
                 href="mailto:parker@parkergawryletz.com"
-                className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] group-hover/icons:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] p-3.5 -m-3.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                className="text-muted-foreground hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] group-hover/icons:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] p-3.5 -m-3.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 aria-label="Send me an email"
               >
                 <Mail size={18} />
@@ -169,7 +169,7 @@ export function Footer() {
               <span className="inline-block w-1 h-1 rotate-45" style={{ background: 'hsl(var(--vow-yellow) / 0.3)', boxShadow: '0 0 4px hsl(var(--vow-yellow) / 0.15)' }} aria-hidden="true" />
               <a
                 href="tel:+14038308930"
-                className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] group-hover/icons:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] p-3.5 -m-3.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                className="text-muted-foreground hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] group-hover/icons:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] p-3.5 -m-3.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 aria-label="Call me by phone"
               >
                 <Phone size={18} />
@@ -177,7 +177,7 @@ export function Footer() {
               <span className="inline-block w-1 h-1 rotate-45" style={{ background: 'hsl(var(--vow-yellow) / 0.3)', boxShadow: '0 0 4px hsl(var(--vow-yellow) / 0.15)' }} aria-hidden="true" />
               <a
                 href="https://instagram.com"
-                className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] group-hover/icons:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] p-3.5 -m-3.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                className="text-muted-foreground hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] group-hover/icons:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] p-3.5 -m-3.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 aria-label="Follow me on Instagram"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -187,7 +187,7 @@ export function Footer() {
               <span className="inline-block w-1 h-1 rotate-45" style={{ background: 'hsl(var(--vow-yellow) / 0.3)', boxShadow: '0 0 4px hsl(var(--vow-yellow) / 0.15)' }} aria-hidden="true" />
               <a
                 href="https://youtube.com"
-                className="text-foreground/50 hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] group-hover/icons:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] p-3.5 -m-3.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                className="text-muted-foreground hover:text-vow-yellow hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)] group-hover/icons:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] p-3.5 -m-3.5 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 aria-label="Watch me on YouTube"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -206,7 +206,7 @@ export function Footer() {
             style={{ transitionDelay: isVisible ? "150ms" : "0ms" }}
           >
             <nav aria-label="Footer navigation">
-              <h4 className="font-display text-xs uppercase tracking-[0.22em] mb-6 text-foreground/80">
+              <h4 className="font-display text-xs uppercase tracking-[0.22em] mb-6 text-foreground opacity-80">
                 Navigate
               </h4>
               <ul className="group/nav space-y-3">
@@ -224,7 +224,7 @@ export function Footer() {
                   <li key={link.to}>
                     <NavLink
                       to={link.to}
-                      className="text-foreground/50 hover:text-primary hover:translate-y-[1px] active:translate-y-[2px] group-hover/nav:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] story-link inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
+                      className="text-muted-foreground hover:text-primary hover:translate-y-[1px] active:translate-y-[2px] group-hover/nav:[&:not(:hover)]:opacity-40 transition-all duration-[180ms] story-link inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm"
                     >
                       {link.label}
                     </NavLink>
@@ -242,10 +242,10 @@ export function Footer() {
             )}
             style={{ transitionDelay: isVisible ? "300ms" : "0ms" }}
           >
-            <h4 className="font-display text-xs uppercase tracking-[0.22em] mb-6 text-foreground/80">
+            <h4 className="font-display text-xs uppercase tracking-[0.22em] mb-6 text-foreground opacity-80">
               Reach Me
             </h4>
-            <ul className="space-y-3 text-foreground/50">
+            <ul className="space-y-3 text-muted-foreground">
               <li>Calgary, Cochrane, Canmore and Banff</li>
               <li>
                 <a href="mailto:parker@parkergawryletz.com" className="hover:text-primary transition-all duration-[180ms] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background" aria-label="Email me at parker@parkergawryletz.com">
@@ -291,7 +291,7 @@ export function Footer() {
             }}
             aria-hidden="true"
           />
-          <p className="font-display text-sm text-foreground/50">
+          <p className="font-display text-sm text-muted-foreground">
             Ready to begin?
           </p>
           <Button variant="ghost-dark" size="sm" asChild>
@@ -307,20 +307,20 @@ export function Footer() {
           )}
           style={{ transitionDelay: isVisible ? "500ms" : "0ms" }}
         >
-          <p className="text-sm text-foreground/40">
+          <p className="text-sm text-muted-foreground opacity-60">
             © {new Date().getFullYear()} Parker Gawryletz. All rights reserved.
           </p>
           <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm">
-            <NavLink to="/privacy-policy" className="text-foreground/40 hover:text-primary transition-all duration-[180ms] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background">
+            <NavLink to="/privacy-policy" className="text-muted-foreground opacity-60 hover:text-primary hover:opacity-100 transition-all duration-[180ms] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background">
               Privacy
             </NavLink>
-            <NavLink to="/terms" className="text-foreground/40 hover:text-primary transition-all duration-[180ms] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background">
+            <NavLink to="/terms" className="text-muted-foreground opacity-60 hover:text-primary hover:opacity-100 transition-all duration-[180ms] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background">
               Terms
             </NavLink>
-            <NavLink to="/cookie-policy" className="text-foreground/40 hover:text-primary transition-all duration-[180ms] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background">
+            <NavLink to="/cookie-policy" className="text-muted-foreground opacity-60 hover:text-primary hover:opacity-100 transition-all duration-[180ms] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background">
               Cookies
             </NavLink>
-            <NavLink to="/accessibility" className="text-foreground/40 hover:text-primary transition-all duration-[180ms] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background">
+            <NavLink to="/accessibility" className="text-muted-foreground opacity-60 hover:text-primary hover:opacity-100 transition-all duration-[180ms] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background">
               Accessibility
             </NavLink>
           </div>
@@ -358,7 +358,7 @@ export function Footer() {
             }}
             aria-hidden="true"
           />
-          <p className="font-display text-sm text-foreground/40 tracking-wide">
+          <p className="font-display text-sm text-muted-foreground opacity-60 tracking-wide">
             'Til Death
             <span
               className="text-[hsl(var(--vow-yellow)/0.6)]"

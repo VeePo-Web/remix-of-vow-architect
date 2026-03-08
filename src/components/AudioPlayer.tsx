@@ -217,7 +217,7 @@ export function AudioPlayer({ tracks, onPlayStateChange }: AudioPlayerProps) {
                 </span>
 
                 {hasError ? (
-                  <span className="text-[10px] uppercase tracking-wider text-muted-foreground/50">
+                  <span className="text-[10px] uppercase tracking-wider text-muted-foreground opacity-50">
                     Coming soon
                   </span>
                 ) : (

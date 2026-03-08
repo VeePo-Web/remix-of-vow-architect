@@ -376,7 +376,7 @@ export default function PianoPanel({
                     transition: `opacity 120ms ease-out ${150 + catIdx * 30}ms`,
                   }}
                 >
-                  <span className="font-sans text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground/60">
+                  <span className="font-sans text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground opacity-60">
                     {category.label}
                   </span>
                   <div

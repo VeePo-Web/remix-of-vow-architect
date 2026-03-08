@@ -25,7 +25,7 @@ const testimonials = [
 const journeySteps = [
   { icon: AlertTriangle, label: "Fear", color: "text-muted-foreground" },
   { icon: HelpCircle, label: "Uncertainty", color: "text-muted-foreground" },
-  { icon: FileText, label: "Plan", color: "text-primary/70" },
+  { icon: FileText, label: "Plan", color: "text-primary opacity-70" },
   { icon: Heart, label: "Relief", color: "text-accent" }
 ];
 

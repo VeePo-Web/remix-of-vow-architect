@@ -318,8 +318,8 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
                     className={cn(
                       "text-xs font-sans min-w-[2.5ch] tabular-nums transition-all duration-[180ms]",
                       isActive
-                        ? "text-primary/50"
-                        : "text-muted-foreground/40 group-hover:text-primary/25"
+                        ? "text-primary opacity-50"
+                        : "text-muted-foreground opacity-40 group-hover:text-primary group-hover:opacity-25"
                     )}
                     style={{
                       transform: isPressed ? "translateY(1px)" : "translateY(0)",
@@ -340,7 +340,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
                       // Color states
                       isActive
                         ? "text-foreground"
-                        : "text-foreground/75 group-hover:text-foreground"
+                        : "text-foreground opacity-75 group-hover:opacity-100"
                     )}
                     style={{
                       // Piano key depression physics: 1px hover, 2px press
@@ -457,13 +457,13 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
               : "opacity-0 translate-y-4"
           )}
         >
-          <p className="text-muted-foreground/60">
+          <p className="text-muted-foreground opacity-60">
             Calgary, Cochrane, Canmore &amp; Banff
           </p>
           <p>
             <a
               href="mailto:parker@parkergawryletz.com"
-              className="text-muted-foreground/60 hover:text-primary transition-colors duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm"
+              className="text-muted-foreground opacity-60 hover:text-primary hover:opacity-100 transition-colors duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm"
             >
               parker@parkergawryletz.com
             </a>
