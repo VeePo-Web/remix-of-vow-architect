@@ -47,6 +47,28 @@ function SectionFade({
   );
 }
 
+/** Golden thread separator between same-tone sections */
+function GoldenThread() {
+  return (
+    <div className="relative py-2 my-0" aria-hidden="true">
+      <div
+        className="h-px max-w-xs mx-auto"
+        style={{
+          background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.2), transparent)",
+        }}
+      />
+      <div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-1 rounded-full"
+        style={{
+          background: "hsl(var(--vow-yellow) / 0.5)",
+          boxShadow: "0 0 6px hsl(var(--vow-yellow) / 0.25)",
+          animation: "teaching-dot-breathe 3s ease-in-out infinite",
+        }}
+      />
+    </div>
+  );
+}
+
 export default function Teaching() {
   usePageTheme();
 
