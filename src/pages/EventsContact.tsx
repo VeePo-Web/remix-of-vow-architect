@@ -1,14 +1,11 @@
 import { MinimalHeader } from "@/components/MinimalHeader";
 import { Footer } from "@/components/Footer";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { BentoSelector } from "@/components/BentoSelector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Card } from "@/components/ui/card";
-import { ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { useForm } from "react-hook-form";
@@ -46,6 +43,8 @@ const reassuranceLines = [
   "Response within 24 hours, always.",
   "Insured, self-sufficient, and fully prepared.",
 ];
+
+const stepLabels = ["Your gathering", "The occasion"];
 
 export default function EventsContact() {
   const [step, setStep] = useState<1 | 2>(1);
@@ -86,8 +85,6 @@ export default function EventsContact() {
     console.log("Events inquiry:", data);
     setIsSubmitted(true);
   };
-
-  const stepLabels = ["Your gathering", "The occasion"];
 
   return (
     <div className="min-h-screen bg-background">
@@ -130,13 +127,6 @@ export default function EventsContact() {
 
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-3xl mx-auto animate-fade-in">
-              <Breadcrumbs
-                items={[
-                  { label: "Events", path: "/events" },
-                  { label: "Discuss Your Event" },
-                ]}
-              />
-
               <div className="text-center mb-10">
                 <div className="overline mb-2">The Conversation</div>
                 <h1 className="h1 mx-auto">
@@ -150,9 +140,8 @@ export default function EventsContact() {
               </div>
 
               {isSubmitted ? (
-                <Card className="p-8 bg-card border-border card-keyline animate-fade-in">
+                <div className="p-8 bg-card/40 backdrop-blur-[8px] rounded-lg animate-fade-in">
                   <div className="text-center space-y-4">
-                    {/* Glowing semicolon */}
                     <span
                       className="inline-block font-display text-[40px] font-light text-primary"
                       style={{
@@ -171,24 +160,17 @@ export default function EventsContact() {
                       repertoire suggestions, and a timeline for your event.
                     </p>
                   </div>
-                </Card>
+                </div>
               ) : (
                 <div className="grid lg:grid-cols-3 gap-8">
-                  <Card className="lg:col-span-2 p-8 bg-card/80 backdrop-blur-[8px] border-border/50 card-keyline">
-                    {/* Step indicator — crossfading labels */}
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className="flex items-center gap-1.5">
-                        {[1, 2].map((s, i) => (
-                          <div key={s} className="flex items-center gap-1.5">
-                            <div className={`w-2.5 h-2.5 rounded-full transition-all duration-[180ms] ${step === s ? "bg-primary scale-110" : step > s ? "bg-primary/40" : "bg-muted-foreground/30"}`} />
-                            {i < 1 && (
-                              <div className={`w-4 h-px transition-colors duration-[180ms] ${step > s ? "bg-primary/30" : "bg-muted-foreground/20"}`} />
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                      <span className="text-xs text-muted-foreground transition-opacity duration-[260ms]">
+                  <div className="lg:col-span-2 p-8 bg-card/40 backdrop-blur-[8px] rounded-lg">
+                    {/* Step indicator — typographic fraction */}
+                    <div className="flex items-baseline gap-3 mb-6">
+                      <span className="font-display italic text-sm text-foreground/80">
                         {stepLabels[step - 1]}
+                      </span>
+                      <span className="font-mono text-[10px] text-muted-foreground/40">
+                        {step} / 2
                       </span>
                     </div>
 
@@ -232,7 +214,6 @@ export default function EventsContact() {
                             onClick={handleStep1Next}
                           >
                             Continue
-                            <ChevronRight size={16} className="ml-1" />
                           </Button>
                         </div>
                       )}
@@ -311,11 +292,11 @@ export default function EventsContact() {
                         </div>
                       )}
                     </form>
-                  </Card>
+                  </div>
 
-                  {/* Sidebar — typographic reassurance */}
-                  <div className="lg:col-span-1">
-                    <div className="border border-border/30 rounded-lg p-5 space-y-0">
+                  {/* Sidebar — floating reassurance */}
+                  <div className="lg:col-span-1 space-y-0">
+                    <div className="space-y-0">
                       {reassuranceLines.map((line, i) => (
                         <div key={i}>
                           <div className="flex items-start gap-2.5 py-3">
@@ -323,7 +304,7 @@ export default function EventsContact() {
                             <p className="text-sm text-foreground/80 leading-relaxed">{line}</p>
                           </div>
                           {i < reassuranceLines.length - 1 && (
-                            <div className="h-px bg-border/30" />
+                            <div className="h-px bg-border/20" />
                           )}
                         </div>
                       ))}

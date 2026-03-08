@@ -1,12 +1,10 @@
 import { MinimalHeader } from "@/components/MinimalHeader";
 import { Footer } from "@/components/Footer";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Card } from "@/components/ui/card";
 import { useState, useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { useForm } from "react-hook-form";
@@ -96,13 +94,6 @@ export default function TeachingContact() {
 
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-xl mx-auto animate-fade-in">
-              <Breadcrumbs
-                items={[
-                  { label: "Teaching", path: "/teaching" },
-                  { label: "Begin the Conversation" },
-                ]}
-              />
-
               <div className="text-center mb-10">
                 <div className="overline mb-2">The First Note</div>
                 <h1 className="h1 mx-auto">
@@ -116,9 +107,8 @@ export default function TeachingContact() {
               </div>
 
               {isSubmitted ? (
-                <Card className="p-8 bg-card border-border card-keyline animate-fade-in">
+                <div className="p-8 bg-card/40 backdrop-blur-[8px] rounded-lg animate-fade-in">
                   <div className="text-center space-y-4">
-                    {/* Glowing semicolon */}
                     <span
                       className="inline-block font-display text-[40px] font-light text-primary"
                       style={{
@@ -138,9 +128,9 @@ export default function TeachingContact() {
                       every good lesson begins.
                     </p>
                   </div>
-                </Card>
+                </div>
               ) : (
-                <Card className="p-8 bg-card/80 backdrop-blur-[8px] border-border/50 card-keyline">
+                <div className="p-8 bg-card/40 backdrop-blur-[8px] rounded-lg">
                   <form
                     onSubmit={handleSubmit(onSubmit)}
                     className="space-y-6"
@@ -203,7 +193,7 @@ export default function TeachingContact() {
                       I only use your information to write back. Nothing else.
                     </p>
                   </form>
-                </Card>
+                </div>
               )}
 
               {/* Reassurance — typographic markers only */}
