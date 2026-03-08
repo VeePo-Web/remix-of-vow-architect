@@ -48,7 +48,7 @@ export function PolicyLayout({ children, title, lastUpdated, breadcrumbs, metaDe
               </p>
             </header>
 
-            <div className="prose prose-invert prose-lg max-w-none">
+            <div className="prose dark:prose-invert prose-lg max-w-none">
               {children}
             </div>
 
