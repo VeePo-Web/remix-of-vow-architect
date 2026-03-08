@@ -19,8 +19,78 @@ const stories = [
   },
 ];
 
+/** Individual story card with its own scroll trigger */
+function StoryCard({
+  story,
+  index,
+}: {
+  story: (typeof stories)[number];
+  index: number;
+}) {
+  const { ref, isVisible } = useScrollReveal({ threshold: 0.3 });
+
+  return (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    <div ref={ref as any} className="mb-[100px] last:mb-0">
+      {/* Narrative — roman, measured */}
+      <p
+        className={cn(
+          "font-sans text-[16px] leading-[1.75] text-center mb-fitz-7 transition-all duration-[900ms]",
+          isVisible
+            ? "opacity-90 translate-y-0"
+            : "opacity-0 translate-y-[16px]"
+        )}
+        style={{
+          color: "hsl(30 12% 30%)",
+          transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+          transitionDelay: "100ms",
+        }}
+      >
+        {story.narrative}
+      </p>
+
+      {/* Pull quote — italic, display weight */}
+      <p
+        className={cn(
+          "font-display italic text-[20px] md:text-[24px] tracking-tight text-center transition-all duration-[900ms]",
+          isVisible
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-[10px]"
+        )}
+        style={{
+          color: "hsl(30 20% 18%)",
+          transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+          transitionDelay: "350ms",
+          textShadow: "0 1px 2px hsl(40 20% 80% / 0.3)",
+        }}
+      >
+        "{story.quote}"
+      </p>
+
+      {/* Golden dot separator between stories */}
+      {index < stories.length - 1 && (
+        <div className="flex justify-center my-[80px]">
+          <span
+            className={cn(
+              "block w-1.5 h-1.5 rounded-full transition-all duration-[900ms]",
+              isVisible ? "opacity-100 scale-100" : "opacity-0 scale-50"
+            )}
+            style={{
+              background: "hsl(var(--vow-yellow))",
+              boxShadow: "0 0 6px 2px hsl(var(--vow-yellow) / 0.12)",
+              transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+              transitionDelay: "550ms",
+            }}
+            aria-hidden="true"
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function TeachingStories() {
-  const { ref, isVisible } = useScrollReveal({ threshold: 0.08 });
+  const { ref, isVisible } = useScrollReveal({ threshold: 0.05 });
 
   return (
     <section
@@ -86,65 +156,9 @@ export function TeachingStories() {
           aria-hidden="true"
         />
 
+        {/* Each story has its own scroll trigger */}
         {stories.map((s, i) => (
-          <div key={i} className="mb-[100px] last:mb-0">
-            {/* Narrative — roman, measured */}
-            <p
-              className={cn(
-                "font-sans text-[16px] leading-[1.75] text-center mb-fitz-7 transition-all duration-[700ms]",
-                isVisible
-                  ? "opacity-90 translate-y-0"
-                  : "opacity-0 translate-y-[12px]"
-              )}
-              style={{
-                color: "hsl(30 12% 30%)",
-                transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-                transitionDelay: `${300 + i * 250}ms`,
-              }}
-            >
-              {s.narrative}
-            </p>
-
-            {/* Pull quote — italic, display weight, darker */}
-            <p
-              className={cn(
-                "font-display italic text-[20px] md:text-[24px] tracking-tight text-center transition-all duration-[700ms]",
-                isVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-[8px]"
-              )}
-              style={{
-                color: "hsl(30 20% 18%)",
-                transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-                transitionDelay: `${450 + i * 250}ms`,
-                textShadow: "0 1px 2px hsl(40 20% 80% / 0.3)",
-              }}
-            >
-              "{s.quote}"
-            </p>
-
-            {/* Golden dot separator between stories */}
-            {i < stories.length - 1 && (
-              <div className="flex justify-center my-[80px]">
-                <span
-                  className={cn(
-                    "block w-1.5 h-1.5 rounded-full transition-all duration-[900ms]",
-                    isVisible
-                      ? "opacity-100 scale-100"
-                      : "opacity-0 scale-50"
-                  )}
-                  style={{
-                    background: "hsl(var(--vow-yellow))",
-                    boxShadow:
-                      "0 0 6px 2px hsl(var(--vow-yellow) / 0.12)",
-                    transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-                    transitionDelay: `${600 + i * 200}ms`,
-                  }}
-                  aria-hidden="true"
-                />
-              </div>
-            )}
-          </div>
+          <StoryCard key={i} story={s} index={i} />
         ))}
 
         {/* Closing golden thread */}
@@ -157,7 +171,7 @@ export function TeachingStories() {
             background:
               "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.25), transparent)",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-            transitionDelay: "1000ms",
+            transitionDelay: "400ms",
           }}
           aria-hidden="true"
         />
@@ -171,7 +185,7 @@ export function TeachingStories() {
           style={{
             color: "hsl(30 12% 50%)",
             transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
-            transitionDelay: "1200ms",
+            transitionDelay: "600ms",
           }}
           aria-label="Closing annotation"
         >
