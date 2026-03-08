@@ -40,7 +40,7 @@ const lines: LineConfig[] = [
     shadowWeight: "light",
   },
   {
-    text: "The bench has been waiting.",
+    text: "The bench is waiting.",
     italic: true,
     size: "text-[20px] md:text-[28px]",
     underlineWord: "waiting",
