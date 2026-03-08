@@ -80,7 +80,7 @@ export function WitnessCrossing() {
           {/* Headline */}
           <h2 
             className={cn(
-              "font-display text-[clamp(28px,4vw,44px)] font-light text-white leading-tight mb-6 transition-all duration-700",
+              "font-display text-[clamp(28px,4vw,44px)] font-light text-foreground leading-tight mb-6 transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             )}
             style={{ transitionDelay: "200ms" }}
@@ -91,7 +91,7 @@ export function WitnessCrossing() {
           {/* Subtext */}
           <p 
             className={cn(
-              "text-lg text-white/60 mb-10 transition-all duration-700",
+              "text-lg text-foreground/60 mb-10 transition-all duration-700",
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}
             style={{ transitionDelay: "400ms" }}
@@ -108,20 +108,15 @@ export function WitnessCrossing() {
             )}
             style={{ transitionDelay: "600ms" }}
           >
-            <Link to="/contact">
-              <Button 
-                size="lg" 
-                className="px-10 py-6 text-base bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 cta-breathe"
-              >
-                Hold my date
-              </Button>
-            </Link>
+            <Button asChild size="lg" variant="primary-dark">
+              <Link to="/contact">Hold my date</Link>
+            </Button>
           </div>
 
           {/* Promise */}
           <p 
             className={cn(
-              "text-sm text-white/40 mt-8 transition-all duration-700",
+              "text-sm text-foreground/40 mt-8 transition-all duration-700",
               isVisible ? "opacity-100" : "opacity-0"
             )}
             style={{ transitionDelay: "800ms" }}
@@ -141,7 +136,7 @@ export function WitnessCrossing() {
               className="h-[1px] w-full mb-8"
               style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.2), transparent)" }}
             />
-            <p className="font-display text-xl text-white/80 italic">
+            <p className="font-display text-xl text-foreground/80 italic">
               'Til Death<span className="text-primary">;</span> Unto Life.
             </p>
           </div>

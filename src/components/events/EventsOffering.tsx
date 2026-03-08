@@ -10,7 +10,7 @@ const tiers = [
     duration: "1 hour",
     description:
       "A ceremony, a cocktail hour, or a dinner course. Focused, intentional piano for the part of your event that matters most.",
-    cta: "Tell me about your event",
+    cta: "Discuss your event",
     ctaHref: "/contact",
     isSelected: false,
   },
@@ -19,7 +19,7 @@ const tiers = [
     duration: "2–3 hours",
     description:
       "Full coverage from arrival through dinner. Repertoire shifts with the energy of the room — from ambient to engaging and back again.",
-    cta: "Tell me about your event",
+    cta: "Discuss your event",
     ctaHref: "/contact",
     isSelected: true,
   },
@@ -28,7 +28,7 @@ const tiers = [
     duration: "4+ hours",
     description:
       "Complete musical direction for extended events. Multiple phases, curated transitions, and the flexibility to read the room all night.",
-    cta: "Tell me about your event",
+    cta: "Discuss your event",
     ctaHref: "/contact",
     isSelected: false,
   },
@@ -98,13 +98,8 @@ export function EventsOffering() {
               </p>
               <Button
                 asChild
-                variant={t.isSelected ? "default" : "outline"}
-                className={cn(
-                  "w-full",
-                  t.isSelected
-                    ? "bg-[hsl(var(--vow-yellow))] text-[hsl(var(--rich-black))] hover:bg-[hsl(var(--vow-yellow)/0.9)]"
-                    : "border-foreground/20 text-foreground hover:bg-foreground/5"
-                )}
+                variant={t.isSelected ? "primary-dark" : "ghost-dark"}
+                className="w-full"
               >
                 <Link to={t.ctaHref}>{t.cta}</Link>
               </Button>
