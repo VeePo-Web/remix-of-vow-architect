@@ -290,8 +290,9 @@ export default function EventsContact() {
 
                   {/* Sidebar reassurance */}
                   <div className="lg:col-span-1 space-y-4">
+                  <div className="lg:col-span-1 space-y-4">
                     {[
-                      { icon: DollarSign, text: "No cost to inquire — take the time you need." },
+                      { icon: Clock, text: "No cost to inquire — take the time you need." },
                       { icon: Clock, text: "Response within 24 hours, always." },
                       { icon: Shield, text: "Insured, self-sufficient, and fully prepared." },
                     ].map((item, i) => (
@@ -300,6 +301,14 @@ export default function EventsContact() {
                         <p className="text-sm text-foreground leading-relaxed">{item.text}</p>
                       </Card>
                     ))}
+
+                    {/* Micro testimonial */}
+                    <div className="pt-4 border-t border-border/50 mt-2">
+                      <p className="text-xs text-muted-foreground italic leading-relaxed">
+                        "He arrived early, set up quietly, and played for three hours without a single break in atmosphere. Our guests are still talking about it."
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-1">Rachel · Corporate Holiday Dinner</p>
+                    </div>
                   </div>
                 </div>
               )}
