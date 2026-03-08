@@ -176,10 +176,10 @@ export default function AmbientAudioPill() {
               : "none",
           borderColor: isPanelOpen || isPlaying
             ? "hsl(var(--vow-yellow) / 0.20)"
-            : "rgba(255,255,255,0.12)",
+            : "hsl(var(--foreground) / 0.12)",
           boxShadow: isPanelOpen || isPlaying
-            ? "inset 0 1px 0 rgba(255,255,255,0.06), 0 0 20px rgba(255,224,138,0.06)"
-            : "inset 0 1px 0 rgba(255,255,255,0.06)",
+            ? "inset 0 1px 0 hsl(var(--foreground) / 0.06), 0 0 20px hsl(var(--vow-yellow) / 0.06)"
+            : "inset 0 1px 0 hsl(var(--foreground) / 0.06)",
         }}
       >
         {/* Icon: X when panel open, Play/Pause otherwise */}
