@@ -129,8 +129,8 @@ export default function PrivacyPolicy() {
       <PolicySection title="Your Rights">
         <p>
           Where applicable, you may access, correct, or request deletion of your data. Email{" "}
-          <a href="mailto:ParJorFraGaw@gmail.com" className="text-primary hover:text-primary/80">
-            ParJorFraGaw@gmail.com
+          <a href="mailto:parker@parkergawryletz.com" className="text-primary hover:text-primary/80">
+            parker@parkergawryletz.com
           </a>{" "}
           with the subject "Privacy Request."
         </p>

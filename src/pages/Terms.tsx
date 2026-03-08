@@ -24,7 +24,7 @@ export default function Terms() {
       <PolicySection title="Services Overview">
         <p>
           I provide wedding ceremony piano and ceremony-audio direction. Service area: Calgary, Cochrane, 
-          Canmore, Okotoks. Availability is not guaranteed until confirmed in writing.
+          Canmore, Banff. Availability is not guaranteed until confirmed in writing.
         </p>
       </PolicySection>
 

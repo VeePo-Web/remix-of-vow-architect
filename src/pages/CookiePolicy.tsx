@@ -54,8 +54,8 @@ export default function CookiePolicy() {
       <PolicySection title="More Info">
         <p>
           Questions? Email{" "}
-          <a href="mailto:ParJorFraGaw@gmail.com" className="text-primary hover:text-primary/80">
-            ParJorFraGaw@gmail.com
+          <a href="mailto:parker@parkergawryletz.com" className="text-primary hover:text-primary/80">
+            parker@parkergawryletz.com
           </a>{" "}
           with "Cookie Policy".
         </p>

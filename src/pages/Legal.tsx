@@ -91,10 +91,10 @@ export default function Legal() {
                 <p className="text-sm text-muted-foreground">
                   Email{" "}
                   <a
-                    href="mailto:ParJorFraGaw@gmail.com"
+                    href="mailto:parker@parkergawryletz.com"
                     className="text-primary hover:text-primary/80 transition-colors duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm"
                   >
-                    ParJorFraGaw@gmail.com
+                    parker@parkergawryletz.com
                   </a>
                   —I'll send what your venue or planner needs.
                 </p>
