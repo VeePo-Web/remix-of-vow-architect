@@ -205,9 +205,10 @@ export default function Gateway() {
           <span
             className="semicolon-breathe text-[hsl(var(--vow-yellow))]"
             style={{ animation: "semicolon-breathe 4s ease-in-out infinite" }}
-          >;</span>
-          {" "}Unto Life
-          <span className="text-[hsl(var(--vow-yellow))]">.</span>
+          >
+            {" ; "}
+          </span>
+          Unto Life<span className="text-[hsl(var(--vow-yellow))]">.</span>
         </p>
       </footer>
 
