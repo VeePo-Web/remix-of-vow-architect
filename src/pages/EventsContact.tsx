@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
-import { CheckCircle2, Shield, Clock, DollarSign, ChevronRight } from "lucide-react";
+import { CheckCircle2, Shield, Clock, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { useForm } from "react-hook-form";
