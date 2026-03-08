@@ -1008,6 +1008,12 @@ All colors MUST be HSL.
     opacity: 1;
     transform: none;
   }
+  .piano-key--active {
+    animation: none !important;
+  }
+  .piano-key-thread-fill::after {
+    animation: none !important;
+  }
   .piano-key-tooltip {
     animation: none !important;
     opacity: 1;
