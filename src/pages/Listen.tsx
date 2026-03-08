@@ -188,7 +188,7 @@ export default function Listen() {
       <audio ref={audioRef} preload="none" />
 
       {/* Film grain */}
-      <div className="grain opacity-[0.06]" aria-hidden="true" />
+      <div className="fixed inset-0 grain opacity-[0.06] pointer-events-none z-[1]" aria-hidden="true" />
 
       <main>
       {/* ── HERO ── */}

@@ -90,7 +90,7 @@ export default function Proof() {
             <div className="overline">Covenants Kept</div>
             <h1 className="h1 mx-auto">I do not just say it — I show it.</h1>
             <div className="chapter-rule mx-auto" />
-            <p className="lead text-muted-foreground max-w-2xl mx-auto">
+            <p className="p-lead text-muted-foreground max-w-2xl mx-auto">
               Documentation, insurance, redundancy, and the quiet certainty that comes from preparation. This is what devotion looks like in practice.
             </p>
             

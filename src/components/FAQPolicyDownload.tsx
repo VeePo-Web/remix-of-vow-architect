@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { FileDown } from "lucide-react";
 
@@ -37,10 +38,10 @@ export function FAQPolicyDownload() {
             </ul>
 
             <Button size="lg" variant="primary-dark" className="hover-scale" asChild>
-              <a href="/terms">
+              <Link to="/terms">
                 <FileDown className="w-4 h-4 mr-2" />
                 Read my full booking terms
-              </a>
+              </Link>
             </Button>
           </div>
         </div>

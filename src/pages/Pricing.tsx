@@ -61,7 +61,7 @@ export default function Pricing() {
 
       <main>
       {/* Hero */}
-      <section id="pricing-hero" className="relative section-padding bg-background piano-section-target overflow-hidden">
+      <section id="pricing-hero" className="relative section-padding bg-background piano-section-target overflow-hidden" aria-label="Pricing overview">
         <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
           <div 
             className="absolute inset-0 opacity-[0.08]"
