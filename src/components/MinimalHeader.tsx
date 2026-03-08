@@ -509,17 +509,20 @@ export function MinimalHeader() {
             </nav>
           )}
 
-          {/* Menu Button — always visible */}
+          {/* Menu Button — stays right, softens during arrival */}
           <button
             onClick={() => setIsMenuOpen(true)}
             className={cn(
               "flex items-center gap-2 opacity-0 animate-fade-in group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm transition-all duration-[260ms]",
-              isArrival &&
-                "absolute right-[var(--hero-space-edge,24px)] md:right-[var(--hero-space-edge,48px)] top-1/2 -translate-y-1/2"
             )}
             style={{
               animationDelay: headerDelay,
               animationFillMode: "forwards",
+              // Soften opacity during arrival — menu is still accessible but whispers
+              ...(arrivalPhase === 'arrived' && {
+                opacity: 0.4,
+                transitionDelay: '200ms',
+              }),
             }}
             aria-label="Open menu"
           >
@@ -535,15 +538,17 @@ export function MinimalHeader() {
         </div>
 
         {/* ═══════════════════════════════════════════
-            ARRIVAL TAGLINE — appears only during arrival
-            The header echoes the footer's covenant text
+            ARRIVAL TAGLINE — appears only during full arrival
+            Delayed entrance: rises 8px with opacity, 
+            creating the ceremonial "recessional" close
             ═══════════════════════════════════════════ */}
-        {isArrival && (
+        {arrivalPhase === 'arrived' && (
           <div
-            className="absolute bottom-[8px] left-1/2 -translate-x-1/2 pointer-events-none animate-fade-in"
+            className="absolute bottom-[8px] left-1/2 -translate-x-1/2 pointer-events-none"
             style={{
-              animationDuration: "700ms",
-              animationFillMode: "forwards",
+              opacity: 0,
+              transform: 'translateY(8px) translateX(-50%)',
+              animation: 'arrival-tagline-rise 700ms cubic-bezier(0.22, 0.61, 0.36, 1) 300ms forwards',
             }}
             aria-hidden="true"
           >
@@ -552,7 +557,7 @@ export function MinimalHeader() {
               <span
                 className="text-primary/25"
                 style={{
-                  animation: "semicolon-heartbeat 2s ease-in-out infinite",
+                  animation: "semicolon-heartbeat 2s ease-in-out infinite 1s",
                 }}
               >
                 {" ; "}
