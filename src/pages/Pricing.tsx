@@ -217,7 +217,7 @@ export default function Pricing() {
                       "One-hour transition buffer between locations",
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
-                        <Check size={16} className="text-accent mt-0.5 flex-shrink-0" />
+                        <span className="inline-block w-2 h-2 rotate-45 mt-1.5 flex-shrink-0" style={{ background: "hsl(var(--vow-yellow) / 0.7)", boxShadow: "0 0 5px hsl(var(--vow-yellow) / 0.2)" }} aria-hidden="true" />
                         <span>{item}</span>
                       </li>
                     ))}
