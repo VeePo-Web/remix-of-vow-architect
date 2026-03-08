@@ -447,15 +447,20 @@ export function MinimalHeader() {
 
               {/* CTA — "Hold My Date" with warm glow — dissolves first during arrival */}
               <span
-                className="relative opacity-0 animate-fade-in transition-all"
+                className={cn(
+                  "relative transition-all",
+                  !(arrivalPhase === 'dissolving' || arrivalPhase === 'arrived') && "opacity-0 animate-fade-in"
+                )}
                 style={{
-                  animationDelay: `${navLinks.length * 80}ms`,
-                  animationFillMode: "forwards",
+                  ...(!(arrivalPhase === 'dissolving' || arrivalPhase === 'arrived') && {
+                    animationDelay: `${navLinks.length * 80}ms`,
+                    animationFillMode: "forwards",
+                  }),
                   ...((arrivalPhase === 'dissolving' || arrivalPhase === 'arrived') && {
                     opacity: 0,
                     transform: 'translateY(-4px)',
                     transitionDuration: '260ms',
-                    transitionDelay: '0ms', // CTA dissolves first
+                    transitionDelay: '0ms',
                     transitionTimingFunction: 'cubic-bezier(0.22,0.61,0.36,1)',
                     pointerEvents: 'none' as const,
                   }),
