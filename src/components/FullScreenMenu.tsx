@@ -24,6 +24,17 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const lenis = useSmoothScroll();
+
+  // Stop/start Lenis when menu opens/closes
+  useEffect(() => {
+    if (!lenis) return;
+    if (isOpen) {
+      lenis.stop();
+    } else {
+      lenis.start();
+    }
+  }, [isOpen, lenis]);
 
   // Prevent body scroll when menu is open
   useEffect(() => {
