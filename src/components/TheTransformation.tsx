@@ -348,8 +348,7 @@ export function TheTransformation() {
                 }}
               >
                 <p
-                  className="font-sans text-base md:text-lg leading-relaxed"
-                  style={{ color: "hsl(var(--rich-black))" }}
+                  className="font-sans text-base md:text-lg leading-relaxed text-foreground"
                 >
                   <span
                     className="inline-block mr-2 font-medium"
