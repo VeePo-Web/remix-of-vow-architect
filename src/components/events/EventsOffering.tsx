@@ -90,7 +90,7 @@ export function EventsOffering() {
               <h3 className="font-display text-[22px] font-medium text-foreground mb-1">
                 {t.name}
               </h3>
-              <span className="font-sans text-[13px] text-[hsl(var(--vow-yellow))] tracking-[0.1em] mb-4 opacity-70">
+              <span className="font-sans text-[13px] text-primary tracking-[0.1em] mb-4 opacity-70">
                 {t.duration}
               </span>
               <p className="font-sans text-[15px] text-muted-foreground leading-relaxed mb-8 flex-1">

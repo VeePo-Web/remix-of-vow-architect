@@ -183,9 +183,9 @@ export function ListeningMovement({
               onClick={handleToggle}
               className={cn(
                 "w-12 h-12 rounded-full flex items-center justify-center transition-all duration-[180ms]",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)/0.6)]",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60",
                 isActive && isPlaying
-                  ? "bg-[hsl(var(--vow-yellow))] text-background hover:scale-[1.06]"
+                  ? "bg-primary text-primary-foreground hover:scale-[1.06]"
                   : "bg-foreground opacity-10 text-foreground hover:opacity-20 hover:scale-[1.06]"
               )}
               aria-label={isActive && isPlaying ? `Pause ${trackTitle}` : `Play ${trackTitle}`}
