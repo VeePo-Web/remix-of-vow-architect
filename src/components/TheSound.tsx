@@ -537,7 +537,7 @@ export function TheSound() {
         </div>
 
         {/* Bottom fade */}
-        <div className="section-fade-bottom" style={{ background: "linear-gradient(to bottom, transparent, hsl(220 15% 8%))" }} aria-hidden="true" />
+        <div className="section-fade-bottom" style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--rich-black)))" }} aria-hidden="true" />
       </section>
 
       {/* Now Playing Mini-Bar */}

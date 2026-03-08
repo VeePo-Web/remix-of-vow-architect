@@ -98,7 +98,7 @@ export function TheInvitation() {
       {/* Layer 2: Top fade */}
       <div
         className="absolute top-0 left-0 right-0 h-[120px] z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to top, transparent, hsl(240 9% 4%))' }}
+        style={{ background: 'linear-gradient(to top, transparent, hsl(var(--rich-black)))' }}
         aria-hidden="true"
       />
 
