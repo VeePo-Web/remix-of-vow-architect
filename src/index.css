@@ -1155,7 +1155,7 @@ All colors MUST be HSL.
   
   .card-lift:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 12px 40px hsl(var(--rich-black) / 0.4);
   }
 
   /* Stagger Animation Utility */
