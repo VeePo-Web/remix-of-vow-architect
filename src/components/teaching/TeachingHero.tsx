@@ -400,7 +400,7 @@ export function TeachingHero() {
         >
           <path
             d="M1 1L6 6L11 1"
-            stroke="hsl(40 10% 38%)"
+            stroke="hsl(var(--teaching-scroll-cue))"
             strokeWidth="1"
             strokeLinecap="round"
             strokeLinejoin="round"
