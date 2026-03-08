@@ -35,9 +35,9 @@ export function ContactFormSuccess() {
               value={plannerEmail}
               onChange={(e) => setPlannerEmail(e.target.value)}
             />
-            <Button type="submit">
+            <Button type="submit" aria-label="Add planner to correspondence">
               <Mail className="mr-2" size={16} />
-              Send
+              Add planner
             </Button>
           </div>
           <p className="text-xs text-muted-foreground text-left">
