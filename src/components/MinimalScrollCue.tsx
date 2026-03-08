@@ -20,7 +20,7 @@ export function MinimalScrollCue() {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       clearTimeout(showTimer);
       window.removeEventListener("scroll", handleScroll);
