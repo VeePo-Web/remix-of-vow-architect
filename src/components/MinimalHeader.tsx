@@ -582,9 +582,23 @@ export function MinimalHeader() {
           0%, 100% { opacity: 0.6; }
           50% { opacity: 1; }
         }
+        @keyframes arrival-tagline-rise {
+          from {
+            opacity: 0;
+            transform: translateY(8px) translateX(-50%);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) translateX(-50%);
+          }
+        }
         @media (prefers-reduced-motion: reduce) {
           header * {
             transition-duration: 120ms !important;
+          }
+          @keyframes arrival-tagline-rise {
+            from { opacity: 0; }
+            to { opacity: 1; }
           }
         }
       `}</style>
