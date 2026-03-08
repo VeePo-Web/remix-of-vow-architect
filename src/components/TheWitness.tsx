@@ -243,7 +243,7 @@ function PreparationSection() {
                       }}
                       aria-hidden="true"
                     />
-                    <p className="text-base md:text-lg font-display font-light leading-relaxed text-foreground/90">
+                    <p className="text-base md:text-lg font-display font-light leading-relaxed text-foreground">
                       {declaration}
                     </p>
                   </div>
@@ -325,7 +325,7 @@ function KitSection() {
             {/* Bridge sentence */}
             <p
               className={cn(
-                "font-display text-lg md:text-xl font-light italic text-foreground/60 mb-6 md:mb-8 transition-all duration-700",
+                "font-display text-lg md:text-xl font-light italic text-muted-foreground mb-6 md:mb-8 transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
               )}
             >
@@ -426,7 +426,7 @@ function KitSection() {
               />
               <p
                 className={cn(
-                  "witness-closing-quote text-lg md:text-xl font-display font-light text-foreground/80 relative z-10 leading-relaxed",
+                  "witness-closing-quote text-lg md:text-xl font-display font-light text-foreground relative z-10 leading-relaxed",
                   "transition-[opacity,transform,filter] duration-700",
                   isVisible
                     ? "opacity-100 translate-y-0 blur-0"
