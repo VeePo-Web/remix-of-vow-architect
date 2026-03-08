@@ -6,25 +6,25 @@ const fears = [
   {
     fear: "What if I start and quit again?",
     resolution:
-      "You didn't quit last time. You had a teacher who measured your progress by their timeline instead of yours. The guilt you carry about stopping is not yours. It belongs to the system that made you feel like stopping was failure. There is no timeline here. There is your pace, your sound, and my patience. The only way to quit is to stop wanting — and you are here because you haven't.",
+      "You did not quit last time. You had a teacher who measured your progress by their timeline instead of yours. The guilt you carry about stopping belongs to the system that made you feel like stopping was failure. There is no timeline here. There is your pace, your sound, and my patience.",
     underlineWord: "pace",
   },
   {
     fear: "What if I can never play anything real?",
     resolution:
-      'The first real thing you play will not be a concerto. It will be a chord that makes you stop and say — "that is exactly what I meant." And that is the beginning.',
+      'The first real thing you play will not be a concerto. It will be a chord that makes you stop and think — "that is exactly what I meant." That single honest chord is the beginning. Everything grows from there.',
     underlineWord: "beginning",
   },
   {
     fear: "What if it feels like school?",
     resolution:
-      "There is no curriculum. There is no homework. There are no grades. There is a bench, an instrument, and a question: what do you want to say? That is as far from school as sound is from silence.",
+      "There is no curriculum. No homework. No grades. There is a bench, an instrument, and a question: what do you want to say? That is as far from school as sound is from silence.",
     underlineWord: "question",
   },
   {
     fear: "What if I'm too old to start?",
     resolution:
-      "There is no age at which the piano stops being willing to listen. I have sat beside students who touched the keys for the first time at 50, at 60, at 70. The instrument does not care when you arrive. Neither do I. I sit beside adults every week who believed they were too late. They are not too late. They are exactly on time — because they are here now.",
+      "There is no age at which the piano stops being willing to listen. I have sat beside students who touched the keys for the first time at 50, at 60, at 70. The instrument does not care when you arrive. Neither do I. You are not too late. You are here.",
     underlineWord: "no",
   },
 ];

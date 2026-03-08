@@ -348,7 +348,7 @@ export function TeachingHero() {
           className="text-[10px] uppercase tracking-[0.22em] font-sans"
           style={{ color: "hsl(30 10% 45%)" }}
         >
-          Scroll to begin
+          Scroll to listen
         </span>
         <svg
           width="14"

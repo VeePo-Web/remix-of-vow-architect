@@ -315,7 +315,7 @@ export function TeachingPillars() {
               transitionDelay: "100ms",
             }}
           >
-            What I believe
+            What I hold to be true
           </p>
 
           {/* Golden dot — top anchor */}

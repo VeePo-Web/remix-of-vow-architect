@@ -4,20 +4,20 @@ import { cn } from "@/lib/utils";
 const stories = [
   {
     narrative:
-      "She came to the bench at 52, apologizing before she even sat down. 'I should have started decades ago,' she said. Six months later, she played a piece for her husband on their anniversary — not perfectly, but honestly. She called it the first gift she ever made with her own hands.",
+      "Margaret came to the bench at 52, apologizing before she even sat down. 'I should have started decades ago,' she said. Six months later, she played a piece for her husband on their anniversary — not perfectly, but honestly. She called it the first gift she ever made with her own hands.",
     quote: "The first gift I ever made with my own hands.",
     quoteUnderline: "hands",
   },
   {
     narrative:
-      "He had taken lessons as a child and quit at 14. Twenty years of silence. When he sat down again, his hands remembered more than he expected — and less than he hoped. But the sound was different now. It carried something it didn't carry at 14: the weight of everything he'd lived since.",
+      "David had taken lessons as a child and quit at 14. Twenty years of silence. When he sat down again, his hands remembered more than he expected — and less than he hoped. But the sound was different now. It carried something it could not carry at 14: the weight of everything he had lived since.",
     quote: "The sound carried everything I had lived since.",
     quoteUnderline: "everything",
   },
   {
     narrative:
-      "She wanted to play one song at her own wedding. Not a performance — a conversation with the person she was about to marry. We spent four months on three minutes of music. On the day, her hands shook. But the music didn't.",
-    quote: "My hands shook. But the music didn't.",
+      "Sarah wanted to play one song at her own wedding. Not a performance — a conversation with the person she was about to marry. We spent four months on three minutes of music. On the day, her hands shook. But the music did not.",
+    quote: "My hands shook. But the music did not.",
     quoteUnderline: "music",
   },
 ];

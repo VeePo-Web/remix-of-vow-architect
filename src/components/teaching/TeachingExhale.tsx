@@ -336,7 +336,7 @@ export function TeachingExhale() {
           }}
           aria-label="Closing annotation"
         >
-          — you already know the melody
+          — you already know the sound
         </span>
       </div>
 
