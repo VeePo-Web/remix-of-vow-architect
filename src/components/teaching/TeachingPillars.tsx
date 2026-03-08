@@ -4,30 +4,30 @@ import { cn } from "@/lib/utils";
 const pillars = [
   {
     numeral: "I",
-    title: "Patient Mentorship",
+    title: "Patience as Method",
     description:
-      "Your pace is the curriculum. There are no grades, no exams, no timelines imposed on your growth.",
+      "Your pace is the curriculum. There are no grades, no exams, no timelines imposed on your growth. Patience is not passive — it is the most active form of attention I can offer.",
     underlineWord: "pace",
   },
   {
     numeral: "II",
-    title: "Emotional Fluency",
+    title: "Voice Before Technique",
     description:
-      "The piano is not a skill to acquire. It is a voice to discover. I teach you to speak through the instrument.",
+      "The piano is not a skill to acquire. It is a voice to discover. Technique serves expression, never the reverse — every scale exists to unlock what you want to say.",
     underlineWord: "voice",
   },
   {
     numeral: "III",
-    title: "Piano as Philosophy",
+    title: "Freedom Through Fluency",
     description:
-      "Like chess players see the board as a metaphor for consequence, pianists see the keys as a framework for patience, discipline, and beauty. When you own the technique, you are free to say anything.",
-    underlineWord: "free",
+      "When your hands know the instrument deeply enough, they stop translating and start speaking. That is fluency. And fluency is freedom — the freedom to say anything the moment asks for.",
+    underlineWord: "freedom",
   },
   {
     numeral: "IV",
-    title: "Lifelong Relationship",
+    title: "No Graduation",
     description:
-      "There is no graduation. Only growing. The mentorship evolves as you deepen your conversation with the keys.",
+      "There is no final lesson. Only growing. The mentorship evolves as you deepen your conversation with the keys — for years, not semesters.",
     underlineWord: "growing",
   },
 ];
@@ -315,7 +315,7 @@ export function TeachingPillars() {
               transitionDelay: "100ms",
             }}
           >
-            What I believe
+            What I hold to be true
           </p>
 
           {/* Golden dot — top anchor */}

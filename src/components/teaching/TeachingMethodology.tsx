@@ -262,7 +262,7 @@ export function TeachingMethodology() {
           }}
         >
           <ScrollRevealWords
-            text="The first question I ask is never about music. It is about you. What brought you here. What you hear when no one is listening. The mentorship begins not with a scale or an exercise — but with a conversation about the sound you carry inside."
+            text="The first question I ask is never about music. It is about you. What brought you here. What you hear when no one is listening. We begin not with a scale or an exercise — but with a conversation about the sound you carry inside."
             isInView={isVisible}
           />
         </p>

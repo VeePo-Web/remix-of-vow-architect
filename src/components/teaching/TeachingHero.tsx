@@ -241,7 +241,7 @@ export function TeachingHero() {
             transitionDelay: `${ROLE_DELAY}ms`,
           }}
         >
-          Piano Mentor
+          Piano Mentorship
         </p>
 
         {/* ── Tagline — character-by-character reveal ── */}
@@ -332,8 +332,7 @@ export function TeachingHero() {
             transitionDelay: `${SUBTITLE_DELAY}ms`,
           }}
         >
-          I teach you to speak through the instrument — at your pace, in your
-          voice.
+          The first question I ask is never about music. It is about you.
         </p>
       </div>
 
@@ -349,7 +348,7 @@ export function TeachingHero() {
           className="text-[10px] uppercase tracking-[0.22em] font-sans"
           style={{ color: "hsl(30 10% 45%)" }}
         >
-          Scroll to begin
+          Scroll to listen
         </span>
         <svg
           width="14"

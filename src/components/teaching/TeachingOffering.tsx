@@ -34,7 +34,7 @@ function ScrollPrice({ isInView }: { isInView: boolean }) {
     return () => cancelAnimationFrame(rafRef.current);
   }, [isInView, updateProgress]);
 
-  const chars = "$60 per hour".split("");
+  const chars = "$60 per session".split("");
 
   return (
     <span ref={containerRef} className="inline-block">
