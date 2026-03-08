@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 /**
  * THE SUSTAIN — Abstract Piano Visualization
  * Three illuminated golden nodes connected by lines
- * Words, Silence, Memory — the sustain pedal metaphor
+ * Words, Silence, Memory — editorial layout, no card containers
  */
 
 const threeKeys = [
@@ -50,8 +50,9 @@ export function WitnessSustain() {
           <p 
             className={cn(
               "text-xs uppercase tracking-[0.3em] text-center mb-4 transition-all duration-700",
-              isVisible ? "opacity-100 translate-y-0 text-muted-foreground" : "opacity-0 translate-y-4"
+              isVisible ? "opacity-60 translate-y-0" : "opacity-0 translate-y-4"
             )}
+            style={{ color: "hsl(var(--muted-foreground))" }}
           >
             THE SUSTAIN
           </p>
@@ -71,7 +72,7 @@ export function WitnessSustain() {
           {/* Abstract Visualization — Three connected golden nodes with glow filter */}
           <div 
             className={cn(
-              "relative flex justify-center items-center mb-16 h-20 transition-all duration-1000",
+              "relative flex justify-center items-center mb-20 h-20 transition-all duration-1000",
               isVisible ? "opacity-100" : "opacity-0"
             )}
             style={{ transitionDelay: "400ms" }}
@@ -111,30 +112,39 @@ export function WitnessSustain() {
             </svg>
           </div>
 
-          {/* Three Keys Content */}
-          <div className="grid md:grid-cols-3 gap-8 md:gap-12">
+          {/* Three Keys — Editorial layout, no card containers */}
+          <div className="grid md:grid-cols-3 gap-12 md:gap-16">
             {threeKeys.map((item, index) => (
               <div 
                 key={item.label}
                 className={cn(
-                  "text-center p-6 rounded-lg bg-card/60 backdrop-blur-[6px] border border-border/40 card-sacred-sm transition-all duration-700",
+                  "text-center transition-all duration-700",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 )}
                 style={{ transitionDelay: `${600 + index * 200}ms` }}
               >
                 {/* Glowing dot */}
                 <div 
-                  className="w-3 h-3 rounded-full bg-primary mx-auto mb-4"
-                  style={{ boxShadow: "0 0 12px hsl(var(--vow-yellow) / 0.15), 0 0 20px hsl(var(--vow-yellow) / 0.1)" }}
+                  className="w-2 h-2 rounded-full mx-auto mb-6"
+                  style={{ 
+                    background: "hsl(var(--vow-yellow))",
+                    boxShadow: "0 0 12px hsl(var(--vow-yellow) / 0.3), 0 0 24px hsl(var(--vow-yellow) / 0.15)" 
+                  }}
                 />
                 
                 {/* Label */}
-                <h3 className="font-display text-2xl font-light text-foreground mb-3">
+                <h3 className="font-display text-2xl font-light text-foreground mb-4 tracking-wide">
                   {item.label}
                 </h3>
+
+                {/* Golden thread separator */}
+                <div 
+                  className="w-8 h-px mx-auto mb-4"
+                  style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)" }}
+                />
                 
                 {/* Description */}
-                <p className="text-muted-foreground text-[14px] leading-relaxed max-w-xs mx-auto">
+                <p className="text-muted-foreground text-[15px] leading-[1.7] max-w-[240px] mx-auto">
                   {item.description}
                 </p>
               </div>
@@ -145,7 +155,7 @@ export function WitnessSustain() {
 
       {/* Section fade bottom → Presence */}
       <div 
-        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
         style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--background)))" }}
         aria-hidden="true"
       />

@@ -41,9 +41,10 @@ export function WitnessCovenant() {
           {/* Label */}
           <p 
             className={cn(
-              "text-xs uppercase tracking-[0.3em] text-center mb-4 transition-all duration-700 text-muted-foreground",
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              "text-xs uppercase tracking-[0.3em] text-center mb-4 transition-all duration-700",
+              isVisible ? "opacity-60 translate-y-0" : "opacity-0 translate-y-4"
             )}
+            style={{ color: "hsl(var(--muted-foreground))" }}
           >
             THE COVENANT
           </p>
@@ -57,7 +58,7 @@ export function WitnessCovenant() {
             }} 
           />
 
-          {/* Certificate Container */}
+          {/* Certificate Container — upgraded ornaments and warmth */}
           <div 
             className={cn(
               "relative p-12 md:p-16 bg-card border border-primary/15 rounded-sm transition-all duration-1000",
@@ -65,24 +66,27 @@ export function WitnessCovenant() {
             )}
             style={{ 
               transitionDelay: "200ms",
-              boxShadow: "0 20px 60px hsl(var(--rich-black) / 0.08), inset 0 0 80px hsl(var(--vow-yellow) / 0.03)"
+              boxShadow: "0 20px 60px hsl(var(--rich-black) / 0.08), 0 0 0 1px hsl(var(--primary) / 0.06), inset 0 0 80px hsl(var(--vow-yellow) / 0.04)"
             }}
           >
-            {/* Film grain texture on certificate — refined opacity */}
+            {/* Film grain texture on certificate */}
             <div className="absolute inset-0 grain opacity-[0.08] rounded-sm pointer-events-none" aria-hidden="true" />
 
-            {/* Corner ornaments — subtler */}
-            <div className="absolute top-6 left-6 w-10 h-10 border-l border-t border-primary/25" />
-            <div className="absolute top-6 right-6 w-10 h-10 border-r border-t border-primary/25" />
-            <div className="absolute bottom-6 left-6 w-10 h-10 border-l border-b border-primary/25" />
-            <div className="absolute bottom-6 right-6 w-10 h-10 border-r border-b border-primary/25" />
+            {/* Corner ornaments — larger, warmer */}
+            <div className="absolute top-5 left-5 w-16 h-16 border-l border-t border-primary/30" />
+            <div className="absolute top-5 right-5 w-16 h-16 border-r border-t border-primary/30" />
+            <div className="absolute bottom-5 left-5 w-16 h-16 border-l border-b border-primary/30" />
+            <div className="absolute bottom-5 right-5 w-16 h-16 border-r border-b border-primary/30" />
 
             {/* Certificate Header */}
             <div className="text-center mb-10 relative">
               <h2 className="font-display text-[clamp(24px,3vw,36px)] font-light text-foreground">
                 My Promise to You
               </h2>
-              <div className="w-24 h-px bg-primary/40 mx-auto mt-4" />
+              <div 
+                className="w-24 h-px mx-auto mt-4" 
+                style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.5), transparent)" }}
+              />
             </div>
 
             {/* Promises */}
@@ -103,11 +107,11 @@ export function WitnessCovenant() {
 
             {/* Signature Area with breathing glow */}
             <div className="relative text-center pt-8 border-t border-border/20">
-              {/* Breathing golden glow behind signature */}
+              {/* Breathing golden glow behind signature — stronger */}
               <div 
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-32 rounded-full pointer-events-none motion-reduce:animate-none"
                 style={{
-                  background: "radial-gradient(ellipse, hsl(var(--vow-yellow) / 0.06) 0%, transparent 70%)",
+                  background: "radial-gradient(ellipse, hsl(var(--vow-yellow) / 0.10) 0%, transparent 70%)",
                   animation: signatureDrawn ? "vigil-pulse 8s ease-in-out infinite" : "none",
                 }}
                 aria-hidden="true"
@@ -159,22 +163,28 @@ export function WitnessCovenant() {
             </div>
           </div>
 
-          {/* Tagline beneath */}
-          <p 
+          {/* Tagline beneath — sacred semicolon treatment */}
+          <div 
             className={cn(
-              "font-display text-lg italic text-center text-muted-foreground mt-8 transition-all duration-700",
+              "mt-12 transition-all duration-700",
               isVisible ? "opacity-100" : "opacity-0"
             )}
             style={{ transitionDelay: "2000ms" }}
           >
-            'Til Death; Unto Life.
-          </p>
+            <div 
+              className="h-px w-16 mx-auto mb-6"
+              style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.2), transparent)" }}
+            />
+            <p className="font-display text-xl text-center text-foreground italic">
+              'Til Death<span className="text-primary not-italic">;</span> Unto Life.
+            </p>
+          </div>
         </div>
       </div>
 
       {/* Section fade bottom → Crossing */}
       <div 
-        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
         style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--rich-black)))" }}
         aria-hidden="true"
       />

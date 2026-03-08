@@ -67,7 +67,7 @@ export function WitnessHero() {
           {/* The Label */}
           <p 
             className={`text-xs uppercase tracking-[0.3em] text-muted-foreground mb-8 transition-all duration-700 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              isVisible ? "opacity-60 translate-y-0" : "opacity-0 translate-y-4"
             }`}
             style={{ transitionDelay: "200ms" }}
           >
@@ -93,9 +93,9 @@ export function WitnessHero() {
             />
           </div>
 
-          {/* The Statement */}
+          {/* The Statement — constrained width for visual centering */}
           <h1 
-            className={`font-display text-[clamp(32px,5vw,56px)] font-light leading-[1.1] mb-6 transition-all duration-700 ${
+            className={`font-display text-[clamp(32px,5vw,56px)] font-light leading-[1.1] mb-6 max-w-[16ch] mx-auto transition-all duration-700 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             }`}
             style={{ transitionDelay: "800ms" }}
@@ -126,7 +126,7 @@ export function WitnessHero() {
 
       {/* Section fade bottom → Origin */}
       <div 
-        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
         style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--background)))" }}
         aria-hidden="true"
       />
