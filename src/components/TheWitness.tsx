@@ -284,7 +284,7 @@ function KitSection() {
       aria-label="The Kit — Everything I bring"
       className="relative section--surface py-[80px] md:py-[120px] overflow-hidden min-h-[400px]"
       style={{
-        background: "linear-gradient(180deg, hsl(42 20% 94%) 0%, hsl(44 22% 93%) 50%, hsl(40 16% 90%) 100%)",
+        background: "linear-gradient(180deg, hsl(var(--warm-cream-deep)) 0%, hsl(var(--warm-cream-mid)) 50%, hsl(var(--warm-cream-dark)) 100%)",
       }}
     >
       <span className="sr-only">
