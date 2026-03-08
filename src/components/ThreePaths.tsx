@@ -335,7 +335,7 @@ export function ThreePaths() {
                 <h3 className="piano-key__name">{tier.name}</h3>
                 <div
                   className="h-[3px] w-12 mt-2 mb-4"
-                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.75 : 0.65}), hsl(var(--vow-yellow) / 0.2), transparent)`, boxShadow: '0 1px 1px rgba(0,0,0,0.08)' }}
+                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.75 : 0.65}), hsl(var(--vow-yellow) / 0.2), transparent)`, boxShadow: '0 1px 1px hsl(var(--rich-black) / 0.08)' }}
                   aria-hidden="true"
                 />
                 <span className="piano-key__price" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.06)' }}>{tier.price}</span>
