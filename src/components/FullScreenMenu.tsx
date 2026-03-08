@@ -2,6 +2,7 @@ import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useSmoothScroll } from "@/components/SmoothScrollProvider";
 
 interface FullScreenMenuProps {
   isOpen: boolean;
