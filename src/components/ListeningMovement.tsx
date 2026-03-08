@@ -163,9 +163,9 @@ export function ListeningMovement({
         <div
           className={cn(
             "inline-flex flex-col items-center gap-5 rounded-lg p-6 md:p-8",
-            "border backdrop-blur-sm transition-all duration-300",
+            "border backdrop-blur-[8px] transition-all duration-300",
             isActive
-              ? "bg-card/20 border-[hsl(var(--vow-yellow)/0.25)]"
+              ? "bg-card/20 border-[hsl(var(--vow-yellow)/0.25)] shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_0_24px_rgba(255,224,138,0.06)]"
               : "bg-card/8 border-border/15"
           )}
         >
@@ -182,7 +182,7 @@ export function ListeningMovement({
             <button
               onClick={handleToggle}
               className={cn(
-                "w-12 h-12 rounded-full flex items-center justify-center transition-all duration-180",
+                "w-12 h-12 rounded-full flex items-center justify-center transition-all duration-[180ms]",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)/0.6)]",
                 isActive && isPlaying
                   ? "bg-[hsl(var(--vow-yellow))] text-black hover:scale-[1.06]"
@@ -198,17 +198,21 @@ export function ListeningMovement({
             </button>
 
             {isActive && (
-              <span className="text-xs tabular-nums text-muted-foreground/60">
+              <span className="text-xs tabular-nums text-muted-foreground/60 font-sans">
                 {formatTime(progress)} / {formatTime(duration)}
               </span>
             )}
           </div>
 
-          {/* Progress bar */}
+          {/* Progress bar — golden gradient */}
           <div className="w-full h-[2px] bg-foreground/5 rounded-full overflow-hidden">
             <div
-              className="h-full bg-[hsl(var(--vow-yellow))] transition-none"
-              style={{ width: `${isActive ? progressPercent : 0}%` }}
+              className="h-full transition-none rounded-full"
+              style={{
+                width: `${isActive ? progressPercent : 0}%`,
+                background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.5), hsl(var(--vow-yellow)))",
+                boxShadow: isActive ? "0 0 6px hsl(var(--vow-yellow) / 0.3)" : "none",
+              }}
             />
           </div>
         </div>
