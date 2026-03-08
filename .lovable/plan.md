@@ -1,47 +1,33 @@
 
 
-# Full-Screen Menu — Vertical-Aware Navigation Upgrade
+# Plan: Create Events Brand Identity Document
 
-## Problem
+Create `.lovable/events-brand-identity.md` following the same structure as the wedding and teaching documents — Brand Truth Table, Non-Negotiables/Flex/Dealbreakers, Brand Spine, Positioning, Customer Identity Mirror, Messaging, Voice, and Visual direction.
 
-The `FullScreenMenu` hardcodes all 9 menu items to weddings-default routes. When a user is on `/events/pricing` and opens the hamburger menu, "Services" links to `/pricing` (weddings) and "About" links to `/about` (weddings) instead of `/events/pricing` and `/events/about`. The `MinimalHeader` already solved this with `getNavLinks(pathname)`, but the menu was never updated.
+## Key Differentiators from Other Verticals
 
-## Fix
+- **Tone:** Professional and polished, not sacred/vigil (weddings) or warm/mentorship (teaching)
+- **Category:** "Private Event Pianist" — not "sound director" or "mentor"
+- **Mission:** "I understand what live music does to a room" — atmospheric, not ceremonial
+- **Tagline adaptation:** "Every room has a sound it's waiting for."
+- **Enemy:** The generic playlist, the background-noise assumption, the DJ who drowns conversation
+- **Audience:** Hosts planning private dinners, church services, cocktail receptions, intimate celebrations — people who care about atmosphere and presence
 
-Make the `menuItems` array dynamic based on `location.pathname`, mirroring the same vertical-detection logic already in `MinimalHeader`.
+## Document Structure (matching existing format)
 
-### Changes to `src/components/FullScreenMenu.tsx`
+1. **Brand Truth Table** — Events-specific truths (500+ events, 4 occasion types, 500+ repertoire, room-reading ability)
+2. **Non-Negotiables / Flex / Dealbreakers** — Professional tone rules, no "sacred/vigil" language, no entertainment framing
+3. **Brand Spine** — Category stance, enemy, audience, promise, proof, personality
+4. **Positioning & Differentiators** — "Private Event Pianist" category, differentiator table vs DJs/playlists/bands
+5. **Customer Identity Mirror** — "You are my people if..." / "Not for you if..." for event hosts
+6. **Messaging Pillars** — Atmosphere, Adaptability, Professionalism
+7. **Voice & Lexicon** — Events-specific word choices (allowed/banned), CTA phrasing
+8. **Visual Direction** — How the events page differs aesthetically from weddings/teaching
+9. **Cross-Vertical Coherence** — How events connects to the broader Sacred Sound brand
 
-1. Convert `menuItems` from a static `const` to a function `getMenuItems(pathname: string)` that returns the array with vertical-aware `href` values for Services and About:
+## File
 
-```text
-function getMenuItems(pathname: string) {
-  const isEvents = pathname.startsWith('/events');
-  const isTeaching = pathname.startsWith('/teaching');
-  
-  const servicesHref = isEvents ? '/events/pricing'
-    : isTeaching ? '/teaching/pricing'
-    : '/pricing';
-  
-  const aboutHref = isEvents ? '/events/about'
-    : isTeaching ? '/teaching/about'
-    : '/about';
+- **Create:** `.lovable/events-brand-identity.md`
 
-  return [
-    { number: "01", label: "Weddings", href: "/weddings" },
-    { number: "02", label: "Teaching", href: "/teaching" },
-    { number: "03", label: "Events", href: "/events" },
-    { number: "04", label: "Services", href: servicesHref },
-    { number: "05", label: "About", href: aboutHref },
-    { number: "06", label: "Proof", href: "/proof" },
-    { number: "07", label: "FAQ", href: "/faq" },
-    { number: "08", label: "Listen", href: "/listen" },
-    { number: "09", label: "Contact", href: "/contact" },
-  ];
-}
-```
-
-2. Inside the component, call `const menuItems = getMenuItems(location.pathname)` and pass it to `handleItemClick` (which already references `menuItems[index].href`).
-
-Single file, ~15 lines changed. No new dependencies.
+No code changes required.
 
