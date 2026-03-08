@@ -22,7 +22,7 @@ interface LineConfig {
 
 const lines: LineConfig[] = [
   {
-    text: "There is a sound inside you that your hands have never been able to reach.",
+    text: "There is a sound inside you that your hands have not yet learned to reach.",
     italic: true,
     size: "text-[20px] md:text-[28px]",
     shadowWeight: "medium",
