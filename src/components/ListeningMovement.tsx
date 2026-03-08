@@ -112,7 +112,7 @@ export function ListeningMovement({
         aria-hidden="true"
       >
         <span
-          className="font-display text-[20vw] md:text-[16vw] leading-none text-foreground/[0.03]"
+          className="font-display text-[20vw] md:text-[16vw] leading-none text-foreground opacity-[0.03]"
           style={{ fontWeight: 300 }}
         >
           {numeral}
