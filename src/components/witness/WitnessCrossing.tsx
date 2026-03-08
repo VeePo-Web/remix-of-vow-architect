@@ -14,6 +14,7 @@ export function WitnessCrossing() {
   return (
     <section 
       id="witness-crossing"
+      aria-label="The Crossing"
       ref={ref as React.RefObject<HTMLElement>}
       className="relative py-[120px] px-4 overflow-hidden piano-section-target"
       style={{
