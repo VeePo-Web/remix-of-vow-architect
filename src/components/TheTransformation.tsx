@@ -141,7 +141,7 @@ export function TheTransformation() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at 50% 20%, hsl(220 20% 6% / 0.4) 0%, transparent 55%)",
+          background: "radial-gradient(ellipse at 50% 20%, hsl(var(--transform-dark) / 0.4) 0%, transparent 55%)",
         }}
         aria-hidden="true"
       />
