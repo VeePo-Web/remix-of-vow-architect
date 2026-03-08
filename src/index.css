@@ -99,8 +99,8 @@ All colors MUST be HSL.
     
     /* Custom Design Tokens */
     --keyline: 45 100% 76% / 0.35;
-    --shadow-1: 0 6px 30px rgb(0 0 0 / 0.35);
-    --elev-cta: 0 8px 24px rgb(255 224 138 / 0.18);
+    --shadow-1: 0 6px 30px hsl(0 0% 0% / 0.35);
+    --elev-cta: 0 8px 24px hsl(var(--vow-yellow) / 0.18);
     --easing-std: cubic-bezier(0.22, 0.61, 0.36, 1);
     
     --gradient-coal-night: linear-gradient(180deg, hsl(var(--rich-black)) 0%, hsl(var(--deep-graphite)) 100%);
