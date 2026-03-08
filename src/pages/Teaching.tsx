@@ -39,7 +39,7 @@ function SectionFade({
 }) {
   return (
     <div
-      className="relative h-[80px] md:h-[120px] w-full pointer-events-none -mt-[80px] md:-mt-[120px] z-[5]"
+      className="relative h-[120px] md:h-[160px] w-full pointer-events-none -mt-[120px] md:-mt-[160px] z-[5]"
       style={{
         background: `linear-gradient(to bottom, ${from}, ${to})`,
       }}
