@@ -5,9 +5,10 @@ import { cn } from "@/lib/utils";
 /**
  * TeachingExhale — Recognition / Sacred Pause
  *
- * Scroll-linked word-by-word opacity reveals: each word fades from 0.10 → 1.0
- * as the user scrolls through the section. The underline on "waiting" appears
- * at 90% scroll progress. Inspired by Fantasy.co's scroll-driven typography.
+ * Scroll-linked word-by-word opacity reveals with a non-linear easing curve:
+ * words near the center of the block reveal faster than those at the edges,
+ * creating a "breathing" rhythm. The underline on "waiting" appears at 90%
+ * scroll progress. Enhanced with multi-layer atmospheric depth.
  */
 
 interface LineConfig {
@@ -15,6 +16,8 @@ interface LineConfig {
   italic: boolean;
   size: string;
   underlineWord?: string;
+  /** Weight of text shadow — heavier for italic emotional lines */
+  shadowWeight: "light" | "medium";
 }
 
 const lines: LineConfig[] = [
@@ -22,29 +25,30 @@ const lines: LineConfig[] = [
     text: "You have a song inside you that you have never been able to play.",
     italic: true,
     size: "text-[20px] md:text-[28px]",
+    shadowWeight: "medium",
   },
   {
     text: "You have heard it in the car, in the quiet, in the space between what you feel and what you can say.",
     italic: true,
     size: "text-[20px] md:text-[28px]",
+    shadowWeight: "medium",
   },
   {
     text: "I understand.",
     italic: false,
     size: "text-[18px] md:text-[24px]",
+    shadowWeight: "light",
   },
   {
     text: "The piano has been waiting.",
     italic: true,
     size: "text-[20px] md:text-[28px]",
     underlineWord: "waiting",
+    shadowWeight: "medium",
   },
 ];
 
-/**
- * Flatten all words across all lines into a single array
- * so scroll progress maps linearly across the entire text block.
- */
+/* ── Word map ── */
 function buildWordMap(lineConfigs: LineConfig[]) {
   const words: { word: string; lineIdx: number; isUnderline: boolean }[] = [];
   lineConfigs.forEach((line, li) => {
@@ -61,6 +65,14 @@ function buildWordMap(lineConfigs: LineConfig[]) {
 
 const allWords = buildWordMap(lines);
 
+/* ── Text shadow presets ── */
+const TEXT_SHADOWS: Record<string, string> = {
+  light: "0 1px 3px hsl(40 20% 80% / 0.2)",
+  medium:
+    "0 1px 2px hsl(40 20% 80% / 0.25), 0 4px 16px hsl(40 30% 70% / 0.06)",
+};
+
+/* ── Scroll-linked word reveal block ── */
 function ScrollRevealBlock({ isInView }: { isInView: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
@@ -70,9 +82,15 @@ function ScrollRevealBlock({ isInView }: { isInView: boolean }) {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const vh = window.innerHeight;
-    // 0 when top enters bottom of viewport, 1 when top reaches 25% from top
+    // Non-linear mapping: accelerate through the middle, ease at edges
     const raw = 1 - (rect.top - vh * 0.25) / (vh * 0.55);
-    setProgress(Math.max(0, Math.min(1, raw)));
+    const clamped = Math.max(0, Math.min(1, raw));
+    // Apply an ease-in-out curve to the progress for breathing rhythm
+    const eased =
+      clamped < 0.5
+        ? 2 * clamped * clamped
+        : 1 - Math.pow(-2 * clamped + 2, 2) / 2;
+    setProgress(eased);
     rafRef.current = requestAnimationFrame(update);
   }, []);
 
@@ -89,7 +107,6 @@ function ScrollRevealBlock({ isInView }: { isInView: boolean }) {
     return () => cancelAnimationFrame(rafRef.current);
   }, [isInView, update]);
 
-  // Group words back into lines for rendering
   let globalIdx = 0;
 
   return (
@@ -107,9 +124,7 @@ function ScrollRevealBlock({ isInView }: { isInView: boolean }) {
             )}
             style={{
               color: line.italic ? "hsl(30 10% 25%)" : "hsl(30 10% 35%)",
-              textShadow: line.italic
-                ? "0 1px 2px hsl(40 20% 80% / 0.25)"
-                : undefined,
+              textShadow: TEXT_SHADOWS[line.shadowWeight],
             }}
           >
             {lineWords.map((w, wi) => {
@@ -117,17 +132,27 @@ function ScrollRevealBlock({ isInView }: { isInView: boolean }) {
               const threshold = wordGlobalIdx / allWords.length;
               const opacity = isInView
                 ? Math.max(
-                    0.1,
+                    0.08,
                     Math.min(1, (progress - threshold * 0.75) / 0.25)
                   )
-                : 0.1;
+                : 0.08;
+
+              // Subtle Y-drift: words start 3px low and settle to 0
+              const yDrift = isInView
+                ? Math.max(0, 3 * (1 - (progress - threshold * 0.75) / 0.25))
+                : 3;
 
               if (w.isUnderline) {
                 return (
                   <span
                     key={wi}
-                    className="inline-block transition-opacity duration-[80ms]"
-                    style={{ opacity }}
+                    className="inline-block"
+                    style={{
+                      opacity,
+                      transform: `translateY(${yDrift}px)`,
+                      transition: "opacity 80ms linear, transform 120ms ease-out",
+                      willChange: "opacity, transform",
+                    }}
                   >
                     <span className="relative inline-block">
                       {w.word}
@@ -139,6 +164,10 @@ function ScrollRevealBlock({ isInView }: { isInView: boolean }) {
                         style={{
                           transitionTimingFunction:
                             "cubic-bezier(.16,1,.3,1)",
+                          boxShadow:
+                            progress > 0.9
+                              ? "0 0 6px 1px hsl(var(--vow-yellow) / 0.2)"
+                              : "none",
                         }}
                         aria-hidden="true"
                       />
@@ -151,8 +180,13 @@ function ScrollRevealBlock({ isInView }: { isInView: boolean }) {
               return (
                 <span
                   key={wi}
-                  className="inline-block transition-opacity duration-[80ms]"
-                  style={{ opacity }}
+                  className="inline-block"
+                  style={{
+                    opacity,
+                    transform: `translateY(${yDrift}px)`,
+                    transition: "opacity 80ms linear, transform 120ms ease-out",
+                    willChange: "opacity, transform",
+                  }}
                 >
                   {w.word}
                   {wi < lineWords.length - 1 ? "\u00A0" : ""}
@@ -166,6 +200,7 @@ function ScrollRevealBlock({ isInView }: { isInView: boolean }) {
   );
 }
 
+/* ── Main section ── */
 export function TeachingExhale() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.15 });
 
@@ -178,7 +213,7 @@ export function TeachingExhale() {
       role="region"
       aria-label="Recognition"
     >
-      {/* Warm ambient glow */}
+      {/* ── Layer 1: Warm ambient glow ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -188,7 +223,26 @@ export function TeachingExhale() {
         aria-hidden="true"
       />
 
-      {/* Breathing vignette */}
+      {/* ── Layer 2: Secondary depth fog ── */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at 30% 70%, hsl(40 30% 88% / 0.25), transparent 50%), radial-gradient(ellipse at 70% 30%, hsl(40 25% 90% / 0.2), transparent 45%)",
+          animation: isVisible
+            ? "exhale-fog-drift 18s ease-in-out infinite alternate"
+            : undefined,
+        }}
+        aria-hidden="true"
+      />
+
+      {/* ── Layer 3: Grain ── */}
+      <div
+        className="absolute inset-0 grain opacity-[0.05] pointer-events-none"
+        aria-hidden="true"
+      />
+
+      {/* ── Layer 4: Breathing vignette ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -251,7 +305,7 @@ export function TeachingExhale() {
           aria-hidden="true"
         />
 
-        {/* Scroll-linked word-by-word reveals */}
+        {/* Scroll-linked word-by-word reveals with Y-drift */}
         <ScrollRevealBlock isInView={isVisible} />
 
         {/* Closing horizontal golden thread */}
@@ -286,7 +340,7 @@ export function TeachingExhale() {
         </span>
       </div>
 
-      {/* Keyframes */}
+      {/* ── Keyframes ── */}
       <style>{`
         @keyframes exhale-dot-pulse {
           0%, 100% { opacity: 0.5; transform: scale(1); box-shadow: 0 0 0 0 hsl(var(--vow-yellow) / 0.3); }
@@ -295,6 +349,10 @@ export function TeachingExhale() {
         @keyframes exhale-vignette-breathe {
           0%, 100% { opacity: 0.5; }
           50% { opacity: 0.7; }
+        }
+        @keyframes exhale-fog-drift {
+          0% { transform: translate(0, 0) scale(1); }
+          100% { transform: translate(1.5%, -0.5%) scale(1.02); }
         }
         @media (prefers-reduced-motion: reduce) {
           #teaching-exhale * {
