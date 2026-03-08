@@ -64,8 +64,8 @@ export function GenreCard({
           : `1px solid hsl(var(--vow-yellow) / ${isHovered ? 0.2 : 0.08})`,
         transform: isActive ? "translateY(-2px)" : isHovered ? "translateY(-2px)" : "translateY(0)",
         boxShadow: isActive
-          ? "0 6px 30px rgba(0,0,0,0.35), 0 0 30px hsl(var(--vow-yellow) / 0.12), inset 0 1px 0 rgba(255,255,255,0.06)"
-          : "0 6px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06)",
+          ? "0 6px 30px hsl(var(--rich-black) / 0.35), 0 0 30px hsl(var(--vow-yellow) / 0.12), inset 0 1px 0 hsl(0 0% 100% / 0.06)"
+          : "0 6px 30px hsl(var(--rich-black) / 0.35), inset 0 1px 0 hsl(0 0% 100% / 0.06)",
       }}
       aria-label={`${label} — ${trackCount} tracks`}
       aria-pressed={isActive}

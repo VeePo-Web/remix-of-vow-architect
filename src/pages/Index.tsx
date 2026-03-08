@@ -62,7 +62,7 @@ export default function Index() {
           <div
             className="absolute inset-0 bg-cover bg-center will-change-transform"
             style={{
-              backgroundImage: `linear-gradient(rgba(10, 10, 12, 0.35) 0%, rgba(10, 10, 12, 0.75) 100%), url(${heroImage})`,
+              backgroundImage: `linear-gradient(hsl(var(--rich-black) / 0.35) 0%, hsl(var(--rich-black) / 0.75) 100%), url(${heroImage})`,
               filter: "brightness(0.75) contrast(1.08) saturate(0.9)",
               animation: vigilPhase.isRevealing || vigilPhase.isComplete ? "ken-burns 60s var(--ease-sacred) infinite" : undefined,
             }}
@@ -76,7 +76,7 @@ export default function Index() {
             vigilPhase.isRevealing || vigilPhase.isComplete ? "opacity-100" : "opacity-0"
           }`}
           style={{
-            background: "radial-gradient(circle at center, transparent 0%, rgba(10, 10, 12, 0.45) 100%)",
+            background: "radial-gradient(circle at center, transparent 0%, hsl(var(--rich-black) / 0.45) 100%)",
           }}
           aria-hidden="true"
         />
@@ -87,7 +87,7 @@ export default function Index() {
             vigilPhase.isRevealing || vigilPhase.isComplete ? "opacity-100" : "opacity-0"
           }`}
           style={{
-            background: "radial-gradient(circle at 50% 30%, rgba(255, 224, 138, 0.03) 0%, transparent 50%)",
+            background: "radial-gradient(circle at 50% 30%, hsl(var(--vow-yellow) / 0.03) 0%, transparent 50%)",
           }}
           aria-hidden="true"
         />

@@ -104,7 +104,7 @@ export default function Proof() {
                 { icon: Layers, label: "Triple Backups" },
                 { icon: Clock, label: "24-Hour Plan" },
               ].map(({ icon: Icon, label }) => (
-                <div key={label} className="flex flex-col items-center gap-2 p-4 rounded-lg bg-card/50 backdrop-blur-[8px] border border-primary/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] transition-all duration-[180ms] hover:border-primary/20 hover:shadow-[0_0_24px_rgba(255,224,138,0.06)]">
+                <div key={label} className="flex flex-col items-center gap-2 p-4 rounded-lg bg-card/50 backdrop-blur-[8px] border border-primary/10 card-sacred-sm transition-all duration-[180ms] hover:border-primary/20 hover:shadow-[0_0_24px_hsl(var(--vow-yellow)/0.06)]">
                   <Icon className="text-primary" size={24} />
                   <span className="text-sm font-medium">{label}</span>
                 </div>

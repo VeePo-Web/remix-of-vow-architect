@@ -43,10 +43,10 @@ const buttonVariants = cva(
          */
         default: [
           "bg-primary text-primary-foreground",
-          "shadow-[0_8px_24px_rgba(255,224,138,0.18)]",
+          "shadow-[0_8px_24px_hsl(var(--vow-yellow)/0.18)]",
           "hover:bg-[hsl(var(--vow-yellow)/0.85)]",
-          "hover:shadow-[0_12px_32px_rgba(255,224,138,0.28),0_0_16px_rgba(255,224,138,0.08)]",
-          "active:shadow-[0_4px_12px_rgba(255,224,138,0.12)]",
+          "hover:shadow-[0_12px_32px_hsl(var(--vow-yellow)/0.28),0_0_16px_hsl(var(--vow-yellow)/0.08)]",
+          "active:shadow-[0_4px_12px_hsl(var(--vow-yellow)/0.12)]",
         ].join(" "),
 
         /**
@@ -56,10 +56,10 @@ const buttonVariants = cva(
          */
         "primary-dark": [
           "bg-ink-inverse text-ink-primary border border-ink-inverse",
-          "shadow-[0_4px_16px_rgba(255,255,255,0.06)]",
+          "shadow-[0_4px_16px_hsl(0_0%_100%/0.06)]",
           "hover:bg-transparent hover:text-ink-inverse",
-          "hover:shadow-[0_8px_24px_rgba(255,255,255,0.04),inset_0_0_12px_rgba(255,255,255,0.03)]",
-          "active:shadow-[0_2px_8px_rgba(255,255,255,0.04)]",
+          "hover:shadow-[0_8px_24px_hsl(0_0%_100%/0.04),inset_0_0_12px_hsl(0_0%_100%/0.03)]",
+          "active:shadow-[0_2px_8px_hsl(0_0%_100%/0.04)]",
         ].join(" "),
 
         /**
@@ -70,8 +70,8 @@ const buttonVariants = cva(
         "ghost-dark": [
           "bg-transparent text-ink-inverse border border-ink-inverse/60",
           "hover:bg-ink-inverse hover:text-ink-primary hover:border-ink-inverse",
-          "hover:shadow-[0_8px_24px_rgba(255,255,255,0.06)]",
-          "active:shadow-[0_2px_8px_rgba(255,255,255,0.04)]",
+          "hover:shadow-[0_8px_24px_hsl(0_0%_100%/0.06)]",
+          "active:shadow-[0_2px_8px_hsl(0_0%_100%/0.04)]",
         ].join(" "),
 
         /**
@@ -81,8 +81,8 @@ const buttonVariants = cva(
         "ghost-light": [
           "bg-transparent text-ink-primary border border-lines",
           "hover:bg-card hover:border-border",
-          "hover:shadow-[0_6px_20px_rgba(0,0,0,0.06)]",
-          "active:shadow-[0_2px_8px_rgba(0,0,0,0.04)]",
+          "hover:shadow-[0_6px_20px_hsl(var(--rich-black)/0.06)]",
+          "active:shadow-[0_2px_8px_hsl(var(--rich-black)/0.04)]",
         ].join(" "),
 
         /**
@@ -92,10 +92,10 @@ const buttonVariants = cva(
          */
         accent: [
           "bg-accent text-accent-foreground border border-accent",
-          "shadow-[0_4px_16px_rgba(155,225,93,0.12)]",
+          "shadow-[0_4px_16px_hsl(var(--vine-green)/0.12)]",
           "hover:bg-[hsl(var(--vine-green)/0.85)] hover:border-[hsl(var(--vine-green)/0.85)]",
-          "hover:shadow-[0_8px_24px_rgba(155,225,93,0.18)]",
-          "active:shadow-[0_2px_8px_rgba(155,225,93,0.1)]",
+          "hover:shadow-[0_8px_24px_hsl(var(--vine-green)/0.18)]",
+          "active:shadow-[0_2px_8px_hsl(var(--vine-green)/0.1)]",
         ].join(" "),
 
         /**
@@ -106,22 +106,22 @@ const buttonVariants = cva(
         outline: [
           "border-[1.5px] border-primary text-primary bg-transparent",
           "hover:bg-primary hover:text-primary-foreground",
-          "hover:shadow-[0_8px_24px_rgba(255,224,138,0.16)]",
-          "active:shadow-[0_4px_12px_rgba(255,224,138,0.1)]",
+          "hover:shadow-[0_8px_24px_hsl(var(--vow-yellow)/0.16)]",
+          "active:shadow-[0_4px_12px_hsl(var(--vow-yellow)/0.1)]",
         ].join(" "),
 
         destructive: [
           "bg-destructive text-destructive-foreground shadow-sm",
           "hover:bg-destructive/90",
-          "hover:shadow-[0_8px_20px_rgba(239,68,68,0.15)]",
-          "active:shadow-[0_2px_8px_rgba(239,68,68,0.1)]",
+          "hover:shadow-[0_8px_20px_hsl(0_80%_60%/0.15)]",
+          "active:shadow-[0_2px_8px_hsl(0_80%_60%/0.1)]",
         ].join(" "),
 
         secondary: [
           "bg-secondary text-secondary-foreground",
           "hover:bg-secondary/80",
-          "hover:shadow-[0_6px_16px_rgba(0,0,0,0.08)]",
-          "active:shadow-[0_2px_8px_rgba(0,0,0,0.06)]",
+          "hover:shadow-[0_6px_16px_hsl(var(--rich-black)/0.08)]",
+          "active:shadow-[0_2px_8px_hsl(var(--rich-black)/0.06)]",
         ].join(" "),
 
         ghost: "hover:bg-accent hover:text-accent-foreground",

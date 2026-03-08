@@ -166,7 +166,7 @@ export function TheInvitation() {
                     'inset 0 0 60px hsl(var(--vow-yellow) / 0.08)',
                     'inset 0 1px 0 hsl(0 0% 100% / 0.06)',
                     '0 0 40px hsl(var(--vow-yellow) / 0.06)',
-                    '0 40px 100px -20px rgba(0,0,0,0.5)',
+                    '0 40px 100px -20px hsl(var(--rich-black) / 0.5)',
                   ].join(', '),
                 }}
               >

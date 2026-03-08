@@ -82,7 +82,7 @@ function NowPlayingBar({
         WebkitBackdropFilter: "blur(16px)",
         background: "hsl(var(--rich-black) / 0.92)",
         borderTop: "1px solid hsl(var(--vow-yellow) / 0.1)",
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 0 20px hsl(var(--vow-yellow) / 0.03)",
+        boxShadow: "inset 0 1px 0 hsl(0 0% 100% / 0.06), 0 0 20px hsl(var(--vow-yellow) / 0.03)",
       }}
       aria-label="Now playing"
       role="region"

@@ -273,7 +273,7 @@ export default function PianoPanel({
           background: "hsl(var(--rich-black))",
           border: "1px solid hsl(var(--vow-yellow) / 0.12)",
           boxShadow:
-            "inset 0 1px 0 rgba(255,255,255,0.04), 0 24px 80px rgba(0,0,0,0.5)",
+            "inset 0 1px 0 hsl(0 0% 100% / 0.04), 0 24px 80px hsl(var(--rich-black) / 0.5)",
           backdropFilter: "blur(24px)",
           WebkitBackdropFilter: "blur(24px)",
           // Animation

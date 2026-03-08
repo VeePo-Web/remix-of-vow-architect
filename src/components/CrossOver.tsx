@@ -240,7 +240,7 @@ export function CrossOver() {
           <p 
             className="font-display font-light text-[28px] md:text-[34px] uppercase tracking-[0.22em] text-foreground/70"
             role="text"
-            style={{ textShadow: '0 1px 12px rgba(0, 0, 0, 0.3)' }}
+            style={{ textShadow: '0 1px 12px hsl(var(--rich-black) / 0.3)' }}
           >
             {"\u2018"}TIL DEATH{" "}
             <span
@@ -258,7 +258,7 @@ export function CrossOver() {
         {/* 15-B: Sacred Quote — word-level micro-stagger */}
         <h2
           className="max-w-[720px] mx-auto mb-14 font-display font-light text-[clamp(32px,5vw,48px)] leading-[1.2] tracking-[0.02em] text-foreground"
-          style={{ textWrap: "balance" as any, textShadow: '0 1px 3px rgba(0, 0, 0, 0.6), 0 2px 20px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.2)' }}
+          style={{ textWrap: "balance" as any, textShadow: '0 1px 3px hsl(var(--rich-black) / 0.6), 0 2px 20px hsl(var(--rich-black) / 0.4), 0 0 40px hsl(var(--rich-black) / 0.2)' }}
         >
           {/* Opening curly quote attached to first word */}
           <span
@@ -354,7 +354,7 @@ export function CrossOver() {
             "font-display font-light text-lg italic tracking-[0.02em] text-center text-foreground/70 transition-all duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[12px]"
           )}
-          style={{ transitionDelay: isVisible ? "700ms" : "0ms", textShadow: '0 1px 2px rgba(0, 0, 0, 0.5), 0 1px 16px rgba(0, 0, 0, 0.35)' }}
+          style={{ transitionDelay: isVisible ? "700ms" : "0ms", textShadow: '0 1px 2px hsl(var(--rich-black) / 0.5), 0 1px 16px hsl(var(--rich-black) / 0.35)' }}
         >
           Response within 24 hours.{" "}
           <span className="relative inline-block font-normal not-italic tracking-[0.03em] text-primary">
