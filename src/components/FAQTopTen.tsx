@@ -8,54 +8,54 @@ import { DirectionalLink } from "@/components/DirectionalLink";
 
 const topTenFAQs = [
   {
-    question: "Do I need a mic for an outdoor ceremony?",
-    answer: "Yes. Wind and distance kill intelligibility. I include lapel + handheld, live-mixed so words land at the back row—politely.",
-    link: { to: "/proof", label: "Proof & Trust › SPL Logs" }
+    question: "Do I need amplification for an outdoor ceremony?",
+    answer: "Yes. Wind and distance make it difficult for guests to hear unamplified vows. I include wireless microphones, live-mixed so every word carries — even to the last row.",
+    link: { to: "/proof", label: "See how I prepare" }
   },
   {
-    question: "What if the venue has no power or PA?",
-    answer: "My rig is silent battery — no generators, no permits, no hum.",
-    link: { to: "/faq", label: "FAQ — Power & Battery" }
+    question: "What if the venue has no power?",
+    answer: "I use a silent battery system — no generators, no permits, no noise during your ceremony.",
+    link: { to: "/proof", label: "See the equipment" }
   },
   {
-    question: "What happens if your gear fails?",
-    answer: "I bring triple redundancy: second mic chain, second amp, second keyboard, plus a pre-loaded speaker for critical cues.",
-    link: { to: "/proof", label: "Proof & Trust › Redundancy Protocol" }
+    question: "What happens if equipment fails?",
+    answer: "I bring triple redundancy: a second microphone, a second amplifier, a second instrument, and a pre-loaded speaker for critical cues.",
+    link: { to: "/proof", label: "See the redundancy plan" }
   },
   {
-    question: "Can I cancel or downgrade after booking?",
-    answer: "Yes. 14-day full refund on deposit, then transferable credit. Clear timelines in your policy PDF.",
-    link: { to: "/pricing", label: "Pricing & Paths › Terms" }
+    question: "Can I cancel or change my mind after booking?",
+    answer: "Yes. Full refund within 14 days. After that, your deposit converts to transferable credit. Clear timelines are documented in your agreement.",
+    link: { to: "/pricing", label: "See the terms" }
   },
   {
     question: "How do I know my officiant will be coordinated?",
-    answer: "I co-author your cue sheet with your officiant and planner—time-coded entrances, vows, exits.",
-    link: { to: "/proof", label: "Proof & Trust › Real Plans" }
+    answer: "I co-author your cue sheet with your officiant and planner — every entrance, every vow, every exit is timed and agreed upon in advance.",
+    link: { to: "/proof", label: "See a sample plan" }
   },
   {
     question: "Will people in the back hear our vows?",
-    answer: "Yes. My SPL-aware mixing targets 55–65 dBA for vows, proven at 20–30 m depending on venue.",
-    link: { to: "/proof", label: "Proof & Trust › SPL Example" }
+    answer: "Yes. I measure and verify volume levels at multiple distances during setup to ensure clarity reaches every seat.",
+    link: { to: "/proof", label: "See the documentation" }
   },
   {
     question: "What if it rains or snows?",
-    answer: "Covered gear, relocatable layout, and a pre-agreed Plan B. We move in minutes, not hours.",
-    link: { to: "#weather", label: "FAQ › Weather Contingency" }
+    answer: "All equipment is weather-protected. We agree on a Plan B location in advance, and I can relocate within minutes.",
+    link: { to: "#weather", label: "Weather contingency details" }
   },
   {
-    question: "Can I see a plan before I commit?",
-    answer: "Yes. Download a real sample plan with SPL log + cue sheet.",
-    link: { to: "/proof", label: "Proof & Trust › Sample Download" }
+    question: "Can I see an example plan before I commit?",
+    answer: "Yes. You can download a real sample ceremony plan to see exactly what you will receive.",
+    link: { to: "/proof", label: "Download a sample" }
   },
   {
-    question: "How fast do I get confirmation after booking?",
-    answer: "Within 24 hours you receive your PDF ceremony-audio plan with SPL / power / mic / cue notes.",
-    link: { to: "/contact", label: "Contact / Hold Your Date" }
+    question: "How quickly do I hear back after reaching out?",
+    answer: "Within 24 hours, you receive a personalized ceremony plan — venue considerations, suggested arrangements, and a timeline for your day.",
+    link: { to: "/contact", label: "Hold my date" }
   },
   {
-    question: "How do I compare this to a DJ or band?",
-    answer: "Ask them for a SPL log, a battery/no-generator plan, and backup stack details. Then see my chart.",
-    link: { to: "/pricing", label: "Pricing › Compare" }
+    question: "How does a ceremony pianist compare to a DJ or band?",
+    answer: "The simplest question to ask any alternative: how do they ensure your outdoor vows are heard without generator noise? The comparison chart on the pricing page outlines the differences.",
+    link: { to: "/pricing", label: "See the comparison" }
   }
 ];
 
@@ -64,7 +64,7 @@ export function FAQTopTen() {
     <section className="section--default section-padding grain">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-center mb-4">Your concerns, solved before you ask.</h2>
+          <h2 className="text-center mb-4">Your concerns, addressed before you ask.</h2>
           <div className="chapter-rule mx-auto mb-12" />
 
           <Accordion type="single" collapsible className="space-y-4">
