@@ -45,6 +45,7 @@ function AppRoutes() {
       <Route path="/events" element={<Events />} />
       <Route path="/events/about" element={<EventsAbout />} />
       <Route path="/events/pricing" element={<EventsPricing />} />
+      <Route path="/events/contact" element={<EventsContact />} />
       <Route path="/pricing" element={<Pricing />} />
       <Route path="/services" element={<Navigate to="/pricing" replace />} />
       <Route path="/proof" element={<Proof />} />
