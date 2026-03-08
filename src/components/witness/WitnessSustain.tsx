@@ -96,8 +96,7 @@ export function WitnessSustain() {
                 x1="60" y1="20" x2="340" y2="20" 
                 stroke="hsl(var(--vow-yellow))" 
                 strokeWidth="1" 
-                opacity="0.35"
-                strokeDasharray="4 8"
+                opacity="0.20"
               />
               {/* Three nodes with boosted glow */}
               {[60, 200, 340].map((cx, i) => (
