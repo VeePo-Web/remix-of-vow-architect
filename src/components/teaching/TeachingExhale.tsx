@@ -123,7 +123,7 @@ function ScrollRevealBlock({ isInView }: { isInView: boolean }) {
               li < lines.length - 1 ? "mb-fitz-5" : "mb-0"
             )}
             style={{
-              color: line.italic ? "hsl(30 10% 25%)" : "hsl(30 10% 35%)",
+              color: line.italic ? "hsl(var(--teaching-text-narrative))" : "hsl(var(--teaching-text-body))",
               textShadow: TEXT_SHADOWS[line.shadowWeight],
             }}
           >
