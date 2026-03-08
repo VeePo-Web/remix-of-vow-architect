@@ -187,17 +187,19 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
                 isPressed && 'piano-key--pressed',
                 'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-vow-yellow/40'
               )}
-              style={
-                animated
-                  ? undefined
+              style={{
+                opacity: isDamped ? 0.4 : 1,
+                transition: 'opacity 180ms ease',
+                ...(animated
+                  ? {}
                   : {
                       animation: isVisible
                         ? `piano-key-enter 260ms cubic-bezier(0.22,0.61,0.36,1) ${enterDelay}ms both`
                         : reducedMotion
                           ? 'none'
                           : `piano-key-exit 200ms ease-in ${enterDelay}ms both`,
-                    }
-              }
+                    }),
+              }}
             />
           </div>
         );
