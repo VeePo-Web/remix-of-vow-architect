@@ -283,7 +283,7 @@ export function TeachingCrossing() {
               size="lg"
               className="relative font-sans text-[14px] uppercase tracking-[0.14em] bg-[hsl(var(--vow-yellow))] text-[hsl(30_10%_12%)] hover:bg-[hsl(var(--vow-yellow)/0.85)] border-2 border-[hsl(var(--vow-yellow))] rounded-md px-10 py-3.5 transition-all duration-[260ms] hover:shadow-[0_4px_20px_hsl(var(--vow-yellow)/0.25)] hover:-translate-y-[1px]"
             >
-              <Link to="/contact">Sit down with me.</Link>
+              <Link to="/contact">Sit down with me</Link>
             </Button>
           </div>
 
