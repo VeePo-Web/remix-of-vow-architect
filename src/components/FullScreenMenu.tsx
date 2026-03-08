@@ -340,7 +340,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
                       // Color states
                       isActive
                         ? "text-foreground"
-                        : "text-foreground/75 group-hover:text-foreground"
+                        : "text-foreground opacity-75 group-hover:opacity-100"
                     )}
                     style={{
                       // Piano key depression physics: 1px hover, 2px press
