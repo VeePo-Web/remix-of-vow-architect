@@ -42,7 +42,7 @@ export default function Legal() {
       <MinimalHeader />
 
       {/* Grain overlay */}
-      <div className="grain opacity-[0.04] pointer-events-none fixed inset-0 z-[1]" style={{ willChange: "opacity" }} aria-hidden="true" />
+      <div className="grain opacity-[0.04] pointer-events-none fixed inset-0 z-[1]" aria-hidden="true" />
 
       {/* Warm fog */}
       <div

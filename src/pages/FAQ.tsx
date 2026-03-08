@@ -58,7 +58,7 @@ export default function FAQ() {
           aria-hidden="true"
         />
         {/* Film grain */}
-        <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" style={{ willChange: "opacity" }} aria-hidden="true" />
+        <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" aria-hidden="true" />
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto animate-fade-in">

@@ -138,7 +138,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
       {/* Layer 1: Film grain — sacred texture */}
       <div
         className="grain pointer-events-none"
-        style={{ opacity: 0.06, willChange: "opacity" }}
+        style={{ opacity: 0.06 }}
         aria-hidden="true"
       />
 
