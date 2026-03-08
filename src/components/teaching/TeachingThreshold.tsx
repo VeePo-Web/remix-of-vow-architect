@@ -169,7 +169,7 @@ function FearPair({
           color: "hsl(var(--vow-yellow) / 0.7)",
           transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
           textShadow:
-            "0 1px 3px hsl(0 0% 0% / 0.2), 0 3px 12px hsl(0 0% 0% / 0.08)",
+            "0 1px 3px hsl(var(--rich-black) / 0.2), 0 3px 12px hsl(var(--rich-black) / 0.08)",
         }}
       >
         "{pair.fear}"
