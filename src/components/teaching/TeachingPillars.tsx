@@ -60,10 +60,27 @@ export function TeachingPillars() {
       />
 
       <div className="relative z-10 max-w-[600px] mx-auto">
+        {/* Whispered section label */}
+        <p
+          className={cn(
+            "font-sans text-[11px] uppercase tracking-[0.22em] text-center mb-fitz-9 transition-all duration-[700ms]",
+            isVisible
+              ? "opacity-45 translate-y-0"
+              : "opacity-0 translate-y-[8px]"
+          )}
+          style={{
+            color: "hsl(30 10% 45%)",
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "100ms",
+          }}
+        >
+          What I believe
+        </p>
+
         {/* Golden thread vertical — the spine */}
         <div
           className={cn(
-            "absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px origin-top transition-transform duration-[1200ms]",
+            "absolute left-1/2 -translate-x-1/2 top-[140px] md:top-[180px] bottom-[140px] md:bottom-[180px] w-px origin-top transition-transform duration-[1200ms]",
             isVisible ? "scale-y-100" : "scale-y-0"
           )}
           style={{
@@ -78,42 +95,60 @@ export function TeachingPillars() {
         />
 
         {pillars.map((p, i) => (
-          <div
-            key={p.title}
-            className={cn(
-              "relative text-center py-fitz-9 transition-all duration-[700ms]",
-              isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-[12px]"
+          <div key={p.title}>
+            <div
+              className={cn(
+                "relative text-center py-fitz-8 transition-all duration-[700ms]",
+                isVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-[12px]"
+              )}
+              style={{
+                transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+                transitionDelay: `${300 + i * 200}ms`,
+              }}
+            >
+              {/* Golden dot — node on the thread */}
+              <span
+                className="block w-2.5 h-2.5 rounded-full mx-auto mb-fitz-5"
+                style={{
+                  background: "hsl(var(--vow-yellow))",
+                  boxShadow: "0 0 8px 2px hsl(var(--vow-yellow) / 0.15)",
+                }}
+                aria-hidden="true"
+              />
+              <h2
+                className="font-display text-[28px] md:text-[36px] font-light tracking-tight mb-fitz-3"
+                style={{
+                  color: "hsl(30 10% 20%)",
+                }}
+              >
+                {p.title}
+              </h2>
+              <p
+                className="font-sans text-[16px] leading-[1.7] max-w-[480px] mx-auto"
+                style={{ color: "hsl(30 10% 40%)" }}
+              >
+                {p.description}
+              </p>
+            </div>
+
+            {/* Horizontal thread separator between pillars */}
+            {i < pillars.length - 1 && (
+              <div
+                className={cn(
+                  "mx-auto h-px max-w-[80px] transition-transform duration-[600ms] origin-center",
+                  isVisible ? "scale-x-100" : "scale-x-0"
+                )}
+                style={{
+                  background:
+                    "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.2), transparent)",
+                  transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+                  transitionDelay: `${500 + i * 200}ms`,
+                }}
+                aria-hidden="true"
+              />
             )}
-            style={{
-              transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-              transitionDelay: `${300 + i * 200}ms`,
-            }}
-          >
-            {/* Golden dot — node on the thread */}
-            <span
-              className="block w-2.5 h-2.5 rounded-full mx-auto mb-fitz-5"
-              style={{
-                background: "hsl(var(--vow-yellow))",
-                boxShadow: "0 0 8px 2px hsl(var(--vow-yellow) / 0.15)",
-              }}
-              aria-hidden="true"
-            />
-            <h2
-              className="font-display text-[28px] md:text-[36px] font-light tracking-tight mb-fitz-3"
-              style={{
-                color: "hsl(30 10% 20%)",
-              }}
-            >
-              {p.title}
-            </h2>
-            <p
-              className="font-sans text-[16px] leading-[1.7] max-w-[480px] mx-auto"
-              style={{ color: "hsl(30 10% 40%)" }}
-            >
-              {p.description}
-            </p>
           </div>
         ))}
       </div>

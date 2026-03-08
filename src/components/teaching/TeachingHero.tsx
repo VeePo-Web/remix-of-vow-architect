@@ -133,6 +133,49 @@ export function TeachingHero() {
             <span className="text-[hsl(var(--vow-yellow))]">.</span>
           </span>
         </h1>
+
+        {/* Golden thread — tagline to subtitle */}
+        <div
+          className={cn(
+            "mx-auto mt-fitz-5 mb-fitz-4 transition-all duration-[700ms]",
+            isRevealed ? "opacity-100" : "opacity-0"
+          )}
+          style={{
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "1400ms",
+          }}
+        >
+          <div
+            className={cn(
+              "h-px w-12 mx-auto origin-left transition-transform duration-[700ms]",
+              isRevealed ? "scale-x-100" : "scale-x-0"
+            )}
+            style={{
+              background:
+                "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.4), transparent)",
+              transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+              transitionDelay: "1400ms",
+            }}
+            aria-hidden="true"
+          />
+        </div>
+
+        {/* Positioning subtitle */}
+        <p
+          className={cn(
+            "font-sans text-[clamp(13px,1.6vw,16px)] leading-relaxed max-w-[340px] mx-auto transition-all duration-[1800ms]",
+            isRevealed
+              ? "opacity-55 translate-y-0"
+              : "opacity-0 translate-y-[8px]"
+          )}
+          style={{
+            color: "hsl(30 10% 35%)",
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "1600ms",
+          }}
+        >
+          I teach you to speak through the instrument — at your pace, in your voice.
+        </p>
       </div>
 
       {/* Breathing scroll cue — golden dot */}
