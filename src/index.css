@@ -143,6 +143,10 @@ All colors MUST be HSL.
     --transform-warm: 40 20% 80%;
     --transform-light: 45 30% 92%;
 
+    /* Invitation warm dark palette */
+    --invitation-bg-top: 28 12% 16%;
+    --invitation-bg-bottom: 25 8% 8%;
+
     /* Teaching Vertical Warm Palette */
     --teaching-bg: 40 30% 95%;
     --teaching-bg-alt: 38 35% 93%;
