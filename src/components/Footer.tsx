@@ -5,6 +5,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import veepoLogo from "@/assets/veepo-logo.png";
 
 export function Footer() {
   const { ref: footerRef, isVisible } = useScrollReveal({ threshold: 0.15 });

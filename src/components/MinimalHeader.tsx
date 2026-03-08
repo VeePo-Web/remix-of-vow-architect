@@ -317,7 +317,7 @@ export function MinimalHeader() {
             <NavLink
               to="/"
               className={cn(
-                "relative font-display text-base text-foreground opacity-0 animate-fade-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm",
+                "relative font-display text-base text-foreground opacity-0 animate-fade-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm overflow-hidden",
                 isArrival
                   ? "hover:text-foreground"
                   : "hover:text-primary"
@@ -335,6 +335,15 @@ export function MinimalHeader() {
               onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.letterSpacing = '0.08em'; }}
             >
               Parker Gawryletz
+              {/* Gold shimmer sweep — one-time on first load */}
+              <span
+                className="absolute inset-0 pointer-events-none opacity-0 animate-[header-shimmer_1.2s_ease-in-out_forwards]"
+                style={{
+                  animationDelay: hasPlayed ? '600ms' : '6600ms',
+                  background: 'linear-gradient(110deg, transparent 30%, hsl(var(--vow-yellow) / 0.15) 45%, hsl(var(--vow-yellow) / 0.25) 50%, hsl(var(--vow-yellow) / 0.15) 55%, transparent 70%)',
+                }}
+                aria-hidden="true"
+              />
               {/* Vow-yellow underline draw — only during full arrival */}
               <span
                 className={cn(
@@ -354,6 +363,18 @@ export function MinimalHeader() {
                 aria-hidden="true"
               />
             </NavLink>
+            {/* Page context label — visible when scrolled */}
+            {isScrolled && !isArrival && (
+              <span
+                className="hidden md:flex items-center gap-2 ml-3 opacity-0 animate-fade-in"
+                style={{ animationDelay: '200ms', animationFillMode: 'forwards' }}
+              >
+                <span className="w-1 h-1 rounded-full" style={{ background: 'hsl(var(--vow-yellow) / 0.3)' }} aria-hidden="true" />
+                <span className="text-[0.55rem] tracking-[0.18em] uppercase text-muted-foreground/40 font-sans">
+                  {pathname === '/' || pathname === '/weddings' ? 'Home' : pathname.split('/').pop()?.replace(/-/g, ' ')}
+                </span>
+              </span>
+            )}
           </div>
 
           {/* ═══════════════════════════════════════════
