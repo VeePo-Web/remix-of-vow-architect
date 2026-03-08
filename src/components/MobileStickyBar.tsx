@@ -5,6 +5,8 @@ import { Link, useLocation } from "react-router-dom";
 const pageConfig: Record<string, string> = {
   "/": "I would be honored to be there",
   "/weddings": "I would be honored to be there",
+  "/teaching": "Begin the conversation",
+  "/events": "Discuss your event",
   "/services": "Find the right presence",
   "/about": "The witness behind the keys",
   "/gallery": "500+ events performed",
