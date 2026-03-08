@@ -108,7 +108,7 @@ export default function Gateway() {
       <div className="relative flex flex-col md:flex-row gap-3 md:gap-6 px-6 max-w-5xl w-full flex-1 md:flex-initial min-h-0">
         {/* Golden Thread */}
         <div
-          className="absolute pointer-events-none opacity-0 animate-fade-in left-1/2 top-6 bottom-6 w-px md:left-6 md:right-6 md:top-1/2 md:w-auto md:h-px bg-[hsl(var(--vow-yellow)/0.15)]"
+          className="absolute pointer-events-none opacity-0 animate-fade-in left-1/2 top-6 bottom-6 w-px md:left-6 md:right-6 md:top-1/2 md:w-auto md:h-px bg-primary/15"
           style={{ animationDelay: "1600ms", animationFillMode: "forwards" }}
           aria-hidden="true"
         />
