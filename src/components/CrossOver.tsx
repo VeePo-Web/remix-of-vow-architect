@@ -169,7 +169,7 @@ export function CrossOver() {
       {/* 13d: Top-edge vignette darkening */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none"
-        style={{ background: "linear-gradient(to bottom, hsl(240 9% 2% / 0.4) 0%, transparent 25%)" }}
+        style={{ background: "linear-gradient(to bottom, hsl(var(--rich-black) / 0.4) 0%, transparent 25%)" }}
         aria-hidden="true"
       />
 
