@@ -457,7 +457,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
           )}
         >
           <p className="text-muted-foreground/60">
-            Calgary, Cochrane, Canmore &amp; Okotoks
+            Calgary, Cochrane, Canmore &amp; Banff
           </p>
           <p>
             <a

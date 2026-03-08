@@ -149,7 +149,7 @@ export function Footer() {
               Parker Gawryletz
             </h3>
             <p className="font-display italic text-sm text-foreground/40 mt-1 mb-4">
-              Wedding Pianist
+              Sound Director
             </p>
             <p className="text-foreground/70 mb-8 max-w-md leading-relaxed">
               I carry your vows so they can carry your guests.
@@ -243,7 +243,7 @@ export function Footer() {
               Reach Me
             </h4>
             <ul className="space-y-3 text-foreground/50">
-              <li>Calgary, Cochrane, Canmore and Okotoks</li>
+              <li>Calgary, Cochrane, Canmore and Banff</li>
               <li>
                 <a href="mailto:parker@parkergawryletz.com" className="hover:text-primary transition-all duration-[180ms] rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background" aria-label="Email me at parker@parkergawryletz.com">
                   parker@parkergawryletz.com

@@ -15,11 +15,11 @@ export default function PrivacyPolicy() {
     >
       <PolicySection title="Who I Am">
         <p>
-          I'm Parker Wedding Piano (also operating as Assured Ceremony Audio™ by Parker Gawryletz). 
-          I serve Cochrane, Calgary, Canmore, and Okotoks.
+          I'm Parker Gawryletz, Sound Director. 
+          I serve Calgary, Cochrane, Canmore, and Banff.
         </p>
         <p>
-          Contact: <a href="mailto:ParJorFraGaw@gmail.com" className="text-primary hover:text-primary/80">ParJorFraGaw@gmail.com</a> • <a href="tel:+14038308930" className="text-primary hover:text-primary/80">+1-403-830-8930</a>
+          Contact: <a href="mailto:parker@parkergawryletz.com" className="text-primary hover:text-primary/80">parker@parkergawryletz.com</a> • <a href="tel:+14038308930" className="text-primary hover:text-primary/80">+1-403-830-8930</a>
         </p>
       </PolicySection>
 
@@ -129,8 +129,8 @@ export default function PrivacyPolicy() {
       <PolicySection title="Your Rights">
         <p>
           Where applicable, you may access, correct, or request deletion of your data. Email{" "}
-          <a href="mailto:ParJorFraGaw@gmail.com" className="text-primary hover:text-primary/80">
-            ParJorFraGaw@gmail.com
+          <a href="mailto:parker@parkergawryletz.com" className="text-primary hover:text-primary/80">
+            parker@parkergawryletz.com
           </a>{" "}
           with the subject "Privacy Request."
         </p>

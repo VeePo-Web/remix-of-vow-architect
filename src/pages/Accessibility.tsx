@@ -41,8 +41,8 @@ export default function Accessibility() {
         <PolicyHighlightBox variant="info">
           <p>
             If you experience any difficulty, email{" "}
-            <a href="mailto:ParJorFraGaw@gmail.com" className="text-primary hover:text-primary/80">
-              ParJorFraGaw@gmail.com
+            <a href="mailto:parker@parkergawryletz.com" className="text-primary hover:text-primary/80">
+              parker@parkergawryletz.com
             </a>{" "}
             or call{" "}
             <a href="tel:+14038308930" className="text-primary hover:text-primary/80">
