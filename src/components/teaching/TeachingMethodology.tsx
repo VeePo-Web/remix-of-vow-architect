@@ -142,7 +142,7 @@ export function TeachingMethodology() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at 30% 70%, hsl(30 15% 20% / 0.3), transparent 60%), radial-gradient(ellipse at 70% 30%, hsl(30 10% 18% / 0.25), transparent 55%)",
+            "radial-gradient(ellipse at 30% 70%, hsl(var(--teaching-studio-fog) / 0.3), transparent 60%), radial-gradient(ellipse at 70% 30%, hsl(var(--teaching-studio-fog-alt) / 0.25), transparent 55%)",
         }}
         aria-hidden="true"
       />
