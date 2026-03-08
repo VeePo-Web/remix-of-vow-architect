@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { MostSelectedPill } from "@/components/MostSelectedPill";
 import { RevealOnScroll, StaggerChildren } from "@/components/animation";
+import { cn } from "@/lib/utils";
 import {
   Accordion,
   AccordionContent,
