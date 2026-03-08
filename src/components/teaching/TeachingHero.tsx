@@ -184,7 +184,7 @@ export function TeachingHero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(180deg, hsl(0 0% 0% / 0.97) 0%, hsl(0 0% 0% / 0.6) 18%, transparent 38%, transparent 62%, hsl(0 0% 0% / 0.85) 100%)",
+            "linear-gradient(180deg, hsl(var(--rich-black) / 0.97) 0%, hsl(var(--rich-black) / 0.6) 18%, transparent 38%, transparent 62%, hsl(var(--rich-black) / 0.85) 100%)",
         }}
         aria-hidden="true"
       />
