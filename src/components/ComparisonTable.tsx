@@ -63,15 +63,15 @@ export function ComparisonTable() {
               <th className="text-left px-5 py-4 text-[13px] font-sans font-medium uppercase tracking-[0.1em] text-muted-foreground">Feature</th>
               <th className="text-center px-4 py-4">
                 <div className="font-display text-sm font-medium text-muted-foreground">DJ</div>
-                <div className="text-[11px] text-muted-foreground/60 font-sans mt-0.5">≈ $1,500–$2,000</div>
+                <div className="text-[11px] text-muted-foreground font-sans mt-0.5 opacity-60">≈ $1,500–$2,000</div>
               </th>
               <th className="text-center px-4 py-4">
                 <div className="font-display text-sm font-medium text-muted-foreground">Band</div>
-                <div className="text-[11px] text-muted-foreground/60 font-sans mt-0.5">≈ $3,500–$6,000</div>
+                <div className="text-[11px] text-muted-foreground font-sans mt-0.5 opacity-60">≈ $3,500–$6,000</div>
               </th>
               <th className="text-center px-4 py-4">
                 <div className="font-display text-sm font-medium text-primary">Parker</div>
-                <div className="text-[11px] text-primary/70 font-sans mt-0.5">$650–$1,200</div>
+                <div className="text-[11px] text-primary font-sans mt-0.5 opacity-70">$650–$1,200</div>
               </th>
             </tr>
           </thead>
@@ -88,13 +88,13 @@ export function ComparisonTable() {
                   {row.dj.value === true && <Check size={16} className="inline text-accent" />}
                   {row.dj.value === false && <X size={16} className="inline text-destructive/40" />}
                   {row.dj.value === "warning" && <AlertTriangle size={16} className="inline text-primary/50" />}
-                  {row.dj.label && <div className="text-[12px] text-muted-foreground/70 mt-1 leading-snug">{row.dj.label}</div>}
+                  {row.dj.label && <div className="text-[12px] text-muted-foreground mt-1 leading-snug opacity-70">{row.dj.label}</div>}
                 </td>
                 <td className="text-center px-4 py-4">
                   {row.band.value === true && <Check size={16} className="inline text-accent" />}
                   {row.band.value === false && <X size={16} className="inline text-destructive/40" />}
                   {row.band.value === "warning" && <AlertTriangle size={16} className="inline text-primary/50" />}
-                  {row.band.label && <div className="text-[12px] text-muted-foreground/70 mt-1 leading-snug">{row.band.label}</div>}
+                  {row.band.label && <div className="text-[12px] text-muted-foreground mt-1 leading-snug opacity-70">{row.band.label}</div>}
                 </td>
                 <td className="text-center px-4 py-4">
                   {row.parker.value === true && <GoldenCheck />}

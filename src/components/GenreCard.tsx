@@ -142,14 +142,14 @@ export function GenreCard({
         />
 
         {/* Genre label — Cormorant light (300-400 rule) */}
-        <span className="text-[13px] uppercase tracking-[0.18em] font-display font-light text-foreground/80">
+        <span className="text-[13px] uppercase tracking-[0.18em] font-display font-light text-foreground opacity-80">
           {label}
         </span>
 
         {/* Context phrase — Inter (body sans, not display italic) */}
         <span
           className={cn(
-            "text-[11px] font-sans text-foreground/40 mt-1.5 text-center leading-tight",
+            "text-[11px] font-sans text-muted-foreground mt-1.5 text-center leading-tight",
             "transition-opacity duration-[180ms]",
             isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
           )}

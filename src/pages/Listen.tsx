@@ -258,7 +258,7 @@ export default function Listen() {
               </span>
             </button>
           ) : (
-            <p className="text-sm text-muted-foreground/50 animate-fade-in">
+            <p className="text-sm text-muted-foreground opacity-50 animate-fade-in">
               Scroll to journey through the ceremony.
             </p>
           )}
