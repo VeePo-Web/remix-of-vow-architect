@@ -178,7 +178,7 @@ export function TeachingMethodology() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 35%, hsl(30 8% 8% / 0.6) 100%)",
+            "radial-gradient(ellipse at center, transparent 35%, hsl(var(--teaching-studio-vignette) / 0.6) 100%)",
           animation: isVisible
             ? "methodology-vignette 6s ease-in-out infinite"
             : undefined,
