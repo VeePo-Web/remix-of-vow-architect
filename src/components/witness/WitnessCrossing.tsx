@@ -108,14 +108,9 @@ export function WitnessCrossing() {
             )}
             style={{ transitionDelay: "600ms" }}
           >
-            <Link to="/contact">
-              <Button 
-                size="lg" 
-                className="px-10 py-6 text-base bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 cta-breathe"
-              >
-                Hold my date
-              </Button>
-            </Link>
+            <Button asChild size="lg" variant="primary-dark">
+              <Link to="/contact">Hold my date</Link>
+            </Button>
           </div>
 
           {/* Promise */}
