@@ -280,7 +280,7 @@ export function TeachingOffering() {
                 : "opacity-0 translate-y-[12px]"
             )}
             style={{
-              color: "hsl(30 15% 20%)",
+              color: "hsl(var(--teaching-text-heading))",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
               transitionDelay: "300ms",
               textShadow: "0 1px 2px hsl(40 20% 80% / 0.25)",
