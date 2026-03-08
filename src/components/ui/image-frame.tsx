@@ -37,7 +37,7 @@ const ImageFrame = React.forwardRef<HTMLDivElement, ImageFrameProps>(
         className={cn(imageFrameVariants({ aspectRatio, overlay }), className)}
         {...props}
       >
-        <img src={src} alt={alt} />
+        <img src={src} alt={alt} loading="lazy" decoding="async" />
       </div>
     );
   }
