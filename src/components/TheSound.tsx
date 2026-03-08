@@ -82,7 +82,7 @@ function NowPlayingBar({
         WebkitBackdropFilter: "blur(16px)",
         background: "hsl(var(--rich-black) / 0.92)",
         borderTop: "1px solid hsl(var(--vow-yellow) / 0.1)",
-        boxShadow: "inset 0 1px 0 hsl(0 0% 100% / 0.06), 0 0 20px hsl(var(--vow-yellow) / 0.03)",
+        boxShadow: "inset 0 1px 0 hsl(var(--absolute-white) / 0.06), 0 0 20px hsl(var(--vow-yellow) / 0.03)",
       }}
       aria-label="Now playing"
       role="region"
@@ -130,7 +130,7 @@ function NowPlayingBar({
               "w-7 h-7 rounded-full flex items-center justify-center shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40",
               isPlaying ? "bg-primary text-primary-foreground" : "text-foreground opacity-70"
             )}
-            style={{ transition: "all 180ms cubic-bezier(.22,.61,.36,1)", background: isPlaying ? undefined : "linear-gradient(135deg, hsl(0 0% 100% / 0.06), hsl(var(--vow-yellow) / 0.04))" }}
+            style={{ transition: "all 180ms cubic-bezier(.22,.61,.36,1)", background: isPlaying ? undefined : "linear-gradient(135deg, hsl(var(--absolute-white) / 0.06), hsl(var(--vow-yellow) / 0.04))" }}
             aria-label={isPlaying ? "Pause" : "Play"}
           >
             {isPlaying ? <Pause size={12} strokeWidth={2} /> : <Play size={12} strokeWidth={2} className="ml-0.5" />}

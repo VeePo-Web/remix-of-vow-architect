@@ -56,10 +56,10 @@ const buttonVariants = cva(
          */
         "primary-dark": [
           "bg-ink-inverse text-ink-primary border border-ink-inverse",
-          "shadow-[0_4px_16px_hsl(0_0%_100%/0.06)]",
+          "shadow-[0_4px_16px_hsl(var(--absolute-white)/0.06)]",
           "hover:bg-transparent hover:text-ink-inverse",
-          "hover:shadow-[0_8px_24px_hsl(0_0%_100%/0.04),inset_0_0_12px_hsl(0_0%_100%/0.03)]",
-          "active:shadow-[0_2px_8px_hsl(0_0%_100%/0.04)]",
+          "hover:shadow-[0_8px_24px_hsl(var(--absolute-white)/0.04),inset_0_0_12px_hsl(var(--absolute-white)/0.03)]",
+          "active:shadow-[0_2px_8px_hsl(var(--absolute-white)/0.04)]",
         ].join(" "),
 
         /**
@@ -70,8 +70,8 @@ const buttonVariants = cva(
         "ghost-dark": [
           "bg-transparent text-ink-inverse border border-ink-inverse/60",
           "hover:bg-ink-inverse hover:text-ink-primary hover:border-ink-inverse",
-          "hover:shadow-[0_8px_24px_hsl(0_0%_100%/0.06)]",
-          "active:shadow-[0_2px_8px_hsl(0_0%_100%/0.04)]",
+          "hover:shadow-[0_8px_24px_hsl(var(--absolute-white)/0.06)]",
+          "active:shadow-[0_2px_8px_hsl(var(--absolute-white)/0.04)]",
         ].join(" "),
 
         /**
@@ -113,8 +113,8 @@ const buttonVariants = cva(
         destructive: [
           "bg-destructive text-destructive-foreground shadow-sm",
           "hover:bg-destructive/90",
-          "hover:shadow-[0_8px_20px_hsl(0_80%_60%/0.15)]",
-          "active:shadow-[0_2px_8px_hsl(0_80%_60%/0.1)]",
+          "hover:shadow-[0_8px_20px_hsl(var(--destructive)/0.15)]",
+          "active:shadow-[0_2px_8px_hsl(var(--destructive)/0.1)]",
         ].join(" "),
 
         secondary: [
