@@ -1,12 +1,89 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 
+/**
+ * TeachingExhale — Recognition / Sacred Pause
+ * 
+ * Dual-weight typographic reveal: italic (emotional) vs roman (declarative).
+ * "I understand." breaks the italic pattern — a moment of grounded authority.
+ * "The piano has been waiting." carries vow-yellow underline on "waiting."
+ * Closing horizontal golden thread anchors the section.
+ */
+
 const lines = [
-  "You have a song inside you that you have never been able to play.",
-  "You have heard it in the car, in the quiet, in the space between what you feel and what you can say.",
-  "I understand.",
-  "The piano has been waiting.",
+  {
+    text: "You have a song inside you that you have never been able to play.",
+    italic: true,
+    size: "text-[20px] md:text-[28px]",
+  },
+  {
+    text: "You have heard it in the car, in the quiet, in the space between what you feel and what you can say.",
+    italic: true,
+    size: "text-[20px] md:text-[28px]",
+  },
+  {
+    text: "I understand.",
+    italic: false, // Roman — declarative break
+    size: "text-[18px] md:text-[24px]",
+  },
+  {
+    text: "The piano has been waiting.",
+    italic: true,
+    size: "text-[20px] md:text-[28px]",
+    underlineWord: "waiting",
+  },
 ];
+
+function renderLine(
+  line: (typeof lines)[number],
+  isVisible: boolean,
+  delay: number
+) {
+  const baseStyle = {
+    color: line.italic ? "hsl(30 10% 25%)" : "hsl(30 10% 35%)",
+    transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+    transitionDelay: `${delay}ms`,
+  };
+
+  if (!line.underlineWord) {
+    return (
+      <span style={baseStyle} className="block">
+        {line.text}
+      </span>
+    );
+  }
+
+  // Render with vow-yellow underline on the target word
+  const idx = line.text
+    .toLowerCase()
+    .indexOf(line.underlineWord.toLowerCase());
+  if (idx === -1) return <span style={baseStyle}>{line.text}</span>;
+
+  const before = line.text.slice(0, idx);
+  const match = line.text.slice(idx, idx + line.underlineWord.length);
+  const after = line.text.slice(idx + line.underlineWord.length);
+
+  return (
+    <span style={baseStyle} className="block">
+      {before}
+      <span className="relative inline-block">
+        {match}
+        <span
+          className={cn(
+            "absolute -bottom-0.5 left-0 w-full h-[2px] bg-[hsl(var(--vow-yellow))] origin-left transition-transform duration-[450ms]",
+            isVisible ? "scale-x-100" : "scale-x-0"
+          )}
+          style={{
+            transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
+            transitionDelay: `${delay + 400}ms`,
+          }}
+          aria-hidden="true"
+        />
+      </span>
+      {after}
+    </span>
+  );
+}
 
 export function TeachingExhale() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.3 });
@@ -20,7 +97,7 @@ export function TeachingExhale() {
       role="region"
       aria-label="Recognition"
     >
-      {/* Warm ambient glow — barely perceptible */}
+      {/* Warm ambient glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -64,26 +141,37 @@ export function TeachingExhale() {
           <p
             key={i}
             className={cn(
-              "font-display italic tracking-tight transition-all duration-[700ms]",
-              i < 2
-                ? "text-[20px] md:text-[28px] leading-[1.5] mb-fitz-5"
-                : i === 2
-                  ? "text-[18px] md:text-[24px] leading-[1.5] mb-fitz-3"
-                  : "text-[20px] md:text-[28px] leading-[1.5] mb-0",
+              "font-display tracking-tight transition-all duration-[700ms] leading-[1.5]",
+              line.size,
+              line.italic ? "italic" : "font-medium not-italic",
+              i < lines.length - 1 ? "mb-fitz-5" : "mb-0",
               isVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-[12px]"
             )}
             style={{
-              color:
-                i === 2 ? "hsl(30 10% 35%)" : "hsl(30 10% 25%)",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
               transitionDelay: `${300 + i * 400}ms`,
             }}
           >
-            {line}
+            {renderLine(line, isVisible, 300 + i * 400)}
           </p>
         ))}
+
+        {/* Closing horizontal golden thread */}
+        <div
+          className={cn(
+            "mx-auto h-px max-w-[120px] mt-fitz-8 transition-transform duration-[700ms] origin-center",
+            isVisible ? "scale-x-100" : "scale-x-0"
+          )}
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)",
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "1800ms",
+          }}
+          aria-hidden="true"
+        />
       </div>
 
       {/* Keyframes */}
