@@ -43,7 +43,7 @@ export function VowMoment() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(circle at 50% 40%, hsl(40 60% 50% / 0.025) 0%, transparent 60%)",
+          background: "radial-gradient(circle at 50% 40%, hsl(var(--vow-yellow) / 0.025) 0%, transparent 60%)",
         }}
         aria-hidden="true"
       />
