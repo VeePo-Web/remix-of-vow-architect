@@ -240,9 +240,9 @@ export function TeachingMethodology() {
         <h2
           className="font-display text-[32px] md:text-[48px] font-light tracking-tight leading-[1.15] mb-fitz-8"
           style={{
-            color: "hsl(40 30% 90%)",
+            color: "hsl(var(--teaching-studio-heading))",
             textShadow:
-              "0 1px 2px hsl(0 0% 0% / 0.3), 0 4px 16px hsl(0 0% 0% / 0.15)",
+              "0 1px 2px hsl(var(--rich-black) / 0.3), 0 4px 16px hsl(var(--rich-black) / 0.15)",
           }}
         >
           <ScrollRevealWords
