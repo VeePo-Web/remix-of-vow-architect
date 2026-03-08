@@ -18,8 +18,8 @@ export function ContactSLATimeline() {
 
   return (
     <div className="max-w-3xl mx-auto">
-      <h2 className="text-2xl font-semibold mb-8 text-center">
-        What happens after you submit this form?
+      <h2 className="font-display text-[clamp(24px,3vw,32px)] font-light mb-8 text-center">
+        What happens after you reach out?
       </h2>
       
       <div className="space-y-6">

@@ -11,9 +11,9 @@ const addOns = [
   },
   {
     icon: Clock,
-    title: "Expedited Booking",
-    price: "+$250 (< 8 weeks)",
-    description: "Covers urgent cue review + plan building under timeline pressure.",
+    title: "Short-Notice Booking",
+    price: "+$250 (under 8 weeks)",
+    description: "For ceremonies booked within 8 weeks — covers accelerated preparation and plan coordination.",
   },
   {
     icon: MapPin,

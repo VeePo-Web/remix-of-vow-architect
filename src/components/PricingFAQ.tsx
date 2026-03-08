@@ -47,8 +47,8 @@ export function PricingFAQ() {
         </Accordion>
 
         <div className="flex flex-wrap justify-center gap-4 mt-8">
-          <DirectionalLink to="/gallery">View SPL Logs</DirectionalLink>
-          <DirectionalLink to="/contact">Hold Your Date</DirectionalLink>
+          <DirectionalLink to="/proof">See how I prepare</DirectionalLink>
+          <DirectionalLink to="/contact">Hold my date</DirectionalLink>
         </div>
       </div>
     </section>

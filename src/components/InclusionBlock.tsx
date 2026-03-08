@@ -73,7 +73,7 @@ export function InclusionBlock() {
       </StaggerChildren>
 
       <p className="text-center text-sm text-muted-foreground italic">
-        No upsell. No surprises. No wires. This is your base level of assurance.
+        No hidden fees. No surprises. This is your baseline of assurance.
       </p>
     </div>
   );

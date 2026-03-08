@@ -115,7 +115,7 @@ export function ComparisonTable() {
 
       <div className="mt-6 p-4 bg-muted/50 rounded-lg">
         <p className="text-sm text-center font-medium">
-          I'm not "affordable entertainment." I'm legally compliant, professionally directed clarity for your vows.
+          I am not entertainment. I am the person who ensures every word of your vows is heard.
         </p>
         <p className="text-xs text-center text-muted-foreground mt-2">
           * See policy details below for timing windows and exceptions.
