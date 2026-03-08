@@ -158,23 +158,23 @@ export function TeachingHero() {
         aria-hidden="true"
       />
 
-      {/* ── Layer 1: Background bench image — 30s Ken Burns drift ── */}
+       {/* ── Layer 1: Background bench image — 30s Ken Burns drift ── */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-[center_40%]"
         style={{
           backgroundImage: `url(${benchImg})`,
-          opacity: 0.22,
+          opacity: 0.16,
           animation: "teaching-ken-burns 30s linear infinite alternate",
           willChange: "transform",
         }}
         aria-hidden="true"
       />
 
-      {/* ── Layer 2: Dark gradient overlay for contrast ── */}
+      {/* ── Layer 2: Dark gradient overlay — strong center focus ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "linear-gradient(180deg, hsl(20 8% 6% / 0.5) 0%, hsl(20 8% 8% / 0.3) 40%, hsl(20 8% 6% / 0.6) 100%)",
+          background: "linear-gradient(180deg, hsl(20 8% 5% / 0.7) 0%, hsl(20 8% 8% / 0.2) 35%, hsl(20 8% 8% / 0.15) 50%, hsl(20 8% 6% / 0.65) 100%)",
         }}
         aria-hidden="true"
       />
@@ -279,7 +279,7 @@ export function TeachingHero() {
             isRevealed={isRevealed}
             baseDelay={LINE2_BASE}
             charInterval={LINE2_INTERVAL}
-            className="block text-[40px] md:text-[64px] font-light leading-[1.05] mt-1"
+            className="block text-[40px] md:text-[64px] font-light leading-[1.05] -mt-1"
             style={{
               color: "hsl(40 20% 90%)",
               textShadow:
@@ -296,7 +296,7 @@ export function TeachingHero() {
         {/* ── Golden thread — tagline to subtitle ── */}
         <div
           className={cn(
-            "mx-auto mt-fitz-5 mb-fitz-4 transition-all",
+            "mx-auto mt-8 mb-6 transition-all",
             isRevealed ? "opacity-100" : "opacity-0"
           )}
           style={{
@@ -307,12 +307,12 @@ export function TeachingHero() {
         >
           <div
             className={cn(
-              "h-px w-12 mx-auto origin-center transition-transform",
+              "h-[1px] w-16 mx-auto origin-center transition-transform",
               isRevealed ? "scale-x-100" : "scale-x-0"
             )}
             style={{
               background:
-                "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.4), transparent)",
+                "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.6), transparent)",
               transitionDuration: "700ms",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
               transitionDelay: `${THREAD_DELAY}ms`,
