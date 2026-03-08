@@ -337,7 +337,7 @@ export default function Listen() {
           <Button variant="primary-dark" size="lg" className="hover-scale" asChild>
             <Link to="/contact">Hold my date</Link>
           </Button>
-          <p className="text-xs text-muted-foreground/60 mt-4">
+          <p className="text-xs text-muted-foreground mt-4 opacity-60">
             Response within 24 hours. Always.
           </p>
         </div>
