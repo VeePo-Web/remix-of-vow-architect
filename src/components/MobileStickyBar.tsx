@@ -92,11 +92,11 @@ export function MobileStickyBar() {
             }}
             aria-hidden="true"
           />
-          <Link to="/contact" className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm">
-            <Button size="sm" variant="primary-dark" className="relative hover-scale cta-breathe-glow">
+          <Button size="sm" variant="primary-dark" className="relative hover-scale cta-breathe-glow" asChild>
+            <Link to="/contact">
               {ctaText}
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
       </div>
     </nav>
