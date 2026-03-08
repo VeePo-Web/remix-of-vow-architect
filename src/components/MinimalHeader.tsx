@@ -171,7 +171,7 @@ export function MinimalHeader() {
               className="absolute inset-0 pointer-events-none"
               style={{
                 background:
-                  "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.18) 100%)",
+                  "radial-gradient(ellipse at center, transparent 40%, hsl(var(--rich-black) / 0.18) 100%)",
               }}
               aria-hidden="true"
             />
