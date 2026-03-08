@@ -45,7 +45,7 @@ const topTenFAQs = [
   {
     question: "Can I see an example plan before I commit?",
     answer: "Yes. I share a real sample ceremony plan so you can see exactly what you will receive.",
-    link: { to: "/gallery", label: "See a sample plan" }
+    link: { to: "/proof", label: "See a sample plan" }
   },
   {
     question: "How quickly do I hear back after reaching out?",
