@@ -88,7 +88,7 @@ export function TheExhale() {
       {/* Step 3: Top gradient fade — seamless hero transition */}
       <div
         className="section-fade-top"
-        style={{ background: 'linear-gradient(to top, transparent, hsl(0 0% 0%))' }}
+        style={{ background: 'linear-gradient(to top, transparent, hsl(var(--rich-black)))' }}
         aria-hidden="true"
       />
 

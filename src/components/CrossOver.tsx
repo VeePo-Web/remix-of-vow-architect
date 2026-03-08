@@ -65,7 +65,7 @@ export function CrossOver() {
       aria-label="Final call to action"
       className="section--dark section-grain piano-section-target relative overflow-hidden min-h-[50vh] md:min-h-[60vh] py-[80px] md:py-[120px] px-4 md:px-6 lg:px-8"
       style={{
-        background: "radial-gradient(ellipse at center, hsl(240 12% 5%) 0%, hsl(240 9% 2%) 100%)",
+        background: "radial-gradient(ellipse at center, hsl(var(--deep-graphite)) 0%, hsl(var(--rich-black)) 100%)",
         '--crossing-warmth': '0.02',
       } as React.CSSProperties}
     >
@@ -98,7 +98,7 @@ export function CrossOver() {
       <div 
         className="absolute inset-0 z-[1] pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at center, transparent 30%, hsl(240 9% 2% / 0.75) 100%)"
+          background: "radial-gradient(ellipse at center, transparent 30%, hsl(var(--rich-black) / 0.75) 100%)"
         }}
         aria-hidden="true"
       />
@@ -107,7 +107,7 @@ export function CrossOver() {
       <div 
         className="absolute inset-0 z-[1] pointer-events-none crossover-vignette-breathe"
         style={{
-          background: "radial-gradient(ellipse at center, transparent 25%, hsl(240 9% 2% / 0.85) 100%)",
+          background: "radial-gradient(ellipse at center, transparent 25%, hsl(var(--rich-black) / 0.85) 100%)",
           animation: "crossover-vignette-breathe 6s ease-in-out infinite",
         }}
         aria-hidden="true"
@@ -169,7 +169,7 @@ export function CrossOver() {
       {/* 13d: Top-edge vignette darkening */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none"
-        style={{ background: "linear-gradient(to bottom, hsl(240 9% 2% / 0.4) 0%, transparent 25%)" }}
+        style={{ background: "linear-gradient(to bottom, hsl(var(--rich-black) / 0.4) 0%, transparent 25%)" }}
         aria-hidden="true"
       />
 
@@ -399,7 +399,7 @@ export function CrossOver() {
       {/* 14d: Bottom vignette floor */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none"
-        style={{ background: "linear-gradient(to bottom, transparent 85%, hsl(240 9% 2% / 0.3) 100%)" }}
+        style={{ background: "linear-gradient(to bottom, transparent 85%, hsl(var(--rich-black) / 0.3) 100%)" }}
         aria-hidden="true"
       />
 
@@ -430,7 +430,7 @@ export function CrossOver() {
       <div
         className="section-fade-bottom"
         style={{
-          background: 'linear-gradient(to bottom, transparent 0%, hsl(240 9% 3% / 0.4) 30%, hsl(240 9% 2% / 0.8) 65%, hsl(240 9% 2%) 100%)',
+          background: 'linear-gradient(to bottom, transparent 0%, hsl(var(--rich-black) / 0.4) 30%, hsl(var(--rich-black) / 0.8) 65%, hsl(var(--rich-black)) 100%)',
           height: '120px',
         }}
         aria-hidden="true"

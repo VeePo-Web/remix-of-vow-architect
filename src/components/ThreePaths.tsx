@@ -99,7 +99,7 @@ export function ThreePaths() {
       {/* Top fade */}
       <div
         className="section-fade-top"
-        style={{ background: 'linear-gradient(to top, transparent, hsl(240 9% 4%))' }}
+        style={{ background: 'linear-gradient(to top, transparent, hsl(var(--rich-black)))' }}
         aria-hidden="true"
       />
 
@@ -132,7 +132,7 @@ export function ThreePaths() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at center, transparent 20%, hsl(240 9% 4%) 100%)',
+          background: 'radial-gradient(ellipse at center, transparent 20%, hsl(var(--rich-black)) 100%)',
         }}
         aria-hidden="true"
       />
@@ -386,7 +386,7 @@ export function ThreePaths() {
       {/* Bottom fade */}
       <div
         className="section-fade-bottom"
-        style={{ background: 'linear-gradient(to bottom, transparent, hsl(45 20% 93%))' }}
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(var(--surface-warm)))' }}
         aria-hidden="true"
       />
     </section>
