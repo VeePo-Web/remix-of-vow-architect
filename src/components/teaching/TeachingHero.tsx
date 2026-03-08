@@ -241,7 +241,7 @@ export function TeachingHero() {
             transitionDelay: `${ROLE_DELAY}ms`,
           }}
         >
-          Piano Mentor
+          Piano Mentorship
         </p>
 
         {/* ── Tagline — character-by-character reveal ── */}
