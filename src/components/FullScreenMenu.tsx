@@ -318,8 +318,8 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
                     className={cn(
                       "text-xs font-sans min-w-[2.5ch] tabular-nums transition-all duration-[180ms]",
                       isActive
-                        ? "text-primary/50"
-                        : "text-muted-foreground/40 group-hover:text-primary/25"
+                        ? "text-primary opacity-50"
+                        : "text-muted-foreground opacity-40 group-hover:text-primary group-hover:opacity-25"
                     )}
                     style={{
                       transform: isPressed ? "translateY(1px)" : "translateY(0)",
