@@ -310,7 +310,7 @@ export function TeachingHero() {
         {/* ── Golden thread with breathing center dot ── */}
         <div
           className={cn(
-            "mx-auto mt-8 mb-7 transition-all",
+            "mx-auto mt-7 mb-6 transition-all",
             isRevealed ? "opacity-100" : "opacity-0"
           )}
           style={{
@@ -327,7 +327,7 @@ export function TeachingHero() {
               )}
               style={{
                 background:
-                  "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.45), transparent)",
+                  "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.5), transparent)",
                 transitionDuration: "800ms",
                 transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
                 transitionDelay: `${THREAD_DELAY}ms`,
@@ -342,7 +342,7 @@ export function TeachingHero() {
               )}
               style={{
                 background: "hsl(var(--vow-yellow))",
-                boxShadow: "0 0 10px 2px hsl(var(--vow-yellow) / 0.2)",
+                boxShadow: "0 0 10px 2px hsl(var(--vow-yellow) / 0.25)",
                 animation: isRevealed
                   ? "teaching-thread-dot 4s ease-in-out infinite"
                   : undefined,
@@ -357,16 +357,16 @@ export function TeachingHero() {
         {/* ── Positioning subtitle ── */}
         <p
           className={cn(
-            "font-sans text-[clamp(13px,1.4vw,15px)] leading-[1.75] max-w-[280px] mx-auto transition-all duration-[1800ms]",
+            "font-sans text-[clamp(13px,1.4vw,15px)] leading-[1.75] max-w-[300px] mx-auto transition-all duration-[1800ms]",
             isRevealed
-              ? "opacity-45 translate-y-0"
+              ? "opacity-55 translate-y-0"
               : "opacity-0 translate-y-[8px]"
           )}
           style={{
-            color: "hsl(40 10% 50%)",
+            color: "hsl(40 12% 58%)",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             transitionDelay: `${SUBTITLE_DELAY}ms`,
-            letterSpacing: "0.01em",
+            letterSpacing: "0.015em",
           }}
         >
           I sit beside you until what you hear finds its way through your hands.
