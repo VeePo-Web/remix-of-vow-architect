@@ -258,7 +258,7 @@ export function CrossOver() {
         {/* 15-B: Sacred Quote — word-level micro-stagger */}
         <h2
           className="max-w-[720px] mx-auto mb-14 font-display font-light text-[clamp(32px,5vw,48px)] leading-[1.2] tracking-[0.02em] text-foreground"
-          style={{ textWrap: "balance" as any, textShadow: '0 1px 3px rgba(0, 0, 0, 0.6), 0 2px 20px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.2)' }}
+          style={{ textWrap: "balance" as any, textShadow: '0 1px 3px hsl(var(--rich-black) / 0.6), 0 2px 20px hsl(var(--rich-black) / 0.4), 0 0 40px hsl(var(--rich-black) / 0.2)' }}
         >
           {/* Opening curly quote attached to first word */}
           <span
