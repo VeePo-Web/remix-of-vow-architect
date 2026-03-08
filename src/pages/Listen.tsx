@@ -201,7 +201,6 @@ export default function Listen() {
            loading="eager"
            decoding="async"
         />
-        />
         {/* Vignette overlay */}
         <div
           className="absolute inset-0 pointer-events-none"

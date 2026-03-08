@@ -85,7 +85,6 @@ export function GenreCard({
         loading="lazy"
         decoding="async"
       />
-      />
 
       {/* Per-genre atmospheric gradient */}
       <div
