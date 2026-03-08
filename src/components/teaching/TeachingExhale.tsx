@@ -34,7 +34,7 @@ const lines: LineConfig[] = [
     shadowWeight: "medium",
   },
   {
-    text: "I hear you.",
+    text: "I hear it too.",
     italic: false,
     size: "text-[18px] md:text-[24px]",
     shadowWeight: "light",

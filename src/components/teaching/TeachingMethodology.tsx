@@ -283,7 +283,7 @@ export function TeachingMethodology() {
               "0 1px 2px hsl(0 0% 0% / 0.2), 0 3px 12px hsl(0 0% 0% / 0.08)",
           }}
         >
-          Every voice arrives as a seed. Your hands are the soil. I am beside you while it takes root.
+          Every voice arrives as a seed. Your hands are the soil. I keep watch while it takes root.
         </p>
 
         {/* Pencil annotation */}

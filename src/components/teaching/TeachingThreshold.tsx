@@ -24,7 +24,7 @@ const fears = [
   {
     fear: "What if I'm too old to start?",
     resolution:
-      "There is no age at which the piano stops being willing to listen. I have sat beside students who touched the keys for the first time at 50, at 60, at 70. The instrument does not care when you arrive. Neither do I. You are not too late. You are here.",
+      "There is no age at which the piano stops being willing to listen. I have sat beside people who touched the keys for the first time at 50, at 60, at 70. The instrument does not care when you arrive. Neither do I. You are not too late. You are here.",
     underlineWord: "no",
   },
 ];
