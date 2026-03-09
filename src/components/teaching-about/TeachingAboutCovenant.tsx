@@ -63,10 +63,10 @@ export function TeachingAboutCovenant() {
           >
             <div className="absolute inset-0 grain opacity-[0.08] rounded-sm pointer-events-none" aria-hidden="true" />
 
-            <div className="absolute top-5 left-5 w-16 h-16 border-l border-t border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
-            <div className="absolute top-5 right-5 w-16 h-16 border-r border-t border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
-            <div className="absolute bottom-5 left-5 w-16 h-16 border-l border-b border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
-            <div className="absolute bottom-5 right-5 w-16 h-16 border-r border-b border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
+            <div className="absolute top-5 left-5 w-12 h-12 border-l border-t border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
+            <div className="absolute top-5 right-5 w-12 h-12 border-r border-t border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
+            <div className="absolute bottom-5 left-5 w-12 h-12 border-l border-b border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
+            <div className="absolute bottom-5 right-5 w-12 h-12 border-r border-b border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
 
             <div className="text-center mb-10 relative">
               <h2 className="font-display text-[clamp(24px,3vw,36px)] font-light text-foreground">
@@ -106,7 +106,7 @@ export function TeachingAboutCovenant() {
               <div className="relative h-16 mb-4 flex items-center justify-center">
                 <svg viewBox="0 0 200 50" className="w-48 h-auto" style={{ overflow: "visible" }}>
                   <path
-                    d="M10,35 Q30,10 50,30 T90,25 Q110,20 130,30 T170,28 Q185,25 190,30"
+                    d="M12,38 Q28,12 55,32 T85,20 Q105,15 125,28 T160,24 Q175,20 188,28"
                     fill="none"
                     stroke="hsl(var(--foreground))"
                     strokeWidth="1.5"

@@ -68,7 +68,7 @@ export function TeachingAboutPresence() {
             years at the keys.
           </p>
 
-          <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+          <div className="flex flex-col gap-4 max-w-2xl mx-auto">
             {witnessedMoments.map((moment, index) => (
               <div
                 key={index}

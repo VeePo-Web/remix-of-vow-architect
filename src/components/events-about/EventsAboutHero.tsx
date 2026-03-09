@@ -19,7 +19,7 @@ export function EventsAboutHero() {
     <section
       id="events-about-hero"
       aria-label="The Atmosphere"
-      className="relative min-h-[85vh] flex items-center justify-center overflow-hidden piano-section-target"
+      className="relative min-h-[90vh] flex items-center justify-center overflow-hidden piano-section-target"
       style={{ background: "hsl(var(--rich-black))" }}
     >
       {/* Background image */}

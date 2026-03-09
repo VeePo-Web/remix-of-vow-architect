@@ -1,61 +1,33 @@
 
 
-# Next Round: Remaining Luxury Polish
+# Plan: Create Events Brand Identity Document
 
-The previous implementation completed the 7 priority items (routing, Proof numerals, Sustain differentiation, Presence metrics). This round addresses the remaining craft issues found during audit.
+Create `.lovable/events-brand-identity.md` following the same structure as the wedding and teaching documents — Brand Truth Table, Non-Negotiables/Flex/Dealbreakers, Brand Spine, Positioning, Customer Identity Mirror, Messaging, Voice, and Visual direction.
 
----
+## Key Differentiators from Other Verticals
 
-## 1. TeachingAboutHero — Upgrade to 4-Phase Reveal
+- **Tone:** Professional and polished, not sacred/vigil (weddings) or warm/mentorship (teaching)
+- **Category:** "Private Event Pianist" — not "sound director" or "mentor"
+- **Mission:** "I understand what live music does to a room" — atmospheric, not ceremonial
+- **Tagline adaptation:** "Every room has a sound it's waiting for."
+- **Enemy:** The generic playlist, the background-noise assumption, the DJ who drowns conversation
+- **Audience:** Hosts planning private dinners, church services, cocktail receptions, intimate celebrations — people who care about atmosphere and presence
 
-`TeachingAboutHero.tsx` still uses a single `isVisible` boolean (line 6-11), making its entrance feel flat compared to the Events hero which has `revealPhase` 0-4 orchestration. Upgrade to match.
+## Document Structure (matching existing format)
 
-**File:** `src/components/teaching-about/TeachingAboutHero.tsx`
-- Replace `useState(false)` / single timeout with `useState(0)` / 4-phase setTimeout chain (200/500/900/1300ms)
-- Replace all `isVisible` checks with `revealPhase >= N` pattern
-- Increase `min-h-[85vh]` to `min-h-[90vh]`
+1. **Brand Truth Table** — Events-specific truths (500+ events, 4 occasion types, 500+ repertoire, room-reading ability)
+2. **Non-Negotiables / Flex / Dealbreakers** — Professional tone rules, no "sacred/vigil" language, no entertainment framing
+3. **Brand Spine** — Category stance, enemy, audience, promise, proof, personality
+4. **Positioning & Differentiators** — "Private Event Pianist" category, differentiator table vs DJs/playlists/bands
+5. **Customer Identity Mirror** — "You are my people if..." / "Not for you if..." for event hosts
+6. **Messaging Pillars** — Atmosphere, Adaptability, Professionalism
+7. **Voice & Lexicon** — Events-specific word choices (allowed/banned), CTA phrasing
+8. **Visual Direction** — How the events page differs aesthetically from weddings/teaching
+9. **Cross-Vertical Coherence** — How events connects to the broader Sacred Sound brand
 
-## 2. EventsAboutHero — Increase Height
+## File
 
-**File:** `src/components/events-about/EventsAboutHero.tsx` line 22
-- Change `min-h-[85vh]` → `min-h-[90vh]`
+- **Create:** `.lovable/events-brand-identity.md`
 
-## 3. Origin Layout Flip — Events Image Left, Text Right
-
-Both Origins use identical text-left/image-right 40/60 grid. Flip Events to break the pattern.
-
-**File:** `src/components/events-about/EventsAboutOrigin.tsx`
-- Reorder grid children: image column first (`order-1 md:order-1`), text column second (`order-2 md:order-2`)
-- This creates visual variety when a visitor sees multiple verticals
-
-## 4. Covenant Signature Paths — Make Unique Per Vertical
-
-Both Events and Teaching use the exact same SVG path `d="M10,35 Q30,10 50,30 T90,25..."`. Give each a distinct organic signature.
-
-**Files:**
-- `EventsAboutCovenant.tsx` line 112 — new path with different curves
-- `TeachingAboutCovenant.tsx` line 109 — another distinct path
-- Reduce corner ornaments from `w-16 h-16` to `w-12 h-12` in both files (lines 68-71)
-
-## 5. Events Presence — Remove Quotation Marks from Cards
-
-`EventsAboutPresence.tsx` line 99 wraps moments in `"{moment}"` — adds visual noise per brand rules.
-
-**File:** `src/components/events-about/EventsAboutPresence.tsx` line 99
-- Change `"{moment}"` → `{moment}`
-
-## 6. Teaching Presence — Fix Orphan Card in 2-Col Grid
-
-3 items in a `md:grid-cols-2` grid leaves one card alone. Switch to single-column or 3-col.
-
-**File:** `src/components/teaching-about/TeachingAboutPresence.tsx` line 71
-- Change `grid md:grid-cols-2` → `flex flex-col` with `max-w-2xl mx-auto` for a meditative single-column stack matching Teaching's vertical rhythm
-
----
-
-## Summary
-
-- 6 files modified
-- No new dependencies
-- Focused on eliminating remaining template repetition and craft inconsistencies
+No code changes required.
 
