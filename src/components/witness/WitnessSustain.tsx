@@ -74,42 +74,113 @@ export function WitnessSustain() {
             I hold your ceremony.
           </h2>
 
-          {/* Abstract Visualization — Three connected golden nodes with boosted opacity */}
+          {/* Fantasy.co-quality Visualization — Three-layer depth */}
           <div 
             className={cn(
-              "relative flex justify-center items-center mb-20 h-20 transition-all duration-1000",
+              "relative flex justify-center items-center mb-20 h-24 transition-all duration-1000",
               isVisible ? "opacity-100" : "opacity-0"
             )}
             style={{ transitionDelay: "400ms" }}
           >
-            <svg viewBox="0 0 400 40" className="w-full max-w-md h-auto" aria-hidden="true">
+            {/* Ambient background glow — 120px blur */}
+            <div 
+              className="absolute inset-0 flex justify-center items-center"
+              style={{
+                background: 'radial-gradient(ellipse 60% 100% at center, hsl(var(--vow-yellow) / 0.06) 0%, transparent 70%)',
+                filter: 'blur(30px)'
+              }}
+              aria-hidden="true"
+            />
+            
+            <svg viewBox="0 0 400 60" className="w-full max-w-md h-auto relative z-10" aria-hidden="true">
               <defs>
-                <filter id="nodeGlow" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="3" result="blur" />
+                {/* Enhanced glow filters for each layer */}
+                <filter id="outerGlow" x="-100%" y="-100%" width="300%" height="300%">
+                  <feGaussianBlur stdDeviation="8" result="blur" />
                   <feMerge>
                     <feMergeNode in="blur" />
                     <feMergeNode in="SourceGraphic" />
                   </feMerge>
                 </filter>
+                <filter id="midGlow" x="-75%" y="-75%" width="250%" height="250%">
+                  <feGaussianBlur stdDeviation="4" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <filter id="innerGlow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="2" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                
+                {/* Shimmer gradient for light-catching */}
+                <linearGradient id="shimmerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0" />
+                  <stop offset="50%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0.3">
+                    <animate attributeName="stopOpacity" values="0.1;0.4;0.1" dur="8s" repeatCount="indefinite" />
+                  </stop>
+                  <stop offset="100%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0" />
+                </linearGradient>
               </defs>
-              {/* Connecting line — boosted opacity */}
+              
+              {/* Connecting line with traveling light pulse */}
               <line 
-                x1="60" y1="20" x2="340" y2="20" 
+                x1="60" y1="30" x2="340" y2="30" 
                 stroke="hsl(var(--vow-yellow))" 
-                strokeWidth="1" 
-                opacity="0.20"
+                strokeWidth="1.5" 
+                opacity="0.25"
+                strokeDasharray="280"
+                strokeDashoffset="0"
+              >
+                <animate attributeName="strokeDashoffset" from="280" to="0" dur="6s" repeatCount="indefinite" />
+              </line>
+              
+              {/* Shimmer overlay on line */}
+              <line 
+                x1="60" y1="30" x2="340" y2="30" 
+                stroke="url(#shimmerGradient)" 
+                strokeWidth="2" 
+                opacity="1"
               />
-              {/* Three nodes with boosted glow */}
+              
+              {/* Three nodes with three-layer depth */}
               {[60, 200, 340].map((cx, i) => (
-                <g key={i} filter="url(#nodeGlow)">
-                  <circle cx={cx} cy="20" r="18" fill="hsl(var(--vow-yellow))" opacity="0.12">
+                <g key={i}>
+                  {/* Outer glow ring */}
+                  <circle 
+                    cx={cx} cy="30" r="24" 
+                    fill="hsl(var(--vow-yellow))" 
+                    opacity="0.08"
+                    filter="url(#outerGlow)"
+                    className="motion-reduce:animate-none"
+                  >
                     <animate attributeName="opacity" values="0.08;0.16;0.08" dur={`${3 + i * 0.5}s`} repeatCount="indefinite" />
                   </circle>
-                  <circle cx={cx} cy="20" r="7" fill="hsl(var(--vow-yellow))" opacity="0.3">
+                  
+                  {/* Mid ring */}
+                  <circle 
+                    cx={cx} cy="30" r="12" 
+                    fill="hsl(var(--vow-yellow))" 
+                    opacity="0.2"
+                    filter="url(#midGlow)"
+                    className="motion-reduce:animate-none"
+                  >
                     <animate attributeName="opacity" values="0.2;0.4;0.2" dur={`${3 + i * 0.5}s`} repeatCount="indefinite" />
                   </circle>
-                  <circle cx={cx} cy="20" r="3" fill="hsl(var(--vow-yellow))" opacity="1">
-                    <animate attributeName="opacity" values="0.8;1;0.8" dur={`${3 + i * 0.5}s`} repeatCount="indefinite" />
+                  
+                  {/* Inner core */}
+                  <circle 
+                    cx={cx} cy="30" r="4" 
+                    fill="hsl(var(--vow-yellow))" 
+                    opacity="0.8"
+                    filter="url(#innerGlow)"
+                    className="motion-reduce:animate-none"
+                  >
+                    <animate attributeName="opacity" values="0.8;1.0;0.8" dur={`${3 + i * 0.5}s`} repeatCount="indefinite" />
                   </circle>
                 </g>
               ))}

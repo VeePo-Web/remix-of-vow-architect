@@ -1,6 +1,6 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { Link } from "react-router-dom";
 import eventsHeroImg from "@/assets/events-hero.jpg";
 
@@ -89,9 +89,9 @@ export function EventsAboutCrossing() {
             )}
             style={{ transitionDelay: "600ms" }}
           >
-            <Button asChild size="lg" variant="primary-dark">
+            <ShimmerButton asChild>
               <Link to="/contact">Discuss your event</Link>
-            </Button>
+            </ShimmerButton>
           </div>
 
           <p

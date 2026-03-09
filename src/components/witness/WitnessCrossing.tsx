@@ -1,6 +1,6 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { Link } from "react-router-dom";
 import crossingImg from "@/assets/witness-crossing-ai.jpg";
 
@@ -101,7 +101,7 @@ export function WitnessCrossing() {
             I'll show you exactly how I'll carry your vows.
           </p>
 
-          {/* CTA Button with breathing glow */}
+          {/* CTA with shimmer sweep */}
           <div 
             className={cn(
               "relative inline-block transition-all duration-700",
@@ -118,9 +118,9 @@ export function WitnessCrossing() {
               }}
               aria-hidden="true"
             />
-            <Button asChild size="lg" variant="primary-dark" className="relative">
+            <ShimmerButton asChild>
               <Link to="/contact">Hold my date</Link>
-            </Button>
+            </ShimmerButton>
           </div>
 
           {/* Promise */}

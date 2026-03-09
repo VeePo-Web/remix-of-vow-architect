@@ -1,6 +1,6 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { Link } from "react-router-dom";
 import teachingBenchImg from "@/assets/teaching-bench.jpg";
 
@@ -87,9 +87,9 @@ export function TeachingAboutCrossing() {
             )}
             style={{ transitionDelay: "600ms" }}
           >
-            <Button asChild size="lg" variant="primary-dark">
+            <ShimmerButton asChild>
               <Link to="/contact">Begin the conversation</Link>
-            </Button>
+            </ShimmerButton>
           </div>
 
           <p
