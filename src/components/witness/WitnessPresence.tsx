@@ -78,43 +78,62 @@ export function WitnessPresence() {
           {/* Golden rule separator */}
           <div className="w-12 h-px mx-auto mb-8" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.6), transparent)" }} />
 
-          {/* The Big Number */}
+          {/* The Big Number — Multi-layer depth treatment */}
           <div className="relative">
-            {/* Larger ambient glow */}
+            {/* Far glow — breathing */}
             <div 
               className={cn(
                 "absolute inset-0 flex items-center justify-center transition-all duration-1000",
                 isVisible ? "opacity-100" : "opacity-0"
               )}
+              style={{ 
+                animation: 'witness-vignette-breathe 6s ease-in-out infinite' 
+              }}
             >
-              <div 
-                className="w-[500px] h-[500px] rounded-full motion-reduce:hidden"
+              <span 
+                className="font-display text-[clamp(100px,20vw,200px)] font-light leading-none"
                 style={{ 
-                  background: "radial-gradient(circle, hsl(var(--vow-yellow) / 0.08) 0%, hsl(var(--vow-yellow) / 0.03) 40%, transparent 70%)" 
+                  color: 'hsl(var(--vow-yellow) / 0.1)',
+                  textShadow: '0 0 80px hsl(var(--vow-yellow) / 0.15)'
                 }}
-              />
+              >
+                500<span className="text-[clamp(40px,8vw,80px)] align-top">+</span>
+              </span>
             </div>
 
+            {/* Mid glow — static */}
             <div 
               className={cn(
-                "relative text-center transition-all duration-1000",
-                isVisible ? "opacity-100 scale-100 blur-none" : "opacity-0 scale-95 blur-sm"
+                "absolute inset-0 flex items-center justify-center transition-all duration-1000",
+                isVisible ? "opacity-100" : "opacity-0"
               )}
-              style={{ transitionDelay: "300ms" }}
+              style={{ transitionDelay: "200ms" }}
             >
               <span 
                 className="font-display text-[clamp(100px,20vw,200px)] font-light text-foreground leading-none"
-                style={{ 
-                  textShadow: "0 2px 4px hsl(var(--rich-black) / 0.3), 0 0 80px hsl(var(--vow-yellow) / 0.15), 0 0 160px hsl(var(--vow-yellow) / 0.08)"
+                style={{
+                  textShadow: '0 0 40px hsl(var(--vow-yellow) / 0.25), 0 2px 4px hsl(var(--rich-black) / 0.5)'
                 }}
+              >
+                500<span className="font-display text-[clamp(40px,8vw,80px)] font-light text-primary align-top">+</span>
+              </span>
+            </div>
+
+            {/* Foreground — sharp */}
+            <div 
+              className={cn(
+                "relative text-center transition-all duration-1000",
+                isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
+              )}
+              style={{ transitionDelay: "400ms" }}
+            >
+              <span 
+                className="font-display text-[clamp(100px,20vw,200px)] font-light text-foreground leading-none"
               >
                 500
               </span>
               <span 
                 className="font-display text-[clamp(40px,8vw,80px)] font-light text-primary align-top"
-                style={{
-                  textShadow: "0 0 40px hsl(var(--vow-yellow) / 0.3)"
-                }}
               >
                 +
               </span>
