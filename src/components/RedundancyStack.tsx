@@ -1,28 +1,23 @@
 import { Card } from "@/components/ui/card";
-import { Mic, Zap, Piano, Speaker } from "lucide-react";
 import { StaggerChildren } from "@/components/animation";
 
 const failoverTiers = [
   {
-    icon: Mic,
     tier: "Primary System",
     description: "Wireless sound, live balance, battery power, and piano",
     highlight: true,
   },
   {
-    icon: Zap,
     tier: "Second System",
     description: "Independent backup wireless unit and sound system on a separate channel",
     highlight: false,
   },
   {
-    icon: Piano,
     tier: "Acoustic Fallback",
     description: "Second keyboard ready — music never stops",
     highlight: false,
   },
   {
-    icon: Speaker,
     tier: "Emergency Playback",
     description: "Portable speaker with your processional and recessional pre-loaded",
     highlight: false,
@@ -47,11 +42,22 @@ export function RedundancyStack() {
                   }`}
                 >
                   <div className="flex items-start gap-4">
-                    <div className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 ${
-                      tier.highlight ? 'bg-primary text-primary-foreground' : 'bg-primary/[0.06] border border-primary/10 text-primary'
-                    }`}>
-                      <tier.icon size={24} />
-                    </div>
+                    <span
+                      className={`font-display text-[28px] font-light leading-none select-none flex-shrink-0 pt-0.5 ${
+                        tier.highlight ? '' : ''
+                      }`}
+                      style={{
+                        background: tier.highlight
+                          ? 'linear-gradient(180deg, hsl(var(--vow-yellow)), hsl(var(--vow-yellow) / 0.5))'
+                          : 'linear-gradient(180deg, hsl(var(--muted-foreground) / 0.5), hsl(var(--muted-foreground) / 0.25))',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        ...(tier.highlight ? { textShadow: '0 0 20px hsl(var(--vow-yellow) / 0.3)' } : {}),
+                      }}
+                      aria-hidden="true"
+                    >
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
                     <div>
                       <h3 className="font-display text-base font-medium mb-1">{tier.tier}</h3>
                       <p className="text-[14px] text-muted-foreground leading-relaxed">{tier.description}</p>

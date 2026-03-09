@@ -1,6 +1,5 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FileText, Download } from "lucide-react";
 import { Link } from "react-router-dom";
 import { StaggerChildren } from "@/components/animation";
 
@@ -34,11 +33,32 @@ export function DownloadablePlans() {
           <StaggerChildren staggerDelay={80} className="grid md:grid-cols-3 gap-6 mb-8">
             {samplePlans.map((plan, i) => (
               <Card key={i} className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred card-sacred-hover transition-all duration-[180ms] group cursor-pointer">
-                <div className="aspect-[3/4] bg-muted/40 border border-border/30 rounded-md flex flex-col items-center justify-center mb-4 group-hover:border-primary/20 transition-colors duration-[180ms]">
-                  <FileText className="text-muted-foreground opacity-60 mb-2" size={48} />
-                  <Download className="text-muted-foreground opacity-30 group-hover:text-primary group-hover:opacity-50 transition-colors duration-[180ms]" size={20} />
+                {/* Gold numeral */}
+                <span
+                  className="font-display text-[28px] font-light leading-none select-none block mb-4"
+                  style={{
+                    background: 'linear-gradient(180deg, hsl(var(--vow-yellow)), hsl(var(--vow-yellow) / 0.5))',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                  }}
+                  aria-hidden="true"
+                >
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+
+                {/* Letterpress insert */}
+                <div
+                  className="border-l-2 pl-4 py-3 mb-4 group-hover:border-l-primary/40 transition-colors duration-[180ms]"
+                  style={{
+                    borderLeftColor: 'hsl(var(--vow-yellow) / 0.25)',
+                    background: 'hsl(var(--muted) / 0.3)',
+                  }}
+                >
+                  <p className="font-display text-[13px] font-medium text-foreground/80 leading-snug">
+                    {plan.title}
+                  </p>
                 </div>
-                <h3 className="font-display text-base font-medium mb-1">{plan.title}</h3>
+
                 <p className="text-[14px] text-primary mb-2">{plan.venue}</p>
                 <p className="text-[13px] text-muted-foreground leading-relaxed">{plan.description}</p>
               </Card>

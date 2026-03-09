@@ -1,22 +1,18 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { TestimonialAvatar } from "@/components/TestimonialAvatar";
-import { Shield, FileCheck, Package } from "lucide-react";
 import { RevealOnScroll, StaggerChildren } from "@/components/animation";
 
 const insuranceItems = [
   {
-    icon: Shield,
     title: "$2M Professional Liability",
     description: "Covers performance or plan execution failures.",
   },
   {
-    icon: Shield,
     title: "$2M General Liability",
     description: "Protects venue, guests, and property.",
   },
   {
-    icon: Package,
     title: "$25k Equipment Coverage",
     description: "If anything breaks, it's covered.",
   },
@@ -39,9 +35,17 @@ export function InsuranceDocuments() {
           <StaggerChildren staggerDelay={80} className="grid md:grid-cols-3 gap-6 mb-8">
             {insuranceItems.map((item, i) => (
               <Card key={i} className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred card-sacred-hover transition-all duration-[180ms] text-center">
-                <div className="w-12 h-12 rounded-full bg-primary/[0.06] border border-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <item.icon className="text-primary" size={24} />
-                </div>
+                <span
+                  className="font-display text-[32px] font-light leading-none select-none block mb-4"
+                  style={{
+                    background: 'linear-gradient(180deg, hsl(var(--vow-yellow)), hsl(var(--vow-yellow) / 0.5))',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                  }}
+                  aria-hidden="true"
+                >
+                  {String(i + 1).padStart(2, '0')}
+                </span>
                 <h3 className="font-display text-base font-medium mb-2">{item.title}</h3>
                 <p className="text-[14px] text-muted-foreground leading-relaxed">{item.description}</p>
               </Card>
@@ -49,8 +53,7 @@ export function InsuranceDocuments() {
           </StaggerChildren>
 
           <div className="text-center mb-8">
-            <Button variant="outline" size="lg" className="hover-scale gap-2">
-              <FileCheck size={18} />
+            <Button variant="outline" size="lg" className="hover-scale">
               Download sample certificate of insurance
             </Button>
             <p className="text-[14px] text-muted-foreground mt-3 leading-relaxed">
