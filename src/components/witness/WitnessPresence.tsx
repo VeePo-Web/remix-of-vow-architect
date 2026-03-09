@@ -20,6 +20,8 @@ const witnessedMoments = [
 
 export function WitnessPresence() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
+  const parallaxRef = useScrollParallax({ intensity: 60, enableFogFade: true, fogIntensity: 0.1 });
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
     <section 
