@@ -1,4 +1,5 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useScrollParallax } from "@/hooks/useScrollParallax";
 import { cn } from "@/lib/utils";
 import { LetterPressQuote } from "@/components/ui/letterpress-quote";
 import aboutOriginImg from "@/assets/about-origin.jpg";
