@@ -93,9 +93,8 @@ export function EventsAboutHero() {
         <h1
           className={cn(
             "font-display text-[clamp(28px,4.5vw,56px)] font-light leading-[1.15] text-foreground transition-all duration-1000",
-            isVisible ? "opacity-100 translate-y-0 blur-0" : "opacity-0 translate-y-8 blur-sm"
+            revealPhase >= 3 ? "opacity-100 translate-y-0 blur-0" : "opacity-0 translate-y-8 blur-sm"
           )}
-          style={{ transitionDelay: "400ms" }}
         >
           I don't play at events.
           <br />
