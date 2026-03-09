@@ -292,7 +292,7 @@ export function TeachingCrossing() {
               size="lg"
               className="relative"
             >
-              <Link to="/contact">Sit down with me</Link>
+              <Link to="/teaching/contact">Sit down with me</Link>
             </Button>
           </div>
 

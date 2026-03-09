@@ -11,7 +11,7 @@ import { RedundancyStack } from "@/components/RedundancyStack";
 import { DownloadablePlans } from "@/components/DownloadablePlans";
 import { RevealOnScroll } from "@/components/animation";
 import { usePageTheme } from "@/hooks/usePageTheme";
-import { Shield, Zap, Layers, Clock } from "lucide-react";
+
 import { Link } from "react-router-dom";
 import galleryHeroImg from "@/assets/gallery-hero.jpg";
 
@@ -104,16 +104,25 @@ export default function Proof() {
             </Button>
 
             {/* Trust stack */}
-            <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 mt-12 max-w-3xl mx-auto">
+            <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-8 mt-12 max-w-3xl mx-auto">
               {[
-                { icon: Shield, label: "$4M Insurance" },
-                { icon: Zap, label: "$25k Gear" },
-                { icon: Layers, label: "Triple Backups" },
-                { icon: Clock, label: "24-Hour Plan" },
-              ].map(({ icon: Icon, label }) => (
-                <div key={label} className="flex flex-col items-center gap-2 p-4 rounded-lg bg-card/50 backdrop-blur-[8px] border border-primary/10 card-sacred-sm transition-all duration-[180ms] hover:border-primary/20 hover:shadow-fantasy-cta/30">
-                  <Icon className="text-primary" size={24} />
-                  <span className="text-sm font-medium">{label}</span>
+                { num: "01", label: "$4M Insurance" },
+                { num: "02", label: "$25k Gear" },
+                { num: "03", label: "Triple Backups" },
+                { num: "04", label: "24-Hour Plan" },
+              ].map(({ num, label }) => (
+                <div key={label} className="flex flex-col items-center gap-2">
+                  <span
+                    className="font-display text-[28px] font-light"
+                    style={{
+                      background: "linear-gradient(180deg, hsl(var(--vow-yellow)), hsl(var(--vow-yellow) / 0.5))",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                    }}
+                  >
+                    {num}
+                  </span>
+                  <span className="text-sm font-medium text-muted-foreground">{label}</span>
                 </div>
               ))}
             </div>

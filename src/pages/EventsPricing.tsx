@@ -252,7 +252,7 @@ export default function EventsPricing() {
                   <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light mx-auto relative z-10">Every event begins with a conversation.</h2>
                   <p className="p-body text-muted-foreground relative z-10">Tell me about your gathering — the venue, the guests, the feeling you want in the room. I will respond within 24 hours.</p>
                   <Button size="lg" variant="primary-dark" className="hover-scale relative z-10" asChild>
-                    <Link to="/contact">Discuss your event</Link>
+                    <Link to="/events/contact">Discuss your event</Link>
                   </Button>
                 </div>
               </RevealOnScroll>

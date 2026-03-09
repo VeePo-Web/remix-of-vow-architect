@@ -31,7 +31,7 @@ export function AboutScrollProgress() {
         className="w-px bg-primary transition-all duration-150 ease-out"
         style={{ 
           height: `${progress}%`,
-          boxShadow: '0 0 8px hsl(var(--vow-yellow) / 0.3)'
+          boxShadow: '0 0 8px hsl(var(--vow-yellow) / 0.5)'
         }}
       />
     </div>

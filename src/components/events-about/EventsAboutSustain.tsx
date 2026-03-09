@@ -52,46 +52,9 @@ export function EventsAboutSustain() {
             What I carry to every gathering.
           </h2>
 
-          {/* SVG Visualization — three nodes with connecting line */}
-          <div
-            className={cn(
-              "relative mb-16 transition-all duration-1000",
-              isVisible ? "opacity-100" : "opacity-0"
-            )}
-            style={{ transitionDelay: "400ms" }}
-          >
-            <svg viewBox="0 0 600 60" className="w-full max-w-lg mx-auto h-auto" aria-hidden="true">
-              <defs>
-                <filter id="eventsNodeGlow">
-                  <feGaussianBlur stdDeviation="4" result="blur" />
-                  <feMerge>
-                    <feMergeNode in="blur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-              {/* Connecting line */}
-              <line x1="100" y1="30" x2="500" y2="30" stroke="hsl(var(--vow-yellow))" strokeWidth="1" opacity="0.25" />
-              {/* Three nodes */}
-              {[100, 300, 500].map((cx, i) => (
-                <circle
-                  key={i}
-                  cx={cx}
-                  cy={30}
-                  r={6}
-                  fill="hsl(var(--vow-yellow))"
-                  filter="url(#eventsNodeGlow)"
-                  className={cn(
-                    "transition-opacity duration-700",
-                    isVisible ? "opacity-100" : "opacity-0"
-                  )}
-                  style={{ transitionDelay: `${600 + i * 200}ms` }}
-                />
-              ))}
-            </svg>
-          </div>
+          {/* Editorial numerals replace SVG */}
 
-          {/* Three columns */}
+          {/* Three columns with gold numerals */}
           <div className="grid md:grid-cols-3 gap-12">
             {threePrinciples.map((item, index) => (
               <div
@@ -100,8 +63,18 @@ export function EventsAboutSustain() {
                   "text-center transition-all duration-700",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
                 )}
-                style={{ transitionDelay: `${600 + index * 200}ms` }}
+                style={{ transitionDelay: `${400 + index * 200}ms` }}
               >
+                <span
+                  className="block font-display text-[48px] font-light mb-4 leading-none"
+                  style={{
+                    background: "linear-gradient(180deg, hsl(var(--vow-yellow)), hsl(var(--vow-yellow) / 0.4))",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  }}
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
                 <h3 className="font-display text-xl text-foreground mb-3">{item.label}</h3>
                 <p className="text-muted-foreground leading-relaxed">{item.description}</p>
               </div>

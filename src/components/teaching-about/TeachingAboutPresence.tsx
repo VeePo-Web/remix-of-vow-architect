@@ -4,10 +4,7 @@ import { useState } from "react";
 
 const witnessedMoments = [
   "The adult who was told it was 'too late' — and played at their own wedding",
-  "The child who hated practice until they chose their own song",
-  "The intermediate player who could read notes but couldn't yet speak through them",
   "The student who played for their dying grandmother — the only goodbye that mattered",
-  "The couple who learned a duet for their anniversary",
   "The teenager who found in the piano what words could not express",
 ];
 
@@ -92,7 +89,7 @@ export function TeachingAboutPresence() {
                 onMouseLeave={() => setHoveredIndex(null)}
               >
                 <p className="font-display text-base text-foreground leading-relaxed italic">
-                  "{moment}"
+                  {moment}
                 </p>
               </div>
             ))}
