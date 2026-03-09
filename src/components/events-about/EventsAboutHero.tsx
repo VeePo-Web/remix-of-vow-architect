@@ -74,9 +74,8 @@ export function EventsAboutHero() {
         <div
           className={cn(
             "relative h-[2px] w-48 mx-auto mb-10 transition-all duration-1000",
-            isVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
+            revealPhase >= 2 ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
           )}
-          style={{ transitionDelay: "200ms" }}
         >
           <div className="absolute inset-0 bg-primary/30 blur-[2px]" />
           <div className="absolute inset-0 bg-primary/50" />
