@@ -38,6 +38,8 @@ export default function EventsAbout() {
     <div className="min-h-screen bg-background">
       <MinimalHeader />
       <PianoKeyNav sections={sections} />
+      <AboutScrollProgress />
+      <VerticalRhythmDots sections={sections} />
 
       <main>
         <EventsAboutHero />
