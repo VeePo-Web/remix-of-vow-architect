@@ -1,5 +1,4 @@
 import { Card } from "@/components/ui/card";
-import { Activity } from "lucide-react";
 import { TestimonialAvatar } from "@/components/TestimonialAvatar";
 import { RevealOnScroll, StaggerChildren } from "@/components/animation";
 
@@ -42,9 +41,17 @@ export function SPLTriptych() {
             {splReadings.map((reading, i) => (
               <Card key={i} className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred card-sacred-hover transition-all duration-[180ms]">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-primary/[0.06] border border-primary/10 flex items-center justify-center">
-                    <Activity className="text-primary" size={20} />
-                  </div>
+                  <span
+                    className="font-display text-[28px] font-light leading-none select-none"
+                    style={{
+                      background: 'linear-gradient(180deg, hsl(var(--vow-yellow)), hsl(var(--vow-yellow) / 0.5))',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                    }}
+                    aria-hidden="true"
+                  >
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
                   <h3 className="font-display text-lg font-medium">{reading.phase}</h3>
                 </div>
                 <div className="font-display text-[clamp(24px,3vw,32px)] font-light text-primary mb-2">{reading.range}</div>
