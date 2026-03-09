@@ -1,6 +1,5 @@
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
-import { Download } from "lucide-react";
 
 const features = [
   {
@@ -57,8 +56,7 @@ export function PricingSampleDownload() {
           </div>
 
           <div className="flex justify-center">
-            <Button size="lg" variant="primary-dark" className="gap-2 hover-scale">
-              <Download size={18} />
+            <Button size="lg" variant="primary-dark" className="hover-scale">
               Download a sample ceremony plan
             </Button>
           </div>

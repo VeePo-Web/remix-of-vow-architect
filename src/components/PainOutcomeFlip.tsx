@@ -1,4 +1,3 @@
-import { X, Check } from "lucide-react";
 import { StaggerChildren } from "@/components/animation";
 
 const pains = [
@@ -15,6 +14,19 @@ const outcomes = [
   "SPL logs + local rules → clear, compliant sound.",
 ];
 
+function GoldDiamond() {
+  return (
+    <span
+      className="inline-block w-2 h-2 rotate-45 shrink-0 mt-1.5"
+      style={{
+        background: "hsl(var(--vow-yellow) / 0.7)",
+        boxShadow: "0 0 5px hsl(var(--vow-yellow) / 0.2)",
+      }}
+      aria-hidden="true"
+    />
+  );
+}
+
 export function PainOutcomeFlip() {
   return (
     <section className="section--default py-24 px-4">
@@ -29,7 +41,7 @@ export function PainOutcomeFlip() {
             <StaggerChildren staggerDelay={80} as="div" className="space-y-6">
               {pains.map((pain, index) => (
                 <div key={index} className="flex items-start gap-3">
-                  <X size={20} className="text-destructive shrink-0 mt-0.5" />
+                  <span className="text-destructive/60 font-display text-sm mt-0.5 shrink-0" aria-hidden="true">—</span>
                   <p className="p-body">{pain}</p>
                 </div>
               ))}
@@ -41,7 +53,7 @@ export function PainOutcomeFlip() {
             <StaggerChildren staggerDelay={80} as="div" className="space-y-6">
               {outcomes.map((outcome, index) => (
                 <div key={index} className="flex items-start gap-3">
-                  <Check size={20} className="text-accent shrink-0 mt-0.5" />
+                  <GoldDiamond />
                   <p className="p-body">{outcome}</p>
                 </div>
               ))}

@@ -4,9 +4,23 @@ import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { Shield, FileText, Cookie, Eye } from "lucide-react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { Link } from "react-router-dom";
+
+function GoldNumeral({ n }: { n: string }) {
+  return (
+    <span
+      className="font-display text-[28px] font-light tracking-tight"
+      style={{
+        background: "linear-gradient(180deg, hsl(var(--vow-yellow)), hsl(var(--vow-yellow) / 0.5))",
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+      }}
+    >
+      {n}
+    </span>
+  );
+}
 
 export default function Legal() {
   usePageTheme();
@@ -17,25 +31,25 @@ export default function Legal() {
 
   const policies = [
     {
-      icon: <Shield className="w-8 h-8 text-primary" />,
+      numeral: "01",
       title: "Privacy Policy",
       description: "How I collect, use, and protect your information.",
       link: "/privacy-policy",
     },
     {
-      icon: <FileText className="w-8 h-8 text-primary" />,
+      numeral: "02",
       title: "Terms & Conditions",
       description: "How bookings and website use work, in plain English.",
       link: "/terms",
     },
     {
-      icon: <Cookie className="w-8 h-8 text-primary" />,
+      numeral: "03",
       title: "Cookie Policy",
       description: "What cookies I use and how to manage them.",
       link: "/cookie-policy",
     },
     {
-      icon: <Eye className="w-8 h-8 text-primary" />,
+      numeral: "04",
       title: "Accessibility Statement",
       description: "How I make this site usable for everyone.",
       link: "/accessibility",
@@ -76,7 +90,7 @@ export default function Legal() {
                 <Link key={index} to={policy.link} className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm">
                   <Card className="h-full hover:border-primary/20 transition-all duration-[180ms] cursor-pointer">
                     <CardHeader>
-                      <div className="mb-4">{policy.icon}</div>
+                      <div className="mb-4"><GoldNumeral n={policy.numeral} /></div>
                       <CardTitle>{policy.title}</CardTitle>
                       <CardDescription>{policy.description}</CardDescription>
                     </CardHeader>

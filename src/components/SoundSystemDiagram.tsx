@@ -1,25 +1,39 @@
-import { Mic, Battery, Activity } from "lucide-react";
 import { DirectionalLink } from "./DirectionalLink";
 import { Card } from "./ui/card";
 import { StaggerChildren } from "@/components/animation";
 
 const systemCards = [
   {
-    icon: Mic,
+    numeral: "01",
     title: "Every word carries — even outdoors.",
     description: "I position and balance sound so your vows land clearly in every seat, without feeling amplified or unnatural.",
   },
   {
-    icon: Battery,
+    numeral: "02",
     title: "Silent power, zero interruptions.",
     description: "Battery-powered systems with on-site backups ensure clean, quiet operation throughout your ceremony.",
   },
   {
-    icon: Activity,
+    numeral: "03",
     title: "Verified at three key moments.",
     description: "I check volume during the Prelude, Vows, and Recessional — adjusting in real time so every phase sounds exactly right.",
   },
 ];
+
+function GoldNumeral({ n }: { n: string }) {
+  return (
+    <span
+      className="font-display text-[32px] font-light tracking-tight mb-6 block"
+      style={{
+        background: "linear-gradient(180deg, hsl(var(--vow-yellow)), hsl(var(--vow-yellow) / 0.5))",
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+      }}
+    >
+      {n}
+    </span>
+  );
+}
 
 export function SoundSystemDiagram() {
   return (
@@ -32,7 +46,7 @@ export function SoundSystemDiagram() {
         <StaggerChildren staggerDelay={100} className="grid md:grid-cols-3 gap-8 mb-12">
           {systemCards.map((card, index) => (
             <Card key={index} className="p-8 hover-scale">
-              <card.icon size={32} className="text-primary mb-6" />
+              <GoldNumeral n={card.numeral} />
               <h3 className="h4 mb-4">{card.title}</h3>
               <p className="p-body text-muted-foreground">{card.description}</p>
             </Card>
