@@ -154,7 +154,7 @@ export default function TeachingPricing() {
                   <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light mx-auto relative z-10">The first question I ask is never about music.</h2>
                   <p className="p-body text-muted-foreground relative z-10">Tell me what brought you to the piano — a memory, a person, a feeling you want to find again. This is a conversation, not a commitment.</p>
                   <Button size="lg" variant="primary-dark" className="hover-scale relative z-10" asChild>
-                    <Link to="/contact">Begin the conversation</Link>
+                    <Link to="/teaching/contact">Begin the conversation</Link>
                   </Button>
                 </div>
               </RevealOnScroll>

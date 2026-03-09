@@ -62,7 +62,7 @@ export function EventsCrossing() {
           style={{ transitionDelay: "500ms" }}
         >
           <Button asChild size="lg" variant="primary-dark">
-            <Link to="/contact">Discuss your event</Link>
+            <Link to="/events/contact">Discuss your event</Link>
           </Button>
         </div>
 
