@@ -10,6 +10,7 @@ import aboutOriginImg from "@/assets/about-origin.jpg";
  */
 export function WitnessOrigin() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
+  const parallaxRef = useScrollParallax({ intensity: 60 });
 
   return (
     <section 
