@@ -68,7 +68,7 @@ export function WitnessCrossing() {
 
           <div className={cn("relative inline-block transition-all duration-700", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4")} style={{ transitionDelay: "600ms" }}>
             <div className="absolute -inset-x-8 -inset-y-5 rounded-lg pointer-events-none motion-reduce:hidden" style={{ background: "radial-gradient(ellipse, hsl(var(--vow-yellow) / 0.15) 0%, transparent 70%)", animation: "vigil-pulse 4s ease-in-out infinite" }} aria-hidden="true" />
-            <ShimmerButton asChild><Link to="/contact">Hold my date</Link></ShimmerButton>
+            <ShimmerButton onClick={() => navigate("/contact")}>Hold my date</ShimmerButton>
           </div>
 
           <p className={cn("text-sm text-muted-foreground mt-8 transition-all duration-700", isVisible ? "opacity-100" : "opacity-0")} style={{ transitionDelay: "800ms" }}>

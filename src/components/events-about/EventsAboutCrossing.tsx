@@ -89,9 +89,7 @@ export function EventsAboutCrossing() {
             )}
             style={{ transitionDelay: "600ms" }}
           >
-            <ShimmerButton asChild>
-              <Link to="/events/contact">Discuss your event</Link>
-            </ShimmerButton>
+            <ShimmerButton onClick={() => navigate("/events/contact")}>Discuss your event</ShimmerButton>
           </div>
 
           <p
