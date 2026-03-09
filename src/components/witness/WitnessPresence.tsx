@@ -210,7 +210,7 @@ export function WitnessPresence() {
               "mt-16 transition-all duration-700",
               isVisible ? "opacity-100" : "opacity-0"
             )}
-            style={{ transitionDelay: "1500ms" }}
+            style={{ transitionDelay: "1700ms" }}
           >
             <div 
               className="h-px w-24 mx-auto mb-8"

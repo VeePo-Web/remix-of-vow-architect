@@ -53,6 +53,8 @@ export default function About() {
     <div className="min-h-screen bg-background">
       <MinimalHeader />
       <PianoKeyNav sections={aboutSections} />
+      <AboutScrollProgress />
+      <VerticalRhythmDots sections={aboutSections} />
       
       <main>
         {/* ACT I: THE RESONANCE */}
