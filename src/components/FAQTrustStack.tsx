@@ -1,5 +1,4 @@
 import { TestimonialAvatar } from "@/components/TestimonialAvatar";
-import { AlertTriangle, HelpCircle, FileText, Heart } from "lucide-react";
 
 const testimonials = [
   {
@@ -23,10 +22,10 @@ const testimonials = [
 ];
 
 const journeySteps = [
-  { icon: AlertTriangle, label: "Fear", color: "text-muted-foreground" },
-  { icon: HelpCircle, label: "Uncertainty", color: "text-muted-foreground" },
-  { icon: FileText, label: "Plan", color: "text-primary opacity-70" },
-  { icon: Heart, label: "Relief", color: "text-accent" }
+  { numeral: "01", label: "Fear" },
+  { numeral: "02", label: "Uncertainty" },
+  { numeral: "03", label: "Plan" },
+  { numeral: "04", label: "Relief" },
 ];
 
 export function FAQTrustStack() {
