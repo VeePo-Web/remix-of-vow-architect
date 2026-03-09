@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useScrollParallax } from "@/hooks/useScrollParallax";
 import { cn } from "@/lib/utils";
 import aboutPresenceImg from "@/assets/about-presence.jpg";
 
