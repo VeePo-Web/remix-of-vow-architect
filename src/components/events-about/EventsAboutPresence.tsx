@@ -51,31 +51,28 @@ export function EventsAboutPresence() {
             THE PRESENCE
           </p>
 
-          {/* Big number */}
+          {/* Horizontal stats row */}
           <div
             className={cn(
-              "mb-4 transition-all duration-1000",
+              "flex flex-wrap justify-center gap-12 md:gap-20 mb-16 transition-all duration-1000",
               isVisible ? "opacity-100 translate-y-0 blur-0" : "opacity-0 translate-y-8 blur-sm"
             )}
             style={{ transitionDelay: "200ms" }}
           >
-            <span
-              className="font-display text-[clamp(72px,12vw,140px)] font-light leading-none"
-              style={{ color: "hsl(var(--vow-yellow) / 0.9)" }}
-            >
-              500+
-            </span>
+            {stats.map((stat, i) => (
+              <div key={stat.label} className="text-center">
+                <span
+                  className="block font-display text-[clamp(48px,8vw,80px)] font-light leading-none"
+                  style={{ color: "hsl(var(--vow-yellow) / 0.9)" }}
+                >
+                  {stat.value}
+                </span>
+                <span className="font-display text-sm uppercase tracking-[0.2em] text-muted-foreground mt-2 block">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
           </div>
-
-          <p
-            className={cn(
-              "font-display text-xl text-muted-foreground mb-16 transition-all duration-700",
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            )}
-            style={{ transitionDelay: "400ms" }}
-          >
-            events performed.
-          </p>
 
           {/* Witnessed moments grid */}
           <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">

@@ -89,7 +89,7 @@ export function TeachingAboutPresence() {
                 onMouseLeave={() => setHoveredIndex(null)}
               >
                 <p className="font-display text-base text-foreground leading-relaxed italic">
-                  "{moment}"
+                  {moment}
                 </p>
               </div>
             ))}
