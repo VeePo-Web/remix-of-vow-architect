@@ -1,33 +1,46 @@
 
 
-# Plan: Create Events Brand Identity Document
+# Luxury Polish — Round 7: Final Decorative Icon + Craft Refinements
 
-Create `.lovable/events-brand-identity.md` following the same structure as the wedding and teaching documents — Brand Truth Table, Non-Negotiables/Flex/Dealbreakers, Brand Spine, Positioning, Customer Identity Mirror, Messaging, Voice, and Visual direction.
+## Remaining Decorative Icon
 
-## Key Differentiators from Other Verticals
+**One file remains:** `PolicyHighlightBox.tsx` uses `Info`, `AlertTriangle`, `CheckCircle` as decorative variant markers inside policy/legal pages. Replace with brand-consistent marks:
+- `info` variant: gold diamond marker (matching InclusionBlock)
+- `warning` variant: en-dash `—` in `text-primary`
+- `success` variant: gold diamond with vine-green tint
 
-- **Tone:** Professional and polished, not sacred/vigil (weddings) or warm/mentorship (teaching)
-- **Category:** "Private Event Pianist" — not "sound director" or "mentor"
-- **Mission:** "I understand what live music does to a room" — atmospheric, not ceremonial
-- **Tagline adaptation:** "Every room has a sound it's waiting for."
-- **Enemy:** The generic playlist, the background-noise assumption, the DJ who drowns conversation
-- **Audience:** Hosts planning private dinners, church services, cocktail receptions, intimate celebrations — people who care about atmosphere and presence
+## StarBar — Functional but Cheap
 
-## Document Structure (matching existing format)
+`StarBar.tsx` renders 5 Lucide `Star` icons as a rating display. While functional, the generic star shape reads as "review widget." Replace with 5 gold diamond markers — same `w-2 h-2 rotate-45` pattern, filled diamonds for earned rating, hollow/faded for unearned. This is a visual upgrade, not a functional change.
 
-1. **Brand Truth Table** — Events-specific truths (500+ events, 4 occasion types, 500+ repertoire, room-reading ability)
-2. **Non-Negotiables / Flex / Dealbreakers** — Professional tone rules, no "sacred/vigil" language, no entertainment framing
-3. **Brand Spine** — Category stance, enemy, audience, promise, proof, personality
-4. **Positioning & Differentiators** — "Private Event Pianist" category, differentiator table vs DJs/playlists/bands
-5. **Customer Identity Mirror** — "You are my people if..." / "Not for you if..." for event hosts
-6. **Messaging Pillars** — Atmosphere, Adaptability, Professionalism
-7. **Voice & Lexicon** — Events-specific word choices (allowed/banned), CTA phrasing
-8. **Visual Direction** — How the events page differs aesthetically from weddings/teaching
-9. **Cross-Vertical Coherence** — How events connects to the broader Sacred Sound brand
+## FormStepper — SaaS Progress Dots
 
-## File
+`FormStepper.tsx` uses two `w-3 h-3 rounded-full` circles as a step indicator — standard SaaS onboarding pattern. Replace with a minimal editorial fraction: `1 / 2` or `2 / 2` in `font-display text-xs` with the active number in `text-primary`. Removes the generic dot-stepper look entirely.
 
-- **Create:** `.lovable/events-brand-identity.md`
+## PolicyHighlightBox — Border Radius
 
-No code changes required.
+Uses `rounded-lg` which is the standard Tailwind 8px radius. Policy/legal content should feel more editorial. Change to `rounded-sm` (2px) with a gold left-rule border instead of full border, matching the letterpress insert pattern from DownloadablePlans.
+
+## Contact Pages — Trust Stats Row Consistency
+
+All three contact pages (Contact, EventsContact, TeachingContact) render a trust stats row with identical structure but slightly different styling. The pattern is good but the stats use raw `text-foreground` for values. Upgrade: apply the gold gradient numeral treatment to the stat values for brand consistency.
+
+---
+
+## Files to Modify
+
+1. `src/components/PolicyHighlightBox.tsx` — replace icons with brand marks + letterpress border style
+2. `src/components/StarBar.tsx` — replace Star icons with gold diamond rating system
+3. `src/components/FormStepper.tsx` — replace dot-stepper with editorial fraction
+4. `src/pages/Contact.tsx` — gold gradient treatment on trust stat values
+5. `src/pages/EventsContact.tsx` — same gold gradient treatment
+6. `src/pages/TeachingContact.tsx` — same gold gradient treatment
+
+## Summary
+
+- 6 files modified
+- Eliminates the final 3 decorative Lucide icon usages (Info, AlertTriangle, CheckCircle) plus 5 Star instances
+- Upgrades 2 generic UI patterns (dot-stepper, star-rating) to bespoke editorial equivalents
+- Adds gold gradient consistency to contact page trust stats
+- No new dependencies
 
