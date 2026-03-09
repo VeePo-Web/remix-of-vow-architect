@@ -52,11 +52,12 @@ export function WitnessPresence() {
       {/* Grain */}
       <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
 
-      {/* Vignette */}
+      {/* Vignette with fog fade */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at center, transparent 30%, hsl(var(--background)) 80%)"
+          background: "radial-gradient(ellipse at center, transparent 30%, hsl(var(--background)) 80%)",
+          opacity: 'var(--fog-opacity, 0.1)'
         }}
         aria-hidden="true"
       />
