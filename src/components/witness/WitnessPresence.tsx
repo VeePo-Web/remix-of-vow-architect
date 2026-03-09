@@ -27,7 +27,10 @@ export function WitnessPresence() {
     <section 
       id="witness-presence"
       aria-label="The Presence"
-      ref={ref as React.RefObject<HTMLElement>}
+      ref={(node) => {
+        (ref as React.MutableRefObject<HTMLElement | null>).current = node;
+        (parallaxRef as React.MutableRefObject<HTMLElement | null>).current = node;
+      }}
       className="relative py-[120px] px-4 bg-background overflow-hidden piano-section-target"
     >
       {/* Background image — overflow-hidden wrapper */}
