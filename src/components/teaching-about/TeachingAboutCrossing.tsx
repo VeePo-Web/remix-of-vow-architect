@@ -1,11 +1,12 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import teachingBenchImg from "@/assets/teaching-bench.jpg";
 
 export function TeachingAboutCrossing() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
+  const navigate = useNavigate();
 
   return (
     <section
@@ -87,9 +88,7 @@ export function TeachingAboutCrossing() {
             )}
             style={{ transitionDelay: "600ms" }}
           >
-            <ShimmerButton asChild>
-              <Link to="/teaching/contact">Begin the conversation</Link>
-            </ShimmerButton>
+            <ShimmerButton onClick={() => navigate("/teaching/contact")}>Begin the conversation</ShimmerButton>
           </div>
 
           <p

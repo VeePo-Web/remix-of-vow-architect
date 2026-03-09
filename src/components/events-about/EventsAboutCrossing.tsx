@@ -1,11 +1,12 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import eventsHeroImg from "@/assets/events-hero.jpg";
 
 export function EventsAboutCrossing() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
+  const navigate = useNavigate();
 
   return (
     <section
@@ -89,9 +90,7 @@ export function EventsAboutCrossing() {
             )}
             style={{ transitionDelay: "600ms" }}
           >
-            <ShimmerButton asChild>
-              <Link to="/events/contact">Discuss your event</Link>
-            </ShimmerButton>
+            <ShimmerButton onClick={() => navigate("/events/contact")}>Discuss your event</ShimmerButton>
           </div>
 
           <p

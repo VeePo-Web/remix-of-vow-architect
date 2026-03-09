@@ -1,8 +1,7 @@
 import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@/lib/utils";
 
-export interface ShimmerButtonProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+export interface ShimmerButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
 }
 
@@ -10,14 +9,11 @@ export interface ShimmerButtonProps extends React.AnchorHTMLAttributes<HTMLAncho
  * Shimmer Button Component
  * 
  * CTA with diagonal shimmer sweep on hover, inspired by hickoryandrose.
- * Replaces generic Button components with luxury brand-aligned interaction.
  */
-const ShimmerButton = React.forwardRef<HTMLAnchorElement, ShimmerButtonProps>(
-  ({ className, children, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "a";
-    
+const ShimmerButton = React.forwardRef<HTMLButtonElement, ShimmerButtonProps>(
+  ({ className, children, asChild, ...props }, ref) => {
     return (
-      <Comp
+      <button
         ref={ref}
         className={cn(
           "relative inline-flex items-center justify-center px-10 py-4",
@@ -26,6 +22,7 @@ const ShimmerButton = React.forwardRef<HTMLAnchorElement, ShimmerButtonProps>(
           "hover:border-primary transition-all duration-300",
           "overflow-hidden group cursor-pointer",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-opacity-70",
+          "bg-transparent",
           className
         )}
         {...props}
@@ -39,7 +36,7 @@ const ShimmerButton = React.forwardRef<HTMLAnchorElement, ShimmerButtonProps>(
           aria-hidden="true"
         />
         <span className="relative z-10">{children}</span>
-      </Comp>
+      </button>
     );
   }
 );
