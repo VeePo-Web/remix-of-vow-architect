@@ -107,9 +107,8 @@ export function EventsAboutHero() {
         <p
           className={cn(
             "mt-6 text-lg text-muted-foreground max-w-xl mx-auto transition-all duration-700",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            revealPhase >= 4 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           )}
-          style={{ transitionDelay: "700ms" }}
         >
           Live music that shapes the feeling of being together.
         </p>
