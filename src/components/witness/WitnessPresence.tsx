@@ -151,28 +151,53 @@ export function WitnessPresence() {
             </p>
           </div>
 
-          {/* Floating Witness Moments — editorial italic text, no heavy card styling */}
+          {/* Witness Moments — Atmospheric cards with breathing borders */}
           <div 
             className={cn(
               "mt-20 grid md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-700",
               isVisible ? "opacity-100" : "opacity-0"
             )}
-            style={{ transitionDelay: "700ms" }}
+            style={{ transitionDelay: "800ms" }}
           >
             {witnessedMoments.map((moment, index) => (
               <div 
                 key={index}
                 className={cn(
-                  "py-5 px-6 border-l border-primary/15 transition-all duration-[180ms] hover:border-primary/30",
+                  "group relative p-6 border border-primary/10 hover:border-primary/30 transition-all duration-[400ms]",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 )}
                 style={{ 
-                  transitionDelay: `${900 + index * 100}ms`,
+                  transitionDelay: `${1000 + index * 100}ms`,
+                  background: hoveredIndex === index 
+                    ? 'linear-gradient(135deg, hsl(var(--rich-black)) 0%, hsl(var(--ebon-charcoal) / 0.4) 100%)'
+                    : 'transparent',
+                  boxShadow: hoveredIndex === index
+                    ? '0 0 24px hsl(var(--vow-yellow) / 0.08), inset 0 1px 0 hsl(var(--vow-yellow) / 0.05)'
+                    : 'none',
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.boxShadow = "0 0 24px hsl(var(--vow-yellow) / 0.08)"}
-                onMouseLeave={(e) => e.currentTarget.style.boxShadow = "none"}
+                onMouseEnter={(e) => {
+                  setHoveredIndex(index);
+                  e.currentTarget.style.transition = 'transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1)';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  setHoveredIndex(null);
+                  e.currentTarget.style.transition = 'transform 220ms cubic-bezier(0.22, 0.61, 0.36, 1)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
               >
-                <p className="text-sm text-muted-foreground leading-relaxed italic">
+                {/* Golden dot with breathing glow */}
+                <div 
+                  className="w-1.5 h-1.5 rounded-full mb-3"
+                  style={{
+                    background: 'hsl(var(--vow-yellow))',
+                    boxShadow: '0 0 12px hsl(var(--vow-yellow) / 0.4)',
+                    animation: 'vigil-pulse 4s ease-in-out infinite',
+                    animationDelay: `${index * 0.3}s`
+                  }}
+                />
+                
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   {moment}
                 </p>
               </div>
