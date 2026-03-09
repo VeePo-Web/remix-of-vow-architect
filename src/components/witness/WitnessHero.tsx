@@ -81,9 +81,8 @@ export function WitnessHero() {
           {/* The Vibrating String */}
           <div 
             className={`relative h-[2px] w-full max-w-2xl mx-auto mb-12 transition-all duration-1000 ${
-              isVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
+              revealPhase >= 2 ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
             }`}
-            style={{ transitionDelay: "500ms" }}
           >
             <div className="absolute inset-0 bg-primary/40 vibrating-string motion-reduce:animate-none" />
             <div className="absolute inset-0 bg-primary blur-sm vibrating-string motion-reduce:animate-none" style={{ animationDelay: "50ms" }} />
