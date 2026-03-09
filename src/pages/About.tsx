@@ -3,6 +3,8 @@ import { MinimalHeader } from "@/components/MinimalHeader";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
 import { PianoKeyNav } from "@/components/PianoKeyNav";
+import { AboutScrollProgress } from "@/components/AboutScrollProgress";
+import { VerticalRhythmDots } from "@/components/VerticalRhythmDots";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import {
   WitnessHero,
@@ -51,6 +53,8 @@ export default function About() {
     <div className="min-h-screen bg-background">
       <MinimalHeader />
       <PianoKeyNav sections={aboutSections} />
+      <AboutScrollProgress />
+      <VerticalRhythmDots sections={aboutSections} />
       
       <main>
         {/* ACT I: THE RESONANCE */}

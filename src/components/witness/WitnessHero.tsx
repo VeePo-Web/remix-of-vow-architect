@@ -7,11 +7,16 @@ import aboutHeroImg from "@/assets/about-hero.jpg";
  * Background image with cinematic vignette, film grain, warm fog
  */
 export function WitnessHero() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [revealPhase, setRevealPhase] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 300);
-    return () => clearTimeout(timer);
+    const timers = [
+      setTimeout(() => setRevealPhase(1), 200),   // Label
+      setTimeout(() => setRevealPhase(2), 500),   // Vibration string
+      setTimeout(() => setRevealPhase(3), 900),   // Headline
+      setTimeout(() => setRevealPhase(4), 1300),  // Subtitle
+    ];
+    return () => timers.forEach(clearTimeout);
   }, []);
 
   return (
@@ -67,9 +72,8 @@ export function WitnessHero() {
           {/* The Label */}
           <p 
             className={`text-xs uppercase tracking-[0.3em] ml-[0.15em] text-muted-foreground text-center mb-8 transition-all duration-700 ${
-              isVisible ? "opacity-70 translate-y-0" : "opacity-0 translate-y-4"
+              revealPhase >= 1 ? "opacity-70 translate-y-0" : "opacity-0 translate-y-4"
             }`}
-            style={{ transitionDelay: "200ms" }}
           >
             THE WITNESS
           </p>
@@ -77,9 +81,8 @@ export function WitnessHero() {
           {/* The Vibrating String */}
           <div 
             className={`relative h-[2px] w-full max-w-2xl mx-auto mb-12 transition-all duration-1000 ${
-              isVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
+              revealPhase >= 2 ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
             }`}
-            style={{ transitionDelay: "500ms" }}
           >
             <div className="absolute inset-0 bg-primary/40 vibrating-string motion-reduce:animate-none" />
             <div className="absolute inset-0 bg-primary blur-sm vibrating-string motion-reduce:animate-none" style={{ animationDelay: "50ms" }} />
@@ -96,18 +99,16 @@ export function WitnessHero() {
           {/* The Statement — constrained width for visual centering */}
           <h1 
             className={`font-display text-[clamp(32px,5vw,56px)] font-light leading-[1.1] mb-6 max-w-[16ch] mx-auto transition-all duration-700 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              revealPhase >= 3 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             }`}
-            style={{ transitionDelay: "800ms" }}
           >
             I don't perform at weddings.
           </h1>
           
           <p 
             className={`font-display text-[clamp(24px,3.5vw,40px)] font-light text-primary leading-[1.2] transition-all duration-700 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              revealPhase >= 4 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             }`}
-            style={{ transitionDelay: "1100ms" }}
           >
             I witness them.
           </p>
@@ -115,9 +116,8 @@ export function WitnessHero() {
           {/* Scroll indicator */}
           <div 
             className={`mt-20 transition-all duration-700 ${
-              isVisible ? "opacity-100" : "opacity-0"
+              revealPhase >= 4 ? "opacity-100" : "opacity-0"
             }`}
-            style={{ transitionDelay: "1500ms" }}
           >
           <div className="w-px h-12 bg-gradient-to-b from-primary/50 to-transparent mx-auto animate-pulse motion-reduce:animate-none" />
           </div>

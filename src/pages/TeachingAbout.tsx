@@ -3,6 +3,8 @@ import { MinimalHeader } from "@/components/MinimalHeader";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
 import { PianoKeyNav } from "@/components/PianoKeyNav";
+import { AboutScrollProgress } from "@/components/AboutScrollProgress";
+import { VerticalRhythmDots } from "@/components/VerticalRhythmDots";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import {
   TeachingAboutHero,
@@ -36,6 +38,8 @@ export default function TeachingAbout() {
     <div className="min-h-screen bg-background">
       <MinimalHeader />
       <PianoKeyNav sections={sections} />
+      <AboutScrollProgress />
+      <VerticalRhythmDots sections={sections} />
 
       <main>
         <TeachingAboutHero />

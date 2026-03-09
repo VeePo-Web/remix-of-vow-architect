@@ -3,11 +3,16 @@ import { cn } from "@/lib/utils";
 import eventsHeroImg from "@/assets/events-hero.jpg";
 
 export function EventsAboutHero() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [revealPhase, setRevealPhase] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 300);
-    return () => clearTimeout(timer);
+    const timers = [
+      setTimeout(() => setRevealPhase(1), 200),   // Label
+      setTimeout(() => setRevealPhase(2), 500),   // Vibration string
+      setTimeout(() => setRevealPhase(3), 900),   // Headline
+      setTimeout(() => setRevealPhase(4), 1300),  // Description
+    ];
+    return () => timers.forEach(clearTimeout);
   }, []);
 
   return (
@@ -58,7 +63,7 @@ export function EventsAboutHero() {
         <p
           className={cn(
             "text-xs uppercase tracking-[0.3em] ml-[0.15em] mb-6 transition-all duration-700",
-            isVisible ? "opacity-50 translate-y-0" : "opacity-0 translate-y-4"
+            revealPhase >= 1 ? "opacity-50 translate-y-0" : "opacity-0 translate-y-4"
           )}
           style={{ color: "hsl(var(--muted-foreground))" }}
         >
@@ -69,9 +74,8 @@ export function EventsAboutHero() {
         <div
           className={cn(
             "relative h-[2px] w-48 mx-auto mb-10 transition-all duration-1000",
-            isVisible ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
+            revealPhase >= 2 ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
           )}
-          style={{ transitionDelay: "200ms" }}
         >
           <div className="absolute inset-0 bg-primary/30 blur-[2px]" />
           <div className="absolute inset-0 bg-primary/50" />
@@ -89,9 +93,8 @@ export function EventsAboutHero() {
         <h1
           className={cn(
             "font-display text-[clamp(28px,4.5vw,56px)] font-light leading-[1.15] text-foreground transition-all duration-1000",
-            isVisible ? "opacity-100 translate-y-0 blur-0" : "opacity-0 translate-y-8 blur-sm"
+            revealPhase >= 3 ? "opacity-100 translate-y-0 blur-0" : "opacity-0 translate-y-8 blur-sm"
           )}
-          style={{ transitionDelay: "400ms" }}
         >
           I don't play at events.
           <br />
@@ -104,9 +107,8 @@ export function EventsAboutHero() {
         <p
           className={cn(
             "mt-6 text-lg text-muted-foreground max-w-xl mx-auto transition-all duration-700",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            revealPhase >= 4 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           )}
-          style={{ transitionDelay: "700ms" }}
         >
           Live music that shapes the feeling of being together.
         </p>

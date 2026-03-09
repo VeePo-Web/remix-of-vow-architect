@@ -1,4 +1,5 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useScrollParallax } from "@/hooks/useScrollParallax";
 import { cn } from "@/lib/utils";
 import { LetterPressQuote } from "@/components/ui/letterpress-quote";
 import aboutOriginImg from "@/assets/about-origin.jpg";
@@ -9,12 +10,16 @@ import aboutOriginImg from "@/assets/about-origin.jpg";
  */
 export function WitnessOrigin() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
+  const parallaxRef = useScrollParallax({ intensity: 60 });
 
   return (
     <section 
       id="witness-origin"
       aria-label="The Origin"
-      ref={ref as React.RefObject<HTMLElement>}
+      ref={(node) => {
+        (ref as React.MutableRefObject<HTMLElement | null>).current = node;
+        (parallaxRef as React.MutableRefObject<HTMLElement | null>).current = node;
+      }}
       className="relative py-[120px] px-4 bg-background overflow-hidden piano-section-target"
     >
       {/* Grain overlay */}
@@ -124,6 +129,8 @@ export function WitnessOrigin() {
                   animation: "ken-burns 30s ease-in-out infinite alternate",
                   filter: "saturate(0.85) contrast(1.05)",
                   willChange: "transform",
+                  transform: 'translateY(var(--parallax-y, 0))',
+                  transition: 'transform 0.1s linear',
                 }}
               />
               {/* Cinematic vignette overlay */}

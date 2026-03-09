@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useScrollParallax } from "@/hooks/useScrollParallax";
 import { cn } from "@/lib/utils";
 import aboutPresenceImg from "@/assets/about-presence.jpg";
 
@@ -18,15 +20,20 @@ const witnessedMoments = [
 
 export function WitnessPresence() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
+  const parallaxRef = useScrollParallax({ intensity: 60, enableFogFade: true, fogIntensity: 0.1 });
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
     <section 
       id="witness-presence"
       aria-label="The Presence"
-      ref={ref as React.RefObject<HTMLElement>}
+      ref={(node) => {
+        (ref as React.MutableRefObject<HTMLElement | null>).current = node;
+        (parallaxRef as React.MutableRefObject<HTMLElement | null>).current = node;
+      }}
       className="relative py-[120px] px-4 bg-background overflow-hidden piano-section-target"
     >
-      {/* Background image — overflow-hidden wrapper */}
+      {/* Background image with parallax */}
       <div className="absolute inset-0 overflow-hidden">
         <div 
           className="absolute inset-0 opacity-[0.10]"
@@ -35,6 +42,8 @@ export function WitnessPresence() {
             backgroundSize: "cover",
             backgroundPosition: "center",
             animation: "ken-burns 30s ease-in-out infinite alternate",
+            transform: 'translateY(var(--parallax-y, 0))',
+            transition: 'transform 0.1s linear',
           }}
           aria-hidden="true"
         />
@@ -43,11 +52,12 @@ export function WitnessPresence() {
       {/* Grain */}
       <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
 
-      {/* Vignette */}
+      {/* Vignette with fog fade */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at center, transparent 30%, hsl(var(--background)) 80%)"
+          background: "radial-gradient(ellipse at center, transparent 30%, hsl(var(--background)) 80%)",
+          opacity: 'var(--fog-opacity, 0.1)'
         }}
         aria-hidden="true"
       />
@@ -68,81 +78,126 @@ export function WitnessPresence() {
           {/* Golden rule separator */}
           <div className="w-12 h-px mx-auto mb-8" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.6), transparent)" }} />
 
-          {/* The Big Number */}
+          {/* The Big Number — Multi-layer depth treatment */}
           <div className="relative">
-            {/* Larger ambient glow */}
+            {/* Far glow — breathing */}
             <div 
               className={cn(
                 "absolute inset-0 flex items-center justify-center transition-all duration-1000",
                 isVisible ? "opacity-100" : "opacity-0"
               )}
+              style={{ 
+                animation: 'witness-vignette-breathe 6s ease-in-out infinite' 
+              }}
             >
-              <div 
-                className="w-[500px] h-[500px] rounded-full motion-reduce:hidden"
+              <span 
+                className="font-display text-[clamp(100px,20vw,200px)] font-light leading-none"
                 style={{ 
-                  background: "radial-gradient(circle, hsl(var(--vow-yellow) / 0.08) 0%, hsl(var(--vow-yellow) / 0.03) 40%, transparent 70%)" 
+                  color: 'hsl(var(--vow-yellow) / 0.1)',
+                  textShadow: '0 0 80px hsl(var(--vow-yellow) / 0.15)'
                 }}
-              />
+              >
+                500<span className="text-[clamp(40px,8vw,80px)] align-top">+</span>
+              </span>
             </div>
 
+            {/* Mid glow — static */}
             <div 
               className={cn(
-                "relative text-center transition-all duration-1000",
-                isVisible ? "opacity-100 scale-100 blur-none" : "opacity-0 scale-95 blur-sm"
+                "absolute inset-0 flex items-center justify-center transition-all duration-1000",
+                isVisible ? "opacity-100" : "opacity-0"
               )}
-              style={{ transitionDelay: "300ms" }}
+              style={{ transitionDelay: "200ms" }}
             >
               <span 
                 className="font-display text-[clamp(100px,20vw,200px)] font-light text-foreground leading-none"
-                style={{ 
-                  textShadow: "0 2px 4px hsl(var(--rich-black) / 0.3), 0 0 80px hsl(var(--vow-yellow) / 0.15), 0 0 160px hsl(var(--vow-yellow) / 0.08)"
+                style={{
+                  textShadow: '0 0 40px hsl(var(--vow-yellow) / 0.25), 0 2px 4px hsl(var(--rich-black) / 0.5)'
                 }}
+              >
+                500<span className="font-display text-[clamp(40px,8vw,80px)] font-light text-primary align-top">+</span>
+              </span>
+            </div>
+
+            {/* Foreground — sharp */}
+            <div 
+              className={cn(
+                "relative text-center transition-all duration-1000",
+                isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
+              )}
+              style={{ transitionDelay: "400ms" }}
+            >
+              <span 
+                className="font-display text-[clamp(100px,20vw,200px)] font-light text-foreground leading-none"
               >
                 500
               </span>
               <span 
                 className="font-display text-[clamp(40px,8vw,80px)] font-light text-primary align-top"
-                style={{
-                  textShadow: "0 0 40px hsl(var(--vow-yellow) / 0.3)"
-                }}
               >
                 +
               </span>
             </div>
+
 
             <p 
               className={cn(
                 "font-display text-[clamp(20px,3vw,32px)] font-light text-center text-muted-foreground mt-4 transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
-              style={{ transitionDelay: "500ms" }}
+              style={{ transitionDelay: "600ms" }}
             >
               ceremonies witnessed
             </p>
           </div>
 
-          {/* Floating Witness Moments — editorial italic text, no heavy card styling */}
+          {/* Witness Moments — Atmospheric cards with breathing borders */}
           <div 
             className={cn(
               "mt-20 grid md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-700",
               isVisible ? "opacity-100" : "opacity-0"
             )}
-            style={{ transitionDelay: "700ms" }}
+            style={{ transitionDelay: "800ms" }}
           >
             {witnessedMoments.map((moment, index) => (
               <div 
                 key={index}
                 className={cn(
-                  "py-5 px-6 border-l border-primary/15 transition-all duration-[180ms] hover:border-primary/30",
+                  "group relative p-6 border border-primary/10 hover:border-primary/30 transition-all duration-[400ms]",
                   isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                 )}
                 style={{ 
-                  transitionDelay: `${900 + index * 100}ms`,
+                  transitionDelay: `${1000 + index * 100}ms`,
+                  background: hoveredIndex === index 
+                    ? 'linear-gradient(135deg, hsl(var(--rich-black)) 0%, hsl(var(--ebon-charcoal) / 0.4) 100%)'
+                    : 'transparent',
+                  boxShadow: hoveredIndex === index
+                    ? '0 0 24px hsl(var(--vow-yellow) / 0.08), inset 0 1px 0 hsl(var(--vow-yellow) / 0.05)'
+                    : 'none',
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.boxShadow = "0 0 24px hsl(var(--vow-yellow) / 0.08)"}
-                onMouseLeave={(e) => e.currentTarget.style.boxShadow = "none"}
+                onMouseEnter={(e) => {
+                  setHoveredIndex(index);
+                  e.currentTarget.style.transition = 'transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1)';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  setHoveredIndex(null);
+                  e.currentTarget.style.transition = 'transform 220ms cubic-bezier(0.22, 0.61, 0.36, 1)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
               >
-                <p className="text-sm text-muted-foreground leading-relaxed italic">
+                {/* Golden dot with breathing glow */}
+                <div 
+                  className="w-1.5 h-1.5 rounded-full mb-3"
+                  style={{
+                    background: 'hsl(var(--vow-yellow))',
+                    boxShadow: '0 0 12px hsl(var(--vow-yellow) / 0.4)',
+                    animation: 'vigil-pulse 4s ease-in-out infinite',
+                    animationDelay: `${index * 0.3}s`
+                  }}
+                />
+                
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   {moment}
                 </p>
               </div>
@@ -155,7 +210,7 @@ export function WitnessPresence() {
               "mt-16 transition-all duration-700",
               isVisible ? "opacity-100" : "opacity-0"
             )}
-            style={{ transitionDelay: "1500ms" }}
+            style={{ transitionDelay: "1700ms" }}
           >
             <div 
               className="h-px w-24 mx-auto mb-8"
