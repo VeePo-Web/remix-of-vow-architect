@@ -1,5 +1,3 @@
-import { Check, X, AlertTriangle } from "lucide-react";
-
 const comparisonData = [
   { 
     feature: "Vow clarity", 
@@ -53,6 +51,22 @@ function GoldenCheck() {
   );
 }
 
+function CompetitorMark({ value }: { value: boolean | string }) {
+  if (value === true) {
+    return (
+      <span
+        className="inline-block w-1.5 h-1.5 rounded-full"
+        style={{ background: "hsl(var(--vow-yellow) / 0.5)" }}
+        aria-label="Included"
+      />
+    );
+  }
+  if (value === "warning") {
+    return <span className="text-muted-foreground/50 text-sm" aria-label="Partial">·</span>;
+  }
+  return <span className="text-muted-foreground/30 text-sm" aria-label="Not included">—</span>;
+}
+
 export function ComparisonTable() {
   return (
     <div className="w-full overflow-x-auto">
@@ -85,20 +99,15 @@ export function ComparisonTable() {
               >
                 <td className="px-5 py-4 text-[14px] font-display font-medium">{row.feature}</td>
                 <td className="text-center px-4 py-4">
-                  {row.dj.value === true && <Check size={16} className="inline text-accent" />}
-                  {row.dj.value === false && <X size={16} className="inline text-destructive opacity-40" />}
-                  {row.dj.value === "warning" && <AlertTriangle size={16} className="inline text-primary opacity-50" />}
+                  <CompetitorMark value={row.dj.value} />
                   {row.dj.label && <div className="text-[12px] text-muted-foreground mt-1 leading-snug opacity-70">{row.dj.label}</div>}
                 </td>
                 <td className="text-center px-4 py-4">
-                  {row.band.value === true && <Check size={16} className="inline text-accent" />}
-                  {row.band.value === false && <X size={16} className="inline text-destructive opacity-40" />}
-                  {row.band.value === "warning" && <AlertTriangle size={16} className="inline text-primary opacity-50" />}
+                  <CompetitorMark value={row.band.value} />
                   {row.band.label && <div className="text-[12px] text-muted-foreground mt-1 leading-snug opacity-70">{row.band.label}</div>}
                 </td>
                 <td className="text-center px-4 py-4">
                   {row.parker.value === true && <GoldenCheck />}
-                  {row.parker.value === false && <X size={16} className="inline text-destructive opacity-40" />}
                   {row.parker.label && <div className="text-[12px] text-muted-foreground mt-1.5 leading-snug">{row.parker.label}</div>}
                 </td>
               </tr>

@@ -16,7 +16,7 @@ import {
 import { useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { Link } from "react-router-dom";
-import { Check, X, AlertTriangle } from "lucide-react";
+
 import eventsHeroImg from "@/assets/events-hero.jpg";
 
 const sections = [
