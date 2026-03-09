@@ -1,7 +1,7 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import teachingBenchImg from "@/assets/teaching-bench.jpg";
 
 export function TeachingAboutCrossing() {
