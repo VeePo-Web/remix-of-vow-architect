@@ -1,5 +1,6 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
+import { LetterPressQuote } from "@/components/ui/letterpress-quote";
 import aboutOriginImg from "@/assets/about-origin.jpg";
 
 /**
