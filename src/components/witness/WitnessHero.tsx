@@ -116,9 +116,8 @@ export function WitnessHero() {
           {/* Scroll indicator */}
           <div 
             className={`mt-20 transition-all duration-700 ${
-              isVisible ? "opacity-100" : "opacity-0"
+              revealPhase >= 4 ? "opacity-100" : "opacity-0"
             }`}
-            style={{ transitionDelay: "1500ms" }}
           >
           <div className="w-px h-12 bg-gradient-to-b from-primary/50 to-transparent mx-auto animate-pulse motion-reduce:animate-none" />
           </div>

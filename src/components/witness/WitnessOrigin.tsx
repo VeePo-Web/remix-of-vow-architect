@@ -129,6 +129,8 @@ export function WitnessOrigin() {
                   animation: "ken-burns 30s ease-in-out infinite alternate",
                   filter: "saturate(0.85) contrast(1.05)",
                   willChange: "transform",
+                  transform: 'translateY(var(--parallax-y, 0))',
+                  transition: 'transform 0.1s linear',
                 }}
               />
               {/* Cinematic vignette overlay */}
