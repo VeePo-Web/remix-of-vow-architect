@@ -18,7 +18,11 @@ const LetterPressQuote = React.forwardRef<HTMLDivElement, LetterPressQuoteProps>
     return (
       <div 
         ref={ref}
-        className={cn("relative pl-12 py-8 border-l-2 border-primary/20", className)}
+        className={cn("relative pl-12 py-8", className)}
+        style={{
+          borderLeft: "2px solid transparent",
+          borderImage: "linear-gradient(180deg, hsl(var(--vow-yellow) / 0.6), hsl(var(--vow-yellow) / 0.15)) 1",
+        }}
       >
         {/* Embossed quotation mark */}
         <span 

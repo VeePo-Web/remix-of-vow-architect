@@ -2,12 +2,9 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useScrollParallax } from "@/hooks/useScrollParallax";
 import { cn } from "@/lib/utils";
 import { LetterPressQuote } from "@/components/ui/letterpress-quote";
+import { GoldCornerImage } from "@/components/ui/gold-corner-image";
 import aboutOriginImg from "@/assets/about-origin.jpg";
 
-/**
- * THE ORIGIN — The Single Moment
- * Asymmetric two-column layout: narrow text column + atmospheric image with frame
- */
 export function WitnessOrigin() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
   const parallaxRef = useScrollParallax({ intensity: 60 });
@@ -22,10 +19,16 @@ export function WitnessOrigin() {
       }}
       className="relative py-[120px] px-4 bg-background overflow-hidden piano-section-target"
     >
-      {/* Grain overlay */}
-      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
+      {/* Parallax watermark */}
+      <span
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-[clamp(8rem,18vw,14rem)] font-light pointer-events-none select-none opacity-[0.02]"
+        style={{ color: "hsl(var(--foreground))" }}
+        aria-hidden="true"
+      >
+        Origin
+      </span>
 
-      {/* Breathing vignette */}
+      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -34,8 +37,6 @@ export function WitnessOrigin() {
         }}
         aria-hidden="true"
       />
-
-      {/* Warm fog */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{ background: "radial-gradient(ellipse at 70% 40%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)" }}
@@ -46,18 +47,30 @@ export function WitnessOrigin() {
         <div className="grid md:grid-cols-5 gap-12 max-w-6xl mx-auto items-center">
           {/* LEFT: Text Column (40%) */}
           <div className="md:col-span-2 space-y-8">
-            {/* Label */}
-            <p 
-              className={cn(
-                "text-xs uppercase tracking-[0.3em] transition-all duration-700",
-                isVisible ? "opacity-60 translate-y-0" : "opacity-0 translate-y-4"
-              )}
-              style={{ color: "hsl(var(--muted-foreground))" }}
-            >
-              THE ORIGIN
-            </p>
+            {/* Section numeral + label */}
+            <div className={cn(
+              "transition-all duration-700",
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            )}>
+              <span
+                className="block font-display text-[40px] font-light leading-none mb-3"
+                style={{
+                  background: "linear-gradient(180deg, hsl(var(--vow-yellow) / 0.25), hsl(var(--vow-yellow) / 0.08))",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                02
+              </span>
+              <div className="flex items-center gap-3">
+                <div className="h-px w-8" style={{ background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.5), transparent)" }} />
+                <p className="text-xs uppercase tracking-[0.3em]" style={{ color: "hsl(var(--muted-foreground))" }}>
+                  THE ORIGIN
+                </p>
+                <div className="h-px w-8" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.5))" }} />
+              </div>
+            </div>
 
-            {/* The Story */}
             <div className="space-y-6">
               <p 
                 className={cn(
@@ -68,7 +81,6 @@ export function WitnessOrigin() {
               >
                 I sat in the second row at a wedding and couldn't hear a single word of the vows.
               </p>
-              
               <p 
                 className={cn(
                   "text-lg text-muted-foreground leading-relaxed transition-all duration-700",
@@ -78,7 +90,6 @@ export function WitnessOrigin() {
               >
                 The wind blew. The musician shrugged. The moment was lost.
               </p>
-              
               <p 
                 className={cn(
                   "text-lg text-muted-foreground leading-relaxed transition-all duration-700",
@@ -90,7 +101,6 @@ export function WitnessOrigin() {
               </p>
             </div>
 
-            {/* LetterPress Quote - replaces generic quote pattern */}
             <div 
               className={cn(
                 "transition-all duration-700",
@@ -105,7 +115,7 @@ export function WitnessOrigin() {
             </div>
           </div>
 
-          {/* RIGHT: Atmospheric Image (60%) with frame treatment */}
+          {/* RIGHT: GoldCornerImage (60%) */}
           <div 
             className={cn(
               "md:col-span-3 relative transition-all duration-1000 rounded-sm",
@@ -113,42 +123,19 @@ export function WitnessOrigin() {
             )}
             style={{ transitionDelay: "400ms" }}
           >
-            <div 
-              className="relative aspect-[3/4] max-h-[560px] overflow-hidden rounded-sm"
-              style={{
-                boxShadow: "0 20px 60px hsl(var(--rich-black) / 0.15), 0 0 0 1px hsl(var(--primary) / 0.08)",
+            <GoldCornerImage
+              src={aboutOriginImg}
+              alt="Empty wedding ceremony chairs at twilight with scattered petals"
+              frameIndex="FR01"
+              parallaxStyle={{
+                transform: 'translateY(var(--parallax-y, 0))',
+                transition: 'transform 0.1s linear',
               }}
-            >
-              <img 
-                src={aboutOriginImg} 
-                alt="Empty wedding ceremony chairs at twilight with scattered petals"
-                className="w-full h-full object-cover"
-                loading="lazy"
-                decoding="async"
-                style={{ 
-                  animation: "ken-burns 30s ease-in-out infinite alternate",
-                  filter: "saturate(0.85) contrast(1.05)",
-                  willChange: "transform",
-                  transform: 'translateY(var(--parallax-y, 0))',
-                  transition: 'transform 0.1s linear',
-                }}
-              />
-              {/* Cinematic vignette overlay */}
-              <div 
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  background: "radial-gradient(ellipse at center, transparent 30%, hsl(var(--background) / 0.6) 100%)"
-                }}
-                aria-hidden="true"
-              />
-              {/* Film grain */}
-              <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
-            </div>
+            />
           </div>
         </div>
       </div>
 
-      {/* Section fade bottom → Sustain */}
       <div 
         className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
         style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--background)))" }}
