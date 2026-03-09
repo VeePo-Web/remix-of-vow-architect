@@ -63,7 +63,7 @@ export function EventsAboutHero() {
         <p
           className={cn(
             "text-xs uppercase tracking-[0.3em] ml-[0.15em] mb-6 transition-all duration-700",
-            isVisible ? "opacity-50 translate-y-0" : "opacity-0 translate-y-4"
+            revealPhase >= 1 ? "opacity-50 translate-y-0" : "opacity-0 translate-y-4"
           )}
           style={{ color: "hsl(var(--muted-foreground))" }}
         >
