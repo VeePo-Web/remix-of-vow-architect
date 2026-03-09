@@ -16,7 +16,10 @@ export function WitnessOrigin() {
     <section 
       id="witness-origin"
       aria-label="The Origin"
-      ref={ref as React.RefObject<HTMLElement>}
+      ref={(node) => {
+        (ref as React.MutableRefObject<HTMLElement | null>).current = node;
+        (parallaxRef as React.MutableRefObject<HTMLElement | null>).current = node;
+      }}
       className="relative py-[120px] px-4 bg-background overflow-hidden piano-section-target"
     >
       {/* Grain overlay */}
