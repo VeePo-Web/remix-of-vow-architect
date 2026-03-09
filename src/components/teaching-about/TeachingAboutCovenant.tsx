@@ -63,10 +63,10 @@ export function TeachingAboutCovenant() {
           >
             <div className="absolute inset-0 grain opacity-[0.08] rounded-sm pointer-events-none" aria-hidden="true" />
 
-            <div className="absolute top-5 left-5 w-16 h-16 border-l border-t border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
-            <div className="absolute top-5 right-5 w-16 h-16 border-r border-t border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
-            <div className="absolute bottom-5 left-5 w-16 h-16 border-l border-b border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
-            <div className="absolute bottom-5 right-5 w-16 h-16 border-r border-b border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
+            <div className="absolute top-5 left-5 w-12 h-12 border-l border-t border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
+            <div className="absolute top-5 right-5 w-12 h-12 border-r border-t border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
+            <div className="absolute bottom-5 left-5 w-12 h-12 border-l border-b border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
+            <div className="absolute bottom-5 right-5 w-12 h-12 border-r border-b border-primary/40" style={{ filter: "drop-shadow(0 0 4px hsl(var(--vow-yellow) / 0.1))" }} />
 
             <div className="text-center mb-10 relative">
               <h2 className="font-display text-[clamp(24px,3vw,36px)] font-light text-foreground">
