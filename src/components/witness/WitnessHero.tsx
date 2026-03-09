@@ -7,11 +7,16 @@ import aboutHeroImg from "@/assets/about-hero.jpg";
  * Background image with cinematic vignette, film grain, warm fog
  */
 export function WitnessHero() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [revealPhase, setRevealPhase] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 300);
-    return () => clearTimeout(timer);
+    const timers = [
+      setTimeout(() => setRevealPhase(1), 200),   // Label
+      setTimeout(() => setRevealPhase(2), 500),   // Vibration string
+      setTimeout(() => setRevealPhase(3), 900),   // Headline
+      setTimeout(() => setRevealPhase(4), 1300),  // Subtitle
+    ];
+    return () => timers.forEach(clearTimeout);
   }, []);
 
   return (
