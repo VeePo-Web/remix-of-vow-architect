@@ -2,11 +2,15 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
+const stats = [
+  { value: "500+", label: "Songs" },
+  { value: "12", label: "Years" },
+  { value: "4", label: "Venue Types" },
+];
+
 const witnessedMoments = [
   "The CEO who teared up during the holiday dinner",
-  "The church congregation that sang along without being asked",
   "The cocktail hour where strangers became friends over shared silence",
-  "The private dinner where the host said 'the piano made the room'",
   "The reception where I played four hours and no one noticed the music — only the feeling",
   "The farewell gathering where one song said what words could not",
 ];
