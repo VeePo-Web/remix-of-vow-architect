@@ -33,7 +33,7 @@ export function WitnessPresence() {
       }}
       className="relative py-[120px] px-4 bg-background overflow-hidden piano-section-target"
     >
-      {/* Background image — overflow-hidden wrapper */}
+      {/* Background image with parallax */}
       <div className="absolute inset-0 overflow-hidden">
         <div 
           className="absolute inset-0 opacity-[0.10]"
@@ -42,6 +42,8 @@ export function WitnessPresence() {
             backgroundSize: "cover",
             backgroundPosition: "center",
             animation: "ken-burns 30s ease-in-out infinite alternate",
+            transform: 'translateY(var(--parallax-y, 0))',
+            transition: 'transform 0.1s linear',
           }}
           aria-hidden="true"
         />
