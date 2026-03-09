@@ -139,12 +139,13 @@ export function WitnessPresence() {
               </span>
             </div>
 
+
             <p 
               className={cn(
                 "font-display text-[clamp(20px,3vw,32px)] font-light text-center text-muted-foreground mt-4 transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
-              style={{ transitionDelay: "500ms" }}
+              style={{ transitionDelay: "600ms" }}
             >
               ceremonies witnessed
             </p>
