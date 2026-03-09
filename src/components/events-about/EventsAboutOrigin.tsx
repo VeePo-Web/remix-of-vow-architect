@@ -126,42 +126,7 @@ export function EventsAboutOrigin() {
             </div>
           </div>
 
-          {/* RIGHT: Atmospheric Image (60%) */}
-          <div
-            className={cn(
-              "md:col-span-3 relative transition-all duration-1000 rounded-sm",
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            )}
-            style={{ transitionDelay: "400ms" }}
-          >
-            <div
-              className="relative aspect-[3/4] max-h-[560px] overflow-hidden rounded-sm"
-              style={{
-                boxShadow: "0 20px 60px hsl(var(--rich-black) / 0.15), 0 0 0 1px hsl(var(--primary) / 0.08)",
-              }}
-            >
-              <img
-                src={eventsHeroImg}
-                alt="An intimate event venue with warm ambient lighting"
-                className="w-full h-full object-cover"
-                loading="lazy"
-                decoding="async"
-                style={{
-                  animation: "ken-burns 30s ease-in-out infinite alternate",
-                  filter: "saturate(0.85) contrast(1.05)",
-                  willChange: "transform",
-                }}
-              />
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  background: "radial-gradient(ellipse at center, transparent 30%, hsl(var(--background) / 0.6) 100%)",
-                }}
-                aria-hidden="true"
-              />
-              <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
-            </div>
-          </div>
+          {/* Image now rendered above in flipped order */}
         </div>
       </div>
 

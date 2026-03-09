@@ -106,7 +106,7 @@ export function TeachingAboutCovenant() {
               <div className="relative h-16 mb-4 flex items-center justify-center">
                 <svg viewBox="0 0 200 50" className="w-48 h-auto" style={{ overflow: "visible" }}>
                   <path
-                    d="M10,35 Q30,10 50,30 T90,25 Q110,20 130,30 T170,28 Q185,25 190,30"
+                    d="M12,38 Q28,12 55,32 T85,20 Q105,15 125,28 T160,24 Q175,20 188,28"
                     fill="none"
                     stroke="hsl(var(--foreground))"
                     strokeWidth="1.5"
