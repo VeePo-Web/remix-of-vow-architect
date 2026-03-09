@@ -85,24 +85,18 @@ export function WitnessOrigin() {
               </p>
             </div>
 
-            {/* The Vow — golden thread separator */}
+            {/* LetterPress Quote - replaces generic quote pattern */}
             <div 
               className={cn(
-                "pt-8 transition-all duration-700",
+                "transition-all duration-700",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               )}
               style={{ transitionDelay: "800ms" }}
             >
-              <div 
-                className="h-[1px] w-full mb-8"
-                style={{ background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.3), transparent)" }}
+              <LetterPressQuote 
+                quote="No couple should ever wonder if their guests heard their vows."
+                attribution="The Origin Moment"
               />
-              <p className="font-display text-xl italic text-primary">
-                "No couple should ever wonder if their guests heard their vows."
-              </p>
-              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mt-3 opacity-50">
-                — Parker
-              </p>
             </div>
           </div>
 
