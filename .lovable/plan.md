@@ -1,33 +1,62 @@
 
 
-# Plan: Create Events Brand Identity Document
+# Comprehensive Site-Wide Luxury Polish Plan
 
-Create `.lovable/events-brand-identity.md` following the same structure as the wedding and teaching documents — Brand Truth Table, Non-Negotiables/Flex/Dealbreakers, Brand Spine, Positioning, Customer Identity Mirror, Messaging, Voice, and Visual direction.
+## Priority 1: Fix Broken CTA Routing (Critical UX Bug)
 
-## Key Differentiators from Other Verticals
+Every Events and Teaching page CTA currently routes to `/contact` (the Weddings contact page) instead of the correct vertical-specific contact page. This is a conversion-killing bug.
 
-- **Tone:** Professional and polished, not sacred/vigil (weddings) or warm/mentorship (teaching)
-- **Category:** "Private Event Pianist" — not "sound director" or "mentor"
-- **Mission:** "I understand what live music does to a room" — atmospheric, not ceremonial
-- **Tagline adaptation:** "Every room has a sound it's waiting for."
-- **Enemy:** The generic playlist, the background-noise assumption, the DJ who drowns conversation
-- **Audience:** Hosts planning private dinners, church services, cocktail receptions, intimate celebrations — people who care about atmosphere and presence
+**Files to fix:**
+- `src/components/events/EventsCrossing.tsx` — `/contact` → `/events/contact`
+- `src/components/events-about/EventsAboutCrossing.tsx` — `/contact` → `/events/contact`
+- `src/pages/EventsPricing.tsx` — all `/contact` → `/events/contact`
+- `src/components/teaching/TeachingCrossing.tsx` — `/contact` → `/teaching/contact`
+- `src/components/teaching/TeachingOffering.tsx` — `/contact` → `/teaching/contact`
+- `src/components/teaching-about/TeachingAboutCrossing.tsx` — `/contact` → `/teaching/contact`
+- `src/pages/TeachingPricing.tsx` — `/contact` → `/teaching/contact`
 
-## Document Structure (matching existing format)
+## Priority 2: Proof Page — Remove Cheap Lucide Icons
 
-1. **Brand Truth Table** — Events-specific truths (500+ events, 4 occasion types, 500+ repertoire, room-reading ability)
-2. **Non-Negotiables / Flex / Dealbreakers** — Professional tone rules, no "sacred/vigil" language, no entertainment framing
-3. **Brand Spine** — Category stance, enemy, audience, promise, proof, personality
-4. **Positioning & Differentiators** — "Private Event Pianist" category, differentiator table vs DJs/playlists/bands
-5. **Customer Identity Mirror** — "You are my people if..." / "Not for you if..." for event hosts
-6. **Messaging Pillars** — Atmosphere, Adaptability, Professionalism
-7. **Voice & Lexicon** — Events-specific word choices (allowed/banned), CTA phrasing
-8. **Visual Direction** — How the events page differs aesthetically from weddings/teaching
-9. **Cross-Vertical Coherence** — How events connects to the broader Sacred Sound brand
+Lines 107-119 of `src/pages/Proof.tsx` render four trust badges using `Shield, Zap, Layers, Clock` Lucide icons inside bordered cards. These read as generic SaaS trust badges.
 
-## File
+**Replace with:** Gold gradient editorial numerals (01–04) above each label, no card backgrounds, no icons. Same horizontal row but using the editorial numeral pattern from the brand system.
 
-- **Create:** `.lovable/events-brand-identity.md`
+**File:** `src/pages/Proof.tsx` — remove `Shield, Zap, Layers, Clock` import, replace trust stack grid with gold-numeral layout.
 
-No code changes required.
+## Priority 3: Events About — Differentiate Sustain Section
+
+`EventsAboutSustain.tsx` uses the same SVG three-node graphic as Weddings and Teaching. Replace with gold gradient editorial numerals (01, 02, 03) above each principle — no SVG, no connecting line, let whitespace create the connection.
+
+**File:** `src/components/events-about/EventsAboutSustain.tsx` — remove SVG block (lines ~55-82), replace with numeral-based layout.
+
+## Priority 4: Teaching About — Differentiate Sustain Section
+
+`TeachingAboutSustain.tsx` uses the same SVG. Replace with a vertical stacked layout — three belief blocks separated by golden dot dividers, no horizontal grid. This matches the "patience" brand.
+
+**File:** `src/components/teaching-about/TeachingAboutSustain.tsx` — remove SVG, switch from `grid md:grid-cols-3` to vertical stack with dot separators.
+
+## Priority 5: Events About Presence — Unique Metric Display
+
+`EventsAboutPresence.tsx` duplicates the Weddings "500+" big number + 6-card grid pattern. Replace the single big number with a horizontal stats row (3 metrics: "500+ Songs", "12 Years", "4 Venue Types") and reduce the card grid from 6 items to 3-4 for tighter editorial impact.
+
+**File:** `src/components/events-about/EventsAboutPresence.tsx`
+
+## Priority 6: Teaching About Presence — Reduce Card Count
+
+`TeachingAboutPresence.tsx` shows 6 witness moment cards. Reduce to 3 (keep only the most emotionally resonant). Remove quotation marks from cards — they add visual noise.
+
+**File:** `src/components/teaching-about/TeachingAboutPresence.tsx`
+
+## Priority 7: AboutScrollProgress — Increase Golden Thread Visibility
+
+`AboutScrollProgress.tsx` line 27: increase glow from `0.3` to `0.5` opacity for better visibility on the dark backgrounds.
+
+**File:** `src/components/AboutScrollProgress.tsx`
+
+## Summary
+
+- **7 priority tiers**, ~12 files modified
+- **No new dependencies** required
+- **No new components** — all refinements to existing patterns
+- **Highest impact first:** CTA routing fix ensures visitors land on correct contact forms
 
