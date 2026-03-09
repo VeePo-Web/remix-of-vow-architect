@@ -211,11 +211,22 @@ export default function Gateway() {
       >
         <p className="font-display text-[16px] font-light text-muted-foreground tracking-tight">
           'Til Death
-          <span
-            className="semicolon-breathe text-primary"
-            style={{ animation: "semicolon-breathe 4s ease-in-out infinite" }}
-          >
-            {" ; "}
+          <span className="relative inline-block">
+            {/* Breathing halo behind semicolon */}
+            <span 
+              className="absolute inset-0 -inset-x-3 rounded-full pointer-events-none"
+              style={{
+                background: "radial-gradient(circle, hsl(var(--vow-yellow) / 0.25) 0%, transparent 70%)",
+                animation: "semicolon-breathe 4s ease-in-out infinite",
+              }}
+              aria-hidden="true"
+            />
+            <span
+              className="relative semicolon-breathe text-primary"
+              style={{ animation: "semicolon-breathe 4s ease-in-out infinite" }}
+            >
+              {" ; "}
+            </span>
           </span>
           Unto Life<span className="text-primary">.</span>
         </p>

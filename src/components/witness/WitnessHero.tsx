@@ -20,7 +20,7 @@ export function WitnessHero() {
   }, []);
 
   return (
-    <section id="witness-hero" aria-label="The Witness" className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-background piano-section-target">
+    <section id="witness-hero" aria-label="The Witness" className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-background piano-section-target">
       {/* Background image with Ken Burns — overflow-hidden wrapper */}
       <div className="absolute inset-0 overflow-hidden">
         <div 

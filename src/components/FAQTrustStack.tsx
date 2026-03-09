@@ -1,5 +1,4 @@
 import { TestimonialAvatar } from "@/components/TestimonialAvatar";
-import { AlertTriangle, HelpCircle, FileText, Heart } from "lucide-react";
 
 const testimonials = [
   {
@@ -23,10 +22,10 @@ const testimonials = [
 ];
 
 const journeySteps = [
-  { icon: AlertTriangle, label: "Fear", color: "text-muted-foreground" },
-  { icon: HelpCircle, label: "Uncertainty", color: "text-muted-foreground" },
-  { icon: FileText, label: "Plan", color: "text-primary opacity-70" },
-  { icon: Heart, label: "Relief", color: "text-accent" }
+  { numeral: "01", label: "Fear" },
+  { numeral: "02", label: "Uncertainty" },
+  { numeral: "03", label: "Plan" },
+  { numeral: "04", label: "Relief" },
 ];
 
 export function FAQTrustStack() {
@@ -63,23 +62,40 @@ export function FAQTrustStack() {
             ))}
           </div>
 
-          {/* Psychological Journey */}
+          {/* Psychological Journey — Gold Editorial Numerals */}
           <div className="bg-card/60 backdrop-blur-[6px] border border-border/40 rounded-lg p-8">
-            <div className="grid grid-cols-4 gap-4 max-w-2xl mx-auto">
+            <div className="flex items-center justify-center gap-0 max-w-2xl mx-auto">
               {journeySteps.map((step, index) => (
-                <div key={index} className="relative">
-                  <div className="flex flex-col items-center gap-3">
-                    <div className={`${step.color} transition-colors`}>
-                      <step.icon className="w-8 h-8" />
-                    </div>
-                    <span className={`text-sm font-display font-medium ${step.color}`}>
+                <div key={index} className="relative flex items-center">
+                  <div className="flex flex-col items-center gap-2 px-4 sm:px-6">
+                    {/* Gold numeral with breathing glow */}
+                    <span 
+                      className="font-display text-2xl font-light"
+                      style={{
+                        color: index === 3 ? 'hsl(var(--vow-yellow))' : 'hsl(var(--muted-foreground))',
+                        textShadow: index === 3 ? '0 0 16px hsl(var(--vow-yellow) / 0.4)' : 'none',
+                      }}
+                    >
+                      {step.numeral}
+                    </span>
+                    <span 
+                      className="text-xs font-display uppercase tracking-wider"
+                      style={{
+                        color: index === 3 ? 'hsl(var(--vow-yellow))' : 'hsl(var(--muted-foreground))',
+                      }}
+                    >
                       {step.label}
                     </span>
                   </div>
+                  {/* Golden thread connector */}
                   {index < journeySteps.length - 1 && (
                     <div
-                      className="absolute top-4 left-[60%] w-[80%] h-px hidden sm:block"
-                      style={{ background: "linear-gradient(90deg, hsl(var(--border)), hsl(var(--vow-yellow) / 0.2))" }}
+                      className="w-8 sm:w-12 h-px hidden sm:block"
+                      style={{ 
+                        background: index >= 2 
+                          ? "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.3), hsl(var(--vow-yellow) / 0.5))" 
+                          : "linear-gradient(90deg, hsl(var(--border)), hsl(var(--vow-yellow) / 0.2))" 
+                      }}
                     />
                   )}
                 </div>
