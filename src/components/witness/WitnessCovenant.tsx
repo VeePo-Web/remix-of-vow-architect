@@ -108,47 +108,89 @@ export function WitnessCovenant() {
 
             {/* Signature Area with breathing glow */}
             <div className="relative text-center pt-8 border-t border-border/20">
-              {/* Breathing golden glow behind signature — stronger */}
+              {/* Breathing glow intensifies after signature completes */}
               <div 
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-32 rounded-full pointer-events-none motion-reduce:animate-none"
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-40 rounded-full pointer-events-none motion-reduce:hidden"
                 style={{
-                  background: "radial-gradient(ellipse, hsl(var(--vow-yellow) / 0.10) 0%, transparent 70%)",
-                  animation: signatureDrawn ? "vigil-pulse 8s ease-in-out infinite" : "none",
+                  background: "radial-gradient(ellipse, hsl(var(--vow-yellow) / 0.12) 0%, transparent 70%)",
+                  animation: signatureDrawn ? "vigil-pulse 4s ease-in-out infinite" : "none",
+                  opacity: signatureDrawn ? 1 : 0,
+                  transition: "opacity 1.5s ease-out"
                 }}
                 aria-hidden="true"
               />
 
-              {/* Signature SVG with draw animation */}
+              {/* Signature SVG with ink-bloom effect */}
               <div className="relative h-16 mb-4 flex items-center justify-center">
                 <svg 
-                  viewBox="0 0 200 50" 
-                  className="w-48 h-auto"
+                  viewBox="0 0 240 60" 
+                  className="w-60 h-auto"
                   style={{ overflow: "visible" }}
                 >
+                  <defs>
+                    {/* Ink bloom filter */}
+                    <filter id="inkBloom" x="-50%" y="-50%" width="200%" height="200%">
+                      <feGaussianBlur stdDeviation={signatureDrawn ? "0" : "2"} result="blur">
+                        <animate 
+                          attributeName="stdDeviation" 
+                          from="2" 
+                          to="0" 
+                          dur="1.5s" 
+                          begin="0s" 
+                          fill="freeze"
+                          className="motion-reduce:hidden"
+                        />
+                      </feGaussianBlur>
+                    </filter>
+                    
+                    {/* Golden trail filter */}
+                    <filter id="goldenTrail" x="-50%" y="-50%" width="200%" height="200%">
+                      <feGaussianBlur stdDeviation="1.5" />
+                    </filter>
+                  </defs>
+                  
+                  {/* Golden trail path (200ms delay) */}
                   <path
-                    d="M10,35 Q30,10 50,30 T90,25 Q110,20 130,30 T170,28 Q185,25 190,30"
+                    d="M20,30 Q40,20 60,30 T100,30 Q110,28 120,30 T160,30 Q170,28 180,30 T220,30"
+                    fill="none"
+                    stroke="hsl(var(--vow-yellow))"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    filter="url(#goldenTrail)"
+                    opacity={signatureDrawn ? "0.4" : "0"}
+                    style={{
+                      strokeDasharray: 300,
+                      strokeDashoffset: signatureDrawn ? 0 : 300,
+                      transition: "stroke-dashoffset 1.7s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s, opacity 0.5s ease-out 1.5s",
+                    }}
+                  />
+                  
+                  {/* Main signature with ink bloom */}
+                  <path
+                    d="M20,30 Q40,20 60,30 T100,30 Q110,28 120,30 T160,30 Q170,28 180,30 T220,30"
                     fill="none"
                     stroke="hsl(var(--foreground))"
                     strokeWidth="1.5"
                     strokeLinecap="round"
-                    className={cn(
-                      "transition-all duration-1000",
-                      signatureDrawn ? "signature-drawn" : "signature-hidden"
-                    )}
+                    filter="url(#inkBloom)"
                     style={{
                       strokeDasharray: 300,
                       strokeDashoffset: signatureDrawn ? 0 : 300,
+                      transition: "stroke-dashoffset 1.5s cubic-bezier(0.22, 0.61, 0.36, 1)",
                     }}
                   />
                 </svg>
               </div>
               
-              {/* Name */}
+              {/* Name with subtle emboss */}
               <p 
                 className={cn(
                   "font-display text-xl text-foreground transition-all duration-700",
                   signatureDrawn ? "opacity-100" : "opacity-0"
                 )}
+                style={{
+                  textShadow: '0 1px 2px hsl(var(--rich-black) / 0.3), 0 -1px 1px hsl(var(--vow-yellow) / 0.05)'
+                }}
               >
                 Parker Gawryletz
               </p>

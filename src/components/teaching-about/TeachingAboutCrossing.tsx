@@ -87,9 +87,9 @@ export function TeachingAboutCrossing() {
             )}
             style={{ transitionDelay: "600ms" }}
           >
-            <Button asChild size="lg" variant="primary-dark">
+            <ShimmerButton asChild>
               <Link to="/contact">Begin the conversation</Link>
-            </Button>
+            </ShimmerButton>
           </div>
 
           <p
