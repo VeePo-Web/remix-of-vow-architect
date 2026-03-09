@@ -99,18 +99,16 @@ export function WitnessHero() {
           {/* The Statement — constrained width for visual centering */}
           <h1 
             className={`font-display text-[clamp(32px,5vw,56px)] font-light leading-[1.1] mb-6 max-w-[16ch] mx-auto transition-all duration-700 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              revealPhase >= 3 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             }`}
-            style={{ transitionDelay: "800ms" }}
           >
             I don't perform at weddings.
           </h1>
           
           <p 
             className={`font-display text-[clamp(24px,3.5vw,40px)] font-light text-primary leading-[1.2] transition-all duration-700 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              revealPhase >= 4 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             }`}
-            style={{ transitionDelay: "1100ms" }}
           >
             I witness them.
           </p>
