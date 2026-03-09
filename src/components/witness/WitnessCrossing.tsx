@@ -1,7 +1,8 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import crossingImg from "@/assets/witness-crossing-ai.jpg";
 import crossingImg from "@/assets/witness-crossing-ai.jpg";
 
 export function WitnessCrossing() {
