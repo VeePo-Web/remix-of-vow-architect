@@ -11,7 +11,7 @@ import { RedundancyStack } from "@/components/RedundancyStack";
 import { DownloadablePlans } from "@/components/DownloadablePlans";
 import { RevealOnScroll } from "@/components/animation";
 import { usePageTheme } from "@/hooks/usePageTheme";
-import { Shield, Zap, Layers, Clock } from "lucide-react";
+
 import { Link } from "react-router-dom";
 import galleryHeroImg from "@/assets/gallery-hero.jpg";
 
