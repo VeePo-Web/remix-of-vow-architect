@@ -1,4 +1,3 @@
-import { Download, ShieldCheck } from "lucide-react";
 import { Card } from "./ui/card";
 import { Button } from "./ui/button";
 import { StaggerChildren } from "@/components/animation";
@@ -9,6 +8,22 @@ const splReadings = [
   { phase: "Recessional", reading: "dynamic peak logged", location: "", note: "(timestamp)" },
 ];
 
+function GoldNumeral({ n }: { n: number }) {
+  return (
+    <span
+      className="font-display text-lg font-light"
+      style={{
+        background: "linear-gradient(180deg, hsl(var(--vow-yellow)), hsl(var(--vow-yellow) / 0.5))",
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+        backgroundClip: "text",
+      }}
+    >
+      {String(n).padStart(2, "0")}
+    </span>
+  );
+}
+
 export function ProofBlock() {
   return (
     <section className="section--surface py-24 px-4">
@@ -17,7 +32,6 @@ export function ProofBlock() {
           Proof beats promises.
         </h2>
 
-        {/* SPL Readings Carousel */}
         <StaggerChildren staggerDelay={80} className="grid md:grid-cols-3 gap-6 mb-12">
           {splReadings.map((reading, index) => (
             <Card key={index} className="p-8">
@@ -32,10 +46,8 @@ export function ProofBlock() {
           ))}
         </StaggerChildren>
 
-        {/* Download Sample Report */}
         <div className="text-center mb-12">
-          <Button variant="outline" size="lg" className="gap-2">
-            <Download size={20} />
+          <Button variant="outline" size="lg">
             Sample Post-Ceremony Report (PDF)
           </Button>
           <p className="text-sm text-muted-foreground mt-3">
@@ -43,10 +55,9 @@ export function ProofBlock() {
           </p>
         </div>
 
-        {/* Guarantee Box */}
         <Card className="p-8 bg-accent/5 border-accent/30 border-2 mb-8">
           <div className="flex items-start gap-4">
-            <ShieldCheck size={28} className="text-accent shrink-0" />
+            <GoldNumeral n={1} />
             <div>
               <h3 className="h4 mb-3">Power & Clarity Guarantee</h3>
               <p className="p-body">
@@ -56,7 +67,6 @@ export function ProofBlock() {
           </div>
         </Card>
 
-        {/* Coverage List */}
         <div className="text-center">
           <p className="text-sm text-muted-foreground">
             $2M professional liability • $2M general liability • $25k equipment coverage. Documents available on request.

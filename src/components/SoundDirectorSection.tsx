@@ -1,15 +1,30 @@
-import { Piano, Mic, Battery, Clock, FileCheck, Activity } from "lucide-react";
 import { SetupTimeline } from "./SetupTimeline";
 import { StaggerChildren } from "@/components/animation";
 
 const kitItems = [
-  { icon: Piano, label: "88-key digital grand + venue-piano fallback" },
-  { icon: Mic, label: "Wireless lav mic + live mixing pack" },
-  { icon: Battery, label: "Redundant battery amp + backup keyboard" },
-  { icon: Clock, label: "≥60-minute pre-call setup window" },
-  { icon: FileCheck, label: "Run-of-show PDF, co-signed" },
-  { icon: Activity, label: "SPL log recorded & delivered post-event" },
+  "88-key digital grand + venue-piano fallback",
+  "Wireless lav mic + live mixing pack",
+  "Redundant battery amp + backup keyboard",
+  "≥60-minute pre-call setup window",
+  "Run-of-show PDF, co-signed",
+  "SPL log recorded & delivered post-event",
 ];
+
+function GoldNumeral({ n }: { n: number }) {
+  return (
+    <span
+      className="font-display text-sm font-light tracking-wide shrink-0"
+      style={{
+        background: "linear-gradient(180deg, hsl(var(--vow-yellow)), hsl(var(--vow-yellow) / 0.5))",
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+        backgroundClip: "text",
+      }}
+    >
+      {String(n).padStart(2, "0")}
+    </span>
+  );
+}
 
 export function SoundDirectorSection() {
   return (
@@ -31,8 +46,8 @@ export function SoundDirectorSection() {
               key={index}
               className="flex items-start gap-4 p-6 rounded-lg bg-card/50 border border-border/50"
             >
-              <item.icon size={24} className="text-primary shrink-0" />
-              <span className="p-body font-medium">{item.label}</span>
+              <GoldNumeral n={index + 1} />
+              <span className="p-body font-medium">{item}</span>
             </div>
           ))}
         </StaggerChildren>
