@@ -186,8 +186,13 @@ export default function TeachingContact() {
               {trustStats.map((stat) => (
                 <div key={stat.label}>
                   <p
-                    className="font-display font-light text-foreground/40"
-                    style={{ fontSize: "clamp(16px, 2vw, 20px)" }}
+                    className="font-display font-light"
+                    style={{
+                      fontSize: "clamp(17px, 2vw, 21px)",
+                      background: "linear-gradient(180deg, hsl(var(--vow-yellow)), hsl(var(--vow-yellow) / 0.5))",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                    }}
                   >
                     {stat.value}
                   </p>
