@@ -1,7 +1,7 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import eventsHeroImg from "@/assets/events-hero.jpg";
 
 export function EventsAboutCrossing() {
