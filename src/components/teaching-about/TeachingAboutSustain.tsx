@@ -50,54 +50,38 @@ export function TeachingAboutSustain() {
             What I carry to every lesson.
           </h2>
 
-          <div
-            className={cn(
-              "relative mb-16 transition-all duration-1000",
-              isVisible ? "opacity-100" : "opacity-0"
-            )}
-            style={{ transitionDelay: "400ms" }}
-          >
-            <svg viewBox="0 0 600 60" className="w-full max-w-lg mx-auto h-auto" aria-hidden="true">
-              <defs>
-                <filter id="teachingNodeGlow">
-                  <feGaussianBlur stdDeviation="4" result="blur" />
-                  <feMerge>
-                    <feMergeNode in="blur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-              <line x1="100" y1="30" x2="500" y2="30" stroke="hsl(var(--vow-yellow))" strokeWidth="1" opacity="0.25" />
-              {[100, 300, 500].map((cx, i) => (
-                <circle
-                  key={i}
-                  cx={cx}
-                  cy={30}
-                  r={6}
-                  fill="hsl(var(--vow-yellow))"
-                  filter="url(#teachingNodeGlow)"
-                  className={cn(
-                    "transition-opacity duration-700",
-                    isVisible ? "opacity-100" : "opacity-0"
-                  )}
-                  style={{ transitionDelay: `${600 + i * 200}ms` }}
-                />
-              ))}
-            </svg>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-12">
+          {/* Vertical stacked beliefs with golden dot separators */}
+          <div className="max-w-xl mx-auto space-y-0">
             {threeBeliefs.map((item, index) => (
-              <div
-                key={item.label}
-                className={cn(
-                  "text-center transition-all duration-700",
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              <div key={item.label}>
+                <div
+                  className={cn(
+                    "py-10 text-center transition-all duration-700",
+                    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+                  )}
+                  style={{ transitionDelay: `${400 + index * 200}ms` }}
+                >
+                  <h3 className="font-display text-2xl text-foreground mb-3">{item.label}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{item.description}</p>
+                </div>
+                {index < threeBeliefs.length - 1 && (
+                  <div
+                    className={cn(
+                      "flex justify-center transition-all duration-700",
+                      isVisible ? "opacity-100" : "opacity-0"
+                    )}
+                    style={{ transitionDelay: `${500 + index * 200}ms` }}
+                    aria-hidden="true"
+                  >
+                    <div
+                      className="w-1.5 h-1.5 rounded-full"
+                      style={{
+                        background: "hsl(var(--vow-yellow) / 0.6)",
+                        boxShadow: "0 0 8px hsl(var(--vow-yellow) / 0.3)",
+                      }}
+                    />
+                  </div>
                 )}
-                style={{ transitionDelay: `${600 + index * 200}ms` }}
-              >
-                <h3 className="font-display text-xl text-foreground mb-3">{item.label}</h3>
-                <p className="text-muted-foreground leading-relaxed">{item.description}</p>
               </div>
             ))}
           </div>
