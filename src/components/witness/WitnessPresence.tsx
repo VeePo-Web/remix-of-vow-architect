@@ -12,9 +12,7 @@ import aboutPresenceImg from "@/assets/about-presence.jpg";
 const witnessedMoments = [
   "The bride who forgot her vows—and spoke from the heart instead",
   "The groom who cried before he could say 'I do'",
-  "The father who couldn't finish his toast",
   "The grandmother who heard every word from the last row",
-  "The wind that tried to steal every word",
   "The silence after the first kiss that no one wanted to break",
 ];
 
