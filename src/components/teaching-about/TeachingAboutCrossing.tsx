@@ -6,6 +6,7 @@ import teachingBenchImg from "@/assets/teaching-bench.jpg";
 
 export function TeachingAboutCrossing() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
+  const navigate = useNavigate();
 
   return (
     <section

@@ -3,10 +3,10 @@ import { cn } from "@/lib/utils";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { useNavigate } from "react-router-dom";
 import crossingImg from "@/assets/witness-crossing-ai.jpg";
-import crossingImg from "@/assets/witness-crossing-ai.jpg";
 
 export function WitnessCrossing() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
+  const navigate = useNavigate();
 
   return (
     <section 

@@ -6,6 +6,7 @@ import eventsHeroImg from "@/assets/events-hero.jpg";
 
 export function EventsAboutCrossing() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
+  const navigate = useNavigate();
 
   return (
     <section
