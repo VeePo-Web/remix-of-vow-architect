@@ -1,10 +1,8 @@
 import { MinimalHeader } from "@/components/MinimalHeader";
 import { Footer } from "@/components/Footer";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
+import { LuxuryInput, LuxuryTextarea } from "@/components/ui/luxury-input";
+import { ContactCelebration } from "@/components/ContactCelebration";
 import { useState, useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { useForm } from "react-hook-form";
@@ -12,14 +10,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import teachingBenchImg from "@/assets/teaching-bench.jpg";
 
-const teachingContactSchema = z.object({
+/* ─── Schema ──────────────────────────────────────────────────────────────── */
+const schema = z.object({
   name: z.string().min(2, "Please share your name so I know who I am speaking with"),
   email: z.string().email("Please add your email so I can write back"),
   reason: z.string().optional(),
 });
+type FormData = z.infer<typeof schema>;
 
-type TeachingContactData = z.infer<typeof teachingContactSchema>;
+const trustStats = [
+  { value: "24hr", label: "Response Time" },
+  { value: "No", label: "Audition" },
+  { value: "Free", label: "First Chat" },
+];
 
+/* ─── Page ─────────────────────────────────────────────────────────────────── */
 export default function TeachingContact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   usePageTheme();
@@ -37,199 +42,179 @@ export default function TeachingContact() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<TeachingContactData>({
-    resolver: zodResolver(teachingContactSchema),
-  });
+    formState: { errors, isSubmitting },
+  } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-  const onSubmit = (data: TeachingContactData) => {
-    console.log("Teaching inquiry:", data);
+  const onSubmit = (_data: FormData) => {
     setIsSubmitted(true);
   };
 
+  /* ── Success state ──────────────────────────────────────────────────────── */
+  if (isSubmitted) {
+    return <ContactCelebration vertical="teaching" />;
+  }
+
+  /* ── Form ───────────────────────────────────────────────────────────────── */
   return (
     <div className="min-h-screen bg-background">
       <MinimalHeader />
+
       <main>
+        {/* ── Hero ──────────────────────────────────────────────────────────── */}
         <section
-          className="relative section-padding bg-background overflow-hidden"
-          aria-label="Begin the conversation"
+          className="relative h-[38vh] min-h-[260px] overflow-hidden"
+          aria-hidden="true"
         >
-          {/* Atmospheric layers */}
-          <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+          <img
+            src={teachingBenchImg}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover object-center"
+            loading="eager"
+            style={{ animation: "ken-burns 30s ease-in-out infinite alternate" }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to bottom, hsl(var(--background) / 0.25) 0%, hsl(var(--background) / 0.9) 100%)",
+            }}
+          />
+          <div className="absolute inset-0 grain opacity-[0.05] pointer-events-none" />
+        </section>
+
+        {/* ── Form section ──────────────────────────────────────────────────── */}
+        <section className="py-16 md:py-24 px-4 relative">
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(ellipse at 50% 0%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 60%)",
+            }}
+            aria-hidden="true"
+          />
+
+          <div className="container max-w-4xl mx-auto relative z-10">
+            {/* Header */}
+            <div className="text-center mb-14">
+              <p className="overline text-primary/50 mb-3">The First Note</p>
+              <h1
+                className="font-display font-light text-foreground"
+                style={{ fontSize: "clamp(28px, 4vw, 42px)", lineHeight: 1.15 }}
+              >
+                The first question I ask<br className="hidden sm:block" /> is never about music.
+              </h1>
+              <div className="chapter-rule mx-auto mt-6 mb-6" />
+              <p className="text-muted-foreground font-light max-w-md mx-auto leading-relaxed" style={{ fontSize: "clamp(15px, 1.4vw, 17px)" }}>
+                A name, an email, and whatever brought you here — that is enough to begin.
+              </p>
+            </div>
+
+            {/* Form card */}
             <div
-              className="absolute inset-0 opacity-[0.08]"
+              className="max-w-xl mx-auto rounded-lg p-8 md:p-12"
               style={{
-                backgroundImage: `url(${teachingBenchImg})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                maskImage:
-                  "linear-gradient(to bottom, black 0%, transparent 50%)",
-                WebkitMaskImage:
-                  "linear-gradient(to bottom, black 0%, transparent 50%)",
-                animation: "ken-burns 30s ease-in-out infinite alternate",
+                background: "hsl(var(--card) / 0.45)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                border: "1px solid hsl(var(--border) / 0.2)",
+                boxShadow:
+                  "0 1px 60px hsl(var(--background) / 0.4), inset 0 1px 0 hsl(var(--vow-yellow) / 0.04)",
               }}
-            />
-          </div>
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                "radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.01) 0%, transparent 50%)",
-            }}
-            aria-hidden="true"
-          />
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 100%)",
-            }}
-            aria-hidden="true"
-          />
-          <div
-            className="absolute inset-0 grain opacity-[0.05] pointer-events-none"
-            aria-hidden="true"
-          />
-
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-xl mx-auto animate-fade-in">
-              <div className="text-center mb-10">
-                <div className="overline mb-2">The First Note</div>
-                <h1 className="h1 mx-auto">
-                  The first question I ask is never about music.
-                </h1>
-                <div className="chapter-rule mx-auto" />
-                <p className="p-lead mx-auto text-muted-foreground mt-6">
-                  A name, an email, and whatever brought you here — that is
-                  enough to begin.
-                </p>
-              </div>
-
-              {isSubmitted ? (
-                <div className="p-8 bg-card/40 backdrop-blur-[8px] rounded-lg animate-fade-in">
-                  <div className="text-center space-y-4">
-                    <span
-                      className="inline-block font-display text-[40px] font-light text-primary"
-                      style={{
-                        textShadow: "0 0 20px hsl(var(--vow-yellow) / 0.4), 0 0 40px hsl(var(--vow-yellow) / 0.15)",
-                        animation: "semicolon-success-glow 4s ease-in-out infinite",
-                      }}
-                      aria-hidden="true"
-                    >
-                      ;
-                    </span>
-                    <h2 className="font-display text-[clamp(20px,2.5vw,28px)] font-light">
-                      I received your note.
-                    </h2>
-                    <p className="text-muted-foreground text-sm max-w-sm mx-auto leading-relaxed">
-                      I will write back within 24 hours — not with a sales
-                      pitch, but with a question or two of my own. This is how
-                      every good lesson begins.
+            >
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-10" noValidate>
+                {/* Fields */}
+                <div className="space-y-7">
+                  <LuxuryInput
+                    label="Your name"
+                    id="name"
+                    error={errors.name?.message}
+                    {...register("name")}
+                  />
+                  <LuxuryInput
+                    label="Email address"
+                    id="email"
+                    type="email"
+                    error={errors.email?.message}
+                    {...register("email")}
+                  />
+                  <div>
+                    <LuxuryTextarea
+                      label="What brought you to the piano?"
+                      id="reason"
+                      rows={3}
+                      placeholder="A memory, a person, a song, a feeling..."
+                      {...register("reason")}
+                    />
+                    <p className="text-[0.5rem] tracking-[0.1em] uppercase text-muted-foreground/30 mt-2 font-light">
+                      There is no wrong answer.
                     </p>
                   </div>
                 </div>
-              ) : (
-                <div className="p-8 bg-card/40 backdrop-blur-[8px] rounded-lg">
-                  <form
-                    onSubmit={handleSubmit(onSubmit)}
-                    className="space-y-6"
+
+                {/* Submit */}
+                <div style={{ borderTop: "1px solid hsl(var(--border) / 0.15)" }} className="pt-8">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="relative w-full py-4 overflow-hidden group transition-all duration-300 disabled:opacity-50"
+                    style={{
+                      background: "hsl(var(--primary))",
+                      color: "hsl(var(--primary-foreground))",
+                    }}
                   >
-                    <div>
-                      <Label htmlFor="name">Your name</Label>
-                      <Input
-                        id="name"
-                        {...register("name")}
-                        className="mt-2"
-                      />
-                      {errors.name && (
-                        <p className="text-xs text-destructive mt-1">
-                          {errors.name.message}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <Label htmlFor="email">Email</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        {...register("email")}
-                        className="mt-2"
-                      />
-                      {errors.email && (
-                        <p className="text-xs text-destructive mt-1">
-                          {errors.email.message}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <Label htmlFor="reason">
-                        What brought you to the piano?
-                      </Label>
-                      <Textarea
-                        id="reason"
-                        {...register("reason")}
-                        placeholder="A memory, a person, a song, a feeling..."
-                        rows={3}
-                        className="mt-2"
-                      />
-                      <p className="text-xs text-muted-foreground mt-1">
-                        There is no wrong answer.
-                      </p>
-                    </div>
-
-                    <Button
-                      type="submit"
-                      size="lg"
-                      variant="primary-dark"
-                      className="w-full"
-                    >
-                      Begin the conversation
-                    </Button>
-
-                    <p className="text-xs text-muted-foreground text-center">
-                      I only use your information to write back. Nothing else.
-                    </p>
-                  </form>
+                    <span
+                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                      style={{
+                        background:
+                          "linear-gradient(135deg, hsl(var(--vow-yellow) / 0.18), transparent 60%)",
+                      }}
+                      aria-hidden="true"
+                    />
+                    <span className="relative z-10 text-[0.625rem] tracking-[0.22em] uppercase font-light">
+                      Begin the Conversation
+                    </span>
+                  </button>
+                  <p className="text-[0.5rem] tracking-[0.12em] uppercase text-muted-foreground/30 mt-4 text-center font-light">
+                    I only use your information to write back. Nothing else.
+                  </p>
                 </div>
-              )}
+              </form>
+            </div>
 
-              {/* Reassurance — typographic markers only */}
-              {!isSubmitted && (
-                <div className="mt-10 space-y-3 max-w-md mx-auto">
-                  {[
-                    "This is a conversation, not a commitment.",
-                    "Response within 24 hours.",
-                    "Currently accepting new students.",
-                  ].map((text, i) => (
-                    <div
-                      key={i}
-                      className="flex items-center gap-2.5 text-muted-foreground"
-                    >
-                      <span className="text-primary/50 text-xs" aria-hidden="true">·</span>
-                      <span className="text-xs">{text}</span>
-                    </div>
-                  ))}
+            {/* ── Trust signals ─────────────────────────────────────────────── */}
+            <div className="mt-16 max-w-xs mx-auto grid grid-cols-3 gap-4 text-center">
+              {trustStats.map((stat) => (
+                <div key={stat.label}>
+                  <p
+                    className="font-display font-light text-foreground/40"
+                    style={{ fontSize: "clamp(16px, 2vw, 20px)" }}
+                  >
+                    {stat.value}
+                  </p>
+                  <div
+                    className="w-5 h-px mx-auto my-2"
+                    style={{
+                      background:
+                        "linear-gradient(90deg, transparent, hsl(var(--primary) / 0.25), transparent)",
+                    }}
+                    aria-hidden="true"
+                  />
+                  <p className="text-[0.5rem] tracking-[0.15em] uppercase text-muted-foreground/30 font-light">
+                    {stat.label}
+                  </p>
                 </div>
-              )}
+              ))}
             </div>
           </div>
         </section>
       </main>
+
       <Footer />
       <MobileStickyBar />
 
       <style>{`
-        @keyframes semicolon-success-glow {
-          0%, 100% { text-shadow: 0 0 20px hsl(var(--vow-yellow) / 0.4), 0 0 40px hsl(var(--vow-yellow) / 0.15); }
-          50% { text-shadow: 0 0 28px hsl(var(--vow-yellow) / 0.55), 0 0 56px hsl(var(--vow-yellow) / 0.2); }
-        }
         @media (prefers-reduced-motion: reduce) {
-          .grain { animation: none !important; }
           [style*="ken-burns"] { animation: none !important; }
-          [style*="semicolon-success-glow"] { animation: none !important; }
         }
       `}</style>
     </div>
