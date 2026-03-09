@@ -1,40 +1,40 @@
-import { DollarSign, RefreshCw, Clock, Shield } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 const reassuranceItems = [
-  {
-    icon: DollarSign,
-    text: "No cost to hold your date — take the time you need to decide.",
-  },
-  {
-    icon: RefreshCw,
-    text: "Full refund within 14 days — a commitment without pressure.",
-  },
-  {
-    icon: Clock,
-    text: "Response within 24 hours — your personalized plan, always.",
-  },
-  {
-    icon: Shield,
-    text: "Insurance, redundancy, and documentation — included in every arrangement.",
-  },
+  "No cost to hold your date — take the time you need to decide.",
+  "Full refund within 14 days — a commitment without pressure.",
+  "Response within 24 hours — your personalized plan, always.",
+  "Insurance, redundancy, and documentation — included in every arrangement.",
 ];
+
+function GoldNumeral({ n }: { n: number }) {
+  return (
+    <span
+      className="font-display text-sm font-light tracking-wide shrink-0 mt-0.5"
+      style={{
+        background: "linear-gradient(180deg, hsl(var(--vow-yellow)), hsl(var(--vow-yellow) / 0.5))",
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+        backgroundClip: "text",
+      }}
+    >
+      {String(n).padStart(2, "0")}
+    </span>
+  );
+}
 
 export function ContactReassuranceCards() {
   return (
     <div className="space-y-4">
-      {reassuranceItems.map((item, index) => {
-        const Icon = item.icon;
-        return (
-          <Card
-            key={index}
-            className="bg-card/50 border-border p-4 flex items-start gap-3"
-          >
-            <Icon className="text-primary shrink-0 mt-0.5" size={20} />
-            <p className="text-sm text-foreground leading-relaxed">{item.text}</p>
-          </Card>
-        );
-      })}
+      {reassuranceItems.map((text, index) => (
+        <Card
+          key={index}
+          className="bg-card/50 border-border p-4 flex items-start gap-3"
+        >
+          <GoldNumeral n={index + 1} />
+          <p className="text-sm text-foreground leading-relaxed">{text}</p>
+        </Card>
+      ))}
     </div>
   );
 }

@@ -1,5 +1,3 @@
-import { ArrowRight } from "lucide-react";
-
 const steps = [
   "Arrive ≥60 min early",
   "Place piano & power",
@@ -10,6 +8,22 @@ const steps = [
   "Processional",
 ];
 
+function GoldNumeral({ n }: { n: number }) {
+  return (
+    <span
+      className="font-display text-xs font-light tracking-wide"
+      style={{
+        background: "linear-gradient(180deg, hsl(var(--vow-yellow)), hsl(var(--vow-yellow) / 0.5))",
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+        backgroundClip: "text",
+      }}
+    >
+      {String(n).padStart(2, "0")}
+    </span>
+  );
+}
+
 export function SetupTimeline() {
   return (
     <div className="relative">
@@ -19,13 +33,13 @@ export function SetupTimeline() {
         {steps.map((step, index) => (
           <div key={index} className="flex items-center gap-4 shrink-0 snap-start">
             <div className="flex flex-col items-center min-w-[140px]">
-              <div className="w-10 h-10 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center text-sm font-display font-medium mb-3">
-                {index + 1}
+              <div className="mb-3">
+                <GoldNumeral n={index + 1} />
               </div>
               <p className="text-xs text-center font-medium leading-tight">{step}</p>
             </div>
             {index < steps.length - 1 && (
-              <ArrowRight size={20} className="text-muted-foreground opacity-50 shrink-0" />
+              <span className="text-muted-foreground opacity-30 shrink-0 text-sm">—</span>
             )}
           </div>
         ))}

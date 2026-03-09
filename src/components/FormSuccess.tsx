@@ -1,9 +1,7 @@
-import { CheckCircle2, Calendar, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function FormSuccess() {
   const handleAddToCalendar = () => {
-    // Generate ICS file content
     const icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Parker Gawryletz Ceremony Audio//EN
@@ -29,7 +27,16 @@ END:VCALENDAR`;
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex items-start gap-3 p-6 bg-accent/10 border border-accent/20 rounded-lg">
-        <CheckCircle2 className="text-accent mt-0.5 flex-shrink-0" size={24} />
+        {/* Breathing semicolon — brand threshold symbol */}
+        <span
+          className="font-display text-2xl font-light text-primary shrink-0 mt-0.5"
+          style={{
+            textShadow: "0 0 12px hsl(var(--vow-yellow) / 0.3)",
+          }}
+          aria-hidden="true"
+        >
+          ;
+        </span>
         <div className="space-y-2">
           <h3 className="font-display font-medium text-foreground">
             Thanks—your request is in.
@@ -43,10 +50,9 @@ END:VCALENDAR`;
       <div className="space-y-3">
         <Button
           variant="outline"
-          className="w-full justify-start gap-2"
+          className="w-full justify-start"
           onClick={handleAddToCalendar}
         >
-          <Calendar size={16} />
           Add reminder to calendar
         </Button>
 
@@ -56,7 +62,6 @@ END:VCALENDAR`;
           rel="noopener noreferrer"
           className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
-          <FileText size={14} />
           View insurance certificate
         </a>
       </div>
