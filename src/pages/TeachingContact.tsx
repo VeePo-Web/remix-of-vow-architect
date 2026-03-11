@@ -142,7 +142,7 @@ export default function TeachingContact() {
                       label="What brought you to the piano?"
                       id="reason"
                       rows={3}
-                      placeholder="A memory, a person, a song, a feeling..."
+                      placeholder="A song you love, a goal you have, or just curiosity..."
                       {...register("reason")}
                     />
                     <p className="text-[0.5rem] tracking-[0.1em] uppercase text-muted-foreground/30 mt-2 font-light">
