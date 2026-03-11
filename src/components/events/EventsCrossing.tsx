@@ -2,7 +2,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import soundKeysImg from "@/assets/sound-keys.jpg";
+import venueEmptyImg from "@/assets/venue-empty-golden.jpg";
 
 export function EventsCrossing() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
@@ -21,7 +21,7 @@ export function EventsCrossing() {
       <div
         className="absolute inset-0 bg-cover bg-center pointer-events-none"
         style={{
-          backgroundImage: `url(${soundKeysImg})`,
+          backgroundImage: `url(${venueEmptyImg})`,
           opacity: 0.04,
           animation: "events-crossing-kb 30s linear infinite alternate",
         }}

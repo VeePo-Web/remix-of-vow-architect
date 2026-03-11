@@ -8,7 +8,7 @@ import { RevealOnScroll } from "@/components/animation";
 import { useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { Link } from "react-router-dom";
-import teachingBenchImg from "@/assets/teaching-bench.jpg";
+import heroPianoImg from "@/assets/hero-piano.jpg";
 
 const sections = [
   { id: "tp-hero",       label: "Overview",      isBlackKey: false },
@@ -66,7 +66,7 @@ export default function TeachingPricing() {
         <section className="relative section-padding bg-background overflow-hidden" aria-label="Teaching pricing">
           {/* Atmospheric layers */}
           <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-            <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: `url(${teachingBenchImg})`, backgroundSize: "cover", backgroundPosition: "center", maskImage: "linear-gradient(to bottom, black 0%, transparent 40%)", WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 40%)", animation: "ken-burns 25s ease-in-out infinite alternate" }} />
+            <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: `url(${heroPianoImg})`, backgroundSize: "cover", backgroundPosition: "center", maskImage: "linear-gradient(to bottom, black 0%, transparent 40%)", WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 40%)", animation: "ken-burns 25s ease-in-out infinite alternate" }} />
           </div>
           <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)" }} aria-hidden="true" />
           <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 100%)", animation: "tp-vignette-breathe 6s ease-in-out infinite" }} aria-hidden="true" />

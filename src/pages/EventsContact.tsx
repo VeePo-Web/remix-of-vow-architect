@@ -10,7 +10,7 @@ import { usePageTheme } from "@/hooks/usePageTheme";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import eventsHeroImg from "@/assets/events-hero.jpg";
+import eventsBallroomImg from "@/assets/events-ballroom-grand.jpg";
 
 /* ─── Schema ──────────────────────────────────────────────────────────────── */
 const schema = z.object({
@@ -95,7 +95,7 @@ export default function EventsContact() {
         {/* ── Cinematic hero strip ─────────────────────────────────────────── */}
         <div id="ec-hero" className="relative h-[36vh] min-h-[240px] overflow-hidden" aria-hidden="true">
           <img
-            src={eventsHeroImg}
+            src={eventsBallroomImg}
             alt=""
             className="absolute inset-0 w-full h-full object-cover object-center"
             loading="eager"

@@ -14,6 +14,8 @@ import { usePageTheme } from "@/hooks/usePageTheme";
 
 import { Link } from "react-router-dom";
 import galleryHeroImg from "@/assets/gallery-hero.jpg";
+import { GoldCornerImage } from "@/components/ui/gold-corner-image";
+import gallerySetupImg from "@/assets/gallery-setup.jpg";
 
 const proofSections = [
   { id: "proof-hero",        label: "Overview",         isBlackKey: false },
@@ -146,6 +148,18 @@ export default function Proof() {
         <RevealOnScroll variant="up">
           <SetupPhotoGallery />
         </RevealOnScroll>
+      </div>
+
+      {/* Editorial image bleed */}
+      <div className="max-w-5xl mx-auto px-4 py-8">
+        <GoldCornerImage
+          src={gallerySetupImg}
+          alt="Professional piano setup at a ceremony venue"
+          aspectRatio="16/9"
+          maxHeight="400px"
+          frameIndex="FR·04"
+          className="w-full"
+        />
       </div>
 
       <GoldenThread />

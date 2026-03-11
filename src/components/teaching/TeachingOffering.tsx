@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import soundKeysImg from "@/assets/sound-keys.jpg";
+import keysIntimateImg from "@/assets/sound-keys-intimate-ai.jpg";
 
 /**
  * Scroll-linked price reveal — each character of "$60 per hour"
@@ -202,7 +202,7 @@ export function TeachingOffering() {
       <div
         className="absolute inset-0 bg-cover bg-center pointer-events-none"
         style={{
-          backgroundImage: `url(${soundKeysImg})`,
+          backgroundImage: `url(${keysIntimateImg})`,
           opacity: 0.03,
           animation: "offering-kb 30s linear infinite alternate",
         }}

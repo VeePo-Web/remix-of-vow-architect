@@ -12,6 +12,8 @@ import { FAQTopTen } from "@/components/FAQTopTen";
 import { FAQPolicyDownload } from "@/components/FAQPolicyDownload";
 import { FAQTrustStack } from "@/components/FAQTrustStack";
 import faqHeroImg from "@/assets/faq-hero.jpg";
+import { GoldCornerImage } from "@/components/ui/gold-corner-image";
+import venueEmptyImg from "@/assets/venue-empty-golden.jpg";
 
 const faqSections = [
   { id: "faq-hero",      label: "Overview",          isBlackKey: false },
@@ -93,6 +95,18 @@ export default function FAQ() {
       {/* Section 2 — Micro Q&A Chips */}
       <div id="faq-chips" className="piano-section-target">
         <FAQChips />
+      </div>
+
+      {/* Editorial image bleed */}
+      <div className="max-w-5xl mx-auto px-4 py-8">
+        <GoldCornerImage
+          src={venueEmptyImg}
+          alt="Empty elegant venue bathed in golden hour light"
+          aspectRatio="16/9"
+          maxHeight="400px"
+          frameIndex="FR·02"
+          className="w-full"
+        />
       </div>
 
       {/* Golden thread */}

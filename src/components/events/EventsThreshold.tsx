@@ -1,6 +1,6 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
-import eventsHeroImg from "@/assets/events-hero.jpg";
+import eventsBallroomImg from "@/assets/events-ballroom-grand.jpg";
 
 const concerns = [
   {
@@ -41,7 +41,7 @@ export function EventsThreshold() {
       <div
         className="absolute inset-0 bg-cover bg-center pointer-events-none"
         style={{
-          backgroundImage: `url(${eventsHeroImg})`,
+          backgroundImage: `url(${eventsBallroomImg})`,
           opacity: 0.04,
           animation: "events-threshold-kb 30s linear infinite alternate",
         }}

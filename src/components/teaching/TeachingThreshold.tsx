@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
-import benchImg from "@/assets/teaching-bench.jpg";
+import handsKeysImg from "@/assets/hands-keys-closeup.jpg";
 
 const fears = [
   {
@@ -275,7 +275,7 @@ export function TeachingThreshold() {
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: `url(${benchImg})`,
+          backgroundImage: `url(${handsKeysImg})`,
           opacity: 0.05,
           animation: "threshold-ken-burns 30s linear infinite alternate",
         }}

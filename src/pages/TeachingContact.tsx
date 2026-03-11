@@ -9,7 +9,7 @@ import { usePageTheme } from "@/hooks/usePageTheme";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import teachingBenchImg from "@/assets/teaching-bench.jpg";
+import witnessCeremonyImg from "@/assets/witness-ceremony.jpg";
 
 /* ─── Schema ──────────────────────────────────────────────────────────────── */
 const schema = z.object({
@@ -75,7 +75,7 @@ export default function TeachingContact() {
           aria-hidden="true"
         >
           <img
-            src={teachingBenchImg}
+            src={witnessCeremonyImg}
             alt=""
             className="absolute inset-0 w-full h-full object-cover object-center"
             loading="eager"

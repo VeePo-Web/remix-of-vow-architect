@@ -2,7 +2,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useRef, useState, useEffect, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { GoldCornerImage } from "@/components/ui/gold-corner-image";
-import teachingBenchImg from "@/assets/teaching-bench.jpg";
+import teachingStudioImg from "@/assets/teaching-studio-warm.jpg";
 
 /**
  * TeachingExhale — Recognition / Sacred Pause
@@ -349,7 +349,7 @@ export function TeachingExhale() {
         style={{ transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)", transitionDelay: "400ms" }}
       >
         <GoldCornerImage
-          src={teachingBenchImg}
+          src={teachingStudioImg}
           alt="Piano bench in a warm teaching studio"
           aspectRatio="16/9"
           maxHeight="480px"

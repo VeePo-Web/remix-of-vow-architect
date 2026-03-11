@@ -2,7 +2,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { useNavigate } from "react-router-dom";
-import eventsHeroImg from "@/assets/events-hero.jpg";
+import venueEmptyImg from "@/assets/venue-empty-golden.jpg";
 
 export function EventsAboutCrossing() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
@@ -20,7 +20,7 @@ export function EventsAboutCrossing() {
       {/* Background image */}
       <div className="absolute inset-0">
         <img
-          src={eventsHeroImg}
+          src={venueEmptyImg}
           alt=""
           className="w-full h-full object-cover"
           loading="lazy"

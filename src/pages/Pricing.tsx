@@ -16,6 +16,8 @@ import { useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { Link } from "react-router-dom";
 import servicesHeroImg from "@/assets/services-hero.jpg";
+import { GoldCornerImage } from "@/components/ui/gold-corner-image";
+import pianoMacroImg from "@/assets/piano-macro-hammers.jpg";
 
 const pricingSections = [
   { id: "pricing-hero",         label: "Overview",         isBlackKey: false },
@@ -165,6 +167,18 @@ export default function Pricing() {
                     <p className="italic">Bonus: Your personalized ceremony plan delivered within 24 hours of inquiry.</p>
                   </div>
                 </Card>
+
+                {/* Editorial image bleed */}
+                <div className="col-span-1 md:col-span-3 my-8 md:my-12 md:-mx-8">
+                  <GoldCornerImage
+                    src={pianoMacroImg}
+                    alt="Piano hammers and strings in warm backlight"
+                    aspectRatio="16/9"
+                    maxHeight="360px"
+                    frameIndex="FR·03"
+                    className="w-full"
+                  />
+                </div>
 
                 {/* Ceremony + Prelude/Cocktails — $750 */}
                 <Card className="relative p-6 bg-card/80 backdrop-blur-[8px] border-primary/15 border-2 card-sacred card-sacred-hover transition-all duration-[180ms]" style={{ boxShadow: 'var(--shadow-sacred-inset), var(--shadow-sacred-elevation), 0 0 40px hsl(var(--vow-yellow) / 0.08)' }}>
