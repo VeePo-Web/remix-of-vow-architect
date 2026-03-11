@@ -11,7 +11,6 @@ export function TheInvitation() {
   const [reducedMotion, setReducedMotion] = useState(false);
   const [revealDone, setRevealDone] = useState(false);
 
-  // Detect reduced motion
   useEffect(() => {
     const mql = window.matchMedia('(prefers-reduced-motion: reduce)');
     setReducedMotion(mql.matches);
@@ -20,7 +19,6 @@ export function TheInvitation() {
     return () => mql.removeEventListener('change', handler);
   }, []);
 
-  // After reveal completes, drop transition so parallax applies instantly
   useEffect(() => {
     if (isVisible && !revealDone) {
       const timer = setTimeout(() => setRevealDone(true), 1500);
@@ -28,7 +26,6 @@ export function TheInvitation() {
     }
   }, [isVisible, revealDone]);
 
-  // Scroll-linked parallax + warmth intensification
   useEffect(() => {
     if (reducedMotion) return;
     const section = sectionRef.current;
@@ -44,14 +41,10 @@ export function TheInvitation() {
         const total = rect.height + vh;
         const progress = Math.max(0, Math.min(1, scrolled / total));
 
-        // Parallax: image column moves at 0.92x rate (subtle depth)
         if (imageColRef.current) {
-          const offset = (progress - 0.5) * 24; // ±12px range
+          const offset = (progress - 0.5) * 24;
           imageColRef.current.style.transform = `translateY(${offset}px)`;
         }
-
-        // Warmth intensification: CSS variable for glow layers
-        section.style.setProperty('--warmth', `${progress}`);
       });
     };
 
@@ -67,78 +60,29 @@ export function TheInvitation() {
     <section
       id="the-invitation"
       ref={sectionRef as React.RefObject<HTMLElement>}
-      data-theme="death"
       role="region"
       aria-labelledby="invitation-heading"
       className="relative py-28 md:py-40 overflow-hidden invitation-texture piano-section-target"
       style={{
-        background: 'linear-gradient(180deg, hsl(var(--invitation-bg-top, 28 12% 16%)) 0%, hsl(var(--invitation-bg-bottom, 25 8% 8%)) 100%)',
-        // @ts-ignore CSS custom property
-        '--warmth': '0',
-      } as React.CSSProperties}
+        background: 'hsl(var(--card))',
+      }}
     >
-      {/* Screen reader narrative */}
       <span className="sr-only">Parker's personal invitation — he plays only five weddings a year and devotes months of preparation to each one.</span>
 
-      {/* === ATMOSPHERIC DEPTH LAYERS === */}
-
-      {/* Layer 1: Background image texture */}
-      <div
-        className="absolute inset-0 pointer-events-none invitation-bg-ken-burns"
-        style={{
-          backgroundImage: `url(${invitationPortrait})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          opacity: 0.10,
-          filter: 'saturate(0.5) contrast(1.1)',
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Layer 2: Top fade */}
-      <div
-        className="absolute top-0 left-0 right-0 h-[120px] z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to top, transparent, hsl(var(--rich-black)))' }}
-        aria-hidden="true"
-      />
-
-      {/* Layer 2b: Film grain */}
-      <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none z-[1]" aria-hidden="true" />
-
-      {/* Layer 3: Wide candlelight glow — warmth-linked */}
+      {/* Subtle warm glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse 70% 50% at 50% 55%, hsla(40, 50%, 55%, 0.10) 0%, transparent 70%)',
-          opacity: 'calc(0.85 + var(--warmth) * 0.15)',
+          background: 'radial-gradient(ellipse 70% 50% at 50% 55%, hsl(var(--vow-yellow) / 0.06) 0%, transparent 70%)',
         }}
         aria-hidden="true"
       />
 
-      {/* Layer 4: Warm glow pool behind image column — warmth-linked */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse 50% 60% at 30% 50%, hsla(38, 60%, 50%, 0.08) 0%, transparent 60%)',
-          opacity: 'calc(0.8 + var(--warmth) * 0.2)',
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Layer 5: Edge vignette */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse at center, transparent 40%, hsl(var(--rich-black) / 0.6) 100%)',
-        }}
-        aria-hidden="true"
-      />
-
-      {/* === CONTENT — Two-Column Asymmetric === */}
+      {/* Content */}
       <div className="container mx-auto px-4 relative z-20">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 md:gap-20 items-center">
 
-          {/* ── Left Column: Portrait Image (parallax-linked) ── */}
+          {/* Left Column: Portrait Image */}
           <div
             ref={imageColRef}
             className={cn(
@@ -148,25 +92,11 @@ export function TheInvitation() {
             style={{ transitionDelay: !revealDone && isVisible ? '300ms' : '0ms' }}
           >
             <div className="relative">
-              {/* Warm light bleed — breathing */}
               <div
-                className="absolute -inset-[40px] pointer-events-none invitation-light-bleed"
-                style={{
-                  background: 'radial-gradient(ellipse at center, hsla(40, 50%, 50%, 0.06) 0%, transparent 70%)',
-                }}
-                aria-hidden="true"
-              />
-              {/* Frame */}
-              <div
-                className="aspect-[3/2] md:aspect-[3/4] overflow-hidden relative rounded-sm invitation-portrait-frame"
+                className="aspect-[3/2] md:aspect-[3/4] overflow-hidden relative rounded-sm"
                 style={{
                   border: '1px solid hsl(var(--vow-yellow) / 0.12)',
-                  boxShadow: [
-                    'inset 0 0 60px hsl(var(--vow-yellow) / 0.08)',
-                    'inset 0 1px 0 hsl(var(--foreground) / 0.06)',
-                    '0 0 40px hsl(var(--vow-yellow) / 0.06)',
-                    '0 40px 100px -20px hsl(var(--rich-black) / 0.5)',
-                  ].join(', '),
+                  boxShadow: '0 20px 60px -12px hsl(30 10% 10% / 0.08), 0 8px 24px -8px hsl(30 10% 10% / 0.06)',
                 }}
               >
                 <img
@@ -177,25 +107,13 @@ export function TheInvitation() {
                   decoding="async"
                   fetchPriority="low"
                 />
-                <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
-                {/* Vignette */}
-                <div
-                  className="absolute inset-0 pointer-events-none"
-                  style={{
-                    background: 'radial-gradient(ellipse at center, transparent 40%, hsl(var(--rich-black) / 0.4) 100%)',
-                  }}
-                  aria-hidden="true"
-                />
-                {/* Candlelight shimmer — drifting reflected light */}
-                <div className="absolute inset-0 pointer-events-none invitation-candlelight-shimmer" aria-hidden="true" />
               </div>
             </div>
           </div>
 
-          {/* ── Right Column: Copy ── */}
+          {/* Right Column: Copy */}
           <div className="text-center md:text-left">
 
-            {/* Label */}
             <p
               className={cn(
                 'text-xs uppercase tracking-[0.22em] text-muted-foreground mb-8',
@@ -206,7 +124,6 @@ export function TheInvitation() {
               The Invitation
             </p>
 
-            {/* Epigraph — blur-to-sharp reveal */}
             <p
               className={cn(
                 'invitation-epigraph max-w-xl transition-[opacity,transform,filter] duration-[700ms]',
@@ -220,14 +137,13 @@ export function TheInvitation() {
               "You deserve someone who has stood where you are about to stand — and knows what it takes."
             </p>
 
-            {/* Golden Rule */}
             <span
               className={cn(
                 'block w-12 h-px my-10 transition-all duration-500 mx-auto md:mx-0',
                 isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
               )}
               style={{
-                background: 'hsl(var(--vow-yellow) / 0.25)',
+                background: 'hsl(var(--vow-yellow) / 0.35)',
                 transitionDelay: isVisible ? '200ms' : '0ms',
                 transformOrigin: 'left',
                 animation: isVisible ? 'invitation-rule-breathe 4s ease-in-out infinite' : 'none',
@@ -235,7 +151,6 @@ export function TheInvitation() {
               aria-hidden="true"
             />
 
-            {/* Heading */}
             <h2
               id="invitation-heading"
               className={cn(
@@ -265,7 +180,6 @@ export function TheInvitation() {
               could be one of them.
             </h2>
 
-            {/* Body */}
             <p
               className={cn(
                 'text-lg font-sans font-light leading-[1.8] text-muted-foreground max-w-lg mt-8 transition-all duration-700',
@@ -286,7 +200,6 @@ export function TheInvitation() {
               I limit my calendar so that every couple receives the preparation their ceremony deserves — not a template, but a score written for the two of you alone.
             </p>
 
-            {/* Assurance */}
             <p
               className={cn(
                 'invitation-assurance max-w-lg mt-8 transition-all duration-700',
@@ -298,7 +211,6 @@ export function TheInvitation() {
               <span className="text-primary opacity-60">— what was playing when you knew.</span>
             </p>
 
-            {/* CTA — breathing glow */}
             <div
               className={cn(
                 'mt-10 transition-all duration-700',
@@ -318,7 +230,6 @@ export function TheInvitation() {
               </Link>
             </div>
 
-            {/* Inline Credentials */}
             <p
               className={cn(
                 'text-xs uppercase tracking-[0.22em] text-muted-foreground mt-10 transition-all duration-700',
@@ -333,13 +244,10 @@ export function TheInvitation() {
         </div>
       </div>
 
-      {/* Golden thread — section threshold */}
-      <div className="absolute bottom-[60px] left-1/2 -translate-x-1/2 z-20 invitation-golden-thread" aria-hidden="true" />
-
       {/* Bottom fade */}
       <div
         className="absolute bottom-0 left-0 right-0 h-[120px] z-10 pointer-events-none"
-        style={{ background: 'linear-gradient(to bottom, transparent, hsl(var(--deep-graphite)))' }}
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(var(--background)))' }}
         aria-hidden="true"
       />
     </section>

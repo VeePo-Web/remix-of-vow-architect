@@ -112,14 +112,7 @@ export function MobileStickyBar() {
           {config.text}
         </span>
         <div className="relative">
-          <div
-            className="absolute inset-0 -inset-x-6 -inset-y-3 rounded-full pointer-events-none"
-            style={{
-              background: 'radial-gradient(ellipse at center, hsl(var(--vow-yellow) / 0.08) 0%, transparent 70%)',
-            }}
-            aria-hidden="true"
-          />
-          <Button size="sm" variant="primary-dark" className="relative hover-scale cta-breathe-glow" asChild>
+          <Button size="sm" variant="default" className="relative hover-scale" asChild>
             <Link to={config.contactHref}>
               {config.cta}
             </Link>

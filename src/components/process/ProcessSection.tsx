@@ -117,11 +117,11 @@ export function ProcessSection() {
     };
   }, [updateParallax]);
 
-  // Simple background CSS vars (static warm tone)
+  // Light warm paper tones
   const cssVars = {
-    '--process-bg-h': '35',
-    '--process-bg-s': '20%',
-    '--process-bg-l': '8%',
+    '--process-bg-h': '38',
+    '--process-bg-s': '18%',
+    '--process-bg-l': '96%',
     '--process-temperature': '0.7',
   };
 

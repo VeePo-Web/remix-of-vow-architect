@@ -193,12 +193,12 @@ export function MinimalHeader() {
               aria-hidden="true"
             />
 
-            {/* Layer 3: Vignette — darkened edges for depth */}
+            {/* Layer 3: Subtle vignette */}
             <div
               className="absolute inset-0 pointer-events-none"
               style={{
                 background:
-                  "radial-gradient(ellipse at center, transparent 40%, hsl(var(--rich-black) / 0.18) 100%)",
+                  "radial-gradient(ellipse at center, transparent 40%, hsl(var(--foreground) / 0.03) 100%)",
               }}
               aria-hidden="true"
             />

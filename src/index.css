@@ -2224,10 +2224,10 @@ All colors MUST be HSL.
     align-items: center;
     gap: var(--space-9);
     overflow: hidden;
-    /* CSS custom properties set by useProcessScroll */
-    --process-bg-h: 240;
-    --process-bg-s: 12%;
-    --process-bg-l: 3%;
+    /* CSS custom properties — light mode warm paper */
+    --process-bg-h: 38;
+    --process-bg-s: 18%;
+    --process-bg-l: 96%;
     --process-glow-opacity: 0;
     --process-bloom-opacity: 0;
     --process-bloom-size: 30%;
