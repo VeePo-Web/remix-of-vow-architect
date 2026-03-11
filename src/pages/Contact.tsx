@@ -157,7 +157,7 @@ export default function Contact() {
 
                 {/* ── § 1 — About Your Day ─────────────────────────────────── */}
                 <div>
-                  <p className="overline text-primary/40 mb-7">About Your Day</p>
+                  <p className="overline text-muted-foreground mb-7">About Your Day</p>
                   <div className="space-y-7">
                     <LuxuryInput
                       label="First & last name"
