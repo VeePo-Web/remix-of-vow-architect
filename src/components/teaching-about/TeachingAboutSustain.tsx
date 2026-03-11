@@ -16,7 +16,7 @@ export function TeachingAboutSustain() {
       aria-label="Three Beliefs"
       ref={ref as React.RefObject<HTMLElement>}
       className="relative py-[120px] px-4 piano-section-target"
-      style={{ background: "linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--deep-graphite)) 50%, hsl(var(--background)) 100%)" }}
+      style={{ background: "linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--card)) 50%, hsl(var(--background)) 100%)" }}
     >
       {/* Parallax watermark */}
       <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-[clamp(8rem,18vw,14rem)] font-light pointer-events-none select-none opacity-[0.015]" style={{ color: "hsl(var(--foreground))" }} aria-hidden="true">

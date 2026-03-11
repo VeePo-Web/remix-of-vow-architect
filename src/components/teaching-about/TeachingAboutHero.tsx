@@ -20,6 +20,7 @@ export function TeachingAboutHero() {
       id="teaching-about-hero"
       aria-label="The Bench"
       className="relative min-h-[90vh] flex items-center justify-center overflow-hidden piano-section-target"
+      data-theme="death"
       style={{ background: "hsl(var(--rich-black))" }}
     >
       <div className="absolute inset-0">

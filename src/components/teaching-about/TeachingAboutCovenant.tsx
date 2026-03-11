@@ -27,7 +27,7 @@ export function TeachingAboutCovenant() {
       aria-label="My Promise"
       ref={ref as React.RefObject<HTMLElement>}
       className="relative py-[120px] px-4 piano-section-target"
-      style={{ background: "linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--deep-graphite)) 100%)" }}
+      style={{ background: "linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--card)) 100%)" }}
     >
       {/* Parallax watermark */}
       <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-[clamp(8rem,18vw,14rem)] font-light pointer-events-none select-none opacity-[0.015]" style={{ color: "hsl(var(--foreground))" }} aria-hidden="true">
@@ -50,8 +50,8 @@ export function TeachingAboutCovenant() {
 
           {/* Certificate with shimmer sweep */}
           <div
-            className={cn("group relative p-12 md:p-16 bg-[hsl(var(--deep-graphite))] border border-primary/20 rounded-sm overflow-hidden transition-all duration-1000", isVisible ? "opacity-100 translate-y-0 blur-none" : "opacity-0 translate-y-8 blur-sm")}
-            style={{ transitionDelay: "200ms", boxShadow: "0 20px 60px hsl(var(--rich-black) / 0.12), 0 0 0 1px hsl(var(--primary) / 0.08), inset 0 0 80px hsl(var(--vow-yellow) / 0.05)" }}
+            className={cn("group relative p-12 md:p-16 bg-card border border-primary/20 rounded-sm overflow-hidden transition-all duration-1000", isVisible ? "opacity-100 translate-y-0 blur-none" : "opacity-0 translate-y-8 blur-sm")}
+            style={{ transitionDelay: "200ms", boxShadow: "0 20px 60px hsl(30 10% 10% / 0.06), 0 0 0 1px hsl(var(--primary) / 0.08), inset 0 0 80px hsl(var(--vow-yellow) / 0.05)" }}
           >
             {/* Gold shimmer sweep */}
             <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none motion-reduce:hidden" style={{ background: "linear-gradient(105deg, transparent 40%, hsl(var(--vow-yellow) / 0.06) 50%, transparent 60%)" }} aria-hidden="true" />
@@ -90,7 +90,7 @@ export function TeachingAboutCovenant() {
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--rich-black)) 85%)" }} aria-hidden="true" />
+      <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--background)))" }} aria-hidden="true" />
     </section>
   );
 }

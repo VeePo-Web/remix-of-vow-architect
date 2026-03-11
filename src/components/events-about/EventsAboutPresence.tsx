@@ -69,7 +69,7 @@ export function EventsAboutPresence() {
                   borderImage: hoveredIndex === index
                     ? "linear-gradient(180deg, hsl(var(--vow-yellow) / 0.6), hsl(var(--vow-yellow) / 0.15)) 1"
                     : "linear-gradient(180deg, hsl(var(--primary) / 0.15), hsl(var(--primary) / 0.05)) 1",
-                  background: hoveredIndex === index ? "hsl(var(--vow-yellow) / 0.04)" : "hsl(var(--deep-graphite) / 0.3)",
+                  background: hoveredIndex === index ? "hsl(var(--vow-yellow) / 0.04)" : "hsl(var(--card) / 0.5)",
                   boxShadow: hoveredIndex === index ? "0 4px 24px hsl(var(--vow-yellow) / 0.06)" : "none",
                 }}
                 onMouseEnter={() => setHoveredIndex(index)}

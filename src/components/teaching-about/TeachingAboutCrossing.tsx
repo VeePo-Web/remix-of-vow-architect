@@ -14,6 +14,7 @@ export function TeachingAboutCrossing() {
       aria-label="The Crossing"
       ref={ref as React.RefObject<HTMLElement>}
       className="relative py-[140px] px-4 overflow-hidden piano-section-target"
+      data-theme="death"
       style={{ background: "hsl(var(--rich-black))" }}
     >
       <div className="absolute inset-0">

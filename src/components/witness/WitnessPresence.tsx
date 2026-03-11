@@ -120,7 +120,7 @@ export function WitnessPresence() {
                     ? "linear-gradient(180deg, hsl(var(--vow-yellow) / 0.6), hsl(var(--vow-yellow) / 0.15)) 1"
                     : "linear-gradient(180deg, hsl(var(--primary) / 0.15), hsl(var(--primary) / 0.05)) 1",
                   background: hoveredIndex === index 
-                    ? 'linear-gradient(135deg, hsl(var(--rich-black)) 0%, hsl(var(--ebon-charcoal) / 0.4) 100%)'
+                    ? 'hsl(var(--card))'
                     : 'transparent',
                   boxShadow: hoveredIndex === index
                     ? '0 0 24px hsl(var(--vow-yellow) / 0.08), inset 0 1px 0 hsl(var(--vow-yellow) / 0.05)'

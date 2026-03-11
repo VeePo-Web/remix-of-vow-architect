@@ -20,6 +20,7 @@ export function EventsAboutHero() {
       id="events-about-hero"
       aria-label="The Atmosphere"
       className="relative min-h-[90vh] flex items-center justify-center overflow-hidden piano-section-target"
+      data-theme="death"
       style={{ background: "hsl(var(--rich-black))" }}
     >
       {/* Background image */}
