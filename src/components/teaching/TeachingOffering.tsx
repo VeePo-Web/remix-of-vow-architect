@@ -344,7 +344,7 @@ export function TeachingOffering() {
               size="lg"
               className="relative"
             >
-              <Link to="/teaching/contact">Open the conversation</Link>
+              <Link to="/teaching/contact">Book a conversation</Link>
             </Button>
           </div>
 
