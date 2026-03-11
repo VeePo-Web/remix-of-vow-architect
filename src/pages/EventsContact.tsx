@@ -80,13 +80,20 @@ export default function EventsContact() {
   }
 
   /* ── Form ───────────────────────────────────────────────────────────────── */
+  const ecSections = [
+    { id: "ec-hero", label: "Get in Touch", isBlackKey: false },
+    { id: "ec-form", label: "Event Details", isBlackKey: true },
+    { id: "ec-trust", label: "What to Expect", isBlackKey: false },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <MinimalHeader />
+      <PianoKeyNav sections={ecSections} />
 
       <main>
         {/* ── Cinematic hero strip ─────────────────────────────────────────── */}
-        <div className="relative h-[36vh] min-h-[240px] overflow-hidden" aria-hidden="true">
+        <div id="ec-hero" className="relative h-[36vh] min-h-[240px] overflow-hidden" aria-hidden="true">
           <img
             src={eventsHeroImg}
             alt=""
