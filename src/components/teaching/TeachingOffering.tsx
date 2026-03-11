@@ -410,6 +410,10 @@ export function TeachingOffering() {
 
       {/* Keyframes */}
       <style>{`
+        @keyframes offering-kb {
+          0% { transform: scale(1) translate(0, 0); }
+          100% { transform: scale(1.03) translate(0.2%, -0.2%); }
+        }
         @keyframes offering-dot-breathe {
           0%, 100% { opacity: 0.6; transform: scale(1); }
           50% { opacity: 1; transform: scale(1.2); }
