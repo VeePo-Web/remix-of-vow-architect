@@ -92,7 +92,7 @@ export default function TeachingContact() {
         </section>
 
         {/* ── Form section ──────────────────────────────────────────────────── */}
-        <section className="py-16 md:py-24 px-4 relative">
+        <section id="tc-form" className="py-16 md:py-24 px-4 relative">
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
