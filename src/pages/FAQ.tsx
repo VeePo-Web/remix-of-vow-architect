@@ -12,6 +12,8 @@ import { FAQTopTen } from "@/components/FAQTopTen";
 import { FAQPolicyDownload } from "@/components/FAQPolicyDownload";
 import { FAQTrustStack } from "@/components/FAQTrustStack";
 import faqHeroImg from "@/assets/faq-hero.jpg";
+import { GoldCornerImage } from "@/components/ui/gold-corner-image";
+import venueEmptyImg from "@/assets/venue-empty-golden.jpg";
 
 const faqSections = [
   { id: "faq-hero",      label: "Overview",          isBlackKey: false },
