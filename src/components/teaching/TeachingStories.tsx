@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
+import { GoldCornerImage } from "@/components/ui/gold-corner-image";
+import soundKeysImg from "@/assets/sound-keys.jpg";
+import teachingBenchImg from "@/assets/teaching-bench.jpg";
+import teachingKeysImg from "@/assets/teaching-keys.jpg";
 
 const stories = [
   {
