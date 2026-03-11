@@ -229,7 +229,7 @@ export default function Contact() {
                     <button
                       type="button"
                       onClick={() => setShowExtras(true)}
-                      className="text-[0.625rem] tracking-[0.14em] uppercase font-light text-muted-foreground/40 hover:text-muted-foreground/70 transition-colors duration-200 underline underline-offset-4"
+                      className="text-xs tracking-[0.14em] uppercase font-light text-muted-foreground hover:text-foreground transition-colors duration-200 underline underline-offset-4"
                     >
                       Add ceremony time or song requests
                     </button>
