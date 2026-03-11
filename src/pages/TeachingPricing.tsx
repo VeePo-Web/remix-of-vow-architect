@@ -94,10 +94,10 @@ export default function TeachingPricing() {
                   </div>
                   <p className="font-display text-[clamp(18px,2vw,24px)] font-light text-muted-foreground mb-6">per hour</p>
                   <p className="p-body text-muted-foreground max-w-md mx-auto">
-                    No packages. No commitments. One conversation at a time.
+                    60-minute sessions. No commitments. Pay as you go.
                   </p>
                   <p className="text-sm text-muted-foreground/70 mt-4 italic">
-                    The first session begins with a question, not a scale.
+                    Your first session is a conversation — no preparation needed.
                   </p>
                 </div>
               </RevealOnScroll>
