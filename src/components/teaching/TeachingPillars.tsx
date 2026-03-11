@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
+import { GoldCornerImage } from "@/components/ui/gold-corner-image";
+import teachingKeysImg from "@/assets/teaching-keys.jpg";
 
 const pillars = [
   {
