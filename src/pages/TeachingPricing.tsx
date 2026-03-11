@@ -19,11 +19,11 @@ const sections = [
 ];
 
 const inclusions = [
-  "One-to-one mentorship — never group",
-  "Expression-focused methodology",
-  "Repertoire chosen together",
-  "In-person (Calgary) or virtual",
-  "Response within 24 hours",
+  "One-on-one, never group lessons",
+  "Focus on expression, not just technique",
+  "You choose the music we work on",
+  "In-person (Calgary) or online",
+  "I reply within 24 hours",
 ];
 
 const fears = [
