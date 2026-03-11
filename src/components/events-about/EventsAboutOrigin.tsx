@@ -29,7 +29,7 @@ export function EventsAboutOrigin() {
             style={{ transitionDelay: "400ms" }}
           >
             <GoldCornerImage
-              src={eventsHeroImg}
+              src={witnessCeremonyImg}
               alt="An intimate event venue with warm ambient lighting"
               frameIndex="FR01"
             />

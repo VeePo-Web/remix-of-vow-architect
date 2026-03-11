@@ -21,7 +21,7 @@ export function EventsCrossing() {
       <div
         className="absolute inset-0 bg-cover bg-center pointer-events-none"
         style={{
-          backgroundImage: `url(${soundKeysImg})`,
+          backgroundImage: `url(${venueEmptyImg})`,
           opacity: 0.04,
           animation: "events-crossing-kb 30s linear infinite alternate",
         }}

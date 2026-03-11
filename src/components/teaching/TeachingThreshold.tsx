@@ -275,7 +275,7 @@ export function TeachingThreshold() {
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: `url(${benchImg})`,
+          backgroundImage: `url(${handsKeysImg})`,
           opacity: 0.05,
           animation: "threshold-ken-burns 30s linear infinite alternate",
         }}

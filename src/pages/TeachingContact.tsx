@@ -75,7 +75,7 @@ export default function TeachingContact() {
           aria-hidden="true"
         >
           <img
-            src={teachingBenchImg}
+            src={witnessCeremonyImg}
             alt=""
             className="absolute inset-0 w-full h-full object-cover object-center"
             loading="eager"

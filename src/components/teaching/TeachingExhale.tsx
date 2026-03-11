@@ -349,7 +349,7 @@ export function TeachingExhale() {
         style={{ transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)", transitionDelay: "400ms" }}
       >
         <GoldCornerImage
-          src={teachingBenchImg}
+          src={teachingStudioImg}
           alt="Piano bench in a warm teaching studio"
           aspectRatio="16/9"
           maxHeight="480px"

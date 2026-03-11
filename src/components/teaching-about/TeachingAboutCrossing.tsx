@@ -19,7 +19,7 @@ export function TeachingAboutCrossing() {
     >
       <div className="absolute inset-0">
         <img
-          src={teachingBenchImg}
+          src={pianoMacroImg}
           alt=""
           className="w-full h-full object-cover"
           loading="lazy"

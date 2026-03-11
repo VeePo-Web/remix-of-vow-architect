@@ -20,7 +20,7 @@ export function EventsAboutCrossing() {
       {/* Background image */}
       <div className="absolute inset-0">
         <img
-          src={eventsHeroImg}
+          src={venueEmptyImg}
           alt=""
           className="w-full h-full object-cover"
           loading="lazy"

@@ -41,7 +41,7 @@ export function EventsThreshold() {
       <div
         className="absolute inset-0 bg-cover bg-center pointer-events-none"
         style={{
-          backgroundImage: `url(${eventsHeroImg})`,
+          backgroundImage: `url(${eventsBallroomImg})`,
           opacity: 0.04,
           animation: "events-threshold-kb 30s linear infinite alternate",
         }}

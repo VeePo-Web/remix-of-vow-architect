@@ -173,7 +173,7 @@ export function TeachingCrossing() {
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: `url(${benchImg})`,
+          backgroundImage: `url(${keysIntimateImg})`,
           opacity: 0.04,
           animation: "crossing-ken-burns 30s linear infinite alternate",
         }}

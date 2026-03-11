@@ -202,7 +202,7 @@ export function TeachingOffering() {
       <div
         className="absolute inset-0 bg-cover bg-center pointer-events-none"
         style={{
-          backgroundImage: `url(${soundKeysImg})`,
+          backgroundImage: `url(${keysIntimateImg})`,
           opacity: 0.03,
           animation: "offering-kb 30s linear infinite alternate",
         }}
