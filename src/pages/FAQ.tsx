@@ -97,6 +97,18 @@ export default function FAQ() {
         <FAQChips />
       </div>
 
+      {/* Editorial image bleed */}
+      <div className="max-w-5xl mx-auto px-4 py-8">
+        <GoldCornerImage
+          src={venueEmptyImg}
+          alt="Empty elegant venue bathed in golden hour light"
+          aspectRatio="16/9"
+          maxHeight="400px"
+          frameIndex="FR·02"
+          className="w-full"
+        />
+      </div>
+
       {/* Golden thread */}
       <div className="relative py-6" aria-hidden="true">
         <div className="h-px max-w-xs mx-auto" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)" }} />

@@ -168,6 +168,18 @@ export default function Pricing() {
                   </div>
                 </Card>
 
+                {/* Editorial image bleed */}
+                <div className="col-span-1 md:col-span-3 my-8 md:my-12 md:-mx-8">
+                  <GoldCornerImage
+                    src={pianoMacroImg}
+                    alt="Piano hammers and strings in warm backlight"
+                    aspectRatio="16/9"
+                    maxHeight="360px"
+                    frameIndex="FR·03"
+                    className="w-full"
+                  />
+                </div>
+
                 {/* Ceremony + Prelude/Cocktails — $750 */}
                 <Card className="relative p-6 bg-card/80 backdrop-blur-[8px] border-primary/15 border-2 card-sacred card-sacred-hover transition-all duration-[180ms]" style={{ boxShadow: 'var(--shadow-sacred-inset), var(--shadow-sacred-elevation), 0 0 40px hsl(var(--vow-yellow) / 0.08)' }}>
                   <MostSelectedPill />

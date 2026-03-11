@@ -318,6 +318,18 @@ export default function Listen() {
       ))}
       </div>
 
+      {/* Editorial image bleed before crossing */}
+      <div className="max-w-4xl mx-auto px-4 py-12">
+        <GoldCornerImage
+          src={handsKeysImg}
+          alt="Hands playing piano keys in warm candlelight"
+          aspectRatio="16/9"
+          maxHeight="360px"
+          frameIndex="FR·05"
+          className="w-full"
+        />
+      </div>
+
       {/* Section fade before crossing */}
       <div className="section-fade-bottom" style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--vigil-void)))", height: "80px", position: "relative", zIndex: 2 }} aria-hidden="true" />
 
