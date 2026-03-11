@@ -165,7 +165,8 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
               className={cn(
                 'piano-key-tooltip',
                 isHovered && 'piano-key-tooltip--visible',
-                isActive && 'piano-key-tooltip--active'
+                isActive && !isHovered && 'piano-key-tooltip--active piano-key-tooltip--active-persistent',
+                isActive && isHovered && 'piano-key-tooltip--visible piano-key-tooltip--active'
               )}
             >
               {section.label}
@@ -205,6 +206,14 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
           </div>
         );
       })}
+
+      {/* "Sections" micro-label */}
+      <span
+        className="piano-key-sections-label"
+        aria-hidden="true"
+      >
+        Sections
+      </span>
     </nav>
   );
 }

@@ -1,5 +1,6 @@
 import { MinimalHeader } from "@/components/MinimalHeader";
 import { Footer } from "@/components/Footer";
+import { PianoKeyNav } from "@/components/PianoKeyNav";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { LuxuryInput, LuxuryTextarea } from "@/components/ui/luxury-input";
 import { PillSelector } from "@/components/ui/pill-selector";
@@ -79,13 +80,20 @@ export default function EventsContact() {
   }
 
   /* ── Form ───────────────────────────────────────────────────────────────── */
+  const ecSections = [
+    { id: "ec-hero", label: "Get in Touch", isBlackKey: false },
+    { id: "ec-form", label: "Event Details", isBlackKey: true },
+    { id: "ec-trust", label: "What to Expect", isBlackKey: false },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <MinimalHeader />
+      <PianoKeyNav sections={ecSections} />
 
       <main>
         {/* ── Cinematic hero strip ─────────────────────────────────────────── */}
-        <div className="relative h-[36vh] min-h-[240px] overflow-hidden" aria-hidden="true">
+        <div id="ec-hero" className="relative h-[36vh] min-h-[240px] overflow-hidden" aria-hidden="true">
           <img
             src={eventsHeroImg}
             alt=""
@@ -104,7 +112,7 @@ export default function EventsContact() {
         </div>
 
         {/* ── Form section ──────────────────────────────────────────────────── */}
-        <section className="py-16 md:py-24 px-4 relative">
+        <section id="ec-form" className="py-16 md:py-24 px-4 relative">
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
@@ -270,7 +278,7 @@ export default function EventsContact() {
             </div>
 
             {/* ── Trust signals ─────────────────────────────────────────────── */}
-            <div className="mt-16 max-w-xs mx-auto grid grid-cols-3 gap-6 text-center">
+            <div id="ec-trust" className="mt-16 max-w-xs mx-auto grid grid-cols-3 gap-6 text-center">
               {trustStats.map((stat) => (
                 <div key={stat.label}>
                   <p

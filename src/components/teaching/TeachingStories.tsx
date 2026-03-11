@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
+import { GoldCornerImage } from "@/components/ui/gold-corner-image";
+import soundKeysImg from "@/assets/sound-keys.jpg";
+import teachingBenchImg from "@/assets/teaching-bench.jpg";
+import teachingKeysImg from "@/assets/teaching-keys.jpg";
+
+const storyImages = [soundKeysImg, teachingBenchImg, teachingKeysImg];
 
 const stories = [
   {
@@ -143,6 +149,22 @@ function StoryCard({
 
   return (
     <div ref={ref} className="mb-[120px] md:mb-[160px] last:mb-0">
+      {/* Editorial image — alternating alignment */}
+      <div
+        className={cn(
+          "mb-fitz-7 w-[70%] md:w-[55%]",
+          index % 2 === 0 ? "mr-auto" : "ml-auto"
+        )}
+      >
+        <GoldCornerImage
+          src={storyImages[index % storyImages.length]}
+          alt=""
+          aspectRatio="4/3"
+          maxHeight="280px"
+          frameIndex={`FR0${index + 3}`}
+        />
+      </div>
+
       {/* Narrative — scroll-linked word-by-word */}
       <p
         className="font-sans text-[16px] leading-[1.75] text-center mb-fitz-7"

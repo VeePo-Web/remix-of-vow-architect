@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
+import { GoldCornerImage } from "@/components/ui/gold-corner-image";
+import teachingKeysImg from "@/assets/teaching-keys.jpg";
 
 const pillars = [
   {
@@ -350,12 +352,25 @@ export function TeachingPillars() {
 
         {/* Pillar cards — each independently triggered */}
         {pillars.map((p, i) => (
-          <PillarCard
-            key={p.title}
-            pillar={p}
-            index={i}
-            isLast={i === pillars.length - 1}
-          />
+          <React.Fragment key={p.title}>
+            <PillarCard
+              pillar={p}
+              index={i}
+              isLast={i === pillars.length - 1}
+            />
+            {/* Editorial interstitial image between pillars II and III */}
+            {i === 1 && (
+              <div className="my-[60px] md:my-[80px] w-[calc(100%+4rem)] md:w-[calc(100%+12rem)] -ml-8 md:-ml-24">
+                <GoldCornerImage
+                  src={teachingKeysImg}
+                  alt="Piano keys in warm light"
+                  aspectRatio="16/9"
+                  maxHeight="400px"
+                  frameIndex="FR02"
+                />
+              </div>
+            )}
+          </React.Fragment>
         ))}
 
         {/* Closing — independently observed */}

@@ -998,6 +998,27 @@ All colors MUST be HSL.
   color: hsl(var(--foreground) / 0.9);
 }
 
+.piano-key-tooltip.piano-key-tooltip--active-persistent {
+  opacity: 0.55;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0);
+}
+
+.piano-key-sections-label {
+  display: block;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--font-sans);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: hsl(var(--muted-foreground) / 0.3);
+  margin-top: 10px;
+  margin-right: 6px;
+  pointer-events: none;
+  user-select: none;
+}
+
 .piano-key-tooltip-caret {
   position: absolute;
   right: -4px;

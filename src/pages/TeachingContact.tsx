@@ -1,4 +1,5 @@
 import { MinimalHeader } from "@/components/MinimalHeader";
+import { PianoKeyNav } from "@/components/PianoKeyNav";
 import { Footer } from "@/components/Footer";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { LuxuryInput, LuxuryTextarea } from "@/components/ui/luxury-input";
@@ -55,13 +56,21 @@ export default function TeachingContact() {
   }
 
   /* ── Form ───────────────────────────────────────────────────────────────── */
+  const tcSections = [
+    { id: "tc-hero", label: "Get in Touch", isBlackKey: false },
+    { id: "tc-form", label: "Your Details", isBlackKey: true },
+    { id: "tc-trust", label: "What to Expect", isBlackKey: false },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <MinimalHeader />
+      <PianoKeyNav sections={tcSections} />
 
       <main>
         {/* ── Hero ──────────────────────────────────────────────────────────── */}
         <section
+          id="tc-hero"
           className="relative h-[38vh] min-h-[260px] overflow-hidden"
           aria-hidden="true"
         >
@@ -83,7 +92,7 @@ export default function TeachingContact() {
         </section>
 
         {/* ── Form section ──────────────────────────────────────────────────── */}
-        <section className="py-16 md:py-24 px-4 relative">
+        <section id="tc-form" className="py-16 md:py-24 px-4 relative">
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
@@ -182,7 +191,7 @@ export default function TeachingContact() {
             </div>
 
             {/* ── Trust signals ─────────────────────────────────────────────── */}
-            <div className="mt-16 max-w-xs mx-auto grid grid-cols-3 gap-4 text-center">
+            <div id="tc-trust" className="mt-16 max-w-xs mx-auto grid grid-cols-3 gap-4 text-center">
               {trustStats.map((stat) => (
                 <div key={stat.label}>
                   <p
