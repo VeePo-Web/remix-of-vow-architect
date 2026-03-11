@@ -16,6 +16,8 @@ import { useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { Link } from "react-router-dom";
 import servicesHeroImg from "@/assets/services-hero.jpg";
+import { GoldCornerImage } from "@/components/ui/gold-corner-image";
+import pianoMacroImg from "@/assets/piano-macro-hammers.jpg";
 
 const pricingSections = [
   { id: "pricing-hero",         label: "Overview",         isBlackKey: false },
