@@ -10,6 +10,8 @@ import { Play, Pause } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import listenHero from "@/assets/listen-hero.jpg";
+import { GoldCornerImage } from "@/components/ui/gold-corner-image";
+import handsKeysImg from "@/assets/hands-keys-closeup.jpg";
 
 const listenSections = [
   { id: "listen-hero",      label: "Welcome",       isBlackKey: false },
