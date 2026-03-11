@@ -109,7 +109,7 @@ export default function TeachingPricing() {
             <div id="tp-inclusions" className="piano-section-target">
               <RevealOnScroll variant="up">
                 <div className="max-w-2xl mx-auto mb-16 scroll-mt-24">
-                  <h2 className="h2 text-center mb-8 mx-auto">What every hour includes.</h2>
+                  <h2 className="h2 text-center mb-8 mx-auto">What every session includes.</h2>
                   <ul className="space-y-4">
                     {inclusions.map((item, i) => (
                       <li key={i} className="flex items-start gap-3">
