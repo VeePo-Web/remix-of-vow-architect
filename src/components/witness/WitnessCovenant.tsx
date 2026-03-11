@@ -144,7 +144,7 @@ export function WitnessCovenant() {
                   <path d="M20,30 Q40,20 60,30 T100,30 Q110,28 120,30 T160,30 Q170,28 180,30 T220,30" fill="none" stroke="hsl(var(--foreground))" strokeWidth="1.5" strokeLinecap="round" filter="url(#inkBloom)" style={{ strokeDasharray: 300, strokeDashoffset: signatureDrawn ? 0 : 300, transition: "stroke-dashoffset 1.5s cubic-bezier(0.22, 0.61, 0.36, 1)" }} />
                 </svg>
               </div>
-              <p className={cn("font-display text-xl text-foreground transition-all duration-700", signatureDrawn ? "opacity-100" : "opacity-0")} style={{ textShadow: '0 1px 2px hsl(var(--rich-black) / 0.3), 0 -1px 1px hsl(var(--vow-yellow) / 0.05)' }}>
+              <p className={cn("font-display text-xl text-foreground transition-all duration-700", signatureDrawn ? "opacity-100" : "opacity-0")}>
                 Parker Gawryletz
               </p>
               <p className={cn("text-xs uppercase tracking-[0.2em] text-muted-foreground mt-1 transition-all duration-700", signatureDrawn ? "opacity-100" : "opacity-0")} style={{ transitionDelay: "200ms" }}>
