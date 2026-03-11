@@ -95,6 +95,7 @@ export function ThreePaths() {
       role="region"
       aria-label="Pricing options"
       className="section--dark section-grain piano-section-target relative py-[80px] md:py-[120px] px-4 min-h-[500px]"
+      data-theme="death"
     >
       {/* Top fade */}
       <div

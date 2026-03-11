@@ -78,6 +78,7 @@ export function TheTransformation() {
       id="the-transformation"
       ref={setRefs}
       className="section-grain piano-section-target relative overflow-hidden min-h-[80vh]"
+      data-theme="death"
       role="region"
       aria-label="The Transformation — fears honoured, promises made"
       style={{
