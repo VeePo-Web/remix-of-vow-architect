@@ -234,7 +234,7 @@ export function TeachingOffering() {
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             }}
           >
-            The offering
+            Lesson details
           </p>
 
           {/* Golden dot anchor */}
