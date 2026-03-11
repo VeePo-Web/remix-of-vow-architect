@@ -248,15 +248,22 @@ export function TeachingCrossing() {
           aria-hidden="true"
         />
 
-        {/* Tagline — scroll-linked word-by-word reveal */}
+        {/* Heading — simple direct question */}
         <h2
-          className="font-display text-[28px] md:text-[40px] font-light tracking-tight mb-fitz-7"
+          className={cn(
+            "font-display text-[28px] md:text-[40px] font-light tracking-tight mb-fitz-7 transition-all duration-[900ms]",
+            isVisible
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-[12px]"
+          )}
           style={{
             color: "hsl(var(--teaching-text-heading))",
             textShadow: "0 1px 2px hsl(var(--teaching-vignette) / 0.25)",
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "200ms",
           }}
         >
-          <ScrollTagline isInView={isVisible} />
+          Ready to start?
         </h2>
 
         {/* CTA zone — independently observed */}
