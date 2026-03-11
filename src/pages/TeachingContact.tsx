@@ -96,16 +96,16 @@ export default function TeachingContact() {
           <div className="container max-w-4xl mx-auto relative z-10">
             {/* Header */}
             <div className="text-center mb-14">
-              <p className="overline text-primary/50 mb-3">The First Note</p>
+              <p className="overline text-primary/50 mb-3">Get in Touch</p>
               <h1
                 className="font-display font-light text-foreground"
                 style={{ fontSize: "clamp(28px, 4vw, 42px)", lineHeight: 1.15 }}
               >
-                The first question I ask<br className="hidden sm:block" /> is never about music.
+                Interested in lessons?<br className="hidden sm:block" /> Let's talk.
               </h1>
               <div className="chapter-rule mx-auto mt-6 mb-6" />
               <p className="text-muted-foreground font-light max-w-md mx-auto leading-relaxed" style={{ fontSize: "clamp(15px, 1.4vw, 17px)" }}>
-                A name, an email, and whatever brought you here — that is enough to begin.
+                A name, an email, and whatever brought you here. That is all I need.
               </p>
             </div>
 
