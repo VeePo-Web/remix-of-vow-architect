@@ -376,7 +376,7 @@ export function Footer() {
             
             <div className="flex flex-col items-center text-center relative z-[1]">
               {/* Micro-label */}
-              <p className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground/40 mb-4">
+              <p className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground/60 mb-4">
                 This experience was crafted by
               </p>
               {/* Orange-teal accent divider */}
