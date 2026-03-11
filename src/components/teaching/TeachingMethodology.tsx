@@ -247,9 +247,9 @@ export function TeachingMethodology() {
           }}
         >
           <ScrollRevealWords
-            text={'"What do you want to say through this instrument?"'}
+            text={'"What kind of music do you want to play?"'}
             isInView={isVisible}
-            underlineWord="say"
+            underlineWord="play"
           />
         </h2>
 
