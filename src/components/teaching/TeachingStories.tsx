@@ -58,7 +58,7 @@ function ScrollNarrative({
       return;
     }
     rafRef.current = requestAnimationFrame(updateProgress);
-    return () => cancelAnimationFrame(updateProgress);
+    return () => cancelAnimationFrame(rafRef.current);
   }, [isInView, updateProgress]);
 
   const words = text.split(" ");
