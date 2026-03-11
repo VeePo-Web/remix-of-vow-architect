@@ -2,7 +2,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import soundKeysImg from "@/assets/sound-keys.jpg";
+import venueEmptyImg from "@/assets/venue-empty-golden.jpg";
 
 export function EventsCrossing() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });

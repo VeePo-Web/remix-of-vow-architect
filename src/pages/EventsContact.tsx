@@ -10,7 +10,7 @@ import { usePageTheme } from "@/hooks/usePageTheme";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import eventsHeroImg from "@/assets/events-hero.jpg";
+import eventsBallroomImg from "@/assets/events-ballroom-grand.jpg";
 
 /* ─── Schema ──────────────────────────────────────────────────────────────── */
 const schema = z.object({

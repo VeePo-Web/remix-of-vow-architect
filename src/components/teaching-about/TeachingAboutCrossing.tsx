@@ -2,7 +2,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { useNavigate } from "react-router-dom";
-import teachingBenchImg from "@/assets/teaching-bench.jpg";
+import pianoMacroImg from "@/assets/piano-macro-hammers.jpg";
 
 export function TeachingAboutCrossing() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });

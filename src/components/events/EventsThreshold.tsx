@@ -1,6 +1,6 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
-import eventsHeroImg from "@/assets/events-hero.jpg";
+import eventsBallroomImg from "@/assets/events-ballroom-grand.jpg";
 
 const concerns = [
   {

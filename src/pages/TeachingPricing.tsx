@@ -8,7 +8,7 @@ import { RevealOnScroll } from "@/components/animation";
 import { useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { Link } from "react-router-dom";
-import teachingBenchImg from "@/assets/teaching-bench.jpg";
+import heroPianoImg from "@/assets/hero-piano.jpg";
 
 const sections = [
   { id: "tp-hero",       label: "Overview",      isBlackKey: false },

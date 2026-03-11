@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
-import benchImg from "@/assets/teaching-bench.jpg";
+import handsKeysImg from "@/assets/hands-keys-closeup.jpg";
 
 const fears = [
   {

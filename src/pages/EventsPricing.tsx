@@ -17,7 +17,7 @@ import { useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { Link } from "react-router-dom";
 
-import eventsHeroImg from "@/assets/events-hero.jpg";
+import heroPianoImg from "@/assets/hero-piano.jpg";
 
 const sections = [
   { id: "ep-hero",        label: "Overview",       isBlackKey: false },

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import soundKeysImg from "@/assets/sound-keys.jpg";
+import keysIntimateImg from "@/assets/sound-keys-intimate-ai.jpg";
 
 /**
  * Scroll-linked price reveal — each character of "$60 per hour"

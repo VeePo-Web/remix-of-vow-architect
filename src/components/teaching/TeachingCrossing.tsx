@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import benchImg from "@/assets/teaching-bench.jpg";
+import keysIntimateImg from "@/assets/sound-keys-intimate-ai.jpg";
 
 /**
  * Scroll-linked word-by-word reveal for the tagline.

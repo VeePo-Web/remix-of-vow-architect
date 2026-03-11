@@ -1,7 +1,7 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 import { GoldCornerImage } from "@/components/ui/gold-corner-image";
-import eventsHeroImg from "@/assets/events-hero.jpg";
+import witnessCeremonyImg from "@/assets/witness-ceremony.jpg";
 
 export function EventsAboutOrigin() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
