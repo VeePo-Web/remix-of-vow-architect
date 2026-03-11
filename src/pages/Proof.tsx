@@ -14,6 +14,8 @@ import { usePageTheme } from "@/hooks/usePageTheme";
 
 import { Link } from "react-router-dom";
 import galleryHeroImg from "@/assets/gallery-hero.jpg";
+import { GoldCornerImage } from "@/components/ui/gold-corner-image";
+import gallerySetupImg from "@/assets/gallery-setup.jpg";
 
 const proofSections = [
   { id: "proof-hero",        label: "Overview",         isBlackKey: false },
