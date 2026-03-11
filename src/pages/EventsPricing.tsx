@@ -89,8 +89,8 @@ function ComparisonIcon({ value }: { value: boolean | "warning" }) {
   if (value === true) return (
     <span className="inline-block w-2.5 h-2.5 rotate-45" style={{ background: "hsl(var(--vow-yellow) / 0.8)", boxShadow: "0 0 6px hsl(var(--vow-yellow) / 0.3)" }} aria-label="Included" />
   );
-  if (value === "warning") return <span className="text-muted-foreground/50 text-sm" aria-label="Partial">·</span>;
-  return <span className="text-muted-foreground/30 text-sm" aria-label="Not included">—</span>;
+  if (value === "warning") return <span className="text-muted-foreground/70 text-sm" aria-label="Partial">·</span>;
+  return <span className="text-muted-foreground/60 text-sm" aria-label="Not included">—</span>;
 }
 
 export default function EventsPricing() {
