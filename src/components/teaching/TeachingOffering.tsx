@@ -2,11 +2,10 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import keysIntimateImg from "@/assets/sound-keys-intimate-ai.jpg";
 
 /**
  * Scroll-linked price reveal — each character of "$60 per hour"
- * materializes individually with staggered thresholds for gravitas.
+ * materializes individually with staggered thresholds.
  */
 function ScrollPrice({ isInView }: { isInView: boolean }) {
   const containerRef = useRef<HTMLSpanElement>(null);
@@ -47,7 +46,6 @@ function ScrollPrice({ isInView }: { isInView: boolean }) {
         const charOpacity = isInView
           ? Math.max(0.06, Math.min(1, (progress - threshold * 0.6) / 0.25))
           : 0.06;
-        // Subtle Y drift — settles as opacity reaches 1
         const charY = isInView
           ? Math.max(0, (1 - charOpacity) * 4)
           : 6;
@@ -69,9 +67,6 @@ function ScrollPrice({ isInView }: { isInView: boolean }) {
   );
 }
 
-/**
- * Scroll-linked word reveal for anti-anxiety copy.
- */
 function ScrollAntiAnxiety({
   text,
   underlineWord,
@@ -194,132 +189,55 @@ export function TeachingOffering() {
     <section
       id="teaching-offering"
       className="relative py-[140px] md:py-[180px] px-fitz-4 md:px-fitz-6 overflow-hidden"
-      style={{ background: "hsl(var(--teaching-bg-alt))" }}
+      style={{ background: "hsl(var(--background))" }}
       role="region"
       aria-label="The Offering"
     >
-      {/* Background texture with Ken Burns */}
-      <div
-        className="absolute inset-0 bg-cover bg-center pointer-events-none"
-        style={{
-          backgroundImage: `url(${keysIntimateImg})`,
-          opacity: 0.03,
-          animation: "offering-kb 30s linear infinite alternate",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Warm radial glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 50%, hsl(var(--vow-yellow) / 0.04), transparent 60%)",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Film grain */}
-      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
-
-      {/* Breathing vignette */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, transparent 45%, hsl(var(--teaching-vignette-alt) / 0.45) 100%)",
-          animation: "offering-vignette 6s ease-in-out infinite",
-        }}
-        aria-hidden="true"
-      />
-
       <div className="relative z-10 max-w-[560px] mx-auto text-center">
         {/* Header zone */}
         <div ref={headerRef}>
-          {/* Whispered section label */}
           <p
             className={cn(
-              "font-sans text-[11px] uppercase tracking-[0.22em] mb-fitz-5 transition-all duration-[1800ms]",
+              "font-sans text-[11px] uppercase tracking-[0.22em] text-muted-foreground mb-fitz-7 transition-all duration-[1800ms]",
               headerVisible
                 ? "opacity-50 translate-y-0"
                 : "opacity-0 translate-y-[8px]"
             )}
             style={{
-              color: "hsl(var(--teaching-text-label))",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             }}
           >
             Lesson details
           </p>
 
-          {/* Golden dot anchor */}
-          <span
-            className={cn(
-              "block w-2 h-2 rounded-full mx-auto mb-fitz-5 transition-all duration-[900ms]",
-              headerVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-            )}
-            style={{
-              background: "hsl(var(--vow-yellow))",
-              boxShadow: "0 0 8px 2px hsl(var(--vow-yellow) / 0.15)",
-              animation: headerVisible
-                ? "offering-dot-breathe 4s ease-in-out infinite"
-                : undefined,
-              transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-              transitionDelay: "100ms",
-            }}
-            aria-hidden="true"
-          />
-
-          {/* Vertical golden thread — dot to content */}
-          <div
-            className={cn(
-              "w-px h-[60px] mx-auto mb-fitz-9 origin-top transition-transform duration-[700ms]",
-              headerVisible ? "scale-y-100" : "scale-y-0"
-            )}
-            style={{
-              background:
-                "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.25), hsl(var(--vow-yellow) / 0.06))",
-              transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-              transitionDelay: "200ms",
-            }}
-            aria-hidden="true"
-          />
-
-          {/* Framing question */}
           <h2
             className={cn(
-              "font-display text-[28px] md:text-[40px] font-light tracking-tight leading-[1.15] mb-fitz-8 transition-all duration-[900ms]",
+              "font-display text-[28px] md:text-[40px] font-light tracking-tight leading-[1.15] text-foreground mb-fitz-8 transition-all duration-[900ms]",
               headerVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-[12px]"
             )}
             style={{
-              color: "hsl(var(--teaching-text-heading))",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-              transitionDelay: "300ms",
-              textShadow: "0 1px 2px hsl(var(--teaching-vignette) / 0.25)",
+              transitionDelay: "200ms",
             }}
           >
             Simple pricing
           </h2>
         </div>
 
-        {/* Price zone — independently observed, scroll-linked character reveal */}
+        {/* Price zone */}
         <div ref={priceRef} className="mb-fitz-3">
           <p
-            className="font-sans text-[18px] md:text-[20px] font-normal tracking-[0.01em]"
-            style={{ color: "hsl(var(--teaching-text-narrative))" }}
+            className="font-sans text-[18px] md:text-[20px] font-normal tracking-[0.01em] text-foreground"
           >
             <ScrollPrice isInView={priceVisible} />
           </p>
         </div>
 
-        {/* Anti-anxiety — scroll-linked word reveal */}
+        {/* Anti-anxiety */}
         <div className="mb-fitz-8">
-          <p
-            className="font-sans text-[13px] tracking-[0.02em]"
-            style={{ color: "hsl(var(--teaching-text-body))" }}
-          >
+          <p className="font-sans text-[13px] tracking-[0.02em] text-muted-foreground">
             <ScrollAntiAnxiety
               text="60-minute sessions. No packages, no contracts. Pay as you go."
               isInView={priceVisible}
@@ -327,9 +245,8 @@ export function TeachingOffering() {
           </p>
         </div>
 
-        {/* CTA zone — independently observed */}
+        {/* CTA zone */}
         <div ref={ctaRef}>
-          {/* CTA with halo */}
           <div
             className={cn(
               "relative mb-fitz-6 transition-all duration-[700ms]",
@@ -342,17 +259,6 @@ export function TeachingOffering() {
               transitionDelay: "150ms",
             }}
           >
-            <div
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[60px] rounded-full pointer-events-none"
-              style={{
-                background:
-                  "radial-gradient(ellipse, hsl(var(--vow-yellow) / 0.12), transparent 70%)",
-                animation: ctaVisible
-                  ? "offering-halo-breathe 4s ease-in-out infinite"
-                  : undefined,
-              }}
-              aria-hidden="true"
-            />
             <Button
               asChild
               variant="default"
@@ -363,69 +269,17 @@ export function TeachingOffering() {
             </Button>
           </div>
 
-          {/* Anti-anxiety secondary — scroll-linked */}
-          <p
-            className="font-sans text-[12px] mb-fitz-2"
-            style={{ color: "hsl(var(--teaching-text-label))" }}
-          >
+          <p className="font-sans text-[12px] text-muted-foreground">
             <ScrollAntiAnxiety
               text="Your first session is a conversation — no preparation needed."
               underlineWord="conversation"
               isInView={ctaVisible}
             />
           </p>
-
-          {/* Pencil annotation */}
-          <span
-            className={cn(
-              "inline-block font-display italic text-[13px] mt-fitz-4 mb-fitz-7 transition-all duration-[700ms]",
-              ctaVisible ? "opacity-30" : "opacity-0"
-            )}
-            style={{
-              color: "hsl(var(--teaching-text-cite))",
-              transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
-              transitionDelay: "600ms",
-            }}
-            aria-label="Annotation"
-          >
-            — just show up
-          </span>
-
-          {/* Vertical golden thread — content to bottom */}
-          <div
-            className={cn(
-              "w-px h-[60px] mx-auto origin-top transition-transform duration-[700ms]",
-              ctaVisible ? "scale-y-100" : "scale-y-0"
-            )}
-            style={{
-              background:
-                "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.06), hsl(var(--vow-yellow) / 0.20))",
-              transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-              transitionDelay: "700ms",
-            }}
-            aria-hidden="true"
-          />
         </div>
       </div>
 
-      {/* Keyframes */}
       <style>{`
-        @keyframes offering-kb {
-          0% { transform: scale(1) translate(0, 0); }
-          100% { transform: scale(1.03) translate(0.2%, -0.2%); }
-        }
-        @keyframes offering-dot-breathe {
-          0%, 100% { opacity: 0.6; transform: scale(1); }
-          50% { opacity: 1; transform: scale(1.2); }
-        }
-        @keyframes offering-vignette {
-          0%, 100% { opacity: 0.45; }
-          50% { opacity: 0.6; }
-        }
-        @keyframes offering-halo-breathe {
-          0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
-          50% { opacity: 0.85; transform: translate(-50%, -50%) scale(1.08); }
-        }
         @media (prefers-reduced-motion: reduce) {
           #teaching-offering * {
             animation-duration: 0.01ms !important;

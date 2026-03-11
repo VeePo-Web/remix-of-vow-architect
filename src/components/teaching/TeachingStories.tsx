@@ -28,9 +28,6 @@ const stories = [
   },
 ];
 
-/**
- * Scroll-linked word-by-word reveal for story narrative text.
- */
 function ScrollNarrative({
   text,
   isInView,
@@ -75,25 +72,19 @@ function ScrollNarrative({
           : 0.08;
 
         return (
-            <span
-              key={i}
-              className="inline-block mr-[0.25em] transition-opacity duration-[60ms]"
-              style={{ opacity: wordOpacity }}
-            >
-              {word}
-            </span>
+          <span
+            key={i}
+            className="inline-block mr-[0.25em] transition-opacity duration-[60ms]"
+            style={{ opacity: wordOpacity }}
+          >
+            {word}
+          </span>
         );
       })}
     </span>
   );
 }
 
-/**
- * Each story card has its own IntersectionObserver.
- * The narrative uses scroll-linked word reveals.
- * The pull quote fades in after narrative reaches ~70% progress,
- * with an underline on the key word.
- */
 function StoryCard({
   story,
   index,
@@ -121,7 +112,6 @@ function StoryCard({
     return () => observer.disconnect();
   }, []);
 
-  // Scroll-linked progress for the pull quote
   const updateQuoteProgress = useCallback(() => {
     if (!quoteRef.current) return;
     const rect = quoteRef.current.getBoundingClientRect();
@@ -144,7 +134,6 @@ function StoryCard({
     return () => cancelAnimationFrame(rafRef.current);
   }, [isVisible, updateQuoteProgress]);
 
-  // Split quote into words for individual reveal
   const quoteWords = story.quote.split(" ");
 
   return (
@@ -161,43 +150,20 @@ function StoryCard({
           alt=""
           aspectRatio="4/3"
           maxHeight="280px"
-          frameIndex={`FR0${index + 3}`}
         />
       </div>
 
       {/* Narrative — scroll-linked word-by-word */}
       <p
-        className="font-sans text-[16px] leading-[1.75] text-center mb-fitz-7"
-        style={{ color: "hsl(var(--teaching-text-narrative))" }}
+        className="font-sans text-[16px] leading-[1.75] text-muted-foreground text-center mb-fitz-7"
       >
         <ScrollNarrative text={story.narrative} isInView={isVisible} />
       </p>
 
-      {/* Sacred pause — thin golden thread between narrative and quote */}
-      <div className="flex flex-col items-center py-[24px] md:py-[32px]">
-        <div
-          className={cn(
-            "w-px h-[20px] origin-top transition-transform duration-[600ms]",
-            isVisible ? "scale-y-100" : "scale-y-0"
-          )}
-          style={{
-            background:
-              "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.04), hsl(var(--vow-yellow) / 0.15), hsl(var(--vow-yellow) / 0.04))",
-            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-            transitionDelay: "400ms",
-          }}
-          aria-hidden="true"
-        />
-      </div>
-
-      {/* Pull quote — scroll-linked word-by-word with underline on key word */}
+      {/* Pull quote */}
       <p
         ref={quoteRef}
-        className="font-display italic text-[20px] md:text-[24px] tracking-tight text-center"
-        style={{
-          color: "hsl(var(--teaching-text-quote))",
-          textShadow: "0 1px 2px hsl(var(--teaching-vignette) / 0.3)",
-        }}
+        className="font-display italic text-[20px] md:text-[24px] tracking-tight text-foreground text-center"
       >
         "
         {quoteWords.map((word, i) => {
@@ -242,22 +208,18 @@ function StoryCard({
         "
       </p>
 
-      {/* Golden dot separator between stories */}
+      {/* Simple spacer between stories — no golden dot */}
       {!isLast && (
         <div className="flex justify-center mt-[80px] md:mt-[100px]">
-          <span
+          <div
             className={cn(
-              "block w-1.5 h-1.5 rounded-full transition-all duration-[900ms]",
-              isVisible ? "opacity-100 scale-100" : "opacity-0 scale-50"
+              "h-px w-[40px] transition-transform duration-[600ms] origin-center",
+              isVisible ? "scale-x-100" : "scale-x-0"
             )}
             style={{
-              background: "hsl(var(--vow-yellow))",
-              boxShadow: "0 0 6px 2px hsl(var(--vow-yellow) / 0.12)",
+              background: "hsl(var(--border))",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-              transitionDelay: "600ms",
-              animation: isVisible
-                ? "stories-dot-breathe 4s ease-in-out infinite"
-                : undefined,
+              transitionDelay: "400ms",
             }}
             aria-hidden="true"
           />
@@ -270,96 +232,44 @@ function StoryCard({
 export function TeachingStories() {
   const headerRef = useRef<HTMLDivElement>(null);
   const [headerVisible, setHeaderVisible] = useState(false);
-  const closingRef = useRef<HTMLDivElement>(null);
-  const [closingVisible, setClosingVisible] = useState(false);
 
   useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-
-    if (headerRef.current) {
-      const obs = new IntersectionObserver(
-        ([e]) => { if (e.isIntersecting) setHeaderVisible(true); },
-        { threshold: 0.5 }
-      );
-      obs.observe(headerRef.current);
-      observers.push(obs);
-    }
-    if (closingRef.current) {
-      const obs = new IntersectionObserver(
-        ([e]) => { if (e.isIntersecting) setClosingVisible(true); },
-        { threshold: 0.5 }
-      );
-      obs.observe(closingRef.current);
-      observers.push(obs);
-    }
-
-    return () => observers.forEach((o) => o.disconnect());
+    if (!headerRef.current) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) setHeaderVisible(true); },
+      { threshold: 0.5 }
+    );
+    obs.observe(headerRef.current);
+    return () => obs.disconnect();
   }, []);
 
   return (
     <section
       id="teaching-stories"
       className="relative py-[140px] md:py-[180px] px-fitz-4 md:px-fitz-6 overflow-hidden"
-      style={{ background: "hsl(var(--teaching-bg-alt))" }}
+      style={{ background: "hsl(var(--background))" }}
       role="region"
       aria-label="Student Stories"
     >
-      {/* Warm atmospheric glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 20%, hsl(var(--vow-yellow) / 0.03), transparent 55%)",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Breathing vignette */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, transparent 50%, hsl(var(--teaching-vignette-alt) / 0.5) 100%)",
-          animation: "stories-vignette 6s ease-in-out infinite",
-        }}
-        aria-hidden="true"
-      />
-
       <div className="relative z-10 max-w-[640px] mx-auto">
-        {/* Section header — independently observed */}
+        {/* Section header */}
         <div ref={headerRef}>
           <p
             className={cn(
-              "font-sans text-[11px] uppercase tracking-[0.22em] text-center mb-fitz-5 transition-all duration-[1800ms]",
+              "font-sans text-[11px] uppercase tracking-[0.22em] text-muted-foreground text-center mb-[80px] md:mb-[100px] transition-all duration-[1800ms]",
               headerVisible
                 ? "opacity-50 translate-y-0"
                 : "opacity-0 translate-y-[8px]"
             )}
             style={{
-              color: "hsl(var(--teaching-text-label))",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             }}
           >
             Student stories
           </p>
-
-          {/* Vertical golden thread — label to content */}
-          <div
-            className={cn(
-              "w-px h-[48px] mx-auto mb-fitz-9 origin-top transition-transform duration-[700ms]",
-              headerVisible ? "scale-y-100" : "scale-y-0"
-            )}
-            style={{
-              background:
-                "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.25), hsl(var(--vow-yellow) / 0.04))",
-              transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-              transitionDelay: "200ms",
-            }}
-            aria-hidden="true"
-          />
         </div>
 
-        {/* Story cards — each independently triggered */}
+        {/* Story cards */}
         {stories.map((s, i) => (
           <StoryCard
             key={i}
@@ -368,50 +278,9 @@ export function TeachingStories() {
             isLast={i === stories.length - 1}
           />
         ))}
-
-        {/* Closing — independently observed */}
-        <div ref={closingRef}>
-          <div
-            className={cn(
-              "mx-auto h-px max-w-[200px] mt-[80px] transition-transform duration-[700ms] origin-center",
-              closingVisible ? "scale-x-100" : "scale-x-0"
-            )}
-            style={{
-              background:
-                "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.25), transparent)",
-              transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-              transitionDelay: "200ms",
-            }}
-            aria-hidden="true"
-          />
-
-          <span
-            className={cn(
-              "block font-display italic text-[13px] text-center mt-fitz-5 transition-all duration-[700ms]",
-              closingVisible ? "opacity-30" : "opacity-0"
-            )}
-            style={{
-              color: "hsl(var(--teaching-text-cite))",
-              transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
-              transitionDelay: "400ms",
-            }}
-            aria-label="Closing annotation"
-          >
-            — real students, real moments
-          </span>
-        </div>
       </div>
 
-      {/* Keyframes */}
       <style>{`
-        @keyframes stories-vignette {
-          0%, 100% { opacity: 0.5; }
-          50% { opacity: 0.65; }
-        }
-        @keyframes stories-dot-breathe {
-          0%, 100% { opacity: 0.5; transform: scale(1); }
-          50% { opacity: 1; transform: scale(1.2); }
-        }
         @media (prefers-reduced-motion: reduce) {
           #teaching-stories * {
             animation-duration: 0.01ms !important;

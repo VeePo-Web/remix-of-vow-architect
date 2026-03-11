@@ -4,21 +4,11 @@ import { cn } from "@/lib/utils";
 import { GoldCornerImage } from "@/components/ui/gold-corner-image";
 import teachingStudioImg from "@/assets/teaching-studio-warm.jpg";
 
-/**
- * TeachingExhale — Recognition / Sacred Pause
- *
- * Scroll-linked word-by-word opacity reveals with a non-linear easing curve:
- * words near the center of the block reveal faster than those at the edges,
- * creating a "breathing" rhythm. The underline on "waiting" appears at 90%
- * scroll progress. Enhanced with multi-layer atmospheric depth.
- */
-
 interface LineConfig {
   text: string;
   italic: boolean;
   size: string;
   underlineWord?: string;
-  /** Weight of text shadow — heavier for italic emotional lines */
   shadowWeight: "light" | "medium";
 }
 
@@ -50,7 +40,6 @@ const lines: LineConfig[] = [
   },
 ];
 
-/* ── Word map ── */
 function buildWordMap(lineConfigs: LineConfig[]) {
   const words: { word: string; lineIdx: number; isUnderline: boolean }[] = [];
   lineConfigs.forEach((line, li) => {
@@ -67,14 +56,6 @@ function buildWordMap(lineConfigs: LineConfig[]) {
 
 const allWords = buildWordMap(lines);
 
-/* ── Text shadow presets ── */
-const TEXT_SHADOWS: Record<string, string> = {
-  light: "0 1px 3px hsl(var(--teaching-vignette) / 0.2)",
-  medium:
-    "0 1px 2px hsl(var(--teaching-vignette) / 0.25), 0 4px 16px hsl(var(--teaching-vignette-alt) / 0.06)",
-};
-
-/* ── Scroll-linked word reveal block ── */
 function ScrollRevealBlock({ isInView }: { isInView: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
@@ -84,10 +65,8 @@ function ScrollRevealBlock({ isInView }: { isInView: boolean }) {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const vh = window.innerHeight;
-    // Non-linear mapping: accelerate through the middle, ease at edges
     const raw = 1 - (rect.top - vh * 0.25) / (vh * 0.55);
     const clamped = Math.max(0, Math.min(1, raw));
-    // Apply an ease-in-out curve to the progress for breathing rhythm
     const eased =
       clamped < 0.5
         ? 2 * clamped * clamped
@@ -125,8 +104,7 @@ function ScrollRevealBlock({ isInView }: { isInView: boolean }) {
               li < lines.length - 1 ? "mb-fitz-5" : "mb-0"
             )}
             style={{
-              color: line.italic ? "hsl(var(--teaching-text-narrative))" : "hsl(var(--teaching-text-body))",
-              textShadow: TEXT_SHADOWS[line.shadowWeight],
+              color: "hsl(var(--foreground))",
             }}
           >
             {lineWords.map((w, wi) => {
@@ -139,7 +117,6 @@ function ScrollRevealBlock({ isInView }: { isInView: boolean }) {
                   )
                 : 0.08;
 
-              // Subtle Y-drift: words start 3px low and settle to 0
               const yDrift = isInView
                 ? Math.max(0, 3 * (1 - (progress - threshold * 0.75) / 0.25))
                 : 3;
@@ -166,10 +143,6 @@ function ScrollRevealBlock({ isInView }: { isInView: boolean }) {
                         style={{
                           transitionTimingFunction:
                             "cubic-bezier(.16,1,.3,1)",
-                          boxShadow:
-                            progress > 0.9
-                              ? "0 0 6px 1px hsl(var(--vow-yellow) / 0.2)"
-                              : "none",
                         }}
                         aria-hidden="true"
                       />
@@ -200,7 +173,6 @@ function ScrollRevealBlock({ isInView }: { isInView: boolean }) {
   );
 }
 
-/* ── Main section ── */
 export function TeachingExhale() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.15 });
 
@@ -209,138 +181,31 @@ export function TeachingExhale() {
       id="teaching-exhale"
       ref={ref}
       className="relative py-[120px] md:py-[160px] px-fitz-4 md:px-fitz-6 overflow-hidden"
-      style={{ background: "hsl(var(--teaching-bg))" }}
+      style={{ background: "hsl(var(--background))" }}
       role="region"
       aria-label="The Exhale"
     >
-      {/* ── Layer 1: Warm ambient glow ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 40%, hsl(var(--vow-yellow) / 0.025), transparent 60%)",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* ── Layer 2: Secondary depth fog ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 30% 70%, hsl(var(--teaching-vignette) / 0.25), transparent 50%), radial-gradient(ellipse at 70% 30%, hsl(var(--teaching-vignette) / 0.2), transparent 45%)",
-          animation: isVisible
-            ? "exhale-fog-drift 18s ease-in-out infinite alternate"
-            : undefined,
-        }}
-        aria-hidden="true"
-      />
-
-      {/* ── Layer 3: Grain ── */}
-      <div
-        className="absolute inset-0 grain opacity-[0.05] pointer-events-none"
-        aria-hidden="true"
-      />
-
-      {/* ── Layer 4: Breathing vignette ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, transparent 50%, hsl(var(--teaching-vignette) / 0.5) 100%)",
-          animation: isVisible
-            ? "exhale-vignette-breathe 6s ease-in-out infinite"
-            : undefined,
-        }}
-        aria-hidden="true"
-      />
-
       <div className="relative z-10 max-w-[680px] mx-auto text-center">
         {/* Whispered section label */}
         <p
           className={cn(
-            "font-sans text-[11px] uppercase tracking-[0.22em] mb-fitz-5 transition-all duration-[1800ms]",
+            "font-sans text-[11px] uppercase tracking-[0.22em] text-muted-foreground mb-fitz-7 transition-all duration-[1800ms]",
             isVisible
               ? "opacity-45 translate-y-0"
               : "opacity-0 translate-y-[8px]"
           )}
           style={{
-            color: "hsl(var(--teaching-text-label))",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
           }}
         >
           Where we start
         </p>
 
-        {/* Golden dot anchor — heartbeat */}
-        <span
-          className={cn(
-            "block w-2 h-2 rounded-full mx-auto mb-fitz-5 transition-all duration-[900ms]",
-            isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-          )}
-          style={{
-            background: "hsl(var(--vow-yellow))",
-            boxShadow: "0 0 8px 2px hsl(var(--vow-yellow) / 0.15)",
-            animation: isVisible
-              ? "exhale-dot-pulse 4s ease-in-out infinite"
-              : undefined,
-            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-            transitionDelay: "100ms",
-          }}
-          aria-hidden="true"
-        />
-
-        {/* Vertical golden thread — dot to content */}
-        <div
-          className={cn(
-            "w-px h-[48px] mx-auto mb-fitz-8 origin-top transition-transform duration-[700ms]",
-            isVisible ? "scale-y-100" : "scale-y-0"
-          )}
-          style={{
-            background:
-              "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.25), hsl(var(--vow-yellow) / 0.04))",
-            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-            transitionDelay: "200ms",
-          }}
-          aria-hidden="true"
-        />
-
-        {/* Scroll-linked word-by-word reveals with Y-drift */}
+        {/* Scroll-linked word-by-word reveals */}
         <ScrollRevealBlock isInView={isVisible} />
-
-        {/* Closing horizontal golden thread */}
-        <div
-          className={cn(
-            "mx-auto h-px max-w-[120px] mt-fitz-8 transition-transform duration-[700ms] origin-center",
-            isVisible ? "scale-x-100" : "scale-x-0"
-          )}
-          style={{
-            background:
-              "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)",
-            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-            transitionDelay: "600ms",
-          }}
-          aria-hidden="true"
-        />
-
-        {/* Pencil annotation */}
-        <span
-          className={cn(
-            "block font-display italic text-[13px] mt-fitz-5 transition-all duration-[700ms]",
-            isVisible ? "opacity-30" : "opacity-0"
-          )}
-          style={{
-            color: "hsl(var(--teaching-text-cite))",
-            transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
-            transitionDelay: "800ms",
-          }}
-          aria-label="Closing annotation"
-        >
-          — no experience required
-        </span>
       </div>
 
-      {/* ── Editorial image bleed ── */}
+      {/* Editorial image bleed */}
       <div
         className={cn(
           "relative z-10 mt-[80px] md:mt-[120px] w-[calc(100%+2rem)] md:w-[calc(100%+8rem)] -ml-4 md:-ml-16 transition-all duration-[900ms]",
@@ -350,27 +215,13 @@ export function TeachingExhale() {
       >
         <GoldCornerImage
           src={teachingStudioImg}
-          alt="Piano bench in a warm teaching studio"
+          alt="Piano in a warm teaching studio with golden hour light"
           aspectRatio="16/9"
           maxHeight="480px"
-          frameIndex="FR01"
         />
       </div>
 
-      {/* ── Keyframes ── */}
       <style>{`
-        @keyframes exhale-dot-pulse {
-          0%, 100% { opacity: 0.5; transform: scale(1); box-shadow: 0 0 0 0 hsl(var(--vow-yellow) / 0.3); }
-          50% { opacity: 1; transform: scale(1.15); box-shadow: 0 0 12px 4px hsl(var(--vow-yellow) / 0.15); }
-        }
-        @keyframes exhale-vignette-breathe {
-          0%, 100% { opacity: 0.5; }
-          50% { opacity: 0.7; }
-        }
-        @keyframes exhale-fog-drift {
-          0% { transform: translate(0, 0) scale(1); }
-          100% { transform: translate(1.5%, -0.5%) scale(1.02); }
-        }
         @media (prefers-reduced-motion: reduce) {
           #teaching-exhale * {
             animation-duration: 0.01ms !important;
