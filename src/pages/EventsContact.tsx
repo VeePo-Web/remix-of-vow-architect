@@ -125,7 +125,7 @@ export default function EventsContact() {
           <div className="container max-w-4xl mx-auto relative z-10">
             {/* Header */}
             <div className="text-center mb-14 animate-fade-in">
-              <p className="overline text-primary/50 mb-3">The Conversation</p>
+              <p className="overline text-muted-foreground mb-3">The Conversation</p>
               <h1
                 className="font-display font-light text-foreground"
                 style={{ fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.12 }}
