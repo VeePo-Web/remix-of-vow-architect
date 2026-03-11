@@ -70,10 +70,7 @@ export function EventsExperience() {
               >
                 {v.type}
               </span>
-              <p
-                className="font-sans text-[14px] leading-relaxed mb-6"
-                style={{ color: "hsl(var(--events-warm-text-soft))" }}
-              >
+              <p className="font-sans text-[14px] leading-relaxed mb-6 text-muted-foreground">
                 {v.narrative}
               </p>
               <blockquote className="border-l-2 border-primary pl-4">
