@@ -66,8 +66,7 @@ export function EventsExperience() {
               }}
             >
               <span
-                className="font-sans text-[11px] uppercase tracking-[0.22em] mb-4 block"
-                style={{ color: "hsl(var(--events-warm-label))" }}
+                className="font-sans text-[11px] uppercase tracking-[0.22em] mb-4 block text-primary"
               >
                 {v.type}
               </span>
