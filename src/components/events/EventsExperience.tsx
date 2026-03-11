@@ -33,7 +33,7 @@ export function EventsExperience() {
       id="events-experience"
       ref={ref}
       className="relative py-fitz-10 px-fitz-4 md:px-fitz-6"
-      style={{ background: "hsl(var(--events-warm-bg))" }}
+      style={{ background: "hsl(var(--background))" }}
       role="region"
       aria-label="Past Events"
     >
