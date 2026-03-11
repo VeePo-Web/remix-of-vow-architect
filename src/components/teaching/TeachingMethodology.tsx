@@ -247,9 +247,9 @@ export function TeachingMethodology() {
           }}
         >
           <ScrollRevealWords
-            text={'"What do you want to say through this instrument?"'}
+            text={'"What kind of music do you want to play?"'}
             isInView={isVisible}
-            underlineWord="say"
+            underlineWord="play"
           />
         </h2>
 
@@ -262,7 +262,7 @@ export function TeachingMethodology() {
           }}
         >
           <ScrollRevealWords
-            text="The first question I ask is never about music. It is about you. What brought you to the bench. What you hear when no one is listening. What the silence holds before you give it shape. We begin there — not with a scale, but with the sound you carry inside."
+            text="The first lesson is really a conversation. I want to know what brought you to the piano — what songs you love, what you hope to be able to do, and what has held you back. We start there, not with scales."
             isInView={isVisible}
           />
         </p>
@@ -283,7 +283,7 @@ export function TeachingMethodology() {
               "0 1px 2px hsl(var(--rich-black) / 0.2), 0 3px 12px hsl(var(--rich-black) / 0.08)",
           }}
         >
-          Every voice arrives as a seed. Your hands are the soil. I keep vigil while it takes root.
+          From that conversation, we build a plan that is yours — not a syllabus I hand to everyone.
         </p>
 
         {/* Pencil annotation */}
@@ -299,7 +299,7 @@ export function TeachingMethodology() {
           }}
           aria-label="Annotation: listen"
         >
-          — listen before you play
+          — we start by talking
         </span>
 
         {/* Closing golden thread */}

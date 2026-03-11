@@ -6,26 +6,26 @@ const fears = [
   {
     fear: "What if I start and quit again?",
     resolution:
-      "You did not quit. You were taught by someone who measured your progress by their timeline instead of yours. The guilt you carry about stopping was never yours — it belongs to the method that mistook speed for progress. There is no timeline here. There is only your pace, your sound, and my patience.",
+      "Most of my students tried lessons before and stopped. That is not failure — it usually means the approach was wrong. Here, there is no timeline and no pressure. We go at your pace.",
     underlineWord: "pace",
   },
   {
     fear: "What if I never play anything real?",
     resolution:
-      'The first real thing you play will not be a concerto. It will be a chord that makes you stop and think — "that is exactly what I meant." That single honest chord is the beginning of everything.',
-    underlineWord: "beginning",
+      "You will play real music from the start — not just exercises. It might be simple at first, but it will be something you chose and something you enjoy.",
+    underlineWord: "chose",
   },
   {
     fear: "What if it feels like lessons?",
     resolution:
-      "There is no curriculum. No homework. No grades. There is a bench, an instrument, and a question: what do you want to say? That is as far from lessons as silence is from sound.",
-    underlineWord: "question",
+      "There is no homework, no grading, no recitals unless you want them. It feels more like a weekly conversation that happens to involve a piano.",
+    underlineWord: "conversation",
   },
   {
     fear: "What if I'm too old to start?",
     resolution:
-      "There is no age at which the piano stops being willing to listen. I have sat beside people who touched the keys for the first time at 50, at 60, at 70. The instrument does not care when you arrive. Neither do I. You are not too late. You are here.",
-    underlineWord: "no",
+      "Most of my students are adults. I have taught people who started at 30, 50, and 70. The piano does not care when you begin — and neither do I.",
+    underlineWord: "begin",
   },
 ];
 
@@ -346,7 +346,7 @@ export function TeachingThreshold() {
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             }}
           >
-            What you carry to the bench
+            Common concerns
           </p>
 
           <div
@@ -412,7 +412,7 @@ export function TeachingThreshold() {
             }}
             aria-label="Closing annotation"
           >
-            — you arrived exactly now
+            — these are normal to feel
           </span>
         </div>
       </div>

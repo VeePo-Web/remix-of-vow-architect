@@ -234,7 +234,7 @@ export function TeachingOffering() {
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             }}
           >
-            The offering
+            Lesson details
           </p>
 
           {/* Golden dot anchor */}
@@ -285,7 +285,7 @@ export function TeachingOffering() {
               textShadow: "0 1px 2px hsl(var(--teaching-vignette) / 0.25)",
             }}
           >
-            Would you like to sit down?
+            Simple pricing
           </h2>
         </div>
 
@@ -306,7 +306,7 @@ export function TeachingOffering() {
             style={{ color: "hsl(var(--teaching-text-body))" }}
           >
             <ScrollAntiAnxiety
-              text="No packages. No commitments. One hour, one conversation, one bench."
+              text="60-minute sessions. No packages, no contracts. Pay as you go."
               isInView={priceVisible}
             />
           </p>
@@ -344,7 +344,7 @@ export function TeachingOffering() {
               size="lg"
               className="relative"
             >
-              <Link to="/teaching/contact">Open the conversation</Link>
+              <Link to="/teaching/contact">Book a conversation</Link>
             </Button>
           </div>
 
@@ -354,8 +354,8 @@ export function TeachingOffering() {
             style={{ color: "hsl(var(--teaching-text-label))" }}
           >
             <ScrollAntiAnxiety
-              text="The first session opens with a question, not a scale."
-              underlineWord="question"
+              text="Your first session is a conversation — no preparation needed."
+              underlineWord="conversation"
               isInView={ctaVisible}
             />
           </p>
@@ -373,7 +373,7 @@ export function TeachingOffering() {
             }}
             aria-label="Annotation"
           >
-            — what do you want to say?
+            — just show up
           </span>
 
           {/* Vertical golden thread — content to bottom */}

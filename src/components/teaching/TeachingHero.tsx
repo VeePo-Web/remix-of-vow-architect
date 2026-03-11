@@ -136,12 +136,11 @@ export function TeachingHero() {
   const ROLE_DELAY = 400;
   const LINE1_BASE = 900;
   const LINE1_INTERVAL = 45;
-  const SEMICOLON_EXTRA = 300;
   const LINE2_BASE =
-    LINE1_BASE + "From Silence".length * LINE1_INTERVAL + SEMICOLON_EXTRA + 200;
+    LINE1_BASE + "Learn piano".length * LINE1_INTERVAL + 200;
   const LINE2_INTERVAL = 45;
   const THREAD_DELAY =
-    LINE2_BASE + "Unto Sound".length * LINE2_INTERVAL + 400;
+    LINE2_BASE + "at your own pace".length * LINE2_INTERVAL + 400;
   const SUBTITLE_DELAY = THREAD_DELAY + 300;
 
   return (
@@ -257,9 +256,9 @@ export function TeachingHero() {
 
         {/* ── Tagline — character-by-character reveal ── */}
         <h1 className="font-display tracking-tight leading-none flex flex-col items-center gap-0">
-          {/* Line 1: "From Silence" + semicolon ignition */}
+          {/* Line 1: "Learn piano" */}
           <CharReveal
-            text="From Silence"
+            text="Learn piano"
             isRevealed={isRevealed}
             baseDelay={LINE1_BASE}
             charInterval={LINE1_INTERVAL}
@@ -270,21 +269,11 @@ export function TeachingHero() {
               textShadow:
                 "0 1px 3px hsl(var(--rich-black) / 0.7), 0 4px 20px hsl(var(--rich-black) / 0.5), 0 12px 48px hsl(var(--rich-black) / 0.3)",
             }}
-            specialChar={{
-              char: ";",
-              delay: SEMICOLON_EXTRA,
-              className: "text-primary",
-              style: {
-                textShadow: "0 0 28px hsl(var(--vow-yellow) / 0.4), 0 0 8px hsl(var(--vow-yellow) / 0.15)",
-              },
-              breatheAnimation:
-                "semicolon-breathe 3.5s ease-in-out 1s infinite",
-            }}
           />
 
-          {/* Line 2: "Unto Sound." — tightly coupled */}
+          {/* Line 2: "at your own pace." */}
           <CharReveal
-            text="Unto Sound"
+            text="at your own pace"
             isRevealed={isRevealed}
             baseDelay={LINE2_BASE}
             charInterval={LINE2_INTERVAL}
@@ -369,7 +358,7 @@ export function TeachingHero() {
             letterSpacing: "0.015em",
           }}
         >
-          I sit beside you until what you hear inside finds its way through your hands.
+          Patient, one-on-one lessons for adults and beginners. No grades. No pressure. Just music.
         </p>
       </div>
 
@@ -385,7 +374,7 @@ export function TeachingHero() {
           className="text-[10px] uppercase tracking-[0.28em] font-sans"
           style={{ color: "hsl(var(--teaching-scroll-cue))" }}
         >
-          Scroll to sit down
+          Scroll to learn more
         </span>
         <svg
           width="12"
