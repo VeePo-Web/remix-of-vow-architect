@@ -154,7 +154,7 @@ export default function TeachingContact() {
                       placeholder="A song you love, a goal you have, or just curiosity..."
                       {...register("reason")}
                     />
-                    <p className="text-[0.5rem] tracking-[0.1em] uppercase text-muted-foreground/30 mt-2 font-light">
+                    <p className="text-xs tracking-[0.1em] uppercase text-muted-foreground mt-2 font-light">
                       There is no wrong answer.
                     </p>
                   </div>
