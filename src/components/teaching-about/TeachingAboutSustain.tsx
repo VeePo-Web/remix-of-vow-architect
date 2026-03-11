@@ -2,9 +2,9 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 
 const threeBeliefs = [
-  { label: "Patience", description: "The most active form of attention." },
-  { label: "Conversation", description: "The first question I ask is never about music." },
-  { label: "Expression", description: "The instrument is not something to conquer — it is something to converse with." },
+  { label: "Patience", description: "I will never rush you. We move at your speed, not mine." },
+  { label: "Listening", description: "I ask about your goals before I assign a single piece." },
+  { label: "Expression", description: "Technique serves the music. The music serves you." },
 ];
 
 export function TeachingAboutSustain() {
@@ -33,13 +33,13 @@ export function TeachingAboutSustain() {
             <span className="block font-display text-[40px] font-light leading-none mb-3" style={{ background: "linear-gradient(180deg, hsl(var(--vow-yellow) / 0.25), hsl(var(--vow-yellow) / 0.08))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>03</span>
             <div className="flex items-center justify-center gap-3">
               <div className="h-px w-8" style={{ background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.5), transparent)" }} />
-              <p className="text-xs uppercase tracking-[0.3em]" style={{ color: "hsl(var(--muted-foreground))" }}>THREE BELIEFS</p>
+              <p className="text-xs uppercase tracking-[0.3em]" style={{ color: "hsl(var(--muted-foreground))" }}>WHAT GUIDES ME</p>
               <div className="h-px w-8" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.5))" }} />
             </div>
           </div>
 
           <h2 className={cn("font-display text-[clamp(24px,3vw,40px)] font-light text-foreground mb-16 transition-all duration-700", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6")} style={{ transitionDelay: "200ms" }}>
-            What I carry to every lesson.
+            Three things I bring to every session.
           </h2>
 
           <div className="max-w-xl mx-auto space-y-0">

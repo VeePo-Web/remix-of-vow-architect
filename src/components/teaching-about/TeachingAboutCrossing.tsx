@@ -68,8 +68,8 @@ export function TeachingAboutCrossing() {
             )}
             style={{ transitionDelay: "200ms" }}
           >
-            The first question I ask is never{" "}
-            <span className="italic" style={{ color: "hsl(var(--vow-yellow))" }}>about music.</span>
+            Ready to{" "}
+            <span className="italic" style={{ color: "hsl(var(--vow-yellow))" }}>start?</span>
           </h2>
 
           <p
@@ -79,7 +79,7 @@ export function TeachingAboutCrossing() {
             )}
             style={{ transitionDelay: "400ms" }}
           >
-            Tell me what brought you to the piano — a memory, a person, a feeling you want to find again. We begin with a conversation.
+            Your first session is a conversation. Tell me what you want to play, what has held you back, and we will figure out the rest together.
           </p>
 
           <div
@@ -89,7 +89,7 @@ export function TeachingAboutCrossing() {
             )}
             style={{ transitionDelay: "600ms" }}
           >
-            <ShimmerButton onClick={() => navigate("/teaching/contact")}>Begin the conversation</ShimmerButton>
+            <ShimmerButton onClick={() => navigate("/teaching/contact")}>Get in touch</ShimmerButton>
           </div>
 
           <p
@@ -114,7 +114,7 @@ export function TeachingAboutCrossing() {
               style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)" }}
             />
             <p className="font-display text-sm text-muted-foreground italic opacity-50">
-              'Til Death; Unto Life.
+              No commitment required.
             </p>
           </div>
         </div>

@@ -3,9 +3,9 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 
 const witnessedMoments = [
-  "The adult who was told it was 'too late' — and played at their own wedding",
-  "The student who played for their dying grandmother — the only goodbye that mattered",
-  "The teenager who found in the piano what words could not express",
+  "An adult student who started at 48 and played at her own wedding a year later",
+  "A teenager who learned one piece to play for his grandmother in hospice",
+  "A returning student who quit at 12 and came back at 35 — and found it easier the second time",
 ];
 
 export function TeachingAboutPresence() {
@@ -35,7 +35,7 @@ export function TeachingAboutPresence() {
             <span className="block font-display text-[40px] font-light leading-none mb-3" style={{ background: "linear-gradient(180deg, hsl(var(--vow-yellow) / 0.25), hsl(var(--vow-yellow) / 0.08))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>04</span>
             <div className="flex items-center justify-center gap-3">
               <div className="h-px w-8" style={{ background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.5), transparent)" }} />
-              <p className="text-xs uppercase tracking-[0.3em]" style={{ color: "hsl(var(--muted-foreground))" }}>THE YEARS</p>
+              <p className="text-xs uppercase tracking-[0.3em]" style={{ color: "hsl(var(--muted-foreground))" }}>EXPERIENCE</p>
               <div className="h-px w-8" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.5))" }} />
             </div>
           </div>
@@ -45,7 +45,7 @@ export function TeachingAboutPresence() {
           </div>
 
           <p className={cn("font-display text-xl text-muted-foreground mb-16 transition-all duration-700", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4")} style={{ transitionDelay: "400ms" }}>
-            years at the keys.
+            years of teaching.
           </p>
 
           {/* Moment cards with gold left-rule + frame index */}

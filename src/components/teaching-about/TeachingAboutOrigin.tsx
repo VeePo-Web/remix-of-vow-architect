@@ -29,27 +29,27 @@ export function TeachingAboutOrigin() {
               <span className="block font-display text-[40px] font-light leading-none mb-3" style={{ background: "linear-gradient(180deg, hsl(var(--vow-yellow) / 0.25), hsl(var(--vow-yellow) / 0.08))", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>02</span>
               <div className="flex items-center gap-3">
                 <div className="h-px w-8" style={{ background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.5), transparent)" }} />
-                <p className="text-xs uppercase tracking-[0.3em]" style={{ color: "hsl(var(--muted-foreground))" }}>THE FIRST NOTE</p>
+                <p className="text-xs uppercase tracking-[0.3em]" style={{ color: "hsl(var(--muted-foreground))" }}>HOW IT STARTED</p>
                 <div className="h-px w-8" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.5))" }} />
               </div>
             </div>
 
             <div className="space-y-6">
               <p className={cn("font-display text-[clamp(20px,2.5vw,28px)] font-light leading-[1.5] text-foreground transition-all duration-700", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6")} style={{ transitionDelay: "200ms" }}>
-                I watched a student play their first chord after six months of patience.
+                I watched a student play their first chord after six months. Not because they were slow — because they needed to be ready.
               </p>
               <p className={cn("text-lg text-muted-foreground leading-relaxed transition-all duration-700", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6")} style={{ transitionDelay: "400ms" }}>
-                Not because they couldn't learn faster, but because they needed to hear it when they were ready.
+                That moment changed how I think about teaching. It is not about covering material. It is about paying attention.
               </p>
               <p className={cn("text-lg text-muted-foreground leading-relaxed transition-all duration-700", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6")} style={{ transitionDelay: "600ms" }}>
-                That silence before the sound taught me more about teaching than any method book ever could.
+                Every student arrives with a different story. I have learned to start there — not with a syllabus.
               </p>
             </div>
 
             <div className={cn("pt-8 transition-all duration-700", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6")} style={{ transitionDelay: "800ms" }}>
               <div className="h-[1px] w-full mb-8" style={{ background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.3), transparent)" }} />
               <p className="font-display text-xl italic text-primary">
-                "The instrument is not something to conquer — it is something to converse with."
+                "The best lessons do not feel like lessons. They feel like conversations."
               </p>
               <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mt-3 opacity-50">— Parker</p>
             </div>
