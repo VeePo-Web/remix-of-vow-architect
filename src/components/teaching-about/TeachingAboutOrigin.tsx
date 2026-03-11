@@ -36,13 +36,13 @@ export function TeachingAboutOrigin() {
 
             <div className="space-y-6">
               <p className={cn("font-display text-[clamp(20px,2.5vw,28px)] font-light leading-[1.5] text-foreground transition-all duration-700", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6")} style={{ transitionDelay: "200ms" }}>
-                I watched a student play their first chord after six months of patience.
+                I watched a student play their first chord after six months. Not because they were slow — because they needed to be ready.
               </p>
               <p className={cn("text-lg text-muted-foreground leading-relaxed transition-all duration-700", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6")} style={{ transitionDelay: "400ms" }}>
-                Not because they couldn't learn faster, but because they needed to hear it when they were ready.
+                That moment changed how I think about teaching. It is not about covering material. It is about paying attention.
               </p>
               <p className={cn("text-lg text-muted-foreground leading-relaxed transition-all duration-700", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6")} style={{ transitionDelay: "600ms" }}>
-                That silence before the sound taught me more about teaching than any method book ever could.
+                Every student arrives with a different story. I have learned to start there — not with a syllabus.
               </p>
             </div>
 
