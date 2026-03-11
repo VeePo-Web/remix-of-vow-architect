@@ -94,64 +94,14 @@ export function ThreePaths() {
       ref={sectionRef}
       role="region"
       aria-label="Pricing options"
-      className="section--dark section-grain piano-section-target relative py-[80px] md:py-[120px] px-4 min-h-[500px]"
-      data-theme="death"
+      className="piano-section-target relative py-[80px] md:py-[120px] px-4 min-h-[500px]"
+      style={{ background: 'hsl(var(--background))' }}
     >
-      {/* Top fade */}
-      <div
-        className="section-fade-top"
-        style={{ background: 'linear-gradient(to top, transparent, hsl(var(--rich-black)))' }}
-        aria-hidden="true"
-      />
-
-      {/* Cinematic background image */}
-      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-        <img
-          src={pathsPianoCandle}
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover opacity-[0.14] pointer-events-none"
-          style={{
-            animation: 'paths-ken-burns 30s ease-in-out infinite alternate',
-            filter: 'saturate(0.75) sepia(0.1) contrast(1.05) brightness(0.7)',
-          }}
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-
-      {/* Warm radial spotlight */}
+      {/* Subtle warm glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at 50% 45%, hsl(var(--vow-yellow) / 0.06) 0%, transparent 55%)',
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Cinematic vignette */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse at center, transparent 20%, hsl(var(--rich-black)) 100%)',
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Warm glow pool beneath keys */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse at 50% 85%, hsl(var(--vow-yellow) / 0.03) 0%, transparent 40%)',
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Warm fog layer — atmospheric haze at 60% height */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse at 50% 60%, hsl(var(--vow-yellow) / 0.02) 0%, transparent 50%)',
+          background: 'radial-gradient(ellipse at 50% 45%, hsl(var(--vow-yellow) / 0.05) 0%, transparent 55%)',
         }}
         aria-hidden="true"
       />
