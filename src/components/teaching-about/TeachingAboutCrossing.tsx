@@ -68,8 +68,8 @@ export function TeachingAboutCrossing() {
             )}
             style={{ transitionDelay: "200ms" }}
           >
-            The first question I ask is never{" "}
-            <span className="italic" style={{ color: "hsl(var(--vow-yellow))" }}>about music.</span>
+            Ready to{" "}
+            <span className="italic" style={{ color: "hsl(var(--vow-yellow))" }}>start?</span>
           </h2>
 
           <p
