@@ -317,6 +317,7 @@ export function TheSound() {
         id="the-sound"
         ref={sectionRef}
         className="section--dark section-grain piano-section-target relative py-24 md:py-32 overflow-hidden"
+        data-theme="death"
         aria-labelledby="sound-heading"
       >
         {/* Top fade */}
