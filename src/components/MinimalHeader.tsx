@@ -150,10 +150,10 @@ export function MinimalHeader() {
           "fixed top-0 left-0 right-0 z-50 transition-all",
           isScrolled && "backdrop-blur-md"
         )}
-        data-theme="death"
         style={{
           height: isScrolled ? "56px" : "auto",
-          background: isScrolled ? "hsl(var(--rich-black) / 0.94)" : undefined,
+          background: isScrolled ? "hsl(var(--background) / 0.95)" : undefined,
+          boxShadow: isScrolled ? '0 1px 3px hsl(30 10% 10% / 0.06)' : undefined,
           transform: isHeaderHidden ? 'translateY(-100%)' : 'translateY(0)',
           transitionDuration: "400ms",
           transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
