@@ -191,7 +191,7 @@ export default function TeachingContact() {
             </div>
 
             {/* ── Trust signals ─────────────────────────────────────────────── */}
-            <div className="mt-16 max-w-xs mx-auto grid grid-cols-3 gap-4 text-center">
+            <div id="tc-trust" className="mt-16 max-w-xs mx-auto grid grid-cols-3 gap-4 text-center">
               {trustStats.map((stat) => (
                 <div key={stat.label}>
                   <p

@@ -340,6 +340,23 @@ export function TeachingExhale() {
         </span>
       </div>
 
+      {/* ── Editorial image bleed ── */}
+      <div
+        className={cn(
+          "relative z-10 mt-[80px] md:mt-[120px] w-[calc(100%+2rem)] md:w-[calc(100%+8rem)] -ml-4 md:-ml-16 transition-all duration-[900ms]",
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[20px]"
+        )}
+        style={{ transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)", transitionDelay: "400ms" }}
+      >
+        <GoldCornerImage
+          src={teachingBenchImg}
+          alt="Piano bench in a warm teaching studio"
+          aspectRatio="16/9"
+          maxHeight="480px"
+          frameIndex="FR01"
+        />
+      </div>
+
       {/* ── Keyframes ── */}
       <style>{`
         @keyframes exhale-dot-pulse {

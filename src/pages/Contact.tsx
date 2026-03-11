@@ -285,7 +285,7 @@ export default function Contact() {
             </div>
 
             {/* ── Trust signals ─────────────────────────────────────────────── */}
-            <div className="mt-16 max-w-xs mx-auto grid grid-cols-3 gap-6 text-center">
+            <div id="contact-trust" className="mt-16 max-w-xs mx-auto grid grid-cols-3 gap-6 text-center">
               {trustStats.map((stat) => (
                 <div key={stat.label}>
                   <p
