@@ -105,7 +105,7 @@ export default function TeachingContact() {
           <div className="container max-w-4xl mx-auto relative z-10">
             {/* Header */}
             <div className="text-center mb-14">
-              <p className="overline text-primary/50 mb-3">Get in Touch</p>
+              <p className="overline text-muted-foreground mb-3">Get in Touch</p>
               <h1
                 className="font-display font-light text-foreground"
                 style={{ fontSize: "clamp(28px, 4vw, 42px)", lineHeight: 1.15 }}
