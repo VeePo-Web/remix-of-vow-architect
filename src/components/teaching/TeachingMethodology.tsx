@@ -283,7 +283,7 @@ export function TeachingMethodology() {
               "0 1px 2px hsl(var(--rich-black) / 0.2), 0 3px 12px hsl(var(--rich-black) / 0.08)",
           }}
         >
-          Every voice arrives as a seed. Your hands are the soil. I keep vigil while it takes root.
+          From that conversation, we build a plan that is yours — not a syllabus I hand to everyone.
         </p>
 
         {/* Pencil annotation */}
