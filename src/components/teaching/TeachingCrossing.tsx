@@ -190,6 +190,25 @@ export function TeachingCrossing() {
         aria-hidden="true"
       />
 
+      {/* Film grain */}
+      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
+
+      {/* Dual-origin fog */}
+      <div
+        className="absolute inset-0 pointer-events-none motion-reduce:hidden"
+        style={{
+          background: "radial-gradient(ellipse 65% 50% at 20% 75%, hsl(var(--vow-yellow) / 0.025), transparent 65%)",
+        }}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-0 pointer-events-none motion-reduce:hidden"
+        style={{
+          background: "radial-gradient(ellipse 55% 50% at 80% 25%, hsl(var(--vow-yellow) / 0.02), transparent 65%)",
+        }}
+        aria-hidden="true"
+      />
+
       {/* Breathing vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
