@@ -260,6 +260,7 @@ export default function PianoPanel({
         ref={panelRef}
         role="dialog"
         aria-label="Listening Room"
+        data-theme="death"
         className={cn(
           "fixed z-30",
           // Desktop: above pill, left-aligned; Mobile: centered above pill

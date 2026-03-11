@@ -155,7 +155,7 @@ export function WitnessCovenant() {
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--rich-black)) 85%)" }} aria-hidden="true" />
+      <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--background)))" }} aria-hidden="true" />
     </section>
   );
 }
