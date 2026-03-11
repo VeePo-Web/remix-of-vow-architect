@@ -29,15 +29,15 @@ const inclusions = [
 const fears = [
   {
     question: "Is this worth the investment?",
-    answer: "One hour of focused, one-to-one mentorship — no curriculum to sell, no recital to prepare for, no external agenda. The investment is in your own voice at the instrument.",
+    answer: "You get a full hour of one-on-one time with no curriculum to sell and no recital to prepare for. The focus is entirely on you.",
   },
   {
     question: "What if I start and quit again?",
-    answer: "There is no contract, no package to finish, no guilt. If you stop, you stop. If you return, I will be here. The bench does not keep score.",
+    answer: "There is no contract and no package to finish. If you stop, you stop. If you come back, I will be here. No questions asked.",
   },
   {
     question: "What if I am too old to start?",
-    answer: "I have sat beside students who began at sixty and played at their own anniversary. The piano does not ask your age — only your attention.",
+    answer: "Most of my students are adults. I have taught people who started at 30, 50, and 70. Age has never been a barrier.",
   },
 ];
 
