@@ -3,7 +3,7 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 /**
  * THE EXHALE — The Sacred Declaration
- * Fantasy.co Quality — All 7 elevation steps applied
+ * Light-first: warm white background with dark text
  */
 export function TheExhale() {
   const { ref: sectionRef, isVisible } = useScrollReveal({ threshold: 0.3, rootMargin: '-40px 0px' });
@@ -25,78 +25,70 @@ export function TheExhale() {
       id="the-exhale"
       ref={sectionRef}
       className="exhale-section piano-section-target relative min-h-[70vh] flex items-center justify-center py-24 md:py-32 lg:py-40 overflow-hidden"
-      data-theme="death"
-      style={{ minHeight: '70vh' }}
+      style={{ minHeight: '70vh', background: 'hsl(var(--background))' }}
       aria-label="My promise to you"
       role="region"
     >
-      {/* Layer 0: Depth gradient background */}
+      {/* Layer 0: Subtle warm depth */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
           background: `linear-gradient(180deg, 
-            hsl(var(--rich-black)) 0%, 
-            hsl(var(--ebon-charcoal)) 50%, 
-            hsl(var(--rich-black)) 100%
+            hsl(var(--background)) 0%, 
+            hsl(var(--card)) 50%, 
+            hsl(var(--background)) 100%
           )`,
         }}
       />
 
-      {/* Step 1: Film grain overlay — consistent with hero */}
-      <div 
-        className="absolute inset-0 grain opacity-[0.08] pointer-events-none"
-        style={{ zIndex: 1 }}
-        aria-hidden="true"
-      />
-
-      {/* Step 1: Subtle warm fog — atmospheric depth */}
+      {/* Step 1: Subtle warm fog */}
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `radial-gradient(ellipse 60% 50% at 50% 50%, hsl(var(--vow-yellow) / 0.02) 0%, transparent 70%)`,
+          background: `radial-gradient(ellipse 60% 50% at 50% 50%, hsl(var(--vow-yellow) / 0.04) 0%, transparent 70%)`,
           zIndex: 1,
         }}
         aria-hidden="true"
       />
 
-      {/* Layer 1: Inner core glow — with Step 5 ambient breathing */}
+      {/* Layer 1: Inner core glow */}
       <div 
         className={`
           absolute inset-0 pointer-events-none transition-opacity exhale-glow-breathe-layer
           ${isVisible ? 'opacity-100' : 'opacity-0'}
         `}
         style={{
-          background: `radial-gradient(ellipse 40% 35% at 50% 55%, hsl(var(--vow-yellow) / 0.04) 0%, transparent 70%)`,
+          background: `radial-gradient(ellipse 40% 35% at 50% 55%, hsl(var(--vow-yellow) / 0.06) 0%, transparent 70%)`,
           transitionDuration: '800ms',
           transitionTimingFunction: 'var(--ease-sacred)',
         }}
       />
 
-      {/* Layer 2: Outer bloom glow — delayed, expansive */}
+      {/* Layer 2: Outer bloom glow */}
       <div 
         className={`
           absolute inset-0 pointer-events-none transition-opacity
           ${purposeVisible ? 'opacity-100' : 'opacity-0'}
         `}
         style={{
-          background: `radial-gradient(ellipse 70% 50% at 50% 55%, hsl(var(--vow-yellow) / 0.06) 0%, transparent 70%)`,
+          background: `radial-gradient(ellipse 70% 50% at 50% 55%, hsl(var(--vow-yellow) / 0.08) 0%, transparent 70%)`,
           transitionDuration: '1400ms',
           transitionDelay: purposeVisible ? '400ms' : '0ms',
           transitionTimingFunction: 'var(--ease-exhale)',
         }}
       />
 
-      {/* Step 3: Top gradient fade — seamless hero transition */}
+      {/* Top gradient fade */}
       <div
         className="section-fade-top"
-        style={{ background: 'linear-gradient(to top, transparent, hsl(var(--rich-black)))' }}
+        style={{ background: 'linear-gradient(to top, transparent, hsl(var(--background)))' }}
         aria-hidden="true"
       />
 
       {/* Content */}
       <div className="relative z-10 max-w-[680px] mx-auto px-6 text-center">
         
-        {/* ACT I — Golden Dot Anchor (Step 2: refined) */}
+        {/* ACT I — Golden Dot Anchor */}
         <div 
           className={`
             exhale-anchor mx-auto mb-10 md:mb-12
@@ -111,7 +103,7 @@ export function TheExhale() {
           aria-hidden="true"
         />
 
-        {/* Recognition Statement — Step 4: text-shadow for depth */}
+        {/* Recognition Statement */}
         <p 
           className={`
             font-display text-foreground
@@ -126,7 +118,6 @@ export function TheExhale() {
             lineHeight: 1.25,
             maxWidth: '18ch',
             margin: '0 auto',
-            textShadow: '0 2px 24px hsl(var(--rich-black) / 0.4)',
           }}
         >
           You're about to make a promise that will echo beyond your lifetime.
@@ -150,7 +141,7 @@ export function TheExhale() {
           I understand the weight of that moment.
         </p>
 
-        {/* ACT II — Golden Thread SVG (Step 6: glow filter) */}
+        {/* ACT II — Golden Thread SVG */}
         <div 
           className="exhale-thread-container my-12 md:my-16"
           style={{ width: 'clamp(120px, 25vw, 200px)', margin: '48px auto' }}
@@ -164,12 +155,11 @@ export function TheExhale() {
             <defs>
               <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0" />
-                <stop offset="15%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0.8" />
-                <stop offset="50%" stopColor="hsl(var(--vow-yellow))" stopOpacity="1" />
-                <stop offset="85%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0.8" />
+                <stop offset="15%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0.6" />
+                <stop offset="50%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0.8" />
+                <stop offset="85%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0.6" />
                 <stop offset="100%" stopColor="hsl(var(--vow-yellow))" stopOpacity="0" />
               </linearGradient>
-              {/* Step 6: Glow filter for thread */}
               <filter id={glowId} x="-20%" y="-100%" width="140%" height="300%">
                 <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur" />
                 <feMerge>
@@ -190,10 +180,10 @@ export function TheExhale() {
           </svg>
         </div>
 
-        {/* ACT III — Declaration (Step 4: elevated scale) */}
+        {/* ACT III — Declaration */}
         <p 
           className={`
-            font-sans uppercase tracking-[0.22em]
+            font-sans uppercase tracking-[0.22em] text-muted-foreground
             transition-all
             ${purposeVisible ? 'opacity-70 translate-y-0' : 'opacity-0 translate-y-3'}
           `}
@@ -202,13 +192,12 @@ export function TheExhale() {
             transitionDelay: purposeVisible ? '1000ms' : '0ms',
             transitionTimingFunction: 'var(--ease-covenant)',
             fontSize: 'clamp(11px, 1.5vw, 13px)',
-            color: 'hsl(var(--muted-foreground))',
           }}
         >
           And so I have one goal:
         </p>
 
-        {/* Singular Purpose — Step 4: increased scale */}
+        {/* Singular Purpose */}
         <p 
           className={`
             font-display text-foreground
@@ -248,7 +237,7 @@ export function TheExhale() {
       {/* Bottom fade into ProcessSection */}
       <div
         className="section-fade-bottom"
-        style={{ background: 'linear-gradient(to bottom, transparent, hsl(var(--surface)))' }}
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(var(--background)))' }}
         aria-hidden="true"
       />
     </section>

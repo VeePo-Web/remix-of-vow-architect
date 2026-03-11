@@ -94,64 +94,14 @@ export function ThreePaths() {
       ref={sectionRef}
       role="region"
       aria-label="Pricing options"
-      className="section--dark section-grain piano-section-target relative py-[80px] md:py-[120px] px-4 min-h-[500px]"
-      data-theme="death"
+      className="piano-section-target relative py-[80px] md:py-[120px] px-4 min-h-[500px]"
+      style={{ background: 'hsl(var(--background))' }}
     >
-      {/* Top fade */}
-      <div
-        className="section-fade-top"
-        style={{ background: 'linear-gradient(to top, transparent, hsl(var(--rich-black)))' }}
-        aria-hidden="true"
-      />
-
-      {/* Cinematic background image */}
-      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-        <img
-          src={pathsPianoCandle}
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover opacity-[0.14] pointer-events-none"
-          style={{
-            animation: 'paths-ken-burns 30s ease-in-out infinite alternate',
-            filter: 'saturate(0.75) sepia(0.1) contrast(1.05) brightness(0.7)',
-          }}
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-
-      {/* Warm radial spotlight */}
+      {/* Subtle warm glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse at 50% 45%, hsl(var(--vow-yellow) / 0.06) 0%, transparent 55%)',
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Cinematic vignette */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse at center, transparent 20%, hsl(var(--rich-black)) 100%)',
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Warm glow pool beneath keys */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse at 50% 85%, hsl(var(--vow-yellow) / 0.03) 0%, transparent 40%)',
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Warm fog layer — atmospheric haze at 60% height */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse at 50% 60%, hsl(var(--vow-yellow) / 0.02) 0%, transparent 50%)',
+          background: 'radial-gradient(ellipse at 50% 45%, hsl(var(--vow-yellow) / 0.05) 0%, transparent 55%)',
         }}
         aria-hidden="true"
       />
@@ -250,12 +200,12 @@ export function ThreePaths() {
                 {/* Golden underline */}
                 <div
                   className="h-[3px] w-12 mt-2 mb-6"
-                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.75 : 0.65}), hsl(var(--vow-yellow) / 0.2), transparent)`, boxShadow: '0 1px 1px hsl(var(--rich-black) / 0.08)' }}
+                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.75 : 0.65}), hsl(var(--vow-yellow) / 0.2), transparent)` }}
                   aria-hidden="true"
                 />
 
                 {/* Price */}
-                <span className="piano-key__price" style={{ textShadow: '0 1px 2px hsl(var(--rich-black) / 0.06)' }}>{tier.price}</span>
+                <span className="piano-key__price">{tier.price}</span>
 
                 {/* Description */}
                 <p className="piano-key__description" style={{ minHeight: '2.8em' }}>{tier.description}</p>
@@ -336,10 +286,10 @@ export function ThreePaths() {
                 <h3 className="piano-key__name">{tier.name}</h3>
                 <div
                   className="h-[3px] w-12 mt-2 mb-4"
-                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.75 : 0.65}), hsl(var(--vow-yellow) / 0.2), transparent)`, boxShadow: '0 1px 1px hsl(var(--rich-black) / 0.08)' }}
+                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.75 : 0.65}), hsl(var(--vow-yellow) / 0.2), transparent)` }}
                   aria-hidden="true"
                 />
-                <span className="piano-key__price" style={{ textShadow: '0 1px 2px hsl(var(--rich-black) / 0.06)' }}>{tier.price}</span>
+                <span className="piano-key__price">{tier.price}</span>
                 <p className="piano-key__description">{tier.description}</p>
                 <p className="piano-key__sentence">{tier.sentence}</p>
                 <Button
@@ -377,7 +327,6 @@ export function ThreePaths() {
           )}
           style={{
             transitionDelay: isVisible ? "880ms" : "0ms",
-            textShadow: "0 1px 8px hsl(var(--rich-black) / 0.3)",
           }}
         >
           You can move between these at any time — no penalty until two weeks before your ceremony.
@@ -387,7 +336,7 @@ export function ThreePaths() {
       {/* Bottom fade */}
       <div
         className="section-fade-bottom"
-        style={{ background: 'linear-gradient(to bottom, transparent, hsl(var(--surface-warm)))' }}
+        style={{ background: 'linear-gradient(to bottom, transparent, hsl(var(--background)))' }}
         aria-hidden="true"
       />
     </section>
