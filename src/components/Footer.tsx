@@ -33,6 +33,7 @@ export function Footer() {
     <footer
       ref={footerRef}
       className="section--dark relative overflow-hidden pb-[env(safe-area-inset-bottom)]"
+      data-theme="death"
       aria-label="Site footer"
     >
       {/* === Color bridge from CrossOver === */}

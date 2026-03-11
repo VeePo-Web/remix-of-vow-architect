@@ -50,52 +50,52 @@ All colors MUST be HSL.
     --transition-default: 250ms cubic-bezier(0.4, 0, 0.2, 1);
     --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
     
-    /* Semantic Tokens - Death Theme (Default) */
-    --background: var(--rich-black);
-    --foreground: var(--absolute-white);
+    /* Semantic Tokens - Life Theme (Default: Warm White) */
+    --background: 40 20% 98%;
+    --foreground: 30 18% 16%;
     
-    --card: var(--ebon-charcoal);
-    --card-foreground: var(--absolute-white);
+    --card: 40 30% 95%;
+    --card-foreground: 30 18% 16%;
     
-    --popover: var(--ebon-charcoal);
-    --popover-foreground: var(--absolute-white);
+    --popover: 0 0% 100%;
+    --popover-foreground: 30 18% 16%;
     
     --primary: var(--vow-yellow);
-    --primary-foreground: var(--rich-black);
+    --primary-foreground: 30 18% 16%;
     
-    --secondary: var(--deep-graphite);
-    --secondary-foreground: var(--absolute-white);
+    --secondary: 40 20% 93%;
+    --secondary-foreground: 30 18% 16%;
     
-    --muted: var(--deep-graphite);
-    --muted-foreground: var(--mist-grey);
+    --muted: 40 15% 92%;
+    --muted-foreground: 30 12% 42%;
     
     --accent: var(--vine-green);
-    --accent-foreground: var(--rich-black);
+    --accent-foreground: 30 18% 16%;
     
     --destructive: var(--error);
     --destructive-foreground: var(--absolute-white);
     
-    --border: var(--slate-smoke);
-    --input: var(--slate-smoke);
+    --border: 35 20% 88%;
+    --input: 35 20% 88%;
     --ring: var(--vow-yellow);
     
     --radius: 0.75rem;
 
-    /* Surface Variants (Mood System) */
+    /* Surface Variants (Mood System — Light) */
     --surface: 45 25% 96%;
     --surface-warm: 45 20% 93%;
-    --surface-elevated: var(--deep-graphite);
-    --surface-accent-soft: 45 100% 76% / 0.08;
+    --surface-elevated: 0 0% 100%;
+    --surface-accent-soft: 45 100% 76% / 0.12;
     --surface-dark-band: var(--rich-black);
 
-    /* Ink Variants (Mood System) */
-    --ink-primary: var(--absolute-white);
-    --ink-soft: var(--mist-grey);
-    --ink-inverse: var(--rich-black);
+    /* Ink Variants (Mood System — Light) */
+    --ink-primary: 30 18% 16%;
+    --ink-soft: 30 12% 42%;
+    --ink-inverse: var(--absolute-white);
 
-    /* Lines/Borders (Mood System) */
-    --lines: var(--slate-smoke);
-    --lines-soft: var(--deep-graphite);
+    /* Lines/Borders (Mood System — Light) */
+    --lines: 35 20% 88%;
+    --lines-soft: 40 15% 92%;
     
     /* Custom Design Tokens */
     --keyline: 45 100% 76% / 0.35;
@@ -291,48 +291,52 @@ All colors MUST be HSL.
     --temp-neutral: 0 0% 50%;
   }
 
-  .light,
-  [data-theme="life"] {
-    --background: var(--porcelain);
-    --foreground: var(--rich-black);
+  /* Death Theme — Dark (for hero, footer, menu, audio) */
+  .dark,
+  [data-theme="death"] {
+    --background: var(--rich-black);
+    --foreground: var(--absolute-white);
     
-    --card: var(--absolute-white);
-    --card-foreground: var(--rich-black);
+    --card: var(--ebon-charcoal);
+    --card-foreground: var(--absolute-white);
     
-    --popover: var(--absolute-white);
-    --popover-foreground: var(--rich-black);
+    --popover: var(--ebon-charcoal);
+    --popover-foreground: var(--absolute-white);
     
-    --primary: var(--rich-black);
-    --primary-foreground: var(--vow-yellow);
+    --primary: var(--vow-yellow);
+    --primary-foreground: var(--rich-black);
     
-    --secondary: var(--absolute-white);
-    --secondary-foreground: var(--rich-black);
+    --secondary: var(--deep-graphite);
+    --secondary-foreground: var(--absolute-white);
     
-    --muted: 210 17% 90%;
-    --muted-foreground: 216 10% 35%;
+    --muted: var(--deep-graphite);
+    --muted-foreground: var(--mist-grey);
     
-    --accent: var(--success);
-    --accent-foreground: var(--absolute-white);
+    --accent: var(--vine-green);
+    --accent-foreground: var(--rich-black);
     
-    --border: 220 13% 85%;
-    --input: 220 13% 85%;
-    --keyline: 240 9% 4% / 0.25;
+    --destructive: var(--error);
+    --destructive-foreground: var(--absolute-white);
+    
+    --border: var(--slate-smoke);
+    --input: var(--slate-smoke);
+    --keyline: 45 100% 76% / 0.35;
 
-    /* Surface Variants (Mood System - Life Theme) */
+    /* Surface Variants (Mood System — Death) */
     --surface: 45 25% 96%;
     --surface-warm: 45 20% 93%;
-    --surface-elevated: var(--absolute-white);
-    --surface-accent-soft: 45 100% 76% / 0.12;
+    --surface-elevated: var(--deep-graphite);
+    --surface-accent-soft: 45 100% 76% / 0.08;
     --surface-dark-band: var(--rich-black);
 
-    /* Ink Variants (Mood System - Life Theme) */
-    --ink-primary: var(--rich-black);
-    --ink-soft: 216 10% 35%;
-    --ink-inverse: var(--absolute-white);
+    /* Ink Variants (Mood System — Death) */
+    --ink-primary: var(--absolute-white);
+    --ink-soft: var(--mist-grey);
+    --ink-inverse: var(--rich-black);
 
-    /* Lines/Borders (Mood System - Life Theme) */
-    --lines: 220 13% 85%;
-    --lines-soft: 210 17% 90%;
+    /* Lines/Borders (Mood System — Death) */
+    --lines: var(--slate-smoke);
+    --lines-soft: var(--deep-graphite);
   }
 
   /* Responsive Typography Scale */

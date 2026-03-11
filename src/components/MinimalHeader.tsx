@@ -150,6 +150,7 @@ export function MinimalHeader() {
           "fixed top-0 left-0 right-0 z-50 transition-all",
           isScrolled && "backdrop-blur-md"
         )}
+        data-theme="death"
         style={{
           height: isScrolled ? "56px" : "auto",
           background: isScrolled ? "hsl(var(--rich-black) / 0.94)" : undefined,

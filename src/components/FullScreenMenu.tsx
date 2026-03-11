@@ -166,7 +166,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
         isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
       )}
       style={{ background: "hsl(var(--vigil-void))" }}
-      role="dialog"
+      data-theme="death"
       aria-modal="true"
       aria-label="Site navigation menu"
     >

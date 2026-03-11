@@ -149,6 +149,7 @@ export function TeachingHero() {
       id="teaching-hero"
       className="relative h-screen w-full overflow-hidden flex items-center justify-center"
       aria-label="The Waiting Bench"
+      data-theme="death"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >

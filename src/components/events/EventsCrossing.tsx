@@ -12,6 +12,7 @@ export function EventsCrossing() {
       ref={ref}
       className="relative py-fitz-10 px-fitz-4 md:px-fitz-6"
       style={{ background: "hsl(var(--rich-black))" }}
+      data-theme="death"
       role="region"
       aria-label="The Crossing"
     >

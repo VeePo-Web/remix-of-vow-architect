@@ -67,7 +67,7 @@ export function TheInvitation() {
     <section
       id="the-invitation"
       ref={sectionRef as React.RefObject<HTMLElement>}
-      data-theme="life"
+      data-theme="death"
       role="region"
       aria-labelledby="invitation-heading"
       className="relative py-28 md:py-40 overflow-hidden invitation-texture piano-section-target"

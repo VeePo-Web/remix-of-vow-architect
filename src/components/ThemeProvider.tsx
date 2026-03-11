@@ -10,7 +10,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   return (
     <NextThemesProvider
       attribute="data-theme"
-      defaultTheme="death"
+      defaultTheme="life"
       themes={["death", "life"]}
       storageKey="parker-gawryletz-theme"
       enableSystem={false}

@@ -77,6 +77,7 @@ function NowPlayingBar({
   return (
     <div
       className={cn("now-playing-bar", visible ? "now-playing-bar--visible" : "")}
+      data-theme="death"
       style={{
         backdropFilter: "blur(16px)",
         WebkitBackdropFilter: "blur(16px)",
@@ -317,6 +318,7 @@ export function TheSound() {
         id="the-sound"
         ref={sectionRef}
         className="section--dark section-grain piano-section-target relative py-24 md:py-32 overflow-hidden"
+        data-theme="death"
         aria-labelledby="sound-heading"
       >
         {/* Top fade */}

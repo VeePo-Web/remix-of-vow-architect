@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useTheme } from "next-themes";
 
-const lifeThemeRoutes = ["/pricing", "/gallery"];
-const deathThemeRoutes = ["/", "/weddings", "/teaching", "/events", "/about", "/proof", "/faq", "/contact", "/listen", "/privacy-policy", "/terms", "/cookie-policy", "/accessibility", "/legal"];
+const lifeThemeRoutes = ["/", "/weddings", "/teaching", "/events", "/about", "/proof", "/faq", "/contact", "/listen", "/pricing", "/gallery", "/privacy-policy", "/terms", "/cookie-policy", "/accessibility", "/legal", "/events/about", "/events/contact", "/events/pricing", "/teaching/about", "/teaching/contact", "/teaching/pricing"];
+const deathThemeRoutes: string[] = [];
 
 export function usePageTheme() {
   const location = useLocation();
