@@ -38,7 +38,7 @@ export function PillSelector({
                 "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary/40",
                 selected
                   ? "border-primary/60 text-foreground bg-primary/[0.06]"
-                  : "border-border/40 text-muted-foreground/60 hover:border-muted-foreground/40 hover:text-muted-foreground bg-transparent"
+                  : "border-border/60 text-muted-foreground hover:border-muted-foreground hover:text-foreground bg-transparent"
               )}
               style={
                 selected

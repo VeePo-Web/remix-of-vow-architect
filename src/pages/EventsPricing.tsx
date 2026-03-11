@@ -267,11 +267,9 @@ export default function EventsPricing() {
       <MobileStickyBar />
 
       <style>{`
-        @keyframes ep-vignette-breathe { 0%, 100% { opacity: 0.8; } 50% { opacity: 0.65; } }
         @keyframes ep-dot-breathe { 0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.5); } }
         @media (prefers-reduced-motion: reduce) {
           .grain, [style*="ken-burns"] { animation: none !important; }
-          [style*="ep-vignette-breathe"] { animation: none !important; opacity: 0.7; }
           [style*="ep-dot-breathe"] { animation: none !important; opacity: 0.6; }
         }
       `}</style>

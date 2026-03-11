@@ -400,7 +400,7 @@ export function Footer() {
                 <p className="text-[11px] tracking-[0.12em] text-muted-foreground/60 italic">
                   Where vision meets precision
                 </p>
-                <span className="text-sm text-muted-foreground/30 group-hover/veepo:[color:hsl(28,87%,58%)] transition-all duration-[180ms] group-hover/veepo:translate-x-1" aria-hidden="true">
+                <span className="text-sm text-muted-foreground/50 group-hover/veepo:[color:hsl(28,87%,58%)] transition-all duration-[180ms] group-hover/veepo:translate-x-1" aria-hidden="true">
                   →
                 </span>
               </div>

@@ -77,9 +77,9 @@ export const LuxuryTextarea = React.forwardRef<HTMLTextAreaElement, LuxuryTextar
           ref={ref}
           className={cn(
             "w-full mt-2 pb-2.5 pt-2 bg-transparent border-0 border-b resize-none",
-            "text-base font-light text-foreground placeholder:text-muted-foreground/30",
+            "text-base font-light text-foreground placeholder:text-muted-foreground/50",
             "focus:outline-none focus:ring-0 transition-all duration-300",
-            error ? "border-destructive/50" : "border-border/40",
+            error ? "border-destructive/50" : "border-border/60",
             className
           )}
           {...props}

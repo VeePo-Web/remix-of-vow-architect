@@ -150,7 +150,7 @@ export default function Pricing() {
                       "Extended presence throughout the afternoon",
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
-                        <span className="text-muted-foreground/60 mt-0.5" aria-hidden="true">·</span>
+                        <span className="text-muted-foreground mt-0.5" aria-hidden="true">·</span>
                         <span>{item}</span>
                       </li>
                     ))}
@@ -183,7 +183,7 @@ export default function Pricing() {
                       "One-hour transition buffer between locations",
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
-                        <span className="text-muted-foreground/60 mt-0.5" aria-hidden="true">·</span>
+                        <span className="text-muted-foreground mt-0.5" aria-hidden="true">·</span>
                         <span>{item}</span>
                       </li>
                     ))}

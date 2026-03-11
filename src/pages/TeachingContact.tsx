@@ -195,13 +195,8 @@ export default function TeachingContact() {
               {trustStats.map((stat) => (
                 <div key={stat.label}>
                   <p
-                    className="font-display font-light"
-                    style={{
-                      fontSize: "clamp(17px, 2vw, 21px)",
-                      background: "linear-gradient(180deg, hsl(var(--vow-yellow)), hsl(var(--vow-yellow) / 0.5))",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                    }}
+                    className="font-display font-light text-foreground"
+                    style={{ fontSize: "clamp(17px, 2vw, 21px)" }}
                   >
                     {stat.value}
                   </p>
@@ -209,11 +204,11 @@ export default function TeachingContact() {
                     className="w-5 h-px mx-auto my-2"
                     style={{
                       background:
-                        "linear-gradient(90deg, transparent, hsl(var(--primary) / 0.25), transparent)",
+                        "linear-gradient(90deg, transparent, hsl(var(--primary) / 0.4), transparent)",
                     }}
                     aria-hidden="true"
                   />
-                  <p className="text-[0.5rem] tracking-[0.15em] uppercase text-muted-foreground/30 font-light">
+                  <p className="text-xs tracking-[0.15em] uppercase text-muted-foreground font-light">
                     {stat.label}
                   </p>
                 </div>
