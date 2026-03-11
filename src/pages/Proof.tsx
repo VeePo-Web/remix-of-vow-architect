@@ -27,29 +27,6 @@ const proofSections = [
   { id: "proof-cta",         label: "Get in Touch",     isBlackKey: true  },
 ];
 
-/** Golden thread separator between sections */
-function GoldenThread() {
-  return (
-    <div className="relative py-2" aria-hidden="true">
-      <div
-        className="h-px max-w-xs mx-auto"
-        style={{
-          background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)",
-        }}
-      />
-      {/* Breathing dot at center */}
-      <div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-1 rounded-full"
-        style={{
-          background: "hsl(var(--vow-yellow) / 0.6)",
-          boxShadow: "0 0 8px hsl(var(--vow-yellow) / 0.3)",
-          animation: "golden-dot-breathe 3s ease-in-out infinite",
-        }}
-      />
-    </div>
-  );
-}
-
 export default function Proof() {
   usePageTheme();
   useEffect(() => {
@@ -80,15 +57,6 @@ export default function Proof() {
         </div>
         {/* Warm fog */}
         <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)" }} aria-hidden="true" />
-        {/* Cinematic vignette with breathing */}
-        <div 
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: "radial-gradient(ellipse at center, transparent 30%, hsl(var(--background)) 90%)",
-            animation: "vignette-breathe 6s ease-in-out infinite",
-          }}
-          aria-hidden="true"
-        />
         {/* Film grain */}
         <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" aria-hidden="true" />
 
@@ -132,19 +100,15 @@ export default function Proof() {
         </div>
       </section>
 
-      <GoldenThread />
-
       {/* Section 2 - SPL Log Triptych */}
-      <div id="proof-spl" className="piano-section-target">
+      <div id="proof-spl" className="piano-section-target mt-24">
         <RevealOnScroll variant="up">
           <SPLTriptych />
         </RevealOnScroll>
       </div>
 
-      <GoldenThread />
-
       {/* Section 3 - Setup Photos */}
-      <div id="proof-setup" className="piano-section-target">
+      <div id="proof-setup" className="piano-section-target mt-24">
         <RevealOnScroll variant="up">
           <SetupPhotoGallery />
         </RevealOnScroll>
@@ -157,42 +121,33 @@ export default function Proof() {
           alt="Professional piano setup at a ceremony venue"
           aspectRatio="16/9"
           maxHeight="400px"
-          frameIndex="FR·04"
           className="w-full"
         />
       </div>
 
-      <GoldenThread />
-
       {/* Section 4 - Insurance */}
-      <div id="proof-insurance" className="piano-section-target">
+      <div id="proof-insurance" className="piano-section-target mt-24">
         <RevealOnScroll variant="up">
           <InsuranceDocuments />
         </RevealOnScroll>
       </div>
 
-      <GoldenThread />
-
       {/* Section 5 - Redundancy */}
-      <div id="proof-redundancy" className="piano-section-target">
+      <div id="proof-redundancy" className="piano-section-target mt-24">
         <RevealOnScroll variant="up">
           <RedundancyStack />
         </RevealOnScroll>
       </div>
 
-      <GoldenThread />
-
       {/* Section 6 - Downloadable Plans */}
-      <div id="proof-downloads" className="piano-section-target">
+      <div id="proof-downloads" className="piano-section-target mt-24">
         <RevealOnScroll variant="up">
           <DownloadablePlans />
         </RevealOnScroll>
       </div>
 
-      <GoldenThread />
-
       {/* Final CTA */}
-      <div id="proof-cta" className="piano-section-target">
+      <div id="proof-cta" className="piano-section-target mt-24">
         <RevealOnScroll variant="up">
           <section className="relative section--dark section-padding overflow-hidden">
             {/* Warm glow behind CTA */}
@@ -241,18 +196,8 @@ export default function Proof() {
       <MobileStickyBar />
 
       <style>{`
-        @keyframes vignette-breathe {
-          0%, 100% { opacity: 0.75; }
-          50% { opacity: 0.65; }
-        }
-        @keyframes golden-dot-breathe {
-          0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
-          50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.5); }
-        }
         @media (prefers-reduced-motion: reduce) {
           .grain, [style*="ken-burns"] { animation: none !important; }
-          [style*="vignette-breathe"] { animation: none !important; opacity: 0.7; }
-          [style*="golden-dot-breathe"] { animation: none !important; opacity: 0.6; }
         }
       `}</style>
     </div>
