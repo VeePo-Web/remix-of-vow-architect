@@ -373,7 +373,7 @@ export function TeachingOffering() {
             }}
             aria-label="Annotation"
           >
-            — what do you want to say?
+            — just show up
           </span>
 
           {/* Vertical golden thread — content to bottom */}

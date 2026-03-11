@@ -386,7 +386,7 @@ export function TeachingPillars() {
             }}
             aria-label="Closing annotation"
           >
-            — four convictions, one bench
+            — these guide every lesson
           </span>
         </div>
       </div>

@@ -374,7 +374,7 @@ export function TeachingHero() {
           className="text-[10px] uppercase tracking-[0.28em] font-sans"
           style={{ color: "hsl(var(--teaching-scroll-cue))" }}
         >
-          Scroll to sit down
+          Scroll to learn more
         </span>
         <svg
           width="12"

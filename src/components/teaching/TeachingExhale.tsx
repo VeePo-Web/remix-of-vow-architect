@@ -334,7 +334,7 @@ export function TeachingExhale() {
           }}
           aria-label="Closing annotation"
         >
-          — you have heard it all along
+          — no experience required
         </span>
       </div>
 
