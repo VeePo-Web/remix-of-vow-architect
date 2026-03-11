@@ -199,7 +199,7 @@ export default function Contact() {
                   <p className="overline text-muted-foreground mb-7">Shape the Sound</p>
                   <div className="space-y-7">
                     <div>
-                      <p className="text-[0.625rem] tracking-[0.15em] uppercase font-light text-muted-foreground/55 mb-3">
+                      <p className="text-xs tracking-[0.15em] uppercase font-light text-muted-foreground mb-3">
                         Ceremony vibe
                       </p>
                       <PillSelector
