@@ -75,11 +75,11 @@ export default function TeachingPricing() {
           <div className="container mx-auto px-4 relative z-10">
             {/* ── Hero ── */}
             <div id="tp-hero" className="text-center mb-12 animate-fade-in pt-24 piano-section-target">
-              <div className="overline mb-2">The Offering</div>
-              <h1 className="h1 mx-auto mb-4">One rate. One hour. One bench.</h1>
+              <div className="overline mb-2">Pricing</div>
+              <h1 className="h1 mx-auto mb-4">One rate. No surprises.</h1>
               <div className="chapter-rule mx-auto" />
               <p className="p-lead mx-auto text-muted-foreground mt-6 max-w-2xl">
-                The simplicity is the signal. No tiers, no packages, no upselling — just honest time together at the instrument.
+                Piano mentorship for a flat hourly rate. No packages, no contracts, no upselling.
               </p>
             </div>
 
