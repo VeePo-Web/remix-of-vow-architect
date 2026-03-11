@@ -17,8 +17,8 @@ import {
 
 const sections = [
   { id: "teaching-about-hero",     label: "Welcome",      isBlackKey: false },
-  { id: "teaching-about-origin",   label: "The First Note", isBlackKey: true  },
-  { id: "teaching-about-sustain",  label: "Beliefs",      isBlackKey: false },
+  { id: "teaching-about-origin",   label: "How It Started", isBlackKey: true  },
+  { id: "teaching-about-sustain",  label: "What Guides Me", isBlackKey: false },
   { id: "teaching-about-presence", label: "Experience",    isBlackKey: true  },
   { id: "teaching-about-covenant", label: "My Promise",    isBlackKey: false },
   { id: "teaching-about-crossing", label: "Get in Touch",  isBlackKey: false },
