@@ -1,4 +1,5 @@
 import { MinimalHeader } from "@/components/MinimalHeader";
+import { PianoKeyNav } from "@/components/PianoKeyNav";
 import { Footer } from "@/components/Footer";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { LuxuryInput, LuxuryTextarea } from "@/components/ui/luxury-input";
