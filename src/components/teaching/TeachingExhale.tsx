@@ -1,6 +1,8 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useRef, useState, useEffect, useCallback } from "react";
 import { cn } from "@/lib/utils";
+import { GoldCornerImage } from "@/components/ui/gold-corner-image";
+import teachingBenchImg from "@/assets/teaching-bench.jpg";
 
 /**
  * TeachingExhale — Recognition / Sacred Pause
