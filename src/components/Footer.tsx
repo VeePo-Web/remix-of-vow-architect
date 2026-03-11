@@ -392,7 +392,7 @@ export function Footer() {
                 className="h-12 md:h-16 w-auto mb-4 transition-all duration-[260ms] group-hover/veepo:drop-shadow-[0_0_20px_rgba(255,140,42,0.2)]"
               />
               {/* Domain */}
-              <span className="text-[11px] tracking-[0.2em] uppercase text-muted-foreground/50 group-hover/veepo:[color:hsl(166,72%,47%)] transition-colors duration-[180ms] mb-3">
+              <span className="text-[11px] tracking-[0.2em] uppercase text-muted-foreground/70 group-hover/veepo:[color:hsl(166,72%,47%)] transition-colors duration-[180ms] mb-3">
                 veepo.ca
               </span>
               {/* Tagline + arrow */}
