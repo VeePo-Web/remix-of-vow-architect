@@ -56,13 +56,21 @@ export default function TeachingContact() {
   }
 
   /* ── Form ───────────────────────────────────────────────────────────────── */
+  const tcSections = [
+    { id: "tc-hero", label: "Get in Touch", isBlackKey: false },
+    { id: "tc-form", label: "Your Details", isBlackKey: true },
+    { id: "tc-trust", label: "What to Expect", isBlackKey: false },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <MinimalHeader />
+      <PianoKeyNav sections={tcSections} />
 
       <main>
         {/* ── Hero ──────────────────────────────────────────────────────────── */}
         <section
+          id="tc-hero"
           className="relative h-[38vh] min-h-[260px] overflow-hidden"
           aria-hidden="true"
         >
