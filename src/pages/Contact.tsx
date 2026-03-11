@@ -1,6 +1,7 @@
 import { MinimalHeader } from "@/components/MinimalHeader";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
+import { PianoKeyNav } from "@/components/PianoKeyNav";
 import { LuxuryInput, LuxuryTextarea } from "@/components/ui/luxury-input";
 import { PillSelector } from "@/components/ui/pill-selector";
 import { ContactCelebration } from "@/components/ContactCelebration";
