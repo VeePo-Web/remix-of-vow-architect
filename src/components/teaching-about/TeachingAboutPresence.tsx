@@ -3,9 +3,9 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 
 const witnessedMoments = [
-  "The adult who was told it was 'too late' — and played at their own wedding",
-  "The student who played for their dying grandmother — the only goodbye that mattered",
-  "The teenager who found in the piano what words could not express",
+  "An adult student who started at 48 and played at her own wedding a year later",
+  "A teenager who learned one piece to play for his grandmother in hospice",
+  "A returning student who quit at 12 and came back at 35 — and found it easier the second time",
 ];
 
 export function TeachingAboutPresence() {
