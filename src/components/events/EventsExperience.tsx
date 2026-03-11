@@ -40,11 +40,10 @@ export function EventsExperience() {
       <div className="max-w-4xl mx-auto">
         <h2
           className={cn(
-            "font-display text-[28px] md:text-[40px] font-light tracking-tight text-center mb-fitz-8 transition-all duration-[700ms]",
+            "font-display text-[28px] md:text-[40px] font-light tracking-tight text-foreground text-center mb-fitz-8 transition-all duration-[700ms]",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
           )}
           style={{
-            color: "hsl(var(--events-warm-text))",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
           }}
         >
