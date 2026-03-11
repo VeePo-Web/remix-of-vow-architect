@@ -59,8 +59,8 @@ export function EventsExperience() {
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{
-                background: "hsl(var(--events-warm-card))",
-                border: "1px solid hsl(var(--events-warm-border))",
+                background: "hsl(var(--card))",
+                border: "1px solid hsl(var(--border))",
                 transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
                 transitionDelay: `${300 + i * 180}ms`,
               }}
