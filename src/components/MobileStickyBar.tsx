@@ -90,10 +90,9 @@ export function MobileStickyBar() {
       className={`md:hidden fixed bottom-0 left-0 right-0 z-40 backdrop-blur-md overflow-hidden transition-all duration-[260ms] ease-[cubic-bezier(0.22,0.61,0.36,1)] ${
         isVisible && !isFooterCtaVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
       }`}
-      data-theme="death"
       style={{
-        background: "hsl(var(--rich-black) / 0.95)",
-        borderTop: "1px solid hsl(var(--vow-yellow) / 0.15)",
+        background: "hsl(var(--background) / 0.95)",
+        borderTop: "1px solid hsl(var(--border))",
         paddingBottom: "env(safe-area-inset-bottom)",
       }}
     >
@@ -102,14 +101,11 @@ export function MobileStickyBar() {
         className="absolute top-0 left-0 h-[2px] pointer-events-none"
         style={{
           width: `${scrollProgress * 100}%`,
-          background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.6), hsl(var(--vow-yellow)))",
+          background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.4), hsl(var(--vow-yellow) / 0.8))",
           transition: "width 100ms linear",
         }}
         aria-hidden="true"
       />
-
-      {/* Grain overlay */}
-      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
 
       <div className="relative flex items-center justify-between gap-3 p-3">
         <span className="text-sm font-display text-muted-foreground">
