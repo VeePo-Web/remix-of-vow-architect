@@ -80,13 +80,20 @@ export default function Contact() {
   }
 
   /* ── Form ───────────────────────────────────────────────────────────────── */
+  const contactSections = [
+    { id: "contact-hero", label: "Welcome", isBlackKey: false },
+    { id: "contact-form", label: "Your Details", isBlackKey: true },
+    { id: "contact-trust", label: "What to Expect", isBlackKey: false },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <MinimalHeader />
+      <PianoKeyNav sections={contactSections} />
 
       <main>
         {/* ── Cinematic hero strip ─────────────────────────────────────────── */}
-        <div className="relative h-[36vh] min-h-[240px] overflow-hidden" aria-hidden="true">
+        <div id="contact-hero" className="relative h-[36vh] min-h-[240px] overflow-hidden" aria-hidden="true">
           <img
             src={contactHeroImg}
             alt=""
