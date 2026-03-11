@@ -4,31 +4,31 @@ import { cn } from "@/lib/utils";
 const pillars = [
   {
     numeral: "I",
-    title: "Patience as Practice",
+    title: "Your Pace, Always",
     description:
-      "Your pace is the curriculum. There are no grades, no exams, no timelines imposed on your growth. Patience is not passive — it is the most disciplined form of listening I know.",
+      "There are no deadlines, no exams, no fixed curriculum. We move at whatever speed feels right for you — whether that is one new piece a month or spending three sessions on a single passage.",
     underlineWord: "pace",
   },
   {
     numeral: "II",
-    title: "Voice Before Technique",
+    title: "Expression Over Perfection",
     description:
-      "The piano is not a skill to acquire. It is a voice waiting to be uncovered. Technique serves expression, never the reverse — every scale, every exercise exist only to unlock what you want to say.",
-    underlineWord: "voice",
+      "I care more about how the music makes you feel than whether every note is correct. Technique matters, but it serves the music — not the other way around.",
+    underlineWord: "feel",
   },
   {
     numeral: "III",
-    title: "Freedom Through Fluency",
+    title: "Real Songs, Not Just Exercises",
     description:
-      "When your hands know the instrument deeply enough, they stop translating and start saying what you mean. That is fluency. And fluency is freedom — the freedom to express whatever the moment requires.",
-    underlineWord: "freedom",
+      "You will play music you actually want to play. We work on pieces you choose — hymns, film scores, pop songs, classical — alongside the fundamentals that make them possible.",
+    underlineWord: "choose",
   },
   {
     numeral: "IV",
-    title: "No Graduation",
+    title: "No End Date",
     description:
-      "There is no final lesson. Only deepening. The mentorship evolves as you do — measured in years, not months.",
-    underlineWord: "deepening",
+      "This is not a 12-week course. Some students have been with me for years. Others come for a season. The mentorship lasts as long as it is useful to you.",
+    underlineWord: "useful",
   },
 ];
 
