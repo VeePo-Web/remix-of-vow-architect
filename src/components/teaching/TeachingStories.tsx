@@ -4,19 +4,19 @@ import { cn } from "@/lib/utils";
 const stories = [
   {
     narrative:
-      "Margaret came to the bench at 52, apologising before her hands even touched the keys. 'I should have started decades ago,' she said. Six months later, she played a piece for her husband on their anniversary — not perfectly, but honestly. She called it something I have never forgotten.",
+      "Margaret started at 52. She had never played before and apologised constantly in the first few weeks. Six months in, she played a piece for her husband on their anniversary. It was not perfect — but it was hers.",
     quote: "The first gift I ever made with my own hands.",
     quoteUnderline: "hands",
   },
   {
     narrative:
-      "David had taken lessons as a child and quit at 14. Twenty years of silence. When he returned to the bench, his hands remembered more than he expected — and less than he hoped. But the sound was different now. It bore something it could not have borne at 14: the weight of everything he had lived through.",
+      "David quit piano at 14 and did not touch a key for twenty years. When he came back, his hands remembered more than he expected — and the music carried something it never could have at 14.",
     quote: "The sound carried everything I had lived through.",
     quoteUnderline: "everything",
   },
   {
     narrative:
-      "Sarah wanted to play one song at her own wedding. Not a performance — a promise to the person she was about to marry. We spent four months on three minutes of music. On the day, her hands shook. But the music did not.",
+      "Sarah wanted to play one song at her wedding. We spent four months preparing three minutes of music. On the day, her hands shook — but the music held.",
     quote: "My hands shook. But the music did not.",
     quoteUnderline: "music",
   },
