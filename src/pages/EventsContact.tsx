@@ -196,7 +196,7 @@ export default function EventsContact() {
                   className="pt-8"
                   style={{ borderTop: "1px solid hsl(var(--border) / 0.14)" }}
                 >
-                  <p className="overline text-primary/40 mb-7">Shape the Sound</p>
+                  <p className="overline text-muted-foreground mb-7">Shape the Sound</p>
                   <div className="space-y-7">
                     <div>
                       <p className="text-[0.625rem] tracking-[0.15em] uppercase font-light text-muted-foreground/55 mb-3">
