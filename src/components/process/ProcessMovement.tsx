@@ -68,7 +68,7 @@ export function ProcessMovement({
     if (prefersReducedMotion) { setRevealPhase(6); return; }
 
     const timings = [0, 200, 380, 560, 720, 880];
-    const timers: NodeJS.Timeout[] = [];
+    const timers: ReturnType<typeof setTimeout>[] = [];
 
     timings.forEach((delay, phase) => {
       const timer = setTimeout(() => setRevealPhase(phase + 1), delay);
