@@ -210,7 +210,7 @@ export default function Contact() {
                       />
                     </div>
                     <div>
-                      <p className="text-[0.625rem] tracking-[0.15em] uppercase font-light text-muted-foreground/55 mb-3">
+                      <p className="text-xs tracking-[0.15em] uppercase font-light text-muted-foreground mb-3">
                         Guest count
                       </p>
                       <PillSelector
