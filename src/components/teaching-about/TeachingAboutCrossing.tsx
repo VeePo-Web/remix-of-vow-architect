@@ -79,7 +79,7 @@ export function TeachingAboutCrossing() {
             )}
             style={{ transitionDelay: "400ms" }}
           >
-            Tell me what brought you to the piano — a memory, a person, a feeling you want to find again. We begin with a conversation.
+            Your first session is a conversation. Tell me what you want to play, what has held you back, and we will figure out the rest together.
           </p>
 
           <div
