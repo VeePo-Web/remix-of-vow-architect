@@ -397,7 +397,7 @@ export function Footer() {
               </span>
               {/* Tagline + arrow */}
               <div className="flex items-center gap-2">
-                <p className="text-[11px] tracking-[0.12em] text-muted-foreground/35 italic">
+                <p className="text-[11px] tracking-[0.12em] text-muted-foreground/60 italic">
                   Where vision meets precision
                 </p>
                 <span className="text-sm text-muted-foreground/30 group-hover/veepo:[color:hsl(28,87%,58%)] transition-all duration-[180ms] group-hover/veepo:translate-x-1" aria-hidden="true">
