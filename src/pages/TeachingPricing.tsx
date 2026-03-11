@@ -128,8 +128,7 @@ export default function TeachingPricing() {
             <div id="tp-fears" className="piano-section-target">
               <RevealOnScroll variant="up">
                 <div className="max-w-3xl mx-auto mb-16 scroll-mt-24">
-                  <h2 className="h2 text-center mb-3 mx-auto">You might be wondering.</h2>
-                  <p className="p-body text-muted-foreground text-center mb-8">The questions you carry but rarely ask.</p>
+                  <h2 className="h2 text-center mb-8 mx-auto">Common questions.</h2>
                   <div className="space-y-6">
                     {fears.map((fear, i) => (
                       <Card key={i} className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred">
