@@ -198,6 +198,17 @@ export function TeachingOffering() {
       role="region"
       aria-label="The Offering"
     >
+      {/* Background texture with Ken Burns */}
+      <div
+        className="absolute inset-0 bg-cover bg-center pointer-events-none"
+        style={{
+          backgroundImage: `url(${soundKeysImg})`,
+          opacity: 0.03,
+          animation: "offering-kb 30s linear infinite alternate",
+        }}
+        aria-hidden="true"
+      />
+
       {/* Warm radial glow */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -207,6 +218,9 @@ export function TeachingOffering() {
         }}
         aria-hidden="true"
       />
+
+      {/* Film grain */}
+      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
 
       {/* Breathing vignette */}
       <div
