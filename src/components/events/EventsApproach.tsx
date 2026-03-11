@@ -46,34 +46,8 @@ export function EventsApproach() {
         aria-hidden="true"
       />
 
-      {/* Dual-origin fog */}
-      <div
-        className="absolute inset-0 pointer-events-none motion-reduce:hidden"
-        style={{
-          background: "radial-gradient(ellipse 70% 50% at 20% 80%, hsl(var(--vow-yellow) / 0.03), transparent 70%)",
-        }}
-        aria-hidden="true"
-      />
-      <div
-        className="absolute inset-0 pointer-events-none motion-reduce:hidden"
-        style={{
-          background: "radial-gradient(ellipse 60% 50% at 80% 20%, hsl(var(--vow-yellow) / 0.02), transparent 70%)",
-        }}
-        aria-hidden="true"
-      />
-
       {/* Film grain */}
       <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
-
-      {/* Breathing vignette */}
-      <div
-        className="absolute inset-0 pointer-events-none motion-reduce:opacity-70"
-        style={{
-          background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background) / 0.55) 100%)",
-          animation: "events-approach-vignette 6s ease-in-out infinite",
-        }}
-        aria-hidden="true"
-      />
 
       <div className="relative z-10 max-w-3xl mx-auto">
         <h2
@@ -129,10 +103,6 @@ export function EventsApproach() {
         @keyframes events-approach-kb {
           0% { transform: scale(1) translate(0, 0); }
           100% { transform: scale(1.04) translate(0.3%, -0.3%); }
-        }
-        @keyframes events-approach-vignette {
-          0%, 100% { opacity: 0.55; }
-          50% { opacity: 0.7; }
         }
         @media (prefers-reduced-motion: reduce) {
           #events-approach * { animation-duration: 0.01ms !important; }

@@ -6,7 +6,6 @@ import keysIntimateImg from "@/assets/sound-keys-intimate-ai.jpg";
 
 /**
  * Scroll-linked word-by-word reveal for the tagline.
- * The semicolon ignites last with a golden glow.
  */
 function ScrollTagline({ isInView }: { isInView: boolean }) {
   const containerRef = useRef<HTMLSpanElement>(null);
@@ -17,7 +16,6 @@ function ScrollTagline({ isInView }: { isInView: boolean }) {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const vh = window.innerHeight;
-    // Only compute when element is near viewport
     if (rect.bottom < -100 || rect.top > vh + 100) return;
     const raw = 1 - (rect.top - vh * 0.3) / (vh * 0.35);
     setProgress(Math.max(0, Math.min(1, raw)));
@@ -37,14 +35,13 @@ function ScrollTagline({ isInView }: { isInView: boolean }) {
       rafRef.current = requestAnimationFrame(updateProgress);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll(); // initial calc
+    onScroll();
     return () => {
       window.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(rafRef.current);
     };
   }, [isInView, updateProgress]);
 
-  // Words with special tokens for semicolon and period
   const segments = [
     { text: "From", type: "word" as const },
     { text: "Silence", type: "word" as const },
@@ -66,7 +63,6 @@ function ScrollTagline({ isInView }: { isInView: boolean }) {
         }
 
         if (seg.type === "semicolon") {
-          // Semicolon ignites at 80% progress
           const semicolonOpacity = isInView
             ? Math.max(0.05, Math.min(1, (progress - 0.6) / 0.2))
             : 0.05;
@@ -107,7 +103,6 @@ function ScrollTagline({ isInView }: { isInView: boolean }) {
           );
         }
 
-        // Regular words
         const threshold = wordIndex / wordCount;
         wordIndex++;
         const wordOpacity = isInView
@@ -165,11 +160,11 @@ export function TeachingCrossing() {
       id="teaching-crossing"
       ref={ref}
       className="relative py-[140px] md:py-[180px] px-fitz-4 md:px-fitz-6 overflow-hidden"
-      style={{ background: "hsl(var(--teaching-bg-alt))" }}
+      style={{ background: "hsl(var(--background))" }}
       role="region"
       aria-label="The Invitation"
     >
-      {/* Bench photograph — occupied feeling */}
+      {/* Background photograph */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
@@ -180,59 +175,8 @@ export function TeachingCrossing() {
         aria-hidden="true"
       />
 
-      {/* Warm atmospheric glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 50%, hsl(var(--vow-yellow) / 0.04), transparent 60%)",
-        }}
-        aria-hidden="true"
-      />
-
       {/* Film grain */}
       <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
-
-      {/* Dual-origin fog */}
-      <div
-        className="absolute inset-0 pointer-events-none motion-reduce:hidden"
-        style={{
-          background: "radial-gradient(ellipse 65% 50% at 20% 75%, hsl(var(--vow-yellow) / 0.025), transparent 65%)",
-        }}
-        aria-hidden="true"
-      />
-      <div
-        className="absolute inset-0 pointer-events-none motion-reduce:hidden"
-        style={{
-          background: "radial-gradient(ellipse 55% 50% at 80% 25%, hsl(var(--vow-yellow) / 0.02), transparent 65%)",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Breathing vignette */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, transparent 45%, hsl(var(--teaching-vignette-alt) / 0.5) 100%)",
-          animation: "crossing-vignette 6s ease-in-out infinite",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Golden thread from above */}
-      <div
-        className={cn(
-          "absolute top-0 left-1/2 -translate-x-1/2 w-px h-[100px] transition-transform duration-[700ms] origin-top",
-          isVisible ? "scale-y-100" : "scale-y-0"
-        )}
-        style={{
-          background:
-            "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.25), hsl(var(--vow-yellow) / 0.06))",
-          transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-        }}
-        aria-hidden="true"
-      />
 
       <div className="relative z-10 max-w-[600px] mx-auto text-center">
         {/* Whispered section label */}
@@ -244,7 +188,7 @@ export function TeachingCrossing() {
               : "opacity-0 translate-y-[6px]"
           )}
           style={{
-            color: "hsl(var(--teaching-text-label))",
+            color: "hsl(var(--muted-foreground))",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             transitionDelay: "100ms",
           }}
@@ -252,32 +196,15 @@ export function TeachingCrossing() {
           Get started
         </p>
 
-        {/* Golden dot — arrival marker */}
-        <span
-          className={cn(
-            "block w-2 h-2 rounded-full mx-auto mb-fitz-7 transition-all duration-[900ms]",
-            isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-          )}
-          style={{
-            background: "hsl(var(--vow-yellow))",
-            boxShadow: "0 0 8px 2px hsl(var(--vow-yellow) / 0.15)",
-            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-            transitionDelay: "150ms",
-          }}
-          aria-hidden="true"
-        />
-
-        {/* Heading — simple direct question */}
+        {/* Heading */}
         <h2
           className={cn(
-            "font-display text-[28px] md:text-[40px] font-light tracking-tight mb-fitz-7 transition-all duration-[900ms]",
+            "font-display text-[28px] md:text-[40px] font-light tracking-tight text-foreground mb-fitz-7 transition-all duration-[900ms]",
             isVisible
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-[12px]"
           )}
           style={{
-            color: "hsl(var(--teaching-text-heading))",
-            textShadow: "0 1px 2px hsl(var(--teaching-vignette) / 0.25)",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             transitionDelay: "200ms",
           }}
@@ -285,9 +212,8 @@ export function TeachingCrossing() {
           Ready to start?
         </h2>
 
-        {/* CTA zone — independently observed */}
+        {/* CTA zone */}
         <div ref={ctaRef}>
-          {/* CTA — warm glow halo behind button */}
           <div
             className={cn(
               "relative mb-fitz-6 transition-all duration-[700ms]",
@@ -300,7 +226,7 @@ export function TeachingCrossing() {
               transitionDelay: "200ms",
             }}
           >
-            {/* Ambient halo behind CTA */}
+            {/* CTA halo — functional for button visibility */}
             <div
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[220px] h-[70px] rounded-full pointer-events-none"
               style={{
@@ -322,7 +248,7 @@ export function TeachingCrossing() {
             </Button>
           </div>
 
-          {/* Anti-anxiety with vow-yellow underline on "Always" */}
+          {/* Anti-anxiety */}
           <p
             className={cn(
               "font-sans text-[14px] leading-relaxed mb-fitz-2 transition-all duration-[700ms]",
@@ -331,7 +257,7 @@ export function TeachingCrossing() {
                 : "opacity-0 translate-y-[6px]"
             )}
             style={{
-              color: "hsl(var(--teaching-text-body) / 0.85)",
+              color: "hsl(var(--muted-foreground))",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
               transitionDelay: "400ms",
             }}
@@ -361,7 +287,7 @@ export function TeachingCrossing() {
                 : "opacity-0 translate-y-[4px]"
             )}
             style={{
-              color: "hsl(var(--teaching-text-body))",
+              color: "hsl(var(--muted-foreground))",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
               transitionDelay: "500ms",
             }}
@@ -369,37 +295,6 @@ export function TeachingCrossing() {
             This is a beginning, not a binding.
           </p>
         </div>
-
-        {/* Closing golden thread — page terminus */}
-        <div
-          className={cn(
-            "w-px h-[60px] mx-auto mt-fitz-9 origin-top transition-transform duration-[700ms]",
-            ctaVisible ? "scale-y-100" : "scale-y-0"
-          )}
-          style={{
-            background:
-              "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.20), hsl(var(--vow-yellow) / 0.04))",
-            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-            transitionDelay: "800ms",
-          }}
-          aria-hidden="true"
-        />
-
-        {/* Pencil annotation — page closing */}
-        <span
-          className={cn(
-            "inline-block font-display italic text-[13px] mt-fitz-4 transition-all duration-[700ms]",
-            ctaVisible ? "opacity-35" : "opacity-0"
-          )}
-          style={{
-            color: "hsl(var(--teaching-text-cite))",
-            transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
-            transitionDelay: "1000ms",
-          }}
-          aria-label="Closing annotation"
-        >
-          — no commitment required
-        </span>
       </div>
 
       {/* Keyframes */}
@@ -407,10 +302,6 @@ export function TeachingCrossing() {
         @keyframes crossing-ken-burns {
           0% { transform: scale(1) translate(0, 0); }
           100% { transform: scale(1.03) translate(0.3%, -0.3%); }
-        }
-        @keyframes crossing-vignette {
-          0%, 100% { opacity: 0.5; }
-          50% { opacity: 0.68; }
         }
         @keyframes semicolon-breathe {
           0%, 100% { text-shadow: 0 0 20px hsl(var(--vow-yellow) / 0.4); }

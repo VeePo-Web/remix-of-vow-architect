@@ -29,9 +29,6 @@ const fears = [
   },
 ];
 
-/**
- * Word-by-word scroll-linked reveal with Y-drift and ease-in-out progress.
- */
 function ScrollResolution({
   text,
   underlineWord,
@@ -51,7 +48,6 @@ function ScrollResolution({
     const vh = window.innerHeight;
     const raw = 1 - (rect.top - vh * 0.25) / (vh * 0.45);
     const clamped = Math.max(0, Math.min(1, raw));
-    // Ease-in-out for breathing rhythm
     const eased =
       clamped < 0.5
         ? 2 * clamped * clamped
@@ -128,9 +124,6 @@ function ScrollResolution({
   );
 }
 
-/**
- * Each fear/resolution pair — independently observed.
- */
 function FearPair({
   pair,
   index,
@@ -157,7 +150,7 @@ function FearPair({
 
   return (
     <div ref={ref} className="mb-[160px] md:mb-[200px] last:mb-0">
-      {/* Fear question — italic, spectral */}
+      {/* Fear question */}
       <p
         className={cn(
           "font-display italic text-[22px] md:text-[28px] tracking-tight text-center transition-all duration-[900ms]",
@@ -175,7 +168,7 @@ function FearPair({
         "{pair.fear}"
       </p>
 
-      {/* Sacred pause — golden thread */}
+      {/* Pause — thin line instead of golden thread */}
       <div className="flex flex-col items-center py-[40px] md:py-[56px]">
         <div
           className={cn(
@@ -183,8 +176,7 @@ function FearPair({
             isVisible ? "scale-y-100" : "scale-y-0"
           )}
           style={{
-            background:
-              "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.06), hsl(var(--vow-yellow) / 0.18), hsl(var(--vow-yellow) / 0.06))",
+            background: "hsl(var(--teaching-studio-label) / 0.15)",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             transitionDelay: "400ms",
           }}
@@ -192,7 +184,7 @@ function FearPair({
         />
       </div>
 
-      {/* Resolution — word-by-word scroll reveal with Y-drift */}
+      {/* Resolution — word-by-word scroll reveal */}
       <p
         className="font-sans text-[16px] md:text-[18px] leading-[1.75] text-center max-w-[580px] mx-auto"
         style={{
@@ -207,22 +199,17 @@ function FearPair({
         />
       </p>
 
-      {/* Golden dot separator */}
+      {/* Thin line separator */}
       {!isLast && (
         <div className="flex justify-center mt-[80px] md:mt-[100px]">
-          <span
+          <div
             className={cn(
-              "block w-1.5 h-1.5 rounded-full transition-all duration-[900ms]",
-              isVisible ? "opacity-100 scale-100" : "opacity-0 scale-50"
+              "w-8 h-px transition-all duration-[700ms]",
+              isVisible ? "opacity-20" : "opacity-0"
             )}
             style={{
-              background: "hsl(var(--vow-yellow))",
-              boxShadow: "0 0 6px 2px hsl(var(--vow-yellow) / 0.12)",
-              transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-              transitionDelay: "800ms",
-              animation: isVisible
-                ? "threshold-dot-breathe 4s ease-in-out infinite"
-                : undefined,
+              background: "hsl(var(--teaching-studio-label))",
+              transitionDelay: "600ms",
             }}
             aria-hidden="true"
           />
@@ -235,8 +222,6 @@ function FearPair({
 export function TeachingThreshold() {
   const headerRef = useRef<HTMLDivElement>(null);
   const [headerVisible, setHeaderVisible] = useState(false);
-  const closingRef = useRef<HTMLDivElement>(null);
-  const [closingVisible, setClosingVisible] = useState(false);
 
   useEffect(() => {
     if (!headerRef.current) return;
@@ -250,18 +235,6 @@ export function TeachingThreshold() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (!closingRef.current) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setClosingVisible(true);
-      },
-      { threshold: 0.3 }
-    );
-    observer.observe(closingRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section
       id="teaching-threshold"
@@ -271,7 +244,7 @@ export function TeachingThreshold() {
       role="region"
       aria-label="The Threshold"
     >
-      {/* ── Layer 1: Background bench — ghost presence ── */}
+      {/* Background — ghost presence */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
@@ -282,13 +255,13 @@ export function TeachingThreshold() {
         aria-hidden="true"
       />
 
-      {/* ── Layer 2a: Grain ── */}
+      {/* Grain */}
       <div
         className="absolute inset-0 grain opacity-[0.04] pointer-events-none"
         aria-hidden="true"
       />
 
-      {/* ── Layer 2b: Dual-origin fog ── */}
+      {/* Single fog layer */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -298,45 +271,12 @@ export function TeachingThreshold() {
         aria-hidden="true"
       />
 
-      {/* ── Layer 2c: Secondary depth fog — drifts ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 60% 70%, hsl(var(--teaching-studio-fog-alt) / 0.25), transparent 45%), radial-gradient(ellipse at 40% 25%, hsl(var(--teaching-studio-fog-alt) / 0.2), transparent 40%)",
-          animation: "threshold-fog-drift 20s ease-in-out infinite alternate",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* ── Layer 3: Warm golden presence — barely perceptible ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 40%, hsl(var(--vow-yellow) / 0.012), transparent 40%)",
-          animation: "threshold-bloom 8s ease-in-out infinite",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* ── Layer 4: Breathing vignette ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, transparent 30%, hsl(var(--teaching-studio-vignette-deep) / 0.65) 100%)",
-          animation: "threshold-vignette 6s ease-in-out infinite",
-        }}
-        aria-hidden="true"
-      />
-
       <div className="relative z-10 max-w-[640px] mx-auto">
         {/* Section header */}
         <div ref={headerRef}>
           <p
             className={cn(
-              "font-sans text-[11px] uppercase tracking-[0.22em] text-center mb-fitz-5 transition-all duration-[1800ms]",
+              "font-sans text-[11px] uppercase tracking-[0.22em] text-center mb-fitz-9 transition-all duration-[1800ms]",
               headerVisible
                 ? "opacity-40 translate-y-0"
                 : "opacity-0 translate-y-[8px]"
@@ -348,20 +288,6 @@ export function TeachingThreshold() {
           >
             Common concerns
           </p>
-
-          <div
-            className={cn(
-              "w-px h-[48px] mx-auto mb-fitz-9 origin-top transition-transform duration-[700ms]",
-              headerVisible ? "scale-y-100" : "scale-y-0"
-            )}
-            style={{
-              background:
-                "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.25), hsl(var(--vow-yellow) / 0.04))",
-              transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-              transitionDelay: "200ms",
-            }}
-            aria-hidden="true"
-          />
         </div>
 
         {/* Fear/Resolution pairs */}
@@ -373,75 +299,12 @@ export function TeachingThreshold() {
             isLast={i === fears.length - 1}
           />
         ))}
-
-        {/* Closing */}
-        <div ref={closingRef}>
-          <div className="flex justify-center mt-[80px]">
-            <span
-              className={cn(
-                "font-display text-[56px] transition-all duration-[900ms]",
-                closingVisible
-                  ? "opacity-100 scale-100"
-                  : "opacity-0 scale-90"
-              )}
-              style={{
-                color: "hsl(var(--vow-yellow))",
-                transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-                transitionDelay: "200ms",
-                animation: closingVisible
-                  ? "semicolon-breathe 3s ease-in-out infinite"
-                  : undefined,
-                textShadow:
-                  "0 0 24px hsl(var(--vow-yellow) / 0.3), 0 0 48px hsl(var(--vow-yellow) / 0.1)",
-              }}
-              aria-hidden="true"
-            >
-              ;
-            </span>
-          </div>
-
-          <span
-            className={cn(
-              "block font-display italic text-[13px] text-center mt-fitz-5 transition-all duration-[700ms]",
-              closingVisible ? "opacity-30" : "opacity-0"
-            )}
-            style={{
-              color: "hsl(var(--teaching-studio-label))",
-              transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
-              transitionDelay: "500ms",
-            }}
-            aria-label="Closing annotation"
-          >
-            — these are normal to feel
-          </span>
-        </div>
       </div>
 
-      {/* Keyframes */}
       <style>{`
         @keyframes threshold-ken-burns {
           0% { transform: scale(1) translate(0, 0); }
           100% { transform: scale(1.04) translate(-0.3%, 0.2%); }
-        }
-        @keyframes threshold-vignette {
-          0%, 100% { opacity: 0.65; }
-          50% { opacity: 0.82; }
-        }
-        @keyframes semicolon-breathe {
-          0%, 100% { text-shadow: 0 0 20px hsl(var(--vow-yellow) / 0.4); }
-          50% { text-shadow: 0 0 40px hsl(var(--vow-yellow) / 0.7); }
-        }
-        @keyframes threshold-dot-breathe {
-          0%, 100% { opacity: 0.5; transform: scale(1); }
-          50% { opacity: 1; transform: scale(1.2); }
-        }
-        @keyframes threshold-fog-drift {
-          0% { transform: translate(0, 0) scale(1); }
-          100% { transform: translate(-1%, 0.5%) scale(1.02); }
-        }
-        @keyframes threshold-bloom {
-          0%, 100% { opacity: 0.5; }
-          50% { opacity: 1; }
         }
         @media (prefers-reduced-motion: reduce) {
           #teaching-threshold * {

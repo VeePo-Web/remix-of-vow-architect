@@ -40,15 +40,6 @@ export function EventsCrossing() {
       {/* Film grain */}
       <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" aria-hidden="true" />
 
-      {/* Dual-origin fog */}
-      <div
-        className="absolute inset-0 pointer-events-none motion-reduce:hidden"
-        style={{
-          background: "radial-gradient(ellipse 60% 50% at 25% 75%, hsl(var(--vow-yellow) / 0.025), transparent 65%)",
-        }}
-        aria-hidden="true"
-      />
-
       <div className="relative z-10 max-w-2xl mx-auto text-center">
         {/* Golden thread */}
         <div
