@@ -136,12 +136,11 @@ export function TeachingHero() {
   const ROLE_DELAY = 400;
   const LINE1_BASE = 900;
   const LINE1_INTERVAL = 45;
-  const SEMICOLON_EXTRA = 300;
   const LINE2_BASE =
-    LINE1_BASE + "From Silence".length * LINE1_INTERVAL + SEMICOLON_EXTRA + 200;
+    LINE1_BASE + "Learn piano".length * LINE1_INTERVAL + 200;
   const LINE2_INTERVAL = 45;
   const THREAD_DELAY =
-    LINE2_BASE + "Unto Sound".length * LINE2_INTERVAL + 400;
+    LINE2_BASE + "at your own pace".length * LINE2_INTERVAL + 400;
   const SUBTITLE_DELAY = THREAD_DELAY + 300;
 
   return (
