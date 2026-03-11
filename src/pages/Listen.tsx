@@ -185,7 +185,7 @@ export default function Listen() {
   }, [playTrack]);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground" data-theme="death">
       <MinimalHeader />
       <PianoKeyNav sections={listenSections} />
       <audio ref={audioRef} preload="none" />
