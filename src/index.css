@@ -291,48 +291,52 @@ All colors MUST be HSL.
     --temp-neutral: 0 0% 50%;
   }
 
-  .light,
-  [data-theme="life"] {
-    --background: var(--porcelain);
-    --foreground: var(--rich-black);
+  /* Death Theme — Dark (for hero, footer, menu, audio) */
+  .dark,
+  [data-theme="death"] {
+    --background: var(--rich-black);
+    --foreground: var(--absolute-white);
     
-    --card: var(--absolute-white);
-    --card-foreground: var(--rich-black);
+    --card: var(--ebon-charcoal);
+    --card-foreground: var(--absolute-white);
     
-    --popover: var(--absolute-white);
-    --popover-foreground: var(--rich-black);
+    --popover: var(--ebon-charcoal);
+    --popover-foreground: var(--absolute-white);
     
-    --primary: var(--rich-black);
-    --primary-foreground: var(--vow-yellow);
+    --primary: var(--vow-yellow);
+    --primary-foreground: var(--rich-black);
     
-    --secondary: var(--absolute-white);
-    --secondary-foreground: var(--rich-black);
+    --secondary: var(--deep-graphite);
+    --secondary-foreground: var(--absolute-white);
     
-    --muted: 210 17% 90%;
-    --muted-foreground: 216 10% 35%;
+    --muted: var(--deep-graphite);
+    --muted-foreground: var(--mist-grey);
     
-    --accent: var(--success);
-    --accent-foreground: var(--absolute-white);
+    --accent: var(--vine-green);
+    --accent-foreground: var(--rich-black);
     
-    --border: 220 13% 85%;
-    --input: 220 13% 85%;
-    --keyline: 240 9% 4% / 0.25;
+    --destructive: var(--error);
+    --destructive-foreground: var(--absolute-white);
+    
+    --border: var(--slate-smoke);
+    --input: var(--slate-smoke);
+    --keyline: 45 100% 76% / 0.35;
 
-    /* Surface Variants (Mood System - Life Theme) */
+    /* Surface Variants (Mood System — Death) */
     --surface: 45 25% 96%;
     --surface-warm: 45 20% 93%;
-    --surface-elevated: var(--absolute-white);
-    --surface-accent-soft: 45 100% 76% / 0.12;
+    --surface-elevated: var(--deep-graphite);
+    --surface-accent-soft: 45 100% 76% / 0.08;
     --surface-dark-band: var(--rich-black);
 
-    /* Ink Variants (Mood System - Life Theme) */
-    --ink-primary: var(--rich-black);
-    --ink-soft: 216 10% 35%;
-    --ink-inverse: var(--absolute-white);
+    /* Ink Variants (Mood System — Death) */
+    --ink-primary: var(--absolute-white);
+    --ink-soft: var(--mist-grey);
+    --ink-inverse: var(--rich-black);
 
-    /* Lines/Borders (Mood System - Life Theme) */
-    --lines: 220 13% 85%;
-    --lines-soft: 210 17% 90%;
+    /* Lines/Borders (Mood System — Death) */
+    --lines: var(--slate-smoke);
+    --lines-soft: var(--deep-graphite);
   }
 
   /* Responsive Typography Scale */
