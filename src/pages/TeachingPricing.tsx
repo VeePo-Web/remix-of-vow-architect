@@ -53,8 +53,8 @@ function GoldenThread() {
 export default function TeachingPricing() {
   usePageTheme();
   useEffect(() => {
-    document.title = "The Offering — Piano Mentorship | Parker Gawryletz";
-    document.querySelector('meta[name="description"]')?.setAttribute("content", "One rate. One hour. One bench. $60 per hour — no packages, no commitments. Expression-focused piano mentorship in Calgary and online.");
+    document.title = "Pricing — Piano Mentorship | Parker Gawryletz";
+    document.querySelector('meta[name="description"]')?.setAttribute("content", "Piano mentorship for $60 per hour. No packages, no contracts. Pay as you go.");
   }, []);
 
   return (
