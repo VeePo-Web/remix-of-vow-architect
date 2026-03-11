@@ -50,52 +50,52 @@ All colors MUST be HSL.
     --transition-default: 250ms cubic-bezier(0.4, 0, 0.2, 1);
     --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
     
-    /* Semantic Tokens - Death Theme (Default) */
-    --background: var(--rich-black);
-    --foreground: var(--absolute-white);
+    /* Semantic Tokens - Life Theme (Default: Warm White) */
+    --background: 40 20% 98%;
+    --foreground: 30 18% 16%;
     
-    --card: var(--ebon-charcoal);
-    --card-foreground: var(--absolute-white);
+    --card: 40 30% 95%;
+    --card-foreground: 30 18% 16%;
     
-    --popover: var(--ebon-charcoal);
-    --popover-foreground: var(--absolute-white);
+    --popover: 0 0% 100%;
+    --popover-foreground: 30 18% 16%;
     
     --primary: var(--vow-yellow);
-    --primary-foreground: var(--rich-black);
+    --primary-foreground: 30 18% 16%;
     
-    --secondary: var(--deep-graphite);
-    --secondary-foreground: var(--absolute-white);
+    --secondary: 40 20% 93%;
+    --secondary-foreground: 30 18% 16%;
     
-    --muted: var(--deep-graphite);
-    --muted-foreground: var(--mist-grey);
+    --muted: 40 15% 92%;
+    --muted-foreground: 30 12% 42%;
     
     --accent: var(--vine-green);
-    --accent-foreground: var(--rich-black);
+    --accent-foreground: 30 18% 16%;
     
     --destructive: var(--error);
     --destructive-foreground: var(--absolute-white);
     
-    --border: var(--slate-smoke);
-    --input: var(--slate-smoke);
+    --border: 35 20% 88%;
+    --input: 35 20% 88%;
     --ring: var(--vow-yellow);
     
     --radius: 0.75rem;
 
-    /* Surface Variants (Mood System) */
+    /* Surface Variants (Mood System — Light) */
     --surface: 45 25% 96%;
     --surface-warm: 45 20% 93%;
-    --surface-elevated: var(--deep-graphite);
-    --surface-accent-soft: 45 100% 76% / 0.08;
+    --surface-elevated: 0 0% 100%;
+    --surface-accent-soft: 45 100% 76% / 0.12;
     --surface-dark-band: var(--rich-black);
 
-    /* Ink Variants (Mood System) */
-    --ink-primary: var(--absolute-white);
-    --ink-soft: var(--mist-grey);
-    --ink-inverse: var(--rich-black);
+    /* Ink Variants (Mood System — Light) */
+    --ink-primary: 30 18% 16%;
+    --ink-soft: 30 12% 42%;
+    --ink-inverse: var(--absolute-white);
 
-    /* Lines/Borders (Mood System) */
-    --lines: var(--slate-smoke);
-    --lines-soft: var(--deep-graphite);
+    /* Lines/Borders (Mood System — Light) */
+    --lines: 35 20% 88%;
+    --lines-soft: 40 15% 92%;
     
     /* Custom Design Tokens */
     --keyline: 45 100% 76% / 0.35;
