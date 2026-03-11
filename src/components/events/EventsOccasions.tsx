@@ -48,13 +48,10 @@ export function EventsOccasions() {
       id="events-occasions"
       ref={ref}
       className="relative py-fitz-10 px-fitz-4 md:px-fitz-6"
-      style={{ background: "hsl(var(--events-dark))" }}
-      data-theme="death"
+      style={{ background: "hsl(var(--card))" }}
       role="region"
       aria-label="What I Play For"
     >
-      <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" aria-hidden="true" />
-
       <div className="relative z-10 max-w-4xl mx-auto">
         <h2
           className={cn(
@@ -71,12 +68,12 @@ export function EventsOccasions() {
             <div
               key={o.title}
               className={cn(
-                "group rounded-2xl border border-primary/[0.06] p-8 transition-all duration-[500ms]",
-                "hover:border-primary/15 hover:-translate-y-1",
+                "group rounded-2xl border border-border p-8 transition-all duration-[500ms]",
+                "hover:border-primary/15 hover:-translate-y-1 hover:shadow-md",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{
-                background: "hsl(var(--events-dark-card))",
+                background: "hsl(var(--background))",
                 transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
                 transitionDelay: `${300 + i * 150}ms`,
               }}

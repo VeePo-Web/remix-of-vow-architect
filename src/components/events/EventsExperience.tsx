@@ -33,18 +33,17 @@ export function EventsExperience() {
       id="events-experience"
       ref={ref}
       className="relative py-fitz-10 px-fitz-4 md:px-fitz-6"
-      style={{ background: "hsl(var(--events-warm-bg))" }}
+      style={{ background: "hsl(var(--background))" }}
       role="region"
       aria-label="Past Events"
     >
       <div className="max-w-4xl mx-auto">
         <h2
           className={cn(
-            "font-display text-[28px] md:text-[40px] font-light tracking-tight text-center mb-fitz-8 transition-all duration-[700ms]",
+            "font-display text-[28px] md:text-[40px] font-light tracking-tight text-foreground text-center mb-fitz-8 transition-all duration-[700ms]",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
           )}
           style={{
-            color: "hsl(var(--events-warm-text))",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
           }}
         >
@@ -60,35 +59,25 @@ export function EventsExperience() {
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{
-                background: "hsl(var(--events-warm-card))",
-                border: "1px solid hsl(var(--events-warm-border))",
+                background: "hsl(var(--card))",
+                border: "1px solid hsl(var(--border))",
                 transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
                 transitionDelay: `${300 + i * 180}ms`,
               }}
             >
               <span
-                className="font-sans text-[11px] uppercase tracking-[0.22em] mb-4 block"
-                style={{ color: "hsl(var(--events-warm-label))" }}
+                className="font-sans text-[11px] uppercase tracking-[0.22em] mb-4 block text-primary"
               >
                 {v.type}
               </span>
-              <p
-                className="font-sans text-[14px] leading-relaxed mb-6"
-                style={{ color: "hsl(var(--events-warm-text-soft))" }}
-              >
+              <p className="font-sans text-[14px] leading-relaxed mb-6 text-muted-foreground">
                 {v.narrative}
               </p>
               <blockquote className="border-l-2 border-primary pl-4">
-                <p
-                  className="font-display italic text-[16px]"
-                  style={{ color: "hsl(var(--events-warm-text-deep))" }}
-                >
+                <p className="font-display italic text-[16px] text-foreground">
                   "{v.quote}"
                 </p>
-                <cite
-                  className="font-sans text-[12px] not-italic mt-2 block"
-                  style={{ color: "hsl(var(--events-warm-cite))" }}
-                >
+                <cite className="font-sans text-[12px] not-italic mt-2 block text-muted-foreground">
                   {v.attribution}
                 </cite>
               </blockquote>

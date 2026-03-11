@@ -42,8 +42,7 @@ export function EventsOffering() {
       id="events-offering"
       ref={ref}
       className="relative py-fitz-10 px-fitz-4 md:px-fitz-6"
-      style={{ background: "hsl(var(--events-dark))" }}
-      data-theme="death"
+      style={{ background: "hsl(var(--background))" }}
       role="region"
       aria-label="The Offering"
     >
@@ -75,13 +74,13 @@ export function EventsOffering() {
               className={cn(
                 "relative rounded-2xl p-8 transition-all duration-[500ms] flex flex-col backdrop-blur-[6px]",
                 t.isSelected
-                  ? "border-2 border-primary/30 hover:border-primary/50 shadow-[inset_0_1px_0_hsl(var(--absolute-white)/0.06),var(--shadow-sacred-glow)]"
-                  : "border border-primary/[0.06] hover:border-primary/15 shadow-[inset_0_1px_0_hsl(var(--absolute-white)/0.04)]",
-                "hover:-translate-y-1",
+                  ? "border-2 border-primary/30 hover:border-primary/50 shadow-lg"
+                  : "border border-border hover:border-primary/15 shadow-sm",
+                "hover:-translate-y-1 hover:shadow-md",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{
-                background: t.isSelected ? "hsl(var(--events-dark-elevated))" : "hsl(var(--events-dark-card))",
+                background: t.isSelected ? "hsl(var(--card))" : "hsl(var(--card))",
                 transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
                 transitionDelay: `${300 + i * 200}ms`,
               }}
@@ -99,7 +98,7 @@ export function EventsOffering() {
               </p>
               <Button
                 asChild
-                variant={t.isSelected ? "primary-dark" : "ghost-dark"}
+                variant={t.isSelected ? "default" : "outline"}
                 className="w-full"
               >
                 <Link to={t.ctaHref}>{t.cta}</Link>
