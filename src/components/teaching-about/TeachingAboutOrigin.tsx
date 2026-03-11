@@ -49,7 +49,7 @@ export function TeachingAboutOrigin() {
             <div className={cn("pt-8 transition-all duration-700", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6")} style={{ transitionDelay: "800ms" }}>
               <div className="h-[1px] w-full mb-8" style={{ background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.3), transparent)" }} />
               <p className="font-display text-xl italic text-primary">
-                "The instrument is not something to conquer — it is something to converse with."
+                "The best lessons do not feel like lessons. They feel like conversations."
               </p>
               <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mt-3 opacity-50">— Parker</p>
             </div>

@@ -3,11 +3,11 @@ import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
 const covenantPromises = [
-  "I will never rush your pace.",
-  "I will ask before I assume.",
-  "I will sit beside you as long as it takes.",
-  "I will not pretend it sounds right before it does.",
-  "I will remember why you started when you forget.",
+  "I will never rush you.",
+  "I will ask what you want before I decide what you need.",
+  "I will stay patient, even when you are not.",
+  "I will be honest about where you are — and where you can go.",
+  "I will remind you why you started when it gets hard.",
 ];
 
 export function TeachingAboutCovenant() {

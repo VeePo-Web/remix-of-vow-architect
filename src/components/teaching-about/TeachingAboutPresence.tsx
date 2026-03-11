@@ -45,7 +45,7 @@ export function TeachingAboutPresence() {
           </div>
 
           <p className={cn("font-display text-xl text-muted-foreground mb-16 transition-all duration-700", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4")} style={{ transitionDelay: "400ms" }}>
-            years at the keys.
+            years of teaching.
           </p>
 
           {/* Moment cards with gold left-rule + frame index */}

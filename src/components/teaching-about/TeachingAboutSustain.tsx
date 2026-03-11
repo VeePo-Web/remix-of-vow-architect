@@ -39,7 +39,7 @@ export function TeachingAboutSustain() {
           </div>
 
           <h2 className={cn("font-display text-[clamp(24px,3vw,40px)] font-light text-foreground mb-16 transition-all duration-700", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6")} style={{ transitionDelay: "200ms" }}>
-            What I carry to every lesson.
+            Three things I bring to every session.
           </h2>
 
           <div className="max-w-xl mx-auto space-y-0">

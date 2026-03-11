@@ -114,7 +114,7 @@ export function TeachingAboutCrossing() {
               style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)" }}
             />
             <p className="font-display text-sm text-muted-foreground italic opacity-50">
-              'Til Death; Unto Life.
+              No commitment required.
             </p>
           </div>
         </div>

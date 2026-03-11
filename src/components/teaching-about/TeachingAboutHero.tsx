@@ -89,10 +89,10 @@ export function TeachingAboutHero() {
             revealPhase >= 3 ? "opacity-100 translate-y-0 blur-0" : "opacity-0 translate-y-8 blur-sm"
           )}
         >
-          I don't teach piano.
+          I teach piano differently.
           <br />
           <span className="italic" style={{ color: "hsl(var(--vow-yellow))" }}>
-            I sit beside you until it sounds like you.
+            I start by listening to you.
           </span>
         </h1>
 
@@ -102,7 +102,7 @@ export function TeachingAboutHero() {
             revealPhase >= 4 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           )}
         >
-          Patient mentorship that begins with a conversation, not a curriculum.
+          One-on-one mentorship built around your goals, your pace, and the music you love.
         </p>
       </div>
 

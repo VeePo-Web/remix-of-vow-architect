@@ -30,7 +30,7 @@ export default function TeachingAbout() {
     document.title = "About — Parker Gawryletz, Piano Mentor";
     document.querySelector('meta[name="description"]')?.setAttribute(
       "content",
-      "The philosophy, patience, and promise behind every lesson. I sit beside you until it sounds like you."
+      "How I teach, what guides me, and what I promise every student. Piano mentorship by Parker Gawryletz."
     );
   }, []);
 
