@@ -5,6 +5,8 @@ import soundKeysImg from "@/assets/sound-keys.jpg";
 import teachingBenchImg from "@/assets/teaching-bench.jpg";
 import teachingKeysImg from "@/assets/teaching-keys.jpg";
 
+const storyImages = [soundKeysImg, teachingBenchImg, teachingKeysImg];
+
 const stories = [
   {
     narrative:
