@@ -137,15 +137,15 @@ All colors MUST be HSL.
     --warm-radial-soft: 42 40% 82%;
     --warm-frame-vignette: 42 20% 92%;
     
-    /* Transformation gradient stops */
-    --transform-dark: 220 15% 8%;
-    --transform-mid: 230 12% 18%;
-    --transform-warm: 40 20% 80%;
-    --transform-light: 45 30% 92%;
+    /* Transformation gradient stops — light mode */
+    --transform-dark: 40 15% 96%;
+    --transform-mid: 38 12% 94%;
+    --transform-warm: 40 20% 97%;
+    --transform-light: 45 30% 98%;
 
-    /* Invitation warm dark palette */
-    --invitation-bg-top: 28 12% 16%;
-    --invitation-bg-bottom: 25 8% 8%;
+    /* Invitation warm palette — light mode */
+    --invitation-bg-top: 40 20% 97%;
+    --invitation-bg-bottom: 38 15% 95%;
 
     /* Teaching Vertical Warm Palette */
     --teaching-bg: 40 30% 95%;
