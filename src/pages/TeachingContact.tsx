@@ -171,7 +171,7 @@ export default function TeachingContact() {
                       aria-hidden="true"
                     />
                     <span className="relative z-10 text-[0.625rem] tracking-[0.22em] uppercase font-light">
-                      Begin the Conversation
+                      Send Message
                     </span>
                   </button>
                   <p className="text-[0.5rem] tracking-[0.12em] uppercase text-muted-foreground/30 mt-4 text-center font-light">

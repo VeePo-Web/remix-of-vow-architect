@@ -150,10 +150,10 @@ export default function TeachingPricing() {
               <RevealOnScroll variant="up">
                 <div className="relative max-w-2xl mx-auto text-center mb-8 space-y-6">
                   <div className="absolute inset-0 -inset-x-20 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 70% at 50% 50%, hsl(var(--vow-yellow) / 0.04) 0%, transparent 70%)" }} aria-hidden="true" />
-                  <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light mx-auto relative z-10">The first question I ask is never about music.</h2>
-                  <p className="p-body text-muted-foreground relative z-10">Tell me what brought you to the piano — a memory, a person, a feeling you want to find again. This is a conversation, not a commitment.</p>
+                  <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light mx-auto relative z-10">Ready to start?</h2>
+                  <p className="p-body text-muted-foreground relative z-10">Your first session is a conversation. Tell me what you want to play and we will figure out the rest together. No commitment required.</p>
                   <Button size="lg" variant="primary-dark" className="hover-scale relative z-10" asChild>
-                    <Link to="/teaching/contact">Begin the conversation</Link>
+                    <Link to="/teaching/contact">Get in touch</Link>
                   </Button>
                 </div>
               </RevealOnScroll>
