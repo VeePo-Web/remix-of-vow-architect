@@ -150,6 +150,18 @@ export default function Proof() {
         </RevealOnScroll>
       </div>
 
+      {/* Editorial image bleed */}
+      <div className="max-w-5xl mx-auto px-4 py-8">
+        <GoldCornerImage
+          src={gallerySetupImg}
+          alt="Professional piano setup at a ceremony venue"
+          aspectRatio="16/9"
+          maxHeight="400px"
+          frameIndex="FR·04"
+          className="w-full"
+        />
+      </div>
+
       <GoldenThread />
 
       {/* Section 4 - Insurance */}
