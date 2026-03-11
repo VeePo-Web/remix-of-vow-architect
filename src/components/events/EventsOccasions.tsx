@@ -49,6 +49,7 @@ export function EventsOccasions() {
       ref={ref}
       className="relative py-fitz-10 px-fitz-4 md:px-fitz-6"
       style={{ background: "hsl(var(--events-dark))" }}
+      data-theme="death"
       role="region"
       aria-label="What I Play For"
     >
