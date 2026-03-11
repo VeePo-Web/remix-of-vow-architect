@@ -30,12 +30,12 @@ export default function TeachingContact() {
   usePageTheme();
 
   useEffect(() => {
-    document.title = "Begin the Conversation — Piano Mentorship";
+    document.title = "Get in Touch — Piano Mentorship | Parker Gawryletz";
     document
       .querySelector('meta[name="description"]')
       ?.setAttribute(
         "content",
-        "The first question I ask is never about music. Begin a conversation about piano mentorship — no obligation, no audition."
+        "Reach out about piano mentorship. No audition, no obligation — just a conversation."
       );
   }, []);
 
