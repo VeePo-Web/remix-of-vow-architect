@@ -157,7 +157,7 @@ export default function EventsContact() {
 
                 {/* ── § 1 — About Your Event ───────────────────────────────── */}
                 <div>
-                  <p className="overline text-primary/40 mb-7">About Your Event</p>
+                  <p className="overline text-muted-foreground mb-7">About Your Event</p>
                   <div className="space-y-7">
                     <LuxuryInput
                       label="Your name"
