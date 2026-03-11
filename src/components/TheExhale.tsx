@@ -25,6 +25,7 @@ export function TheExhale() {
       id="the-exhale"
       ref={sectionRef}
       className="exhale-section piano-section-target relative min-h-[70vh] flex items-center justify-center py-24 md:py-32 lg:py-40 overflow-hidden"
+      data-theme="death"
       style={{ minHeight: '70vh' }}
       aria-label="My promise to you"
       role="region"

@@ -21,6 +21,7 @@ export function VowMoment() {
       role="region"
       aria-label="The sacred vow"
       className="section--dark section-grain piano-section-target relative min-h-screen flex items-center justify-center px-4 overflow-hidden"
+      data-theme="death"
       style={{
         background: "radial-gradient(ellipse at center, hsl(var(--deep-graphite)) 0%, hsl(var(--rich-black)) 100%)",
         minHeight: '100vh',

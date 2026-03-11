@@ -64,6 +64,7 @@ export function CrossOver() {
       role="region"
       aria-label="Final call to action"
       className="section--dark section-grain piano-section-target relative overflow-hidden min-h-[50vh] md:min-h-[60vh] py-[80px] md:py-[120px] px-4 md:px-6 lg:px-8"
+      data-theme="death"
       style={{
         background: "radial-gradient(ellipse at center, hsl(var(--deep-graphite)) 0%, hsl(var(--rich-black)) 100%)",
         '--crossing-warmth': '0.02',
