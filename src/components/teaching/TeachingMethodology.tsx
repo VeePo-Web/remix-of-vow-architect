@@ -5,7 +5,6 @@ import keysImg from "@/assets/teaching-keys.jpg";
 
 /**
  * Scroll-linked word reveal with Y-drift and ease-in-out progress curve.
- * Words near the center of the passage reveal faster, creating breathing rhythm.
  */
 function ScrollRevealWords({
   text,
@@ -28,7 +27,6 @@ function ScrollRevealWords({
     const vh = window.innerHeight;
     const raw = 1 - (rect.top - vh * 0.3) / (vh * 0.5);
     const clamped = Math.max(0, Math.min(1, raw));
-    // Ease-in-out curve for breathing rhythm
     const eased =
       clamped < 0.5
         ? 2 * clamped * clamped
@@ -121,7 +119,7 @@ export function TeachingMethodology() {
       role="region"
       aria-label="The First Conversation"
     >
-      {/* ── Layer 1: Background keys — Ken Burns drift ── */}
+      {/* Background keys — Ken Burns drift */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
@@ -132,13 +130,13 @@ export function TeachingMethodology() {
         aria-hidden="true"
       />
 
-      {/* ── Layer 2a: Grain ── */}
+      {/* Grain */}
       <div
         className="absolute inset-0 grain opacity-[0.05] pointer-events-none"
         aria-hidden="true"
       />
 
-      {/* ── Layer 2b: Dual-origin fog ── */}
+      {/* Single fog layer for depth */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -148,50 +146,11 @@ export function TeachingMethodology() {
         aria-hidden="true"
       />
 
-      {/* ── Layer 2c: Secondary depth fog — drifts slowly ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 80%, hsl(var(--teaching-studio-fog-alt) / 0.3), transparent 50%), radial-gradient(ellipse at 20% 20%, hsl(var(--teaching-studio-fog-alt) / 0.15), transparent 40%)",
-          animation: isVisible
-            ? "methodology-fog-drift 22s ease-in-out infinite alternate"
-            : undefined,
-        }}
-        aria-hidden="true"
-      />
-
-      {/* ── Layer 3: Warm light bloom — subtle golden presence ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 35%, hsl(var(--vow-yellow) / 0.015), transparent 45%)",
-          animation: isVisible
-            ? "methodology-bloom 8s ease-in-out infinite"
-            : undefined,
-        }}
-        aria-hidden="true"
-      />
-
-      {/* ── Layer 4: Breathing vignette ── */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, transparent 35%, hsl(var(--teaching-studio-vignette) / 0.6) 100%)",
-          animation: isVisible
-            ? "methodology-vignette 6s ease-in-out infinite"
-            : undefined,
-        }}
-        aria-hidden="true"
-      />
-
       <div className="relative z-10 max-w-[720px] mx-auto text-center">
         {/* Whispered section label */}
         <p
           className={cn(
-            "font-sans text-[11px] uppercase tracking-[0.22em] mb-fitz-5 transition-all duration-[700ms]",
+            "font-sans text-[11px] uppercase tracking-[0.22em] mb-fitz-7 transition-all duration-[700ms]",
             isVisible
               ? "opacity-35 translate-y-0"
               : "opacity-0 translate-y-[6px]"
@@ -204,40 +163,7 @@ export function TeachingMethodology() {
           The first conversation
         </p>
 
-        {/* Golden dot anchor */}
-        <span
-          className={cn(
-            "block w-2 h-2 rounded-full mx-auto mb-fitz-5 transition-all duration-[900ms]",
-            isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-          )}
-          style={{
-            background: "hsl(var(--vow-yellow))",
-            boxShadow: "0 0 8px 2px hsl(var(--vow-yellow) / 0.15)",
-            animation: isVisible
-              ? "methodology-dot-breathe 4s ease-in-out infinite"
-              : undefined,
-            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-            transitionDelay: "100ms",
-          }}
-          aria-hidden="true"
-        />
-
-        {/* Vertical golden thread — dot to quote */}
-        <div
-          className={cn(
-            "w-px h-[48px] mx-auto mb-fitz-7 origin-top transition-transform duration-[700ms]",
-            isVisible ? "scale-y-100" : "scale-y-0"
-          )}
-          style={{
-            background:
-              "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.25), hsl(var(--vow-yellow) / 0.06))",
-            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-            transitionDelay: "150ms",
-          }}
-          aria-hidden="true"
-        />
-
-        {/* The First Question — scroll-linked word reveals with Y-drift */}
+        {/* The First Question — scroll-linked word reveals */}
         <h2
           className="font-display text-[32px] md:text-[48px] font-light tracking-tight leading-[1.15] mb-fitz-8"
           style={{
@@ -270,7 +196,7 @@ export function TeachingMethodology() {
         {/* Seed metaphor */}
         <p
           className={cn(
-            "font-display italic text-[16px] md:text-[18px] leading-[1.6] max-w-[520px] mx-auto mb-fitz-7 transition-all duration-[900ms]",
+            "font-display italic text-[16px] md:text-[18px] leading-[1.6] max-w-[520px] mx-auto transition-all duration-[900ms]",
             isVisible
               ? "opacity-60 translate-y-0"
               : "opacity-0 translate-y-[6px]"
@@ -285,60 +211,12 @@ export function TeachingMethodology() {
         >
           From that conversation, we build a plan that is yours — not a syllabus I hand to everyone.
         </p>
-
-        {/* Pencil annotation */}
-        <span
-          className={cn(
-            "inline-block font-display italic text-[13px] transition-all duration-[700ms]",
-            isVisible ? "opacity-35" : "opacity-0"
-          )}
-          style={{
-            color: "hsl(var(--teaching-studio-muted))",
-            transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
-            transitionDelay: "1000ms",
-          }}
-          aria-label="Annotation: listen"
-        >
-          — we start by talking
-        </span>
-
-        {/* Closing golden thread */}
-        <div
-          className={cn(
-            "mx-auto h-px max-w-[80px] mt-fitz-8 transition-transform duration-[700ms] origin-center",
-            isVisible ? "scale-x-100" : "scale-x-0"
-          )}
-          style={{
-            background:
-              "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.2), transparent)",
-            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-            transitionDelay: "1200ms",
-          }}
-          aria-hidden="true"
-        />
       </div>
 
-      {/* Keyframes */}
       <style>{`
         @keyframes methodology-ken-burns {
           0% { transform: scale(1) translate(0, 0); }
           100% { transform: scale(1.04) translate(-0.5%, 0.3%); }
-        }
-        @keyframes methodology-vignette {
-          0%, 100% { opacity: 0.6; }
-          50% { opacity: 0.8; }
-        }
-        @keyframes methodology-dot-breathe {
-          0%, 100% { opacity: 0.4; transform: scale(1); }
-          50% { opacity: 1; transform: scale(1.15); }
-        }
-        @keyframes methodology-fog-drift {
-          0% { transform: translate(0, 0) scale(1); }
-          100% { transform: translate(-1.5%, 0.8%) scale(1.02); }
-        }
-        @keyframes methodology-bloom {
-          0%, 100% { opacity: 0.5; }
-          50% { opacity: 1; }
         }
         @media (prefers-reduced-motion: reduce) {
           #teaching-methodology * {

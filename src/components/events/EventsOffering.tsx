@@ -67,20 +67,16 @@ export function EventsOffering() {
           Three presences — choose the one that fits your evening.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
           {tiers.map((t, i) => (
             <div
               key={t.name}
               className={cn(
-                "relative rounded-2xl p-8 transition-all duration-[500ms] flex flex-col backdrop-blur-[6px]",
-                t.isSelected
-                  ? "border-2 border-primary/30 hover:border-primary/50 shadow-lg"
-                  : "border border-border hover:border-primary/15 shadow-sm",
-                "hover:-translate-y-1 hover:shadow-md",
+                "relative py-10 md:px-8 transition-all duration-[500ms] flex flex-col",
+                i < tiers.length - 1 && "border-b md:border-b-0 md:border-r border-border/40",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{
-                background: t.isSelected ? "hsl(var(--card))" : "hsl(var(--card))",
                 transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
                 transitionDelay: `${300 + i * 200}ms`,
               }}
