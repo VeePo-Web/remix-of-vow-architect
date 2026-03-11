@@ -122,10 +122,10 @@ export default function TeachingContact() {
             <div
               className="max-w-xl mx-auto rounded-lg p-8 md:p-12"
               style={{
-                background: "hsl(var(--card) / 0.45)",
+                background: "hsl(var(--card) / 0.6)",
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
-                border: "1px solid hsl(var(--border) / 0.2)",
+                border: "1px solid hsl(var(--border) / 0.35)",
                 boxShadow:
                   "0 1px 60px hsl(var(--background) / 0.4), inset 0 1px 0 hsl(var(--vow-yellow) / 0.04)",
               }}
