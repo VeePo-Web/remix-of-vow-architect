@@ -200,7 +200,7 @@ export function ThreePaths() {
                 {/* Golden underline */}
                 <div
                   className="h-[3px] w-12 mt-2 mb-6"
-                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.75 : 0.65}), hsl(var(--vow-yellow) / 0.2), transparent)`, boxShadow: '0 1px 1px hsl(var(--rich-black) / 0.08)' }}
+                  style={{ background: `linear-gradient(90deg, hsl(var(--vow-yellow) / ${tier.isChosen ? 0.75 : 0.65}), hsl(var(--vow-yellow) / 0.2), transparent)` }}
                   aria-hidden="true"
                 />
 
