@@ -15,7 +15,7 @@ export const LuxuryInput = React.forwardRef<HTMLInputElement, LuxuryInputProps>(
           htmlFor={inputId}
           className={cn(
             "block text-[0.625rem] tracking-[0.15em] uppercase font-light transition-colors duration-200",
-            error ? "text-destructive/70" : "text-muted-foreground/60 group-focus-within:text-primary/60"
+            error ? "text-destructive/70" : "text-muted-foreground group-focus-within:text-primary/60"
           )}
         >
           {label}
@@ -25,9 +25,9 @@ export const LuxuryInput = React.forwardRef<HTMLInputElement, LuxuryInputProps>(
           ref={ref}
           className={cn(
             "luxury-input w-full mt-2 pb-2.5 pt-0 bg-transparent border-0 border-b",
-            "text-base font-light text-foreground placeholder:text-muted-foreground/30",
+            "text-base font-light text-foreground placeholder:text-muted-foreground/50",
             "focus:outline-none focus:ring-0 transition-all duration-300",
-            error ? "border-destructive/50" : "border-border/40",
+            error ? "border-destructive/50" : "border-border/60",
             className
           )}
           {...props}
@@ -67,7 +67,7 @@ export const LuxuryTextarea = React.forwardRef<HTMLTextAreaElement, LuxuryTextar
           htmlFor={inputId}
           className={cn(
             "block text-[0.625rem] tracking-[0.15em] uppercase font-light transition-colors duration-200",
-            error ? "text-destructive/70" : "text-muted-foreground/60 group-focus-within:text-primary/60"
+            error ? "text-destructive/70" : "text-muted-foreground group-focus-within:text-primary/60"
           )}
         >
           {label}
@@ -77,9 +77,9 @@ export const LuxuryTextarea = React.forwardRef<HTMLTextAreaElement, LuxuryTextar
           ref={ref}
           className={cn(
             "w-full mt-2 pb-2.5 pt-2 bg-transparent border-0 border-b resize-none",
-            "text-base font-light text-foreground placeholder:text-muted-foreground/30",
+            "text-base font-light text-foreground placeholder:text-muted-foreground/50",
             "focus:outline-none focus:ring-0 transition-all duration-300",
-            error ? "border-destructive/50" : "border-border/40",
+            error ? "border-destructive/50" : "border-border/60",
             className
           )}
           {...props}

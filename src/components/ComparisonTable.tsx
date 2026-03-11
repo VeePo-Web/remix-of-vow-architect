@@ -62,9 +62,9 @@ function CompetitorMark({ value }: { value: boolean | string }) {
     );
   }
   if (value === "warning") {
-    return <span className="text-muted-foreground/50 text-sm" aria-label="Partial">·</span>;
+    return <span className="text-muted-foreground/70 text-sm" aria-label="Partial">·</span>;
   }
-  return <span className="text-muted-foreground/30 text-sm" aria-label="Not included">—</span>;
+  return <span className="text-muted-foreground/60 text-sm" aria-label="Not included">—</span>;
 }
 
 export function ComparisonTable() {

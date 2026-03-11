@@ -125,7 +125,7 @@ export default function EventsContact() {
           <div className="container max-w-4xl mx-auto relative z-10">
             {/* Header */}
             <div className="text-center mb-14 animate-fade-in">
-              <p className="overline text-primary/50 mb-3">The Conversation</p>
+              <p className="overline text-muted-foreground mb-3">The Conversation</p>
               <h1
                 className="font-display font-light text-foreground"
                 style={{ fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.12 }}
@@ -145,10 +145,10 @@ export default function EventsContact() {
             <div
               className="max-w-2xl mx-auto rounded-lg p-8 md:p-12 animate-fade-in"
               style={{
-                background: "hsl(var(--card) / 0.4)",
+                background: "hsl(var(--card) / 0.6)",
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
-                border: "1px solid hsl(var(--border) / 0.18)",
+                border: "1px solid hsl(var(--border) / 0.35)",
                 boxShadow:
                   "0 4px 60px hsl(var(--background) / 0.5), inset 0 1px 0 hsl(var(--vow-yellow) / 0.05)",
               }}
@@ -157,7 +157,7 @@ export default function EventsContact() {
 
                 {/* ── § 1 — About Your Event ───────────────────────────────── */}
                 <div>
-                  <p className="overline text-primary/40 mb-7">About Your Event</p>
+                  <p className="overline text-muted-foreground mb-7">About Your Event</p>
                   <div className="space-y-7">
                     <LuxuryInput
                       label="Your name"
@@ -196,10 +196,10 @@ export default function EventsContact() {
                   className="pt-8"
                   style={{ borderTop: "1px solid hsl(var(--border) / 0.14)" }}
                 >
-                  <p className="overline text-primary/40 mb-7">Shape the Sound</p>
+                  <p className="overline text-muted-foreground mb-7">Shape the Sound</p>
                   <div className="space-y-7">
                     <div>
-                      <p className="text-[0.625rem] tracking-[0.15em] uppercase font-light text-muted-foreground/55 mb-3">
+                      <p className="text-xs tracking-[0.15em] uppercase font-light text-muted-foreground mb-3">
                         Occasion type
                       </p>
                       <PillSelector
@@ -210,7 +210,7 @@ export default function EventsContact() {
                       />
                     </div>
                     <div>
-                      <p className="text-[0.625rem] tracking-[0.15em] uppercase font-light text-muted-foreground/55 mb-3">
+                      <p className="text-xs tracking-[0.15em] uppercase font-light text-muted-foreground mb-3">
                         Duration needed
                       </p>
                       <PillSelector
@@ -229,7 +229,7 @@ export default function EventsContact() {
                     <button
                       type="button"
                       onClick={() => setShowNotes(true)}
-                      className="text-[0.625rem] tracking-[0.14em] uppercase font-light text-muted-foreground/40 hover:text-muted-foreground/70 transition-colors duration-200 underline underline-offset-4"
+                      className="text-xs tracking-[0.14em] uppercase font-light text-muted-foreground hover:text-foreground transition-colors duration-200 underline underline-offset-4"
                     >
                       Add music preferences or event details
                     </button>
@@ -269,7 +269,7 @@ export default function EventsContact() {
                       Send My Inquiry
                     </span>
                   </button>
-                  <p className="text-[0.5rem] tracking-[0.12em] uppercase text-muted-foreground/25 mt-4 text-center font-light">
+                  <p className="text-xs tracking-[0.12em] uppercase text-muted-foreground mt-4 text-center font-light">
                     A tailored proposal arrives within 24 hours
                   </p>
                 </div>
@@ -282,13 +282,8 @@ export default function EventsContact() {
               {trustStats.map((stat) => (
                 <div key={stat.label}>
                   <p
-                    className="font-display font-light"
-                    style={{
-                      fontSize: "clamp(17px, 2vw, 21px)",
-                      background: "linear-gradient(180deg, hsl(var(--vow-yellow)), hsl(var(--vow-yellow) / 0.5))",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                    }}
+                    className="font-display font-light text-foreground"
+                    style={{ fontSize: "clamp(17px, 2vw, 21px)" }}
                   >
                     {stat.value}
                   </p>
@@ -296,11 +291,11 @@ export default function EventsContact() {
                     className="w-5 h-px mx-auto my-2"
                     style={{
                       background:
-                        "linear-gradient(90deg, transparent, hsl(var(--primary) / 0.22), transparent)",
+                        "linear-gradient(90deg, transparent, hsl(var(--primary) / 0.4), transparent)",
                     }}
                     aria-hidden="true"
                   />
-                  <p className="text-[0.5rem] tracking-[0.15em] uppercase text-muted-foreground/28 font-light">
+                  <p className="text-xs tracking-[0.15em] uppercase text-muted-foreground font-light">
                     {stat.label}
                   </p>
                 </div>

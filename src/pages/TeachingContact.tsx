@@ -105,7 +105,7 @@ export default function TeachingContact() {
           <div className="container max-w-4xl mx-auto relative z-10">
             {/* Header */}
             <div className="text-center mb-14">
-              <p className="overline text-primary/50 mb-3">Get in Touch</p>
+              <p className="overline text-muted-foreground mb-3">Get in Touch</p>
               <h1
                 className="font-display font-light text-foreground"
                 style={{ fontSize: "clamp(28px, 4vw, 42px)", lineHeight: 1.15 }}
@@ -122,10 +122,10 @@ export default function TeachingContact() {
             <div
               className="max-w-xl mx-auto rounded-lg p-8 md:p-12"
               style={{
-                background: "hsl(var(--card) / 0.45)",
+                background: "hsl(var(--card) / 0.6)",
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
-                border: "1px solid hsl(var(--border) / 0.2)",
+                border: "1px solid hsl(var(--border) / 0.35)",
                 boxShadow:
                   "0 1px 60px hsl(var(--background) / 0.4), inset 0 1px 0 hsl(var(--vow-yellow) / 0.04)",
               }}
@@ -154,7 +154,7 @@ export default function TeachingContact() {
                       placeholder="A song you love, a goal you have, or just curiosity..."
                       {...register("reason")}
                     />
-                    <p className="text-[0.5rem] tracking-[0.1em] uppercase text-muted-foreground/30 mt-2 font-light">
+                    <p className="text-xs tracking-[0.1em] uppercase text-muted-foreground mt-2 font-light">
                       There is no wrong answer.
                     </p>
                   </div>
@@ -183,7 +183,7 @@ export default function TeachingContact() {
                       Send Message
                     </span>
                   </button>
-                  <p className="text-[0.5rem] tracking-[0.12em] uppercase text-muted-foreground/30 mt-4 text-center font-light">
+                  <p className="text-xs tracking-[0.12em] uppercase text-muted-foreground mt-4 text-center font-light">
                     I only use your information to write back. Nothing else.
                   </p>
                 </div>
@@ -195,13 +195,8 @@ export default function TeachingContact() {
               {trustStats.map((stat) => (
                 <div key={stat.label}>
                   <p
-                    className="font-display font-light"
-                    style={{
-                      fontSize: "clamp(17px, 2vw, 21px)",
-                      background: "linear-gradient(180deg, hsl(var(--vow-yellow)), hsl(var(--vow-yellow) / 0.5))",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                    }}
+                    className="font-display font-light text-foreground"
+                    style={{ fontSize: "clamp(17px, 2vw, 21px)" }}
                   >
                     {stat.value}
                   </p>
@@ -209,11 +204,11 @@ export default function TeachingContact() {
                     className="w-5 h-px mx-auto my-2"
                     style={{
                       background:
-                        "linear-gradient(90deg, transparent, hsl(var(--primary) / 0.25), transparent)",
+                        "linear-gradient(90deg, transparent, hsl(var(--primary) / 0.4), transparent)",
                     }}
                     aria-hidden="true"
                   />
-                  <p className="text-[0.5rem] tracking-[0.15em] uppercase text-muted-foreground/30 font-light">
+                  <p className="text-xs tracking-[0.15em] uppercase text-muted-foreground font-light">
                     {stat.label}
                   </p>
                 </div>

@@ -89,8 +89,8 @@ function ComparisonIcon({ value }: { value: boolean | "warning" }) {
   if (value === true) return (
     <span className="inline-block w-2.5 h-2.5 rotate-45" style={{ background: "hsl(var(--vow-yellow) / 0.8)", boxShadow: "0 0 6px hsl(var(--vow-yellow) / 0.3)" }} aria-label="Included" />
   );
-  if (value === "warning") return <span className="text-muted-foreground/50 text-sm" aria-label="Partial">·</span>;
-  return <span className="text-muted-foreground/30 text-sm" aria-label="Not included">—</span>;
+  if (value === "warning") return <span className="text-muted-foreground/70 text-sm" aria-label="Partial">·</span>;
+  return <span className="text-muted-foreground/60 text-sm" aria-label="Not included">—</span>;
 }
 
 export default function EventsPricing() {
@@ -112,7 +112,7 @@ export default function EventsPricing() {
             <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: `url(${heroPianoImg})`, backgroundSize: "cover", backgroundPosition: "center", maskImage: "linear-gradient(to bottom, black 0%, transparent 40%)", WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 40%)", animation: "ken-burns 25s ease-in-out infinite alternate" }} />
           </div>
           <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)" }} aria-hidden="true" />
-          <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 100%)", animation: "ep-vignette-breathe 6s ease-in-out infinite" }} aria-hidden="true" />
+          <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 100%)" }} aria-hidden="true" />
           <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" style={{ maskImage: "linear-gradient(to bottom, black 0%, transparent 40%)", WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 40%)" }} aria-hidden="true" />
 
           <div className="container mx-auto px-4 relative z-10">
@@ -267,11 +267,9 @@ export default function EventsPricing() {
       <MobileStickyBar />
 
       <style>{`
-        @keyframes ep-vignette-breathe { 0%, 100% { opacity: 0.8; } 50% { opacity: 0.65; } }
         @keyframes ep-dot-breathe { 0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.5); } }
         @media (prefers-reduced-motion: reduce) {
           .grain, [style*="ken-burns"] { animation: none !important; }
-          [style*="ep-vignette-breathe"] { animation: none !important; opacity: 0.7; }
           [style*="ep-dot-breathe"] { animation: none !important; opacity: 0.6; }
         }
       `}</style>

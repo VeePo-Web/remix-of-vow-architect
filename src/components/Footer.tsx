@@ -376,7 +376,7 @@ export function Footer() {
             
             <div className="flex flex-col items-center text-center relative z-[1]">
               {/* Micro-label */}
-              <p className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground/40 mb-4">
+              <p className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground/60 mb-4">
                 This experience was crafted by
               </p>
               {/* Orange-teal accent divider */}
@@ -392,15 +392,15 @@ export function Footer() {
                 className="h-12 md:h-16 w-auto mb-4 transition-all duration-[260ms] group-hover/veepo:drop-shadow-[0_0_20px_rgba(255,140,42,0.2)]"
               />
               {/* Domain */}
-              <span className="text-[11px] tracking-[0.2em] uppercase text-muted-foreground/50 group-hover/veepo:[color:hsl(166,72%,47%)] transition-colors duration-[180ms] mb-3">
+              <span className="text-[11px] tracking-[0.2em] uppercase text-muted-foreground/70 group-hover/veepo:[color:hsl(166,72%,47%)] transition-colors duration-[180ms] mb-3">
                 veepo.ca
               </span>
               {/* Tagline + arrow */}
               <div className="flex items-center gap-2">
-                <p className="text-[11px] tracking-[0.12em] text-muted-foreground/35 italic">
+                <p className="text-[11px] tracking-[0.12em] text-muted-foreground/60 italic">
                   Where vision meets precision
                 </p>
-                <span className="text-sm text-muted-foreground/30 group-hover/veepo:[color:hsl(28,87%,58%)] transition-all duration-[180ms] group-hover/veepo:translate-x-1" aria-hidden="true">
+                <span className="text-sm text-muted-foreground/50 group-hover/veepo:[color:hsl(28,87%,58%)] transition-all duration-[180ms] group-hover/veepo:translate-x-1" aria-hidden="true">
                   →
                 </span>
               </div>

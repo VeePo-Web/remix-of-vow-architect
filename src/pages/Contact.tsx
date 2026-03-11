@@ -125,7 +125,7 @@ export default function Contact() {
           <div className="container max-w-4xl mx-auto relative z-10">
             {/* Header */}
             <div className="text-center mb-14 animate-fade-in">
-              <p className="overline text-primary/50 mb-3">The Crossing</p>
+              <p className="overline text-muted-foreground mb-3">The Crossing</p>
               <h1
                 className="font-display font-light text-foreground"
                 style={{ fontSize: "clamp(28px, 4vw, 44px)", lineHeight: 1.12 }}
@@ -145,10 +145,10 @@ export default function Contact() {
             <div
               className="max-w-2xl mx-auto rounded-lg p-8 md:p-12 animate-fade-in"
               style={{
-                background: "hsl(var(--card) / 0.4)",
+                background: "hsl(var(--card) / 0.6)",
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
-                border: "1px solid hsl(var(--border) / 0.18)",
+                border: "1px solid hsl(var(--border) / 0.35)",
                 boxShadow:
                   "0 4px 60px hsl(var(--background) / 0.5), inset 0 1px 0 hsl(var(--vow-yellow) / 0.05)",
               }}
@@ -157,7 +157,7 @@ export default function Contact() {
 
                 {/* ── § 1 — About Your Day ─────────────────────────────────── */}
                 <div>
-                  <p className="overline text-primary/40 mb-7">About Your Day</p>
+                  <p className="overline text-muted-foreground mb-7">About Your Day</p>
                   <div className="space-y-7">
                     <LuxuryInput
                       label="First & last name"
@@ -196,10 +196,10 @@ export default function Contact() {
                   className="pt-8"
                   style={{ borderTop: "1px solid hsl(var(--border) / 0.14)" }}
                 >
-                  <p className="overline text-primary/40 mb-7">Shape the Sound</p>
+                  <p className="overline text-muted-foreground mb-7">Shape the Sound</p>
                   <div className="space-y-7">
                     <div>
-                      <p className="text-[0.625rem] tracking-[0.15em] uppercase font-light text-muted-foreground/55 mb-3">
+                      <p className="text-xs tracking-[0.15em] uppercase font-light text-muted-foreground mb-3">
                         Ceremony vibe
                       </p>
                       <PillSelector
@@ -210,7 +210,7 @@ export default function Contact() {
                       />
                     </div>
                     <div>
-                      <p className="text-[0.625rem] tracking-[0.15em] uppercase font-light text-muted-foreground/55 mb-3">
+                      <p className="text-xs tracking-[0.15em] uppercase font-light text-muted-foreground mb-3">
                         Guest count
                       </p>
                       <PillSelector
@@ -229,13 +229,13 @@ export default function Contact() {
                     <button
                       type="button"
                       onClick={() => setShowExtras(true)}
-                      className="text-[0.625rem] tracking-[0.14em] uppercase font-light text-muted-foreground/40 hover:text-muted-foreground/70 transition-colors duration-200 underline underline-offset-4"
+                      className="text-xs tracking-[0.14em] uppercase font-light text-muted-foreground hover:text-foreground transition-colors duration-200 underline underline-offset-4"
                     >
                       Add ceremony time or song requests
                     </button>
                   ) : (
                     <div className="space-y-7 animate-fade-in">
-                      <p className="overline text-primary/40 mb-1">A Little More</p>
+                      <p className="overline text-muted-foreground mb-1">A Little More</p>
                       <LuxuryInput
                         label="Ceremony start time"
                         id="ceremonyTime"
@@ -276,7 +276,7 @@ export default function Contact() {
                       Hold My Date
                     </span>
                   </button>
-                  <p className="text-[0.5rem] tracking-[0.12em] uppercase text-muted-foreground/25 mt-4 text-center font-light">
+                  <p className="text-xs tracking-[0.12em] uppercase text-muted-foreground mt-4 text-center font-light">
                     A personalized ceremony plan arrives within 24 hours
                   </p>
                 </div>
@@ -289,13 +289,8 @@ export default function Contact() {
               {trustStats.map((stat) => (
                 <div key={stat.label}>
                   <p
-                    className="font-display font-light"
-                    style={{
-                      fontSize: "clamp(17px, 2vw, 21px)",
-                      background: "linear-gradient(180deg, hsl(var(--vow-yellow)), hsl(var(--vow-yellow) / 0.5))",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                    }}
+                    className="font-display font-light text-foreground"
+                    style={{ fontSize: "clamp(17px, 2vw, 21px)" }}
                   >
                     {stat.value}
                   </p>
@@ -303,11 +298,11 @@ export default function Contact() {
                     className="w-5 h-px mx-auto my-2"
                     style={{
                       background:
-                        "linear-gradient(90deg, transparent, hsl(var(--primary) / 0.22), transparent)",
+                        "linear-gradient(90deg, transparent, hsl(var(--primary) / 0.4), transparent)",
                     }}
                     aria-hidden="true"
                   />
-                  <p className="text-[0.5rem] tracking-[0.15em] uppercase text-muted-foreground/28 font-light">
+                  <p className="text-xs tracking-[0.15em] uppercase text-muted-foreground font-light">
                     {stat.label}
                   </p>
                 </div>
