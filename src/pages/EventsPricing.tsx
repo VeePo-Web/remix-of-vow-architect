@@ -112,7 +112,7 @@ export default function EventsPricing() {
             <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: `url(${heroPianoImg})`, backgroundSize: "cover", backgroundPosition: "center", maskImage: "linear-gradient(to bottom, black 0%, transparent 40%)", WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 40%)", animation: "ken-burns 25s ease-in-out infinite alternate" }} />
           </div>
           <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)" }} aria-hidden="true" />
-          <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 100%)", animation: "ep-vignette-breathe 6s ease-in-out infinite" }} aria-hidden="true" />
+          <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 100%)" }} aria-hidden="true" />
           <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" style={{ maskImage: "linear-gradient(to bottom, black 0%, transparent 40%)", WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 40%)" }} aria-hidden="true" />
 
           <div className="container mx-auto px-4 relative z-10">
