@@ -355,7 +355,7 @@ export function TeachingOffering() {
           >
             <ScrollAntiAnxiety
               text="Your first session is a conversation — no preparation needed."
-              underlineWord="question"
+              underlineWord="conversation"
               isInView={ctaVisible}
             />
           </p>
