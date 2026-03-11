@@ -22,28 +22,28 @@ interface LineConfig {
 
 const lines: LineConfig[] = [
   {
-    text: "There is a sound within you that your hands have not yet reached.",
+    text: "Maybe you played as a child and stopped. Maybe you have never touched a key.",
     italic: true,
     size: "text-[20px] md:text-[28px]",
     shadowWeight: "medium",
   },
   {
-    text: "You hear it in passing. In the stillness before sleep. In the space between what you feel and what you can say.",
+    text: "Either way, something brought you here — and that is enough to begin.",
     italic: true,
     size: "text-[20px] md:text-[28px]",
     shadowWeight: "medium",
   },
   {
-    text: "I hear it too.",
+    text: "I will meet you where you are.",
     italic: false,
     size: "text-[18px] md:text-[24px]",
     shadowWeight: "light",
   },
   {
-    text: "The bench is waiting.",
+    text: "Your first lesson starts with a conversation.",
     italic: true,
     size: "text-[20px] md:text-[28px]",
-    underlineWord: "waiting",
+    underlineWord: "conversation",
     shadowWeight: "medium",
   },
 ];
