@@ -71,12 +71,12 @@ export function WitnessCovenant() {
           {/* Certificate Container with shimmer sweep */}
           <div 
             className={cn(
-              "group relative p-12 md:p-16 bg-[hsl(var(--deep-graphite))] border border-primary/20 rounded-sm overflow-hidden transition-all duration-1000",
+              "group relative p-12 md:p-16 bg-card border border-primary/20 rounded-sm overflow-hidden transition-all duration-1000",
               isVisible ? "opacity-100 translate-y-0 blur-none" : "opacity-0 translate-y-8 blur-sm"
             )}
             style={{ 
               transitionDelay: "200ms",
-              boxShadow: "0 20px 60px hsl(var(--rich-black) / 0.12), 0 0 0 1px hsl(var(--primary) / 0.08), inset 0 0 80px hsl(var(--vow-yellow) / 0.05)"
+              boxShadow: "0 20px 60px hsl(30 10% 10% / 0.06), 0 0 0 1px hsl(var(--primary) / 0.08), inset 0 0 80px hsl(var(--vow-yellow) / 0.05)"
             }}
           >
             {/* Gold shimmer sweep on hover */}
