@@ -34,9 +34,6 @@ const pillars = [
   },
 ];
 
-/**
- * Scroll-linked word-by-word opacity for pillar descriptions.
- */
 function ScrollDescription({
   text,
   underlineWord,
@@ -115,9 +112,6 @@ function ScrollDescription({
   );
 }
 
-/**
- * Each pillar gets its own IntersectionObserver for independent scroll triggering.
- */
 function PillarCard({
   pillar,
   index,
@@ -145,7 +139,7 @@ function PillarCard({
   return (
     <div ref={ref}>
       <div className="relative text-center py-[48px] md:py-[64px]">
-        {/* Roman numeral — whispered above title */}
+        {/* Roman numeral */}
         <span
           className={cn(
             "block font-display text-[13px] tracking-[0.3em] uppercase mb-fitz-3 transition-all duration-[900ms]",
@@ -165,14 +159,12 @@ function PillarCard({
         {/* Pillar title */}
         <h2
           className={cn(
-            "font-display text-[28px] md:text-[36px] font-light tracking-tight mb-fitz-4 transition-all duration-[900ms]",
+            "font-display text-[28px] md:text-[36px] font-light tracking-tight text-foreground mb-fitz-4 transition-all duration-[900ms]",
             isVisible
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-[12px]"
           )}
           style={{
-            color: "hsl(var(--teaching-text-heading))",
-            textShadow: "0 1px 2px hsl(var(--teaching-vignette) / 0.25)",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             transitionDelay: "120ms",
           }}
@@ -182,8 +174,7 @@ function PillarCard({
 
         {/* Description — scroll-linked word reveals */}
         <p
-          className="font-sans text-[16px] leading-[1.7] max-w-[480px] mx-auto"
-          style={{ color: "hsl(var(--teaching-text-body))" }}
+          className="font-sans text-[16px] leading-[1.7] text-muted-foreground max-w-[480px] mx-auto"
         >
           <ScrollDescription
             text={pillar.description}
@@ -193,49 +184,20 @@ function PillarCard({
         </p>
       </div>
 
-      {/* Horizontal thread separator — grows from center */}
+      {/* Simple thin line separator */}
       {!isLast && (
-        <div className="flex items-center justify-center gap-3">
-          <div
-            className={cn(
-              "h-px flex-1 max-w-[40px] origin-right transition-transform duration-[600ms]",
-              isVisible ? "scale-x-100" : "scale-x-0"
-            )}
-            style={{
-              background:
-                "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.2))",
-              transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-              transitionDelay: "500ms",
-            }}
-            aria-hidden="true"
-          />
-          <span
-            className={cn(
-              "block w-[5px] h-[5px] rounded-full transition-all duration-[700ms]",
-              isVisible ? "opacity-60 scale-100" : "opacity-0 scale-0"
-            )}
-            style={{
-              background: "hsl(var(--vow-yellow))",
-              boxShadow: "0 0 4px 1px hsl(var(--vow-yellow) / 0.1)",
-              transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-              transitionDelay: "400ms",
-            }}
-            aria-hidden="true"
-          />
-          <div
-            className={cn(
-              "h-px flex-1 max-w-[40px] origin-left transition-transform duration-[600ms]",
-              isVisible ? "scale-x-100" : "scale-x-0"
-            )}
-            style={{
-              background:
-                "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.2), transparent)",
-              transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-              transitionDelay: "500ms",
-            }}
-            aria-hidden="true"
-          />
-        </div>
+        <div
+          className={cn(
+            "h-px max-w-[60px] mx-auto transition-transform duration-[600ms] origin-center",
+            isVisible ? "scale-x-100" : "scale-x-0"
+          )}
+          style={{
+            background: "hsl(var(--border))",
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "400ms",
+          }}
+          aria-hidden="true"
+        />
       )}
     </div>
   );
@@ -244,8 +206,6 @@ function PillarCard({
 export function TeachingPillars() {
   const headerRef = useRef<HTMLDivElement>(null);
   const [headerVisible, setHeaderVisible] = useState(false);
-  const closingRef = useRef<HTMLDivElement>(null);
-  const [closingVisible, setClosingVisible] = useState(false);
 
   useEffect(() => {
     if (!headerRef.current) return;
@@ -259,98 +219,34 @@ export function TeachingPillars() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (!closingRef.current) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setClosingVisible(true);
-      },
-      { threshold: 0.5 }
-    );
-    observer.observe(closingRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section
       id="teaching-pillars"
       className="relative py-[140px] md:py-[180px] px-fitz-4 md:px-fitz-6 overflow-hidden"
-      style={{ background: "hsl(var(--teaching-bg))" }}
+      style={{ background: "hsl(var(--background))" }}
       role="region"
       aria-label="How I Teach"
     >
-      {/* Breathing vignette */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, transparent 45%, hsl(var(--teaching-vignette) / 0.5) 100%)",
-          animation: "pillars-vignette-breathe 6s ease-in-out infinite",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Warm ambient glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.02), transparent 55%)",
-        }}
-        aria-hidden="true"
-      />
-
       <div className="relative z-10 max-w-[600px] mx-auto">
-        {/* Section header — independently observed */}
+        {/* Section header */}
         <div ref={headerRef}>
           <p
             className={cn(
-              "font-sans text-[11px] uppercase tracking-[0.22em] text-center mb-fitz-5 transition-all duration-[700ms]",
+              "font-sans text-[11px] uppercase tracking-[0.22em] text-muted-foreground text-center mb-[80px] md:mb-[100px] transition-all duration-[700ms]",
               headerVisible
                 ? "opacity-45 translate-y-0"
                 : "opacity-0 translate-y-[8px]"
             )}
             style={{
-              color: "hsl(var(--teaching-text-label))",
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
               transitionDelay: "100ms",
             }}
           >
             How I teach
           </p>
-
-          {/* Golden dot — top anchor */}
-          <span
-            className={cn(
-              "block w-2 h-2 rounded-full mx-auto mb-fitz-5 transition-all duration-[900ms]",
-              headerVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-            )}
-            style={{
-              background: "hsl(var(--vow-yellow))",
-              boxShadow: "0 0 8px 2px hsl(var(--vow-yellow) / 0.15)",
-              transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-              transitionDelay: "150ms",
-            }}
-            aria-hidden="true"
-          />
-
-          {/* Vertical golden thread — top to first pillar */}
-          <div
-            className={cn(
-              "w-px h-[48px] mx-auto mb-fitz-7 origin-top transition-transform duration-[700ms]",
-              headerVisible ? "scale-y-100" : "scale-y-0"
-            )}
-            style={{
-              background:
-                "linear-gradient(to bottom, hsl(var(--vow-yellow) / 0.25), hsl(var(--vow-yellow) / 0.04))",
-              transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-              transitionDelay: "200ms",
-            }}
-            aria-hidden="true"
-          />
         </div>
 
-        {/* Pillar cards — each independently triggered */}
+        {/* Pillar cards */}
         {pillars.map((p, i) => (
           <React.Fragment key={p.title}>
             <PillarCard
@@ -366,52 +262,14 @@ export function TeachingPillars() {
                   alt="Piano keys in warm light"
                   aspectRatio="16/9"
                   maxHeight="400px"
-                  frameIndex="FR02"
                 />
               </div>
             )}
           </React.Fragment>
         ))}
-
-        {/* Closing — independently observed */}
-        <div ref={closingRef}>
-          <div
-            className={cn(
-              "mx-auto h-px max-w-[120px] mt-fitz-8 transition-transform duration-[700ms] origin-center",
-              closingVisible ? "scale-x-100" : "scale-x-0"
-            )}
-            style={{
-              background:
-                "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.25), transparent)",
-              transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-              transitionDelay: "200ms",
-            }}
-            aria-hidden="true"
-          />
-
-          <span
-            className={cn(
-              "block font-display italic text-[13px] text-center mt-fitz-5 transition-all duration-[700ms]",
-              closingVisible ? "opacity-30" : "opacity-0"
-            )}
-            style={{
-              color: "hsl(var(--teaching-text-cite))",
-              transitionTimingFunction: "cubic-bezier(.16,1,.3,1)",
-              transitionDelay: "400ms",
-            }}
-            aria-label="Closing annotation"
-          >
-            — these guide every lesson
-          </span>
-        </div>
       </div>
 
-      {/* Keyframes */}
       <style>{`
-        @keyframes pillars-vignette-breathe {
-          0%, 100% { opacity: 0.5; }
-          50% { opacity: 0.7; }
-        }
         @media (prefers-reduced-motion: reduce) {
           #teaching-pillars * {
             animation-duration: 0.01ms !important;
