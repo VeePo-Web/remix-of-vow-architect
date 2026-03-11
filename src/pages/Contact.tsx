@@ -235,7 +235,7 @@ export default function Contact() {
                     </button>
                   ) : (
                     <div className="space-y-7 animate-fade-in">
-                      <p className="overline text-primary/40 mb-1">A Little More</p>
+                      <p className="overline text-muted-foreground mb-1">A Little More</p>
                       <LuxuryInput
                         label="Ceremony start time"
                         id="ceremonyTime"
