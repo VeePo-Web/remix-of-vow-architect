@@ -89,7 +89,7 @@ export function TeachingAboutCrossing() {
             )}
             style={{ transitionDelay: "600ms" }}
           >
-            <ShimmerButton onClick={() => navigate("/teaching/contact")}>Begin the conversation</ShimmerButton>
+            <ShimmerButton onClick={() => navigate("/teaching/contact")}>Get in touch</ShimmerButton>
           </div>
 
           <p
