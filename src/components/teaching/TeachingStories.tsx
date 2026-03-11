@@ -318,7 +318,7 @@ export function TeachingStories() {
               transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
             }}
           >
-            Those who sat down
+            Student stories
           </p>
 
           {/* Vertical golden thread — label to content */}
