@@ -1,5 +1,7 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
+import { GoldCornerImage } from "@/components/ui/gold-corner-image";
+import witnessSetupImg from "@/assets/witness-setup-ai.jpg";
 
 const vignettes = [
   {
@@ -32,12 +34,24 @@ export function EventsExperience() {
     <section
       id="events-experience"
       ref={ref}
-      className="relative py-fitz-10 px-fitz-4 md:px-fitz-6"
+      className="relative py-fitz-10 px-fitz-4 md:px-fitz-6 overflow-hidden"
       style={{ background: "hsl(var(--background))" }}
       role="region"
       aria-label="Past Events"
     >
-      <div className="max-w-4xl mx-auto">
+      {/* Warm glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: "radial-gradient(ellipse at 50% 50%, hsl(var(--vow-yellow) / 0.025), transparent 55%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Film grain */}
+      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
+
+      <div className="relative z-10 max-w-4xl mx-auto">
         <h2
           className={cn(
             "font-display text-[28px] md:text-[40px] font-light tracking-tight text-foreground text-center mb-fitz-8 transition-all duration-[700ms]",
@@ -49,6 +63,26 @@ export function EventsExperience() {
         >
           Moments I have been part of
         </h2>
+
+        {/* Asymmetric left-bleed editorial image */}
+        <div
+          className={cn(
+            "md:w-[50%] md:mr-auto md:-ml-[4%] mb-10 transition-all duration-[900ms]",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          )}
+          style={{
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "400ms",
+          }}
+        >
+          <GoldCornerImage
+            src={witnessSetupImg}
+            alt="Piano positioned for a live event"
+            aspectRatio="4/3"
+            maxHeight="340px"
+            frameIndex="EV·03"
+          />
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {vignettes.map((v, i) => (
@@ -62,7 +96,7 @@ export function EventsExperience() {
                 background: "hsl(var(--card))",
                 border: "1px solid hsl(var(--border))",
                 transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
-                transitionDelay: `${300 + i * 180}ms`,
+                transitionDelay: `${600 + i * 180}ms`,
               }}
             >
               <span
