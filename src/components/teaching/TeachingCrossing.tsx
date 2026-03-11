@@ -230,7 +230,7 @@ export function TeachingCrossing() {
             transitionDelay: "100ms",
           }}
         >
-          The invitation
+          Get started
         </p>
 
         {/* Golden dot — arrival marker */}
