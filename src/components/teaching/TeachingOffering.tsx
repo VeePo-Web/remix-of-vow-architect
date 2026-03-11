@@ -285,7 +285,7 @@ export function TeachingOffering() {
               textShadow: "0 1px 2px hsl(var(--teaching-vignette) / 0.25)",
             }}
           >
-            Would you like to sit down?
+            Simple pricing
           </h2>
         </div>
 
