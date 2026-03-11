@@ -288,7 +288,7 @@ export function TeachingCrossing() {
             />
             <Button
               asChild
-              variant="primary-dark"
+              variant="default"
               size="lg"
               className="relative"
             >

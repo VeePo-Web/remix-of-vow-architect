@@ -98,7 +98,7 @@ export function EventsOffering() {
               </p>
               <Button
                 asChild
-                variant={t.isSelected ? "primary-dark" : "ghost-dark"}
+                variant={t.isSelected ? "default" : "outline"}
                 className="w-full"
               >
                 <Link to={t.ctaHref}>{t.cta}</Link>

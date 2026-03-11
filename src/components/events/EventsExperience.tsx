@@ -74,16 +74,10 @@ export function EventsExperience() {
                 {v.narrative}
               </p>
               <blockquote className="border-l-2 border-primary pl-4">
-                <p
-                  className="font-display italic text-[16px]"
-                  style={{ color: "hsl(var(--events-warm-text-deep))" }}
-                >
+                <p className="font-display italic text-[16px] text-foreground">
                   "{v.quote}"
                 </p>
-                <cite
-                  className="font-sans text-[12px] not-italic mt-2 block"
-                  style={{ color: "hsl(var(--events-warm-cite))" }}
-                >
+                <cite className="font-sans text-[12px] not-italic mt-2 block text-muted-foreground">
                   {v.attribution}
                 </cite>
               </blockquote>

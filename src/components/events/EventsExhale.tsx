@@ -16,8 +16,7 @@ export function EventsExhale() {
       id="events-exhale"
       ref={ref}
       className="relative py-fitz-10 px-fitz-4 md:px-fitz-6"
-      style={{ background: "hsl(var(--rich-black))" }}
-      data-theme="death"
+      style={{ background: "hsl(var(--background))" }}
       role="region"
       aria-label="Recognition"
     >

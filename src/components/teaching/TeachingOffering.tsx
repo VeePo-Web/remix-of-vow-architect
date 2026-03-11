@@ -340,7 +340,7 @@ export function TeachingOffering() {
             />
             <Button
               asChild
-              variant="primary-dark"
+              variant="default"
               size="lg"
               className="relative"
             >

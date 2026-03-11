@@ -32,13 +32,10 @@ export function EventsThreshold() {
       id="events-threshold"
       ref={ref}
       className="relative py-fitz-10 px-fitz-4 md:px-fitz-6"
-      style={{ background: "hsl(var(--rich-black))" }}
-      data-theme="death"
+      style={{ background: "hsl(var(--card))" }}
       role="region"
       aria-label="Common Questions"
     >
-      <div className="absolute inset-0 grain opacity-[0.06] pointer-events-none" aria-hidden="true" />
-
       <div className="relative z-10 max-w-3xl mx-auto">
         <h2
           className={cn(
