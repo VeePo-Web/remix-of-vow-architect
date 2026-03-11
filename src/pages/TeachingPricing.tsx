@@ -12,10 +12,10 @@ import teachingBenchImg from "@/assets/teaching-bench.jpg";
 
 const sections = [
   { id: "tp-hero",       label: "Overview",      isBlackKey: false },
-  { id: "tp-price",      label: "The Price",     isBlackKey: true  },
+  { id: "tp-price",      label: "Pricing",       isBlackKey: true  },
   { id: "tp-inclusions", label: "Included",      isBlackKey: false },
   { id: "tp-fears",      label: "Questions",     isBlackKey: true  },
-  { id: "tp-cta",        label: "Begin",         isBlackKey: false },
+  { id: "tp-cta",        label: "Get Started",   isBlackKey: false },
 ];
 
 const inclusions = [
