@@ -2,9 +2,9 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 
 const threeBeliefs = [
-  { label: "Patience", description: "The most active form of attention." },
-  { label: "Conversation", description: "The first question I ask is never about music." },
-  { label: "Expression", description: "The instrument is not something to conquer — it is something to converse with." },
+  { label: "Patience", description: "I will never rush you. We move at your speed, not mine." },
+  { label: "Listening", description: "I ask about your goals before I assign a single piece." },
+  { label: "Expression", description: "Technique serves the music. The music serves you." },
 ];
 
 export function TeachingAboutSustain() {
