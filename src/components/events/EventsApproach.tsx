@@ -1,5 +1,6 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
+import soundBokehImg from "@/assets/sound-bokeh-ai.jpg";
 
 const steps = [
   {
@@ -29,12 +30,52 @@ export function EventsApproach() {
     <section
       id="events-approach"
       ref={ref}
-      className="relative py-fitz-10 px-fitz-4 md:px-fitz-6"
+      className="relative py-fitz-10 px-fitz-4 md:px-fitz-6 overflow-hidden"
       style={{ background: "hsl(var(--background))" }}
       role="region"
       aria-label="How I Work"
     >
-      <div className="max-w-3xl mx-auto">
+      {/* Background texture image with Ken Burns */}
+      <div
+        className="absolute inset-0 bg-cover bg-center pointer-events-none"
+        style={{
+          backgroundImage: `url(${soundBokehImg})`,
+          opacity: 0.06,
+          animation: "events-approach-kb 30s linear infinite alternate",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Dual-origin fog */}
+      <div
+        className="absolute inset-0 pointer-events-none motion-reduce:hidden"
+        style={{
+          background: "radial-gradient(ellipse 70% 50% at 20% 80%, hsl(var(--vow-yellow) / 0.03), transparent 70%)",
+        }}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-0 pointer-events-none motion-reduce:hidden"
+        style={{
+          background: "radial-gradient(ellipse 60% 50% at 80% 20%, hsl(var(--vow-yellow) / 0.02), transparent 70%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Film grain */}
+      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
+
+      {/* Breathing vignette */}
+      <div
+        className="absolute inset-0 pointer-events-none motion-reduce:opacity-70"
+        style={{
+          background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background) / 0.55) 100%)",
+          animation: "events-approach-vignette 6s ease-in-out infinite",
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="relative z-10 max-w-3xl mx-auto">
         <h2
           className={cn(
             "font-display text-[28px] md:text-[40px] font-light tracking-tight text-foreground text-center mb-3 transition-all duration-[700ms]",
@@ -83,6 +124,20 @@ export function EventsApproach() {
           ))}
         </div>
       </div>
+
+      <style>{`
+        @keyframes events-approach-kb {
+          0% { transform: scale(1) translate(0, 0); }
+          100% { transform: scale(1.04) translate(0.3%, -0.3%); }
+        }
+        @keyframes events-approach-vignette {
+          0%, 100% { opacity: 0.55; }
+          50% { opacity: 0.7; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          #events-approach * { animation-duration: 0.01ms !important; }
+        }
+      `}</style>
     </section>
   );
 }

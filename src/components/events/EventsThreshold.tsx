@@ -1,5 +1,6 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
+import eventsHeroImg from "@/assets/events-hero.jpg";
 
 const concerns = [
   {
@@ -31,11 +32,44 @@ export function EventsThreshold() {
     <section
       id="events-threshold"
       ref={ref}
-      className="relative py-fitz-10 px-fitz-4 md:px-fitz-6"
+      className="relative py-fitz-10 px-fitz-4 md:px-fitz-6 overflow-hidden"
       style={{ background: "hsl(var(--card))" }}
       role="region"
       aria-label="Common Questions"
     >
+      {/* Background texture with Ken Burns */}
+      <div
+        className="absolute inset-0 bg-cover bg-center pointer-events-none"
+        style={{
+          backgroundImage: `url(${eventsHeroImg})`,
+          opacity: 0.04,
+          animation: "events-threshold-kb 30s linear infinite alternate",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Film grain */}
+      <div className="absolute inset-0 grain opacity-[0.04] pointer-events-none" aria-hidden="true" />
+
+      {/* Dual-origin fog */}
+      <div
+        className="absolute inset-0 pointer-events-none motion-reduce:hidden"
+        style={{
+          background: "radial-gradient(ellipse 60% 50% at 30% 70%, hsl(var(--vow-yellow) / 0.02), transparent 70%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Breathing vignette */}
+      <div
+        className="absolute inset-0 pointer-events-none motion-reduce:opacity-70"
+        style={{
+          background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--card) / 0.5) 100%)",
+          animation: "events-threshold-vignette 6s ease-in-out infinite",
+        }}
+        aria-hidden="true"
+      />
+
       <div className="relative z-10 max-w-3xl mx-auto">
         <h2
           className={cn(
@@ -70,6 +104,20 @@ export function EventsThreshold() {
           ))}
         </div>
       </div>
+
+      <style>{`
+        @keyframes events-threshold-kb {
+          0% { transform: scale(1) translate(0, 0); }
+          100% { transform: scale(1.03) translate(-0.2%, 0.2%); }
+        }
+        @keyframes events-threshold-vignette {
+          0%, 100% { opacity: 0.5; }
+          50% { opacity: 0.65; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          #events-threshold * { animation-duration: 0.01ms !important; }
+        }
+      `}</style>
     </section>
   );
 }
