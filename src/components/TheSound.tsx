@@ -77,6 +77,7 @@ function NowPlayingBar({
   return (
     <div
       className={cn("now-playing-bar", visible ? "now-playing-bar--visible" : "")}
+      data-theme="death"
       style={{
         backdropFilter: "blur(16px)",
         WebkitBackdropFilter: "blur(16px)",
