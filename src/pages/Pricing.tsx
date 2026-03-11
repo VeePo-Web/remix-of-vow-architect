@@ -3,7 +3,6 @@ import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
 import { PianoKeyNav } from "@/components/PianoKeyNav";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { InclusionBlock } from "@/components/InclusionBlock";
 import { ComparisonTable } from "@/components/ComparisonTable";
 import { PricingAddOns } from "@/components/PricingAddOns";
@@ -16,8 +15,6 @@ import { useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { Link } from "react-router-dom";
 import servicesHeroImg from "@/assets/services-hero.jpg";
-import { GoldCornerImage } from "@/components/ui/gold-corner-image";
-import pianoMacroImg from "@/assets/piano-macro-hammers.jpg";
 
 const pricingSections = [
   { id: "pricing-hero",         label: "Overview",         isBlackKey: false },
@@ -30,28 +27,6 @@ const pricingSections = [
   { id: "pricing-download",     label: "Download",         isBlackKey: false },
   { id: "pricing-cta",          label: "Get in Touch",     isBlackKey: true  },
 ];
-
-/** Golden thread with breathing center dot */
-function GoldenThread() {
-  return (
-    <div className="relative py-2 my-16" aria-hidden="true">
-      <div
-        className="h-px max-w-xs mx-auto"
-        style={{
-          background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)",
-        }}
-      />
-      <div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-1 rounded-full"
-        style={{
-          background: "hsl(var(--vow-yellow) / 0.6)",
-          boxShadow: "0 0 8px hsl(var(--vow-yellow) / 0.3)",
-          animation: "pricing-dot-breathe 3s ease-in-out infinite",
-        }}
-      />
-    </div>
-  );
-}
 
 export default function Pricing() {
   usePageTheme();
@@ -82,15 +57,6 @@ export default function Pricing() {
         </div>
         {/* Warm fog */}
         <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)" }} aria-hidden="true" />
-        {/* Breathing vignette */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: "radial-gradient(ellipse at center, transparent 40%, hsl(var(--background)) 100%)",
-            animation: "pricing-vignette-breathe 6s ease-in-out infinite",
-          }}
-          aria-hidden="true"
-        />
         <div 
           className="absolute inset-0 grain opacity-[0.06] pointer-events-none"
           style={{
@@ -110,8 +76,6 @@ export default function Pricing() {
             </p>
           </div>
 
-          <GoldenThread />
-
           {/* Section 2: What Every Package Includes */}
           <div id="pricing-inclusions" className="piano-section-target">
           <RevealOnScroll variant="up">
@@ -119,11 +83,9 @@ export default function Pricing() {
           </RevealOnScroll>
           </div>
 
-          <GoldenThread />
-
           {/* Section 3: Transparent Pricing Tiers */}
           <RevealOnScroll variant="up">
-            <div id="packages" className="max-w-6xl mx-auto mb-16 scroll-mt-24 piano-section-target">
+            <div id="packages" className="max-w-6xl mx-auto mb-16 scroll-mt-24 piano-section-target mt-24">
               <div className="text-center mb-8">
                 <h2 className="h2 mb-3 mx-auto">
                   Three ways to be present.
@@ -133,9 +95,9 @@ export default function Pricing() {
                 </p>
               </div>
 
-              <StaggerChildren staggerDelay={120} className="grid md:grid-cols-3 gap-6">
+              <StaggerChildren staggerDelay={120} className="grid md:grid-cols-3 gap-0 divide-x divide-border/30">
                 {/* Ceremony Only — $650 */}
-                <Card className="relative p-6 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred card-sacred-hover transition-all duration-[180ms]">
+                <div className="relative p-8 transition-all duration-[180ms]">
                   <h3 className="font-display text-[22px] font-medium leading-tight mb-4">The Vow</h3>
                   
                   <div className="font-display text-[clamp(32px,4vw,48px)] font-light text-primary mb-2">$650</div>
@@ -152,7 +114,7 @@ export default function Pricing() {
                       "Post-ceremony documentation",
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
-                        <span className="inline-block w-2 h-2 rotate-45 mt-1.5 flex-shrink-0" style={{ background: "hsl(var(--vow-yellow) / 0.7)", boxShadow: "0 0 5px hsl(var(--vow-yellow) / 0.2)" }} aria-hidden="true" />
+                        <span className="text-muted-foreground/60 mt-0.5" aria-hidden="true">·</span>
                         <span>{item}</span>
                       </li>
                     ))}
@@ -166,22 +128,10 @@ export default function Pricing() {
                     <p className="font-medium">Booking: 50% deposit; balance due 14 days before the event.</p>
                     <p className="italic">Bonus: Your personalized ceremony plan delivered within 24 hours of inquiry.</p>
                   </div>
-                </Card>
-
-                {/* Editorial image bleed */}
-                <div className="col-span-1 md:col-span-3 my-8 md:my-12 md:-mx-8">
-                  <GoldCornerImage
-                    src={pianoMacroImg}
-                    alt="Piano hammers and strings in warm backlight"
-                    aspectRatio="16/9"
-                    maxHeight="360px"
-                    frameIndex="FR·03"
-                    className="w-full"
-                  />
                 </div>
 
                 {/* Ceremony + Prelude/Cocktails — $750 */}
-                <Card className="relative p-6 bg-card/80 backdrop-blur-[8px] border-primary/15 border-2 card-sacred card-sacred-hover transition-all duration-[180ms]" style={{ boxShadow: 'var(--shadow-sacred-inset), var(--shadow-sacred-elevation), 0 0 40px hsl(var(--vow-yellow) / 0.08)' }}>
+                <div className="relative p-8 transition-all duration-[180ms]">
                   <MostSelectedPill />
                   
                   <h3 className="font-display text-[22px] font-medium leading-tight mb-4">The Hour</h3>
@@ -200,7 +150,7 @@ export default function Pricing() {
                       "Extended presence throughout the afternoon",
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
-                        <span className="inline-block w-2 h-2 rotate-45 mt-1.5 flex-shrink-0" style={{ background: "hsl(var(--vow-yellow) / 0.7)", boxShadow: "0 0 5px hsl(var(--vow-yellow) / 0.2)" }} aria-hidden="true" />
+                        <span className="text-muted-foreground/60 mt-0.5" aria-hidden="true">·</span>
                         <span>{item}</span>
                       </li>
                     ))}
@@ -213,10 +163,10 @@ export default function Pricing() {
                   <p className="text-xs text-muted-foreground italic">
                     Guarantee: Upgradeable to Full Day until 2 weeks prior—no penalty.
                   </p>
-                </Card>
+                </div>
 
                 {/* Full Day — $1,200 */}
-                <Card className="relative p-6 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred card-sacred-hover transition-all duration-[180ms]">
+                <div className="relative p-8 transition-all duration-[180ms]">
                   <h3 className="font-display text-[22px] font-medium leading-tight mb-4">The Story</h3>
                   
                   <div className="font-display text-[clamp(32px,4vw,48px)] font-light text-primary mb-2">$1,200</div>
@@ -233,7 +183,7 @@ export default function Pricing() {
                       "One-hour transition buffer between locations",
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
-                        <span className="inline-block w-2 h-2 rotate-45 mt-1.5 flex-shrink-0" style={{ background: "hsl(var(--vow-yellow) / 0.7)", boxShadow: "0 0 5px hsl(var(--vow-yellow) / 0.2)" }} aria-hidden="true" />
+                        <span className="text-muted-foreground/60 mt-0.5" aria-hidden="true">·</span>
                         <span>{item}</span>
                       </li>
                     ))}
@@ -246,7 +196,7 @@ export default function Pricing() {
                   <p className="text-xs text-muted-foreground italic">
                     Designed for all-in-one venues; includes an extra 1-hour transition buffer for moves.
                   </p>
-                </Card>
+                </div>
               </StaggerChildren>
 
               <p className="text-center text-xs text-muted-foreground mt-6">
@@ -255,63 +205,49 @@ export default function Pricing() {
             </div>
           </RevealOnScroll>
 
-          <GoldenThread />
-
           {/* Section 4: Add-ons */}
-          <div id="pricing-addons" className="piano-section-target">
+          <div id="pricing-addons" className="piano-section-target mt-24">
           <RevealOnScroll variant="up">
             <PricingAddOns />
           </RevealOnScroll>
           </div>
 
-          <GoldenThread />
-
           {/* Section 5: Compare Vendors */}
           <RevealOnScroll variant="up">
-            <div id="compare" className="max-w-5xl mx-auto mb-16 scroll-mt-24 piano-section-target">
+            <div id="compare" className="max-w-5xl mx-auto mb-16 scroll-mt-24 piano-section-target mt-24">
               <div className="text-center mb-8">
                 <h2 className="h2 mb-3 mx-auto">
                   What sets a Sound Director apart.
                 </h2>
               </div>
               
-              <Card className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred">
-                <ComparisonTable />
-              </Card>
+              <ComparisonTable />
             </div>
           </RevealOnScroll>
 
-          <GoldenThread />
-
           {/* Section 6: Testimonials */}
-          <div id="pricing-testimonials" className="piano-section-target">
+          <div id="pricing-testimonials" className="piano-section-target mt-24">
           <RevealOnScroll variant="up">
             <PricingTestimonials />
           </RevealOnScroll>
           </div>
 
-          <GoldenThread />
-
           {/* Section 7: FAQs */}
-          <div id="pricing-faq" className="piano-section-target">
+          <div id="pricing-faq" className="piano-section-target mt-24">
           <RevealOnScroll variant="up">
             <PricingFAQ />
           </RevealOnScroll>
           </div>
 
-          <GoldenThread />
-
           {/* Section 8: Download */}
-          <div id="pricing-download" className="piano-section-target">
+          <div id="pricing-download" className="piano-section-target mt-24">
           <RevealOnScroll variant="up">
             <PricingSampleDownload />
           </RevealOnScroll>
           </div>
 
-          <GoldenThread />
-
           {/* Section 9: Final CTA */}
-          <div id="pricing-cta" className="piano-section-target">
+          <div id="pricing-cta" className="piano-section-target mt-24">
           <RevealOnScroll variant="up">
             <div className="relative max-w-2xl mx-auto text-center mb-8 space-y-6">
               {/* Warm glow */}
@@ -342,18 +278,8 @@ export default function Pricing() {
       <MobileStickyBar />
 
       <style>{`
-        @keyframes pricing-vignette-breathe {
-          0%, 100% { opacity: 0.8; }
-          50% { opacity: 0.65; }
-        }
-        @keyframes pricing-dot-breathe {
-          0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
-          50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.5); }
-        }
         @media (prefers-reduced-motion: reduce) {
           .grain, [style*="ken-burns"] { animation: none !important; }
-          [style*="pricing-vignette-breathe"] { animation: none !important; opacity: 0.7; }
-          [style*="pricing-dot-breathe"] { animation: none !important; opacity: 0.6; }
         }
       `}</style>
     </div>
