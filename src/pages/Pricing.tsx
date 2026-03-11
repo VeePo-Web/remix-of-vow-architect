@@ -114,7 +114,7 @@ export default function Pricing() {
                       "Post-ceremony documentation",
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-2">
-                        <span className="text-muted-foreground/60 mt-0.5" aria-hidden="true">·</span>
+                        <span className="text-muted-foreground mt-0.5" aria-hidden="true">·</span>
                         <span>{item}</span>
                       </li>
                     ))}
