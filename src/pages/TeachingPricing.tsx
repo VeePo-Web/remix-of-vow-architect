@@ -12,32 +12,32 @@ import teachingBenchImg from "@/assets/teaching-bench.jpg";
 
 const sections = [
   { id: "tp-hero",       label: "Overview",      isBlackKey: false },
-  { id: "tp-price",      label: "The Price",     isBlackKey: true  },
+  { id: "tp-price",      label: "Pricing",       isBlackKey: true  },
   { id: "tp-inclusions", label: "Included",      isBlackKey: false },
   { id: "tp-fears",      label: "Questions",     isBlackKey: true  },
-  { id: "tp-cta",        label: "Begin",         isBlackKey: false },
+  { id: "tp-cta",        label: "Get Started",   isBlackKey: false },
 ];
 
 const inclusions = [
-  "One-to-one mentorship — never group",
-  "Expression-focused methodology",
-  "Repertoire chosen together",
-  "In-person (Calgary) or virtual",
-  "Response within 24 hours",
+  "One-on-one, never group lessons",
+  "Focus on expression, not just technique",
+  "You choose the music we work on",
+  "In-person (Calgary) or online",
+  "I reply within 24 hours",
 ];
 
 const fears = [
   {
     question: "Is this worth the investment?",
-    answer: "One hour of focused, one-to-one mentorship — no curriculum to sell, no recital to prepare for, no external agenda. The investment is in your own voice at the instrument.",
+    answer: "You get a full hour of one-on-one time with no curriculum to sell and no recital to prepare for. The focus is entirely on you.",
   },
   {
     question: "What if I start and quit again?",
-    answer: "There is no contract, no package to finish, no guilt. If you stop, you stop. If you return, I will be here. The bench does not keep score.",
+    answer: "There is no contract and no package to finish. If you stop, you stop. If you come back, I will be here. No questions asked.",
   },
   {
     question: "What if I am too old to start?",
-    answer: "I have sat beside students who began at sixty and played at their own anniversary. The piano does not ask your age — only your attention.",
+    answer: "Most of my students are adults. I have taught people who started at 30, 50, and 70. Age has never been a barrier.",
   },
 ];
 
@@ -53,8 +53,8 @@ function GoldenThread() {
 export default function TeachingPricing() {
   usePageTheme();
   useEffect(() => {
-    document.title = "The Offering — Piano Mentorship | Parker Gawryletz";
-    document.querySelector('meta[name="description"]')?.setAttribute("content", "One rate. One hour. One bench. $60 per hour — no packages, no commitments. Expression-focused piano mentorship in Calgary and online.");
+    document.title = "Pricing — Piano Mentorship | Parker Gawryletz";
+    document.querySelector('meta[name="description"]')?.setAttribute("content", "Piano mentorship for $60 per hour. No packages, no contracts. Pay as you go.");
   }, []);
 
   return (
@@ -75,11 +75,11 @@ export default function TeachingPricing() {
           <div className="container mx-auto px-4 relative z-10">
             {/* ── Hero ── */}
             <div id="tp-hero" className="text-center mb-12 animate-fade-in pt-24 piano-section-target">
-              <div className="overline mb-2">The Offering</div>
-              <h1 className="h1 mx-auto mb-4">One rate. One hour. One bench.</h1>
+              <div className="overline mb-2">Pricing</div>
+              <h1 className="h1 mx-auto mb-4">One rate. No surprises.</h1>
               <div className="chapter-rule mx-auto" />
               <p className="p-lead mx-auto text-muted-foreground mt-6 max-w-2xl">
-                The simplicity is the signal. No tiers, no packages, no upselling — just honest time together at the instrument.
+                Piano mentorship for a flat hourly rate. No packages, no contracts, no upselling.
               </p>
             </div>
 
@@ -94,10 +94,10 @@ export default function TeachingPricing() {
                   </div>
                   <p className="font-display text-[clamp(18px,2vw,24px)] font-light text-muted-foreground mb-6">per hour</p>
                   <p className="p-body text-muted-foreground max-w-md mx-auto">
-                    No packages. No commitments. One conversation at a time.
+                    60-minute sessions. No commitments. Pay as you go.
                   </p>
                   <p className="text-sm text-muted-foreground/70 mt-4 italic">
-                    The first session begins with a question, not a scale.
+                    Your first session is a conversation — no preparation needed.
                   </p>
                 </div>
               </RevealOnScroll>
@@ -109,7 +109,7 @@ export default function TeachingPricing() {
             <div id="tp-inclusions" className="piano-section-target">
               <RevealOnScroll variant="up">
                 <div className="max-w-2xl mx-auto mb-16 scroll-mt-24">
-                  <h2 className="h2 text-center mb-8 mx-auto">What every hour includes.</h2>
+                  <h2 className="h2 text-center mb-8 mx-auto">What every session includes.</h2>
                   <ul className="space-y-4">
                     {inclusions.map((item, i) => (
                       <li key={i} className="flex items-start gap-3">
@@ -128,8 +128,7 @@ export default function TeachingPricing() {
             <div id="tp-fears" className="piano-section-target">
               <RevealOnScroll variant="up">
                 <div className="max-w-3xl mx-auto mb-16 scroll-mt-24">
-                  <h2 className="h2 text-center mb-3 mx-auto">You might be wondering.</h2>
-                  <p className="p-body text-muted-foreground text-center mb-8">The questions you carry but rarely ask.</p>
+                  <h2 className="h2 text-center mb-8 mx-auto">Common questions.</h2>
                   <div className="space-y-6">
                     {fears.map((fear, i) => (
                       <Card key={i} className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred">
@@ -151,10 +150,10 @@ export default function TeachingPricing() {
               <RevealOnScroll variant="up">
                 <div className="relative max-w-2xl mx-auto text-center mb-8 space-y-6">
                   <div className="absolute inset-0 -inset-x-20 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 70% at 50% 50%, hsl(var(--vow-yellow) / 0.04) 0%, transparent 70%)" }} aria-hidden="true" />
-                  <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light mx-auto relative z-10">The first question I ask is never about music.</h2>
-                  <p className="p-body text-muted-foreground relative z-10">Tell me what brought you to the piano — a memory, a person, a feeling you want to find again. This is a conversation, not a commitment.</p>
+                  <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light mx-auto relative z-10">Ready to start?</h2>
+                  <p className="p-body text-muted-foreground relative z-10">Your first session is a conversation. Tell me what you want to play and we will figure out the rest together. No commitment required.</p>
                   <Button size="lg" variant="primary-dark" className="hover-scale relative z-10" asChild>
-                    <Link to="/teaching/contact">Begin the conversation</Link>
+                    <Link to="/teaching/contact">Get in touch</Link>
                   </Button>
                 </div>
               </RevealOnScroll>
