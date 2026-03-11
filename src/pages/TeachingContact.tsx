@@ -183,7 +183,7 @@ export default function TeachingContact() {
                       Send Message
                     </span>
                   </button>
-                  <p className="text-[0.5rem] tracking-[0.12em] uppercase text-muted-foreground/30 mt-4 text-center font-light">
+                  <p className="text-xs tracking-[0.12em] uppercase text-muted-foreground mt-4 text-center font-light">
                     I only use your information to write back. Nothing else.
                   </p>
                 </div>
