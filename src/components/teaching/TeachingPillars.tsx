@@ -148,7 +148,7 @@ function PillarCard({
               : "opacity-0 translate-y-[6px]"
           )}
           style={{
-            color: "hsl(var(--vow-yellow))",
+            color: "hsl(var(--muted-foreground))",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
           }}
           aria-hidden="true"
