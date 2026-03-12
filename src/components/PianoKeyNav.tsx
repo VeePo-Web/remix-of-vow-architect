@@ -34,9 +34,14 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
   // Show/hide based on scroll past hero
   useEffect(() => {
     const handleScroll = () => {
-      const visible = window.scrollY > window.innerHeight * 0.8;
-      setIsVisible(visible);
-      if (!visible) setActiveIndex(-1);
+      const threshold = window.innerHeight * 0.5;
+      const hysteresis = 100;
+      if (window.scrollY > threshold) {
+        setIsVisible(true);
+      } else if (window.scrollY < (threshold - hysteresis)) {
+        setIsVisible(false);
+        setActiveIndex(-1);
+      }
     };
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
