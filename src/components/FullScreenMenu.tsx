@@ -580,7 +580,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
           <span className="text-muted-foreground opacity-60">
             Calgary, Cochrane, Canmore & Banff
           </span>
-          <span className="hidden md:block text-muted-foreground opacity-30">—</span>
+          <span className="hidden md:block text-muted-foreground opacity-60">—</span>
           <a
             href="mailto:parker@parkergawryletz.com"
             className="text-muted-foreground opacity-60 hover:text-primary hover:opacity-100 transition-colors duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm"
