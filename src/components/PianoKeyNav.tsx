@@ -22,6 +22,7 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
   const [hasAnimated, setHasAnimated] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const isMobile = useIsMobile();
+  const lenis = useSmoothScroll();
 
   // Reduced motion
   useEffect(() => {
