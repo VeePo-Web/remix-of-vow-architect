@@ -52,15 +52,6 @@ export function ContactSLATimeline() {
         Nothing is final until you say so — I am securing your clarity window.
       </p>
 
-      <style>{`
-        @keyframes golden-thread-breathe {
-          0%, 100% { opacity: 0.15; }
-          50% { opacity: 0.35; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          [style*="golden-thread-breathe"] { animation: none !important; opacity: 0.25 !important; }
-        }
-      `}</style>
     </div>
   );
 }

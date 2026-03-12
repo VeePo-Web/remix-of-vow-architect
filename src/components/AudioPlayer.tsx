@@ -212,7 +212,7 @@ export function AudioPlayer({ tracks, onPlayStateChange }: AudioPlayerProps) {
             >
               {/* Top row: context label + play/pause */}
               <div className="flex items-center justify-between mb-3">
-                <span className="text-[11px] md:text-xs uppercase tracking-[0.2em] text-primary opacity-80">
+                <span className="text-xs uppercase tracking-[0.2em] text-primary opacity-80">
                   {track.context}
                 </span>
 

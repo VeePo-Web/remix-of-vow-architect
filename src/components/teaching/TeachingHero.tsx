@@ -381,7 +381,7 @@ export function TeachingHero() {
           height="7"
           viewBox="0 0 12 7"
           fill="none"
-          className="opacity-25"
+          className="opacity-60"
           style={{
             animation: "scroll-chevron-bounce 2.4s ease-in-out infinite",
           }}

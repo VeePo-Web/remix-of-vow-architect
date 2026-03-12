@@ -180,7 +180,7 @@ export function GenreTrackPanel({
 
       {/* Footer */}
       <div className="px-5 pt-3 pb-4 text-center">
-        <p className="text-xs text-foreground opacity-35 italic font-display">
+        <p className="text-xs text-foreground opacity-60 italic font-display">
           Each piece, arranged for your ceremony.{" "}
           <Link
             to="/contact"

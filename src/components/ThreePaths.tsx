@@ -168,7 +168,7 @@ export function ThreePaths() {
                         }}
                         aria-hidden="true"
                       />
-                      <span className="text-[10px] font-medium tracking-[0.18em] text-primary">
+                      <span className="text-xs font-medium tracking-[0.18em] text-primary">
                         MOST CHOSEN
                       </span>
                       <span
@@ -261,7 +261,7 @@ export function ThreePaths() {
                         }}
                         aria-hidden="true"
                       />
-                      <span className="text-[10px] font-medium tracking-[0.18em] text-primary">
+                      <span className="text-xs font-medium tracking-[0.18em] text-primary">
                         MOST CHOSEN
                       </span>
                       <span
