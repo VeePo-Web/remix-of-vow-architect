@@ -83,7 +83,7 @@ export function EventsApproach() {
                 transitionDelay: `${400 + i * 200}ms`,
               }}
             >
-              <span className="font-sans text-[13px] text-primary tracking-[0.15em] mt-1.5 shrink-0 opacity-60">
+              <span className="font-sans text-[13px] text-muted-foreground tracking-[0.15em] mt-1.5 shrink-0 opacity-60">
                 {step.number}
               </span>
               <div>

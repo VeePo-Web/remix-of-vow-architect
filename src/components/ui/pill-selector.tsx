@@ -33,7 +33,7 @@ export function PillSelector({
               aria-checked={selected}
               onClick={() => onChange(option.id)}
               className={cn(
-                "px-4 py-2 text-[0.625rem] tracking-[0.14em] uppercase font-light border",
+                "px-4 py-2 text-xs tracking-[0.14em] uppercase font-light border",
                 "transition-all duration-200 rounded-none",
                 "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary/40",
                 selected

@@ -265,7 +265,7 @@ export default function EventsContact() {
                       }}
                       aria-hidden="true"
                     />
-                    <span className="relative z-10 text-[0.625rem] tracking-[0.24em] uppercase font-light">
+                    <span className="relative z-10 text-xs tracking-[0.24em] uppercase font-light">
                       Send My Inquiry
                     </span>
                   </button>

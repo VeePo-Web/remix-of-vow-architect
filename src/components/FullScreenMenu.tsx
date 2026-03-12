@@ -485,7 +485,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
                         : "none",
                     }}
                   >
-                    <span className="text-[0.5rem] tracking-[0.15em] text-foreground/20 tabular-nums font-sans" style={{ fontFeatureSettings: '"tnum"' }}>
+                    <span className="text-xs tracking-[0.15em] text-foreground/20 tabular-nums font-sans" style={{ fontFeatureSettings: '"tnum"' }}>
                       {String(index + 1).padStart(2, '0')}
                     </span>
                     <span>{item.label}</span>
