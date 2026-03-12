@@ -137,7 +137,7 @@ function NowPlayingBar({
             {isPlaying ? <Pause size={12} strokeWidth={2} /> : <Play size={12} strokeWidth={2} className="ml-0.5" />}
           </button>
           <div className="min-w-0" style={{ opacity: titleFade ? 1 : 0, transition: "opacity 120ms ease" }}>
-            <span className="text-[10px] uppercase tracking-[0.15em] text-primary opacity-70 block leading-none mb-0.5">
+            <span className="text-xs uppercase tracking-[0.15em] text-primary opacity-70 block leading-none mb-0.5">
               {displayCategory}
             </span>
             <span className="text-xs text-foreground opacity-80 font-display truncate block">{displayTitle}</span>
