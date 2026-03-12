@@ -1,6 +1,8 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
+import { GoldCornerImage } from "@/components/ui/gold-corner-image";
 import soundBokehImg from "@/assets/sound-bokeh-ai.jpg";
+import pianoMacroImg from "@/assets/piano-macro-hammers.jpg";
 
 const steps = [
   {
