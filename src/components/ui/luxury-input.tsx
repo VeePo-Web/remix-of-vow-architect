@@ -66,7 +66,7 @@ export const LuxuryTextarea = React.forwardRef<HTMLTextAreaElement, LuxuryTextar
         <label
           htmlFor={inputId}
           className={cn(
-            "block text-[0.625rem] tracking-[0.15em] uppercase font-light transition-colors duration-200",
+            "block text-xs tracking-[0.15em] uppercase font-light transition-colors duration-200",
             error ? "text-destructive/70" : "text-muted-foreground group-focus-within:text-primary/60"
           )}
         >
