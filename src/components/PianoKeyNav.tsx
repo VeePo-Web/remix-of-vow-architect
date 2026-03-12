@@ -34,9 +34,14 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
   // Show/hide based on scroll past hero
   useEffect(() => {
     const handleScroll = () => {
-      const visible = window.scrollY > window.innerHeight * 0.8;
-      setIsVisible(visible);
-      if (!visible) setActiveIndex(-1);
+      const threshold = window.innerHeight * 0.5;
+      const hysteresis = 100;
+      if (window.scrollY > threshold) {
+        setIsVisible(true);
+      } else if (window.scrollY < (threshold - hysteresis)) {
+        setIsVisible(false);
+        setActiveIndex(-1);
+      }
     };
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -97,7 +102,7 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
         role="navigation"
         aria-label="Page sections"
         className={cn(
-          'fixed right-2 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-2',
+          'fixed right-2 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-2',
           'transition-opacity duration-[260ms]',
           isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
         )}
@@ -134,7 +139,7 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
       role="navigation"
       aria-label="Page sections"
       className={cn(
-        'fixed right-0 top-1/2 -translate-y-1/2 z-40 flex-col gap-[2px] hidden md:flex',
+        'fixed right-0 top-1/2 -translate-y-1/2 z-50 flex-col gap-[2px] hidden md:flex',
         hasAnimated
           ? 'transition-opacity duration-[260ms]'
           : 'transition-opacity duration-300',
