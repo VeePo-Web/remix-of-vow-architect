@@ -99,6 +99,25 @@ export function EventsApproach() {
             </div>
           ))}
         </div>
+
+        {/* Editorial image bleed */}
+        <div
+          className={cn(
+            "w-[calc(100%+4rem)] md:w-[calc(100%+8rem)] -mx-8 md:-mx-16 mt-[60px] md:mt-[80px] transition-all duration-[900ms]",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          )}
+          style={{
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "800ms",
+          }}
+        >
+          <GoldCornerImage
+            src={pianoMacroImg}
+            alt="Close-up of piano hammers and strings"
+            aspectRatio="16/9"
+            maxHeight="380px"
+          />
+        </div>
       </div>
 
       <style>{`
