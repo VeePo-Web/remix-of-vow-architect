@@ -39,7 +39,7 @@ export function SPLTriptych() {
 
           <StaggerChildren staggerDelay={120} className="grid md:grid-cols-3 gap-6 mb-8">
             {splReadings.map((reading, i) => (
-              <Card key={i} className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred card-sacred-hover transition-all duration-[180ms]">
+              <Card key={i} className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 transition-all duration-[180ms]">
                 <div className="flex items-center gap-3 mb-4">
                   <span
                     className="font-display text-[28px] font-light leading-none select-none"
