@@ -25,8 +25,7 @@ export function ContactSLATimeline() {
       <div className="relative pl-6">
         {/* Golden vertical thread */}
         <div
-          className="absolute left-0 top-1 bottom-1 w-px bg-primary/20"
-          style={{ animation: "golden-thread-breathe 4s ease-in-out infinite" }}
+          className="absolute left-0 top-1 bottom-1 w-px bg-primary/30"
           aria-hidden="true"
         />
 
