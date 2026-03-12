@@ -139,7 +139,7 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
       role="navigation"
       aria-label="Page sections"
       className={cn(
-        'fixed right-0 top-1/2 -translate-y-1/2 z-40 flex-col gap-[2px] hidden md:flex',
+        'fixed right-0 top-1/2 -translate-y-1/2 z-50 flex-col gap-[2px] hidden md:flex',
         hasAnimated
           ? 'transition-opacity duration-[260ms]'
           : 'transition-opacity duration-300',
