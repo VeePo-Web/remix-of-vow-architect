@@ -45,7 +45,7 @@ export const LuxuryInput = React.forwardRef<HTMLInputElement, LuxuryInputProps>(
           aria-hidden="true"
         />
         {error && (
-          <p className="mt-1 text-[0.625rem] text-destructive/80 font-light">{error}</p>
+          <p className="mt-1 text-xs text-destructive/80 font-light">{error}</p>
         )}
       </div>
     );
