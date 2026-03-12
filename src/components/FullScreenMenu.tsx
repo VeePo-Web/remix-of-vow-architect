@@ -625,7 +625,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
           <p className="font-display text-sm text-foreground opacity-60 tracking-wide">
             'Til Death
             <span
-              className="text-primary opacity-40"
+              className="text-primary opacity-60"
               style={{
                 animation: isOpen
                   ? "semicolon-heartbeat 2s ease-in-out infinite"
