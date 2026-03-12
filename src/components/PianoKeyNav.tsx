@@ -102,7 +102,7 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
         role="navigation"
         aria-label="Page sections"
         className={cn(
-          'fixed right-2 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-2',
+          'fixed right-2 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-2',
           'transition-opacity duration-[260ms]',
           isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
         )}
