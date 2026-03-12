@@ -587,7 +587,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
           >
             parker@parkergawryletz.com
           </a>
-          <span className="hidden md:block text-muted-foreground opacity-30">—</span>
+          <span className="hidden md:block text-muted-foreground opacity-60">—</span>
           <span
             className="w-1.5 h-1.5 rounded-full"
             style={{
