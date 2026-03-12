@@ -65,7 +65,7 @@ export function EventsThreshold() {
         </h2>
 
         <div className="space-y-8">
-          {concerns.map((c, i) => (
+          {concerns.slice(0, 2).map((c, i) => (
             <div
               key={i}
               className={cn(
@@ -75,6 +75,46 @@ export function EventsThreshold() {
               style={{
                 transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
                 transitionDelay: `${300 + i * 180}ms`,
+              }}
+            >
+              <p className="font-display italic text-[18px] md:text-[22px] text-foreground mb-2">
+                "{c.question}"
+              </p>
+              <p className="font-sans text-[15px] text-muted-foreground leading-relaxed">
+                {c.answer}
+              </p>
+            </div>
+          ))}
+
+          {/* Editorial image bleed */}
+          <div
+            className={cn(
+              "w-[calc(100%+4rem)] md:w-[calc(100%+8rem)] -mx-8 md:-mx-16 my-[40px] md:my-[56px] transition-all duration-[900ms]",
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            )}
+            style={{
+              transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+              transitionDelay: "600ms",
+            }}
+          >
+            <GoldCornerImage
+              src={soundCathedralImg}
+              alt="Cathedral interior with natural acoustics"
+              aspectRatio="16/9"
+              maxHeight="340px"
+            />
+          </div>
+
+          {concerns.slice(2).map((c, i) => (
+            <div
+              key={i + 2}
+              className={cn(
+                "border-l-2 border-primary/20 pl-6 transition-all duration-[600ms]",
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              )}
+              style={{
+                transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+                transitionDelay: `${800 + i * 180}ms`,
               }}
             >
               <p className="font-display italic text-[18px] md:text-[22px] text-foreground mb-2">
