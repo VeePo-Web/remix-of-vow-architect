@@ -286,15 +286,6 @@ export default function Listen() {
       {/* Section fade from hero to movements */}
       <div className="section-fade-bottom" style={{ background: "linear-gradient(to bottom, transparent, hsl(var(--vigil-void)))", marginTop: "-80px", height: "80px", position: "relative", zIndex: 2 }} aria-hidden="true" />
 
-      {/* ── Golden vertical thread ── */}
-      <div
-        className="fixed left-1/2 top-0 bottom-0 w-px -translate-x-1/2 pointer-events-none z-0"
-        style={{
-          background:
-            "linear-gradient(to bottom, transparent 10%, hsl(var(--vow-yellow) / 0.06) 30%, hsl(var(--vow-yellow) / 0.06) 70%, transparent 90%)",
-        }}
-        aria-hidden="true"
-      />
 
       <div id="listen-movements" className="piano-section-target">
       {movements.map((movement, i) => (
