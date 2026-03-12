@@ -144,7 +144,7 @@ function PillarCard({
           className={cn(
             "block font-display text-[13px] tracking-[0.3em] uppercase mb-fitz-3 transition-all duration-[900ms]",
             isVisible
-              ? "opacity-25 translate-y-0"
+              ? "opacity-60 translate-y-0"
               : "opacity-0 translate-y-[6px]"
           )}
           style={{
