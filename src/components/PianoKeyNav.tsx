@@ -88,9 +88,13 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
     setPressedIndex(index);
     setTimeout(() => {
       setPressedIndex(null);
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (lenis) {
+        lenis.scrollTo(`#${id}`, { offset: -80 });
+      } else {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }, isMobile ? 200 : 80);
-  }, [isMobile]);
+  }, [isMobile, lenis]);
 
   // Golden thread progress
   const scrollProgress = activeIndex >= 0
