@@ -580,14 +580,14 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
           <span className="text-muted-foreground opacity-60">
             Calgary, Cochrane, Canmore & Banff
           </span>
-          <span className="hidden md:block text-muted-foreground opacity-30">—</span>
+          <span className="hidden md:block text-muted-foreground opacity-60">—</span>
           <a
             href="mailto:parker@parkergawryletz.com"
             className="text-muted-foreground opacity-60 hover:text-primary hover:opacity-100 transition-colors duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm"
           >
             parker@parkergawryletz.com
           </a>
-          <span className="hidden md:block text-muted-foreground opacity-30">—</span>
+          <span className="hidden md:block text-muted-foreground opacity-60">—</span>
           <span
             className="w-1.5 h-1.5 rounded-full"
             style={{
@@ -622,7 +622,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
             }}
             aria-hidden="true"
           />
-          <p className="font-display text-sm text-foreground opacity-25 tracking-wide">
+          <p className="font-display text-sm text-foreground opacity-60 tracking-wide">
             'Til Death
             <span
               className="text-primary opacity-40"

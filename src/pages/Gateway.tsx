@@ -84,15 +84,6 @@ export default function Gateway() {
     <main className="h-screen w-screen overflow-hidden bg-background flex flex-col items-center py-8 md:py-0 md:justify-center relative" aria-label="Choose your path">
       {/* Film grain */}
       <div className="absolute inset-0 grain opacity-[0.10] pointer-events-none" aria-hidden="true" />
-      {/* Breathing warm vignette */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: "radial-gradient(ellipse 60% 50% at 50% 50%, hsl(var(--vow-yellow) / 0.02) 0%, transparent 70%)",
-          animation: "gateway-vignette-breathe 8s ease-in-out infinite",
-        }}
-        aria-hidden="true"
-      />
 
       {/* Wordmark */}
       <header className="text-center mb-6 md:mb-14 shrink-0 opacity-0 animate-fade-in" style={{ animationDelay: "400ms", animationFillMode: "forwards" }}>
@@ -109,12 +100,6 @@ export default function Gateway() {
 
       {/* Bento Cards */}
       <div className="relative flex flex-col md:flex-row gap-3 md:gap-6 px-6 max-w-5xl w-full flex-1 md:flex-initial min-h-0">
-        {/* Golden Thread */}
-        <div
-          className="absolute pointer-events-none opacity-0 animate-fade-in left-1/2 top-6 bottom-6 w-px md:left-6 md:right-6 md:top-1/2 md:w-auto md:h-px bg-primary/15"
-          style={{ animationDelay: "1600ms", animationFillMode: "forwards" }}
-          aria-hidden="true"
-        />
         {services.map((s) => {
           const inner = (
             <>
@@ -192,10 +177,6 @@ export default function Gateway() {
         @keyframes semicolon-breathe {
           0%, 100% { text-shadow: 0 0 20px hsl(var(--vow-yellow) / 0.4); }
           50% { text-shadow: 0 0 40px hsl(var(--vow-yellow) / 0.7); }
-        }
-        @keyframes gateway-vignette-breathe {
-          0%, 100% { opacity: 0.6; }
-          50% { opacity: 1; }
         }
         @media (prefers-reduced-motion: reduce) {
           .semicolon-breathe,

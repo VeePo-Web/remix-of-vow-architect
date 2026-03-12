@@ -3,8 +3,6 @@ import { MinimalHeader } from "@/components/MinimalHeader";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
 import { PianoKeyNav } from "@/components/PianoKeyNav";
-import { AboutScrollProgress } from "@/components/AboutScrollProgress";
-import { VerticalRhythmDots } from "@/components/VerticalRhythmDots";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import {
   EventsAboutHero,
@@ -38,8 +36,6 @@ export default function EventsAbout() {
     <div className="min-h-screen bg-background">
       <MinimalHeader />
       <PianoKeyNav sections={sections} />
-      <AboutScrollProgress />
-      <VerticalRhythmDots sections={sections} />
 
       <main>
         <EventsAboutHero />
@@ -53,15 +49,6 @@ export default function EventsAbout() {
       <Footer />
       <MobileStickyBar />
 
-      <style>{`
-        @keyframes witness-vignette-breathe {
-          0%, 100% { opacity: 0.8; }
-          50% { opacity: 0.65; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          [style*="witness-vignette-breathe"] { animation: none !important; }
-        }
-      `}</style>
     </div>
   );
 }

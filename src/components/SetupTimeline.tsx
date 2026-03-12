@@ -39,7 +39,7 @@ export function SetupTimeline() {
               <p className="text-xs text-center font-medium leading-tight">{step}</p>
             </div>
             {index < steps.length - 1 && (
-              <span className="text-muted-foreground opacity-30 shrink-0 text-sm">—</span>
+              <span className="text-muted-foreground opacity-60 shrink-0 text-sm">—</span>
             )}
           </div>
         ))}
