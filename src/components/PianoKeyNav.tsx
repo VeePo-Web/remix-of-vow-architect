@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useSmoothScroll } from './SmoothScrollProvider';
 
 interface PianoSection {
   id: string;
@@ -21,6 +22,7 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
   const [hasAnimated, setHasAnimated] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const isMobile = useIsMobile();
+  const lenis = useSmoothScroll();
 
   // Reduced motion
   useEffect(() => {
@@ -70,7 +72,7 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
           }
         }
       },
-      { threshold: 0.3, rootMargin: '-20% 0px -60% 0px' }
+      { threshold: 0.15, rootMargin: '-10% 0px -40% 0px' }
     );
 
     const els = sections
@@ -86,9 +88,13 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
     setPressedIndex(index);
     setTimeout(() => {
       setPressedIndex(null);
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (lenis) {
+        lenis.scrollTo(`#${id}`, { offset: -80 });
+      } else {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }, isMobile ? 200 : 80);
-  }, [isMobile]);
+  }, [isMobile, lenis]);
 
   // Golden thread progress
   const scrollProgress = activeIndex >= 0
