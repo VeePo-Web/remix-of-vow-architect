@@ -283,7 +283,7 @@ export function TeachingCrossing() {
             className={cn(
               "font-sans text-[13px] transition-all duration-[700ms]",
               ctaVisible
-                ? "opacity-45 translate-y-0"
+                ? "opacity-60 translate-y-0"
                 : "opacity-0 translate-y-[4px]"
             )}
             style={{

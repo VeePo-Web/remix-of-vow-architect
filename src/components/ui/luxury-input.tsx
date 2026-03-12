@@ -14,7 +14,7 @@ export const LuxuryInput = React.forwardRef<HTMLInputElement, LuxuryInputProps>(
         <label
           htmlFor={inputId}
           className={cn(
-            "block text-[0.625rem] tracking-[0.15em] uppercase font-light transition-colors duration-200",
+            "block text-xs tracking-[0.15em] uppercase font-light transition-colors duration-200",
             error ? "text-destructive/70" : "text-muted-foreground group-focus-within:text-primary/60"
           )}
         >
@@ -45,7 +45,7 @@ export const LuxuryInput = React.forwardRef<HTMLInputElement, LuxuryInputProps>(
           aria-hidden="true"
         />
         {error && (
-          <p className="mt-1 text-[0.625rem] text-destructive/80 font-light">{error}</p>
+          <p className="mt-1 text-xs text-destructive/80 font-light">{error}</p>
         )}
       </div>
     );
@@ -66,7 +66,7 @@ export const LuxuryTextarea = React.forwardRef<HTMLTextAreaElement, LuxuryTextar
         <label
           htmlFor={inputId}
           className={cn(
-            "block text-[0.625rem] tracking-[0.15em] uppercase font-light transition-colors duration-200",
+            "block text-xs tracking-[0.15em] uppercase font-light transition-colors duration-200",
             error ? "text-destructive/70" : "text-muted-foreground group-focus-within:text-primary/60"
           )}
         >
@@ -93,7 +93,7 @@ export const LuxuryTextarea = React.forwardRef<HTMLTextAreaElement, LuxuryTextar
           aria-hidden="true"
         />
         {error && (
-          <p className="mt-1 text-[0.625rem] text-destructive/80 font-light">{error}</p>
+          <p className="mt-1 text-xs text-destructive/80 font-light">{error}</p>
         )}
       </div>
     );

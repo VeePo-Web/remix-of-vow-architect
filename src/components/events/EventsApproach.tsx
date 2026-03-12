@@ -1,6 +1,8 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
+import { GoldCornerImage } from "@/components/ui/gold-corner-image";
 import soundBokehImg from "@/assets/sound-bokeh-ai.jpg";
+import pianoMacroImg from "@/assets/piano-macro-hammers.jpg";
 
 const steps = [
   {
@@ -83,7 +85,7 @@ export function EventsApproach() {
                 transitionDelay: `${400 + i * 200}ms`,
               }}
             >
-              <span className="font-sans text-[13px] text-primary tracking-[0.15em] mt-1.5 shrink-0 opacity-60">
+              <span className="font-sans text-[13px] text-muted-foreground tracking-[0.15em] mt-1.5 shrink-0 opacity-60">
                 {step.number}
               </span>
               <div>
@@ -96,6 +98,25 @@ export function EventsApproach() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Editorial image bleed */}
+        <div
+          className={cn(
+            "w-[calc(100%+4rem)] md:w-[calc(100%+8rem)] -mx-8 md:-mx-16 mt-[60px] md:mt-[80px] transition-all duration-[900ms]",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          )}
+          style={{
+            transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
+            transitionDelay: "800ms",
+          }}
+        >
+          <GoldCornerImage
+            src={pianoMacroImg}
+            alt="Close-up of piano hammers and strings"
+            aspectRatio="16/9"
+            maxHeight="380px"
+          />
         </div>
       </div>
 

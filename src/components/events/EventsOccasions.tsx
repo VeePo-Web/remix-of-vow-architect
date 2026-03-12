@@ -31,7 +31,7 @@ function GoldNumeral({ n }: { n: number }) {
     <span
       className="font-display text-[13px] font-light tracking-[0.2em] uppercase mb-3 block"
       style={{
-        color: "hsl(var(--vow-yellow) / 0.5)",
+        color: "hsl(var(--muted-foreground))",
       }}
     >
       {String(n).padStart(2, "0")}

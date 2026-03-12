@@ -191,7 +191,7 @@ export function TeachingExhale() {
           className={cn(
             "font-sans text-[11px] uppercase tracking-[0.22em] text-muted-foreground mb-fitz-7 transition-all duration-[1800ms]",
             isVisible
-              ? "opacity-45 translate-y-0"
+              ? "opacity-60 translate-y-0"
               : "opacity-0 translate-y-[8px]"
           )}
           style={{

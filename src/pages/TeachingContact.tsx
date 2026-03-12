@@ -179,7 +179,7 @@ export default function TeachingContact() {
                       }}
                       aria-hidden="true"
                     />
-                    <span className="relative z-10 text-[0.625rem] tracking-[0.22em] uppercase font-light">
+                    <span className="relative z-10 text-xs tracking-[0.22em] uppercase font-light">
                       Send Message
                     </span>
                   </button>

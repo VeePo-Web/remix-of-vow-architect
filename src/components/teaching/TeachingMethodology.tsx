@@ -152,7 +152,7 @@ export function TeachingMethodology() {
           className={cn(
             "font-sans text-[11px] uppercase tracking-[0.22em] mb-fitz-7 transition-all duration-[700ms]",
             isVisible
-              ? "opacity-35 translate-y-0"
+              ? "opacity-60 translate-y-0"
               : "opacity-0 translate-y-[6px]"
           )}
           style={{

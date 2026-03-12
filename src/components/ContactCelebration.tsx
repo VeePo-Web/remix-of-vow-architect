@@ -144,7 +144,7 @@ export function ContactCelebration({ vertical = "weddings" }: ContactCelebration
           <div className="mt-14">
             <Link
               to={homeLink}
-              className="inline-flex items-center gap-2.5 text-[0.625rem] tracking-[0.16em] uppercase font-light text-muted-foreground/50 hover:text-foreground transition-colors duration-200"
+              className="inline-flex items-center gap-2.5 text-xs tracking-[0.16em] uppercase font-light text-muted-foreground hover:text-foreground transition-colors duration-200"
             >
               <ArrowLeft size={12} />
               Return

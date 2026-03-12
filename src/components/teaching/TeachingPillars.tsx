@@ -144,11 +144,11 @@ function PillarCard({
           className={cn(
             "block font-display text-[13px] tracking-[0.3em] uppercase mb-fitz-3 transition-all duration-[900ms]",
             isVisible
-              ? "opacity-25 translate-y-0"
+              ? "opacity-60 translate-y-0"
               : "opacity-0 translate-y-[6px]"
           )}
           style={{
-            color: "hsl(var(--vow-yellow))",
+            color: "hsl(var(--muted-foreground))",
             transitionTimingFunction: "cubic-bezier(.22,.61,.36,1)",
           }}
           aria-hidden="true"
@@ -234,7 +234,7 @@ export function TeachingPillars() {
             className={cn(
               "font-sans text-[11px] uppercase tracking-[0.22em] text-muted-foreground text-center mb-[80px] md:mb-[100px] transition-all duration-[700ms]",
               headerVisible
-                ? "opacity-45 translate-y-0"
+                ? "opacity-60 translate-y-0"
                 : "opacity-0 translate-y-[8px]"
             )}
             style={{
