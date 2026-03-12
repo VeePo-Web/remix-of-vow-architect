@@ -258,7 +258,7 @@ export function TeachingStories() {
             className={cn(
               "font-sans text-[11px] uppercase tracking-[0.22em] text-muted-foreground text-center mb-[80px] md:mb-[100px] transition-all duration-[1800ms]",
               headerVisible
-                ? "opacity-50 translate-y-0"
+                ? "opacity-60 translate-y-0"
                 : "opacity-0 translate-y-[8px]"
             )}
             style={{
