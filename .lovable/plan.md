@@ -1,33 +1,42 @@
 
 
-# Plan: Create Events Brand Identity Document
+# Phase 19: Fix PianoKeyNav Sticky Visibility
 
-Create `.lovable/events-brand-identity.md` following the same structure as the wedding and teaching documents — Brand Truth Table, Non-Negotiables/Flex/Dealbreakers, Brand Spine, Positioning, Customer Identity Mirror, Messaging, Voice, and Visual direction.
+## Problem
 
-## Key Differentiators from Other Verticals
+The PianoKeyNav is `fixed right-0 top-1/2` which should keep it on screen, but it has a visibility gate: it only appears after `scrollY > innerHeight * 0.8`. On the Teaching page, the hero is full-screen (`h-screen`), so the nav only appears after scrolling past the hero. However, once visible, it should remain sticky. The user reports it "won't work right now" — likely two issues:
 
-- **Tone:** Professional and polished, not sacred/vigil (weddings) or warm/mentorship (teaching)
-- **Category:** "Private Event Pianist" — not "sound director" or "mentor"
-- **Mission:** "I understand what live music does to a room" — atmospheric, not ceremonial
-- **Tagline adaptation:** "Every room has a sound it's waiting for."
-- **Enemy:** The generic playlist, the background-noise assumption, the DJ who drowns conversation
-- **Audience:** Hosts planning private dinners, church services, cocktail receptions, intimate celebrations — people who care about atmosphere and presence
+1. **Visibility threshold too aggressive**: The nav disappears if user scrolls back up near the hero. On shorter viewports (user is at 672px height), 80% = 537px scroll threshold is tight and causes flicker.
+2. **z-index conflict**: The nav uses `z-40` but the header, MobileStickyBar, and FullScreenMenu also compete in the z-40-50 range, potentially overlapping.
+3. **Pointer-events disabled when hidden**: `pointer-events-none` is applied alongside `opacity-0`, but the transition between states may cause brief unclickable windows.
 
-## Document Structure (matching existing format)
+## Fix
 
-1. **Brand Truth Table** — Events-specific truths (500+ events, 4 occasion types, 500+ repertoire, room-reading ability)
-2. **Non-Negotiables / Flex / Dealbreakers** — Professional tone rules, no "sacred/vigil" language, no entertainment framing
-3. **Brand Spine** — Category stance, enemy, audience, promise, proof, personality
-4. **Positioning & Differentiators** — "Private Event Pianist" category, differentiator table vs DJs/playlists/bands
-5. **Customer Identity Mirror** — "You are my people if..." / "Not for you if..." for event hosts
-6. **Messaging Pillars** — Atmosphere, Adaptability, Professionalism
-7. **Voice & Lexicon** — Events-specific word choices (allowed/banned), CTA phrasing
-8. **Visual Direction** — How the events page differs aesthetically from weddings/teaching
-9. **Cross-Vertical Coherence** — How events connects to the broader Sacred Sound brand
+### A. Lower visibility threshold and add hysteresis
 
-## File
+Change the scroll threshold from `0.8` to `0.5` so the nav appears sooner. Add a 100px hysteresis buffer so it doesn't flicker on/off at the boundary:
 
-- **Create:** `.lovable/events-brand-identity.md`
+```
+// Current: const visible = window.scrollY > window.innerHeight * 0.8;
+// Fix: Show earlier, hide later (hysteresis)
+const threshold = window.innerHeight * 0.5;
+const hysteresis = 100;
+const shouldShow = window.scrollY > threshold;
+const shouldHide = window.scrollY < (threshold - hysteresis);
+if (shouldShow) setIsVisible(true);
+else if (shouldHide) setIsVisible(false);
+```
 
-No code changes required.
+### B. Ensure z-index is above header
+
+Bump from `z-40` to `z-50` on both mobile and desktop variants so it layers above the header (`z-40`).
+
+### C. File changes
+
+**`src/components/PianoKeyNav.tsx`** — 3 edits:
+1. Lines 36-39: Replace scroll handler with hysteresis logic
+2. Line 100: `z-40` → `z-50` (mobile)
+3. Line 137: `z-40` → `z-50` (desktop)
+
+Total: 1 file, 3 targeted edits.
 
