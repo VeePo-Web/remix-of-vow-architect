@@ -316,7 +316,7 @@ export default function Listen() {
           alt="Hands playing piano keys in warm candlelight"
           aspectRatio="16/9"
           maxHeight="360px"
-          frameIndex="FR·05"
+          
           className="w-full"
         />
       </div>

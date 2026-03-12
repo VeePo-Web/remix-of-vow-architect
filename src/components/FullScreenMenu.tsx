@@ -622,7 +622,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
             }}
             aria-hidden="true"
           />
-          <p className="font-display text-sm text-foreground opacity-25 tracking-wide">
+          <p className="font-display text-sm text-foreground opacity-60 tracking-wide">
             'Til Death
             <span
               className="text-primary opacity-40"

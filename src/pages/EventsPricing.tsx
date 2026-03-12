@@ -3,7 +3,6 @@ import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
 import { PianoKeyNav } from "@/components/PianoKeyNav";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { MostSelectedPill } from "@/components/MostSelectedPill";
 import { RevealOnScroll, StaggerChildren } from "@/components/animation";
 import { cn } from "@/lib/utils";
@@ -76,15 +75,6 @@ const faqs = [
   { question: "Are you insured?", answer: "Yes — comprehensive commercial general liability insurance. Documentation is available upon request and included with every proposal." },
 ];
 
-function GoldenThread() {
-  return (
-    <div className="relative py-2 my-16" aria-hidden="true">
-      <div className="h-px max-w-xs mx-auto" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)" }} />
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-1 rounded-full" style={{ background: "hsl(var(--vow-yellow) / 0.6)", boxShadow: "0 0 8px hsl(var(--vow-yellow) / 0.3)", animation: "ep-dot-breathe 3s ease-in-out infinite" }} />
-    </div>
-  );
-}
-
 function ComparisonIcon({ value }: { value: boolean | "warning" }) {
   if (value === true) return (
     <span className="inline-block w-2.5 h-2.5 rotate-45" style={{ background: "hsl(var(--vow-yellow) / 0.8)", boxShadow: "0 0 6px hsl(var(--vow-yellow) / 0.3)" }} aria-label="Included" />
@@ -125,38 +115,32 @@ export default function EventsPricing() {
               </p>
             </div>
 
-            <GoldenThread />
-
             {/* ── Inclusions ── */}
-            <div id="ep-inclusions" className="piano-section-target">
+            <div id="ep-inclusions" className="piano-section-target mt-24">
               <RevealOnScroll variant="up">
                 <div className="max-w-4xl mx-auto mb-16 scroll-mt-24">
                   <div className="text-center mb-8">
                     <h2 className="h2 mb-3 mx-auto">What every presence includes.</h2>
                     <p className="p-body text-muted-foreground">The baseline — before duration is even discussed.</p>
                   </div>
-                  <Card className="p-6 md:p-8 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred">
-                    <StaggerChildren staggerDelay={80} className="grid sm:grid-cols-2 gap-6">
-                      {inclusions.map((item, i) => (
-                        <div key={i} className="flex items-start gap-3">
-                          <span className="inline-block w-2 h-2 rotate-45 mt-1.5 flex-shrink-0" style={{ background: "hsl(var(--vow-yellow) / 0.7)", boxShadow: "0 0 5px hsl(var(--vow-yellow) / 0.2)" }} aria-hidden="true" />
-                          <div>
-                            <p className="font-display text-[15px] font-medium leading-snug">{item.label}</p>
-                            <p className="text-sm text-muted-foreground mt-0.5">{item.description}</p>
-                          </div>
+                  <StaggerChildren staggerDelay={80} className="grid sm:grid-cols-2 gap-6">
+                    {inclusions.map((item, i) => (
+                      <div key={i} className="flex items-start gap-3">
+                        <span className="text-muted-foreground mt-0.5 flex-shrink-0" aria-hidden="true">·</span>
+                        <div>
+                          <p className="font-display text-[15px] font-medium leading-snug">{item.label}</p>
+                          <p className="text-sm text-muted-foreground mt-0.5">{item.description}</p>
                         </div>
-                      ))}
-                    </StaggerChildren>
-                  </Card>
+                      </div>
+                    ))}
+                  </StaggerChildren>
                 </div>
               </RevealOnScroll>
             </div>
 
-            <GoldenThread />
-
             {/* ── Three Presences ── */}
             <RevealOnScroll variant="up">
-              <div id="ep-presences" className="max-w-6xl mx-auto mb-16 scroll-mt-24 piano-section-target">
+              <div id="ep-presences" className="max-w-6xl mx-auto mb-16 scroll-mt-24 piano-section-target mt-24">
                 <div className="text-center mb-8">
                   <h2 className="h2 mb-3 mx-auto">Three ways to be present.</h2>
                   <p className="p-body text-muted-foreground">The only difference is how long I stay.</p>
@@ -164,13 +148,12 @@ export default function EventsPricing() {
 
                 <StaggerChildren staggerDelay={120} className="grid md:grid-cols-3 gap-6">
                   {presences.map((p, i) => (
-                    <Card
+                    <div
                       key={i}
                       className={cn(
-                        "relative p-6 bg-card/80 backdrop-blur-[8px] card-sacred card-sacred-hover transition-all duration-[180ms]",
-                        p.isSelected ? "border-primary/15 border-2" : "border-border/50"
+                        "relative p-6 transition-all duration-[180ms]",
+                        p.isSelected ? "border-l-2 border-primary/30" : "border-l border-border/30"
                       )}
-                      style={p.isSelected ? { boxShadow: "var(--shadow-sacred-inset), var(--shadow-sacred-elevation), 0 0 40px hsl(var(--vow-yellow) / 0.08)" } : undefined}
                     >
                       {p.isSelected && <MostSelectedPill />}
                       <h3 className="font-display text-[22px] font-medium leading-tight mb-1">{p.name}</h3>
@@ -179,7 +162,7 @@ export default function EventsPricing() {
                       <Button variant="primary-dark" className="w-full hover-scale" asChild>
                         <Link to="/contact">Request a proposal</Link>
                       </Button>
-                    </Card>
+                    </div>
                   ))}
                 </StaggerChildren>
 
@@ -189,15 +172,13 @@ export default function EventsPricing() {
               </div>
             </RevealOnScroll>
 
-            <GoldenThread />
-
             {/* ── Comparison ── */}
             <RevealOnScroll variant="up">
-              <div id="ep-compare" className="max-w-5xl mx-auto mb-16 scroll-mt-24 piano-section-target">
+              <div id="ep-compare" className="max-w-5xl mx-auto mb-16 scroll-mt-24 piano-section-target mt-24">
                 <div className="text-center mb-8">
                   <h2 className="h2 mb-3 mx-auto">What sets live piano apart.</h2>
                 </div>
-                <Card className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred overflow-x-auto">
+                <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-border/40">
@@ -220,14 +201,12 @@ export default function EventsPricing() {
                       ))}
                     </tbody>
                   </table>
-                </Card>
+                </div>
               </div>
             </RevealOnScroll>
 
-            <GoldenThread />
-
             {/* ── FAQ ── */}
-            <div id="ep-faq" className="piano-section-target">
+            <div id="ep-faq" className="piano-section-target mt-24">
               <RevealOnScroll variant="up">
                 <div className="max-w-3xl mx-auto mb-16 scroll-mt-24">
                   <h2 className="h2 text-center mb-3 mx-auto">Questions about the offering.</h2>
@@ -244,13 +223,10 @@ export default function EventsPricing() {
               </RevealOnScroll>
             </div>
 
-            <GoldenThread />
-
             {/* ── Crossing CTA ── */}
-            <div id="ep-cta" className="piano-section-target">
+            <div id="ep-cta" className="piano-section-target mt-24">
               <RevealOnScroll variant="up">
                 <div className="relative max-w-2xl mx-auto text-center mb-8 space-y-6">
-                  <div className="absolute inset-0 -inset-x-20 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 70% at 50% 50%, hsl(var(--vow-yellow) / 0.04) 0%, transparent 70%)" }} aria-hidden="true" />
                   <h2 className="font-display text-[clamp(28px,3.5vw,40px)] font-light mx-auto relative z-10">Every event begins with a conversation.</h2>
                   <p className="p-body text-muted-foreground relative z-10">Tell me about your gathering — the venue, the guests, the feeling you want in the room. I will respond within 24 hours.</p>
                   <Button size="lg" variant="primary-dark" className="hover-scale relative z-10" asChild>
@@ -267,13 +243,10 @@ export default function EventsPricing() {
       <MobileStickyBar />
 
       <style>{`
-        @keyframes ep-dot-breathe { 0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.5); } }
         @media (prefers-reduced-motion: reduce) {
           .grain, [style*="ken-burns"] { animation: none !important; }
-          [style*="ep-dot-breathe"] { animation: none !important; opacity: 0.6; }
         }
       `}</style>
     </div>
   );
 }
-

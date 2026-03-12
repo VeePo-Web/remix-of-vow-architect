@@ -93,7 +93,7 @@ export function GenreTrackPanel({
           >
             {category.label}
           </span>
-          <span className="text-[10px] uppercase tracking-[0.15em] text-foreground opacity-30 font-mono tabular-nums">
+          <span className="text-xs uppercase tracking-[0.15em] text-foreground opacity-60 font-mono tabular-nums">
             {category.tracks.length} tracks
           </span>
         </div>

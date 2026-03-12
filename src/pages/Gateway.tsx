@@ -178,10 +178,6 @@ export default function Gateway() {
           0%, 100% { text-shadow: 0 0 20px hsl(var(--vow-yellow) / 0.4); }
           50% { text-shadow: 0 0 40px hsl(var(--vow-yellow) / 0.7); }
         }
-        @keyframes gateway-vignette-breathe {
-          0%, 100% { opacity: 0.6; }
-          50% { opacity: 1; }
-        }
         @media (prefers-reduced-motion: reduce) {
           .semicolon-breathe,
           [style*="gateway-vignette-breathe"] { animation: none !important; }
