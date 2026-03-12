@@ -139,7 +139,7 @@ export function WitnessPresence() {
               >
                 {/* Frame index */}
                 <span
-                  className="absolute top-2 right-3 text-[10px] uppercase tracking-[0.2em] opacity-0 group-hover:opacity-30 transition-opacity duration-500 pointer-events-none select-none motion-reduce:hidden"
+                  className="absolute top-2 right-3 text-xs uppercase tracking-[0.2em] opacity-0 group-hover:opacity-60 transition-opacity duration-500 pointer-events-none select-none motion-reduce:hidden"
                   style={{ color: "hsl(var(--vow-yellow))" }}
                   aria-hidden="true"
                 >

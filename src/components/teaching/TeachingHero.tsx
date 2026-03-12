@@ -371,7 +371,7 @@ export function TeachingHero() {
         )}
       >
         <span
-          className="text-[10px] uppercase tracking-[0.28em] font-sans"
+          className="text-xs uppercase tracking-[0.28em] font-sans"
           style={{ color: "hsl(var(--teaching-scroll-cue))" }}
         >
           Scroll to learn more
@@ -381,7 +381,7 @@ export function TeachingHero() {
           height="7"
           viewBox="0 0 12 7"
           fill="none"
-          className="opacity-25"
+          className="opacity-60"
           style={{
             animation: "scroll-chevron-bounce 2.4s ease-in-out infinite",
           }}

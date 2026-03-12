@@ -157,7 +157,7 @@ export function GenreTrackPanel({
             />
             {/* Track number */}
             {!isActive && (
-              <span className="text-[10px] font-mono text-foreground opacity-20 tabular-nums w-5 shrink-0 text-right">
+              <span className="text-xs font-mono text-foreground opacity-60 tabular-nums w-5 shrink-0 text-right">
                 {String(tIdx + 1).padStart(2, "0")}
               </span>
             )}
@@ -180,7 +180,7 @@ export function GenreTrackPanel({
 
       {/* Footer */}
       <div className="px-5 pt-3 pb-4 text-center">
-        <p className="text-xs text-foreground opacity-35 italic font-display">
+        <p className="text-xs text-foreground opacity-60 italic font-display">
           Each piece, arranged for your ceremony.{" "}
           <Link
             to="/contact"
