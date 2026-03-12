@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useSmoothScroll } from './SmoothScrollProvider';
 
 interface PianoSection {
   id: string;
