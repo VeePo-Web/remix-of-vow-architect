@@ -37,8 +37,8 @@ export function RedundancyStack() {
             {failoverTiers.map((tier, i) => (
               <div key={i}>
                 <Card 
-                  className={`p-6 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred transition-all duration-[180ms] ${
-                    tier.highlight ? 'border-primary/30 card-sacred-hover' : 'opacity-90'
+                  className={`p-6 bg-card/80 backdrop-blur-[8px] border-border/50 transition-all duration-[180ms] ${
+                    tier.highlight ? 'border-primary/30' : 'opacity-90'
                   }`}
                 >
                   <div className="flex items-start gap-4">

@@ -32,7 +32,7 @@ export function DownloadablePlans() {
           
           <StaggerChildren staggerDelay={80} className="grid md:grid-cols-3 gap-6 mb-8">
             {samplePlans.map((plan, i) => (
-              <Card key={i} className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred card-sacred-hover transition-all duration-[180ms] group cursor-pointer">
+              <Card key={i} className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 transition-all duration-[180ms] group cursor-pointer">
                 {/* Gold numeral */}
                 <span
                   className="font-display text-[28px] font-light leading-none select-none block mb-4"

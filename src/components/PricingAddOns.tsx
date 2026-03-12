@@ -34,7 +34,7 @@ export function PricingAddOns() {
           {addOns.map((addon, index) => (
             <Card
               key={index}
-              className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred card-sacred-hover transition-all duration-[180ms]"
+              className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 transition-all duration-[180ms]"
             >
               {/* Golden diamond marker */}
               <span

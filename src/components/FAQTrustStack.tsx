@@ -41,7 +41,7 @@ export function FAQTrustStack() {
             {testimonials.map((testimonial, index) => (
               <div
                 key={index}
-                className="bg-card/80 backdrop-blur-[8px] border border-border/50 rounded-lg p-6 card-sacred card-sacred-hover transition-all duration-[180ms]"
+                className="bg-card/80 backdrop-blur-[8px] border border-border/50 rounded-lg p-6 transition-all duration-[180ms]"
               >
                 <blockquote className="border-l-2 border-primary/40 pl-4 mb-4">
                   <p className="font-display text-[15px] text-foreground italic leading-relaxed">

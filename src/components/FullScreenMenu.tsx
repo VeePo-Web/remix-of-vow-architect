@@ -597,7 +597,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
             }}
             aria-hidden="true"
           />
-          <span className="text-[0.65rem] italic text-muted-foreground opacity-40">
+          <span className="text-xs italic text-muted-foreground opacity-60">
             Response within 24 hours
           </span>
         </div>
