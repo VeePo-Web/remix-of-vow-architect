@@ -597,7 +597,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
             }}
             aria-hidden="true"
           />
-          <span className="text-[0.65rem] italic text-muted-foreground opacity-40">
+          <span className="text-xs italic text-muted-foreground opacity-60">
             Response within 24 hours
           </span>
         </div>
@@ -625,7 +625,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
           <p className="font-display text-sm text-foreground opacity-60 tracking-wide">
             'Til Death
             <span
-              className="text-primary opacity-40"
+              className="text-primary opacity-60"
               style={{
                 animation: isOpen
                   ? "semicolon-heartbeat 2s ease-in-out infinite"

@@ -70,7 +70,7 @@ function CompetitorMark({ value }: { value: boolean | string }) {
 export function ComparisonTable() {
   return (
     <div className="w-full overflow-x-auto">
-      <div className="bg-card/80 backdrop-blur-[8px] border border-border/50 rounded-lg card-sacred overflow-hidden">
+      <div className="bg-card/80 backdrop-blur-[8px] border border-border/50 rounded-lg overflow-hidden">
         <table className="w-full border-collapse">
           <thead>
             <tr className="border-b border-border/40">

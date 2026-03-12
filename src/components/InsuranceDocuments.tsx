@@ -34,7 +34,7 @@ export function InsuranceDocuments() {
           
           <StaggerChildren staggerDelay={80} className="grid md:grid-cols-3 gap-6 mb-8">
             {insuranceItems.map((item, i) => (
-              <Card key={i} className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred card-sacred-hover transition-all duration-[180ms] text-center">
+              <Card key={i} className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 transition-all duration-[180ms] text-center">
                 <span
                   className="font-display text-[32px] font-light leading-none select-none block mb-4"
                   style={{
@@ -61,7 +61,7 @@ export function InsuranceDocuments() {
             </p>
           </div>
 
-          <Card className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50 card-sacred">
+          <Card className="p-6 bg-card/80 backdrop-blur-[8px] border-border/50">
             <blockquote className="border-l-2 border-primary/40 pl-4 mb-4">
               <p className="font-display text-[15px] text-foreground italic leading-relaxed">
                 "The venue waived their deposit — policy covered everything."

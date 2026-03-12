@@ -76,7 +76,7 @@ export function FAQTopTen() {
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="bg-card/80 backdrop-blur-[8px] border border-border/50 rounded-lg px-6 card-sacred-sm card-sacred-hover transition-all duration-[180ms]"
+                className="bg-card/80 backdrop-blur-[8px] border border-border/50 rounded-lg px-6 transition-all duration-[180ms]"
               >
                 <AccordionTrigger className="text-left font-display text-[18px] font-medium hover:no-underline">
                   {faq.question}
