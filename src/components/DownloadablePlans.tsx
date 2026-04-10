@@ -68,7 +68,7 @@ export function DownloadablePlans() {
           <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
             <Link to="/contact">
               <Button size="lg" variant="primary-dark" className="hover-scale">
-                Hold my date
+                Reserve My Date!
               </Button>
             </Link>
           </div>

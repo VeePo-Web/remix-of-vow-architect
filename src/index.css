@@ -16,6 +16,13 @@ All colors MUST be HSL.
     --mist-grey: 214 9% 67%;
     --porcelain: 210 17% 95%;
     --absolute-white: 0 0% 100%;
+
+    /* Ivory Palette (Piano/Wedding) */
+    --ivory: 40 33% 95%;
+    --ivory-warm: 36 40% 90%;
+    --ivory-deep: 33 30% 82%;
+    --champagne: 38 50% 78%;
+    --gold-soft: 42 60% 70%;
     
     /* Life Accents */
     --vow-yellow: 45 100% 76%;
@@ -5052,15 +5059,98 @@ All colors MUST be HSL.
   pointer-events: none;
 }
 
-.now-playing-bar--visible {
+.now-playing-bar.is-visible {
   transform: translateY(0);
   opacity: 1;
   pointer-events: auto;
 }
 
+.now-playing-bar__progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, hsl(var(--vow-yellow) / 0.4), hsl(var(--vow-yellow) / 0.8));
+  box-shadow: 0 0 8px hsl(var(--vow-yellow) / 0.2);
+  transition: width 200ms linear;
+}
+
+.now-playing-bar__content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 100%;
+  padding: 0 20px;
+}
+
+.now-playing-bar__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: hsl(var(--vow-yellow) / 0.12);
+  color: hsl(var(--vow-yellow));
+  border: none;
+  cursor: pointer;
+  transition: background 180ms ease-out;
+}
+
+.now-playing-bar__toggle:hover {
+  background: hsl(var(--vow-yellow) / 0.2);
+}
+
+.now-playing-bar__context {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: hsl(var(--vow-yellow) / 0.6);
+}
+
+.now-playing-bar__separator {
+  color: hsl(var(--foreground) / 0.2);
+  font-size: 10px;
+}
+
+.now-playing-bar__title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  color: hsl(var(--foreground) / 0.55);
+}
+
+/* ── Listening Room button hover states ── */
+
+.listen-enter-btn:hover {
+  background: hsl(var(--vow-yellow) / 0.12) !important;
+  border-color: hsl(var(--vow-yellow) / 0.4) !important;
+  transform: scale(1.03);
+  box-shadow: 0 0 60px hsl(var(--vow-yellow) / 0.1) !important;
+}
+
+.listen-cta-btn:hover {
+  background: hsl(var(--vow-yellow) / 0.14) !important;
+  border-color: hsl(var(--vow-yellow) / 0.4) !important;
+  transform: scale(1.03);
+  box-shadow: 0 0 60px hsl(var(--vow-yellow) / 0.1) !important;
+}
+
+.listen-play-btn:not(.is-playing):hover {
+  background: hsl(var(--foreground) / 0.14) !important;
+  transform: scale(1.06);
+}
+
+.listen-play-btn.is-playing:hover {
+  box-shadow: 0 0 32px hsl(var(--vow-yellow) / 0.3) !important;
+}
+
 /* Push MobileStickyBar up when mini-bar is visible */
-.now-playing-bar--visible ~ .mobile-sticky-bar,
-body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
+.now-playing-bar.is-visible ~ .mobile-sticky-bar,
+body:has(.now-playing-bar.is-visible) .md\\:hidden.fixed.bottom-0 {
   bottom: 48px;
 }
 
@@ -5153,10 +5243,10 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   50% { opacity: 0.9; transform: translate(-50%, -50%) scaleX(1); }
 }
 
-/* Waveform bar animation */
+/* Waveform bar animation — uses per-bar --waveform-max for organic heights */
 @keyframes waveform-bar {
   0% { height: 4px; }
-  100% { height: 36px; }
+  100% { height: var(--waveform-max, 36px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -6403,22 +6493,29 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
   100% { box-shadow: inset 0 0 0 0 hsl(var(--rich-black) / 0); }
 }
 
-/* Page content transitions */
+/* Page content transitions
+   IMPORTANT: will-change is only applied during active transitions,
+   never in idle state — it creates a containing block that breaks
+   position:fixed on descendant nav elements */
 .page-transition-content {
-  will-change: opacity, transform, filter;
+  /* will-change applied only during exit/enter, not idle */
 }
 
 .page-transition-content--idle {
   opacity: 1;
-  transform: translateY(0);
-  filter: blur(0);
+  /* DO NOT set transform or filter here — it creates a containing block
+     that breaks position:fixed on all descendant elements (nav, CTA bar, dots) */
+  transform: none;
+  filter: none;
 }
 
 .page-transition-content--exit {
+  will-change: opacity, transform, filter;
   animation: page-exit var(--exit-duration, 400ms) cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
 }
 
 .page-transition-content--enter {
+  will-change: opacity, transform, filter;
   animation: page-enter var(--enter-duration, 500ms) cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
 }
 
@@ -6496,3 +6593,2068 @@ body:has(.now-playing-bar--visible) .md\\:hidden.fixed.bottom-0 {
 /* ============================================================================
    END PHASE 2 ENHANCEMENTS
    ============================================================================ */
+
+/* ============================================================================
+   VIDEO ACT — Scroll-Driven Video Background System
+   World-class scroll-driven video scrubbing (Apple/fantasy.co technique)
+   ============================================================================ */
+
+/* Tall scroll zone — creates the scroll distance for video scrubbing */
+.video-act {
+  position: relative;
+  /* height set via inline style per act (e.g. 350vh) */
+}
+
+/* Sticky container — locks video to viewport while scrolling through the zone */
+.video-act__sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: hsl(var(--rich-black));
+}
+
+/* Video element — heavily subdued atmospheric texture behind text */
+.video-act__video {
+  position: absolute;
+  inset: -4%;
+  width: 108%;
+  height: 108%;
+  object-fit: cover;
+  will-change: transform;
+  transform: translateZ(0);
+  /* Video tells the story — visible but not competing with text */
+  opacity: 0.55;
+  filter: brightness(0.55) saturate(0.85) blur(1px);
+}
+
+/* Poster fallback — same dimming as video so transition is invisible */
+.video-act__poster {
+  position: absolute;
+  inset: -4%;
+  width: 108%;
+  height: 108%;
+  background-size: cover;
+  background-position: center;
+  transition: opacity 600ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  pointer-events: none;
+  filter: brightness(0.55) saturate(0.85) blur(1px);
+}
+
+/* Dark vignette — frames the video, keeps text readable at edges */
+.video-act__vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    /* Gentle top/bottom fade for text readability */
+    linear-gradient(180deg, rgba(0,0,0,0.40) 0%, rgba(0,0,0,0.15) 30%, rgba(0,0,0,0.15) 70%, rgba(0,0,0,0.40) 100%),
+    /* Soft edge vignette */
+    radial-gradient(ellipse 75% 65% at 50% 50%, transparent 0%, rgba(0,0,0,0.45) 100%);
+}
+
+/* Film grain overlay — subtle texture, lets video breathe */
+.video-act__grain {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  opacity: 0.04;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* Cross-dissolve to next section */
+.video-act__dissolve {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+  /* opacity driven by JS — no CSS transition needed */
+}
+
+/* Glass panel for floating content cards (pricing, genre cards, etc.) */
+.glass-panel {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: hsl(var(--rich-black) / 0.30);
+  border: 1px solid hsl(var(--absolute-white) / 0.08);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow:
+    0 4px 32px hsl(var(--rich-black) / 0.20),
+    inset 0 1px 0 hsl(var(--absolute-white) / 0.05);
+}
+
+/* ── Text scrim — maximum prominence, text dominates the viewport ── */
+.video-text-scrim {
+  /* Forced bright white text */
+  color: #ffffff !important;
+  /* Crisp rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Maximum text shadow — text glows against the dark backdrop */
+  text-shadow:
+    0 0 1px rgba(255, 255, 255, 0.15),
+    0 1px 2px rgba(0, 0, 0, 1),
+    0 2px 6px rgba(0, 0, 0, 0.95),
+    0 4px 16px rgba(0, 0, 0, 0.8),
+    0 8px 32px rgba(0, 0, 0, 0.6),
+    0 0 60px rgba(0, 0, 0, 0.5),
+    0 0 120px rgba(0, 0, 0, 0.25);
+  /* Large soft dark glow behind text — creates a "spotlight" effect */
+  background: radial-gradient(
+    ellipse 140% 180% at 50% 50%,
+    rgba(0, 0, 0, 0.60) 0%,
+    rgba(0, 0, 0, 0.35) 35%,
+    rgba(0, 0, 0, 0.12) 65%,
+    transparent 85%
+  );
+}
+
+/* Labels in scrim need lighter treatment */
+.video-text-scrim.text-muted-foreground,
+.video-text-scrim .text-muted-foreground {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Muted variants */
+.video-text-scrim.text-foreground\/80 { color: rgba(255, 255, 255, 0.85) !important; }
+.video-text-scrim.text-foreground\/90 { color: rgba(255, 255, 255, 0.92) !important; }
+.video-text-scrim.text-foreground\/85 { color: rgba(255, 255, 255, 0.88) !important; }
+.video-text-scrim.text-foreground\/70 { color: rgba(255, 255, 255, 0.75) !important; }
+.video-text-scrim.text-foreground\/60 { color: rgba(255, 255, 255, 0.65) !important; }
+.video-text-scrim.text-muted-foreground\/70 { color: rgba(255, 255, 255, 0.55) !important; }
+.video-text-scrim.text-muted-foreground\/60 { color: rgba(255, 255, 255, 0.50) !important; }
+
+/* ════════════════════════════════════════════════════════════════
+   CINEMATIC NAV — Always-visible sticky UI over video scroll
+   ════════════════════════════════════════════════════════════════ */
+
+/* ── Top bar ── */
+.cn-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 28px;
+  pointer-events: none;
+}
+@media (min-width: 768px) { .cn-header { padding: 32px 48px; } }
+
+.cn-logo {
+  pointer-events: auto;
+  display: block;
+  text-decoration: none;
+  transition: opacity 200ms ease;
+}
+.cn-logo img {
+  height: 22px;
+  width: auto;
+  display: block;
+}
+.cn-logo:hover { opacity: 0.75; }
+
+.cn-menu-btn {
+  pointer-events: auto;
+  display: flex; align-items: center; gap: 10px;
+  background: none; border: none; cursor: pointer; padding: 8px 0;
+}
+.cn-menu-text {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+  transition: color 180ms ease;
+}
+.cn-menu-btn:hover .cn-menu-text { color: #ffffff; }
+
+.cn-hamburger {
+  display: flex; flex-direction: column; align-items: flex-end; gap: 5px;
+}
+.cn-hamburger span {
+  display: block; height: 1.5px; border-radius: 1px;
+  background: rgba(255,255,255,0.7);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  transition: all 180ms ease;
+}
+.cn-hamburger span:nth-child(1) { width: 22px; }
+.cn-hamburger span:nth-child(2) { width: 18px; }
+.cn-hamburger span:nth-child(3) { width: 14px; }
+.cn-menu-btn:hover .cn-hamburger span { background: #fff; width: 22px; }
+
+/* ── Right dots nav — ALWAYS VISIBLE ── */
+.cn-dots {
+  position: fixed;
+  right: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0;
+}
+@media (min-width: 768px) { .cn-dots { right: 36px; } }
+@media (max-width: 640px) { .cn-dots { right: 14px; } }
+
+/* Progress track */
+.cn-track {
+  position: absolute;
+  right: 3px; /* center under dots */
+  top: 0; bottom: 0;
+  width: 1px;
+  background: rgba(255,255,255,0.08);
+}
+.cn-track-fill {
+  width: 100%;
+  background: linear-gradient(to bottom, rgba(212,175,55,0.5), rgba(212,175,55,0.25));
+  box-shadow: 0 0 8px rgba(212,175,55,0.12);
+  transition: height 60ms linear;
+}
+
+/* Dot row — clickable area with label + dot */
+.cn-dot-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.cn-dot-row:hover .cn-dot {
+  width: 12px !important;
+  height: 12px !important;
+  background: hsl(36 50% 88%) !important;
+  box-shadow: 0 0 14px rgba(212,175,55,0.4), 0 0 5px rgba(255,255,255,0.55) !important;
+}
+.cn-dot-row:hover .cn-dot-label {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+  color: hsl(36 30% 85%) !important;
+}
+
+/* Dot */
+.cn-dot {
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: all 350ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Label — to the left of each dot */
+.cn-dot-label {
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.9), 0 2px 16px rgba(0,0,0,0.5);
+  white-space: nowrap;
+  transition: opacity 300ms ease, transform 300ms ease;
+  pointer-events: none;
+}
+
+/* ── Persistent CTA — bottom center ── */
+.cn-cta-bar {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  z-index: 100;
+  transition: opacity 400ms ease, transform 400ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+@media (max-width: 640px) { .cn-cta-bar { bottom: 20px; } }
+
+.cn-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 36px;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #000000;
+  background: rgba(255,255,255,0.92);
+  border-radius: 100px;
+  text-decoration: none;
+  box-shadow:
+    0 4px 24px rgba(0,0,0,0.3),
+    0 1px 3px rgba(0,0,0,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+  backdrop-filter: blur(8px);
+  transition: all 200ms ease;
+  position: relative;
+  overflow: hidden;
+}
+.cn-cta-btn:hover {
+  background: #ffffff;
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.35),
+    0 2px 6px rgba(0,0,0,0.2),
+    0 0 20px rgba(212,175,55,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.3);
+}
+
+/* ── Inline CTAs within the scroll story ── */
+.cn-inline-cta {
+  display: inline-block;
+  padding: 16px 40px;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #000000 !important;
+  background: rgba(255,255,255,0.92) !important;
+  border-radius: 100px;
+  text-decoration: none;
+  text-shadow: none !important;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow:
+    0 4px 24px rgba(0,0,0,0.3),
+    0 1px 3px rgba(0,0,0,0.15),
+    0 -12px 0 -11px rgba(212,175,55,0.20),
+    0 12px 0 -11px rgba(212,175,55,0.15);
+  transition: all 200ms ease;
+  position: relative;
+  overflow: hidden;
+}
+.cn-inline-cta:hover {
+  background: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.35),
+    0 0 20px rgba(212,175,55,0.08),
+    0 -12px 0 -11px rgba(212,175,55,0.25),
+    0 12px 0 -11px rgba(212,175,55,0.20);
+}
+.cn-inline-cta--large {
+  padding: 20px 52px;
+  font-size: 16px;
+  letter-spacing: 0.06em;
+}
+
+/* ═══ SACRED LIGHT SWEEP — diagonal shine on hover ═══ */
+.cn-cta-btn::before,
+.cn-inline-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgba(255,255,255,0.35) 40%,
+    rgba(255,255,255,0.55) 50%,
+    rgba(255,255,255,0.35) 60%,
+    transparent 80%
+  );
+  transform: translateX(-100%);
+  transition: transform 600ms ease-out;
+  pointer-events: none;
+  z-index: 1;
+}
+.cn-cta-btn:hover::before,
+.cn-inline-cta:hover::before {
+  transform: translateX(200%);
+}
+
+/* Final scene CTA — intensified gold aura on hover */
+.final-anchor.cn-inline-cta:hover {
+  box-shadow:
+    0 4px 24px rgba(255,255,255,0.35),
+    0 0 80px rgba(212,175,55,0.25),
+    0 1px 3px rgba(0,0,0,0.1) !important;
+}
+
+/* ═══ STACKED FINAL ITEMS — vertical layout for hold-forever items ═══ */
+.stack-top {
+  margin-bottom: 180px !important;
+}
+.stack-mid {
+  /* dead center — no offset */
+}
+.stack-bottom {
+  margin-top: 180px !important;
+}
+
+@media (max-width: 640px) {
+  .stack-top { margin-bottom: 120px !important; }
+  .stack-bottom { margin-top: 120px !important; }
+}
+
+/* ═══ FINAL SCENE — "I do." + CTA with world-class placement ═══ */
+/* "I do." sits at upper-center, CTA anchors at bottom — the silhouette fills the space between */
+/* ═══ FINAL SCENE — "I do." + CTA clean against the video ═══ */
+/* No dark backdrop — the silhouette and flame must breathe */
+.final-hero {
+  background: none !important;
+  padding: 0 !important;
+  margin-bottom: 30vh !important;
+}
+.final-anchor {
+  position: absolute !important;
+  bottom: 6vh !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+/* Final CTA — fully bright white, gold glow aura */
+.final-anchor.cn-inline-cta {
+  background: #ffffff !important;
+  color: #000000 !important;
+  box-shadow:
+    0 4px 24px rgba(255,255,255,0.25),
+    0 0 60px rgba(212,175,55,0.15),
+    0 1px 3px rgba(0,0,0,0.1) !important;
+}
+
+@media (max-width: 640px) {
+  .final-hero { margin-bottom: 22vh !important; }
+  .final-anchor { bottom: 4vh !important; }
+}
+
+/* ═══ "I DO." — Sacred typographic treatment ═══ */
+/* Gold shimmer that sweeps across the text on a slow loop */
+.final-hero {
+  -webkit-text-fill-color: transparent !important;
+  background-image:
+    linear-gradient(
+      105deg,
+      #ffffff 0%,
+      #ffffff 35%,
+      rgba(212,175,55,0.9) 45%,
+      rgba(255,223,120,1) 50%,
+      rgba(212,175,55,0.9) 55%,
+      #ffffff 65%,
+      #ffffff 100%
+    ) !important;
+  background-size: 300% 100% !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  animation: sacred-shimmer 6s ease-in-out infinite !important;
+  text-shadow: none !important;
+  filter: drop-shadow(0 0 30px rgba(212,175,55,0.2)) drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+}
+
+@keyframes sacred-shimmer {
+  0% { background-position: 100% 50%; }
+  50% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* ═══ SCROLL CUE — hero scroll indicator ═══ */
+.scroll-cue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.5);
+  font-family: var(--font-sans, Inter, sans-serif);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.scroll-cue__arrow {
+  width: 1px;
+  height: 24px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(255,255,255,0));
+  animation: scroll-cue-pulse 2.4s ease-in-out infinite;
+}
+@keyframes scroll-cue-pulse {
+  0%, 100% { opacity: 0.3; transform: translateY(0); }
+  50% { opacity: 0.7; transform: translateY(6px); }
+}
+
+/* ═══ FOOTER REVEAL TOGGLE — subtle bottom-right button ═══ */
+.cinema-footer-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 50;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: rgba(255,255,255,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 250ms ease;
+}
+.cinema-footer-toggle:hover {
+  background: rgba(0,0,0,0.5);
+  border-color: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.8);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   LUXURY TEXT OVERLAY SYSTEM — Dog Studio / Fantasy.co Grade
+   Premium typographic cards with golden ornaments, frosted glass,
+   breathing animations, gradient borders, and cinematic depth.
+   ════════════════════════════════════════════════════════════════ */
+
+/* ═══ BASE LUXURY CARD ═══ */
+.luxury-card {
+  color: #ffffff !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Layered shadow: white edge glow + deep black depth */
+  text-shadow:
+    0 0 1px rgba(255,255,255,0.12),
+    0 1px 2px rgba(0,0,0,1),
+    0 2px 8px rgba(0,0,0,0.9),
+    0 4px 16px rgba(0,0,0,0.6),
+    0 0 40px rgba(0,0,0,0.4);
+  /* Dark backdrop with warm golden undertone */
+  background:
+    radial-gradient(ellipse 100% 120% at 50% 50%, rgba(212,175,55,0.02) 0%, transparent 50%),
+    radial-gradient(ellipse 130% 160% at 50% 50%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.28) 35%, rgba(0,0,0,0.06) 70%, transparent 88%);
+  padding: 32px 40px;
+  border-radius: 2px;
+  position: relative;
+}
+/* Subtle top-edge gold highlight — like light catching gilded paper */
+.luxury-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.12), transparent);
+  pointer-events: none;
+}
+
+/* ═══ FROSTED GLASS CARD — Pricing, Kit, Badges ═══ */
+.luxury-card--glass {
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0.35) 50%, rgba(255,255,255,0.02) 100%) !important;
+  /* Gradient border via box-shadow trick */
+  border: 1px solid transparent;
+  border-image: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(255,255,255,0.06), rgba(212,175,55,0.10)) 1;
+  border-radius: 0; /* border-image doesn't work with radius — use sharp */
+  padding: 32px 40px;
+  box-shadow:
+    0 4px 40px rgba(0,0,0,0.25),
+    0 1px 2px rgba(0,0,0,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    inset 0 -1px 0 rgba(0,0,0,0.2);
+}
+/* Inner golden light on glass cards */
+.luxury-card--glass::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.20), transparent);
+  pointer-events: none;
+}
+
+/* ═══ GOLDEN RULE — Thin horizontal line with glow ═══ */
+.luxury-rule {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.50), transparent);
+  box-shadow:
+    0 0 6px rgba(212,175,55,0.15),
+    0 0 20px rgba(212,175,55,0.06);
+  margin: 16px auto;
+  flex-shrink: 0;
+  animation: luxury-rule-breathe 4s ease-in-out infinite;
+}
+.luxury-rule--wide { width: 100px; }
+
+@keyframes luxury-rule-breathe {
+  0%, 100% { opacity: 0.7; box-shadow: 0 0 6px rgba(212,175,55,0.15); }
+  50% { opacity: 1; box-shadow: 0 0 12px rgba(212,175,55,0.25), 0 0 30px rgba(212,175,55,0.08); }
+}
+
+/* ═══ ORNAMENTAL DIAMOND ═══ */
+.luxury-diamond {
+  width: 6px;
+  height: 6px;
+  background: rgba(212,175,55,0.50);
+  transform: rotate(45deg);
+  margin: 6px auto;
+  box-shadow:
+    0 0 8px rgba(212,175,55,0.25),
+    0 0 20px rgba(212,175,55,0.08);
+  flex-shrink: 0;
+  animation: luxury-diamond-pulse 4s ease-in-out infinite;
+}
+
+@keyframes luxury-diamond-pulse {
+  0%, 100% { opacity: 0.6; transform: rotate(45deg) scale(1); }
+  50% { opacity: 1; transform: rotate(45deg) scale(1.15); box-shadow: 0 0 12px rgba(212,175,55,0.35); }
+}
+
+/* ═══ SECTION LABEL — Flanking golden rules ═══ */
+.luxury-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  color: rgba(255,255,255,0.80) !important;
+  letter-spacing: 0.35em;
+}
+.luxury-label::before,
+.luxury-label::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  flex-shrink: 0;
+  animation: luxury-rule-breathe 4s ease-in-out infinite;
+}
+.luxury-label::before {
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.45));
+}
+.luxury-label::after {
+  background: linear-gradient(90deg, rgba(212,175,55,0.45), transparent);
+}
+
+/* ═══ DIVIDER GROUP — Rule + Diamond + Rule ═══ */
+.luxury-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 12px 0;
+}
+
+/* ═══ TESTIMONIAL QUOTE — Large ornamental opening mark ═══ */
+.luxury-quote {
+  position: relative;
+  padding-top: 20px;
+}
+.luxury-quote::before {
+  content: '\201C';
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(56px, 7vw, 80px);
+  font-style: normal;
+  font-weight: 300;
+  line-height: 0.5;
+  color: rgba(212,175,55,0.30);
+  margin-bottom: 14px;
+  text-shadow:
+    0 0 24px rgba(212,175,55,0.10),
+    0 0 48px rgba(212,175,55,0.04);
+}
+/* Closing quotation mark */
+.luxury-quote::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.25), transparent);
+  margin: 16px auto 0;
+}
+
+/* ═══ GOLDEN GLOW HALO — Behind key headlines ═══ */
+.luxury-glow {
+  position: relative;
+}
+.luxury-glow::after {
+  content: '';
+  position: absolute;
+  inset: -32px -56px;
+  background:
+    radial-gradient(ellipse at center, rgba(212,175,55,0.05) 0%, transparent 55%),
+    radial-gradient(ellipse 200% 100% at 50% 80%, rgba(212,175,55,0.03) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: -1;
+  animation: luxury-glow-breathe 6s ease-in-out infinite;
+}
+
+@keyframes luxury-glow-breathe {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* ═══ GOLD UNDERLINE — inline accent for key words ═══ */
+.gold-underline {
+  position: relative;
+  display: inline;
+}
+.gold-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent 0%, rgba(212,175,55,0.6) 20%, rgba(212,175,55,0.6) 80%, transparent 100%);
+  box-shadow: 0 0 6px rgba(212,175,55,0.2);
+}
+
+/* ═══ LINE STAGGER — Each line of multi-line text cascades ═══ */
+.luxury-card > span:nth-child(1) { animation-delay: 0ms; }
+.luxury-card > span:nth-child(2) { animation-delay: 60ms; }
+.luxury-card > span:nth-child(3) { animation-delay: 120ms; }
+.luxury-card > span:nth-child(4) { animation-delay: 180ms; }
+.luxury-card > span:nth-child(5) { animation-delay: 240ms; }
+
+/* ═══ CTA GOLDEN ACCENT — Inline CTAs get golden top rule ═══ */
+.cn-inline-cta {
+  position: relative;
+}
+/* Gold decorative rules moved to box-shadow on .cn-inline-cta */
+/* ::before now used for sacred light sweep animation */
+
+/* Reduced motion: show poster, no scrubbing */
+@media (prefers-reduced-motion: reduce) {
+  .video-act__video {
+    display: none !important;
+  }
+  .video-act__poster {
+    opacity: 1 !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PRICING PAGES — Apple-grade white luxury
+   Premium navigation, refined typography, spatial precision.
+   Every detail calibrated to apple.com product page standards.
+   ═══════════════════════════════════════════════════════════════ */
+
+
+/* ── PRICING NAV — Frosted glass, Apple-grade navigation ────── */
+
+.pricing-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  height: 56px;
+  background: transparent;
+  transition: background 400ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 400ms cubic-bezier(0.16, 1, 0.3, 1), transform 400ms cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pricing-nav--scrolled {
+  background: hsl(40 20% 99% / 0.85);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  box-shadow: 0 1px 0 hsl(36 20% 85% / 0.6);
+}
+
+.pricing-nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (min-width: 768px) {
+  .pricing-nav__inner {
+    padding: 0 48px;
+  }
+}
+
+.pricing-nav__logo {
+  display: flex;
+  align-items: center;
+  transition: opacity 200ms ease;
+  flex-shrink: 0;
+}
+
+.pricing-nav__logo:hover {
+  opacity: 0.6;
+}
+
+.pricing-nav__links {
+  display: none;
+  align-items: center;
+  gap: 36px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media (min-width: 768px) {
+  .pricing-nav__links {
+    display: flex;
+  }
+}
+
+.pricing-nav__link {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: hsl(var(--rich-black) / 0.55);
+  text-decoration: none;
+  transition: color 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.pricing-nav__link:hover {
+  color: hsl(var(--rich-black));
+}
+
+.pricing-nav__link--active {
+  color: hsl(var(--rich-black));
+  font-weight: 500;
+}
+
+.pricing-nav__right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.pricing-nav__cta {
+  display: none;
+  align-items: center;
+  padding: 8px 20px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: hsl(var(--absolute-white));
+  background: hsl(var(--rich-black));
+  border-radius: 980px;
+  text-decoration: none;
+  transition: background 300ms cubic-bezier(0.16, 1, 0.3, 1), transform 300ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Nav CTA shine sweep */
+.pricing-nav__cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 25%,
+    rgba(255,255,255,0.2) 45%,
+    rgba(255,255,255,0.35) 50%,
+    rgba(255,255,255,0.2) 55%,
+    transparent 75%
+  );
+  transform: translateX(-120%);
+  transition: transform 500ms ease-out;
+  pointer-events: none;
+}
+
+.pricing-nav__cta:hover::before {
+  transform: translateX(200%);
+}
+
+@media (min-width: 768px) {
+  .pricing-nav__cta {
+    display: inline-flex;
+  }
+}
+
+.pricing-nav__cta:hover {
+  background: hsl(218 11% 16%);
+  box-shadow: 0 4px 12px hsl(36 20% 30% / 0.1);
+  transform: translateY(-1px);
+}
+
+.pricing-nav__cta:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.pricing-nav__menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.pricing-nav__menu-label {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  color: hsl(var(--rich-black) / 0.55);
+  transition: color 200ms ease;
+}
+
+.pricing-nav__menu:hover .pricing-nav__menu-label {
+  color: hsl(var(--rich-black));
+}
+
+.pricing-nav__hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 18px;
+}
+
+.pricing-nav__hamburger span {
+  display: block;
+  height: 1px;
+  background: hsl(var(--rich-black) / 0.55);
+  transition: background 200ms ease;
+}
+
+.pricing-nav__hamburger span:last-child {
+  width: 12px;
+  margin-left: auto;
+}
+
+.pricing-nav__menu:hover .pricing-nav__hamburger span {
+  background: hsl(var(--rich-black));
+}
+
+.pricing-nav__menu:hover .pricing-nav__hamburger span:last-child {
+  width: 18px;
+}
+
+
+/* ── PAGE CONTAINER ─────────────────────────────────────────── */
+
+.pricing-page {
+  --pricing-fg: var(--rich-black);
+  --pricing-fg-secondary: 220 10% 38%;
+  --pricing-fg-tertiary: 218 8% 52%;
+  --pricing-border: 36 16% 90%;
+  --pricing-surface: 38 20% 97%;
+  --pricing-ivory-tint: 38 28% 96%;
+  --pricing-gold-accent: 42 60% 70%;
+  background: hsl(40 20% 99%);
+  color: hsl(var(--pricing-fg));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* ── SECTION SPACING — Apple-calibrated vertical rhythm ─────── */
+
+.pricing-section {
+  position: relative;
+  padding: 160px 0;
+}
+
+.pricing-section + .pricing-section {
+  padding-top: 0;
+}
+
+/* Full-width hairline divider — warm ivory-tinted rule */
+.pricing-section__divider {
+  width: 100%;
+  max-width: 100%;
+  height: 1px;
+  margin: 0 0 100px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    hsl(var(--pricing-border)) 15%,
+    hsl(36 30% 85%) 50%,
+    hsl(var(--pricing-border)) 85%,
+    transparent
+  );
+}
+
+
+/* ── PRICE DISPLAY — Precise, confident numerals ───────────── */
+
+.pricing-amount {
+  font-family: var(--font-display);
+  font-size: clamp(42px, 6vw, 72px);
+  font-weight: 600;
+  line-height: 1;
+  color: hsl(var(--rich-black));
+  letter-spacing: -0.04em;
+}
+
+.pricing-amount--hero {
+  font-size: clamp(72px, 12vw, 144px);
+  letter-spacing: -0.05em;
+  color: hsl(var(--rich-black));
+}
+
+
+/* ── FEATURE BULLETS — Refined dot indicator ─────────────── */
+
+.pricing-diamond {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: hsl(var(--rich-black));
+  flex-shrink: 0;
+  margin-top: 10px;
+}
+
+.pricing-tier--featured .pricing-diamond {
+  background: hsl(var(--absolute-white));
+}
+
+
+/* ── CTA BUTTON — Apple product page button ──────────────── */
+
+.pricing-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 36px;
+  font-family: var(--font-sans);
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.17;
+  color: hsl(var(--absolute-white));
+  background: hsl(var(--rich-black));
+  border: none;
+  border-radius: 980px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 300ms cubic-bezier(0.16, 1, 0.3, 1), transform 300ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Sacred Light Sweep — diagonal shine on hover */
+.pricing-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgba(255,255,255,0.25) 40%,
+    rgba(255,255,255,0.45) 50%,
+    rgba(255,255,255,0.25) 60%,
+    transparent 80%
+  );
+  transform: translateX(-120%);
+  transition: transform 600ms ease-out;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.pricing-cta:hover::before {
+  transform: translateX(200%);
+}
+
+.pricing-cta:hover {
+  background: hsl(218 11% 16%);
+  box-shadow: 0 8px 24px hsl(36 20% 30% / 0.12);
+  transform: translateY(-1px);
+}
+
+.pricing-cta:active {
+  transform: translateY(1px) scale(0.98);
+  transition-duration: 100ms;
+  box-shadow: 0 2px 8px hsl(36 20% 30% / 0.08);
+}
+
+/* Blue link CTA — Apple's signature "Learn more >" style */
+.pricing-cta--link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  font-family: var(--font-sans);
+  font-size: 17px;
+  font-weight: 400;
+  color: #06c;
+  background: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.pricing-cta--link:hover {
+  background: none;
+  box-shadow: none;
+  text-decoration: underline;
+  transform: none;
+}
+
+/* Outlined variant */
+.pricing-cta--outline {
+  background: transparent;
+  color: hsl(var(--rich-black));
+  border: 1.5px solid hsl(36 20% 85%);
+}
+
+.pricing-cta--outline:hover {
+  background: hsl(var(--pricing-ivory-tint));
+  border-color: hsl(36 25% 75%);
+  box-shadow: none;
+}
+
+.pricing-cta--outline::before {
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    hsl(36 40% 78% / 0.3) 40%,
+    hsl(36 40% 78% / 0.5) 50%,
+    hsl(36 40% 78% / 0.3) 60%,
+    transparent 80%
+  );
+}
+
+
+/* ── COMPARISON TABLE — Precision grid ───────────────────── */
+
+.pricing-comparison {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pricing-comparison th {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 18px 20px;
+  border-bottom: 1px solid hsl(36 20% 88%);
+  color: hsl(var(--pricing-fg-tertiary));
+  white-space: nowrap;
+}
+
+.pricing-comparison th:last-child {
+  color: hsl(var(--rich-black));
+  font-weight: 700;
+}
+
+.pricing-comparison td {
+  padding: 18px 20px;
+  font-size: 14px;
+  font-weight: 450;
+  border-bottom: 1px solid hsl(36 16% 92%);
+  color: hsl(var(--pricing-fg-secondary));
+  transition: background 200ms ease;
+}
+
+.pricing-comparison tr:last-child td {
+  border-bottom: none;
+}
+
+.pricing-comparison tr:hover td {
+  background: hsl(var(--pricing-ivory-tint));
+}
+
+
+/* ── TESTIMONIAL — Editorial weight ──────────────────────── */
+
+.pricing-testimonial {
+  padding: 0;
+  position: relative;
+}
+
+.pricing-testimonial__quote {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3.2vw, 38px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.4;
+  color: hsl(var(--rich-black));
+  letter-spacing: -0.015em;
+}
+
+.pricing-testimonial__author {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: hsl(36 20% 55%);
+  margin-top: 24px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+
+/* ── STATUS PILL — "Most chosen" indicator ─────────────── */
+
+.pricing-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 18px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: hsl(var(--rich-black));
+  background: hsl(var(--pricing-ivory-tint));
+  border: 1px solid hsl(36 20% 88%);
+  border-radius: 980px;
+}
+
+.pricing-pill__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: hsl(142 71% 45%);
+  box-shadow: 0 0 0 2px hsl(142 71% 45% / 0.2);
+  animation: pricing-pill-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes pricing-pill-pulse {
+  0%, 100% { opacity: 0.6; box-shadow: 0 0 0 2px hsl(142 71% 45% / 0.1); }
+  50% { opacity: 1; box-shadow: 0 0 0 3px hsl(142 71% 45% / 0.2); }
+}
+
+
+/* ── EYEBROW LABEL — Apple overline ──────────────────────── */
+
+.pricing-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: hsl(36 30% 50%);
+  margin-bottom: 16px;
+}
+
+
+/* ── TIER CARDS (if used) ─────────────────────────────────── */
+
+.pricing-tier {
+  position: relative;
+  padding: 48px 40px;
+  background: hsl(var(--pricing-ivory-tint));
+  border: 1px solid hsl(36 20% 90%);
+  border-radius: 20px;
+  transition: box-shadow 400ms ease, transform 400ms ease;
+}
+
+.pricing-tier:hover {
+  box-shadow: 0 20px 40px -15px hsl(36 20% 50% / 0.08);
+  transform: translateY(-3px);
+}
+
+.pricing-tier--featured {
+  background: hsl(var(--rich-black));
+  color: hsl(var(--absolute-white));
+  border-color: transparent;
+  box-shadow: 0 20px 40px -15px hsl(36 20% 20% / 0.15);
+}
+
+
+/* ── ADD-ON ITEMS ─────────────────────────────────────────── */
+
+.pricing-addon {
+  padding: 32px;
+  background: hsl(var(--pricing-ivory-tint));
+  border: 1px solid hsl(36 20% 90%);
+  border-radius: 20px;
+  transition: box-shadow 300ms ease;
+}
+
+.pricing-addon:hover {
+  box-shadow: 0 8px 24px -8px hsl(36 20% 50% / 0.08);
+}
+
+
+/* ── SEPARATOR RULE ───────────────────────────────────────── */
+
+.pricing-gold-rule {
+  width: 100%;
+  max-width: 80px;
+  height: 1px;
+  margin: 0 auto;
+  background: linear-gradient(90deg, transparent, hsl(36 40% 78%), transparent);
+}
+
+
+/* ── DIVIDER LINES ────────────────────────────────────────── */
+
+.pricing-page .divide-y > * + * {
+  border-color: hsl(36 16% 91%);
+}
+
+
+/* ── ACCORDION OVERRIDES — Premium FAQ styling ────────────── */
+
+.pricing-page [data-radix-collection-item] {
+  border-color: hsl(36 16% 90%) !important;
+}
+
+.pricing-page [data-radix-collection-item] button {
+  font-family: var(--font-sans) !important;
+  transition: color 200ms ease;
+}
+
+.pricing-page [data-radix-collection-item] button:hover {
+  color: hsl(36 30% 35%) !important;
+}
+
+.pricing-page [data-radix-collection-item] button svg {
+  color: hsl(36 20% 60%);
+  width: 14px;
+  height: 14px;
+  transition: color 200ms ease, transform 300ms ease;
+}
+
+
+/* ── EDITORIAL IMAGE — Full-bleed luxury (Hickory & Rose style) ── */
+
+.pricing-image {
+  /* Default: full-bleed — breaks out of content container */
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  overflow: hidden;
+  position: relative;
+  border-radius: 0;
+}
+
+.pricing-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* Subtle scale for parallax-like depth on hover/scroll */
+  transform: scale(1.03);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pricing-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 60%,
+    hsl(40 20% 99% / 0.08) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.pricing-image:hover img {
+  transform: scale(1.0);
+}
+
+/* Contained variant — stays within content column with radius */
+.pricing-image--contained {
+  width: 100%;
+  margin-left: 0;
+  border-radius: 20px;
+}
+
+/* Aspect ratios — cinematic and editorial */
+.pricing-image--hero {
+  aspect-ratio: 16 / 7;
+}
+
+.pricing-image--wide {
+  aspect-ratio: 16 / 9;
+}
+
+.pricing-image--cinematic {
+  aspect-ratio: 2.55 / 1;
+}
+
+.pricing-image--tall {
+  aspect-ratio: 3 / 2;
+}
+
+/* Caption below image */
+.pricing-image__caption {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: hsl(var(--pricing-fg-tertiary));
+  text-align: center;
+  margin-top: 12px;
+  letter-spacing: 0.02em;
+  padding: 0 24px;
+}
+
+/* Two-up image grid */
+.pricing-image-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+.pricing-image-grid .pricing-image {
+  width: 100%;
+  margin-left: 0;
+  aspect-ratio: 4 / 3;
+}
+
+@media (max-width: 640px) {
+  .pricing-image-grid {
+    grid-template-columns: 1fr;
+  }
+  .pricing-image--contained {
+    border-radius: 16px;
+  }
+}
+
+
+/* ── RESPONSIVE — Mobile refinements ──────────────────────── */
+
+@media (max-width: 768px) {
+  .pricing-nav__inner {
+    padding: 0 20px;
+  }
+
+  .pricing-section {
+    padding: 100px 0;
+  }
+
+  .pricing-section__divider {
+    margin-bottom: 64px;
+  }
+
+  .pricing-tier {
+    padding: 32px 24px;
+  }
+
+  .pricing-cta {
+    padding: 16px 28px;
+    font-size: 16px;
+  }
+
+  .pricing-amount--hero {
+    font-size: clamp(64px, 14vw, 120px);
+  }
+
+  .pricing-testimonial__quote {
+    font-size: clamp(22px, 5vw, 30px);
+  }
+}
+
+@media (max-width: 480px) {
+  .pricing-cta {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+/* ── PIANO KEY NAV — Pricing page override (ivory/white) ─── */
+/*
+   Design: Miniature piano keyboard docked to right edge.
+   White keys are ivory with layered depth shadows.
+   Black keys are raised with strong drop shadow.
+   Active = warm gold left edge. Hover = lift + deeper shadow.
+   Everything uses spring cubic-bezier for premium weight.
+*/
+
+.pricing-page .piano-key {
+  width: 48px;
+  height: 22px;
+  background: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(40 20% 97%) 100%);
+  background-image: none;
+  border: 1px solid hsl(36 14% 86%);
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+  box-shadow:
+    0 1px 2px hsl(36 20% 50% / 0.06),
+    0 3px 8px hsl(36 20% 50% / 0.04),
+    inset 0 1px 0 hsl(0 0% 100% / 0.8);
+  transition:
+    background 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 280ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pricing-page .piano-key:hover {
+  background: hsl(38 28% 97%);
+  border-color: hsl(36 22% 80%);
+  box-shadow:
+    0 2px 4px hsl(36 20% 50% / 0.08),
+    0 6px 16px hsl(36 20% 50% / 0.06),
+    inset 0 1px 0 hsl(0 0% 100% / 0.9);
+  transform: translateX(-2px);
+}
+
+/* ── Black keys — raised, physical ─── */
+.pricing-page .piano-key--black {
+  width: 34px;
+  height: 16px;
+  background: linear-gradient(
+    180deg,
+    hsl(220 10% 18%) 0%,
+    hsl(var(--rich-black)) 40%,
+    hsl(240 8% 6%) 100%
+  );
+  background-image: none;
+  border: 1px solid hsl(220 10% 22%);
+  border-right: none;
+  border-radius: 3px 0 0 3px;
+  box-shadow:
+    0 2px 4px hsl(var(--rich-black) / 0.25),
+    0 4px 12px hsl(var(--rich-black) / 0.15),
+    inset 0 1px 0 hsl(220 10% 24%);
+  margin-top: -3px;
+  margin-bottom: -3px;
+  z-index: 2;
+}
+
+.pricing-page .piano-key--black::before {
+  /* Subtle top highlight — like light catching the edge */
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 15%;
+  width: 70%;
+  height: 1px;
+  background: hsl(0 0% 100% / 0.06);
+  border-radius: 1px;
+  pointer-events: none;
+}
+
+.pricing-page .piano-key--black:hover {
+  background: linear-gradient(
+    180deg,
+    hsl(220 10% 22%) 0%,
+    hsl(220 10% 14%) 40%,
+    hsl(240 8% 8%) 100%
+  );
+  box-shadow:
+    0 3px 6px hsl(var(--rich-black) / 0.3),
+    0 8px 20px hsl(var(--rich-black) / 0.18),
+    inset 0 1px 0 hsl(220 10% 28%);
+  transform: translateX(-1px);
+}
+
+/* ── Active state — warm gold indicator ─── */
+.pricing-page .piano-key--active {
+  background: linear-gradient(180deg, hsl(38 35% 97%) 0%, hsl(38 30% 94%) 100%);
+  border-left: 2px solid hsl(36 45% 68%);
+  box-shadow:
+    0 1px 3px hsl(36 30% 50% / 0.1),
+    0 4px 12px hsl(36 30% 50% / 0.06),
+    inset 0 1px 0 hsl(0 0% 100% / 0.9),
+    -3px 0 8px hsl(36 40% 65% / 0.08);
+  animation: none;
+}
+
+.pricing-page .piano-key--black.piano-key--active {
+  background: linear-gradient(
+    180deg,
+    hsl(36 15% 22%) 0%,
+    hsl(220 8% 16%) 50%,
+    hsl(240 8% 8%) 100%
+  );
+  border-left: 2px solid hsl(36 45% 60%);
+  box-shadow:
+    0 2px 4px hsl(var(--rich-black) / 0.25),
+    0 4px 12px hsl(var(--rich-black) / 0.15),
+    -3px 0 10px hsl(36 40% 55% / 0.1);
+  animation: none;
+}
+
+/* ── Pressed — tactile depress ─── */
+.pricing-page .piano-key--pressed {
+  transform: translateX(2px) !important;
+  background: hsl(38 30% 95%) !important;
+  animation: none !important;
+  box-shadow:
+    0 0 1px hsl(36 20% 50% / 0.1),
+    inset 0 1px 3px hsl(36 20% 50% / 0.08) !important;
+}
+
+.pricing-page .piano-key--black.piano-key--pressed {
+  transform: translateX(1px) !important;
+  background: hsl(220 8% 20%) !important;
+  box-shadow:
+    0 1px 2px hsl(var(--rich-black) / 0.2),
+    inset 0 1px 2px hsl(var(--rich-black) / 0.3) !important;
+}
+
+.pricing-page .piano-key:not(.piano-key--black) {
+  border-top: 1px solid hsl(36 14% 88%);
+}
+
+/* ── Thread — subtle warm progress line ─── */
+.pricing-page .piano-key-thread {
+  right: 24px;
+  background: hsl(36 14% 92%);
+}
+
+.pricing-page .piano-key-thread-fill {
+  background: linear-gradient(180deg, hsl(36 40% 75%), hsl(36 30% 80%));
+  box-shadow: 0 0 4px hsl(36 40% 70% / 0.15);
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.pricing-page .piano-key-thread-fill::after {
+  /* Small progress dot at the end */
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: hsl(36 40% 68%);
+  box-shadow: 0 0 4px hsl(36 40% 65% / 0.3);
+  animation: none;
+}
+
+/* ── Tooltip — clean, elevated, warm ─── */
+.pricing-page .piano-key-tooltip {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: hsl(var(--pricing-fg-secondary));
+  background: hsl(0 0% 100%);
+  border: 1px solid hsl(36 14% 90%);
+  border-left: 2px solid hsl(36 35% 75%);
+  border-radius: 6px;
+  padding: 6px 12px;
+  backdrop-filter: none;
+  box-shadow:
+    0 2px 4px hsl(36 20% 50% / 0.06),
+    0 8px 24px hsl(36 20% 50% / 0.05);
+  right: calc(100% + 10px);
+}
+
+.pricing-page .piano-key-tooltip.piano-key-tooltip--visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0);
+}
+
+.pricing-page .piano-key-tooltip.piano-key-tooltip--active {
+  border-left-color: hsl(36 45% 62%);
+  color: hsl(var(--rich-black));
+  background: hsl(0 0% 100%);
+  box-shadow:
+    0 2px 4px hsl(36 20% 50% / 0.08),
+    0 8px 24px hsl(36 20% 50% / 0.06);
+}
+
+.pricing-page .piano-key-tooltip.piano-key-tooltip--active-persistent {
+  opacity: 0.5;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0);
+  transition: opacity 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pricing-page .piano-key-tooltip-caret {
+  display: none;
+}
+
+/* Sections label — hide on pricing */
+.pricing-page .piano-key-sections-label {
+  display: none;
+}
+
+/* ── Responsive ─── */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .pricing-page .piano-key {
+    width: 38px;
+    height: 18px;
+  }
+  .pricing-page .piano-key--black {
+    width: 26px;
+    height: 13px;
+  }
+  .pricing-page .piano-key-thread {
+    right: 19px;
+  }
+}
+
+
+/* ── CONTACT FORM — Pricing-matched inputs ───────────────── */
+
+.pricing-input-group {
+  position: relative;
+}
+
+.pricing-input-group label {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: hsl(var(--pricing-fg-tertiary));
+  margin-bottom: 8px;
+}
+
+.pricing-input {
+  width: 100%;
+  padding: 12px 0;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: hsl(var(--rich-black));
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid hsl(36 16% 88%);
+  outline: none;
+  transition: border-color 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  -webkit-appearance: none;
+}
+
+.pricing-input::placeholder {
+  color: hsl(var(--pricing-fg-tertiary) / 0.5);
+}
+
+.pricing-input:focus {
+  border-color: hsl(36 30% 70%);
+}
+
+.pricing-input--error {
+  border-color: hsl(0 60% 60%);
+}
+
+.pricing-input-error {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: hsl(0 60% 50%);
+  margin-top: 6px;
+}
+
+.pricing-textarea {
+  width: 100%;
+  padding: 12px 0;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: hsl(var(--rich-black));
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid hsl(36 16% 88%);
+  outline: none;
+  resize: none;
+  min-height: 80px;
+  transition: border-color 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  -webkit-appearance: none;
+}
+
+.pricing-textarea::placeholder {
+  color: hsl(var(--pricing-fg-tertiary) / 0.5);
+}
+
+.pricing-textarea:focus {
+  border-color: hsl(36 30% 70%);
+}
+
+/* Focus line animation */
+.pricing-input-group::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, hsl(36 40% 72%), hsl(36 30% 78%));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pricing-input-group:focus-within::after {
+  transform: scaleX(1);
+}
+
+/* Contact trust stats */
+.pricing-trust-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+
+.pricing-trust-stat {
+  text-align: center;
+  padding: 0 16px;
+}
+
+.pricing-trust-stat + .pricing-trust-stat {
+  border-left: 1px solid hsl(36 16% 90%);
+}
+
+.pricing-trust-stat__value {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+  color: hsl(var(--rich-black));
+  letter-spacing: -0.01em;
+}
+
+.pricing-trust-stat__label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: hsl(36 20% 58%);
+  margin-top: 4px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   CONTACT PAGES — Editorial-grade formatting
+   Testimonial cards, quote ornaments, form surfaces,
+   and "what happens next" preview styling.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Hero lede — the sub-headline beneath the h1 ─────────── */
+.contact-lede {
+  font-family: var(--font-display);
+  font-size: clamp(16px, 1.8vw, 19px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.55;
+  color: hsl(var(--pricing-fg-secondary));
+  max-width: 28ch;
+  margin-top: 20px;
+}
+
+/* ── Section eyebrow above form grid ─────────────────────── */
+.contact-section-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: hsl(var(--pricing-fg-tertiary));
+  margin-bottom: 48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.contact-section-label::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: hsl(var(--pricing-gold-accent));
+  flex-shrink: 0;
+}
+
+/* ── Testimonial card — elevated quote block ─────────────── */
+.contact-testimonial {
+  position: relative;
+  margin-top: 48px;
+  padding: 28px 0 24px;
+  border-top: 1px solid hsl(36 16% 90%);
+}
+
+.contact-testimonial__ornament {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 300;
+  line-height: 1;
+  color: hsl(var(--pricing-gold-accent) / 0.4);
+  position: absolute;
+  top: 20px;
+  left: 0;
+  user-select: none;
+  pointer-events: none;
+}
+
+.contact-testimonial__quote {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-style: italic;
+  line-height: 1.65;
+  color: hsl(var(--pricing-fg-secondary));
+  max-width: 28ch;
+  padding-left: 2px;
+}
+
+.contact-testimonial__attribution {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: hsl(var(--pricing-fg-tertiary));
+  margin-top: 14px;
+}
+
+/* ── Golden diamond separator ────────────────────────────── */
+.contact-diamond-sep {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 40px 0;
+}
+
+.contact-diamond-sep__dot {
+  width: 4px;
+  height: 4px;
+  transform: rotate(45deg);
+  background: hsl(var(--pricing-gold-accent) / 0.35);
+  flex-shrink: 0;
+}
+
+.contact-diamond-sep__line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, hsl(36 16% 90%), transparent);
+}
+
+/* ── Form surface — subtle card distinction ──────────────── */
+.contact-form-surface {
+  background: hsl(var(--pricing-surface) / 0.5);
+  border: 1px solid hsl(36 16% 92%);
+  border-radius: 16px;
+  padding: 40px 36px 44px;
+}
+
+@media (max-width: 767px) {
+  .contact-form-surface {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+  }
+}
+
+/* ── "What happens next" preview ─────────────────────────── */
+.contact-next-steps {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid hsl(36 16% 90%);
+}
+
+.contact-next-steps__title {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: hsl(var(--pricing-fg-tertiary));
+  margin-bottom: 24px;
+}
+
+.contact-next-step {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.contact-next-step + .contact-next-step {
+  margin-top: 16px;
+}
+
+.contact-next-step__number {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 300;
+  color: hsl(var(--pricing-fg-tertiary) / 0.6);
+  flex-shrink: 0;
+  min-width: 20px;
+}
+
+.contact-next-step__text {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.55;
+  color: hsl(var(--pricing-fg-secondary));
+}
+
+/* ── Disclaimer — normalized spacing ─────────────────────── */
+.contact-disclaimer {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 1.65;
+  color: hsl(var(--pricing-fg-tertiary));
+  max-width: 30ch;
+  margin-top: 40px;
+}
+
+/* ── Form submit section ─────────────────────────────────── */
+.contact-submit-area {
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid hsl(36 16% 90%);
+}
+
+.contact-submit-reassurance {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 1.5;
+  color: hsl(var(--pricing-fg-tertiary));
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.contact-submit-reassurance::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: hsl(120 50% 55% / 0.5);
+  box-shadow: 0 0 4px hsl(120 50% 55% / 0.2);
+  flex-shrink: 0;
+}
+
+
+/* ── REDUCED MOTION ───────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .pricing-nav {
+    transition: none !important;
+  }
+  .pricing-tier,
+  .pricing-cta,
+  .pricing-addon {
+    transition: none !important;
+  }
+  .pricing-pill__dot {
+    animation: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Gateway Cards — Hover border + shadow enhancement
+   ═══════════════════════════════════════════════════════════════ */
+.gateway-card:hover {
+  border-color: hsl(var(--vow-yellow) / 0.2) !important;
+  box-shadow: 0 16px 48px hsl(var(--vow-yellow) / 0.06), 0 4px 16px hsl(0 0% 0% / 0.3);
+}
+
+/* Footer CTA pill — hover glow */
+.footer-cta-pill:hover {
+  border-color: hsl(var(--vow-yellow) / 0.4);
+  background: hsl(var(--vow-yellow) / 0.12);
+  box-shadow: 0 0 40px hsl(var(--vow-yellow) / 0.1), 0 4px 16px hsl(0 0% 0% / 0.2);
+  transform: translateY(-1px);
+}

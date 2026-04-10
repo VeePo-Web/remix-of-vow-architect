@@ -38,7 +38,7 @@ const buttonVariants = cva(
       variant: {
         /**
          * DEFAULT — Vow Yellow (Primary CTA)
-         * "Hold my date." The most sacred action.
+         * "Reserve My Date!" The most sacred action.
          * Golden candlelight glow beneath, as if lit from within.
          */
         default: [

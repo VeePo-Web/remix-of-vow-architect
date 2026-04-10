@@ -1,9 +1,8 @@
 import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
-import { MinimalHeader } from "@/components/MinimalHeader";
+import { PricingNav } from "@/components/PricingNav";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
-import { DirectionalLink } from "@/components/DirectionalLink";
 import { usePageTheme } from "@/hooks/usePageTheme";
 
 const NotFound = () => {
@@ -16,49 +15,61 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-background relative">
-      <MinimalHeader />
+    <div className="min-h-screen flex flex-col pricing-page">
+      <PricingNav />
 
-      {/* Grain overlay */}
-      <div className="grain opacity-[0.04] pointer-events-none fixed inset-0 z-[1]" aria-hidden="true" />
-
-      {/* Warm fog */}
-      <div
-        className="fixed inset-0 pointer-events-none z-[1]"
-        style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)" }}
-        aria-hidden="true"
-      />
-      
-      <main className="flex-1 flex items-center justify-center relative z-[2]">
-        <div className="container mx-auto px-4 py-16 text-center max-w-2xl">
-          {/* Brand-aligned 404 */}
-          <p className="text-sm font-sans uppercase tracking-[0.22em] text-muted-foreground mb-6">
+      <main className="flex-1 flex items-center justify-center px-6">
+        <div className="text-center max-w-lg">
+          <p
+            className="text-[12px] font-medium uppercase tracking-[0.12em] mb-6"
+            style={{ color: "hsl(var(--pricing-fg-tertiary))" }}
+          >
             404
           </p>
-          <h1 className="text-3xl md:text-4xl font-display font-light mb-6 leading-snug">
-            This page has wandered beyond the threshold.
+          <h1
+            className="font-display font-semibold tracking-[-0.025em] mb-6"
+            style={{ fontSize: "clamp(28px, 4vw, 40px)", lineHeight: 1.15 }}
+          >
+            This page could not be found.
           </h1>
-          <p className="text-base text-muted-foreground mb-12 leading-relaxed">
-            The page you are looking for no longer exists—or perhaps it never did. Let me guide you back.
+          <p
+            className="font-sans text-[15px] leading-[1.7] mb-14 max-w-sm mx-auto"
+            style={{ color: "hsl(var(--pricing-fg-secondary))" }}
+          >
+            The page you are looking for no longer exists — or perhaps it never did. Let me guide you back.
           </p>
 
-          {/* Navigation links */}
           <nav className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
-            <DirectionalLink to="/">Return home</DirectionalLink>
-            <DirectionalLink to="/weddings">Explore my offerings</DirectionalLink>
-            <DirectionalLink to="/contact">Start a conversation</DirectionalLink>
+            <Link
+              to="/"
+              className="font-sans text-[14px] font-medium underline underline-offset-4 decoration-1 hover:opacity-70 transition-opacity"
+              style={{ textDecorationColor: "hsl(36 16% 82%)" }}
+            >
+              Return home
+            </Link>
+            <Link
+              to="/pricing"
+              className="font-sans text-[14px] font-medium underline underline-offset-4 decoration-1 hover:opacity-70 transition-opacity"
+              style={{ textDecorationColor: "hsl(36 16% 82%)" }}
+            >
+              Explore my offerings
+            </Link>
+            <Link
+              to="/contact"
+              className="font-sans text-[14px] font-medium underline underline-offset-4 decoration-1 hover:opacity-70 transition-opacity"
+              style={{ textDecorationColor: "hsl(36 16% 82%)" }}
+            >
+              Start a conversation
+            </Link>
           </nav>
 
-          {/* Golden thread separator */}
-          <div
-            className="mx-auto h-[1px] w-24 mb-8"
-            style={{ background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)" }}
-            aria-hidden="true"
-          />
+          <div className="pricing-section__divider max-w-[80px] mx-auto" />
 
-          {/* Covenant whisper */}
-          <p className="text-xs text-muted-foreground font-display italic opacity-50">
-            'Til Death; Unto Life.
+          <p
+            className="font-display text-[14px] italic mt-8"
+            style={{ color: "hsl(var(--pricing-fg-tertiary))" }}
+          >
+            Every wrong turn still leads somewhere.
           </p>
         </div>
       </main>

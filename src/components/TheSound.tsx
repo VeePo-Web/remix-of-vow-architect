@@ -320,6 +320,7 @@ export function TheSound() {
         className="section--dark section-grain piano-section-target relative py-24 md:py-32 overflow-hidden"
         data-theme="death"
         aria-labelledby="sound-heading"
+        style={{ backgroundColor: 'hsl(var(--surface-dark-band) / 0.82)' }}
       >
         {/* Top fade */}
         <div className="section-fade-top" style={{ background: "linear-gradient(to top, transparent, hsl(var(--rich-black)))" }} aria-hidden="true" />

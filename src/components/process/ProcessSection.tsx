@@ -133,6 +133,9 @@ export function ProcessSection() {
       aria-label="My preparation process"
       style={{ position: 'relative' }}
     >
+      {/* Frame sequence overlay — lets canvas glow bleed through warm paper */}
+      <div className="frame-overlay--light" style={{ '--frame-overlay-opacity': '0.85', zIndex: 0 } as React.CSSProperties} aria-hidden="true" />
+
       {/* Layer 0: Gradient Dawn Background */}
       <GradientDawnBackground
         cssVars={cssVars}

@@ -36,9 +36,12 @@ function PreparationSection() {
       aria-label="The Preparation"
       className="relative section--surface py-[80px] md:py-[120px] piano-section-target overflow-hidden min-h-[400px]"
       style={{
-        background: "linear-gradient(180deg, hsl(var(--warm-cream)) 0%, hsl(var(--warm-cream-mid)) 45%, hsl(var(--warm-cream)) 100%)",
+        background: "transparent",
       }}
     >
+      {/* Frame sequence overlay */}
+      <div className="frame-overlay--light" style={{ '--frame-overlay-opacity': '0.86' } as React.CSSProperties} aria-hidden="true" />
+
       <span className="sr-only">
         The Preparation section describes Parker's commitment to excellence: early arrival,
         sound-checked piano, and rehearsed cue sheets.
@@ -283,9 +286,12 @@ function KitSection() {
       aria-label="The Kit — Everything I bring"
       className="relative section--surface py-[80px] md:py-[120px] overflow-hidden min-h-[400px]"
       style={{
-        background: "linear-gradient(180deg, hsl(var(--warm-cream-deep)) 0%, hsl(var(--warm-cream-mid)) 50%, hsl(var(--warm-cream-dark)) 100%)",
+        background: "transparent",
       }}
     >
+      {/* Frame sequence overlay */}
+      <div className="frame-overlay--light" style={{ '--frame-overlay-opacity': '0.86' } as React.CSSProperties} aria-hidden="true" />
+
       <span className="sr-only">
         The Kit section lists everything Parker brings: piano, backup piano, sound system,
         printed cue sheet, liability insurance, and rain cover.

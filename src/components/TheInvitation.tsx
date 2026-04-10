@@ -64,9 +64,12 @@ export function TheInvitation() {
       aria-labelledby="invitation-heading"
       className="relative py-28 md:py-40 overflow-hidden invitation-texture piano-section-target"
       style={{
-        background: 'hsl(var(--card))',
+        background: 'transparent',
       }}
     >
+      {/* Frame sequence overlay */}
+      <div className="frame-overlay--light" style={{ '--frame-overlay-opacity': '0.88' } as React.CSSProperties} aria-hidden="true" />
+
       <span className="sr-only">Parker's personal invitation — he plays only five weddings a year and devotes months of preparation to each one.</span>
 
       {/* Subtle warm glow */}

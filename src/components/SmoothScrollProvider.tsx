@@ -44,18 +44,15 @@ const PAGE_WEIGHTS: Record<string, number> = {
 
 // ── Section-specific weights (override page-level) ──
 const SCROLL_WEIGHTS: Record<string, number> = {
-  // ── Weddings page — the full Death→Life arc ──
-  'vigil':              0.035,  // Hero — cathedral gravity, the held breath
-  'the-exhale':         0.05,   // Sacred pause — heavy recognition moment
-  'process':            0.06,   // Composer's journal — moderate for card interaction
-  'vow-moment':         0.035,  // Altar interstitial — maximum gravity (matches hero)
-  'the-invitation':     0.055,  // Meet the owner — intimate narrative weight
-  'the-sound':          0.065,  // Listening room — lighter for genre browsing
-  'the-transformation': 0.05,   // Fears → promise — emotional gravity
-  'the-witness':        0.055,  // Preparation & kit — steady, reverent
-  'three-paths':        0.06,   // Pricing keys — moderate for comparison
-  'the-witnesses':      0.055,  // Testimonials — let stories land
-  'the-crossing':       0.045,  // Final CTA — heavy for commitment weight
+  // ── Weddings page — 8-act video scroll structure ──
+  'act-1-vigil':      0.035,  // Hero — cathedral gravity, the held breath
+  'act-2-awakening':  0.045,  // Process awakening — reverent unfolding
+  'act-3-crafting':   0.05,   // Crafting + vow moment — building momentum
+  'act-4-invitation': 0.055,  // Invitation — intimate narrative
+  'act-5-sound':      0.05,   // Sound + transformation — emotional gravity
+  'act-6-witness':    0.055,  // Witness + pricing — comprehensive, needs flow
+  'act-7-covenant':   0.05,   // Testimonials — let stories land
+  'act-8-crossing':   0.04,   // Final CTA — heavy commitment weight
 
   // ── Gateway ──
   'gateway':            0.04,   // First-ever impression — maximum cinema

@@ -19,9 +19,12 @@ export function TheWitnesses() {
       data-theme="life"
       className="relative py-[80px] md:py-[120px] piano-section-target overflow-hidden"
       style={{
-        background: 'linear-gradient(180deg, hsl(var(--surface)) 0%, hsl(var(--surface-warm)) 100%)',
+        background: 'transparent',
       }}
     >
+      {/* Frame sequence overlay */}
+      <div className="frame-overlay--light" style={{ '--frame-overlay-opacity': '0.86' } as React.CSSProperties} aria-hidden="true" />
+
       {/* Vignette */}
       <div
         className="absolute inset-0 pointer-events-none"

@@ -5,17 +5,34 @@ import { cn } from "@/lib/utils";
 import { FullScreenMenu } from "./FullScreenMenu";
 
 function getNavLinks(pathname: string) {
-  const aboutTo = pathname.startsWith('/events') ? '/events/about'
-    : pathname.startsWith('/teaching') ? '/teaching/about'
+  const isEvents = pathname.startsWith('/events');
+  const isTeaching = pathname.startsWith('/teaching');
+
+  const aboutTo = isEvents ? '/events/about'
+    : isTeaching ? '/teaching/about'
     : '/about';
-  const pricingTo = pathname.startsWith('/events') ? '/events/pricing'
-    : pathname.startsWith('/teaching') ? '/teaching/pricing'
+  const pricingTo = isEvents ? '/events/pricing'
+    : isTeaching ? '/teaching/pricing'
     : '/pricing';
-  return [
-    { to: pricingTo, label: "Services" },
+  const faqTo = isEvents ? '/events/faq'
+    : isTeaching ? '/teaching/faq'
+    : '/faq';
+
+  const servicesLabel = isEvents ? 'Packages' : isTeaching ? 'Lessons' : 'Services';
+
+  const links = [
+    { to: pricingTo, label: servicesLabel },
     { to: aboutTo, label: "About" },
-    { to: "/proof", label: "Proof" },
   ];
+
+  // Proof is weddings-exclusive
+  if (!isEvents && !isTeaching) {
+    links.push({ to: "/proof", label: "Proof" });
+  }
+
+  links.push({ to: faqTo, label: "FAQ" });
+
+  return links;
 }
 
 
@@ -49,15 +66,19 @@ export function MinimalHeader() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [arrivalPhase, setArrivalPhase] = useState<'none' | 'dissolving' | 'arrived'>('none');
   const [isHeaderHidden, setIsHeaderHidden] = useState(false);
-  const isContactPage = pathname === '/contact';
-  
-  // Vertical-aware CTA label — adapts to the emotional temperature of each vertical
+  const isContactPage = pathname.includes('/contact');
+
+  // Vertical-aware CTA routing + label
+  const contactHref = (() => {
+    if (pathname.startsWith('/events')) return '/events/contact';
+    if (pathname.startsWith('/teaching')) return '/teaching/contact';
+    return '/contact';
+  })();
   const ctaLabel = (() => {
     if (isContactPage) return "You're here";
-    const path = pathname;
-    if (path.startsWith('/teaching')) return 'Begin the Conversation';
-    if (path.startsWith('/events')) return 'Discuss Your Event';
-    return 'Hold My Date';
+    if (pathname.startsWith('/teaching')) return 'Begin the Conversation';
+    if (pathname.startsWith('/events')) return 'Discuss Your Event';
+    return 'Reserve My Date!';
   })();
   const navRef = useRef<HTMLElement>(null);
   const rafRef = useRef<number>(0);
@@ -334,10 +355,7 @@ export function MinimalHeader() {
             <NavLink
               to="/"
               className={cn(
-                "relative font-display text-base text-foreground opacity-0 animate-fade-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm overflow-hidden",
-                isArrival
-                  ? "hover:text-foreground"
-                  : "hover:text-primary"
+                "relative font-display text-base opacity-0 animate-fade-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(36_60%_60%_/_0.35)] rounded-sm overflow-hidden"
               )}
               style={{
                 animationDelay: headerDelay,
@@ -351,7 +369,7 @@ export function MinimalHeader() {
               onMouseEnter={(e) => { if (arrivalPhase !== 'arrived') (e.currentTarget as HTMLElement).style.letterSpacing = '0.12em'; }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.letterSpacing = '0.08em'; }}
             >
-              Parker Gawryletz
+              <img src="/logos/nav-dark.png" alt="Parker Gawryletz" className="h-[20px] w-auto" />
               {/* Gold shimmer sweep — one-time on first load */}
               <span
                 className="absolute inset-0 pointer-events-none opacity-0 animate-[header-shimmer_1.2s_ease-in-out_forwards]"
@@ -387,7 +405,7 @@ export function MinimalHeader() {
                 style={{ animationDelay: '200ms', animationFillMode: 'forwards' }}
               >
                 <span className="w-1 h-1 rounded-full" style={{ background: 'hsl(var(--vow-yellow) / 0.3)' }} aria-hidden="true" />
-                <span className="text-xs tracking-[0.18em] uppercase text-muted-foreground opacity-60 font-sans">
+                <span className="text-xs tracking-[0.18em] uppercase font-sans" style={{ color: "hsl(30 6% 58% / 0.6)" }}>
                   {pathname === '/' || pathname === '/weddings' ? 'Home' : pathname.split('/').pop()?.replace(/-/g, ' ')}
                 </span>
               </span>
@@ -435,8 +453,8 @@ export function MinimalHeader() {
                     to={link.to}
                     className={({ isActive }) =>
                       cn(
-                        "relative nav-link opacity-0 animate-fade-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm transition-all",
-                        isActive && "text-foreground",
+                        "relative nav-link opacity-0 animate-fade-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(36_60%_60%_/_0.35)] rounded-sm transition-all",
+                        isActive && "font-medium",
                         isDimmed && "!opacity-[0.35]"
                       )
                     }
@@ -510,7 +528,7 @@ export function MinimalHeader() {
                 );
               })}
 
-              {/* CTA — "Hold My Date" with warm glow — dissolves first during arrival */}
+              {/* CTA — "Reserve My Date!" with warm glow — dissolves first during arrival */}
               <span
                 className={cn(
                   "relative transition-all",
@@ -542,11 +560,11 @@ export function MinimalHeader() {
                   aria-hidden="true"
                 />
                 <NavLink
-                  to="/contact"
+                  to={contactHref}
                   className={cn(
-                    "relative nav-link transition-all duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm",
+                    "relative nav-link transition-all duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(36_60%_60%_/_0.35)] rounded-sm",
                     isContactPage
-                      ? "text-foreground opacity-50 cursor-default"
+                      ? "opacity-50 cursor-default"
                       : "nav-link--cta hover:drop-shadow-[0_0_6px_hsl(var(--vow-yellow)/0.3)]",
                     hoveredNavIndex !== null &&
                       hoveredNavIndex !== navLinks.length &&
@@ -583,7 +601,7 @@ export function MinimalHeader() {
           <button
             onClick={() => setIsMenuOpen(true)}
             className={cn(
-              "flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm transition-all duration-[260ms]",
+              "flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(36_60%_60%_/_0.35)] rounded-sm transition-all duration-[260ms]",
               arrivalPhase !== 'arrived' && "opacity-0 animate-fade-in"
             )}
             style={{
@@ -591,7 +609,6 @@ export function MinimalHeader() {
                 animationDelay: headerDelay,
                 animationFillMode: "forwards",
               }),
-              // Soften opacity during arrival — menu is still accessible but whispers
               ...(arrivalPhase === 'arrived' && {
                 opacity: 0.4,
                 transitionDelay: '200ms',
@@ -599,22 +616,25 @@ export function MinimalHeader() {
             }}
             aria-label="Open menu"
           >
-            <span className="text-xs font-sans uppercase tracking-[0.22em] text-muted-foreground group-hover:text-primary transition-colors duration-[180ms]">
+            <span
+              className="text-xs font-sans uppercase tracking-[0.22em] transition-colors duration-[180ms]"
+              style={{ color: "hsl(30 6% 58%)" }}
+            >
               Menu
             </span>
             {/* Bespoke Piano-String Hamburger — three lines of descending width */}
             <div className="flex flex-col items-end gap-[5px] group-hover:[&>span]:w-[20px]" aria-hidden="true">
               <span
-                className="block h-[1px] bg-muted-foreground group-hover:bg-primary transition-all duration-[180ms]"
-                style={{ width: 20, transitionTimingFunction: 'cubic-bezier(0.22,0.61,0.36,1)' }}
+                className="block h-[1px] transition-all duration-[180ms]"
+                style={{ width: 20, background: "hsl(30 6% 58%)", transitionTimingFunction: 'cubic-bezier(0.22,0.61,0.36,1)' }}
               />
               <span
-                className="block h-[1px] bg-muted-foreground group-hover:bg-primary transition-all duration-[180ms]"
-                style={{ width: 16, transitionTimingFunction: 'cubic-bezier(0.22,0.61,0.36,1)' }}
+                className="block h-[1px] transition-all duration-[180ms]"
+                style={{ width: 16, background: "hsl(30 6% 58%)", transitionTimingFunction: 'cubic-bezier(0.22,0.61,0.36,1)' }}
               />
               <span
-                className="block h-[1px] bg-muted-foreground group-hover:bg-primary transition-all duration-[180ms]"
-                style={{ width: 12, transitionTimingFunction: 'cubic-bezier(0.22,0.61,0.36,1)' }}
+                className="block h-[1px] transition-all duration-[180ms]"
+                style={{ width: 12, background: "hsl(30 6% 58%)", transitionTimingFunction: 'cubic-bezier(0.22,0.61,0.36,1)' }}
               />
             </div>
           </button>

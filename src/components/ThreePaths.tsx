@@ -19,14 +19,14 @@ const tiers: KeyTier[] = [
     price: "$650",
     description: "The ceremony itself — 30 to 45 minutes of devoted presence at the most sacred hour.",
     sentence: "Your vows, carried by piano. Nothing more, nothing less.",
-    ctaText: "Hold my date",
+    ctaText: "Reserve My Date!",
   },
   {
     name: "The Hour",
     price: "$750",
     description: "Extended presence — from guest arrival through the ceremony and into cocktails.",
     sentence: "The room is already sacred before the first word is spoken.",
-    ctaText: "Hold my date",
+    ctaText: "Reserve My Date!",
     isChosen: true,
   },
   {
@@ -34,7 +34,7 @@ const tiers: KeyTier[] = [
     price: "$1,200",
     description: "Full-day witness — from the first guest arriving to the last note over dinner.",
     sentence: "From the first guest to the last glass raised — I am there.",
-    ctaText: "Hold my date",
+    ctaText: "Reserve My Date!",
   },
 ];
 
@@ -95,8 +95,11 @@ export function ThreePaths() {
       role="region"
       aria-label="Pricing options"
       className="piano-section-target relative py-[80px] md:py-[120px] px-4 min-h-[500px]"
-      style={{ background: 'hsl(var(--background))' }}
+      style={{ background: 'transparent' }}
     >
+      {/* Frame sequence overlay */}
+      <div className="frame-overlay--light" style={{ '--frame-overlay-opacity': '0.88' } as React.CSSProperties} aria-hidden="true" />
+
       {/* Subtle warm glow */}
       <div
         className="absolute inset-0 pointer-events-none"

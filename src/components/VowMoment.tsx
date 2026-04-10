@@ -23,7 +23,7 @@ export function VowMoment() {
       className="section--dark section-grain piano-section-target relative min-h-screen flex items-center justify-center px-4 overflow-hidden"
       data-theme="death"
       style={{
-        background: "radial-gradient(ellipse at center, hsl(var(--deep-graphite)) 0%, hsl(var(--rich-black)) 100%)",
+        background: "radial-gradient(ellipse at center, hsl(var(--deep-graphite) / 0.80) 0%, hsl(var(--rich-black) / 0.80) 100%)",
         minHeight: '100vh',
       }}
     >

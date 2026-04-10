@@ -4,7 +4,6 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSmoothScroll } from "@/components/SmoothScrollProvider";
 import { usePageTransition } from "@/hooks/usePageTransition";
-import { Button } from "@/components/ui/button";
 
 interface FullScreenMenuProps {
   isOpen: boolean;
@@ -35,14 +34,30 @@ function getPageItems(pathname: string) {
     : isTeaching ? '/teaching/contact'
     : '/contact';
 
-  return [
-    { label: "Offerings", href: pricingHref },
+  // Vertical-aware labels + routing
+  const servicesLabel = isEvents ? 'Packages' : isTeaching ? 'Lesson Plans' : 'Services';
+
+  const faqHref = isEvents ? '/events/faq'
+    : isTeaching ? '/teaching/faq'
+    : '/faq';
+
+  const items = [
+    { label: servicesLabel, href: pricingHref },
     { label: "About", href: aboutHref },
-    { label: "Proof", href: "/proof" },
-    { label: "FAQ", href: "/faq" },
-    { label: "Listen", href: "/listen" },
-    { label: "Get in Touch", href: contactHref },
   ];
+
+  // Proof is weddings-exclusive
+  if (!isEvents && !isTeaching) {
+    items.push({ label: "Proof", href: "/proof" });
+  }
+
+  // FAQ and Listen are available on all verticals
+  items.push(
+    { label: "FAQ", href: faqHref },
+    { label: "Listen", href: "/listen" },
+  );
+
+  return items;
 }
 
 function getActiveVertical(pathname: string): string {
@@ -270,18 +285,24 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
         <button
           onClick={onClose}
           className={cn(
-            "flex items-center gap-2 group transition-all duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm",
+            "flex items-center gap-2 group transition-all duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)_/_0.4)] rounded-sm",
             isOpen ? "opacity-100 delay-300" : "opacity-0"
           )}
           aria-label="Close menu"
         >
-          <span className="text-xs font-sans uppercase tracking-[0.22em] text-muted-foreground group-hover:text-primary transition-colors duration-[180ms]">
+          <span
+            className="text-xs font-sans uppercase tracking-[0.22em] transition-colors duration-[180ms]"
+            style={{ color: "hsl(0 0% 100% / 0.45)" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "hsl(0 0% 100% / 0.85)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "hsl(0 0% 100% / 0.45)"; }}
+          >
             Close
           </span>
           <X
             size={20}
-            className="text-muted-foreground group-hover:text-primary transition-all duration-[180ms] group-hover:rotate-90"
             strokeWidth={1.5}
+            className="transition-all duration-[180ms] group-hover:rotate-90"
+            style={{ color: "hsl(0 0% 100% / 0.45)" }}
           />
         </button>
       </div>
@@ -300,10 +321,12 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
             isOpen ? "opacity-100 translate-y-0 delay-[100ms]" : "opacity-0 translate-y-4"
           )}
         >
-          <div className="relative overflow-hidden">
-            <h2 className="font-display text-xl md:text-2xl text-foreground tracking-[0.08em]">
-              Parker Gawryletz
-            </h2>
+          <Link
+            to="/"
+            onClick={(e) => { e.preventDefault(); onClose(); navigateWithTransition('/'); }}
+            className="relative overflow-hidden inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)_/_0.4)] rounded-sm"
+          >
+            <img src="/logos/nav-dark.png" alt="Parker Gawryletz — Home" className="h-[28px] w-auto" />
             {/* Gold shimmer sweep — one-time on open */}
             <span
               className="absolute inset-0 pointer-events-none opacity-0"
@@ -313,7 +336,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
               }}
               aria-hidden="true"
             />
-          </div>
+          </Link>
           {/* Golden divider line */}
           <div
             className={cn(
@@ -336,9 +359,18 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
         {/* ═══════════════════════════════════════════
             ZONE 1: The Three Paths — Vertical Selection
             ═══════════════════════════════════════════ */}
+        <p
+          className={cn(
+            "font-sans text-[10px] font-medium uppercase tracking-[0.25em] mb-5 transition-all duration-[300ms]",
+            isOpen ? "opacity-100 translate-y-0 delay-[250ms]" : "opacity-0 translate-y-2"
+          )}
+          style={{ color: "hsl(var(--vow-yellow) / 0.4)" }}
+        >
+          Choose a path
+        </p>
         <div
           className={cn(
-            "flex flex-col md:flex-row gap-3 md:gap-6 mb-8 md:mb-10 justify-center transition-all duration-[300ms]",
+            "flex flex-col md:flex-row gap-4 md:gap-8 mb-10 md:mb-12 justify-center transition-all duration-[300ms]",
             isOpen ? "opacity-100 translate-y-0 delay-[300ms]" : "opacity-0 translate-y-4"
           )}
           onMouseLeave={() => setHoveredVertical(null)}
@@ -347,37 +379,36 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
             const isActive = activeVertical === vertical.base;
             const isHovered = hoveredVertical === idx;
             const isDimmed = hoveredVertical !== null && hoveredVertical !== idx;
-            
+
             return (
               <Link
                 key={vertical.base}
                 to={vertical.href}
                 onClick={(e) => handleVerticalClick(e, vertical.href)}
                 onMouseEnter={() => setHoveredVertical(idx)}
-                className={cn(
-                  "relative font-display text-lg md:text-xl transition-all duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm",
-                  isActive
-                    ? "text-foreground"
-                    : isDimmed
-                    ? "text-foreground/30"
-                    : "text-foreground/50 hover:text-foreground/80"
-                )}
+                className="relative font-display text-2xl md:text-3xl lg:text-4xl transition-all duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)_/_0.4)] rounded-sm"
                 style={{
+                  color: isActive
+                    ? "hsl(0 0% 100% / 0.95)"
+                    : isDimmed
+                    ? "hsl(0 0% 100% / 0.2)"
+                    : "hsl(0 0% 100% / 0.5)",
                   transitionTimingFunction: "cubic-bezier(0.22,0.61,0.36,1)",
+                  textShadow: isActive ? "0 0 30px hsl(var(--vow-yellow) / 0.06)" : "none",
                 }}
               >
                 {vertical.label}
                 {/* Golden underline for active vertical */}
                 <span
                   className={cn(
-                    "absolute -bottom-1 left-0 h-px origin-left transition-all duration-[350ms]",
+                    "absolute -bottom-1.5 left-0 h-px origin-left transition-all duration-[350ms]",
                     isActive ? "w-full" : isHovered ? "w-full" : "w-0"
                   )}
                   style={{
                     background: isActive
-                      ? "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.5), hsl(var(--vow-yellow) / 0.15))"
-                      : "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.25), transparent)",
-                    boxShadow: isActive ? "0 0 8px hsl(var(--vow-yellow) / 0.1)" : "none",
+                      ? "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.6), hsl(var(--vow-yellow) / 0.15))"
+                      : "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.3), transparent)",
+                    boxShadow: isActive ? "0 0 10px hsl(var(--vow-yellow) / 0.12)" : "none",
                     transitionTimingFunction: "cubic-bezier(0.22,0.61,0.36,1)",
                   }}
                   aria-hidden="true"
@@ -408,8 +439,17 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
         {/* ═══════════════════════════════════════════
             ZONE 2: Within This Path — Page Navigation
             ═══════════════════════════════════════════ */}
+        <p
+          className={cn(
+            "font-sans text-[10px] font-medium uppercase tracking-[0.25em] mb-4 transition-all duration-[300ms]",
+            isOpen ? "opacity-100 translate-y-0 delay-[420ms]" : "opacity-0 translate-y-2"
+          )}
+          style={{ color: "hsl(0 0% 100% / 0.25)" }}
+        >
+          Explore
+        </p>
         <nav
-          className="space-y-3 md:space-y-4 relative z-[2]"
+          className="flex flex-wrap justify-center gap-x-6 gap-y-3 md:gap-x-8 md:gap-y-4 relative z-[2]"
           onMouseLeave={() => setHoveredIndex(null)}
         >
           {pageItems.map((item, index) => {
@@ -418,104 +458,51 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
             const isHovered = hoveredIndex === index;
             const isPressed = pressedIndex === index;
 
-            // Alternating key pattern
-            const isBlackKey = index % 2 === 1;
-
             return (
-              <div key={item.label} className="relative group">
-                <Link
-                  to={item.href}
+              <Link
+                key={item.label}
+                to={item.href}
+                className={cn(
+                  "relative font-display text-lg md:text-xl transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)_/_0.4)] rounded-sm",
+                  isOpen ? "translate-y-0" : "translate-y-4",
+                  isOpen
+                    ? isDimmed
+                      ? "opacity-[0.25]"
+                      : "opacity-100"
+                    : "opacity-0"
+                )}
+                style={{
+                  color: isActive ? "hsl(0 0% 100% / 0.9)" : "hsl(0 0% 100% / 0.55)",
+                  transitionDuration: "220ms",
+                  transitionDelay: isOpen ? `${450 + index * 50}ms` : "0ms",
+                  transitionTimingFunction: "cubic-bezier(0.22,0.61,0.36,1)",
+                  transform: isPressed
+                    ? "translateY(1px)"
+                    : "translateY(0)",
+                }}
+                onClick={(e) => handlePageClick(e, index)}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseDown={() => setPressedIndex(index)}
+                onMouseUp={() => setPressedIndex(null)}
+              >
+                {item.label}
+                {/* Underline */}
+                <span
                   className={cn(
-                    "relative flex items-center gap-3 md:gap-4 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm",
-                    isOpen ? "translate-y-0" : "translate-y-6",
-                    isOpen
-                      ? isDimmed
-                        ? "opacity-[0.2]"
-                        : "opacity-100"
-                      : "opacity-0"
+                    "absolute -bottom-1 left-0 h-px origin-left transition-all",
+                    isActive || isHovered ? "w-full" : "w-0"
                   )}
                   style={{
-                    transitionDuration: "260ms",
-                    transitionDelay: isOpen ? `${400 + index * 60}ms` : "0ms",
+                    background: isActive
+                      ? "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.4), transparent)"
+                      : "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.25), transparent)",
+                    transitionDuration: "350ms",
                     transitionTimingFunction: "cubic-bezier(0.22,0.61,0.36,1)",
+                    boxShadow: isActive ? "0 0 6px hsl(var(--vow-yellow) / 0.1)" : "none",
                   }}
-                  onClick={(e) => handlePageClick(e, index)}
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseDown={() => setPressedIndex(index)}
-                  onMouseUp={() => setPressedIndex(null)}
-                >
-                  {/* Active indicator — golden dash */}
-                  <span
-                    className={cn(
-                      "w-3 h-px transition-all duration-[260ms] flex-shrink-0",
-                      isActive ? "opacity-100" : "opacity-0 w-0"
-                    )}
-                    style={{
-                      background: "hsl(var(--vow-yellow) / 0.5)",
-                      boxShadow: isActive
-                        ? "0 0 6px hsl(var(--vow-yellow) / 0.15)"
-                        : "none",
-                    }}
-                    aria-hidden="true"
-                  />
-
-                  {/* Label */}
-                  <span
-                   className={cn(
-                      "relative font-display transition-all flex items-center justify-center gap-3",
-                      "text-2xl md:text-3xl lg:text-4xl",
-                      isActive
-                        ? "text-foreground"
-                        : "text-foreground opacity-75 group-hover:opacity-100"
-                    )}
-                    style={{
-                      transform: isPressed
-                        ? "translateY(2px)"
-                        : isHovered
-                        ? "translateY(1px)"
-                        : "translateY(0)",
-                      transitionDuration: isPressed ? "60ms" : "180ms",
-                      transitionTimingFunction: isPressed
-                        ? "cubic-bezier(0.4, 0, 1, 1)"
-                        : "cubic-bezier(0.22,0.61,0.36,1)",
-                      textShadow: isHovered
-                        ? "0 0 30px hsl(var(--vow-yellow) / 0.08)"
-                        : isActive
-                        ? "0 0 20px hsl(var(--vow-yellow) / 0.05)"
-                        : "none",
-                    }}
-                  >
-                    <span className="text-xs tracking-[0.15em] text-foreground/20 tabular-nums font-sans" style={{ fontFeatureSettings: '"tnum"' }}>
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <span>{item.label}</span>
-
-                    {/* Underline */}
-                    <span
-                      className={cn(
-                        "absolute -bottom-1 left-0 h-px origin-left transition-transform",
-                        isActive || isHovered ? "scale-x-100" : "scale-x-0"
-                      )}
-                      style={{
-                        width: "100%",
-                        background: isActive
-                          ? "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.35), transparent)"
-                          : "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.25), transparent 80%)",
-                        transitionDuration: "450ms",
-                        transitionTimingFunction: "cubic-bezier(0.22,0.61,0.36,1)",
-                        boxShadow: isActive
-                          ? "0 0 8px hsl(var(--vow-yellow) / 0.12)"
-                          : isHovered
-                          ? "0 0 6px hsl(var(--vow-yellow) / 0.08)"
-                          : "none",
-                      }}
-                      aria-hidden="true"
-                    />
-
-                    {/* Black key — clean indentation only, no shadow */}
-                  </span>
-                </Link>
-              </div>
+                  aria-hidden="true"
+                />
+              </Link>
             );
           })}
         </nav>
@@ -529,43 +516,59 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
             isOpen ? "opacity-100 translate-y-0 delay-[800ms]" : "opacity-0 translate-y-4"
           )}
         >
-          <Button
-            variant="ghost-dark"
-            size="lg"
-            asChild
-            className="relative overflow-hidden group/cta"
+          <Link
+            to={(() => {
+              if (location.pathname.startsWith('/events')) return '/events/contact';
+              if (location.pathname.startsWith('/teaching')) return '/teaching/contact';
+              return '/contact';
+            })()}
+            onClick={onClose}
+            className="menu-cta-pill relative inline-flex items-center overflow-hidden group/cta"
+            style={{
+              height: "44px",
+              padding: "0 28px",
+              borderRadius: "100px",
+              border: "1px solid hsl(var(--vow-yellow) / 0.25)",
+              background: "hsl(var(--vow-yellow) / 0.08)",
+              color: "hsl(0 0% 100% / 0.85)",
+              fontSize: "13px",
+              fontFamily: "var(--font-sans, Inter, sans-serif)",
+              fontWeight: 500,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              textDecoration: "none",
+              transition: "border-color 260ms cubic-bezier(0.22,0.61,0.36,1), background 260ms ease, box-shadow 260ms ease, transform 180ms cubic-bezier(0.22,0.61,0.36,1)",
+            }}
+            onMouseEnter={(e) => {
+              const el = e.currentTarget as HTMLElement;
+              el.style.borderColor = "hsl(var(--vow-yellow) / 0.45)";
+              el.style.background = "hsl(var(--vow-yellow) / 0.14)";
+              el.style.boxShadow = "0 0 24px hsl(var(--vow-yellow) / 0.12), 0 4px 16px hsl(0 0% 0% / 0.3)";
+              el.style.transform = "translateY(-1px)";
+            }}
+            onMouseLeave={(e) => {
+              const el = e.currentTarget as HTMLElement;
+              el.style.borderColor = "hsl(var(--vow-yellow) / 0.25)";
+              el.style.background = "hsl(var(--vow-yellow) / 0.08)";
+              el.style.boxShadow = "none";
+              el.style.transform = "translateY(0)";
+            }}
           >
-            <Link
-              to={(() => {
-                if (location.pathname.startsWith('/events')) return '/events/contact';
-                if (location.pathname.startsWith('/teaching')) return '/teaching/contact';
-                return '/contact';
-              })()}
-              onClick={onClose}
-            >
-              {(() => {
-                if (location.pathname.startsWith('/events')) return 'Discuss Your Event';
-                if (location.pathname.startsWith('/teaching')) return 'Begin Lessons';
-                return 'Hold My Date';
-              })()}
-              {/* Diagonal shimmer sweep on hover */}
-              <span
-                className="absolute inset-0 pointer-events-none opacity-0 group-hover/cta:opacity-100 transition-opacity duration-[450ms]"
-                style={{
-                  background: 'linear-gradient(110deg, transparent 30%, hsl(var(--vow-yellow) / 0.15) 45%, hsl(var(--vow-yellow) / 0.25) 50%, hsl(var(--vow-yellow) / 0.15) 55%, transparent 70%)',
-                  animation: 'shimmer-sweep 1.5s ease-in-out infinite',
-                  animationPlayState: 'paused',
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.animationPlayState = 'running';
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.animationPlayState = 'paused';
-                }}
-                aria-hidden="true"
-              />
-            </Link>
-          </Button>
+            {(() => {
+              if (location.pathname.startsWith('/events')) return 'Discuss Your Event';
+              if (location.pathname.startsWith('/teaching')) return 'Begin the Conversation';
+              return 'Reserve My Date!';
+            })()}
+            {/* Diagonal shimmer sweep on hover */}
+            <span
+              className="absolute inset-0 pointer-events-none opacity-0 group-hover/cta:opacity-100 transition-opacity duration-[450ms]"
+              style={{
+                background: 'linear-gradient(110deg, transparent 30%, hsl(var(--vow-yellow) / 0.15) 45%, hsl(var(--vow-yellow) / 0.25) 50%, hsl(var(--vow-yellow) / 0.15) 55%, transparent 70%)',
+                animation: 'shimmer-sweep 1.5s ease-in-out infinite',
+              }}
+              aria-hidden="true"
+            />
+          </Link>
         </div>
 
         {/* ═══════════════════════════════════════════
@@ -577,17 +580,20 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
             isOpen ? "opacity-100 translate-y-0 delay-[900ms]" : "opacity-0 translate-y-4"
           )}
         >
-          <span className="text-muted-foreground opacity-60">
+          <span style={{ color: "hsl(0 0% 100% / 0.35)" }}>
             Calgary, Cochrane, Canmore & Banff
           </span>
-          <span className="hidden md:block text-muted-foreground opacity-60">—</span>
+          <span className="hidden md:block" style={{ color: "hsl(0 0% 100% / 0.35)" }}>—</span>
           <a
             href="mailto:parker@parkergawryletz.com"
-            className="text-muted-foreground opacity-60 hover:text-primary hover:opacity-100 transition-colors duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm"
+            className="transition-colors duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)_/_0.4)] rounded-sm"
+            style={{ color: "hsl(0 0% 100% / 0.35)" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "hsl(0 0% 100% / 0.75)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "hsl(0 0% 100% / 0.35)"; }}
           >
             parker@parkergawryletz.com
           </a>
-          <span className="hidden md:block text-muted-foreground opacity-60">—</span>
+          <span className="hidden md:block" style={{ color: "hsl(0 0% 100% / 0.35)" }}>—</span>
           <span
             className="w-1.5 h-1.5 rounded-full"
             style={{
@@ -597,46 +603,13 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
             }}
             aria-hidden="true"
           />
-          <span className="text-xs italic text-muted-foreground opacity-60">
+          <span className="text-xs italic" style={{ color: "hsl(0 0% 100% / 0.35)" }}>
             Response within 24 hours
           </span>
         </div>
 
-        {/* ═══════════════════════════════════════════
-            COVENANT BOOKEND (kept for tagline only)
-            ═══════════════════════════════════════════ */}
-        <div
-          className={cn(
-            "mt-10 md:mt-12 transition-all duration-[400ms]",
-            isOpen ? "opacity-100 delay-[900ms]" : "opacity-0"
-          )}
-        >
-          <div
-            className="w-1.5 h-1.5 rounded-full mb-4"
-            style={{
-              background: "hsl(var(--vow-yellow) / 0.35)",
-              boxShadow: "0 0 6px hsl(var(--vow-yellow) / 0.1)",
-              animation: isOpen
-                ? "menu-dot-breathe 4s ease-in-out infinite"
-                : undefined,
-            }}
-            aria-hidden="true"
-          />
-          <p className="font-display text-sm text-foreground opacity-60 tracking-wide">
-            'Til Death
-            <span
-              className="text-primary opacity-60"
-              style={{
-                animation: isOpen
-                  ? "semicolon-heartbeat 2s ease-in-out infinite"
-                  : undefined,
-              }}
-            >
-              {" ; "}
-            </span>
-            Unto Life.
-          </p>
-        </div>
+        {/* Spacer to prevent content from overlapping contact bar */}
+        <div className="h-16" aria-hidden="true" />
       </div>
 
       {/* ═══════════════════════════════════════════

@@ -19,25 +19,45 @@ interface ListeningMovementProps {
   onInView: (index: number) => void;
 }
 
-const WAVEFORM_BARS = 20;
+/* ── Waveform — 30 bars with organic pseudo-random heights ── */
+const WAVEFORM_BARS = 30;
+
+// Seed-based heights that look like a real audio waveform preview
+// Not uniform sine — varied peaks and valleys
+const STATIC_HEIGHTS = Array.from({ length: WAVEFORM_BARS }, (_, i) => {
+  // Create organic variation: center-weighted with irregular peaks
+  const center = Math.abs(i - WAVEFORM_BARS / 2) / (WAVEFORM_BARS / 2);
+  const base = 1 - center * 0.6; // Higher in center
+  const noise = Math.sin(i * 2.1) * 0.3 + Math.cos(i * 3.7) * 0.2 + Math.sin(i * 0.8) * 0.15;
+  return Math.max(4, Math.min(20, (base + noise) * 14));
+});
+
+// Animation target heights — varied, not all reaching 36px
+const ANIM_HEIGHTS = Array.from({ length: WAVEFORM_BARS }, (_, i) => {
+  const center = 1 - Math.abs(i - WAVEFORM_BARS / 2) / (WAVEFORM_BARS / 2);
+  const noise = Math.sin(i * 1.4) * 0.2 + Math.cos(i * 2.9) * 0.15;
+  return Math.max(8, Math.min(36, (center + noise + 0.4) * 28));
+});
 
 function WaveformBars({ isPlaying }: { isPlaying: boolean }) {
   return (
-    <div className="flex items-end gap-[2.5px] h-10" aria-hidden="true">
+    <div className="flex items-end gap-[2px] h-10" aria-hidden="true">
       {Array.from({ length: WAVEFORM_BARS }).map((_, i) => (
         <div
           key={i}
-          className={cn(
-            "w-[3px] rounded-full transition-colors duration-300",
-            isPlaying ? "bg-primary" : "bg-foreground/15"
-          )}
+          className="w-[2.5px] rounded-full transition-colors duration-300"
           style={{
+            background: isPlaying
+              ? "hsl(var(--vow-yellow) / 0.65)"
+              : "hsl(var(--foreground) / 0.1)",
             height: isPlaying
               ? undefined
-              : `${6 + Math.sin(i * 0.7) * 5}px`,
+              : `${STATIC_HEIGHTS[i]}px`,
             animation: isPlaying
-              ? `waveform-bar 700ms ease-in-out ${i * 40}ms infinite alternate`
+              ? `waveform-bar 700ms ease-in-out ${i * 35}ms infinite alternate`
               : "none",
+            // Custom max height per bar for organic animation
+            ['--waveform-max' as string]: `${ANIM_HEIGHTS[i]}px`,
           }}
         />
       ))}
@@ -106,20 +126,24 @@ export function ListeningMovement({
       ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background numeral watermark */}
+      {/* Background numeral watermark — more visible */}
       <div
         className="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
         aria-hidden="true"
       >
         <span
-          className="font-display text-[20vw] md:text-[16vw] leading-none text-foreground opacity-[0.03]"
-          style={{ fontWeight: 300 }}
+          className="font-display leading-none"
+          style={{
+            fontSize: "clamp(120px, 20vw, 260px)",
+            fontWeight: 300,
+            color: "hsl(var(--foreground) / 0.045)",
+          }}
         >
           {numeral}
         </span>
       </div>
 
-      {/* Radial golden glow */}
+      {/* Radial golden glow — more visible when active */}
       <div
         className={cn(
           "absolute inset-0 pointer-events-none transition-opacity duration-1000",
@@ -127,7 +151,7 @@ export function ListeningMovement({
         )}
         style={{
           background:
-            "radial-gradient(ellipse 40% 30% at 50% 50%, hsl(var(--vow-yellow) / 0.06) 0%, transparent 70%)",
+            "radial-gradient(ellipse 45% 35% at 50% 50%, hsl(var(--vow-yellow) / 0.09) 0%, transparent 70%)",
         }}
         aria-hidden="true"
       />
@@ -141,53 +165,96 @@ export function ListeningMovement({
             : "opacity-0 translate-y-8"
         )}
       >
-        {/* Context label */}
-        <p className="text-[11px] md:text-xs uppercase tracking-[0.3em] text-primary opacity-70 mb-4">
+        {/* Context label — tight coupling to headline */}
+        <p
+          className="font-sans text-[11px] font-medium uppercase tracking-[0.2em] mb-3"
+          style={{ color: "hsl(var(--vow-yellow) / 0.55)" }}
+        >
           {context}
         </p>
 
         {/* Movement title */}
-        <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-3">
+        <h2
+          className="font-display font-semibold tracking-[-0.025em] leading-[1.1]"
+          style={{ fontSize: "clamp(32px, 5vw, 56px)", color: "hsl(var(--foreground))" }}
+        >
           {title}
         </h2>
 
-        {/* Golden rule */}
-        <div className="chapter-rule mx-auto mb-6" />
+        {/* Gold separator — balanced spacing */}
+        <div
+          className="mx-auto mt-7 mb-7"
+          style={{
+            width: "36px",
+            height: "1px",
+            background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.5), transparent)",
+          }}
+          aria-hidden="true"
+        />
 
         {/* Description */}
-        <p className="text-base md:text-lg text-muted-foreground leading-relaxed mb-10 max-w-md mx-auto">
+        <p
+          className="font-display italic leading-[1.6] mb-14 max-w-[30ch] mx-auto"
+          style={{ fontSize: "clamp(15px, 1.5vw, 18px)", color: "hsl(var(--foreground) / 0.45)" }}
+        >
           {description}
         </p>
 
-        {/* Track card */}
+        {/* ── Track Card — bespoke music player ── */}
         <div
           className={cn(
-            "inline-flex flex-col items-center gap-5 rounded-lg p-6 md:p-8",
-            "border backdrop-blur-[8px] transition-all duration-300",
-            isActive
-              ? "bg-card/20 border-primary/25"
-              : "bg-card/8 border-border/15"
+            "inline-flex flex-col items-center rounded-xl px-8 py-7 md:px-10 md:py-8",
+            "backdrop-blur-[8px] transition-all duration-300"
           )}
+          style={{
+            background: isActive
+              ? "hsl(var(--foreground) / 0.06)"
+              : "hsl(var(--foreground) / 0.03)",
+            border: isActive
+              ? "1px solid hsl(var(--vow-yellow) / 0.15)"
+              : "1px solid hsl(var(--foreground) / 0.06)",
+          }}
         >
-          {/* Track title */}
-          <p className="font-display text-lg md:text-xl text-foreground">
+          {/* Track title — primary focal point */}
+          <p
+            className="font-display italic text-[17px] md:text-[19px] tracking-wide"
+            style={{ color: "hsl(var(--foreground) / 0.85)" }}
+          >
             {trackTitle}
           </p>
 
-          {/* Waveform */}
+          {/* Attribution — bespoke arrangement credit */}
+          <p
+            className="font-sans text-[10px] uppercase tracking-[0.14em] mt-1.5 mb-6"
+            style={{ color: "hsl(var(--foreground) / 0.2)" }}
+          >
+            Arranged by Parker Gawryletz
+          </p>
+
+          {/* Waveform — wider, organic */}
           <WaveformBars isPlaying={isActive && isPlaying} />
 
-          {/* Play button + time */}
-          <div className="flex items-center gap-4">
+          {/* Play button + time — main interaction */}
+          <div className="flex items-center gap-5 mt-6">
             <button
               onClick={handleToggle}
               className={cn(
-                "w-12 h-12 rounded-full flex items-center justify-center transition-all duration-[180ms]",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60",
-                isActive && isPlaying
-                  ? "bg-primary text-primary-foreground hover:scale-[1.06]"
-                  : "bg-foreground opacity-10 text-foreground hover:opacity-20 hover:scale-[1.06]"
+                "listen-play-btn w-12 h-12 rounded-full flex items-center justify-center",
+                "transition-all duration-[180ms]",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vow-yellow)_/_0.4)]",
+                isActive && isPlaying && "is-playing"
               )}
+              style={{
+                background: isActive && isPlaying
+                  ? "hsl(var(--vow-yellow) / 0.9)"
+                  : "hsl(var(--foreground) / 0.08)",
+                color: isActive && isPlaying
+                  ? "hsl(var(--vigil-void))"
+                  : "hsl(var(--foreground) / 0.5)",
+                boxShadow: isActive && isPlaying
+                  ? "0 0 24px hsl(var(--vow-yellow) / 0.2)"
+                  : "none",
+              }}
               aria-label={isActive && isPlaying ? `Pause ${trackTitle}` : `Play ${trackTitle}`}
             >
               {isActive && isPlaying ? (
@@ -198,22 +265,48 @@ export function ListeningMovement({
             </button>
 
             {isActive && (
-              <span className="text-xs tabular-nums text-muted-foreground opacity-60 font-sans">
-                {formatTime(progress)} / {formatTime(duration)}
+              <span
+                className="text-[12px] tabular-nums font-sans"
+                style={{ color: "hsl(var(--foreground) / 0.35)" }}
+              >
+                {formatTime(progress)} &mdash; {formatTime(duration)}
               </span>
             )}
           </div>
 
-          {/* Progress bar — golden gradient */}
-          <div className="w-full h-[2px] bg-foreground/5 rounded-full overflow-hidden">
+          {/* Progress bar — golden gradient with glow head */}
+          <div
+            className="w-full mt-5 relative"
+            style={{ minWidth: "200px" }}
+          >
             <div
-              className="h-full transition-none rounded-full"
-              style={{
-                width: `${isActive ? progressPercent : 0}%`,
-                background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.5), hsl(var(--vow-yellow)))",
-                boxShadow: isActive ? "0 0 6px hsl(var(--vow-yellow) / 0.3)" : "none",
-              }}
-            />
+              className="w-full h-[2px] rounded-full overflow-hidden"
+              style={{ background: "hsl(var(--foreground) / 0.05)" }}
+            >
+              <div
+                className="h-full transition-none rounded-full"
+                style={{
+                  width: `${isActive ? progressPercent : 0}%`,
+                  background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.4), hsl(var(--vow-yellow)))",
+                }}
+              />
+            </div>
+            {/* Glow head — the playhead indicator */}
+            {isActive && progressPercent > 0 && (
+              <div
+                className="absolute top-1/2 -translate-y-1/2 transition-none"
+                style={{
+                  left: `${progressPercent}%`,
+                  width: "6px",
+                  height: "6px",
+                  borderRadius: "50%",
+                  background: "hsl(var(--vow-yellow))",
+                  boxShadow: "0 0 8px hsl(var(--vow-yellow) / 0.5), 0 0 16px hsl(var(--vow-yellow) / 0.2)",
+                  marginLeft: "-3px",
+                }}
+                aria-hidden="true"
+              />
+            )}
           </div>
         </div>
       </div>

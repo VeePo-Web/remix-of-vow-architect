@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useCallback, useRef, useEffect } from "react";
-import AmbientAudioPill from "@/components/AmbientAudioPill";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import weddingsImg from "@/assets/gateway-weddings.jpg";
 import teachingImg from "@/assets/gateway-teaching.jpg";
@@ -81,25 +80,52 @@ export default function Gateway() {
   }, []);
 
   return (
-    <main className="h-screen w-screen overflow-hidden bg-background flex flex-col items-center py-8 md:py-0 md:justify-center relative" aria-label="Choose your path">
+    <main className="h-screen w-screen overflow-hidden flex flex-col items-center py-8 md:py-0 md:justify-center relative" style={{ background: "hsl(var(--rich-black))" }} aria-label="Choose your path" data-theme="death">
       {/* Film grain */}
       <div className="absolute inset-0 grain opacity-[0.10] pointer-events-none" aria-hidden="true" />
 
+      {/* Cinematic vignette */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse at center, transparent 30%, hsl(var(--rich-black) / 0.6) 80%, hsl(var(--rich-black)) 100%)" }}
+        aria-hidden="true"
+      />
+
+      {/* Warm center fog */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse 50% 40% at 50% 50%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)" }}
+        aria-hidden="true"
+      />
+
       {/* Wordmark */}
-      <header className="text-center mb-6 md:mb-14 shrink-0 opacity-0 animate-fade-in" style={{ animationDelay: "400ms", animationFillMode: "forwards" }}>
-        <h1 className="font-display text-[28px] font-light tracking-tight text-foreground">
+      <header className="text-center mb-6 md:mb-14 shrink-0 opacity-0 animate-fade-in relative z-10" style={{ animationDelay: "400ms", animationFillMode: "forwards" }}>
+        <h1 className="font-display text-[28px] font-light tracking-tight" style={{ color: "hsl(0 0% 100% / 0.9)" }}>
           Parker Gawryletz
         </h1>
         <p
-          className="font-sans text-[11px] uppercase tracking-[0.22em] text-muted-foreground mt-1.5 opacity-0 animate-fade-in"
-          style={{ animationDelay: "600ms", animationFillMode: "forwards" }}
+          className="font-sans text-[11px] uppercase tracking-[0.22em] mt-1.5 opacity-0 animate-fade-in"
+          style={{ color: "hsl(0 0% 100% / 0.45)", animationDelay: "600ms", animationFillMode: "forwards" }}
         >
           Ceremony Pianist
         </p>
+        {/* Golden thread separator */}
+        <div
+          className="mx-auto mt-5 opacity-0 animate-fade-in"
+          style={{
+            width: "60px",
+            height: "1px",
+            background: "linear-gradient(90deg, transparent, hsl(var(--vow-yellow) / 0.3), transparent)",
+            boxShadow: "0 0 8px hsl(var(--vow-yellow) / 0.08)",
+            animationDelay: "800ms",
+            animationFillMode: "forwards",
+          }}
+          aria-hidden="true"
+        />
       </header>
 
       {/* Bento Cards */}
-      <div className="relative flex flex-col md:flex-row gap-3 md:gap-6 px-6 max-w-5xl w-full flex-1 md:flex-initial min-h-0">
+      <div className="relative flex flex-col md:flex-row gap-3 md:gap-6 px-6 max-w-5xl w-full flex-1 md:flex-initial min-h-0 z-10">
         {services.map((s) => {
           const inner = (
             <>
@@ -116,24 +142,22 @@ export default function Gateway() {
               />
               {/* Content */}
               <div className="relative z-10 flex flex-col justify-end h-full p-6 md:p-8">
-                <h2 className={cn(
-                  "font-display tracking-tight",
-                  s.available
-                    ? "text-[30px] font-normal text-foreground"
-                    : "text-[28px] font-light text-muted-foreground"
-                )}>
+                <h2
+                  className="font-display tracking-tight"
+                  style={{
+                    fontSize: s.available ? "30px" : "28px",
+                    fontWeight: s.available ? 400 : 300,
+                    color: s.available ? "hsl(0 0% 100% / 0.9)" : "hsl(0 0% 100% / 0.5)",
+                  }}
+                >
                   {s.title}
                 </h2>
-                <p className="font-sans text-[14px] text-muted-foreground mt-2 leading-relaxed">
+                <p className="font-sans text-[14px] mt-2 leading-relaxed" style={{ color: "hsl(0 0% 100% / 0.5)" }}>
                   {s.description}
                 </p>
                 <span
-                  className={cn(
-                    "mt-3 font-sans text-[12px] uppercase tracking-[0.18em] inline-flex items-center gap-1.5",
-                    s.available
-                      ? "text-primary"
-                      : "text-muted-foreground opacity-50"
-                  )}
+                  className="mt-3 font-sans text-[12px] uppercase tracking-[0.18em] inline-flex items-center gap-1.5"
+                  style={{ color: s.available ? "hsl(var(--vow-yellow))" : "hsl(0 0% 100% / 0.25)" }}
                 >
                   {s.available ? "Step Inside" : "Coming Soon"}
                   {s.available && (
@@ -148,20 +172,29 @@ export default function Gateway() {
 
           const cardClasses = cn(
             "group relative overflow-hidden rounded-2xl flex-1 min-h-0 md:flex-none md:aspect-[6/7]",
-            s.available ? "border border-primary/[0.08]" : "border border-border/[0.06]",
             "transition-all duration-300 opacity-0 animate-fade-in",
             s.available
-              ? "cursor-pointer hover:-translate-y-2 hover:scale-[1.015] hover:border-primary/25 hover:shadow-[0_16px_48px_hsl(var(--primary)/0.08)]"
+              ? "cursor-pointer hover:-translate-y-2 hover:scale-[1.015]"
               : "cursor-default"
           );
+
+          const cardBorder = s.available
+            ? "1px solid hsl(var(--vow-yellow) / 0.08)"
+            : "1px solid hsl(0 0% 100% / 0.06)";
 
           const style = {
             animationDelay: `${s.delay}ms`,
             animationFillMode: "forwards" as const,
+            border: cardBorder,
           };
 
           return s.available ? (
-            <Link key={s.title} to={s.href} className={cn(cardClasses, "md:flex-1")} style={style}>
+            <Link
+              key={s.title}
+              to={s.href}
+              className={cn(cardClasses, "md:flex-1 gateway-card")}
+              style={style}
+            >
               {inner}
             </Link>
           ) : (
@@ -178,6 +211,10 @@ export default function Gateway() {
           0%, 100% { text-shadow: 0 0 20px hsl(var(--vow-yellow) / 0.4); }
           50% { text-shadow: 0 0 40px hsl(var(--vow-yellow) / 0.7); }
         }
+        .gateway-card:hover {
+          border-color: hsl(var(--vow-yellow) / 0.18) !important;
+          box-shadow: 0 8px 40px hsl(var(--vow-yellow) / 0.06), 0 0 60px hsl(var(--vow-yellow) / 0.03);
+        }
         @media (prefers-reduced-motion: reduce) {
           .semicolon-breathe,
           [style*="gateway-vignette-breathe"] { animation: none !important; }
@@ -190,11 +227,11 @@ export default function Gateway() {
         className="mt-6 md:mt-14 shrink-0 text-center opacity-0 animate-fade-in"
         style={{ animationDelay: "1600ms", animationFillMode: "forwards" }}
       >
-        <p className="font-display text-[16px] font-light text-muted-foreground tracking-tight">
+        <p className="font-display text-[16px] font-light tracking-tight" style={{ color: "hsl(0 0% 100% / 0.5)" }}>
           'Til Death
           <span className="relative inline-block">
             {/* Breathing halo behind semicolon */}
-            <span 
+            <span
               className="absolute inset-0 -inset-x-3 rounded-full pointer-events-none"
               style={{
                 background: "radial-gradient(circle, hsl(var(--vow-yellow) / 0.25) 0%, transparent 70%)",
@@ -203,17 +240,16 @@ export default function Gateway() {
               aria-hidden="true"
             />
             <span
-              className="relative semicolon-breathe text-primary"
-              style={{ animation: "semicolon-breathe 4s ease-in-out infinite" }}
+              className="relative semicolon-breathe"
+              style={{ color: "hsl(var(--vow-yellow))", animation: "semicolon-breathe 4s ease-in-out infinite" }}
             >
               {" ; "}
             </span>
           </span>
-          Unto Life<span className="text-primary">.</span>
+          Unto Life<span style={{ color: "hsl(var(--vow-yellow))" }}>.</span>
         </p>
       </footer>
 
-      <AmbientAudioPill />
     </main>
   );
 }

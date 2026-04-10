@@ -51,7 +51,7 @@ export function PricingFAQ() {
 
         <div className="flex flex-wrap justify-center gap-4 mt-8">
           <DirectionalLink to="/proof">See how I prepare</DirectionalLink>
-          <DirectionalLink to="/contact">Hold my date</DirectionalLink>
+          <DirectionalLink to="/contact">Reserve My Date!</DirectionalLink>
         </div>
       </div>
     </section>

@@ -45,9 +45,11 @@ export function TheTransformation() {
       role="region"
       aria-label="The Transformation — fears honoured, promises made"
       style={{
-        background: "linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--card)) 40%, hsl(var(--card)) 60%, hsl(var(--background)) 100%)",
+        background: "transparent",
       }}
     >
+      {/* Frame sequence overlay */}
+      <div className="frame-overlay--light" style={{ '--frame-overlay-opacity': '0.85' } as React.CSSProperties} aria-hidden="true" />
       <span className="sr-only">
         This section mirrors the fears you may carry about your ceremony music,
         then answers each one with a first-person promise from Parker.

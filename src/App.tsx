@@ -28,7 +28,10 @@ import EventsContact from "./pages/EventsContact";
 import TeachingAbout from "./pages/TeachingAbout";
 import TeachingPricing from "./pages/TeachingPricing";
 import TeachingContact from "./pages/TeachingContact";
+import EventsFAQ from "./pages/EventsFAQ";
+import TeachingFAQ from "./pages/TeachingFAQ";
 import NotFound from "./pages/NotFound";
+import AmbientAudioPill from "./components/AmbientAudioPill";
 
 const queryClient = new QueryClient();
 
@@ -43,10 +46,12 @@ function AppRoutes() {
       <Route path="/teaching/about" element={<TeachingAbout />} />
       <Route path="/teaching/pricing" element={<TeachingPricing />} />
       <Route path="/teaching/contact" element={<TeachingContact />} />
+      <Route path="/teaching/faq" element={<TeachingFAQ />} />
       <Route path="/events" element={<Events />} />
       <Route path="/events/about" element={<EventsAbout />} />
       <Route path="/events/pricing" element={<EventsPricing />} />
       <Route path="/events/contact" element={<EventsContact />} />
+      <Route path="/events/faq" element={<EventsFAQ />} />
       <Route path="/pricing" element={<Pricing />} />
       <Route path="/services" element={<Navigate to="/pricing" replace />} />
       <Route path="/proof" element={<Proof />} />
@@ -77,6 +82,7 @@ const App = () => (
         <PageTransition>
           <AppRoutes />
         </PageTransition>
+        <AmbientAudioPill />
         </SmoothScrollProvider>
       </BrowserRouter>
     </TooltipProvider>

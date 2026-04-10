@@ -25,18 +25,21 @@ export function TheExhale() {
       id="the-exhale"
       ref={sectionRef}
       className="exhale-section piano-section-target relative min-h-[70vh] flex items-center justify-center py-24 md:py-32 lg:py-40 overflow-hidden"
-      style={{ minHeight: '70vh', background: 'hsl(var(--background))' }}
+      style={{ minHeight: '70vh', background: 'transparent' }}
       aria-label="My promise to you"
       role="region"
     >
+      {/* Frame sequence overlay — lets warm golden canvas subtly bleed through */}
+      <div className="frame-overlay--light" style={{ '--frame-overlay-opacity': '0.88' } as React.CSSProperties} aria-hidden="true" />
+
       {/* Layer 0: Subtle warm depth */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `linear-gradient(180deg, 
-            hsl(var(--background)) 0%, 
-            hsl(var(--card)) 50%, 
-            hsl(var(--background)) 100%
+          background: `linear-gradient(180deg,
+            hsl(var(--background) / 0.92) 0%,
+            hsl(var(--card) / 0.92) 50%,
+            hsl(var(--background) / 0.92) 100%
           )`,
         }}
       />

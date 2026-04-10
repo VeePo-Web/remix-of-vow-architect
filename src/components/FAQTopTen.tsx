@@ -50,7 +50,7 @@ const topTenFAQs = [
   {
     question: "How quickly do I hear back after reaching out?",
     answer: "Within 24 hours, you receive a personalized ceremony plan — venue considerations, suggested arrangements, and a timeline for your day.",
-    link: { to: "/contact", label: "Hold my date" }
+    link: { to: "/contact", label: "Reserve My Date!" }
   },
   {
     question: "How does a ceremony pianist compare to a DJ or band?",

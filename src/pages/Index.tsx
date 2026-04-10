@@ -1,153 +1,104 @@
-import { MinimalHeader } from "@/components/MinimalHeader";
-import { HeroTagline } from "@/components/HeroTagline";
-import { MinimalScrollCue } from "@/components/MinimalScrollCue";
-import { VigilFlame } from "@/components/VigilFlame";
-import { VigilReveal } from "@/components/VigilReveal";
 import { Footer } from "@/components/Footer";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
-import { TheExhale } from "@/components/TheExhale";
-import { ProcessSection } from "@/components/process";
-import { VowMoment } from "@/components/VowMoment";
-import { TheInvitation } from "@/components/TheInvitation";
-import { TheSound } from "@/components/TheSound";
-import { TheTransformation } from "@/components/TheTransformation";
-import { TheWitness } from "@/components/TheWitness";
-import { ThreePaths } from "@/components/ThreePaths";
-
-import { TheWitnesses } from "@/components/TheWitnesses";
-import { CrossOver } from "@/components/CrossOver";
-import { PianoKeyNav } from "@/components/PianoKeyNav";
+import { CinematicNav } from "@/components/CinematicNav";
+import { CinematicScroll } from "@/components/VideoAct";
 import { usePageTheme } from "@/hooks/usePageTheme";
-import { useVigilSequence } from "@/hooks/useVigilSequence";
-import heroImage from "@/assets/hero-wedding.jpg";
-import { useEffect } from "react";
-
-const pianoSections = [
-  { id: "the-exhale",         label: "Introduction",       isBlackKey: false },
-  { id: "process",            label: "How I Prepare",      isBlackKey: true  },
-  { id: "vow-moment",         label: "My Promise",         isBlackKey: false },
-  { id: "the-invitation",     label: "Meet Me",            isBlackKey: true  },
-  { id: "the-sound",          label: "Listen",             isBlackKey: false },
-  { id: "the-transformation", label: "Before & After",     isBlackKey: false },
-  { id: "the-witness",        label: "About Me",           isBlackKey: true  },
-  { id: "three-paths",        label: "Pricing",            isBlackKey: false },
-  { id: "the-witnesses",      label: "Kind Words",         isBlackKey: true  },
-  { id: "the-crossing",       label: "Get in Touch",       isBlackKey: false },
-];
+import { useEffect, useRef, useState, useCallback } from "react";
 
 export default function Index() {
   usePageTheme();
+  const footerRef = useRef<HTMLDivElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const [footerOpen, setFooterOpen] = useState(false);
+
   useEffect(() => {
     document.title = "Parker Gawryletz — Wedding Pianist, Calgary to Banff";
-    document.querySelector('meta[name="description"]')?.setAttribute("content", "I carry your vows so they can carry your guests. Custom ceremony piano from Calgary to Banff — every note crafted to honour your moment.");
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute(
+        "content",
+        "I carry your vows so they can carry your guests. Custom ceremony piano from Calgary to Banff — every note crafted to honour your moment."
+      );
   }, []);
-  const vigilPhase = useVigilSequence();
+
+  // Track scroll progress to show/hide footer toggle
+  useEffect(() => {
+    const onScroll = () => {
+      const container = document.getElementById('weddings-cinema');
+      const btn = toggleRef.current;
+      if (!container || !btn) return;
+
+      const rect = container.getBoundingClientRect();
+      const scrollable = rect.height - window.innerHeight;
+      if (scrollable <= 0) return;
+      const progress = Math.max(0, Math.min(1, -rect.top / scrollable));
+
+      // Fade in from 0.95 to 1.0 — maps to opacity 0→1
+      const fadeIn = Math.max(0, Math.min(1, (progress - 0.95) / 0.05));
+      btn.style.opacity = String(fadeIn);
+      btn.style.pointerEvents = fadeIn > 0.1 ? 'auto' : 'none';
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    requestAnimationFrame(onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const toggleFooter = useCallback(() => {
+    if (footerOpen) {
+      const cinema = document.getElementById('weddings-cinema');
+      if (cinema) {
+        const target = cinema.offsetTop + cinema.offsetHeight - window.innerHeight;
+        window.scrollTo({ top: target, behavior: 'smooth' });
+      }
+      setTimeout(() => setFooterOpen(false), 600);
+    } else {
+      setFooterOpen(true);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          footerRef.current?.scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+    }
+  }, [footerOpen]);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <MinimalHeader />
-      <PianoKeyNav sections={pianoSections} />
-      
+    <div className="min-h-screen">
+      <CinematicNav />
+
       <main>
-      {/* ACT I — Hero: The Vigil Sequence */}
-      <section className="vigil-hero relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Layer 1: True Void (Pure Black) */}
-        <div
-          className="absolute inset-0 bg-background"
-          aria-hidden="true"
-        />
-
-        {/* Hero image preloaded via index.html for LCP */}
-
-        {/* Layer 2: Hero Image with Bottom-Weighted Gradient + Ken Burns */}
-        <VigilReveal 
-          isRevealing={vigilPhase.isKindling} 
-          isComplete={vigilPhase.isRevealing || vigilPhase.isComplete}
-        >
-          <div
-            className="absolute inset-0 bg-cover bg-center will-change-transform"
-            style={{
-              backgroundImage: `linear-gradient(hsl(var(--rich-black) / 0.35) 0%, hsl(var(--rich-black) / 0.75) 100%), url(${heroImage})`,
-              filter: "brightness(0.75) contrast(1.08) saturate(0.9)",
-              animation: vigilPhase.isRevealing || vigilPhase.isComplete ? "ken-burns 60s var(--ease-sacred) infinite" : undefined,
-            }}
-            aria-hidden="true"
-          />
-        </VigilReveal>
-
-        {/* Layer 3: Vignette (Reduced opacity for breathing room) */}
-        <div
-          className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 ${
-            vigilPhase.isRevealing || vigilPhase.isComplete ? "opacity-100" : "opacity-0"
-          }`}
-          style={{
-            background: "radial-gradient(circle at center, transparent 0%, hsl(var(--rich-black) / 0.45) 100%)",
-          }}
-          aria-hidden="true"
-        />
-
-        {/* Layer 4: Fog Overlay */}
-        <div
-          className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 ${
-            vigilPhase.isRevealing || vigilPhase.isComplete ? "opacity-100" : "opacity-0"
-          }`}
-          style={{
-            background: "radial-gradient(circle at 50% 30%, hsl(var(--vow-yellow) / 0.03) 0%, transparent 50%)",
-          }}
-          aria-hidden="true"
-        />
-
-        {/* Layer 5: Film Grain — Reduced, GPU-composited */}
-        <div 
-          className={`absolute inset-0 grain transition-opacity duration-1000 ${
-            vigilPhase.isRevealing || vigilPhase.isComplete ? "opacity-[0.15]" : "opacity-0"
-          }`}
-          aria-hidden="true" 
-        />
-
-        {/* Vigil Flame */}
-        <VigilFlame 
-          isVisible={vigilPhase.isStillness || vigilPhase.isKindling}
-          isDissolving={vigilPhase.isRevealing}
-        />
-
-        {/* Tagline (bottom-left) + Scroll Cue (bottom-center on mobile, bottom-right on desktop) */}
-        <HeroTagline />
-        <MinimalScrollCue />
-      </section>
-
-      {/* ACT II — The Exhale: Sacred Pause */}
-      <TheExhale />
-
-      {/* ACT III — The Preparation: Composer's Journal */}
-      <ProcessSection />
-
-      {/* ACT IV — The Vow Moment: Altar Interstitial */}
-      <VowMoment />
-
-      {/* ACT V — The Invitation: Meet the Witness */}
-      <TheInvitation />
-
-      {/* ACT VI — The Sound: Dark Listening Environment */}
-      <TheSound />
-
-      {/* ACT VII — The Transformation: Fear to Life */}
-      <TheTransformation />
-
-      {/* ACT VIII — The Witness: Exhale Surface */}
-      <TheWitness />
-
-      {/* ACT IX — Three Paths: The Offering */}
-      <ThreePaths />
-
-      {/* ACT X — The Covenant Kept: Testimonials */}
-      <TheWitnesses />
-
-      {/* ACT XI — The Crossing: Final CTA */}
-      <CrossOver />
+        <CinematicScroll />
       </main>
 
-      <Footer />
+      {/* Footer reveal button — fades in at 95%, full at 100% */}
+      <button
+        ref={toggleRef}
+        onClick={toggleFooter}
+        className="cinema-footer-toggle"
+        aria-label={footerOpen ? 'Hide footer' : 'Show footer'}
+        style={{ opacity: 0, pointerEvents: 'none' }}
+      >
+        <svg
+          width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"
+          style={{ transform: footerOpen ? 'rotate(180deg)' : 'none', transition: 'transform 300ms ease' }}
+        >
+          <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+
+      {/* Footer — collapsed by default, expanded via button */}
+      <div
+        ref={footerRef}
+        className="relative weddings-footer-wrapper"
+        style={{
+          maxHeight: footerOpen ? '1000px' : '0px',
+          overflow: 'hidden',
+          transition: 'max-height 500ms ease',
+          zIndex: 1,
+        }}
+      >
+        <Footer />
+      </div>
       <MobileStickyBar />
     </div>
   );
