@@ -52,7 +52,7 @@ export function PricingNav() {
     if (pathname.includes('/contact')) return "You're here";
     if (pathname.startsWith('/teaching')) return 'Begin the Conversation';
     if (pathname.startsWith('/events')) return 'Discuss Your Event';
-    return 'Reserve My Date!';
+    return 'Reserve My Date';
   })();
 
   const ctaTo = (() => {

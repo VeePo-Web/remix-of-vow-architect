@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import heroImg from "@/assets/events-hero.jpg";
+import heroImg from "@/assets/events-stage-purple.jpg";
 
 export function EventsHero() {
   const [isRevealed, setIsRevealed] = useState(false);
@@ -33,8 +34,8 @@ export function EventsHero() {
         style={{
           backgroundImage: `url(${heroImg})`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
-          opacity: 0.14,
+          backgroundPosition: "center 30%",
+          opacity: 0.22,
           animation: "events-ken-burns 25s ease-in-out infinite alternate",
         }}
         aria-hidden="true"
@@ -81,6 +82,27 @@ export function EventsHero() {
         </h1>
       </div>
 
+      {/* CTA button — centered, visible before scroll */}
+      <div
+        className={cn(
+          "absolute inset-0 flex items-center justify-center transition-opacity duration-500 pointer-events-none",
+          isRevealed && !hasScrolled ? "opacity-100" : "opacity-0"
+        )}
+        style={{ transitionDelay: "800ms" }}
+      >
+        <Link
+          to="/events/contact"
+          className={cn(
+            "cn-cta-btn pointer-events-auto",
+            isRevealed && !hasScrolled ? "" : "pointer-events-none"
+          )}
+          style={{ marginTop: '8vh' }}
+          tabIndex={isRevealed && !hasScrolled ? 0 : -1}
+        >
+          Discuss Your Event
+        </Link>
+      </div>
+
       {/* Scroll cue */}
       <div
         className={cn(
@@ -88,17 +110,18 @@ export function EventsHero() {
           isRevealed && !hasScrolled ? "opacity-100" : "opacity-0 pointer-events-none"
         )}
         style={{
-          animation: isRevealed && !hasScrolled ? "breathe-scroll 4s ease-in-out infinite" : undefined,
           transitionDelay: "1200ms",
         }}
       >
-        <span className="text-xs uppercase tracking-[0.22em] font-sans text-muted-foreground">
-          Scroll to begin
+        <span className="text-xs uppercase tracking-[0.3em] font-sans" style={{ color: 'hsl(0 0% 100% / 0.5)' }}>
+          Scroll
         </span>
-        <span
-          className="w-1.5 h-1.5 rounded-full bg-primary"
-          style={{ animation: "events-dot-breathe 3s ease-in-out infinite" }}
-        />
+        <svg width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true"
+          className="opacity-40"
+          style={{ animation: "events-chevron-bounce 2.8s ease-in-out infinite" }}>
+          <path d="M1 1.5L6 6.5L11 1.5" stroke="hsl(0 0% 100% / 0.7)" strokeWidth="1.5"
+            strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
       </div>
 
       <style>{`
@@ -109,6 +132,10 @@ export function EventsHero() {
         @keyframes events-dot-breathe {
           0%, 100% { opacity: 0.4; transform: scale(1); }
           50% { opacity: 1; transform: scale(1.3); }
+        }
+        @keyframes events-chevron-bounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(3px); }
         }
         @media (prefers-reduced-motion: reduce) {
           .events-ken-burns { animation: none !important; }

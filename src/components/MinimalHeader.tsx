@@ -78,7 +78,7 @@ export function MinimalHeader() {
     if (isContactPage) return "You're here";
     if (pathname.startsWith('/teaching')) return 'Begin the Conversation';
     if (pathname.startsWith('/events')) return 'Discuss Your Event';
-    return 'Reserve My Date!';
+    return 'Reserve My Date';
   })();
   const navRef = useRef<HTMLElement>(null);
   const rafRef = useRef<number>(0);

@@ -56,10 +56,17 @@ export function CinematicScroll() {
   const vignetteRef = useRef<HTMLDivElement>(null);
   const grainRef = useRef<HTMLDivElement>(null);
   const textRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const preScrollRef = useRef<HTMLDivElement>(null);
   const [petalsActive, setPetalsActive] = useState(false);
   const petalsActiveRef = useRef(false);
 
   const onProgress = useCallback((progress: number) => {
+    // ── Pre-scroll overlay — fades out as soon as scrolling begins ──
+    if (preScrollRef.current) {
+      const op = Math.max(0, 1 - progress / 0.03);
+      preScrollRef.current.style.opacity = String(op);
+      preScrollRef.current.style.pointerEvents = op < 0.05 ? 'none' : 'auto';
+    }
     // ── Text overlays ──
     TEXT_OVERLAYS.forEach((item, i) => {
       const el = textRefs.current[i];
@@ -153,6 +160,40 @@ export function CinematicScroll() {
         {/* Film grain */}
         <div ref={grainRef} className="video-act__grain grain" aria-hidden="true" />
 
+        {/* ── Pre-scroll overlay — visible before any scrolling, fades on first scroll ── */}
+        <div
+          ref={preScrollRef}
+          className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-auto"
+          style={{ transition: 'opacity 400ms ease' }}
+        >
+          {/* CTA button — centered */}
+          <a
+            href="/contact"
+            className="cn-cta-btn"
+            style={{ marginTop: '8vh' }}
+          >
+            Reserve My Date
+          </a>
+
+          {/* Scroll indicator — pinned to bottom */}
+          <div
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+            style={{ animation: 'pre-scroll-breathe 2.8s ease-in-out infinite' }}
+          >
+            <span
+              className="font-sans text-[11px] uppercase tracking-[0.3em]"
+              style={{ color: 'hsl(0 0% 100% / 0.5)' }}
+            >
+              Scroll
+            </span>
+            <svg width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true"
+              style={{ animation: 'pre-scroll-chevron 2.8s ease-in-out infinite', opacity: 0.4 }}>
+              <path d="M1 1.5L6 6.5L11 1.5" stroke="hsl(0 0% 100% / 0.6)" strokeWidth="1.5"
+                strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+        </div>
+
         {/* ── Luxury text overlays ── */}
         {TEXT_OVERLAYS.map((item, i) => (
           <div
@@ -220,6 +261,16 @@ export function CinematicScroll() {
         ))}
       </div>
     </div>
+    <style>{`
+      @keyframes pre-scroll-breathe {
+        0%, 100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+        50% { opacity: 0.6; transform: translateX(-50%) translateY(4px); }
+      }
+      @keyframes pre-scroll-chevron {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(3px); }
+      }
+    `}</style>
     </>
   );
 }

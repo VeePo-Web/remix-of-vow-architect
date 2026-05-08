@@ -25,7 +25,7 @@ export default function Terms() {
       <PolicySection title="Services Overview">
         <p>
           I provide piano performance and sound direction for weddings, private events, and mentorship. 
-          Service area: Calgary, Cochrane, Canmore, Banff. Availability is not guaranteed until confirmed in writing.
+          Service area: Calgary, Cochrane, Canmore, and surrounding Southern Alberta. Availability is not guaranteed until confirmed in writing.
         </p>
       </PolicySection>
 

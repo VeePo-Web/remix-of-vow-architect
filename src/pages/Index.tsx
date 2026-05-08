@@ -12,12 +12,12 @@ export default function Index() {
   const [footerOpen, setFooterOpen] = useState(false);
 
   useEffect(() => {
-    document.title = "Parker Gawryletz — Wedding Pianist, Calgary to Banff";
+    document.title = "Parker Gawryletz — Wedding Pianist, Southern Alberta";
     document
       .querySelector('meta[name="description"]')
       ?.setAttribute(
         "content",
-        "I carry your vows so they can carry your guests. Custom ceremony piano from Calgary to Banff — every note crafted to honour your moment."
+        "I carry your vows so they can carry your guests. Custom ceremony piano across Southern Alberta — every note crafted to honour your moment."
       );
   }, []);
 

@@ -104,8 +104,41 @@ export default function AmbientAudioPill() {
     }
   }, [isPlaying, activeTrackIndex]);
 
+  /* ── Panel transport controls ── */
+  const handlePlayPause = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (isPlaying) {
+      audio.pause();
+      setIsPlaying(false);
+    } else if (activeTrackIndex !== null) {
+      if (allTracks[activeTrackIndex]?.src) {
+        audio.play().catch(() => {});
+      }
+      setIsPlaying(true);
+    }
+  }, [isPlaying, activeTrackIndex]);
+
+  const handlePrev = useCallback(() => {
+    if (activeTrackIndex !== null && activeTrackIndex > 0) {
+      handleSelectTrack(activeTrackIndex - 1);
+    }
+  }, [activeTrackIndex, handleSelectTrack]);
+
+  const handleNext = useCallback(() => {
+    if (activeTrackIndex !== null && activeTrackIndex < allTracks.length - 1) {
+      handleSelectTrack(activeTrackIndex + 1);
+    }
+  }, [activeTrackIndex, handleSelectTrack]);
+
   const handlePillClick = useCallback(() => {
     setIsPanelOpen((p) => !p);
+  }, []);
+
+  const handleSeek = useCallback((ratio: number) => {
+    const audio = audioRef.current;
+    if (!audio || !audio.duration) return;
+    audio.currentTime = ratio * audio.duration;
   }, []);
 
   const pct            = duration > 0 ? (progress / duration) * 100 : 0;
@@ -141,6 +174,13 @@ export default function AmbientAudioPill() {
         activeTrackIndex={activeTrackIndex}
         onSelectTrack={handleSelectTrack}
         reduced={reduced}
+        progress={progress}
+        duration={duration}
+        isPlaying={isPlaying}
+        onSeek={handleSeek}
+        onPlayPause={handlePlayPause}
+        onPrev={handlePrev}
+        onNext={handleNext}
       />
 
       {/* ════════════════════════════════════════
@@ -227,7 +267,7 @@ export default function AmbientAudioPill() {
           <span
             className={cn(
               "absolute inset-0 flex items-center whitespace-nowrap",
-              "font-sans text-[11px] font-medium uppercase tracking-[0.18em]",
+              "font-display italic text-[14px] tracking-[0.01em]",
               "transition-opacity duration-[120ms]",
               !isPanelOpen && activeTrackIndex === null ? "opacity-100" : "opacity-0",
             )}

@@ -14,7 +14,7 @@ const COPY: Record<"weddings" | "events" | "teaching", { heading: string; body: 
   },
   teaching: {
     heading: "I received your note.",
-    body: "I will write back within 24 hours — not with a sales pitch, but with a question or two of my own. This is how every good lesson begins.",
+    body: "I will write back within 24 hours — not with a sales pitch, but with a question or two of my own. This is how every good conversation begins.",
   },
 };
 
@@ -32,7 +32,7 @@ const TIMELINE: Record<"weddings" | "events" | "teaching", { time: string; actio
   teaching: [
     { time: "Within 24 hours", action: "I write back with a question or two of my own" },
     { time: "Day 2–3", action: "We schedule a short, informal first conversation" },
-    { time: "First lesson", action: "We begin — no audition, no expectations" },
+    { time: "First session", action: "I begin with you — no audition, no expectations" },
   ],
 };
 

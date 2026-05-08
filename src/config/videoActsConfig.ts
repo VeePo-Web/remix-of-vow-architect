@@ -171,7 +171,7 @@ export const TEXT_OVERLAYS: ScrollTextItem[] = [
   },
   {
     enterAt: 0.321, exitAt: 0.345,
-    text: 'I send you a first draft.\nYou shape it.\nWe refine it together until it sounds\nexactly as you imagined.',
+    text: 'I send you a first draft.\nYou shape it.\nI refine it with you until it sounds\nexactly as you imagined.',
     position: 'center', animation: 'fade-up',
     className: BODY + ' max-w-[420px] mx-auto',
   },
@@ -235,7 +235,7 @@ export const TEXT_OVERLAYS: ScrollTextItem[] = [
   },
   {
     enterAt: 0.489, exitAt: 0.504,
-    text: '500+ events · SOCAN licensed · Insured',
+    text: '500+ events · Fully insured · 17 years',
     position: 'center', animation: 'fade',
     className: LABEL,
   },
@@ -316,7 +316,7 @@ export const TEXT_OVERLAYS: ScrollTextItem[] = [
   },
   {
     enterAt: 0.713, exitAt: 0.732,
-    text: 'Every booking includes:\nPiano · Backup Piano · Sound System\nPrinted Cue Sheet · Liability Insurance · Rain Cover',
+    text: 'Every booking includes:\nPiano · Backup Piano · Sound System\nPrinted Cue Sheet · Liability Insurance',
     position: 'center', animation: 'fade-up',
     isGlass: true,
     className: BODY_SM + ' max-w-[420px] mx-auto',
@@ -352,7 +352,7 @@ export const TEXT_OVERLAYS: ScrollTextItem[] = [
   },
   {
     enterAt: 0.795, exitAt: 0.810,
-    text: 'Reserve My Date! →',
+    text: 'Reserve My Date →',
     position: 'center', animation: 'scale',
     isCta: true, href: '/contact',
     className: 'cn-inline-cta',
@@ -388,7 +388,7 @@ export const TEXT_OVERLAYS: ScrollTextItem[] = [
   },
   {
     enterAt: 0.853, exitAt: 0.878,
-    text: '"Our guests still talk about\nthe music. Not the food.\nNot the flowers. The music."\n— Emily & David, Fairmont Macdonald',
+    text: '"Our guests still talk about\nthe music. Not the food.\nNot the flowers. The music."\n— Emily & David, The Lake House',
     position: 'center', animation: 'fade-up',
     className: QUOTE + ' max-w-[500px] mx-auto',
   },
@@ -443,7 +443,7 @@ export const TEXT_OVERLAYS: ScrollTextItem[] = [
   },
   {
     enterAt: 0.970, exitAt: 1.5,
-    text: 'Reserve My Date! →',
+    text: 'Reserve My Date →',
     position: 'center', animation: 'fade-up',
     isCta: true, href: '/contact',
     className: 'cn-inline-cta cn-inline-cta--large final-anchor',

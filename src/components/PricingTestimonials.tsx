@@ -5,7 +5,7 @@ const testimonials = [
   {
     quote: "Worth more than any DJ. Every cue was seamless — no feedback, no delays, just music.",
     author: "Jessica M.",
-    venue: "Lake Louise",
+    venue: "Canmore",
     package: "The Vow — $650",
     initials: "JM",
   },

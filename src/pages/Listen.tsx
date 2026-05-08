@@ -17,7 +17,7 @@ const listenSections = [
   { id: "listen-prelude",   label: "Prelude",         isBlackKey: true  },
   { id: "listen-ceremony",  label: "Ceremony",        isBlackKey: false },
   { id: "listen-words",     label: "Kind Words",      isBlackKey: true  },
-  { id: "listen-cta",       label: "Reserve My Date!", isBlackKey: false },
+  { id: "listen-cta",       label: "Reserve My Date",  isBlackKey: false },
 ];
 
 /* ── Track data ── */
@@ -65,7 +65,7 @@ const testimonials = [
   {
     quote: "I closed my eyes and I was back in that room. The piano brought me right back to the moment he said my name.",
     author: "Sarah & James",
-    location: "Lake Louise",
+    location: "Priddis",
   },
   {
     quote: "We listened to every sample before booking. By the second track, we both knew.",

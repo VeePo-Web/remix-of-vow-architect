@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import teachingBenchImg from "@/assets/teaching-bench.jpg";
+import teachingBenchImg from "@/assets/teaching-jerome-ensemble.png";
 
 export function TeachingAboutHero() {
   const [revealPhase, setRevealPhase] = useState(0);
@@ -29,6 +29,7 @@ export function TeachingAboutHero() {
           alt=""
           className="w-full h-full object-cover"
           style={{
+            objectPosition: "center 50%",
             opacity: 0.12,
             animation: "ken-burns 30s ease-in-out infinite alternate",
             filter: "saturate(0.7) contrast(1.1)",

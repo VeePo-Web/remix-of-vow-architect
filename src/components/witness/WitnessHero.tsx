@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import aboutHeroImg from "@/assets/about-hero.jpg";
+import aboutHeroImg from "@/assets/wedding-brendan-ceremony.png";
 
 export function WitnessHero() {
   const [revealPhase, setRevealPhase] = useState(0);
@@ -22,7 +22,7 @@ export function WitnessHero() {
           style={{
             backgroundImage: `url(${aboutHeroImg})`,
             backgroundSize: "cover",
-            backgroundPosition: "center",
+            backgroundPosition: "center 47%",
             animation: "ken-burns 25s ease-in-out infinite alternate",
             filter: "saturate(0.85) contrast(1.05)",
           }}

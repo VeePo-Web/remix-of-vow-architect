@@ -315,7 +315,7 @@ export function CrossOver() {
               className="relative h-auto px-10 py-5 text-base rounded-[6px] font-sans font-medium cta-commitment cta-breathe-glow crossing-cta-hover focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[hsl(var(--rich-black))]"
               asChild
             >
-              <Link to="/contact" aria-describedby="crossing-trust-anchor" className="tracking-[0.02em]">Reserve My Date!</Link>
+              <Link to="/contact" aria-describedby="crossing-trust-anchor" className="tracking-[0.02em]">Reserve My Date</Link>
             </Button>
           </div>
         </div>

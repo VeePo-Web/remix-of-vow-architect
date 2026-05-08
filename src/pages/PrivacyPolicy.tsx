@@ -18,7 +18,7 @@ export default function PrivacyPolicy() {
       <PolicySection title="Who I Am">
         <p>
           I'm Parker Gawryletz, ceremony pianist. 
-          I serve Calgary, Cochrane, Canmore, and Banff.
+          I serve Calgary, Cochrane, Canmore, and the surrounding Southern Alberta region.
         </p>
         <p>
           Contact: <a href="mailto:parker@parkergawryletz.com" className="text-primary hover:text-primary/80 transition-colors duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm">parker@parkergawryletz.com</a> • <a href="tel:+14038308930" className="text-primary hover:text-primary/80 transition-colors duration-[180ms] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 rounded-sm">+1-403-830-8930</a>

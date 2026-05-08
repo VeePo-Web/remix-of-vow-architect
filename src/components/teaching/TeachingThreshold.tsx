@@ -6,7 +6,7 @@ const fears = [
   {
     fear: "What if I start and quit again?",
     resolution:
-      "Most of my students tried lessons before and stopped. That is not failure — it usually means the approach was wrong. Here, there is no timeline and no pressure. We go at your pace.",
+      "Most of my students tried piano before and stopped. That is not failure — it usually means the approach was wrong. Here, there is no timeline and no pressure. We go at your pace.",
     underlineWord: "pace",
   },
   {
@@ -16,7 +16,7 @@ const fears = [
     underlineWord: "chose",
   },
   {
-    fear: "What if it feels like lessons?",
+    fear: "What if it feels like work?",
     resolution:
       "There is no homework, no grading, no recitals unless you want them. It feels more like a weekly conversation that happens to involve a piano.",
     underlineWord: "conversation",

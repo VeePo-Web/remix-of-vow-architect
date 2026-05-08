@@ -240,7 +240,7 @@ export function TheInvitation() {
               )}
               style={{ transitionDelay: isVisible ? '900ms' : '0ms' }}
             >
-              500+ events <span className="text-primary opacity-30">·</span> SOCAN licensed <span className="text-primary opacity-30">·</span> $4M insured
+              500+ events <span className="text-primary opacity-30">·</span> Fully licensed <span className="text-primary opacity-30">·</span> $4M insured
             </p>
 
           </div>

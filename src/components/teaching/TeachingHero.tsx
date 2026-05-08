@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef, useCallback, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import benchImg from "@/assets/teaching-bench.jpg";
+import benchImg from "@/assets/teaching-jerome-ensemble.png";
 
 /* ─────────────────────────────────────────────
  * Character-by-character staggered reveal
@@ -161,9 +162,9 @@ export function TeachingHero() {
         style={{
           backgroundImage: `url(${benchImg})`,
           backgroundSize: "cover",
-          backgroundPosition: "center 90%",
-          opacity: 0.035,
-          filter: "saturate(0.5) contrast(1.05) brightness(0.8)",
+          backgroundPosition: "center 50%",
+          opacity: 0.045,
+          filter: "saturate(0.4) contrast(1.1) brightness(0.7)",
           animation: "teaching-ken-burns 30s linear infinite alternate",
         }}
         aria-hidden="true"
@@ -358,8 +359,29 @@ export function TeachingHero() {
             letterSpacing: "0.015em",
           }}
         >
-          Patient, one-on-one lessons for adults and beginners. No grades. No pressure. Just music.
+          Patient, one-on-one mentorship for adults and returning players. No grades. No pressure. Just music.
         </p>
+      </div>
+
+      {/* ── CTA button — centered, visible before scroll ── */}
+      <div
+        className={cn(
+          "absolute inset-0 flex items-center justify-center transition-opacity duration-[700ms] pointer-events-none",
+          isRevealed && !hasScrolled ? "opacity-100" : "opacity-0"
+        )}
+        style={{ transitionDelay: `${SUBTITLE_DELAY + 400}ms` }}
+      >
+        <Link
+          to="/teaching/contact"
+          className={cn(
+            "cn-cta-btn pointer-events-auto",
+            hasScrolled && "pointer-events-none"
+          )}
+          style={{ marginTop: '8vh' }}
+          tabIndex={isRevealed && !hasScrolled ? 0 : -1}
+        >
+          Begin the Conversation
+        </Link>
       </div>
 
       {/* ── Breathing scroll cue ── */}
@@ -374,7 +396,7 @@ export function TeachingHero() {
           className="text-xs uppercase tracking-[0.28em] font-sans"
           style={{ color: "hsl(var(--teaching-scroll-cue))" }}
         >
-          Scroll to learn more
+          Scroll
         </span>
         <svg
           width="12"

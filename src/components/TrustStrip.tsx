@@ -1,6 +1,6 @@
 const trustItems = [
   { label: "Insured" },
-  { label: "SOCAN-licensed" },
+  { label: "Fully licensed" },
   { label: "Redundant audio chain" },
 ];
 

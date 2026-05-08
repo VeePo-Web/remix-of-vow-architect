@@ -1,7 +1,7 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 import { GoldCornerImage } from "@/components/ui/gold-corner-image";
-import gatewayEventsImg from "@/assets/gateway-events.jpg";
+import gatewayEventsImg from "@/assets/events-stage-purple.jpg";
 
 const lines = [
   "You are planning something that matters.",
@@ -55,9 +55,10 @@ export function EventsExhale() {
       >
         <GoldCornerImage
           src={gatewayEventsImg}
-          alt="Grand piano set for a private evening event"
+          alt="Parker performing at a live event with dramatic stage lighting"
           aspectRatio="3/2"
           maxHeight="420px"
+          parallaxStyle={{ objectPosition: "center 30%" }}
         />
       </div>
 

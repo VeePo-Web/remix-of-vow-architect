@@ -2,15 +2,17 @@ import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useCallback, useRef, useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
-import weddingsImg from "@/assets/gateway-weddings.jpg";
-import teachingImg from "@/assets/gateway-teaching.jpg";
-import eventsImg from "@/assets/gateway-events.jpg";
+import { MusicNoteAmbient } from "@/components/MusicNoteAmbient";
+import weddingsImg from "@/assets/wedding-brendan-ceremony.png";
+import teachingImg from "@/assets/teaching-jerome-ensemble.png";
+import eventsImg from "@/assets/events-stage-purple.jpg";
 
 const services = [
   {
     title: "Weddings",
     description: "I carry every vow so it lands where it belongs",
     image: weddingsImg,
+    bgPosition: "center 47%",
     href: "/weddings",
     available: true,
     delay: 1000,
@@ -19,6 +21,7 @@ const services = [
     title: "Teaching",
     description: "Learn the instrument that speaks when words fall short",
     image: teachingImg,
+    bgPosition: "center 50%",
     href: "/teaching",
     available: true,
     delay: 1200,
@@ -27,13 +30,14 @@ const services = [
     title: "Events",
     description: "Live piano for moments that demand presence",
     image: eventsImg,
+    bgPosition: "center 30%",
     href: "/events",
     available: true,
     delay: 1400,
   },
 ];
 
-function CardImage({ image, available }: { image: string; available: boolean }) {
+function CardImage({ image, bgPosition = "center", available }: { image: string; bgPosition?: string; available: boolean }) {
   const imgRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -66,7 +70,7 @@ function CardImage({ image, available }: { image: string; available: boolean }) 
             ? "opacity-[0.35] group-hover:opacity-[0.45]"
             : "opacity-[0.20]"
         )}
-        style={{ backgroundImage: `url(${image})` }}
+        style={{ backgroundImage: `url(${image})`, backgroundPosition: bgPosition }}
       />
     </div>
   );
@@ -81,6 +85,10 @@ export default function Gateway() {
 
   return (
     <main className="h-screen w-screen overflow-hidden flex flex-col items-center py-8 md:py-0 md:justify-center relative" style={{ background: "hsl(var(--rich-black))" }} aria-label="Choose your path" data-theme="death">
+
+      {/* Falling music notes — ambient + cursor-reactive */}
+      <MusicNoteAmbient />
+
       {/* Film grain */}
       <div className="absolute inset-0 grain opacity-[0.10] pointer-events-none" aria-hidden="true" />
 
@@ -129,7 +137,7 @@ export default function Gateway() {
         {services.map((s) => {
           const inner = (
             <>
-              <CardImage image={s.image} available={s.available} />
+              <CardImage image={s.image} bgPosition={s.bgPosition} available={s.available} />
               {/* Gradient overlay */}
                 <div
                   className="absolute inset-0 transition-all duration-500"

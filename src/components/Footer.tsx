@@ -24,7 +24,7 @@ function getFooterConfig(pathname: string) {
 
   const ctaText = isEvents ? 'Discuss Your Event'
     : isTeaching ? 'Begin the Conversation'
-    : 'Reserve My Date!';
+    : 'Reserve My Date';
 
   const tagline = isEvents ? 'Event pianist for moments that demand presence.'
     : isTeaching ? 'Piano mentorship for every stage of the journey.'
@@ -599,7 +599,7 @@ export function Footer() {
                 Ceremony Pianist
               </p>
               <p className="mb-10 max-w-md leading-relaxed text-sm" style={{ color: "hsl(0 0% 100% / 0.5)" }}>
-                Calgary, Cochrane, Canmore & Banff — wherever your moment needs a witness.
+                Calgary, Cochrane, Canmore & Okotoks — wherever your moment needs a witness.
               </p>
               {/* Social icons with spotlight hover */}
               <div className="group/icons flex items-center gap-4">
@@ -675,7 +675,7 @@ export function Footer() {
                 Reach Me
               </h4>
               <ul className="space-y-4 text-sm" style={{ color: "hsl(0 0% 100% / 0.45)" }}>
-                <li>Calgary, Cochrane, Canmore & Banff</li>
+                <li>Calgary, Cochrane, Canmore & Okotoks</li>
                 <li>
                   <a
                     href="mailto:parker@parkergawryletz.com"

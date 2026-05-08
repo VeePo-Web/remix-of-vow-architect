@@ -2,7 +2,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useRef, useState, useEffect, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { GoldCornerImage } from "@/components/ui/gold-corner-image";
-import teachingStudioImg from "@/assets/teaching-studio-warm.jpg";
+import teachingStudioImg from "@/assets/teaching-jerome-ensemble.png";
 
 interface LineConfig {
   text: string;
@@ -32,7 +32,7 @@ const lines: LineConfig[] = [
     shadowWeight: "light",
   },
   {
-    text: "Your first lesson starts with a conversation.",
+    text: "Your first session starts with a conversation.",
     italic: true,
     size: "text-[20px] md:text-[28px]",
     underlineWord: "conversation",
@@ -215,9 +215,10 @@ export function TeachingExhale() {
       >
         <GoldCornerImage
           src={teachingStudioImg}
-          alt="Piano in a warm teaching studio with golden hour light"
+          alt="Parker performing with Jerome and Lucas at First Love"
           aspectRatio="16/9"
           maxHeight="480px"
+          parallaxStyle={{ objectPosition: "center 50%" }}
         />
       </div>
 

@@ -165,7 +165,7 @@ export function CinematicNav() {
       {/* ═══ PERSISTENT CTA — bottom center ═══ */}
       <div ref={ctaRef} className="cn-cta-bar" style={{ opacity: 0, pointerEvents: 'none' }}>
         <Link to="/contact" className="cn-cta-btn">
-          Reserve My Date!
+          Reserve My Date
         </Link>
       </div>
 

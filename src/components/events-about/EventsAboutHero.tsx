@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import eventsHeroImg from "@/assets/events-hero.jpg";
+import eventsHeroImg from "@/assets/events-stage-purple.jpg";
 
 export function EventsAboutHero() {
   const [revealPhase, setRevealPhase] = useState(0);
@@ -30,9 +30,10 @@ export function EventsAboutHero() {
           alt=""
           className="w-full h-full object-cover"
           style={{
-            opacity: 0.12,
+            objectPosition: "center 30%",
+            opacity: 0.18,
             animation: "ken-burns 30s ease-in-out infinite alternate",
-            filter: "saturate(0.7) contrast(1.1)",
+            filter: "saturate(0.6) contrast(1.15)",
             willChange: "transform",
           }}
         />

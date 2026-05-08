@@ -1,7 +1,7 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 import { GoldCornerImage } from "@/components/ui/gold-corner-image";
-import teachingKeysImg from "@/assets/teaching-keys.jpg";
+import teachingKeysImg from "@/assets/teaching-jerome-ensemble.png";
 
 export function TeachingAboutOrigin() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
@@ -49,7 +49,7 @@ export function TeachingAboutOrigin() {
             <div className={cn("pt-8 transition-all duration-700", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6")} style={{ transitionDelay: "800ms" }}>
               <div className="h-[1px] w-full mb-8" style={{ background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.3), transparent)" }} />
               <p className="font-display text-xl italic text-primary">
-                "The best lessons do not feel like lessons. They feel like conversations."
+                "The best sessions do not feel like work. They feel like conversations."
               </p>
               <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mt-3 opacity-50">— Parker</p>
             </div>
@@ -58,8 +58,9 @@ export function TeachingAboutOrigin() {
           <div className={cn("md:col-span-3 relative transition-all duration-1000 rounded-sm", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")} style={{ transitionDelay: "400ms" }}>
             <GoldCornerImage
               src={teachingKeysImg}
-              alt="Piano keys in warm light, ready for a lesson"
+              alt="Parker performing with Jerome and Lucas at First Love"
               frameIndex="FR01"
+              parallaxStyle={{ objectPosition: "center 50%" }}
             />
           </div>
         </div>

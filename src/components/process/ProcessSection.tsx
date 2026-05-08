@@ -47,7 +47,7 @@ const movements: Movement[] = [
     quote: 'I send a first draft — unpolished, honest, yours to shape.',
     details: 'Not to impress you — to ask: does this sound like us? Your feedback is not inconvenient. It is the whole point.',
     assumption: 'I would rather revise ten times than settle once.',
-    outcome: 'We refine until it sounds exactly as you imagined.',
+    outcome: 'I refine until it sounds exactly as you imagined.',
     annotation: "until it's right",
   },
   {

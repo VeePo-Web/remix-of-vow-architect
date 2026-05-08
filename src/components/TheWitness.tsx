@@ -16,7 +16,6 @@ const standardKit = [
   "Sound System",
   "Printed Cue Sheet",
   "Liability Insurance",
-  "Rain Cover",
 ];
 
 /* ═══════════════════════════════════════════════════════════

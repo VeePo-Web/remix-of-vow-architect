@@ -188,7 +188,7 @@ export function TeachingMethodology() {
           }}
         >
           <ScrollRevealWords
-            text="The first lesson is really a conversation. I want to know what brought you to the piano — what songs you love, what you hope to be able to do, and what has held you back. We start there, not with scales."
+            text="The first session is really a conversation. I want to know what brought you to the piano — what songs you love, what you hope to be able to do, and what has held you back. I start there, not with scales."
             isInView={isVisible}
           />
         </p>

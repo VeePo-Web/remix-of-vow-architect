@@ -86,7 +86,7 @@ export function SPLTriptych() {
                 <TestimonialAvatar alt="Elise" fallback="E" />
                 <div className="text-sm">
                   <p className="font-display font-medium text-foreground">Elise</p>
-                  <p className="text-muted-foreground">Tunnel Mountain</p>
+                  <p className="text-muted-foreground">Canmore</p>
                 </div>
               </div>
             </Card>

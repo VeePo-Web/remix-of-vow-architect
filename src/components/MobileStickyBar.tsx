@@ -16,22 +16,22 @@ function getPageConfig(pathname: string) {
     return { text: "Three paths, one pianist", cta: "Start a Conversation", contactHref: '/contact' };
   }
   if (pathname === '/weddings') {
-    return { text: "I would be honored to be there", cta: "Reserve My Date!", contactHref };
+    return { text: "I would be honored to be there", cta: "Reserve My Date", contactHref };
   }
   if (pathname === '/pricing') {
-    return { text: "Find the right presence", cta: "Reserve My Date!", contactHref };
+    return { text: "Find the right presence", cta: "Reserve My Date", contactHref };
   }
   if (pathname === '/about') {
-    return { text: "The witness behind the keys", cta: "Reserve My Date!", contactHref };
+    return { text: "The witness behind the keys", cta: "Reserve My Date", contactHref };
   }
   if (pathname === '/proof') {
-    return { text: "500+ ceremonies performed", cta: "Reserve My Date!", contactHref };
+    return { text: "500+ events performed", cta: "Reserve My Date", contactHref };
   }
   if (pathname === '/faq') {
-    return { text: "Every question, answered", cta: "Reserve My Date!", contactHref };
+    return { text: "Every question, answered", cta: "Reserve My Date", contactHref };
   }
   if (pathname === '/listen') {
-    return { text: "Hear what your ceremony could sound like", cta: "Reserve My Date!", contactHref };
+    return { text: "Hear what your ceremony could sound like", cta: "Reserve My Date", contactHref };
   }
 
   // — Events vertical
@@ -63,7 +63,7 @@ function getPageConfig(pathname: string) {
   }
 
   // Fallback
-  return { text: "I would be honored to be there", cta: "Reserve My Date!", contactHref };
+  return { text: "I would be honored to be there", cta: "Reserve My Date", contactHref };
 }
 
 export function MobileStickyBar() {
