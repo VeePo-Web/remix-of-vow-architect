@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 import aboutHeroImg     from "@/assets/wedding-brendan-ceremony.png";
 import aboutOriginImg   from "@/assets/about-origin.jpg";
-import aboutPresenceImg from "@/assets/about-presence.jpg";
+import aboutPresenceImg from "@/assets/witness-ceremony.jpg";
 import handsKeys        from "@/assets/hands-keys-closeup.jpg";
 
 const sections = [

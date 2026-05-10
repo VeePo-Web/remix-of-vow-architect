@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 
 import eventsNordOverhead from "@/assets/events-nord-overhead.png";
 import teachingKeysImg from "@/assets/teaching-keys.jpg";
-import studentLearningImg from "@/assets/student-learning-moment.jpg";
+import studentLearningImg from "@/assets/teaching-keys.jpg";
 
 const sections = [
   { id: "faq-hero",      label: "Overview",         isBlackKey: false },

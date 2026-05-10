@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 
 import studioWarm from "@/assets/teaching-jerome-ensemble.png";
 import eventsStageWarmlight from "@/assets/events-stage-warmlight.png";
-import studentLearning from "@/assets/student-learning-moment.jpg";
+import studentLearning from "@/assets/teaching-keys.jpg";
 
 const sections = [
   { id: "tp-hero",     label: "The Offering",    isBlackKey: false },

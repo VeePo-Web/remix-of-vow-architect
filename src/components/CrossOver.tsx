@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-import crossoverDance from "@/assets/crossover-dance-ai.jpg";
+import crossoverDance from "@/assets/vow-moment-altar.jpg";
 
 /* 15-B: Sacred quote words for micro-stagger */
 const QUOTE_WORDS = [

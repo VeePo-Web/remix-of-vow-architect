@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useScrollParallax } from "@/hooks/useScrollParallax";
 import { cn } from "@/lib/utils";
-import aboutPresenceImg from "@/assets/about-presence.jpg";
+import aboutPresenceImg from "@/assets/witness-ceremony.jpg";
 
 const witnessedMoments = [
   "The bride who forgot her vows—and spoke from the heart instead",

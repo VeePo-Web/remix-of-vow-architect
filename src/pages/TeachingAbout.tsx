@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import eventsPerformerBw from "@/assets/events-performer-bw.png";
 import eventsStageMotion from "@/assets/events-stage-motion.png";
 import teachingStudioImg from "@/assets/teaching-studio-warm.jpg";
-import studentMomentImg from "@/assets/student-learning-moment.jpg";
+import studentMomentImg from "@/assets/teaching-keys.jpg";
 
 const sections = [
   { id: "tab-hero",       label: "The Mentor",     isBlackKey: false },

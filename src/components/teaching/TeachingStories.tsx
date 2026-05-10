@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { GoldCornerImage } from "@/components/ui/gold-corner-image";
 import handsKeysImg from "@/assets/hands-keys-closeup.jpg";
-import studentLearningImg from "@/assets/student-learning-moment.jpg";
+import studentLearningImg from "@/assets/teaching-keys.jpg";
 import soundKeysIntimateImg from "@/assets/sound-keys-intimate-ai.jpg";
 
 const storyImages = [handsKeysImg, studentLearningImg, soundKeysIntimateImg];
