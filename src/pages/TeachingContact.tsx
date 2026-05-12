@@ -70,6 +70,7 @@ export default function TeachingContact() {
         {/* ═══ HERO IMAGE ═══ */}
         <div className="pricing-image pricing-image--hero">
           <img src={eventsStageWarmlight} alt="Parker performing under warm amber stage lighting" loading="eager" style={{ objectPosition: "center 30%" }} />
+          <span className="parker-credit">Photo: IG @tc.photovideo</span>
         </div>
 
         {/* ═══ FORM — dark band ═══ */}

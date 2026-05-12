@@ -115,6 +115,7 @@ export default function TeachingFAQ() {
         {/* ═══ HERO IMAGE ═══ */}
         <div className="pricing-image pricing-image--hero">
           <img src={eventsNordOverhead} alt="Parker at a red Nord piano, overhead view — the musician's perspective" loading="eager" style={{ objectPosition: "center 40%" }} />
+          <span className="parker-credit">Photo: IG @tc.photovideo</span>
         </div>
 
         {/* ═══ AT A GLANCE — dark band ═══ */}

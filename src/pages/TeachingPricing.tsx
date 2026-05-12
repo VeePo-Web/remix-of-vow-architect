@@ -123,6 +123,7 @@ export default function TeachingPricing() {
         {/* ═══ CINEMATIC BREAK ═══ */}
         <div className="pricing-image pricing-image--cinematic">
           <img src={eventsStageWarmlight} alt="Parker performing under warm amber stage lighting" loading="lazy" style={{ objectPosition: "center 30%" }} />
+          <span className="parker-credit">Photo: IG @tc.photovideo</span>
         </div>
 
         {/* ═══ WHAT EVERY SESSION INCLUDES ═══ */}

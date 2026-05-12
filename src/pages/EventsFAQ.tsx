@@ -115,6 +115,7 @@ export default function EventsFAQ() {
         {/* ═══ HERO IMAGE ═══ */}
         <div className="pricing-image pricing-image--hero">
           <img src={eventsStageWarmlight} alt="Parker performing at a live event under warm amber stage lighting" loading="eager" style={{ objectPosition: "center 30%" }} />
+          <span className="parker-credit">Photo: IG @tc.photovideo</span>
         </div>
 
         {/* ═══ AT A GLANCE — dark band ═══ */}
@@ -164,6 +165,7 @@ export default function EventsFAQ() {
         {/* ═══ CINEMATIC BREAK ═══ */}
         <div className="pricing-image pricing-image--cinematic">
           <img src={eventsNordOverhead} alt="Parker at a red Nord piano, overhead view, warm stage lighting" loading="lazy" style={{ objectPosition: "center 40%" }} />
+          <span className="parker-credit">Photo: IG @tc.photovideo</span>
         </div>
 
         {/* ═══ COMMON QUESTIONS ═══ */}
@@ -285,6 +287,7 @@ export default function EventsFAQ() {
         {/* ═══ CINEMATIC BREAK ═══ */}
         <div className="pricing-image pricing-image--cinematic">
           <img src={eventsPerformerBw} alt="Parker seated at his keyboard on stage, dramatic black and white" loading="lazy" style={{ objectPosition: "center 30%" }} />
+          <span className="parker-credit">Photo: IG @tc.photovideo</span>
         </div>
 
         {/* ═══ CTA — dark band ═══ */}

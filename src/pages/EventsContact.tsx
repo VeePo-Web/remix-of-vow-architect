@@ -70,6 +70,7 @@ export default function EventsContact() {
         {/* ═══ HERO IMAGE ═══ */}
         <div className="pricing-image pricing-image--hero">
           <img src={eventsPerformerBw} alt="Parker seated at his keyboard on stage, dramatic black and white" loading="eager" style={{ objectPosition: "center 30%" }} />
+          <span className="parker-credit">Photo: IG @tc.photovideo</span>
         </div>
 
         {/* ═══ FORM — dark band ═══ */}

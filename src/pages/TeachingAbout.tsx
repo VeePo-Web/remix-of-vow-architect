@@ -100,6 +100,7 @@ export default function TeachingAbout() {
         {/* ═══ HERO IMAGE ═══ */}
         <div className="pricing-image pricing-image--hero">
           <img src={eventsPerformerBw} alt="Parker seated at a keyboard, focused and present — dramatic black and white" loading="eager" style={{ objectPosition: "center 30%" }} />
+          <span className="parker-credit">Photo: IG @tc.photovideo</span>
         </div>
 
         {/* ═══ HOW IT STARTED — dark band ═══ */}
@@ -162,6 +163,7 @@ export default function TeachingAbout() {
         {/* ═══ CINEMATIC BREAK ═══ */}
         <div className="pricing-image pricing-image--cinematic">
           <img src={eventsStageMotion} alt="Parker performing on stage with dynamic motion and stage lighting" loading="lazy" style={{ objectPosition: "center 40%" }} />
+          <span className="parker-credit">Photo: IG @tc.photovideo</span>
         </div>
 
         {/* ═══ WHAT GUIDES ME ═══ */}

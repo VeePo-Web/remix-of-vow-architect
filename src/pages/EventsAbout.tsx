@@ -99,6 +99,7 @@ export default function EventsAbout() {
         {/* ═══ HERO IMAGE ═══ */}
         <div className="pricing-image pricing-image--hero">
           <img src={eventsPerformerBw} alt="Parker seated at a keyboard on stage, dramatic black and white" loading="eager" style={{ objectPosition: "center 30%" }} />
+          <span className="parker-credit">Photo: IG @tc.photovideo</span>
         </div>
 
         {/* ═══ THE ROOM — dark band ═══ */}
@@ -150,6 +151,7 @@ export default function EventsAbout() {
         {/* ═══ CINEMATIC BREAK ═══ */}
         <div className="pricing-image pricing-image--cinematic">
           <img src={eventsStageMotion} alt="Parker performing on stage with dynamic motion and blue stage lighting" loading="lazy" style={{ objectPosition: "center 40%" }} />
+          <span className="parker-credit">Photo: IG @tc.photovideo</span>
         </div>
 
         {/* ═══ THREE PRINCIPLES ═══ */}

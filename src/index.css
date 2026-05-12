@@ -8059,6 +8059,26 @@ body:has(.now-playing-bar.is-visible) .md\\:hidden.fixed.bottom-0 {
 }
 
 /* Caption below image */
+/* Photographer credit tag — bottom-left inside Parker performance photos */
+.parker-credit {
+  position: absolute;
+  bottom: 14px;
+  left: 16px;
+  z-index: 2;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: hsl(0 0% 100% / 0.72);
+  background: hsl(0 0% 0% / 0.38);
+  padding: 4px 9px;
+  border-radius: 4px;
+  pointer-events: none;
+  user-select: none;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
 .pricing-image__caption {
   font-family: var(--font-sans);
   font-size: 12px;
