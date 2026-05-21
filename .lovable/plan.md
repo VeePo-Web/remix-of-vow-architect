@@ -1,33 +1,19 @@
+# Square Logo for Google Business Profile
 
+## Goal
+Create a square (1:1) logo at 1024x1024px optimized for Google Business Profile, using the existing Gawrylet brand.
 
-# Plan: Create Events Brand Identity Document
+## Approach
+1. Use the existing `public/logos/hero-dark.png` (dark wordmark on light) as the source of brand truth.
+2. Use `imagegen--edit_image` to recompose the wordmark into a centered 1:1 square with proper padding (Google recommends safe margins).
+3. Produce two variants so the user can pick:
+   - **Light version**: dark text/mark on clean off-white background
+   - **Dark version**: light text/mark on deep charcoal background
+4. Save both to `/mnt/documents/` as PNGs.
+5. QA each by viewing the rendered image — check centering, clarity, no clipping, sufficient margins.
+6. Bundle into `parker-square-logo.zip` and deliver via `<presentation-artifact>`.
 
-Create `.lovable/events-brand-identity.md` following the same structure as the wedding and teaching documents — Brand Truth Table, Non-Negotiables/Flex/Dealbreakers, Brand Spine, Positioning, Customer Identity Mirror, Messaging, Voice, and Visual direction.
-
-## Key Differentiators from Other Verticals
-
-- **Tone:** Professional and polished, not sacred/vigil (weddings) or warm/mentorship (teaching)
-- **Category:** "Private Event Pianist" — not "sound director" or "mentor"
-- **Mission:** "I understand what live music does to a room" — atmospheric, not ceremonial
-- **Tagline adaptation:** "Every room has a sound it's waiting for."
-- **Enemy:** The generic playlist, the background-noise assumption, the DJ who drowns conversation
-- **Audience:** Hosts planning private dinners, church services, cocktail receptions, intimate celebrations — people who care about atmosphere and presence
-
-## Document Structure (matching existing format)
-
-1. **Brand Truth Table** — Events-specific truths (500+ events, 4 occasion types, 500+ repertoire, room-reading ability)
-2. **Non-Negotiables / Flex / Dealbreakers** — Professional tone rules, no "sacred/vigil" language, no entertainment framing
-3. **Brand Spine** — Category stance, enemy, audience, promise, proof, personality
-4. **Positioning & Differentiators** — "Private Event Pianist" category, differentiator table vs DJs/playlists/bands
-5. **Customer Identity Mirror** — "You are my people if..." / "Not for you if..." for event hosts
-6. **Messaging Pillars** — Atmosphere, Adaptability, Professionalism
-7. **Voice & Lexicon** — Events-specific word choices (allowed/banned), CTA phrasing
-8. **Visual Direction** — How the events page differs aesthetically from weddings/teaching
-9. **Cross-Vertical Coherence** — How events connects to the broader Sacred Sound brand
-
-## File
-
-- **Create:** `.lovable/events-brand-identity.md`
-
-No code changes required.
-
+## Output
+- `/mnt/documents/parker-logo-square-light.png` (1024x1024)
+- `/mnt/documents/parker-logo-square-dark.png` (1024x1024)
+- `/mnt/documents/parker-square-logo.zip`
