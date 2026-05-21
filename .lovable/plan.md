@@ -1,19 +1,25 @@
-# Square Logo for Google Business Profile
+Now that `gawryletzmusic.com` is verified in Resend, I'll update the edge function to send from your own branded address instead of the shared `onboarding@resend.dev` sender.
 
-## Goal
-Create a square (1:1) logo at 1024x1024px optimized for Google Business Profile, using the existing Gawrylet brand.
+## Change
 
-## Approach
-1. Use the existing `public/logos/hero-dark.png` (dark wordmark on light) as the source of brand truth.
-2. Use `imagegen--edit_image` to recompose the wordmark into a centered 1:1 square with proper padding (Google recommends safe margins).
-3. Produce two variants so the user can pick:
-   - **Light version**: dark text/mark on clean off-white background
-   - **Dark version**: light text/mark on deep charcoal background
-4. Save both to `/mnt/documents/` as PNGs.
-5. QA each by viewing the rendered image — check centering, clarity, no clipping, sufficient margins.
-6. Bundle into `parker-square-logo.zip` and deliver via `<presentation-artifact>`.
+In `supabase/functions/send-contact-email/index.ts`, update the `from` field:
 
-## Output
-- `/mnt/documents/parker-logo-square-light.png` (1024x1024)
-- `/mnt/documents/parker-logo-square-dark.png` (1024x1024)
-- `/mnt/documents/parker-square-logo.zip`
+- **Before:** `Parker Gawryletz Site <onboarding@resend.dev>`
+- **After:** `Parker Gawryletz <noreply@gawryletzmusic.com>`
+
+Everything else stays the same:
+- Emails still go **to** `parker@veepo.ca`
+- `reply_to` is still set to the visitor's email, so hitting "Reply" goes straight to them
+- All three forms (Weddings, Events, Teaching) keep working — they all call this one function
+
+## Why this matters
+
+- Emails arrive from your real brand (`@gawryletzmusic.com`) — looks professional in the inbox
+- Far better deliverability than the shared Resend test sender (less likely to land in spam)
+- DMARC/SPF/DKIM all pass since the domain is verified
+
+## Notes
+
+- I'll use `noreply@gawryletzmusic.com` as the sender. If you'd rather it come from `parker@`, `hello@`, or `bookings@gawryletzmusic.com`, let me know before I implement and I'll use that instead.
+- No DNS or Resend dashboard work needed on your end — the domain is already verified.
+- The edge function will auto-redeploy after the change.
