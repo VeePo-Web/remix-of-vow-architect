@@ -8,6 +8,8 @@ import { usePageTheme } from "@/hooks/usePageTheme";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 
 import contactHeroImg from "@/assets/contact-hero.jpg";
 
@@ -37,7 +39,14 @@ export default function Contact() {
     formState: { errors, isSubmitting },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-  const onSubmit = (_data: FormData) => {
+  const onSubmit = async (data: FormData) => {
+    const { error } = await supabase.functions.invoke("send-contact-email", {
+      body: { ...data, vertical: "weddings" },
+    });
+    if (error) {
+      toast({ title: "Something went wrong", description: "Please try again or email parker@veepo.ca directly.", variant: "destructive" });
+      return;
+    }
     setIsSubmitted(true);
   };
 
