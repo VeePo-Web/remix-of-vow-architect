@@ -1,4 +1,19 @@
-import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors';
+import {
+  BRAND,
+  emailWrapper,
+  emailHeader,
+  detailRows,
+  messageBlock,
+  ctaBlock,
+  emailFooter,
+  escapeHtml,
+} from '../_shared/email-template.ts';
+
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers':
+    'authorization, x-client-info, apikey, content-type',
+};
 
 const GATEWAY_URL = 'https://connector-gateway.lovable.dev/resend';
 const TO_EMAIL = 'parker@veepo.ca';
@@ -10,8 +25,12 @@ interface Payload {
   vertical?: 'weddings' | 'events' | 'teaching' | string;
 }
 
-const escape = (s: string) =>
-  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const verticalLabel: Record<string, { eyebrow: string; title: string }> = {
+  weddings: { eyebrow: 'A New Ceremony Inquiry', title: 'A wedding has arrived.' },
+  events: { eyebrow: 'A New Event Inquiry', title: 'A new room awaits.' },
+  teaching: { eyebrow: 'A New Mentorship Inquiry', title: 'A new student approaches.' },
+  general: { eyebrow: 'A New Inquiry', title: 'A new message has arrived.' },
+};
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -38,15 +57,30 @@ Deno.serve(async (req) => {
     }
 
     const subject = `New ${vertical} inquiry — ${name}`;
-    const html = `
-      <div style="font-family:Inter,Arial,sans-serif;color:#141414;line-height:1.6">
-        <h2 style="margin:0 0 16px">New ${escape(vertical)} inquiry</h2>
-        <p><strong>Name:</strong> ${escape(name)}</p>
-        <p><strong>Email:</strong> <a href="mailto:${escape(email)}">${escape(email)}</a></p>
-        <p><strong>Message:</strong></p>
-        <p style="white-space:pre-wrap;background:#faf8f5;padding:16px;border-left:3px solid #c9a84c">${escape(message) || '<em>(no message)</em>'}</p>
-      </div>
-    `;
+    const meta = verticalLabel[vertical] || verticalLabel.general;
+    const timestamp = new Date().toLocaleString('en-CA', {
+      timeZone: 'America/Edmonton',
+      dateStyle: 'long',
+      timeStyle: 'short',
+    });
+
+    const content =
+      emailHeader(meta.eyebrow, meta.title) +
+      `<tr><td style="padding:8px 56px 0;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+          ${detailRows([
+            ['Name', escapeHtml(name)],
+            ['Email', `<a href="mailto:${escapeHtml(email)}" style="color:${BRAND.colors.ink};text-decoration:none;border-bottom:1px solid ${BRAND.colors.gold};">${escapeHtml(email)}</a>`],
+            ['Vertical', escapeHtml(vertical)],
+            ['Received', escapeHtml(timestamp) + ' <span style="color:#9c958a;">MT</span>'],
+          ])}
+        </table>
+      </td></tr>` +
+      messageBlock(message) +
+      ctaBlock(`Reply to ${name.split(' ')[0] || 'sender'}`, `mailto:${email}`, 'Replying sends a message directly to the visitor.') +
+      emailFooter('You received this because a visitor submitted the contact form on gawryletzmusic.com.');
+
+    const html = emailWrapper(content, `New ${vertical} inquiry from ${name}`);
 
     const res = await fetch(`${GATEWAY_URL}/emails`, {
       method: 'POST',
