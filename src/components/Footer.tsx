@@ -39,19 +39,19 @@ function getFooterConfig(pathname: string) {
     { to: "/weddings", label: "Weddings" },
     { to: "/teaching", label: "Teaching" },
     { to: "/events", label: "Events" },
-    { to: pricingHref, label: "Services" },
+    { to: pricingHref, label: "Pricing" },
     { to: aboutHref, label: "About" },
   ];
 
   // Proof is weddings-exclusive
   if (!isEvents && !isTeaching) {
-    navLinks.push({ to: "/proof", label: "Proof" });
+    navLinks.push({ to: "/proof", label: "Reviews" });
   }
 
   // FAQ and Listen are available on all verticals
   navLinks.push(
     { to: faqHref, label: "FAQ" },
-    { to: "/listen", label: "Listen" },
+    { to: "/listen", label: "Music Samples" },
   );
 
   navLinks.push({ to: contactHref, label: "Contact" });

@@ -20,15 +20,15 @@ function getNavLinks(pathname: string) {
   const isTeaching = pathname.startsWith('/teaching');
   const links = [
     {
-      label: isEvents ? 'Packages' : isTeaching ? 'Lesson Plans' : 'Services',
+      label: isEvents ? 'Packages' : isTeaching ? 'Lessons' : 'Pricing',
       href:  isEvents ? '/events/pricing' : isTeaching ? '/teaching/pricing' : '/pricing',
     },
     { label: 'About',  href: isEvents ? '/events/about'  : isTeaching ? '/teaching/about'  : '/about'  },
   ];
-  if (!isEvents && !isTeaching) links.push({ label: 'Proof', href: '/proof' });
+  if (!isEvents && !isTeaching) links.push({ label: 'Reviews', href: '/proof' });
   links.push(
     { label: 'FAQ',    href: isEvents ? '/events/faq'    : isTeaching ? '/teaching/faq'    : '/faq'    },
-    { label: 'Listen', href: '/listen' },
+    { label: 'Music Samples', href: '/listen' },
   );
   return links;
 }
