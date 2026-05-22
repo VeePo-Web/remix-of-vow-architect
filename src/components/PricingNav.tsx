@@ -17,7 +17,7 @@ function getNavLinks(pathname: string) {
     : isTeaching ? '/teaching/faq'
     : '/faq';
 
-  const servicesLabel = isEvents ? 'Packages' : isTeaching ? 'Lessons' : 'Services';
+  const servicesLabel = isEvents ? 'Packages' : isTeaching ? 'Lessons' : 'Pricing';
 
   const links = [
     { to: pricingTo, label: servicesLabel },
@@ -26,7 +26,7 @@ function getNavLinks(pathname: string) {
 
   // Proof is weddings-exclusive
   if (!isEvents && !isTeaching) {
-    links.push({ to: "/proof", label: "Proof" });
+    links.push({ to: "/proof", label: "Reviews" });
   }
 
   links.push({ to: faqTo, label: "FAQ" });
