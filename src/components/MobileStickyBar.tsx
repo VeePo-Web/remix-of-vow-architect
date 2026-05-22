@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Phone } from "lucide-react";
 
 // Vertical-aware page config with correct contact routing
 function getPageConfig(pathname: string) {
@@ -149,9 +150,21 @@ export function MobileStickyBar() {
             className="font-display text-[13px] leading-snug truncate"
             style={{ color: "hsl(var(--pricing-fg-secondary, 30 8% 45%))" }}
           >
-            {config.text}
+            ★ 5.0 · Cochrane / Calgary
           </span>
         </div>
+        <a
+          href="tel:+14038308930"
+          aria-label="Call +1-403-830-8930"
+          className="flex-shrink-0 flex items-center justify-center"
+          style={{
+            width: 36, height: 36, borderRadius: 100,
+            border: "1px solid hsl(30 10% 12% / 0.18)",
+            color: "hsl(var(--pricing-fg-primary, 30 10% 12%))",
+          }}
+        >
+          <Phone size={15} strokeWidth={1.6} aria-hidden="true" />
+        </a>
         <Link
           to={config.contactHref}
           className="mobile-sticky-cta flex-shrink-0 relative overflow-hidden group/cta"
