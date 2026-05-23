@@ -807,7 +807,6 @@ export default function PianoPanel({
             transition: `transform 320ms ${EASE}`,
             boxShadow: drawerOpen ? "0 -20px 40px -20px rgba(0,0,0,0.18)" : "none",
             maxHeight: "78%",
-            display_: undefined as never,
           }}
         >
           <button
