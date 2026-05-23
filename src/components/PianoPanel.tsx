@@ -536,7 +536,7 @@ export default function PianoPanel({
             <div
               aria-hidden="true"
               style={{
-                width: "min(46vh, 420px)",
+                width: "min(34vh, 280px)",
                 aspectRatio: "1 / 1",
                 borderRadius: "50%",
                 border: `1px dashed ${PR.hairlineStrong}`,
@@ -545,7 +545,7 @@ export default function PianoPanel({
             >
               <span style={{
                 fontFamily: FONT_DISPLAY,
-                fontSize: "clamp(20px, 3vh, 28px)",
+                fontSize: "clamp(16px, 2.4vh, 22px)",
                 color: PR.inkSoft,
                 letterSpacing: "-0.01em",
               }}>
@@ -558,7 +558,7 @@ export default function PianoPanel({
           <div
             key={`title-${activeTrackIndex ?? "none"}`}
             style={{
-              marginTop: "36px",
+              marginTop: "24px",
               textAlign: "center",
               maxWidth: "min(720px, 92%)",
               animation: reduced ? "none" : "pr-fade-up 320ms ease both",
@@ -578,7 +578,7 @@ export default function PianoPanel({
                   style={{
                     fontFamily: FONT_DISPLAY,
                     fontWeight: 500,
-                    fontSize: "clamp(36px, 7vw, 84px)",
+                    fontSize: "clamp(32px, 5.6vw, 64px)",
                     lineHeight: 1.02,
                     letterSpacing: "-0.03em",
                     color: PR.inkDeep,
@@ -611,7 +611,7 @@ export default function PianoPanel({
                   style={{
                     fontFamily: FONT_DISPLAY,
                     fontWeight: 500,
-                    fontSize: "clamp(36px, 7vw, 84px)",
+                    fontSize: "clamp(32px, 5.6vw, 64px)",
                     lineHeight: 1.02,
                     letterSpacing: "-0.03em",
                     color: PR.inkDeep,
@@ -634,7 +634,7 @@ export default function PianoPanel({
 
           {/* Transport + scrubber */}
           <div style={{
-            marginTop: "32px",
+            marginTop: "24px",
             width: "min(620px, 92%)",
             display: "flex", flexDirection: "column", alignItems: "center", gap: "14px",
           }}>
