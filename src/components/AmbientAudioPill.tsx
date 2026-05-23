@@ -213,10 +213,10 @@ export default function AmbientAudioPill() {
             : "hsl(var(--rich-black) / 0.74)",
           border: "1px solid",
           borderColor: isPanelOpen || isPlaying
-            ? "hsl(var(--vow-yellow) / 0.22)"
+            ? "hsl(0 0% 100% / 0.22)"
             : "hsl(0 0% 100% / 0.10)",
           boxShadow: isPanelOpen || isPlaying
-            ? "inset 0 1px 0 hsl(0 0% 100% / 0.06), 0 0 28px hsl(var(--vow-yellow) / 0.07), 0 4px 20px hsl(0 0% 0% / 0.35)"
+            ? "inset 0 1px 0 hsl(0 0% 100% / 0.08), 0 4px 20px hsl(0 0% 0% / 0.35)"
             : "inset 0 1px 0 hsl(0 0% 100% / 0.06), 0 4px 16px hsl(0 0% 0% / 0.22)",
         }}
       >
@@ -250,7 +250,7 @@ export default function AmbientAudioPill() {
                 className="rounded-full"
                 style={{
                   width:      i % 2 === 0 ? "1.5px" : "2px",
-                  background: `hsl(var(--vow-yellow) / ${[0.55, 0.9, 0.7, 0.45][i]})`,
+                  background: `hsl(0 0% 100% / ${[0.55, 0.9, 0.7, 0.45][i]})`,
                   animation:  reduced
                     ? "none"
                     : `ambient-wave-${i} 1200ms ease-in-out ${i * 150}ms infinite alternate`,
@@ -267,11 +267,11 @@ export default function AmbientAudioPill() {
           <span
             className={cn(
               "absolute inset-0 flex items-center whitespace-nowrap",
-              "font-display italic text-[14px] tracking-[0.01em]",
+              "text-[14px] tracking-[0.01em]",
               "transition-opacity duration-[120ms]",
               !isPanelOpen && activeTrackIndex === null ? "opacity-100" : "opacity-0",
             )}
-            style={{ color: "hsl(0 0% 100% / 0.62)" }}
+            style={{ color: "hsl(0 0% 100% / 0.74)", fontFamily: "'Space Grotesk', 'Inter', sans-serif", fontWeight: 500 }}
           >
             Hear me play
           </span>
@@ -293,11 +293,11 @@ export default function AmbientAudioPill() {
           <span
             className={cn(
               "absolute inset-0 flex items-center overflow-hidden",
-              "font-display italic text-[13px] tracking-[0.01em]",
+              "text-[13px] tracking-[0.01em]",
               "transition-opacity duration-[120ms]",
               !isPanelOpen && activeTrackIndex !== null && titleVisible ? "opacity-100" : "opacity-0",
             )}
-            style={{ color: "hsl(0 0% 100% / 0.68)" }}
+            style={{ color: "hsl(0 0% 100% / 0.82)", fontFamily: "'Space Grotesk', 'Inter', sans-serif", fontWeight: 500 }}
           >
             <span className="truncate">{displayedTitle}</span>
           </span>
@@ -328,24 +328,24 @@ export default function AmbientAudioPill() {
                 "flex items-center justify-center",
                 "transition-all duration-[140ms]",
                 "focus-visible:outline-none focus-visible:ring-1",
-                "focus-visible:ring-[hsl(var(--vow-yellow)/0.5)]",
+                "focus-visible:ring-[hsl(0_0%_100%/0.5)]",
               )}
               style={{
-                background: "hsl(var(--vow-yellow) / 0.09)",
-                border:     "1px solid hsl(0 0% 100% / 0.07)",
-                color:      "hsl(0 0% 100% / 0.62)",
+                background: "hsl(0 0% 100% / 0.06)",
+                border:     "1px solid hsl(0 0% 100% / 0.14)",
+                color:      "hsl(0 0% 100% / 0.85)",
               }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget;
-                el.style.background   = "hsl(var(--vow-yellow) / 0.18)";
-                el.style.borderColor  = "hsl(var(--vow-yellow) / 0.25)";
-                el.style.color        = "hsl(var(--vow-yellow))";
+                el.style.background   = "hsl(0 0% 100% / 0.16)";
+                el.style.borderColor  = "hsl(0 0% 100% / 0.32)";
+                el.style.color        = "hsl(0 0% 100% / 1)";
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget;
-                el.style.background   = "hsl(var(--vow-yellow) / 0.09)";
-                el.style.borderColor  = "hsl(0 0% 100% / 0.07)";
-                el.style.color        = "hsl(0 0% 100% / 0.62)";
+                el.style.background   = "hsl(0 0% 100% / 0.06)";
+                el.style.borderColor  = "hsl(0 0% 100% / 0.14)";
+                el.style.color        = "hsl(0 0% 100% / 0.85)";
               }}
             >
               {/* Expanded 44×44 touch target — invisible, covers button */}
@@ -364,8 +364,8 @@ export default function AmbientAudioPill() {
             className="h-full rounded-full"
             style={{
               width:      `${pct}%`,
-              background: "linear-gradient(90deg, hsl(var(--vow-yellow) / 0.45), hsl(var(--vow-yellow) / 0.85))",
-              boxShadow:  pct > 0 ? "0 0 6px hsl(var(--vow-yellow) / 0.2)" : "none",
+              background: "hsl(0 0% 100% / 0.85)",
+              boxShadow:  pct > 0 ? "0 0 6px hsl(0 0% 100% / 0.25)" : "none",
               transition: "width 250ms linear, box-shadow 300ms ease-out",
             }}
           />
