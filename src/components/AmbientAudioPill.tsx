@@ -190,6 +190,7 @@ export default function AmbientAudioPill() {
         onClick={handlePillClick}
         aria-label={isPanelOpen ? "Close listening room" : "Open listening room"}
         className={cn(
+          "ambient-pill",
           /* Position — safe-area-aware so pill stays above MobileStickyBar on iPhone */
           "fixed z-30",
           "bottom-[calc(4rem_+_env(safe-area-inset-bottom,_0px))]",

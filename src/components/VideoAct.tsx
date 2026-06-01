@@ -5,6 +5,7 @@ import type { ScrollTextItem } from '@/config/videoActsConfig';
 import { TEXT_OVERLAYS, VIDEO_SRC, VIDEO_POSTER, SCROLL_HEIGHT } from '@/config/videoActsConfig';
 import { PetalCursorTrail } from './PetalCursorTrail';
 import { PreScrollIntro } from './PreScrollIntro';
+import { InlineCta } from './InlineCta';
 
 /**
  * ╔══════════════════════════════════════════════════════════════╗
@@ -193,12 +194,12 @@ export function CinematicScroll() {
 
             /* ── CTA button ── */
             ) : item.isCta ? (
-              <a
+              <InlineCta
                 href={item.href || '/contact'}
-                className={cn('max-w-[90vw]', item.className)}
-              >
-                {item.text}
-              </a>
+                text={item.text}
+                className={item.className || ''}
+                vertical="weddings"
+              />
 
             /* ── Standard text with luxury card treatment ── */
             ) : item.hasHtml ? (

@@ -9169,17 +9169,25 @@ body:has(.now-playing-bar.is-visible) .md\\:hidden.fixed.bottom-0 {
       0 0 32px hsl(36 60% 60% / 0.15) !important;
   }
 
-  /* Overlay text — readable, calm, breathing */
+  /* ── Overlay text: editorial, no card chrome ──
+     Strip the radial gradient backdrop, gold hairline top-edge, and padding box.
+     Legibility is held by the layered text-shadow already on .luxury-card. */
   .luxury-card {
-    padding: 24px 24px !important;
-    background: radial-gradient(
-      ellipse 130% 160% at 50% 50%,
-      rgba(0,0,0,0.45) 0%,
-      rgba(0,0,0,0.22) 40%,
-      rgba(0,0,0,0.04) 75%,
-      transparent 90%
-    ) !important;
+    background: none !important;
+    padding: 0 24px !important;
+    border-radius: 0 !important;
   }
+  .luxury-card::before { display: none !important; }
+  .luxury-card--glass {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: none !important;
+    border: none !important;
+    border-image: none !important;
+    box-shadow: none !important;
+    padding: 0 24px !important;
+  }
+  .luxury-card--glass::before { display: none !important; }
   .luxury-card > span.block {
     font-size: clamp(22px, 6.8vw, 32px);
     line-height: 1.1;
@@ -9191,11 +9199,15 @@ body:has(.now-playing-bar.is-visible) .md\\:hidden.fixed.bottom-0 {
     font-size: clamp(14px, 3.8vw, 16px);
     line-height: 1.5;
   }
+  /* Per-line entrance stagger — slower on mobile for breathing room */
+  .luxury-card > span:nth-child(1) { animation-delay: 0ms !important; }
+  .luxury-card > span:nth-child(2) { animation-delay: 90ms !important; }
+  .luxury-card > span:nth-child(3) { animation-delay: 180ms !important; }
+  .luxury-card > span:nth-child(4) { animation-delay: 270ms !important; }
+  .luxury-card > span:nth-child(5) { animation-delay: 360ms !important; }
 
-  /* Ornamental divider — smaller on mobile so it doesn't dominate */
-  .luxury-rule { width: 40px !important; }
-  .luxury-rule--wide { width: 64px !important; }
-  .luxury-diamond { width: 5px !important; height: 5px !important; }
+  /* Ornamental dividers — hide the diamond+rules on mobile; let whitespace divide acts */
+  .luxury-divider { display: none !important; }
 
   /* Position presets — collapse left/right to center on mobile */
   .video-act .items-start.justify-center.text-left,
@@ -9204,5 +9216,91 @@ body:has(.now-playing-bar.is-visible) .md\\:hidden.fixed.bottom-0 {
     text-align: center !important;
     padding-left: 24px !important;
     padding-right: 24px !important;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   MOBILE PASS 2 — Anchored inline CTAs, hidden side nav, audio pill
+   ════════════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  /* ── Side-dot navigation: hide on mobile (top bar + sticky CTA carry nav) ── */
+  .cn-dots { display: none !important; }
+
+  /* ── Inline CTA anchor: mount to bottom safe-area with eyebrow above ── */
+  .cn-cta-anchor {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 0 24px max(96px, calc(env(safe-area-inset-bottom) + 88px));
+    pointer-events: none;
+  }
+  .cn-cta-anchor > * { pointer-events: auto; }
+
+  .cn-cta-eyebrow {
+    font-family: var(--font-sans, Inter, sans-serif);
+    font-size: 10px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: hsl(0 0% 100% / 0.62);
+    text-shadow: 0 1px 6px rgba(0,0,0,0.55);
+  }
+  .cn-cta-eyebrow--final {
+    color: hsl(36 50% 78% / 0.85);
+  }
+
+  /* Final scene mirrors PreScrollIntro: eyebrow → tagline → CTA → secondary */
+  .cn-cta-anchor--final {
+    gap: 18px;
+    padding-bottom: max(104px, calc(env(safe-area-inset-bottom) + 96px));
+  }
+  .cn-cta-tagline {
+    margin: 0;
+    font-family: var(--font-serif, 'Cormorant Garamond', serif);
+    font-weight: 400;
+    font-size: clamp(28px, 8vw, 36px);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+    text-align: center;
+    text-wrap: balance;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.9), 0 4px 16px rgba(0,0,0,0.55);
+  }
+  .cn-cta-tagline .block { display: block; }
+  .cn-cta-secondary {
+    font-family: var(--font-sans, Inter, sans-serif);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: hsl(0 0% 100% / 0.72);
+    text-decoration: none;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.55);
+    margin-top: 2px;
+  }
+  .cn-cta-secondary:active { text-decoration: underline; text-underline-offset: 4px; }
+
+  /* ── Ambient audio pill: shrink to icon-only, hide when sticky bar is up ── */
+  .ambient-pill {
+    height: 40px !important;
+    padding: 0 14px !important;
+    gap: 0 !important;
+    /* Tuck to bottom-right so it doesn't collide with the centered scroll cue / CTAs */
+    left: auto !important;
+    right: 16px !important;
+    transform: none !important;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+  .ambient-pill > span:nth-child(2) {
+    /* The label slot ("Hear me play" / track title) */
+    display: none !important;
+  }
+  body[data-sticky-visible="1"] .ambient-pill {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateY(12px) !important;
+    transition: opacity 220ms ease, transform 220ms ease !important;
   }
 }

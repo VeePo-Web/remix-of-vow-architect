@@ -89,6 +89,14 @@ export function MobileStickyBar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Broadcast visibility to body dataset so other floating elements (audio pill, etc.)
+  // can fade out when the sticky bar takes over the bottom of the frame.
+  useEffect(() => {
+    const shown = isVisible && !isFooterCtaVisible && !isContact;
+    document.body.dataset.stickyVisible = shown ? '1' : '0';
+    return () => { document.body.dataset.stickyVisible = '0'; };
+  }, [isVisible, isFooterCtaVisible, isContact]);
+
   // Fade out when footer CTA becomes visible
   useEffect(() => {
     const bookend = document.querySelector('[data-footer-bookend]');
