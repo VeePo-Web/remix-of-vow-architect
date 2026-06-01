@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
+import { ContactConversation } from "@/components/contact/ContactConversation";
 
 import contactHeroImg from "@/assets/contact-hero.jpg";
 
@@ -56,9 +57,18 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen pricing-page">
-      <PricingNav />
+      {/* Desktop nav only — mobile conversation owns the full viewport */}
+      <div className="hidden md:block">
+        <PricingNav />
+      </div>
 
-      <main>
+      {/* ═══ MOBILE — Fly4Me-tier conversation ═══ */}
+      <div className="md:hidden">
+        <ContactConversation onSubmitted={() => setIsSubmitted(true)} />
+      </div>
+
+      {/* ═══ DESKTOP — unchanged ═══ */}
+      <main className="hidden md:block">
 
         {/* ═══ HERO ═══ */}
         <section className="sub-pad sub-section pt-20 md:pt-28">
@@ -228,8 +238,10 @@ export default function Contact() {
 
       </main>
 
-      <Footer />
-      <MobileStickyBar />
+      <div className="hidden md:block">
+        <Footer />
+        <MobileStickyBar />
+      </div>
     </div>
   );
 }
