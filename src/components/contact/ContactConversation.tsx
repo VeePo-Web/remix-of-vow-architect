@@ -4,51 +4,108 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { useKeyboardOffset } from "@/hooks/useKeyboardOffset";
 import contactHeroImg from "@/assets/contact-hero.jpg";
+import eventsPerformerBw from "@/assets/events-performer-bw.png";
+import eventsStageWarmlight from "@/assets/events-stage-warmlight.png";
 
-type StepKey = "name" | "email" | "ceremony" | "date" | "venue";
+type Vertical = "weddings" | "events" | "teaching";
+type StepKey = string;
 
-const STEP_ORDER: StepKey[] = ["name", "email", "ceremony", "date", "venue"];
-const REQUIRED: StepKey[] = ["name", "email", "ceremony"];
-
-const LABELS: Record<StepKey, string> = {
-  name: "Your name",
-  email: "Email",
-  ceremony: "Your ceremony",
-  date: "Date",
-  venue: "Venue",
-};
-
-const PLACEHOLDERS: Record<StepKey, string> = {
-  name: "First and last",
-  email: "you@email.com",
-  ceremony: "A few words is plenty.",
-  date: "Month, year — or a season",
-  venue: "Where it's happening",
-};
-
-const DRAFT_KEY = "vow:contact:draft";
-const RATE_KEY = "vow:contact:lastSent";
-const RATE_MS = 60_000;
-
-const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-interface State {
-  name: string;
-  email: string;
-  ceremony: string;
-  date: string;
-  venue: string;
+interface StepDef {
+  key: StepKey;
+  label: string;
+  placeholder: string;
+  type?: "text" | "email" | "textarea";
+  required?: boolean;
+  autoComplete?: string;
+  hint?: string;
 }
 
-const EMPTY: State = { name: "", email: "", ceremony: "", date: "", venue: "" };
+interface VerticalCfg {
+  heroImg: string;
+  strapEyebrow: string;
+  strapMeta: string;
+  headline: string;
+  subhead: string;
+  ctaLabel: string;
+  draftKey: string;
+  steps: StepDef[];
+  /** First key is the message body; the rest are appended as labeled lines. */
+  messageKeys: StepKey[];
+}
+
+const RATE_KEY = "vow:contact:lastSent";
+const RATE_MS = 60_000;
+const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const VERTICALS: Record<Vertical, VerticalCfg> = {
+  weddings: {
+    heroImg: contactHeroImg,
+    strapEyebrow: "Wedding Piano",
+    strapMeta: "Canmore · Alberta",
+    headline: "What deserves the song?",
+    subhead: "Tell me one thing at a time.",
+    ctaLabel: "Reserve my date",
+    draftKey: "vow:contact:draft:weddings",
+    messageKeys: ["ceremony", "date", "venue"],
+    steps: [
+      { key: "name", label: "Your name", placeholder: "First and last", required: true, autoComplete: "name" },
+      { key: "email", label: "Email", placeholder: "you@email.com", type: "email", required: true, autoComplete: "email", hint: "Never shared. Never spammed." },
+      { key: "ceremony", label: "Your ceremony", placeholder: "A few words is plenty.", type: "textarea", required: true, hint: "The feeling, the moment, the song that means everything." },
+      { key: "date", label: "Date", placeholder: "Month, year — or a season" },
+      { key: "venue", label: "Venue", placeholder: "Where it's happening" },
+    ],
+  },
+  events: {
+    heroImg: eventsPerformerBw,
+    strapEyebrow: "Events Piano",
+    strapMeta: "Calgary · Alberta",
+    headline: "What's the occasion?",
+    subhead: "Tell me one thing at a time.",
+    ctaLabel: "Begin the conversation",
+    draftKey: "vow:contact:draft:events",
+    messageKeys: ["occasion", "date", "venue", "guests"],
+    steps: [
+      { key: "name", label: "Your name", placeholder: "First and last", required: true, autoComplete: "name" },
+      { key: "email", label: "Email", placeholder: "you@email.com", type: "email", required: true, autoComplete: "email", hint: "Never shared. Never spammed." },
+      { key: "occasion", label: "The gathering", placeholder: "Corporate evening, gala, private party — and the energy you want.", type: "textarea", required: true, hint: "Occasion, atmosphere, anything that sets the tone." },
+      { key: "date", label: "Date", placeholder: "Month, year — or a season" },
+      { key: "venue", label: "Venue / room", placeholder: "Where it's happening" },
+      { key: "guests", label: "Guests", placeholder: "Approximate count" },
+    ],
+  },
+  teaching: {
+    heroImg: eventsStageWarmlight,
+    strapEyebrow: "Piano Mentorship",
+    strapMeta: "Calgary · Online",
+    headline: "What pulled you to the piano?",
+    subhead: "Tell me one thing at a time.",
+    ctaLabel: "Begin the conversation",
+    draftKey: "vow:contact:draft:teaching",
+    messageKeys: ["context", "level", "goal"],
+    steps: [
+      { key: "name", label: "Your name", placeholder: "First and last", required: true, autoComplete: "name" },
+      { key: "email", label: "Email", placeholder: "you@email.com", type: "email", required: true, autoComplete: "email", hint: "Never shared. Never spammed." },
+      { key: "context", label: "Where you are", placeholder: "A song you love, a goal you have, or just curiosity.", type: "textarea", required: true, hint: "Concrete is best — anything you'd tell a friend." },
+      { key: "level", label: "Level", placeholder: "New, returning, or somewhere between" },
+      { key: "goal", label: "Goal", placeholder: "What you want to be playing in a year" },
+    ],
+  },
+};
 
 interface Props {
+  vertical: Vertical;
   onSubmitted: () => void;
 }
 
-export function ContactConversation({ onSubmitted }: Props) {
-  const [state, setState] = useState<State>(EMPTY);
-  const [active, setActive] = useState<StepKey>("name");
+export function ContactConversation({ vertical, onSubmitted }: Props) {
+  const cfg = VERTICALS[vertical];
+  const STEP_ORDER = cfg.steps.map((s) => s.key);
+  const stepByKey = (k: StepKey) => cfg.steps.find((s) => s.key === k)!;
+  const isRequired = (k: StepKey) => !!stepByKey(k).required;
+  const EMPTY: Record<string, string> = Object.fromEntries(STEP_ORDER.map((k) => [k, ""]));
+
+  const [state, setState] = useState<Record<string, string>>(EMPTY);
+  const [active, setActive] = useState<StepKey>(STEP_ORDER[0]);
   const [shake, setShake] = useState<StepKey | null>(null);
   const [emailOk, setEmailOk] = useState(false);
   const [sending, setSending] = useState(false);
@@ -59,27 +116,27 @@ export function ContactConversation({ onSubmitted }: Props) {
   // Restore draft
   useEffect(() => {
     try {
-      const raw = sessionStorage.getItem(DRAFT_KEY);
+      const raw = sessionStorage.getItem(cfg.draftKey);
       if (raw) {
-        const parsed = JSON.parse(raw) as Partial<State>;
+        const parsed = JSON.parse(raw) as Record<string, string>;
         setState((s) => ({ ...s, ...parsed }));
-        // Jump to first empty required step
-        const firstEmpty = STEP_ORDER.find((k) => !(parsed as State)?.[k]);
+        const firstEmpty = STEP_ORDER.find((k) => !parsed?.[k]);
         if (firstEmpty) setActive(firstEmpty);
       }
     } catch {
       /* noop */
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cfg.draftKey]);
 
   // Persist draft
   useEffect(() => {
     try {
-      sessionStorage.setItem(DRAFT_KEY, JSON.stringify(state));
+      sessionStorage.setItem(cfg.draftKey, JSON.stringify(state));
     } catch {
       /* noop */
     }
-  }, [state]);
+  }, [state, cfg.draftKey]);
 
   // Focus active input on step change
   useEffect(() => {
@@ -93,12 +150,11 @@ export function ContactConversation({ onSubmitted }: Props) {
   const set = (k: StepKey, v: string) => setState((s) => ({ ...s, [k]: v }));
 
   const stepValid = (k: StepKey): boolean => {
-    const v = state[k].trim();
-    if (!REQUIRED.includes(k)) return true;
-    if (k === "name") return v.length >= 2;
-    if (k === "email") return emailRe.test(v);
-    if (k === "ceremony") return v.length >= 2;
-    return true;
+    const v = (state[k] ?? "").trim();
+    if (!isRequired(k)) return true;
+    const def = stepByKey(k);
+    if (def.type === "email") return emailRe.test(v);
+    return v.length >= 2;
   };
 
   const advance = () => {
@@ -113,16 +169,16 @@ export function ContactConversation({ onSubmitted }: Props) {
     else inputRef.current?.blur();
   };
 
-  const allRequiredFilled = REQUIRED.every((k) => stepValid(k));
+  const requiredKeys = STEP_ORDER.filter(isRequired);
+  const allRequiredFilled = requiredKeys.every(stepValid);
 
   const submit = async () => {
     if (honeypot) return; // bot
     if (!allRequiredFilled) {
-      const firstBad = REQUIRED.find((k) => !stepValid(k));
+      const firstBad = requiredKeys.find((k) => !stepValid(k));
       if (firstBad) setActive(firstBad);
       return;
     }
-    // Rate limit
     try {
       const last = Number(localStorage.getItem(RATE_KEY) ?? 0);
       if (Date.now() - last < RATE_MS) {
@@ -136,17 +192,20 @@ export function ContactConversation({ onSubmitted }: Props) {
       /* noop */
     }
     setSending(true);
-    const message = [
-      state.ceremony,
-      state.date ? `\n\nDate: ${state.date}` : "",
-      state.venue ? `\nVenue: ${state.venue}` : "",
-    ].join("");
+    const [bodyKey, ...extraKeys] = cfg.messageKeys;
+    const lines: string[] = [];
+    if (bodyKey && state[bodyKey]) lines.push(state[bodyKey].trim());
+    for (const k of extraKeys) {
+      const v = (state[k] ?? "").trim();
+      if (v) lines.push(`${stepByKey(k).label}: ${v}`);
+    }
+    const message = lines.join("\n\n");
     const { error } = await supabase.functions.invoke("send-contact-email", {
       body: {
-        name: state.name,
-        email: state.email,
+        name: state.name ?? "",
+        email: state.email ?? "",
         message,
-        vertical: "weddings",
+        vertical,
       },
     });
     setSending(false);
@@ -160,12 +219,15 @@ export function ContactConversation({ onSubmitted }: Props) {
     }
     try {
       localStorage.setItem(RATE_KEY, String(Date.now()));
-      sessionStorage.removeItem(DRAFT_KEY);
+      sessionStorage.removeItem(cfg.draftKey);
     } catch {
       /* noop */
     }
     onSubmitted();
   };
+
+  const activeDef = stepByKey(active);
+  const isLast = STEP_ORDER.indexOf(active) === STEP_ORDER.length - 1;
 
   return (
     <div
@@ -174,18 +236,18 @@ export function ContactConversation({ onSubmitted }: Props) {
     >
       {/* Header strap */}
       <div className="cv-strap">
-        <img src={contactHeroImg} alt="" aria-hidden="true" />
+        <img src={cfg.heroImg} alt="" aria-hidden="true" />
         <div className="cv-strap__veil" aria-hidden="true" />
         <div className="cv-strap__inner">
-          <span className="cv-strap__eyebrow">Wedding Piano</span>
-          <span className="cv-strap__meta">Canmore · Alberta</span>
+          <span className="cv-strap__eyebrow">{cfg.strapEyebrow}</span>
+          <span className="cv-strap__meta">{cfg.strapMeta}</span>
         </div>
       </div>
 
       {/* Headline */}
       <div className="cv-head">
-        <h1 className="cv-head__h1">What deserves the song?</h1>
-        <p className="cv-head__sub">Tell me one thing at a time.</p>
+        <h1 className="cv-head__h1">{cfg.headline}</h1>
+        <p className="cv-head__sub">{cfg.subhead}</p>
       </div>
 
       {/* Honeypot */}
@@ -212,9 +274,8 @@ export function ContactConversation({ onSubmitted }: Props) {
         {/* Completed summaries (in order, above active) */}
         {STEP_ORDER.map((k) => {
           if (k === active) return null;
-          const v = state[k].trim();
+          const v = (state[k] ?? "").trim();
           if (!v) return null;
-          // Only show summaries for steps that come before the active one
           if (STEP_ORDER.indexOf(k) > STEP_ORDER.indexOf(active)) return null;
           return (
             <button
@@ -222,9 +283,9 @@ export function ContactConversation({ onSubmitted }: Props) {
               type="button"
               onClick={() => setActive(k)}
               className="cv-summary"
-              aria-label={`Edit ${LABELS[k]}, ${v}`}
+              aria-label={`Edit ${stepByKey(k).label}, ${v}`}
             >
-              <span className="cv-summary__label">{LABELS[k]}</span>
+              <span className="cv-summary__label">{stepByKey(k).label}</span>
               <span className="cv-summary__value">{v}</span>
               <Pencil className="cv-summary__icon" size={13} strokeWidth={1.5} />
             </button>
@@ -237,13 +298,13 @@ export function ContactConversation({ onSubmitted }: Props) {
           className={`cv-active ${shake === active ? "cv-shake" : ""}`}
         >
           <label htmlFor={`cv-${active}`} className="cv-active__label">
-            {LABELS[active]}
-            {!REQUIRED.includes(active) && (
+            {activeDef.label}
+            {!isRequired(active) && (
               <span className="cv-active__opt"> (optional)</span>
             )}
           </label>
 
-          {active === "ceremony" ? (
+          {activeDef.type === "textarea" ? (
             <textarea
               id={`cv-${active}`}
               ref={(el) => {
@@ -251,8 +312,8 @@ export function ContactConversation({ onSubmitted }: Props) {
               }}
               rows={3}
               className="cv-active__input cv-active__textarea"
-              placeholder={PLACEHOLDERS[active]}
-              value={state[active]}
+              placeholder={activeDef.placeholder}
+              value={state[active] ?? ""}
               onChange={(e) => set(active, e.target.value)}
               autoCapitalize="sentences"
             />
@@ -262,17 +323,15 @@ export function ContactConversation({ onSubmitted }: Props) {
               ref={(el) => {
                 inputRef.current = el;
               }}
-              type={active === "email" ? "email" : "text"}
-              inputMode={active === "email" ? "email" : "text"}
-              autoComplete={
-                active === "name" ? "name" : active === "email" ? "email" : "off"
-              }
-              autoCapitalize={active === "email" ? "none" : "words"}
-              autoCorrect={active === "email" ? "off" : "on"}
-              spellCheck={active !== "email"}
+              type={activeDef.type === "email" ? "email" : "text"}
+              inputMode={activeDef.type === "email" ? "email" : "text"}
+              autoComplete={activeDef.autoComplete ?? "off"}
+              autoCapitalize={activeDef.type === "email" ? "none" : "words"}
+              autoCorrect={activeDef.type === "email" ? "off" : "on"}
+              spellCheck={activeDef.type !== "email"}
               className="cv-active__input"
-              placeholder={PLACEHOLDERS[active]}
-              value={state[active]}
+              placeholder={activeDef.placeholder}
+              value={state[active] ?? ""}
               onChange={(e) => set(active, e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
@@ -281,7 +340,7 @@ export function ContactConversation({ onSubmitted }: Props) {
                 }
               }}
               onBlur={() => {
-                if (active === "email" && emailRe.test(state.email)) {
+                if (activeDef.type === "email" && emailRe.test(state[active] ?? "")) {
                   setEmailOk(true);
                 }
               }}
@@ -289,15 +348,13 @@ export function ContactConversation({ onSubmitted }: Props) {
           )}
 
           <div className="cv-active__hint">
-            {active === "email" && emailOk
+            {activeDef.type === "email" && emailOk
               ? "Looks right ✓"
-              : active === "email"
-                ? "Never shared. Never spammed."
-                : active === "ceremony"
-                  ? "The feeling, the moment, the song that means everything."
-                  : !REQUIRED.includes(active)
-                    ? "Skip if you don't know yet."
-                    : "\u00a0"}
+              : activeDef.hint
+                ? activeDef.hint
+                : !isRequired(active)
+                  ? "Skip if you don't know yet."
+                  : "\u00a0"}
           </div>
 
           <div className="cv-active__row">
@@ -305,21 +362,13 @@ export function ContactConversation({ onSubmitted }: Props) {
               type="button"
               onClick={advance}
               className="cv-next"
-              aria-label={
-                STEP_ORDER.indexOf(active) === STEP_ORDER.length - 1
-                  ? "Done"
-                  : "Continue"
-              }
+              aria-label={isLast ? "Done" : "Continue"}
             >
-              <span>
-                {STEP_ORDER.indexOf(active) === STEP_ORDER.length - 1
-                  ? "Done"
-                  : "Continue"}
-              </span>
+              <span>{isLast ? "Done" : "Continue"}</span>
               <ArrowRight size={14} strokeWidth={1.5} />
             </button>
 
-            {!REQUIRED.includes(active) && !state[active] && (
+            {!isRequired(active) && !(state[active] ?? "") && (
               <button
                 type="button"
                 onClick={() => {
@@ -340,7 +389,7 @@ export function ContactConversation({ onSubmitted }: Props) {
         <div className="cv-upcoming">
           {STEP_ORDER.map((k) => {
             if (k === active) return null;
-            if (state[k].trim()) return null;
+            if ((state[k] ?? "").trim()) return null;
             if (STEP_ORDER.indexOf(k) < STEP_ORDER.indexOf(active)) return null;
             return (
               <button
@@ -349,8 +398,8 @@ export function ContactConversation({ onSubmitted }: Props) {
                 onClick={() => setActive(k)}
                 className="cv-upcoming__row"
               >
-                {LABELS[k]}
-                {!REQUIRED.includes(k) && (
+                {stepByKey(k).label}
+                {!isRequired(k) && (
                   <span className="cv-upcoming__opt"> · optional</span>
                 )}
               </button>
@@ -378,7 +427,7 @@ export function ContactConversation({ onSubmitted }: Props) {
             aria-disabled={!allRequiredFilled || sending}
             className="cv-sticky__cta"
           >
-            {sending ? "Sending…" : "Reserve my date"}
+            {sending ? "Sending…" : cfg.ctaLabel}
             {!sending && <ArrowRight size={15} strokeWidth={1.5} />}
           </button>
         </div>

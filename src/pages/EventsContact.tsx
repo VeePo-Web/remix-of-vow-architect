@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
+import { ContactConversation } from "@/components/contact/ContactConversation";
 
 import eventsPerformerBw from "@/assets/events-performer-bw.png";
 
@@ -56,9 +57,15 @@ export default function EventsContact() {
 
   return (
     <div className="min-h-screen pricing-page">
-      <PricingNav />
+      <div className="hidden md:block">
+        <PricingNav />
+      </div>
 
-      <main>
+      <div className="md:hidden">
+        <ContactConversation vertical="events" onSubmitted={() => setIsSubmitted(true)} />
+      </div>
+
+      <main className="hidden md:block">
 
         {/* ═══ HERO ═══ */}
         <section className="sub-pad sub-section pt-20 md:pt-28">
@@ -229,8 +236,10 @@ export default function EventsContact() {
 
       </main>
 
-      <Footer />
-      <MobileStickyBar />
+      <div className="hidden md:block">
+        <Footer />
+        <MobileStickyBar />
+      </div>
     </div>
   );
 }
