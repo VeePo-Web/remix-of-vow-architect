@@ -9,6 +9,7 @@ import {
   TEACHING_SCROLL_HEIGHT,
 } from '@/config/teachingVideoActsConfig';
 import { PreScrollIntro } from './PreScrollIntro';
+import { InlineCta } from './InlineCta';
 
 /**
  * TeachingCinematicScroll — Same architecture as CinematicScroll (weddings)

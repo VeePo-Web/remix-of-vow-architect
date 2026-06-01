@@ -9,6 +9,7 @@ import {
   EVENTS_SCROLL_HEIGHT,
 } from '@/config/eventsVideoActsConfig';
 import { PreScrollIntro } from './PreScrollIntro';
+import { InlineCta } from './InlineCta';
 
 /**
  * EventsCinematicScroll — Same architecture as CinematicScroll (weddings)
