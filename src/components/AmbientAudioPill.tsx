@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Play, Pause, X } from "lucide-react";
+import { useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import PianoPanel, { allTracks } from "./PianoPanel";
 
@@ -13,6 +14,46 @@ export default function AmbientAudioPill() {
   const [reduced,           setReduced          ] = useState(false);
   const [entranceComplete,  setEntranceComplete ] = useState(false);
   const [titleVisible,      setTitleVisible     ] = useState(true);
+  const [stickyVisible,     setStickyVisible    ] = useState(false);
+  const [isScrolling,       setIsScrolling      ] = useState(false);
+  const [isMobile,          setIsMobile         ] = useState(false);
+  const location = useLocation();
+  const isContact = location.pathname.includes('/contact');
+  const isHero3D = location.pathname === '/' || location.pathname === '/teaching' || location.pathname === '/events';
+
+  // Track viewport (mobile breakpoint mirrors Tailwind md)
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  // Observe body[data-sticky-visible] flag broadcast by MobileStickyBar
+  useEffect(() => {
+    const read = () => setStickyVisible(document.body.dataset.stickyVisible === '1');
+    read();
+    const obs = new MutationObserver(read);
+    obs.observe(document.body, { attributes: true, attributeFilter: ['data-sticky-visible'] });
+    return () => obs.disconnect();
+  }, []);
+
+  // Detect active scrolling (mobile only) to gently dim during cinematic scroll
+  useEffect(() => {
+    if (!isMobile) return;
+    let t: ReturnType<typeof setTimeout> | null = null;
+    const onScroll = () => {
+      setIsScrolling(true);
+      if (t) clearTimeout(t);
+      t = setTimeout(() => setIsScrolling(false), 400);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (t) clearTimeout(t);
+    };
+  }, [isMobile]);
 
   const displayedTitle = activeTrackIndex !== null
     ? allTracks[activeTrackIndex]?.title ?? ""
@@ -23,11 +64,12 @@ export default function AmbientAudioPill() {
     setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   }, []);
 
-  // Pill entrance delay
+  // Pill entrance delay — longer on 3D hero routes so PreScrollIntro lands first
   useEffect(() => {
-    const t = setTimeout(() => setEntranceComplete(true), 2700);
+    const delay = isHero3D ? 3600 : 2000;
+    const t = setTimeout(() => setEntranceComplete(true), delay + 700);
     return () => clearTimeout(t);
-  }, []);
+  }, [isHero3D]);
 
   // Crossfade title when track changes
   useEffect(() => {
@@ -144,6 +186,16 @@ export default function AmbientAudioPill() {
   const pct            = duration > 0 ? (progress / duration) * 100 : 0;
   const showPauseBtn   = activeTrackIndex !== null && !isPanelOpen;
 
+  // Compact mode: mobile + (sticky bar showing OR playing track) and panel closed.
+  // Keeps the pill out of the way of the bottom CTA while staying tappable.
+  const compact = isMobile && !isPanelOpen && (stickyVisible || (isPlaying && activeTrackIndex !== null));
+  const dim = isMobile && isScrolling && !isPanelOpen && !reduced;
+
+  // Hide entirely on contact routes (mirror MobileStickyBar)
+  if (isContact && isMobile) {
+    return <audio ref={audioRef} preload="none" />;
+  }
+
   return (
     <>
       <audio ref={audioRef} preload="none" />
@@ -191,21 +243,26 @@ export default function AmbientAudioPill() {
         aria-label={isPanelOpen ? "Close listening room" : "Open listening room"}
         className={cn(
           "ambient-pill",
-          /* Position — safe-area-aware so pill stays above MobileStickyBar on iPhone */
+          /* Position — mobile: bottom-right, safe-area aware, lifts above sticky CTA bar */
           "fixed z-30",
-          "bottom-[calc(4rem_+_env(safe-area-inset-bottom,_0px))]",
-          "left-1/2 -translate-x-1/2",
-          "md:bottom-6 md:left-6 md:translate-x-0",
+          "right-4 md:right-auto md:left-6",
           /* Shape */
-          "h-12 rounded-full px-5 flex items-center gap-3",
+          "flex items-center gap-3 rounded-full",
+          compact ? "h-10 w-10 px-0 justify-center gap-0" : "h-12 px-5",
           "backdrop-blur-md select-none",
           /* Entrance opacity gate */
           entranceComplete ? "opacity-100" : "opacity-0",
-          "transition-[background-color,border-color,box-shadow] duration-[180ms]",
+          "transition-[background-color,border-color,box-shadow,height,width,padding,opacity,bottom] duration-[260ms] ease-[cubic-bezier(0.22,0.61,0.36,1)]",
         )}
         style={{
+          bottom: isMobile
+            ? (stickyVisible
+                ? "calc(env(safe-area-inset-bottom, 0px) + 72px)"
+                : "calc(env(safe-area-inset-bottom, 0px) + 16px)")
+            : "1.5rem",
+          opacity: !entranceComplete ? 0 : (dim ? 0.45 : 1),
           animation: !entranceComplete
-            ? "pill-surface 600ms cubic-bezier(0.22,0.61,0.36,1) 2000ms forwards"
+            ? `pill-surface 600ms cubic-bezier(0.22,0.61,0.36,1) ${isHero3D ? 3600 : 2000}ms forwards`
             : entranceComplete && !isPlaying && !isPanelOpen && !reduced
               ? "pill-breathe 7000ms ease-in-out infinite alternate"
               : "none",
@@ -263,7 +320,12 @@ export default function AmbientAudioPill() {
         </span>
 
         {/* ── Label slot: "Hear me play" / "Listening Room" / track title ── */}
-        <span className="relative w-[148px] h-5 flex items-center flex-shrink-0">
+        <span
+          className={cn(
+            "relative h-5 flex items-center flex-shrink-0 overflow-hidden transition-all duration-[220ms]",
+            compact ? "w-0 opacity-0" : "w-[148px] opacity-100",
+          )}
+        >
           {/* Idle CTA */}
           <span
             className={cn(
@@ -311,10 +373,10 @@ export default function AmbientAudioPill() {
         <div
           className={cn(
             "overflow-hidden transition-all duration-[180ms] flex items-center justify-center",
-            showPauseBtn ? "opacity-100 w-7" : "opacity-0 w-0",
+            showPauseBtn && !compact ? "opacity-100 w-7" : "opacity-0 w-0",
           )}
         >
-          {showPauseBtn && (
+          {showPauseBtn && !compact && (
             <button
               aria-label={isPlaying ? "Pause" : "Resume"}
               onClick={togglePause}

@@ -1,95 +1,77 @@
-# Mobile Pass 2 — Editorial Polish on 3D Pages
+## Goal
 
-**Scope:** Mobile only (≤640px) on `/` (Weddings), `/teaching`, `/events`. The scroll-scrubbed cinematic video, timing config, and 3D layer are not touched. Desktop is not touched.
+Mobile-only refinement of the floating "Hear me play" pill (`AmbientAudioPill`) so it behaves like a Fly4Me-quality persistent affordance: always reachable, never in the way. Applies on all three verticals (Weddings `/`, Teaching `/teaching*`, Events `/events*`). Desktop, 3D, audio logic, and the panel itself are untouched.
 
-## Goals (from your selections)
+## Problems today
 
-1. Overlay text reads as editorial type on video — not as cards
-2. Inline mid-story CTAs feel anchored, not floating mid-frame
-3. Side-dot navigation + audio pill stop competing with the cinematic frame
-4. Closing "I do." / final CTA scene mirrors the pre-scroll intro structure
-5. Act-to-act transitions get breathing room
+1. Pill is **bottom-center** on mobile (`left-1/2 -translate-x-1/2`, ~64px above safe-area) — sits directly on top of the `MobileStickyBar` CTA once scroll > 220px.
+2. Pill is always full-width ("Hear me play" label, pause button, progress bar) — competes with hero copy on the 3D pages.
+3. No reaction to `body[data-sticky-visible="1"]` flag the sticky bar already broadcasts.
+4. Pill stays visible on `/contact*` even though the sticky bar hides there (asymmetry).
+5. Entrance fires at 2.7s — collides with hero pre-scroll intro on the 3D verticals.
 
----
+## Strategy (mobile ≤ md only)
 
-## 1. Strip card chrome from overlays (mobile only)
+Three states, one shape:
 
-`.luxury-card` currently paints a dark radial gradient backdrop, a top gold hairline, and 32×40px padding — that's the "card" feel. On ≤640px, override to pure typography on video:
-
-```css
-@media (max-width: 640px) {
-  .luxury-card {
-    background: none !important;
-    padding: 0 24px !important;
-    border-radius: 0 !important;
-    /* keep the layered text-shadow — it does the legibility work */
-  }
-  .luxury-card::before { display: none !important; } /* kill top gold hairline */
-  .luxury-card--glass {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    background: none !important;
-    border: none !important;
-    border-image: none !important;
-    box-shadow: none !important;
-    padding: 0 24px !important;
-  }
-  .luxury-card--glass::before { display: none !important; }
-  .luxury-divider { display: none !important; } /* ornamental dividers go away */
-}
+```
+IDLE (top of page)         →  Full pill, bottom-right, label "Hear me play"
+COMPACT (sticky bar up)    →  40×40 icon-only disc, bottom-right, tucked above sticky bar
+PLAYING                    →  Compact disc with waveform; tap to open panel
 ```
 
-Result: text floats on the video with only text-shadow for legibility — Fly4Me-grade editorial, not SaaS cards.
+Desktop keeps current `md:bottom-6 md:left-6` placement — no change.
 
-## 2. Anchor inline mid-story CTAs to bottom
+### 1. Reposition: bottom-right, never center
 
-Three CTAs across each vertical (`act-invitation`, `act-services`, `act-crossing`) currently center mid-frame via `posClasses`. On mobile, mount them to the bottom safe-area with an eyebrow label above.
+- Replace mobile placement with:
+  - `right-4` (instead of `left-1/2 -translate-x-1/2`)
+  - `bottom` = `calc(env(safe-area-inset-bottom) + 16px)` when sticky bar hidden
+  - `bottom` = `calc(env(safe-area-inset-bottom) + 72px)` when `body[data-sticky-visible="1"]` (sits 8px above the 64px bar)
+- Animate `bottom` and `transform` with 260ms cubic-bezier matching the sticky bar.
 
-Approach: extend the existing `@media (max-width: 640px)` override on `.cn-inline-cta` to:
-- Position the CTA's parent overlay at `align-self: end` + `padding-bottom: max(32px, env(safe-area-inset-bottom) + 24px)` via a wrapping `.cn-cta-anchor` class added in the three Cinematic scroll components
-- Render a sibling eyebrow (`<span className="cn-cta-eyebrow">NEXT STEP</span>`) above each inline CTA at 10px / 0.32em tracking / 70% opacity
-- Keep the pill style from pass 1 (warm-white, 1px gold hairline, 48px / 56px heights)
+### 2. Collapse to icon when sticky bar is visible
 
-Files touched: `VideoAct.tsx` (add eyebrow + anchor wrapper when `isCta` and mobile), CSS only — no config changes.
+- Read `body[data-sticky-visible]` via a small `useSyncExternalStore` or MutationObserver hook.
+- When `'1'`: collapse label slot (`w-[148px] → w-0`, opacity 0), hide pause button, shrink pill to a 40×40 circle (`h-12 rounded-full px-5` → `h-10 w-10 rounded-full p-0`).
+- Tap still opens the panel; panel itself stays full functionality.
+- When `'0'`: re-expand on idle (after 600ms no scroll) back to full pill with "Hear me play".
 
-## 3. Hide side-dot nav, reposition audio pill on mobile
+### 3. Auto-hide during active scroll
 
-The right-side section dots (`CinematicNav`, `TeachingCinematicNav`, `EventsCinematicNav`) and the bottom-left "Hear me play" `AudioPlayer` both crowd the frame at ≤640px.
+- Watch `scroll` events; while user is actively scrolling, fade pill to `opacity: 0.4` and disable hover lift. 400ms after scroll stops, fade back to 1. Skip when `prefers-reduced-motion`.
+- This keeps the pill from drawing eyes during the cinematic 3D scrub on Home / Teaching / Events.
 
-- **Side dots**: hide the `<aside>` containing dot list + labels on mobile via a `.cn-side-dots` class + `@media (max-width: 640px) { display: none; }`. Top wordmark + hamburger stay; sticky CTA stays.
-- **Audio pill**: shrink to icon-only 40×40 circle on mobile, move from `bottom-4 left-4` to `bottom-4 right-4` so it sits opposite the hamburger and clear of the new bottom-anchored CTAs. When `MobileStickyBar` is visible (scroll > 220px), fade the audio pill to opacity 0 / pointer-events none so the sticky bar owns the bottom.
+### 4. Hide on contact pages
 
-## 4. Mirror pre-scroll structure on the final scene
+- Mirror `MobileStickyBar`: if `pathname.includes('/contact')`, return `null` on mobile. Desktop unaffected.
 
-The closing acts (Weddings `act-crossing`, Teaching/Events equivalents) end with a single big CTA. Pre-scroll intro has: eyebrow → tagline → primary pill → secondary link. Mirror it.
+### 5. Defer entrance on 3D hero pages
 
-In `VideoAct.tsx`, when the act contains a `cn-inline-cta--large` (final CTA marker), render:
-```
-EYEBROW (per vertical, same as intro)
-Closing tagline (existing "I do." / equivalent line)
-[ Primary CTA pill — existing href ]
-Secondary text link → "or call (587) 998-7474"
-```
-Mobile-only — desktop final scene unchanged.
+- On `/`, `/teaching`, `/events` (exact roots), bump entrance delay from 2000ms → 3600ms so the pre-scroll intro animation lands first. Other pages keep 2000ms.
 
-## 5. Soften act-to-act rhythm
+### 6. Panel-open behavior unchanged
 
-Three small moves:
-- Add a 16vh bottom spacer inside each act overlay on mobile so text exits before the next enters (CSS-only, no JS scrub change)
-- Replace the hard ornamental `isDivider` rule with a 1px hairline at 40% width, 0.25 opacity — keeps the structural beat without the decorative diamond
-- Stagger the per-line fade-in delay on `.luxury-card > span` from 60ms → 90ms on mobile only
+- When `isPanelOpen`, pill already morphs to "Listening Room / X". No layout change needed — just ensure the corner anchor still applies.
 
----
+### 7. Z-index & layering
 
-## Technical details
+- Pill stays `z-30`, sticky bar `z-40`. Confirm pill never overlaps the sticky bar geometrically because of the new `bottom` offset (not just z-stack).
 
-**Files to edit:**
-- `src/index.css` — new mobile overrides (sections 1, 2, 3, 5)
-- `src/components/VideoAct.tsx` — add `.cn-cta-anchor` wrapper + eyebrow when `isCta`, mirror structure on final CTA
-- `src/components/CinematicNav.tsx`, `TeachingCinematicNav.tsx`, `EventsCinematicNav.tsx` — add `.cn-side-dots` class to right-side aside
-- `src/components/AudioPlayer.tsx` — mobile icon-only variant + fade-out when sticky bar is up
-- `src/components/MobileStickyBar.tsx` — dispatch a `data-sticky-visible` attribute on `<body>` so AudioPlayer can react
+## Files to touch
 
-**Explicitly NOT touched:** `useVideoScrub`, `videoActsConfig.ts` / `videoActsConfigTeaching.ts` / `videoActsConfigEvents.ts` (no text, timing, or position changes), canvas/3D, desktop styles, page-level layout.
+- `src/components/AmbientAudioPill.tsx` — positioning, compact-mode state, sticky-bar observer, contact-route gate, delayed entrance.
+- `src/index.css` — small helper if needed for the compact-pill keyframe (otherwise inline).
 
-**Verification:** screenshot at 390×844 on `/`, `/teaching`, `/events` at scroll 0%, 25%, 50%, 80%, 100% — confirm no card backgrounds, CTAs sit at bottom, side dots gone, audio pill behaves, final scene mirrors intro.
+Explicitly NOT touching: `PianoPanel`, `MobileStickyBar`, `useVideoScrub`, any 3D / canvas / video scrub code, any desktop styles, audio playback logic, `PreScrollIntro`, cinematic nav components.
+
+## Acceptance check
+
+On mobile (390×844), for each of `/`, `/teaching`, `/events`, `/weddings`, `/events/pricing`, `/teaching/about`, `/contact`:
+
+1. Scroll to top → pill is bottom-right, label visible, doesn't overlap hero CTA.
+2. Scroll past 220px → sticky bar slides up, pill simultaneously collapses to 40×40 icon and lifts 8px above the bar.
+3. During active scroll → pill drops to 40% opacity, returns on idle.
+4. `/contact` → no pill, no sticky bar.
+5. Tap pill → panel opens; pill morphs to X label as before.
+6. Play a track → compact disc shows animated waveform.
