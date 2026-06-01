@@ -78,7 +78,7 @@ export function MobileStickyBar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsVisible(window.scrollY > 420);
+      setIsVisible(window.scrollY > 220);
 
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       if (docHeight > 0) {
@@ -113,8 +113,8 @@ export function MobileStickyBar() {
         background: "hsl(var(--pricing-ivory-tint, 30 25% 97%) / 0.92)",
         backdropFilter: "saturate(180%) blur(20px)",
         WebkitBackdropFilter: "saturate(180%) blur(20px)",
-        borderTop: "1px solid hsl(36 30% 78% / 0.25)",
-        boxShadow: "0 -4px 24px hsl(30 10% 10% / 0.06), inset 0 1px 0 hsl(0 0% 100% / 0.6)",
+        borderTop: "1px solid hsl(36 60% 60% / 0.28)",
+        boxShadow: "none",
         paddingBottom: "env(safe-area-inset-bottom)",
         transform: isVisible && !isFooterCtaVisible ? 'translateY(0)' : 'translateY(100%)',
         opacity: isVisible && !isFooterCtaVisible ? 1 : 0,
@@ -137,7 +137,7 @@ export function MobileStickyBar() {
 
       <div className="relative flex items-center justify-between gap-3 px-4 py-3">
         {/* Context text with golden diamond separator */}
-        <div className="flex items-center gap-2.5 min-w-0">
+        <div className="hidden min-[400px]:flex items-center gap-2.5 min-w-0 flex-1">
           <span
             className="inline-block w-1 h-1 rotate-45 flex-shrink-0"
             style={{
@@ -156,35 +156,36 @@ export function MobileStickyBar() {
         <a
           href="tel:+14038308930"
           aria-label="Call +1-403-830-8930"
-          className="flex-shrink-0 flex items-center justify-center"
+          className="mobile-sticky-phone flex-shrink-0 flex items-center justify-center"
           style={{
-            width: 36, height: 36, borderRadius: 100,
-            border: "1px solid hsl(30 10% 12% / 0.18)",
+            width: 40, height: 40, borderRadius: 100,
+            border: "1px solid hsl(30 10% 12% / 0.22)",
             color: "hsl(var(--pricing-fg-primary, 30 10% 12%))",
+            transition: "transform 120ms ease",
           }}
         >
-          <Phone size={15} strokeWidth={1.6} aria-hidden="true" />
+          <Phone size={16} strokeWidth={1.6} aria-hidden="true" />
         </a>
         <Link
           to={config.contactHref}
-          className="mobile-sticky-cta flex-shrink-0 relative overflow-hidden group/cta"
+          className="mobile-sticky-cta flex-1 min-[400px]:flex-initial min-[400px]:flex-shrink-0 relative overflow-hidden group/cta"
           style={{
             display: "inline-flex",
             alignItems: "center",
             justifyContent: "center",
-            height: "36px",
-            padding: "0 20px",
+            height: "40px",
+            padding: "0 22px",
             borderRadius: "100px",
             background: "hsl(var(--pricing-fg-primary, 30 10% 12%))",
             color: "hsl(0 0% 100% / 0.95)",
-            fontSize: "12px",
+            fontSize: "13px",
             fontFamily: "var(--font-sans, Inter, sans-serif)",
             fontWeight: 500,
-            letterSpacing: "0.06em",
+            letterSpacing: "0.08em",
             textTransform: "uppercase" as const,
             whiteSpace: "nowrap" as const,
-            boxShadow: "0 2px 8px hsl(30 10% 10% / 0.12), 0 1px 2px hsl(30 10% 10% / 0.08)",
-            transition: "transform 180ms cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 180ms ease",
+            boxShadow: "0 0 0 1px hsl(36 60% 60% / 0.35)",
+            transition: "transform 120ms ease, box-shadow 200ms ease",
           }}
         >
           {config.cta}
@@ -205,6 +206,8 @@ export function MobileStickyBar() {
           0%, 85%, 100% { transform: translateX(-100%) skewX(-20deg); }
           90% { transform: translateX(400%) skewX(-20deg); }
         }
+        .mobile-sticky-cta:active { transform: scale(0.97); box-shadow: 0 0 0 1px hsl(36 60% 60% / 0.7); }
+        .mobile-sticky-phone:active { transform: scale(0.94); }
       `}</style>
     </nav>
   );

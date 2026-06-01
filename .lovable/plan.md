@@ -1,109 +1,78 @@
-## Goal
+# Mobile Polish — Cinematic Hero Pages
 
-Port the Fly4Me-tier mobile conversation flow (already shipped on `/contact`) to **`/teaching/contact`** and **`/events/contact`**. Each gets its own copy, hero strip image, and CTA wording — desktop stays byte-identical on both.
+Scope: `/`, `/teaching`, `/events`. Mobile only (≤640px). The scroll-scrubbed cinematic video ("3D") and its timing config are **not touched** — only the chrome around it: pre-scroll CTA, inline story CTAs, scroll-cue, overlay typography rhythm, and the persistent `MobileStickyBar`.
 
-## Approach
+Reference feel (per your picks): **big confident type + generous whitespace**, **persistent action affordance**. Fly4Me-grade means: one obvious next step at any moment, type that breathes, motion that confirms touch.
 
-Parametrize the existing `ContactConversation` component once, then mount it inside the mobile branch of each page. No new patterns invented — just configuration + vertical-specific copy.
+---
 
-### 1. Generalize `ContactConversation.tsx`
+## 1. Pre-scroll hero CTA (the first frame)
 
-Add a typed `vertical` config prop so the component is reusable:
+Currently: a single `Reserve My Date` glass pill floating mid-frame, with a tiny "Scroll" chevron at the bottom.
 
-```ts
-type Vertical = "weddings" | "events" | "teaching";
+Mobile changes:
+- **Eyebrow above the CTA** — one line, 11px, 0.32em tracking, 60% white: per-vertical context ("Southern Alberta · Weddings" / "Private Events" / "Piano Mentorship"). Gives the button somewhere to sit instead of floating.
+- **Tagline under the eyebrow** — one short line, serif display, ~28px / 1.1, balanced wrap, no card background. Vertical-specific:
+  - `/`        — "I carry your vows."
+  - `/teaching`— "Begin where you are."
+  - `/events`  — "Live piano, where you gather."
+- **CTA pill** — full-width minus 32px gutters, 52px tall, 15px label, 0.10em tracking; press state scales to 0.97 with 120ms ease. Drops the floating glass look; uses a flat warm-white pill with a 1px gold hairline (matches editorial memory: no SaaS shadows).
+- **Secondary text link** under the CTA — "Listen first ›" → `/listen` (weddings/events) or "See the path ›" → `/teaching/about`. 13px, 70% white, underline-on-press.
+- **Scroll cue moves to the bottom safe-area** — "Scroll to begin" with chevron, opacity 0.5, breathes (existing animation kept). Adds 16px above `env(safe-area-inset-bottom)`.
 
-interface ContactConversationProps {
-  vertical: Vertical;
-  onSubmitted: () => void;
-}
+Stack rhythm on mobile (top → bottom inside the safe frame): eyebrow → tagline → 32px gap → CTA → secondary link → flex spacer → scroll cue.
 
-interface VerticalCopy {
-  strapEyebrow: string;     // "Wedding Piano" | "Events Piano" | "Piano Mentorship"
-  strapMeta: string;        // "Canmore · Alberta" (shared) — keep as default
-  heroImg: string;          // imported asset per vertical
-  headline: string;         // mobile h1
-  subhead: string;          // "Tell me one thing at a time." (shared default)
-  steps: StepKey[];         // field order
-  labels: Record<StepKey,string>;
-  placeholders: Record<StepKey,string>;
-  hints: Partial<Record<StepKey,string>>;
-  ctaLabel: string;         // "Reserve my date" | "Begin the conversation" | "Start the conversation"
-  reassurance: string;      // "I respond within 24 hours."
-}
-```
+## 2. Inline story CTAs (`.cn-inline-cta`)
 
-Build a `VERTICALS: Record<Vertical, VerticalCopy>` map and select inside the component. Existing weddings copy moves into that map — behavior unchanged.
+Three CTAs appear mid-story per vertical. Currently 14px Inter, 92% white pill with heavy drop shadow + faint gold rules.
 
-### 2. Per-vertical copy
+Mobile changes (desktop unaffected via `@media (max-width: 640px)`):
+- 48px height, 15px label, 0.08em tracking, 28px horizontal padding.
+- Drop the double shadow and the gold rules — single 1px gold hairline ring (`0 0 0 1px hsl(36 60% 60% / 0.45)`), no blurred shadow. Reads as editorial, not as a chiclet.
+- Press state: scale 0.97, ring brightens to 0.7 alpha. No hover lift on touch.
+- `cn-inline-cta--large` (final anchor): full width minus 32px gutters, 56px tall, 16px label. Keeps the bottom gold aura on the **final** instance only.
 
-**Weddings** (no change, already shipped):
-- Hero: `contact-hero.jpg`
-- H1: "What deserves the song?"
-- Steps: name → email → ceremony → date → venue
-- CTA: "Reserve my date"
+## 3. Overlay typography rhythm
 
-**Events:**
-- Hero: `events-performer-bw.png`
-- Eyebrow: "Events Piano"
-- H1: "What's the occasion?"
-- Steps: name → email → occasion (textarea) → date → venue (or guest count)
-- Labels: `occasion: "The gathering"`, `date: "Date"`, `venue: "Venue / room"`
-- Placeholders: `occasion: "Corporate evening, gala, private party — and the energy you want."`
-- CTA: "Begin the conversation"
-- Submit payload: `vertical: "events"`, message = `occasion + date + venue` concatenated
+The cinematic text overlays (`.luxury-card`) currently render with the same desktop scale on mobile, which crowds the frame.
 
-**Teaching:**
-- Hero: `events-stage-warmlight.png`
-- Eyebrow: "Piano Mentorship"
-- H1: "What pulled you to the piano?"
-- Steps: name → email → context (textarea) → level → goal
-  - `context`: "A song you love, a goal you have, or just curiosity."
-  - `level`: "New, returning, or somewhere between" (optional)
-  - `goal`: "What you want to be playing in a year" (optional)
-- CTA: "Begin the conversation"
-- Submit payload: `vertical: "teaching"`, message = `context + level + goal`
+Mobile changes:
+- Clamp display lines to `clamp(26px, 7.2vw, 38px)` with `line-height: 1.08`, `letter-spacing: -0.01em`.
+- Body lines clamp to `clamp(14px, 3.6vw, 16px)`, `line-height: 1.5`, 80% white floor (respects memory's 60% min).
+- `max-width: 90vw` stays, but add `padding-inline: 24px` so text never kisses the edge.
+- Ornamental divider (`.luxury-divider`) — shrink rule width to 56px and diamond to 6px on mobile so it doesn't dominate.
+- Position presets `left` / `right` collapse to `center` on mobile (the side-aligned variants look cramped at 375px). Existing `posClasses` overridden via a small `@media` block — no JSX changes.
 
-Voice rule from project memory: teaching copy stays grounded and concrete — no mystical/abstract prose.
+## 4. Persistent action affordance (`MobileStickyBar`)
 
-### 3. Wire into pages
+Currently: appears after 420px scroll, hides when footer bookend is in view, shows context text + 5★ + phone + CTA pill.
 
-In both `src/pages/EventsContact.tsx` and `src/pages/TeachingContact.tsx`, mirror the pattern from `Contact.tsx`:
+Mobile changes:
+- **Two-tier layout** at ≤375px so the context line never truncates:
+  - Top tier (when visible): `★ 5.0 · Cochrane / Calgary` (existing).
+  - Bottom tier: phone (round) + CTA pill (flex-1). CTA pill becomes full-width minus the phone button.
+- **Earlier reveal** — show at 220px scroll instead of 420px. The cinematic frame is the hero; once it's even partially behind, give the user an action.
+- **Soften the chrome** — drop the boxed shadow + inset highlight to a single 1px top hairline. Keeps the blur. (Aligns with memory: no SaaS shadows.)
+- **CTA pill** — match the new inline CTA scale: 40px tall, 13px label, 0.08em tracking, flat dark fill, single gold hairline ring on press.
+- **Press feedback** — `active:scale-[0.97]` + `transition 120ms` on both the phone button and the CTA. The existing shimmer sweep stays.
+- The golden scroll-progress thread on top stays — it's the strongest Fly4Me-grade detail already in the file.
 
-- Wrap `<PricingNav />` in `hidden md:block`.
-- Add `<div className="md:hidden"><ContactConversation vertical="events|teaching" onSubmitted={…} /></div>` before the existing `<main>`.
-- Wrap existing `<main>`, `<Footer />`, `<MobileStickyBar />` in `hidden md:block`.
+## 5. Vertical-aware copy already wired
 
-No edits to `<main>` body — desktop remains pixel-identical.
+`getPageConfig` in `MobileStickyBar` already routes the right CTA + contact href per vertical. No changes needed there — the new pre-scroll eyebrow/tagline will be passed as props to a small `<PreScrollIntro vertical="..." />` so the three pages stay declarative.
 
-### 4. CSS
+---
 
-Zero new CSS — the entire `.cv-*` block already exists and is vertical-agnostic. The hero image is passed as a prop; the rest is tokenized off `--pricing-surface` / `--rich-black` which all three pages share.
+## Technical details
 
-### 5. Tiny refactor of the existing weddings call site
+Files touched:
+- `src/components/VideoAct.tsx` — replace the pre-scroll overlay block with `<PreScrollIntro vertical="weddings" />`. No changes to `useVideoScrub`, `TEXT_OVERLAYS`, or refs.
+- `src/components/TeachingCinematicScroll.tsx` — same swap, `vertical="teaching"`.
+- `src/components/EventsCinematicScroll.tsx` — same swap, `vertical="events"`.
+- `src/components/MobileStickyBar.tsx` — earlier reveal threshold, two-tier layout at ≤375px, simplified chrome, press states.
+- `src/components/PreScrollIntro.tsx` *(new)* — eyebrow + tagline + CTA + secondary link + scroll cue. Mobile-first; desktop renders the existing single-pill layout via `hidden md:flex` for the old block kept as fallback.
+- `src/index.css` — new `@media (max-width: 640px)` blocks for `.cn-inline-cta`, `.cn-inline-cta--large`, `.luxury-card`, `.luxury-divider`, `.luxury-card .block` line-height. No changes outside the mobile breakpoint.
 
-`<ContactConversation onSubmitted={…} />` becomes `<ContactConversation vertical="weddings" onSubmitted={…} />`. Behavior unchanged.
+Explicitly **not** touched: `useVideoScrub`, all `videoActsConfig*.ts` files, `posClasses` JSX, the canvas/3D layer, desktop styles, footer reveal toggle, page-level `usePageTheme`.
 
-## Files
-
-- **Edit:** `src/components/contact/ContactConversation.tsx` — add `vertical` prop + `VERTICALS` config map, replace inlined copy/hero with `cfg.*` lookups, route message-assembly per vertical.
-- **Edit:** `src/pages/Contact.tsx` — pass `vertical="weddings"`.
-- **Edit:** `src/pages/EventsContact.tsx` — mobile/desktop branch.
-- **Edit:** `src/pages/TeachingContact.tsx` — mobile/desktop branch.
-
-## Out of scope
-
-- Desktop layouts on all three pages.
-- New copy beyond what's listed above; we lift placeholders straight from each current page where they exist.
-- `send-contact-email` edge function (unchanged contract: `{ name, email, message, vertical }`).
-- Success state (`ContactCelebration` already handles all three verticals).
-
-## Acceptance
-
-1. `/teaching/contact` on iPhone 12 (390×844) shows the warm-light hero strip, "Piano Mentorship" eyebrow, "What pulled you to the piano?" headline, and the conversation flow with teaching-specific steps. CTA reads "Begin the conversation".
-2. `/events/contact` shows the B&W performer strip, "Events Piano" eyebrow, "What's the occasion?" headline, and events-specific steps. CTA reads "Begin the conversation".
-3. Submitting on each page calls `send-contact-email` with the correct `vertical` and a message containing the textarea + optional steps concatenated.
-4. Desktop (≥768px) on both pages is unchanged.
-5. Draft persistence keys are scoped per vertical (`vow:contact:draft:teaching`, etc.) so switching pages doesn't bleed answers across.
-
-Confirm and I'll build it.
+QA path: preview at 375×812 and 414×896, scroll through each of the three pages, confirm (a) pre-scroll frame reads as editorial, (b) inline CTAs land on top of the video without competing with the imagery, (c) sticky bar appears earlier and never truncates, (d) desktop is byte-identical.

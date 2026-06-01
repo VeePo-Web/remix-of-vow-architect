@@ -9130,3 +9130,79 @@ body:has(.now-playing-bar.is-visible) .md\\:hidden.fixed.bottom-0 {
   box-shadow: 0 0 40px hsl(var(--vow-yellow) / 0.1), 0 4px 16px hsl(0 0% 0% / 0.2);
   transform: translateY(-1px);
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE POLISH — Cinematic hero pages (≤640px only)
+   Editorial scale, hairline gold ring on CTAs, calmer rhythm.
+   Desktop unaffected.
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  /* Inline story CTAs — flat, hairline gold ring, no chiclet shadow */
+  .cn-inline-cta {
+    height: 48px;
+    padding: 0 28px !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    background: hsl(38 35% 96%) !important;
+    box-shadow: 0 0 0 1px hsl(36 60% 60% / 0.45) !important;
+    transition: transform 120ms ease, box-shadow 200ms ease !important;
+  }
+  .cn-inline-cta:active {
+    transform: scale(0.97);
+    box-shadow: 0 0 0 1px hsl(36 60% 60% / 0.7) !important;
+  }
+  .cn-inline-cta--large {
+    width: calc(100vw - 32px);
+    max-width: 420px;
+    height: 56px;
+    padding: 0 32px !important;
+    font-size: 16px;
+    letter-spacing: 0.06em;
+  }
+  /* Final-scene CTA — keep its gold aura, but flatter */
+  .final-anchor.cn-inline-cta {
+    box-shadow:
+      0 0 0 1px hsl(36 60% 60% / 0.55),
+      0 0 32px hsl(36 60% 60% / 0.15) !important;
+  }
+
+  /* Overlay text — readable, calm, breathing */
+  .luxury-card {
+    padding: 24px 24px !important;
+    background: radial-gradient(
+      ellipse 130% 160% at 50% 50%,
+      rgba(0,0,0,0.45) 0%,
+      rgba(0,0,0,0.22) 40%,
+      rgba(0,0,0,0.04) 75%,
+      transparent 90%
+    ) !important;
+  }
+  .luxury-card > span.block {
+    font-size: clamp(22px, 6.8vw, 32px);
+    line-height: 1.1;
+    letter-spacing: -0.005em;
+  }
+  .luxury-card[class*="body"] > span.block,
+  .luxury-card[class*="caption"] > span.block,
+  .luxury-card[class*="footnote"] > span.block {
+    font-size: clamp(14px, 3.8vw, 16px);
+    line-height: 1.5;
+  }
+
+  /* Ornamental divider — smaller on mobile so it doesn't dominate */
+  .luxury-rule { width: 40px !important; }
+  .luxury-rule--wide { width: 64px !important; }
+  .luxury-diamond { width: 5px !important; height: 5px !important; }
+
+  /* Position presets — collapse left/right to center on mobile */
+  .video-act .items-start.justify-center.text-left,
+  .video-act .items-end.justify-center.text-right {
+    align-items: center !important;
+    text-align: center !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+}

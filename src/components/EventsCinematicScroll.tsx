@@ -8,6 +8,7 @@ import {
   EVENTS_VIDEO_POSTER,
   EVENTS_SCROLL_HEIGHT,
 } from '@/config/eventsVideoActsConfig';
+import { PreScrollIntro } from './PreScrollIntro';
 
 /**
  * EventsCinematicScroll — Same architecture as CinematicScroll (weddings)
@@ -56,8 +57,14 @@ export function EventsCinematicScroll() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const textRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const preScrollRef = useRef<HTMLDivElement>(null);
 
   const onProgress = useCallback((progress: number) => {
+    if (preScrollRef.current) {
+      const op = Math.max(0, 1 - progress / 0.03);
+      preScrollRef.current.style.opacity = String(op);
+      preScrollRef.current.style.pointerEvents = op < 0.05 ? 'none' : 'auto';
+    }
     EVENTS_TEXT_OVERLAYS.forEach((item, i) => {
       const el = textRefs.current[i];
       if (!el) return;
@@ -117,6 +124,8 @@ export function EventsCinematicScroll() {
 
         {/* Film grain */}
         <div className="video-act__grain grain" aria-hidden="true" />
+
+        <PreScrollIntro ref={preScrollRef} vertical="events" />
 
         {/* ── Luxury text overlays ── */}
         {EVENTS_TEXT_OVERLAYS.map((item, i) => (
