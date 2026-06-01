@@ -137,7 +137,7 @@ export function MobileStickyBar() {
 
       <div className="relative flex items-center justify-between gap-3 px-4 py-3">
         {/* Context text with golden diamond separator */}
-        <div className="hidden xs:flex items-center gap-2.5 min-w-0 flex-1">
+        <div className="hidden min-[400px]:flex items-center gap-2.5 min-w-0 flex-1">
           <span
             className="inline-block w-1 h-1 rotate-45 flex-shrink-0"
             style={{
@@ -168,7 +168,7 @@ export function MobileStickyBar() {
         </a>
         <Link
           to={config.contactHref}
-          className="mobile-sticky-cta flex-1 xs:flex-shrink-0 xs:flex-initial relative overflow-hidden group/cta"
+          className="mobile-sticky-cta flex-1 min-[400px]:flex-initial min-[400px]:flex-shrink-0 relative overflow-hidden group/cta"
           style={{
             display: "inline-flex",
             alignItems: "center",
