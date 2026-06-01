@@ -9287,6 +9287,11 @@ body:has(.now-playing-bar.is-visible) .md\\:hidden.fixed.bottom-0 {
     height: 40px !important;
     padding: 0 14px !important;
     gap: 0 !important;
+    /* Tuck to bottom-right so it doesn't collide with the centered scroll cue / CTAs */
+    left: auto !important;
+    right: 16px !important;
+    transform: none !important;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important;
   }
   .ambient-pill > span:nth-child(2) {
     /* The label slot ("Hear me play" / track title) */
@@ -9295,7 +9300,7 @@ body:has(.now-playing-bar.is-visible) .md\\:hidden.fixed.bottom-0 {
   body[data-sticky-visible="1"] .ambient-pill {
     opacity: 0 !important;
     pointer-events: none !important;
-    transform: translate(-50%, 12px) !important;
+    transform: translateY(12px) !important;
     transition: opacity 220ms ease, transform 220ms ease !important;
   }
 }
