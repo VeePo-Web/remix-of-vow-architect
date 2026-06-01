@@ -1,124 +1,118 @@
+## Goal
 
-# Play Room — Full Redesign
+Transform the mobile `/contact` experience into Fantasy.co-tier quality, modeled on the **Fly4Me ContactModal mobile flow**. Desktop layout stays exactly as it is today. Light theme stays. Wedding copy stays. We are only changing how the page **feels and behaves on phones**.
 
-A near-fullscreen "concert hall" listening room rendered on warm paper, with ink-black ink, oversized editorial typography, and a single dramatic artwork as the stage. The Hear me play pill stays as the entry point but is re-tuned to match.
+## Why the current mobile form fails
 
-## Direction (locked from your picks)
+- All four blocks (hero, image, dark form, next-steps) stack into a long monotonous scroll.
+- Form is the same dense stacked block as desktop — three big inputs with floating labels visible at once, no rhythm, no progression.
+- "Reserve My Date" CTA sits below the keyboard fold on most phones.
+- "What happens next" + "Trust stats" + "Testimonial" + "Disclaimer" are all competing for attention below the form — none breathe.
+- No keyboard handling, no draft persistence, no inline validation feedback, no haptics-of-progress.
 
-- **Palette — Paper & Ink** (light room, dark ink — deliberate inversion of the current black panel)
-  - Stage: `#f5f3ee` (warm paper)
-  - Recessed surface: `#e8e4dd`
-  - Ink: `#2d2d2d`
-  - Deep ink (titles, accents): `#0d0d0d`
-  - Single accent for "now playing" + progress: deep ink at full strength; no gold, no color.
-- **Type — Space Grotesk (display) + DM Sans (body)**
-  - Track title: Space Grotesk, 56–96px clamp, tight tracking
-  - Setlist row: DM Sans 15px
-  - Eyebrow / metadata: DM Sans 11–12px, uppercase, 0.18em tracking
-  - Time code: DM Sans tabular-nums 13px
-- **Posture — Concert Hall**
-  - 96vw × 94vh sheet, centered, 24px outer margin, no shadow — only a 1px hairline border (`hsl(0 0% 0% / 0.08)`) defining the sheet.
-  - Centered square artwork as the visual stage. Ambient blurred halo behind it.
-  - Setlist as a bottom drawer (always visible on desktop as a horizontal rail; pull-up sheet on mobile).
+## The Fly4Me pattern we are stealing (mobile only)
 
-## Layout — desktop (≥1024px)
-
-```text
-┌────────────────────────────────────────────────────────────────┐
-│  LISTENING ROOM · 12 PIECES                            ╳ Close │  ← eyebrow + close (12px DM Sans)
-│                                                                │
-│                                                                │
-│                    ┌──────────────────┐                        │
-│                    │                  │                        │
-│                    │     ARTWORK      │     ← 420×420, soft    │
-│                    │   (vinyl/photo)  │       ambient halo     │
-│                    │                  │                        │
-│                    └──────────────────┘                        │
-│                                                                │
-│              ── piece 03 of 12 ──                              │  ← eyebrow
-│                                                                │
-│           Clair de Lune                                        │  ← Space Grotesk 80px
-│           Debussy · Recital, 2024                              │  ← DM Sans 16px, 0.6 opacity
-│                                                                │
-│           ◁◁    ▶ / ❚❚    ▷▷         1:24 ─────────── 4:12     │  ← transport + scrubber
-│                                                                │
-├────────────────────────────────────────────────────────────────┤
-│  01 Prelude       02 Nocturne     ● 03 Clair de Lune   04 …    │  ← horizontal setlist rail
-└────────────────────────────────────────────────────────────────┘
-```
-
-- Hairline rule above the setlist rail (1px, `#0d0d0d / 0.10`).
-- Active setlist item: ink dot + bold weight; others: 0.55 opacity, hover → 1.0.
-- Scrubber: 2px track, ink fill, draggable thumb appears on hover/focus only.
-- Transport buttons: 44×44 hit target, 20px icons, ink stroke 1.6, no fills.
-
-## Layout — mobile (<768px)
+One question at a time. The active field is large, alone, and centered. Completed answers collapse into editable one-line summaries above. Upcoming questions sit below as quiet text labels you can tap to jump to. The keyboard never covers the input. Submit only appears once required fields are filled.
 
 ```text
 ┌──────────────────────────────┐
-│ LISTENING ROOM        ╳      │
+│  Wedding Piano               │  ← micro strap (16vh hero image strip)
+│         51° N · Canmore      │
+├──────────────────────────────┤
+│  ✎ Name      Sarah Chen      │  ← completed summary (tap to edit)
+│  ─────────────────────────── │
 │                              │
-│      ┌────────────┐          │
-│      │  ARTWORK   │          │   ← 78vw square
-│      └────────────┘          │
+│  Email                       │  ← ACTIVE field (large label)
+│  ┌────────────────────────┐ │
+│  │ you@email.com          │ │
+│  └────────────────────────┘ │
+│  Never shared. Never spammed.│
 │                              │
-│   ── 03 of 12 ──             │
-│   Clair de Lune              │   ← clamp 36–44px
-│   Debussy · 2024             │
+│  Your ceremony               │  ← upcoming (muted, tappable)
+│  Date (optional)             │
 │                              │
-│   1:24 ─────────── 4:12      │
-│   ◁◁     ▶ / ❚❚     ▷▷       │
-│                              │
-│  ─────── Setlist ▲ ───────   │   ← pull-up handle
+│  [ Begin the conversation ↗ ]│  ← sticky bottom, appears when ready
 └──────────────────────────────┘
 ```
 
-- Sheet fills 100vw × 96vh, 12px top inset.
-- Setlist becomes a vertical drawer that slides up from the bottom edge (36×4 handle).
-- No hover states; tap targets ≥44px.
+## Mobile redesign — section by section
 
-## Motion
+### 1. Header strap (replaces hero + hero image stack)
+- Collapse the current 2-section hero into a single **16vh image strip** with a dark gradient overlay.
+- Overlay text: eyebrow "Wedding Piano" (left) · location "Canmore · Alberta" (right), both in `pricing-eyebrow` style at 11px / 0.18em.
+- Removes ~600px of mobile scroll before the form.
 
-- **Open**: 360ms cubic-bezier(.22,.61,.36,1). Backdrop fade 200ms; sheet scales 0.98 → 1 and fades.
-- **Close**: 220ms ease-out.
-- **Track switch**: artwork cross-fades 320ms; title slides 12px up + fades 280ms.
-- **Playing state**: artwork breathes (scale 1.00 → 1.012, 3.2s ease-in-out alternate).
-- **Reduced motion**: all motion → opacity only, ≤160ms.
+### 2. Headline (above form, inside light section)
+- One tight line: **"What deserves the song?"** — `font-display` 32px, max 18ch, animate-fade-up.
+- Sub: "Tell me one thing at a time." — 14px muted.
+- Remove the current long `contact-lede`.
 
-## Accessibility
+### 3. Conversational form (the core change)
+- New component `ContactConversation.tsx` (mobile-only render, `md:hidden`).
+- Field order: `name → email → ceremony (textarea) → date (optional) → venue (optional)`.
+- State machine: `activeStep`, `STEP_ORDER`, `hasValue()`, `displayValue()`, `placeholderFor()`, `labelFor()` — mirroring Fly4Me's pattern.
+- **Completed** fields render as a one-line `summary()` row with pencil icon, hairline border, tap-to-edit.
+- **Active** field renders large: 11px eyebrow label + 24px input, no border-box — bottom hairline that thickens on focus (reuse `.pricing-input` token but scaled up).
+- **Upcoming** fields render as 13px muted labels, tappable to jump.
+- Enter key on input advances to next step. Optional fields show "Skip" link.
+- Inline validation: email shows "Looks right ✓" in vow-yellow on valid blur; errors shake the active field (`field-error` keyframe, 320ms).
+- Draft persistence in `sessionStorage` under `vow:contact:draft`. Rate-limit submit to once per 60s in `localStorage`.
+- Honeypot field (`company_website`, off-screen) for spam.
 
-- `role="dialog"`, `aria-modal`, `aria-labelledby` on track title.
-- Focus trap inside sheet; restore focus to pill on close.
-- Keyboard: `Esc` close, `Space` play/pause, `←/→` seek ±5s, `J/K` prev/next track.
-- Scrubber: `role="slider"` with `aria-valuenow/min/max/text` (mm:ss).
-- Focus-visible ring: 2px ink, 2px offset, on every interactive element.
+### 4. Sticky submit bar
+- Fixed bottom, `safe-area-inset-bottom`, 72px tall, paper background with top hairline.
+- "Reserve My Date ↗" — `pricing-cta--inverted`, full-width minus 24px gutters.
+- Appears (fade-up 240ms) only when name + email + ceremony are filled.
+- Above it, micro line: "I respond within 24 hours." (12px, 0.55 opacity).
 
-## Hear me play pill — re-tuned (entry point)
+### 5. Mobile keyboard handling
+- `useViewportOffset()` hook reads `visualViewport.height` to push the active field above the keyboard. Same trick Fly4Me uses (`keyboardOffset`).
+- Active field auto-scrolls into view 80px from top on focus.
 
-Stays in place (bottom-left desktop, bottom-center mobile) but re-skinned to match Paper & Ink so it doesn't read as a separate visual system:
+### 6. Trust + testimonial + next-steps (post-submit area)
+- **Hide** all of trust-stats / diamond-sep / testimonial / next-steps on mobile while form is active.
+- They reappear in the **success state** (`ContactCelebration`), not on the form page itself. Reduces mobile scroll dramatically and removes the "wall of marketing below the form" feeling.
 
-- Background: `#0d0d0d` (kept dark as a small "stage door" on the page) with 1px hairline `hsl(0 0% 100% / 0.10)`.
-- Label switches to Space Grotesk 14px (not italic serif).
-- Progress underline on pill uses ink-white at 0.85 instead of gold.
-- Pause-button accent becomes ink-white outline, not yellow.
+### 7. Success state (mobile-tuned)
+- Reuse `ContactCelebration` but pass `compact` prop: drop hero image, headline tightens to 28px, three "What happens next" rows become a single vertical numbered list with hairlines, testimonial appears once below as a quiet quote.
 
-This keeps the pill recognizable while the room itself becomes the bright editorial moment.
+### 8. Motion choreography (mobile only)
+- Field transition between steps: outgoing field fades + slides up 8px (180ms), incoming field fades + slides up 12px (260ms, 80ms delay).
+- Summary row insertion: fade-up 220ms.
+- Sticky CTA: opacity 0→1 + translateY(8px → 0) 280ms when unlocked.
+- All gated by `prefers-reduced-motion: reduce` → opacity-only, 160ms.
 
-## Files touched
+### 9. Accessibility
+- Each step is a `<fieldset>` with `aria-current="step"`.
+- Summary rows are real `<button>` with `aria-label="Edit name, Sarah Chen"`.
+- Sticky CTA gets `aria-disabled` until requirements met (not visually hidden — disabled is announced).
+- Min tap target 44×44 on every interactive element.
+- Focus ring: 1px vow-yellow outline + 2px offset on `:focus-visible`.
 
-- `src/components/PianoPanel.tsx` — full rewrite of the panel shell, layout, transport, setlist, motion, a11y.
-- `src/components/AmbientAudioPill.tsx` — re-skin only (Space Grotesk label, ink progress, neutral pause button); no logic changes.
-- `src/index.css` — add Play Room CSS vars (`--pr-paper`, `--pr-paper-2`, `--pr-ink`, `--pr-ink-deep`) and `@keyframes pr-breathe`, `pr-open`, `pr-close`.
-- `tailwind.config.ts` — register `space-grotesk` and `dm-sans` font families scoped via a `font-pr-display` / `font-pr-body` utility (so the rest of the site keeps Cormorant + Inter — memory rule respected).
-- `index.html` — add Google Fonts `<link>` for Space Grotesk (500/600/700) and DM Sans (400/500).
+## Files to touch
 
-## Out of scope (not changing)
+- **New:** `src/components/contact/ContactConversation.tsx` — mobile-only conversation form.
+- **New:** `src/components/contact/ContactStickyCta.tsx` — sticky submit bar.
+- **New:** `src/hooks/useKeyboardOffset.ts` — `visualViewport` tracking.
+- **Edit:** `src/pages/Contact.tsx` — render mobile vs desktop branches (`md:hidden` / `hidden md:block`). Desktop block stays byte-identical.
+- **Edit:** `src/index.css` — add `.contact-mobile-*` scoped block (~120 lines): strap, active-field, summary row, sticky CTA, field-error shake keyframe.
+- **Edit:** `src/components/ContactCelebration.tsx` — accept `compact` prop for mobile success state.
 
-- Audio engine, track list, file sources, autoplay/advance logic.
-- Site-wide fonts or theme. Space Grotesk / DM Sans are scoped to the Play Room only.
-- The Hear me play CTA copy and trigger behavior.
-- Any other page or component.
+## Out of scope (do not touch)
 
-## Memory note
+- Desktop `/contact` (≥768px) — pixel-identical.
+- Wedding copy/voice, palette, fonts.
+- Supabase edge function `send-contact-email` (form payload shape unchanged).
+- `/teaching/contact` and `/events/contact` — same pattern can apply later, this PR is weddings only.
 
-The site's core rule is "Dark theme ONLY for Hero, audio, and specific CTAs." You explicitly asked for a light Paper & Ink Play Room, so this redesign intentionally overrides that rule for this surface. If you'd rather keep the room dark, say the word and I'll re-cast Paper & Ink into a dark equivalent before building.
+## Acceptance checks
+
+1. iPhone 12 (390×844): only header strap + headline + first active field visible above the fold. No scroll required to start typing.
+2. Keyboard open: active input stays visible, sticky CTA hidden behind keyboard (expected), submit possible via Enter on last step.
+3. Filling name → email → message reveals sticky CTA with fade-up; tapping it submits.
+4. Refresh mid-flow restores draft from sessionStorage.
+5. Submitting twice within 60s shows toast "Just a moment — already sent."
+6. Desktop (≥768px) renders the current two-column form unchanged.
+7. `prefers-reduced-motion`: all slides become opacity fades ≤160ms.
+
+Confirm and I'll build it.
