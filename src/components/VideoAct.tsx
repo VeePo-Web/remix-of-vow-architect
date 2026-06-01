@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import type { ScrollTextItem } from '@/config/videoActsConfig';
 import { TEXT_OVERLAYS, VIDEO_SRC, VIDEO_POSTER, SCROLL_HEIGHT } from '@/config/videoActsConfig';
 import { PetalCursorTrail } from './PetalCursorTrail';
+import { PreScrollIntro } from './PreScrollIntro';
 
 /**
  * ╔══════════════════════════════════════════════════════════════╗
@@ -161,38 +162,7 @@ export function CinematicScroll() {
         <div ref={grainRef} className="video-act__grain grain" aria-hidden="true" />
 
         {/* ── Pre-scroll overlay — visible before any scrolling, fades on first scroll ── */}
-        <div
-          ref={preScrollRef}
-          className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-auto"
-          style={{ transition: 'opacity 400ms ease' }}
-        >
-          {/* CTA button — centered */}
-          <a
-            href="/contact"
-            className="cn-cta-btn"
-            style={{ marginTop: '8vh' }}
-          >
-            Reserve My Date
-          </a>
-
-          {/* Scroll indicator — pinned to bottom */}
-          <div
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-            style={{ animation: 'pre-scroll-breathe 2.8s ease-in-out infinite' }}
-          >
-            <span
-              className="font-sans text-[11px] uppercase tracking-[0.3em]"
-              style={{ color: 'hsl(0 0% 100% / 0.5)' }}
-            >
-              Scroll
-            </span>
-            <svg width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true"
-              style={{ animation: 'pre-scroll-chevron 2.8s ease-in-out infinite', opacity: 0.4 }}>
-              <path d="M1 1.5L6 6.5L11 1.5" stroke="hsl(0 0% 100% / 0.6)" strokeWidth="1.5"
-                strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </div>
-        </div>
+        <PreScrollIntro ref={preScrollRef} vertical="weddings" />
 
         {/* ── Luxury text overlays ── */}
         {TEXT_OVERLAYS.map((item, i) => (
