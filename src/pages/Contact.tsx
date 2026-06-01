@@ -64,7 +64,7 @@ export default function Contact() {
 
       {/* ═══ MOBILE — Fly4Me-tier conversation ═══ */}
       <div className="md:hidden">
-        <ContactConversation onSubmitted={() => setIsSubmitted(true)} />
+        <ContactConversation vertical="weddings" onSubmitted={() => setIsSubmitted(true)} />
       </div>
 
       {/* ═══ DESKTOP — unchanged ═══ */}
