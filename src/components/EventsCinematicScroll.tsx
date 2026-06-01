@@ -156,12 +156,12 @@ export function EventsCinematicScroll() {
 
             /* ── CTA button ── */
             ) : item.isCta ? (
-              <a
+              <InlineCta
                 href={item.href || '/events/contact'}
-                className={cn('max-w-[90vw]', item.className)}
-              >
-                {item.text}
-              </a>
+                text={item.text}
+                className={item.className || ''}
+                vertical="events"
+              />
 
             /* ── Standard text with luxury card treatment ── */
             ) : (

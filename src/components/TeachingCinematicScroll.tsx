@@ -152,12 +152,12 @@ export function TeachingCinematicScroll() {
 
             /* ── CTA button ── */
             ) : item.isCta ? (
-              <a
+              <InlineCta
                 href={item.href || '/teaching/contact'}
-                className={cn('max-w-[90vw]', item.className)}
-              >
-                {item.text}
-              </a>
+                text={item.text}
+                className={item.className || ''}
+                vertical="teaching"
+              />
 
             /* ── Standard text with luxury card treatment ── */
             ) : (
