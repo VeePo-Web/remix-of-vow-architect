@@ -1,78 +1,95 @@
-# Mobile Polish — Cinematic Hero Pages
+# Mobile Pass 2 — Editorial Polish on 3D Pages
 
-Scope: `/`, `/teaching`, `/events`. Mobile only (≤640px). The scroll-scrubbed cinematic video ("3D") and its timing config are **not touched** — only the chrome around it: pre-scroll CTA, inline story CTAs, scroll-cue, overlay typography rhythm, and the persistent `MobileStickyBar`.
+**Scope:** Mobile only (≤640px) on `/` (Weddings), `/teaching`, `/events`. The scroll-scrubbed cinematic video, timing config, and 3D layer are not touched. Desktop is not touched.
 
-Reference feel (per your picks): **big confident type + generous whitespace**, **persistent action affordance**. Fly4Me-grade means: one obvious next step at any moment, type that breathes, motion that confirms touch.
+## Goals (from your selections)
+
+1. Overlay text reads as editorial type on video — not as cards
+2. Inline mid-story CTAs feel anchored, not floating mid-frame
+3. Side-dot navigation + audio pill stop competing with the cinematic frame
+4. Closing "I do." / final CTA scene mirrors the pre-scroll intro structure
+5. Act-to-act transitions get breathing room
 
 ---
 
-## 1. Pre-scroll hero CTA (the first frame)
+## 1. Strip card chrome from overlays (mobile only)
 
-Currently: a single `Reserve My Date` glass pill floating mid-frame, with a tiny "Scroll" chevron at the bottom.
+`.luxury-card` currently paints a dark radial gradient backdrop, a top gold hairline, and 32×40px padding — that's the "card" feel. On ≤640px, override to pure typography on video:
 
-Mobile changes:
-- **Eyebrow above the CTA** — one line, 11px, 0.32em tracking, 60% white: per-vertical context ("Southern Alberta · Weddings" / "Private Events" / "Piano Mentorship"). Gives the button somewhere to sit instead of floating.
-- **Tagline under the eyebrow** — one short line, serif display, ~28px / 1.1, balanced wrap, no card background. Vertical-specific:
-  - `/`        — "I carry your vows."
-  - `/teaching`— "Begin where you are."
-  - `/events`  — "Live piano, where you gather."
-- **CTA pill** — full-width minus 32px gutters, 52px tall, 15px label, 0.10em tracking; press state scales to 0.97 with 120ms ease. Drops the floating glass look; uses a flat warm-white pill with a 1px gold hairline (matches editorial memory: no SaaS shadows).
-- **Secondary text link** under the CTA — "Listen first ›" → `/listen` (weddings/events) or "See the path ›" → `/teaching/about`. 13px, 70% white, underline-on-press.
-- **Scroll cue moves to the bottom safe-area** — "Scroll to begin" with chevron, opacity 0.5, breathes (existing animation kept). Adds 16px above `env(safe-area-inset-bottom)`.
+```css
+@media (max-width: 640px) {
+  .luxury-card {
+    background: none !important;
+    padding: 0 24px !important;
+    border-radius: 0 !important;
+    /* keep the layered text-shadow — it does the legibility work */
+  }
+  .luxury-card::before { display: none !important; } /* kill top gold hairline */
+  .luxury-card--glass {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: none !important;
+    border: none !important;
+    border-image: none !important;
+    box-shadow: none !important;
+    padding: 0 24px !important;
+  }
+  .luxury-card--glass::before { display: none !important; }
+  .luxury-divider { display: none !important; } /* ornamental dividers go away */
+}
+```
 
-Stack rhythm on mobile (top → bottom inside the safe frame): eyebrow → tagline → 32px gap → CTA → secondary link → flex spacer → scroll cue.
+Result: text floats on the video with only text-shadow for legibility — Fly4Me-grade editorial, not SaaS cards.
 
-## 2. Inline story CTAs (`.cn-inline-cta`)
+## 2. Anchor inline mid-story CTAs to bottom
 
-Three CTAs appear mid-story per vertical. Currently 14px Inter, 92% white pill with heavy drop shadow + faint gold rules.
+Three CTAs across each vertical (`act-invitation`, `act-services`, `act-crossing`) currently center mid-frame via `posClasses`. On mobile, mount them to the bottom safe-area with an eyebrow label above.
 
-Mobile changes (desktop unaffected via `@media (max-width: 640px)`):
-- 48px height, 15px label, 0.08em tracking, 28px horizontal padding.
-- Drop the double shadow and the gold rules — single 1px gold hairline ring (`0 0 0 1px hsl(36 60% 60% / 0.45)`), no blurred shadow. Reads as editorial, not as a chiclet.
-- Press state: scale 0.97, ring brightens to 0.7 alpha. No hover lift on touch.
-- `cn-inline-cta--large` (final anchor): full width minus 32px gutters, 56px tall, 16px label. Keeps the bottom gold aura on the **final** instance only.
+Approach: extend the existing `@media (max-width: 640px)` override on `.cn-inline-cta` to:
+- Position the CTA's parent overlay at `align-self: end` + `padding-bottom: max(32px, env(safe-area-inset-bottom) + 24px)` via a wrapping `.cn-cta-anchor` class added in the three Cinematic scroll components
+- Render a sibling eyebrow (`<span className="cn-cta-eyebrow">NEXT STEP</span>`) above each inline CTA at 10px / 0.32em tracking / 70% opacity
+- Keep the pill style from pass 1 (warm-white, 1px gold hairline, 48px / 56px heights)
 
-## 3. Overlay typography rhythm
+Files touched: `VideoAct.tsx` (add eyebrow + anchor wrapper when `isCta` and mobile), CSS only — no config changes.
 
-The cinematic text overlays (`.luxury-card`) currently render with the same desktop scale on mobile, which crowds the frame.
+## 3. Hide side-dot nav, reposition audio pill on mobile
 
-Mobile changes:
-- Clamp display lines to `clamp(26px, 7.2vw, 38px)` with `line-height: 1.08`, `letter-spacing: -0.01em`.
-- Body lines clamp to `clamp(14px, 3.6vw, 16px)`, `line-height: 1.5`, 80% white floor (respects memory's 60% min).
-- `max-width: 90vw` stays, but add `padding-inline: 24px` so text never kisses the edge.
-- Ornamental divider (`.luxury-divider`) — shrink rule width to 56px and diamond to 6px on mobile so it doesn't dominate.
-- Position presets `left` / `right` collapse to `center` on mobile (the side-aligned variants look cramped at 375px). Existing `posClasses` overridden via a small `@media` block — no JSX changes.
+The right-side section dots (`CinematicNav`, `TeachingCinematicNav`, `EventsCinematicNav`) and the bottom-left "Hear me play" `AudioPlayer` both crowd the frame at ≤640px.
 
-## 4. Persistent action affordance (`MobileStickyBar`)
+- **Side dots**: hide the `<aside>` containing dot list + labels on mobile via a `.cn-side-dots` class + `@media (max-width: 640px) { display: none; }`. Top wordmark + hamburger stay; sticky CTA stays.
+- **Audio pill**: shrink to icon-only 40×40 circle on mobile, move from `bottom-4 left-4` to `bottom-4 right-4` so it sits opposite the hamburger and clear of the new bottom-anchored CTAs. When `MobileStickyBar` is visible (scroll > 220px), fade the audio pill to opacity 0 / pointer-events none so the sticky bar owns the bottom.
 
-Currently: appears after 420px scroll, hides when footer bookend is in view, shows context text + 5★ + phone + CTA pill.
+## 4. Mirror pre-scroll structure on the final scene
 
-Mobile changes:
-- **Two-tier layout** at ≤375px so the context line never truncates:
-  - Top tier (when visible): `★ 5.0 · Cochrane / Calgary` (existing).
-  - Bottom tier: phone (round) + CTA pill (flex-1). CTA pill becomes full-width minus the phone button.
-- **Earlier reveal** — show at 220px scroll instead of 420px. The cinematic frame is the hero; once it's even partially behind, give the user an action.
-- **Soften the chrome** — drop the boxed shadow + inset highlight to a single 1px top hairline. Keeps the blur. (Aligns with memory: no SaaS shadows.)
-- **CTA pill** — match the new inline CTA scale: 40px tall, 13px label, 0.08em tracking, flat dark fill, single gold hairline ring on press.
-- **Press feedback** — `active:scale-[0.97]` + `transition 120ms` on both the phone button and the CTA. The existing shimmer sweep stays.
-- The golden scroll-progress thread on top stays — it's the strongest Fly4Me-grade detail already in the file.
+The closing acts (Weddings `act-crossing`, Teaching/Events equivalents) end with a single big CTA. Pre-scroll intro has: eyebrow → tagline → primary pill → secondary link. Mirror it.
 
-## 5. Vertical-aware copy already wired
+In `VideoAct.tsx`, when the act contains a `cn-inline-cta--large` (final CTA marker), render:
+```
+EYEBROW (per vertical, same as intro)
+Closing tagline (existing "I do." / equivalent line)
+[ Primary CTA pill — existing href ]
+Secondary text link → "or call (587) 998-7474"
+```
+Mobile-only — desktop final scene unchanged.
 
-`getPageConfig` in `MobileStickyBar` already routes the right CTA + contact href per vertical. No changes needed there — the new pre-scroll eyebrow/tagline will be passed as props to a small `<PreScrollIntro vertical="..." />` so the three pages stay declarative.
+## 5. Soften act-to-act rhythm
+
+Three small moves:
+- Add a 16vh bottom spacer inside each act overlay on mobile so text exits before the next enters (CSS-only, no JS scrub change)
+- Replace the hard ornamental `isDivider` rule with a 1px hairline at 40% width, 0.25 opacity — keeps the structural beat without the decorative diamond
+- Stagger the per-line fade-in delay on `.luxury-card > span` from 60ms → 90ms on mobile only
 
 ---
 
 ## Technical details
 
-Files touched:
-- `src/components/VideoAct.tsx` — replace the pre-scroll overlay block with `<PreScrollIntro vertical="weddings" />`. No changes to `useVideoScrub`, `TEXT_OVERLAYS`, or refs.
-- `src/components/TeachingCinematicScroll.tsx` — same swap, `vertical="teaching"`.
-- `src/components/EventsCinematicScroll.tsx` — same swap, `vertical="events"`.
-- `src/components/MobileStickyBar.tsx` — earlier reveal threshold, two-tier layout at ≤375px, simplified chrome, press states.
-- `src/components/PreScrollIntro.tsx` *(new)* — eyebrow + tagline + CTA + secondary link + scroll cue. Mobile-first; desktop renders the existing single-pill layout via `hidden md:flex` for the old block kept as fallback.
-- `src/index.css` — new `@media (max-width: 640px)` blocks for `.cn-inline-cta`, `.cn-inline-cta--large`, `.luxury-card`, `.luxury-divider`, `.luxury-card .block` line-height. No changes outside the mobile breakpoint.
+**Files to edit:**
+- `src/index.css` — new mobile overrides (sections 1, 2, 3, 5)
+- `src/components/VideoAct.tsx` — add `.cn-cta-anchor` wrapper + eyebrow when `isCta`, mirror structure on final CTA
+- `src/components/CinematicNav.tsx`, `TeachingCinematicNav.tsx`, `EventsCinematicNav.tsx` — add `.cn-side-dots` class to right-side aside
+- `src/components/AudioPlayer.tsx` — mobile icon-only variant + fade-out when sticky bar is up
+- `src/components/MobileStickyBar.tsx` — dispatch a `data-sticky-visible` attribute on `<body>` so AudioPlayer can react
 
-Explicitly **not** touched: `useVideoScrub`, all `videoActsConfig*.ts` files, `posClasses` JSX, the canvas/3D layer, desktop styles, footer reveal toggle, page-level `usePageTheme`.
+**Explicitly NOT touched:** `useVideoScrub`, `videoActsConfig.ts` / `videoActsConfigTeaching.ts` / `videoActsConfigEvents.ts` (no text, timing, or position changes), canvas/3D, desktop styles, page-level layout.
 
-QA path: preview at 375×812 and 414×896, scroll through each of the three pages, confirm (a) pre-scroll frame reads as editorial, (b) inline CTAs land on top of the video without competing with the imagery, (c) sticky bar appears earlier and never truncates, (d) desktop is byte-identical.
+**Verification:** screenshot at 390×844 on `/`, `/teaching`, `/events` at scroll 0%, 25%, 50%, 80%, 100% — confirm no card backgrounds, CTAs sit at bottom, side dots gone, audio pill behaves, final scene mirrors intro.
