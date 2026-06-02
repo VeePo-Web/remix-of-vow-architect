@@ -41,7 +41,7 @@ export default function AmbientAudioPill() {
 
   // Detect active scrolling (mobile only) to gently dim during cinematic scroll
   useEffect(() => {
-    if (!isMobile) return;
+    if (!isMobile || !isHero3D) return;
     let t: ReturnType<typeof setTimeout> | null = null;
     const onScroll = () => {
       setIsScrolling(true);
@@ -53,7 +53,7 @@ export default function AmbientAudioPill() {
       window.removeEventListener("scroll", onScroll);
       if (t) clearTimeout(t);
     };
-  }, [isMobile]);
+  }, [isMobile, isHero3D]);
 
   const displayedTitle = activeTrackIndex !== null
     ? allTracks[activeTrackIndex]?.title ?? ""
@@ -189,7 +189,7 @@ export default function AmbientAudioPill() {
   // Compact mode: mobile + (sticky bar showing OR playing track) and panel closed.
   // Keeps the pill out of the way of the bottom CTA while staying tappable.
   const compact = isMobile && !isPanelOpen && (stickyVisible || (isPlaying && activeTrackIndex !== null));
-  const dim = isMobile && isScrolling && !isPanelOpen && !reduced;
+  const dim = isMobile && isHero3D && isScrolling && !isPanelOpen && !reduced;
 
   // Hide entirely on contact routes (mirror MobileStickyBar)
   if (isContact && isMobile) {
