@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Phone } from "lucide-react";
 
@@ -72,6 +72,7 @@ export function MobileStickyBar() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isFooterCtaVisible, setIsFooterCtaVisible] = useState(false);
   const location = useLocation();
+  const barRef = useRef<HTMLElement>(null);
 
   // Hide entirely on contact pages
   const isContact = location.pathname.includes('/contact');
@@ -97,6 +98,37 @@ export function MobileStickyBar() {
     return () => { document.body.dataset.stickyVisible = '0'; };
   }, [isVisible, isFooterCtaVisible, isContact]);
 
+  // Broadcast a separate flag for the final footer CTA, so floating elements
+  // can fully hide (not just collapse) when the booking bookend takes over.
+  useEffect(() => {
+    document.body.dataset.footerCtaVisible = isFooterCtaVisible ? '1' : '0';
+    return () => { document.body.dataset.footerCtaVisible = '0'; };
+  }, [isFooterCtaVisible]);
+
+  // Measure live bar height and expose it as a CSS var on <body>, so other
+  // floating elements can position themselves above the actual safe zone
+  // instead of guessing a hardcoded offset.
+  useEffect(() => {
+    const setVar = (h: number) => {
+      document.body.style.setProperty('--mobile-sticky-h', `${h}px`);
+    };
+    const measure = () => {
+      const el = barRef.current;
+      if (!el) return setVar(0);
+      const shown = isVisible && !isFooterCtaVisible && !isContact;
+      setVar(shown ? el.offsetHeight : 0);
+    };
+    measure();
+    const ro = barRef.current ? new ResizeObserver(measure) : null;
+    if (ro && barRef.current) ro.observe(barRef.current);
+    window.addEventListener('resize', measure);
+    return () => {
+      ro?.disconnect();
+      window.removeEventListener('resize', measure);
+      document.body.style.setProperty('--mobile-sticky-h', '0px');
+    };
+  }, [isVisible, isFooterCtaVisible, isContact]);
+
   // Fade out when footer CTA becomes visible
   useEffect(() => {
     const bookend = document.querySelector('[data-footer-bookend]');
@@ -115,6 +147,7 @@ export function MobileStickyBar() {
 
   return (
     <nav
+      ref={barRef as React.RefObject<HTMLElement>}
       aria-label="Quick contact"
       className="md:hidden fixed bottom-0 left-0 right-0 z-40 overflow-hidden"
       style={{

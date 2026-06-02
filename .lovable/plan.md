@@ -1,180 +1,160 @@
 ## Goal
 
-Make the mobile “Hear me play” CTA feel premium, quiet, and collision-proof across the three service experiences:
+Make the mobile “Hear me play” CTA feel premium, quiet, and impossible to collide with other important UI across:
 
-- Weddings: `/` and related wedding pages
-- Teaching: `/teaching*`
-- Events: `/events*`
+- Weddings: `/weddings`
+- Teaching: `/teaching`
+- Events: `/events`
 
-No desktop changes. No 3D/canvas/video scrub changes. No changes to audio playback logic or the listening room panel unless required for safe mobile behavior.
+Desktop stays untouched.
 
-## UX Principle
+## What I found
 
-The CTA should behave like a respectful persistent affordance, not a floating promo badge.
+The current direction is close, but the overlap risk is real because the audio CTA is still using a mostly fixed bottom position.
 
-It should be:
+Two key issues:
 
-- Always reachable
-- Never blocking text, hero CTAs, sticky bars, nav, forms, or final-scene CTAs
-- Visually quiet during cinematic scroll
-- More visible only when the user is idle or intentionally engaging with music
-- Consistent across Weddings, Teaching, and Events
+1. The mobile sticky CTA height is treated like a guess (`72px`) instead of a measured safe zone.
+2. The “3D service route” logic currently includes `/`, but the actual wedding service page is `/weddings`, so the wedding page may not get the same careful behavior as Teaching and Events.
 
-## Current problem to solve
-
-The audio CTA can compete with the mobile cinematic experience because it is persistent, visually noticeable, and positioned near other high-value mobile elements. On pages with 3D, scroll-scrubbed story copy, sticky CTAs, and final scene actions, the pill needs stronger behavioral rules.
+Fly4Me’s mobile quality comes from a stricter rule: bottom UI does not fight for the same physical lane. The sticky CTA owns the bottom. Any secondary affordance either moves, collapses, dims, or disappears.
 
 ## Strategy
 
-### 1. Convert the CTA into a mobile state machine
+### 1. Create a real mobile collision system
 
-The pill should have clear mobile states instead of one static layout:
+Instead of hardcoding the audio pill’s bottom offset, the sticky bar will expose its actual mobile height to the page.
+
+The audio CTA will then calculate its position from the live safe zone:
 
 ```text
-INTRO DELAY
-  hidden while the first cinematic moment lands
-
-IDLE
-  small readable pill, bottom-right, label visible
-
-SCROLLING
-  dimmed / visually quieter, no hover-like lift
-
-STICKY CTA VISIBLE
-  compact 40x40 icon-only disc, lifted above sticky bar
-
-PLAYING
-  compact waveform disc, because the music state is already active
-
-PANEL OPEN
-  keeps existing listening-room behavior, but respects safe mobile placement
-
-CONTACT / FORM-FOCUSED ROUTES
-  hidden where it would interfere with conversion or form completion
+safe bottom = safe-area inset + active sticky bar height + breathing gap
 ```
 
-### 2. Keep it bottom-right on mobile
+This makes the pill adapt if the sticky bar changes height, if text wraps, or if iOS safe-area changes.
 
-Use bottom-right placement instead of bottom-center so it does not compete with the main page CTA hierarchy.
+### 2. Fix service route coverage
 
-Rules:
+The premium mobile behavior should apply to:
 
-- Default mobile: bottom-right, just above the safe area
-- When sticky CTA bar is visible: lift above the sticky bar
-- Never rely only on z-index; physically move it out of the sticky bar’s geometry
-- Keep sticky CTA visually dominant when both are present
+```text
+/weddings
+/teaching
+/events
+```
 
-### 3. Collapse when another CTA becomes primary
+Not only `/`, `/teaching`, `/events`.
 
-When the mobile sticky bar is active, the audio CTA should become a compact icon-only disc.
+The gateway `/` should get its own lighter rule, because it is a service chooser and the current play icon visually competes with the bottom tagline.
 
-This keeps the music CTA available without making it feel equal to the booking CTA.
+### 3. Give the sticky CTA priority
 
-Behavior:
+When the bottom sticky CTA appears, the audio CTA becomes secondary:
 
-- Full pill only when the page is calm and there is enough room
-- Icon-only disc when sticky CTA appears
-- Icon-only disc while music is playing
-- Label and pause control hidden in compact state
-- Tap target remains comfortable and reliable
+```text
+Sticky CTA visible:
+  - audio becomes 40x40 icon-only
+  - label disappears
+  - pause mini-button disappears
+  - audio lifts above measured sticky bar height
+  - opacity becomes quieter unless actively playing
+```
 
-### 4. Dim during active cinematic scrolling
+The booking/contact CTA remains the dominant action.
 
-On the 3D service pages, the user’s main action is scrolling through the story. The CTA should recede during that motion.
+### 4. Hide or suppress audio in conversion-critical moments
 
-Behavior:
+The audio CTA should fully disappear on:
 
-- While scrolling: fade down to a quiet opacity
-- After scroll idle: return to normal
-- Respect reduced-motion preferences
-- Avoid bounce, wobble, or attention-grabbing animation during scroll
-
-### 5. Delay entrance on 3D service roots
-
-The pill should not appear before the pre-scroll intro and opening cinematic composition have landed.
-
-Rules:
-
-- `/`, `/teaching`, `/events`: longer entrance delay
-- Non-3D support pages: shorter normal delay
-- Entrance should feel like a soft surface appearing, not a popup
-
-### 6. Hide where it hurts conversion
-
-The audio CTA should be absent from mobile contact/form moments where it risks stealing focus.
-
-Rules:
-
-- Hide on `/contact*`
-- Hide or keep compact on service-specific contact routes if those exist
-- Do not cover form fields, submit buttons, success states, or keyboard-safe areas
-
-### 7. Preserve the listening room
-
-The listening room itself should remain unchanged unless testing shows a mobile collision.
-
-Keep:
-
-- Existing tracks
-- Existing play/pause/select behavior
-- Existing panel content
-- Existing desktop position and behavior
-
-Only adjust the launcher’s mobile placement and visibility behavior.
-
-## Route coverage
-
-Check the behavior on these mobile routes:
-
-- `/`
-- `/teaching`
-- `/events`
-- `/pricing` or wedding pricing route if present
-- `/teaching/about`
-- `/teaching/pricing`
-- `/events/about`
-- `/events/pricing`
 - `/contact`
-- service-specific contact pages, if present
+- `/teaching/contact`
+- `/events/contact`
+- any focused form/keyboard moment on mobile
 
-## Acceptance checklist
+If a form opens or the mobile keyboard appears, the audio CTA should not try to “float above” it. It should leave.
 
-At 390px mobile width:
+### 5. Avoid the final-scene CTA and footer moments
 
-1. Top of each 3D service page: CTA does not interrupt the intro.
-2. During scroll: CTA fades quieter and never blocks story text.
-3. Sticky bar visible: CTA becomes a 40x40 icon-only disc above the bar.
-4. Final scene: CTA does not compete with the final booking CTA.
-5. Playing music: compact waveform state stays reachable but discreet.
-6. Panel open: existing listening room still works.
-7. Contact/form pages: CTA does not appear where it could distract from submitting.
-8. Desktop remains unchanged.
+On the cinematic service pages, when the final booking/bookend CTA or footer reveal controls enter the bottom of the viewport, the audio CTA should not compete.
 
-## Files expected to touch
+Behavior:
+
+```text
+Final CTA / footer action visible:
+  - audio pill fades out or becomes non-interactive
+  - no overlap with final booking CTA
+  - no overlap with footer reveal button
+```
+
+This directly fixes the “other button overlaps sticky bottom” problem.
+
+### 6. Make scroll behavior feel Fly4Me-level
+
+On mobile service pages:
+
+- while scrolling down: audio CTA recedes/dims
+- after idle: returns softly if safe
+- when sticky bar is active: stays compact
+- reduced-motion users get opacity changes only
+- no bouncy or attention-grabbing motion
+
+This makes it feel like a quiet utility, not an ad badge.
+
+### 7. Refine the gateway `/` separately
+
+On the service chooser screen, the bottom-right play disc currently sits near the closing tagline.
+
+Mobile rule for `/`:
+
+- either delay it longer and keep it icon-only
+- or hide it until the user enters a service page
+
+I would choose: compact icon-only on `/`, with a softer delayed entrance, so the gateway stays editorial and uncluttered.
+
+## Technical implementation
+
+### Files to touch
 
 Primary:
 
 - `src/components/AmbientAudioPill.tsx`
+- `src/components/MobileStickyBar.tsx`
 
-Possible only if needed:
+Possible small supporting CSS only if needed:
 
-- `src/index.css` for tiny mobile-only animation/helper styles
+- `src/index.css`
 
-Do not touch:
+### Implementation steps
 
-- 3D/video/canvas code
-- `useVideoScrub`
-- service cinematic scene logic
-- desktop styles
-- audio track data unless unrelated issues appear
-- booking CTA copy or destination
+1. Update `MobileStickyBar` to broadcast both visibility and measured height.
+2. Update `AmbientAudioPill` to use the measured safe zone instead of hardcoded `72px`.
+3. Correct service route detection to include `/weddings`.
+4. Add mobile-only “collision states”:
 
-## Implementation approach
+```text
+idle
+scrolling
+sticky-active
+playing
+final-cta-visible
+form-or-keyboard-active
+contact-route
+panel-open
+```
 
-1. Add mobile-only route and viewport awareness to the pill.
-2. Observe the mobile sticky bar visibility flag already broadcast on `body`.
-3. Derive a single `compact` state from sticky visibility, playback state, and panel state.
-4. Update mobile positioning with safe-area-aware bottom offsets.
-5. Add scroll-idle detection for temporary dimming.
-6. Add route-based hiding for contact/form contexts.
-7. Verify across the three service experiences at the current mobile viewport.
+5. Add final CTA/footer detection so the pill can fade out before it overlaps end-of-story actions.
+6. Keep desktop behavior unchanged.
+7. Verify at 390px mobile width on `/weddings`, `/teaching`, `/events`, `/`, and all contact routes.
+
+## Acceptance checklist
+
+At mobile width:
+
+- The audio CTA never overlaps the sticky bottom CTA.
+- The audio CTA never covers final booking CTAs or footer reveal controls.
+- The sticky CTA always feels more important than the audio CTA.
+- The audio CTA is compact when another CTA is active.
+- The audio CTA disappears on contact/form pages.
+- `/weddings`, `/teaching`, and `/events` all behave consistently.
+- Gateway `/` feels clean and editorial, not cluttered.
+- Desktop is unchanged.

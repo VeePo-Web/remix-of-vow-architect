@@ -17,9 +17,12 @@ export default function AmbientAudioPill() {
   const [stickyVisible,     setStickyVisible    ] = useState(false);
   const [isScrolling,       setIsScrolling      ] = useState(false);
   const [isMobile,          setIsMobile         ] = useState(false);
+  const [footerCtaVisible,  setFooterCtaVisible ] = useState(false);
+  const [keyboardOpen,      setKeyboardOpen     ] = useState(false);
   const location = useLocation();
   const isContact = location.pathname.includes('/contact');
-  const isHero3D = location.pathname === '/' || location.pathname === '/teaching' || location.pathname === '/events';
+  const isGateway = location.pathname === '/';
+  const isHero3D = location.pathname === '/weddings' || location.pathname === '/teaching' || location.pathname === '/events';
 
   // Track viewport (mobile breakpoint mirrors Tailwind md)
   useEffect(() => {
@@ -30,14 +33,39 @@ export default function AmbientAudioPill() {
     return () => mq.removeEventListener("change", update);
   }, []);
 
-  // Observe body[data-sticky-visible] flag broadcast by MobileStickyBar
+  // Observe body flags broadcast by MobileStickyBar (sticky visibility + footer bookend)
   useEffect(() => {
-    const read = () => setStickyVisible(document.body.dataset.stickyVisible === '1');
+    const read = () => {
+      setStickyVisible(document.body.dataset.stickyVisible === '1');
+      setFooterCtaVisible(document.body.dataset.footerCtaVisible === '1');
+    };
     read();
     const obs = new MutationObserver(read);
-    obs.observe(document.body, { attributes: true, attributeFilter: ['data-sticky-visible'] });
+    obs.observe(document.body, {
+      attributes: true,
+      attributeFilter: ['data-sticky-visible', 'data-footer-cta-visible'],
+    });
     return () => obs.disconnect();
   }, []);
+
+  // Detect mobile keyboard open via visualViewport — never float over inputs.
+  useEffect(() => {
+    if (!isMobile) return;
+    const vv = window.visualViewport;
+    if (!vv) return;
+    const onResize = () => {
+      const offset = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
+      setKeyboardOpen(offset > 120);
+    };
+    onResize();
+    vv.addEventListener('resize', onResize);
+    vv.addEventListener('scroll', onResize);
+    return () => {
+      vv.removeEventListener('resize', onResize);
+      vv.removeEventListener('scroll', onResize);
+      setKeyboardOpen(false);
+    };
+  }, [isMobile]);
 
   // Detect active scrolling (mobile only) to gently dim during cinematic scroll
   useEffect(() => {
@@ -186,13 +214,18 @@ export default function AmbientAudioPill() {
   const pct            = duration > 0 ? (progress / duration) * 100 : 0;
   const showPauseBtn   = activeTrackIndex !== null && !isPanelOpen;
 
-  // Compact mode: mobile + (sticky bar showing OR playing track) and panel closed.
-  // Keeps the pill out of the way of the bottom CTA while staying tappable.
-  const compact = isMobile && !isPanelOpen && (stickyVisible || (isPlaying && activeTrackIndex !== null));
+  // Compact mode: mobile + (sticky bar showing OR playing OR gateway) and panel closed.
+  const compact = isMobile && !isPanelOpen && (
+    stickyVisible || isGateway || (isPlaying && activeTrackIndex !== null)
+  );
   const dim = isMobile && isHero3D && isScrolling && !isPanelOpen && !reduced;
 
-  // Hide entirely on contact routes (mirror MobileStickyBar)
-  if (isContact && isMobile) {
+  // Hide entirely where it would interfere with conversion or keyboards.
+  // - contact/form routes
+  // - when the final footer booking CTA owns the bottom of the frame
+  // - when the mobile keyboard is open
+  const hardHide = isMobile && (isContact || (footerCtaVisible && !isPanelOpen) || (keyboardOpen && !isPanelOpen));
+  if (hardHide) {
     return <audio ref={audioRef} preload="none" />;
   }
 
@@ -255,10 +288,10 @@ export default function AmbientAudioPill() {
           "transition-[background-color,border-color,box-shadow,height,width,padding,opacity,bottom] duration-[260ms] ease-[cubic-bezier(0.22,0.61,0.36,1)]",
         )}
         style={{
+          // Live safe zone: lifts above the actual measured sticky bar height
+          // so the pill never overlaps the bottom CTA, regardless of bar size.
           bottom: isMobile
-            ? (stickyVisible
-                ? "calc(env(safe-area-inset-bottom, 0px) + 72px)"
-                : "calc(env(safe-area-inset-bottom, 0px) + 16px)")
+            ? "calc(env(safe-area-inset-bottom, 0px) + var(--mobile-sticky-h, 0px) + 16px)"
             : "1.5rem",
           opacity: !entranceComplete ? 0 : (dim ? 0.45 : 1),
           animation: !entranceComplete
