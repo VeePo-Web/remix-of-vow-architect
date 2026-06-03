@@ -1,160 +1,89 @@
 ## Goal
 
-Make the mobile “Hear me play” CTA feel premium, quiet, and impossible to collide with other important UI across:
-
-- Weddings: `/weddings`
-- Teaching: `/teaching`
-- Events: `/events`
-
-Desktop stays untouched.
-
-## What I found
-
-The current direction is close, but the overlap risk is real because the audio CTA is still using a mostly fixed bottom position.
-
-Two key issues:
-
-1. The mobile sticky CTA height is treated like a guess (`72px`) instead of a measured safe zone.
-2. The “3D service route” logic currently includes `/`, but the actual wedding service page is `/weddings`, so the wedding page may not get the same careful behavior as Teaching and Events.
-
-Fly4Me’s mobile quality comes from a stricter rule: bottom UI does not fight for the same physical lane. The sticky CTA owns the bottom. Any secondary affordance either moves, collapses, dims, or disappears.
+The "Hear me play" pill must never visually touch or overlap any sticky bottom UI on mobile — on any route, in any scroll state. Today it only lifts above `MobileStickyBar` via a single CSS var. Other bottom elements (footer reveal toggle on `/teaching` and `/events`, future bottom CTAs) and transient states (sticky bar sliding in/out, bar hidden on contact routes, dynamic bar height) can still cause near-misses.
 
 ## Strategy
 
-### 1. Create a real mobile collision system
+Move from "one component publishes its height" to a **shared mobile bottom-obstacle registry** that the pill subscribes to. Any sticky bottom element registers itself; the pill always lifts above the tallest currently-visible obstacle, plus a breathing gap and the iOS safe-area inset.
 
-Instead of hardcoding the audio pill’s bottom offset, the sticky bar will expose its actual mobile height to the page.
+### 1. Bottom obstacle registry
 
-The audio CTA will then calculate its position from the live safe zone:
-
-```text
-safe bottom = safe-area inset + active sticky bar height + breathing gap
-```
-
-This makes the pill adapt if the sticky bar changes height, if text wraps, or if iOS safe-area changes.
-
-### 2. Fix service route coverage
-
-The premium mobile behavior should apply to:
+New tiny module `src/lib/mobileBottomObstacles.ts`:
 
 ```text
-/weddings
-/teaching
-/events
+- register(id, getRect)   → returns unregister fn
+- subscribe(cb)           → fires whenever obstacles change
+- getReservedBottom()     → returns max(visible obstacle height intersecting viewport bottom)
 ```
 
-Not only `/`, `/teaching`, `/events`.
+Implementation detail: writes the computed reserved height to `document.body.style.setProperty('--mobile-bottom-reserved', '${h}px')` on every change (rAF-throttled), and also keeps an in-memory cache for React subscribers.
 
-The gateway `/` should get its own lighter rule, because it is a service chooser and the current play icon visually competes with the bottom tagline.
+### 2. Register every sticky bottom element
 
-### 3. Give the sticky CTA priority
+- `MobileStickyBar` registers its `<nav>` ref; reports `0` when hidden (translated off-screen, footer CTA visible, contact route).
+- `Teaching` and `Events` footer reveal buttons (`.cinema-footer-toggle`) register their refs; report `0` when `opacity` is 0 / `pointerEvents: none`.
+- Any future sticky bottom UI uses the same hook (`useBottomObstacle(ref, isVisible)`).
 
-When the bottom sticky CTA appears, the audio CTA becomes secondary:
+This replaces the current single `--mobile-sticky-h` var with the more general `--mobile-bottom-reserved`.
+
+### 3. Pill consumes the registry
+
+In `AmbientAudioPill`:
 
 ```text
-Sticky CTA visible:
-  - audio becomes 40x40 icon-only
-  - label disappears
-  - pause mini-button disappears
-  - audio lifts above measured sticky bar height
-  - opacity becomes quieter unless actively playing
+bottom = calc(env(safe-area-inset-bottom, 0px)
+            + var(--mobile-bottom-reserved, 0px)
+            + 16px)
 ```
 
-The booking/contact CTA remains the dominant action.
+Plus a React subscription so the pill can recompute `compact` mode and `hardHide` whenever reserved height jumps (e.g. sticky bar appears mid-scroll, footer toggle fades in at 95%).
 
-### 4. Hide or suppress audio in conversion-critical moments
+### 4. Scroll-state coverage
 
-The audio CTA should fully disappear on:
+- Recompute on `scroll`, `resize`, `visualViewport` resize, and registry change.
+- During fast scrolling, keep the last known reserved height (no flicker); resync on scroll idle.
+- When sticky bar is mid-transition (translateY animating), use its *target* height (already correct because we measure `offsetHeight`, not `getBoundingClientRect().top`).
 
-- `/contact`
-- `/teaching/contact`
-- `/events/contact`
-- any focused form/keyboard moment on mobile
-
-If a form opens or the mobile keyboard appears, the audio CTA should not try to “float above” it. It should leave.
-
-### 5. Avoid the final-scene CTA and footer moments
-
-On the cinematic service pages, when the final booking/bookend CTA or footer reveal controls enter the bottom of the viewport, the audio CTA should not compete.
-
-Behavior:
+### 5. Route coverage matrix
 
 ```text
-Final CTA / footer action visible:
-  - audio pill fades out or becomes non-interactive
-  - no overlap with final booking CTA
-  - no overlap with footer reveal button
+/                       gateway        — no sticky bar → reserved = 0
+/weddings               cinematic      — sticky bar appears at scrollY>220
+/teaching, /events      cinematic      — sticky bar + footer reveal toggle
+/pricing, /about, /faq, /proof, /listen           — sticky bar only
+/events/*, /teaching/* sub-pages       — sticky bar only
+/contact, /teaching/contact, /events/contact      — pill hard-hidden
 ```
 
-This directly fixes the “other button overlaps sticky bottom” problem.
+Every row resolves through the same registry — no per-route conditionals in the pill.
 
-### 6. Make scroll behavior feel Fly4Me-level
+### 6. Acceptance checks (mobile 390px)
 
-On mobile service pages:
-
-- while scrolling down: audio CTA recedes/dims
-- after idle: returns softly if safe
-- when sticky bar is active: stays compact
-- reduced-motion users get opacity changes only
-- no bouncy or attention-grabbing motion
-
-This makes it feel like a quiet utility, not an ad badge.
-
-### 7. Refine the gateway `/` separately
-
-On the service chooser screen, the bottom-right play disc currently sits near the closing tagline.
-
-Mobile rule for `/`:
-
-- either delay it longer and keep it icon-only
-- or hide it until the user enters a service page
-
-I would choose: compact icon-only on `/`, with a softer delayed entrance, so the gateway stays editorial and uncluttered.
+- Scroll each route slowly: pill bottom edge never crosses the top edge of the sticky bar or footer toggle.
+- Sticky bar appearing/disappearing animates the pill upward/downward smoothly (uses existing 260ms transition on `bottom`).
+- On `/teaching` and `/events` near end-of-scroll, when both sticky bar and footer toggle are visible, pill sits above the taller of the two.
+- Rotate device / open keyboard / open Listening Room panel: no overlap, no jump.
+- Desktop unchanged.
 
 ## Technical implementation
 
-### Files to touch
+### Files
 
-Primary:
+New:
+- `src/lib/mobileBottomObstacles.ts` — registry + CSS var writer
+- `src/hooks/useBottomObstacle.ts` — `(ref, isVisible) => void`
 
-- `src/components/AmbientAudioPill.tsx`
-- `src/components/MobileStickyBar.tsx`
+Edit:
+- `src/components/MobileStickyBar.tsx` — replace direct `--mobile-sticky-h` writes with `useBottomObstacle(barRef, isVisible && !isFooterCtaVisible && !isContact)`
+- `src/components/AmbientAudioPill.tsx` — swap `--mobile-sticky-h` for `--mobile-bottom-reserved`; subscribe to registry for `compact` decisions
+- `src/pages/Teaching.tsx`, `src/pages/Events.tsx` — register `toggleRef` with visibility derived from current opacity/pointerEvents state (lift state into a `footerToggleVisible` boolean already implied by current code)
 
-Possible small supporting CSS only if needed:
+### Backward compatibility
 
-- `src/index.css`
+Keep `--mobile-sticky-h` writing for one release as an alias, so any other consumer (if added later) doesn't break.
 
-### Implementation steps
+### Out of scope
 
-1. Update `MobileStickyBar` to broadcast both visibility and measured height.
-2. Update `AmbientAudioPill` to use the measured safe zone instead of hardcoded `72px`.
-3. Correct service route detection to include `/weddings`.
-4. Add mobile-only “collision states”:
-
-```text
-idle
-scrolling
-sticky-active
-playing
-final-cta-visible
-form-or-keyboard-active
-contact-route
-panel-open
-```
-
-5. Add final CTA/footer detection so the pill can fade out before it overlaps end-of-story actions.
-6. Keep desktop behavior unchanged.
-7. Verify at 390px mobile width on `/weddings`, `/teaching`, `/events`, `/`, and all contact routes.
-
-## Acceptance checklist
-
-At mobile width:
-
-- The audio CTA never overlaps the sticky bottom CTA.
-- The audio CTA never covers final booking CTAs or footer reveal controls.
-- The sticky CTA always feels more important than the audio CTA.
-- The audio CTA is compact when another CTA is active.
-- The audio CTA disappears on contact/form pages.
-- `/weddings`, `/teaching`, and `/events` all behave consistently.
-- Gateway `/` feels clean and editorial, not cluttered.
-- Desktop is unchanged.
+- Visual redesign of the pill or sticky bar
+- Desktop behavior
+- Any business-logic / routing changes
