@@ -4,12 +4,16 @@ import { Footer } from "@/components/Footer";
 import { EventsCinematicNav } from "@/components/EventsCinematicNav";
 import { EventsCinematicScroll } from "@/components/EventsCinematicScroll";
 import { usePageTheme } from "@/hooks/usePageTheme";
+import { useBottomObstacle } from "@/hooks/useBottomObstacle";
+import { scheduleRecompute } from "@/lib/mobileBottomObstacles";
 
 export default function Events() {
   usePageTheme();
   const footerRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const [footerOpen, setFooterOpen] = useState(false);
+  const [toggleVisible, setToggleVisible] = useState(false);
+  useBottomObstacle(toggleRef as React.RefObject<HTMLElement>, toggleVisible);
 
   useEffect(() => {
     document.title = "Private Events — Parker Gawryletz, Pianist";
@@ -32,6 +36,11 @@ export default function Events() {
       const fadeIn = Math.max(0, Math.min(1, (progress - 0.95) / 0.05));
       btn.style.opacity = String(fadeIn);
       btn.style.pointerEvents = fadeIn > 0.1 ? 'auto' : 'none';
+      setToggleVisible((prev) => {
+        const next = fadeIn > 0.1;
+        if (next !== prev) scheduleRecompute();
+        return next;
+      });
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
