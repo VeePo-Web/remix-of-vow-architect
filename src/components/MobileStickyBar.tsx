@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Phone } from "lucide-react";
+import { useBottomObstacle } from "@/hooks/useBottomObstacle";
+import { scheduleRecompute } from "@/lib/mobileBottomObstacles";
 
 // Vertical-aware page config with correct contact routing
 function getPageConfig(pathname: string) {
@@ -105,29 +107,11 @@ export function MobileStickyBar() {
     return () => { document.body.dataset.footerCtaVisible = '0'; };
   }, [isFooterCtaVisible]);
 
-  // Measure live bar height and expose it as a CSS var on <body>, so other
-  // floating elements can position themselves above the actual safe zone
-  // instead of guessing a hardcoded offset.
-  useEffect(() => {
-    const setVar = (h: number) => {
-      document.body.style.setProperty('--mobile-sticky-h', `${h}px`);
-    };
-    const measure = () => {
-      const el = barRef.current;
-      if (!el) return setVar(0);
-      const shown = isVisible && !isFooterCtaVisible && !isContact;
-      setVar(shown ? el.offsetHeight : 0);
-    };
-    measure();
-    const ro = barRef.current ? new ResizeObserver(measure) : null;
-    if (ro && barRef.current) ro.observe(barRef.current);
-    window.addEventListener('resize', measure);
-    return () => {
-      ro?.disconnect();
-      window.removeEventListener('resize', measure);
-      document.body.style.setProperty('--mobile-sticky-h', '0px');
-    };
-  }, [isVisible, isFooterCtaVisible, isContact]);
+  // Register as a bottom obstacle so floating UI lifts above us.
+  const obstacleVisible = isVisible && !isFooterCtaVisible && !isContact;
+  useBottomObstacle(barRef as React.RefObject<HTMLElement>, obstacleVisible);
+  // Recompute whenever the visibility transition begins/ends.
+  useEffect(() => { scheduleRecompute(); }, [obstacleVisible]);
 
   // Fade out when footer CTA becomes visible
   useEffect(() => {
