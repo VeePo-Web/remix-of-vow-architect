@@ -3,6 +3,7 @@ import { Play, Pause, X } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import PianoPanel, { allTracks } from "./PianoPanel";
+import { subscribeReserved } from "@/lib/mobileBottomObstacles";
 
 export default function AmbientAudioPill() {
   const audioRef            = useRef<HTMLAudioElement>(null);
@@ -19,6 +20,7 @@ export default function AmbientAudioPill() {
   const [isMobile,          setIsMobile         ] = useState(false);
   const [footerCtaVisible,  setFooterCtaVisible ] = useState(false);
   const [keyboardOpen,      setKeyboardOpen     ] = useState(false);
+  const [reservedBottom,    setReservedBottom   ] = useState(0);
   const location = useLocation();
   const isContact = location.pathname.includes('/contact');
   const isGateway = location.pathname === '/';
@@ -47,6 +49,10 @@ export default function AmbientAudioPill() {
     });
     return () => obs.disconnect();
   }, []);
+
+  // Subscribe to the shared bottom-obstacle registry so the pill always
+  // lifts above whichever sticky bottom element is currently visible.
+  useEffect(() => subscribeReserved(setReservedBottom), []);
 
   // Detect mobile keyboard open via visualViewport — never float over inputs.
   useEffect(() => {
@@ -214,9 +220,9 @@ export default function AmbientAudioPill() {
   const pct            = duration > 0 ? (progress / duration) * 100 : 0;
   const showPauseBtn   = activeTrackIndex !== null && !isPanelOpen;
 
-  // Compact mode: mobile + (sticky bar showing OR playing OR gateway) and panel closed.
+  // Compact mode: mobile + (any bottom obstacle present OR playing OR gateway) and panel closed.
   const compact = isMobile && !isPanelOpen && (
-    stickyVisible || isGateway || (isPlaying && activeTrackIndex !== null)
+    stickyVisible || reservedBottom > 0 || isGateway || (isPlaying && activeTrackIndex !== null)
   );
   const dim = isMobile && isHero3D && isScrolling && !isPanelOpen && !reduced;
 
@@ -288,10 +294,11 @@ export default function AmbientAudioPill() {
           "transition-[background-color,border-color,box-shadow,height,width,padding,opacity,bottom] duration-[260ms] ease-[cubic-bezier(0.22,0.61,0.36,1)]",
         )}
         style={{
-          // Live safe zone: lifts above the actual measured sticky bar height
-          // so the pill never overlaps the bottom CTA, regardless of bar size.
+          // Live safe zone: lifts above the tallest currently-visible sticky
+          // bottom obstacle (sticky bar, footer toggle, etc.) so the pill
+          // never overlaps any of them, regardless of route or scroll state.
           bottom: isMobile
-            ? "calc(env(safe-area-inset-bottom, 0px) + var(--mobile-sticky-h, 0px) + 16px)"
+            ? "calc(env(safe-area-inset-bottom, 0px) + var(--mobile-bottom-reserved, 0px) + 16px)"
             : "1.5rem",
           opacity: !entranceComplete ? 0 : (dim ? 0.45 : 1),
           animation: !entranceComplete
