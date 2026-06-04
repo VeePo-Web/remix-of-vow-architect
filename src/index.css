@@ -9317,4 +9317,17 @@ body:has(.now-playing-bar.is-visible) .md\\:hidden.fixed.bottom-0 {
   .mobile-col-stack {
     grid-template-columns: 1fr !important;
   }
+
+  /* Trust stat grids — collapse 3-col and 4-col (inline override) to 2×N */
+  .pricing-trust-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  /* Remove the sibling border-left (designed for 1-row layouts) */
+  .pricing-trust-stat + .pricing-trust-stat {
+    border-left: none;
+  }
+  /* Re-apply only on right-column items (even children) */
+  .pricing-trust-stat:nth-child(even) {
+    border-left: 1px solid hsl(36 16% 90%);
+  }
 }

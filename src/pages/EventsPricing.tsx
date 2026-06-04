@@ -491,7 +491,7 @@ export default function EventsPricing() {
           <div className="sub-pad sub-section">
             <RevealOnScroll variant="up">
               <div
-                className="grid items-start"
+                className="grid items-start mobile-col-stack"
                 style={{ gridTemplateColumns: "1fr 1fr", gap: "clamp(40px,8vw,100px)" }}
               >
                 <div>
