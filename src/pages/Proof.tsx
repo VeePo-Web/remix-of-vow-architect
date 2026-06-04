@@ -133,7 +133,7 @@ export default function Proof() {
               {splPhases.map((phase, i) => (
                 <RevealOnScroll key={i} variant="up" delay={i * 50}>
                   <div
-                    className="grid gap-1 py-7"
+                    className="grid gap-1 py-7 mobile-stack"
                     style={{ gridTemplateColumns: "clamp(120px,16vw,200px) 1fr", gap: "clamp(16px,4vw,48px)" }}
                   >
                     <p className="font-sans text-[15px] font-semibold leading-[1.5]" style={{ color: "hsl(0 0% 100% / 0.88)" }}>
@@ -185,7 +185,7 @@ export default function Proof() {
             {preparationSteps.map((step, i) => (
               <RevealOnScroll key={i} variant="up" delay={i * 60}>
                 <div
-                  className="grid py-8"
+                  className="grid py-8 mobile-stack-3"
                   style={{ gridTemplateColumns: "clamp(32px,5vw,64px) 1fr 1fr", gap: "clamp(16px,4vw,48px)", alignItems: "start" }}
                 >
                   <p className="font-sans text-[13px] font-medium" style={{ color: "hsl(var(--pricing-fg-tertiary))", paddingTop: "3px" }}>
@@ -249,7 +249,7 @@ export default function Proof() {
               {insuranceItems.map((item, i) => (
                 <RevealOnScroll key={i} variant="up" delay={i * 50}>
                   <div
-                    className="grid py-6"
+                    className="grid py-6 mobile-stack"
                     style={{ gridTemplateColumns: "clamp(180px,22vw,280px) 1fr", gap: "clamp(16px,4vw,48px)" }}
                   >
                     <p className="font-sans text-[15px] font-semibold leading-[1.5]">{item.label}</p>
@@ -302,7 +302,7 @@ export default function Proof() {
               {redundancyTiers.map((tier, i) => (
                 <RevealOnScroll key={i} variant="up" delay={i * 60}>
                   <div
-                    className="grid py-7"
+                    className="grid py-7 mobile-stack-3"
                     style={{ gridTemplateColumns: "clamp(32px,5vw,64px) clamp(140px,18vw,200px) 1fr", gap: "clamp(16px,4vw,40px)" }}
                   >
                     <p className="font-sans text-[13px] font-medium" style={{ color: "hsl(0 0% 100% / 0.28)", paddingTop: "3px" }}>
@@ -360,7 +360,7 @@ export default function Proof() {
             {samplePlans.map((plan, i) => (
               <RevealOnScroll key={i} variant="up" delay={i * 60}>
                 <div
-                  className="grid py-7"
+                  className="grid py-7 mobile-stack-3"
                   style={{ gridTemplateColumns: "1fr clamp(100px,12vw,160px) 1.4fr", gap: "clamp(16px,4vw,48px)", alignItems: "baseline" }}
                 >
                   <h3 className="font-sans text-[15px] font-semibold">{plan.label}</h3>
@@ -432,7 +432,7 @@ export default function Proof() {
           <div className="sub-pad sub-section">
             <RevealOnScroll variant="up">
               <div
-                className="grid items-start"
+                className="grid items-start mobile-col-stack"
                 style={{ gridTemplateColumns: "1fr 1fr", gap: "clamp(40px,8vw,100px)" }}
               >
                 <div>

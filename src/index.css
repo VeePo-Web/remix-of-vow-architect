@@ -9304,3 +9304,17 @@ body:has(.now-playing-bar.is-visible) .md\\:hidden.fixed.bottom-0 {
     transition: opacity 220ms ease, transform 220ms ease !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE GRID STACK UTILITIES
+   Override inline gridTemplateColumns at mobile viewports.
+   Required because inline style="" beats external @media rules,
+   so these use !important to win the cascade.
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  .mobile-stack,
+  .mobile-stack-3,
+  .mobile-col-stack {
+    grid-template-columns: 1fr !important;
+  }
+}

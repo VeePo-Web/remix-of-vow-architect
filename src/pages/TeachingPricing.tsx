@@ -83,7 +83,7 @@ export default function TeachingPricing() {
           <div className="sub-pad sub-section">
             <RevealOnScroll variant="up">
               <div
-                className="grid items-start"
+                className="grid items-start mobile-col-stack"
                 style={{ gridTemplateColumns: "1fr 1fr", gap: "clamp(40px,8vw,100px)" }}
               >
                 <div>
@@ -141,7 +141,7 @@ export default function TeachingPricing() {
             {inclusions.map((item, i) => (
               <RevealOnScroll key={i} variant="up" delay={i * 50}>
                 <div
-                  className="grid py-6"
+                  className="grid py-6 mobile-stack"
                   style={{ gridTemplateColumns: "clamp(160px,18vw,220px) 1fr", gap: "clamp(16px,4vw,48px)" }}
                 >
                   <p className="font-sans text-[15px] font-semibold leading-[1.5]">{item.label}</p>
@@ -194,7 +194,7 @@ export default function TeachingPricing() {
           <div className="sub-pad sub-section">
             <RevealOnScroll variant="up">
               <div
-                className="grid items-start"
+                className="grid items-start mobile-col-stack"
                 style={{ gridTemplateColumns: "1fr 1fr", gap: "clamp(40px,8vw,100px)" }}
               >
                 <div>

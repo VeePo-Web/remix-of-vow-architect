@@ -118,7 +118,7 @@ export default function TeachingAbout() {
             </RevealOnScroll>
 
             <div
-              className="grid items-start mt-16"
+              className="grid items-start mt-16 mobile-col-stack"
               style={{ gridTemplateColumns: "1fr 1.1fr", gap: "clamp(40px,8vw,100px)" }}
             >
               <RevealOnScroll variant="left">
@@ -184,7 +184,7 @@ export default function TeachingAbout() {
             {beliefs.map((item, i) => (
               <RevealOnScroll key={i} variant="up" delay={i * 60}>
                 <div
-                  className="grid py-10 items-start"
+                  className="grid py-10 items-start mobile-stack"
                   style={{ gridTemplateColumns: "clamp(120px,16vw,200px) 1fr", gap: "clamp(16px,4vw,48px)" }}
                 >
                   <div>
@@ -244,7 +244,7 @@ export default function TeachingAbout() {
               {studentMoments.map((item, i) => (
                 <RevealOnScroll key={i} variant="up" delay={i * 80}>
                   <div
-                    className="grid items-baseline py-7"
+                    className="grid items-baseline py-7 mobile-stack"
                     style={{ gridTemplateColumns: "1fr clamp(100px,14vw,160px)", gap: "clamp(12px,3vw,32px)" }}
                   >
                     <p className="font-sans text-[15px] leading-[1.7]" style={{ color: "hsl(var(--pricing-fg-secondary))" }}>{item.moment}</p>
@@ -347,7 +347,7 @@ export default function TeachingAbout() {
           <div className="sub-pad sub-section">
             <RevealOnScroll variant="up">
               <div
-                className="grid items-start"
+                className="grid items-start mobile-col-stack"
                 style={{ gridTemplateColumns: "1fr 1fr", gap: "clamp(40px,8vw,100px)" }}
               >
                 <div>

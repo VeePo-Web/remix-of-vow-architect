@@ -125,7 +125,7 @@ export default function EventsPricing() {
             {inclusions.map((item, i) => (
               <RevealOnScroll key={i} variant="up" delay={i * 50}>
                 <div
-                  className="grid py-6"
+                  className="grid py-6 mobile-stack"
                   style={{ gridTemplateColumns: "clamp(160px,18vw,220px) 1fr", gap: "clamp(16px,4vw,48px)" }}
                 >
                   <p className="font-sans text-[15px] font-semibold leading-[1.5]">{item.label}</p>
@@ -174,7 +174,7 @@ export default function EventsPricing() {
                       </div>
                     )}
                     <div
-                      className="grid items-start"
+                      className="grid items-start mobile-stack"
                       style={{ gridTemplateColumns: "clamp(160px,22vw,280px) 1fr", gap: "clamp(20px,5vw,60px)" }}
                     >
                       <div>
@@ -246,7 +246,7 @@ export default function EventsPricing() {
 
             {/* Act I — prose + performance image */}
             <div
-              className="grid items-start mt-20"
+              className="grid items-start mt-20 mobile-col-stack"
               style={{ gridTemplateColumns: "1.15fr 1fr", gap: "clamp(40px,8vw,100px)" }}
             >
               <RevealOnScroll variant="left">
