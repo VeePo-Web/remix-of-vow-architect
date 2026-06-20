@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import heroImg from "@/assets/events-stage-purple.jpg";
+import heroImg from "@/assets/events-stage-purple.webp";
 
 export function EventsHero() {
   const [isRevealed, setIsRevealed] = useState(false);

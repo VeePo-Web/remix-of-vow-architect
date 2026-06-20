@@ -13,13 +13,13 @@ import { useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { Link } from "react-router-dom";
 
-import eventsStageWarmlight from "@/assets/events-stage-warmlight.png";
-import eventsStageMotion from "@/assets/events-stage-motion.png";
-import eventsNordOverhead from "@/assets/events-nord-overhead.png";
-import martinAnitaRoom from "@/assets/martin-anita-room.png";
-import martinAnitaPerformance from "@/assets/martin-anita-performance.png";
-import martinAnitaCouple from "@/assets/martin-anita-couple.png";
-import martinAnitaGroup from "@/assets/martin-anita-group.png";
+import eventsStageWarmlight from "@/assets/events-stage-warmlight.webp";
+import eventsStageMotion from "@/assets/events-stage-motion.webp";
+import eventsNordOverhead from "@/assets/events-nord-overhead.webp";
+import martinAnitaRoom from "@/assets/martin-anita-room.webp";
+import martinAnitaPerformance from "@/assets/martin-anita-performance.webp";
+import martinAnitaCouple from "@/assets/martin-anita-couple.webp";
+import martinAnitaGroup from "@/assets/martin-anita-group.webp";
 
 const sections = [
   { id: "ep-hero",      label: "The Offering",   isBlackKey: false },

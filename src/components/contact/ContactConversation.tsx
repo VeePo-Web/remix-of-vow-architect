@@ -4,8 +4,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { useKeyboardOffset } from "@/hooks/useKeyboardOffset";
 import contactHeroImg from "@/assets/contact-hero.jpg";
-import eventsPerformerBw from "@/assets/events-performer-bw.png";
-import eventsStageWarmlight from "@/assets/events-stage-warmlight.png";
+import eventsPerformerBw from "@/assets/events-performer-bw.webp";
+import eventsStageWarmlight from "@/assets/events-stage-warmlight.webp";
 
 type Vertical = "weddings" | "events" | "teaching";
 type StepKey = string;

@@ -12,7 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { ContactConversation } from "@/components/contact/ContactConversation";
 
-import eventsStageWarmlight from "@/assets/events-stage-warmlight.png";
+import eventsStageWarmlight from "@/assets/events-stage-warmlight.webp";
 
 const schema = z.object({
   name:    z.string().min(2, "Please share your name"),

@@ -14,7 +14,7 @@ import { usePageTheme } from "@/hooks/usePageTheme";
 import { Link } from "react-router-dom";
 
 import studioWarm from "@/assets/teaching-jerome-ensemble.png";
-import eventsStageWarmlight from "@/assets/events-stage-warmlight.png";
+import eventsStageWarmlight from "@/assets/events-stage-warmlight.webp";
 import studentLearning from "@/assets/teaching-keys.jpg";
 
 const sections = [

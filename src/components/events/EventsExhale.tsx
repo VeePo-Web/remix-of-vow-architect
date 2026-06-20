@@ -1,7 +1,7 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 import { GoldCornerImage } from "@/components/ui/gold-corner-image";
-import gatewayEventsImg from "@/assets/events-stage-purple.jpg";
+import gatewayEventsImg from "@/assets/events-stage-purple.webp";
 
 const lines = [
   "You are planning something that matters.",

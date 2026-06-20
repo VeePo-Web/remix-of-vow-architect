@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import eventsHeroImg from "@/assets/events-stage-purple.jpg";
+import eventsHeroImg from "@/assets/events-stage-purple.webp";
 
 export function EventsAboutHero() {
   const [revealPhase, setRevealPhase] = useState(0);

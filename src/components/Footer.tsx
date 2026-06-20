@@ -4,7 +4,7 @@ import { Mail, Phone, Instagram, Youtube } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { cn } from "@/lib/utils";
 import { Link, useLocation } from "react-router-dom";
-import veepoLogo from "@/assets/veepo-logo.png";
+import veepoLogo from "@/assets/veepo-logo.webp";
 
 function getFooterConfig(pathname: string) {
   const isEvents = pathname.startsWith('/events');

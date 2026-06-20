@@ -13,9 +13,9 @@ import { useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { Link } from "react-router-dom";
 
-import eventsStageWarmlight from "@/assets/events-stage-warmlight.png";
-import eventsNordOverhead from "@/assets/events-nord-overhead.png";
-import eventsPerformerBw from "@/assets/events-performer-bw.png";
+import eventsStageWarmlight from "@/assets/events-stage-warmlight.webp";
+import eventsNordOverhead from "@/assets/events-nord-overhead.webp";
+import eventsPerformerBw from "@/assets/events-performer-bw.webp";
 
 const sections = [
   { id: "faq-hero",      label: "Overview",         isBlackKey: false },

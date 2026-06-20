@@ -5,7 +5,7 @@ import { usePageTheme } from "@/hooks/usePageTheme";
 import { MusicNoteAmbient } from "@/components/MusicNoteAmbient";
 import weddingsImg from "@/assets/wedding-brendan-ceremony.png";
 import teachingImg from "@/assets/teaching-jerome-ensemble.png";
-import eventsImg from "@/assets/events-stage-purple.jpg";
+import eventsImg from "@/assets/events-stage-purple.webp";
 
 const services = [
   {

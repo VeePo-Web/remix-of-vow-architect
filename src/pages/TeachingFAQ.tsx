@@ -13,7 +13,7 @@ import { useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { Link } from "react-router-dom";
 
-import eventsNordOverhead from "@/assets/events-nord-overhead.png";
+import eventsNordOverhead from "@/assets/events-nord-overhead.webp";
 import teachingKeysImg from "@/assets/teaching-keys.jpg";
 import studentLearningImg from "@/assets/teaching-keys.jpg";
 

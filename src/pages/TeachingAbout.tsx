@@ -7,8 +7,8 @@ import { useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { Link } from "react-router-dom";
 
-import eventsPerformerBw from "@/assets/events-performer-bw.png";
-import eventsStageMotion from "@/assets/events-stage-motion.png";
+import eventsPerformerBw from "@/assets/events-performer-bw.webp";
+import eventsStageMotion from "@/assets/events-stage-motion.webp";
 import teachingStudioImg from "@/assets/teaching-studio-warm.jpg";
 import studentMomentImg from "@/assets/teaching-keys.jpg";
 
