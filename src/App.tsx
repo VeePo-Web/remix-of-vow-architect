@@ -32,6 +32,7 @@ import EventsFAQ from "./pages/EventsFAQ";
 import TeachingFAQ from "./pages/TeachingFAQ";
 import NotFound from "./pages/NotFound";
 import AmbientAudioPill from "./components/AmbientAudioPill";
+import { RouteSeo } from "./components/RouteSeo";
 
 const queryClient = new QueryClient();
 
@@ -78,6 +79,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+        <RouteSeo />
         <SmoothScrollProvider>
         <PageTransition>
           <AppRoutes />
