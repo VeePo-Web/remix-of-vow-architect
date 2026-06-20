@@ -1,10 +1,11 @@
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useState } from 'react';
 import { useVideoScrub } from '@/hooks/useVideoScrub';
 import { cn } from '@/lib/utils';
 import type { ScrollTextItem } from '@/config/videoActsConfig';
 import {
   EVENTS_TEXT_OVERLAYS,
   EVENTS_VIDEO_SRC,
+  EVENTS_VIDEO_SRC_MOBILE,
   EVENTS_VIDEO_POSTER,
   EVENTS_SCROLL_HEIGHT,
 } from '@/config/eventsVideoActsConfig';
@@ -59,6 +60,10 @@ export function EventsCinematicScroll() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const textRefs = useRef<(HTMLDivElement | null)[]>([]);
   const preScrollRef = useRef<HTMLDivElement>(null);
+  // Light mobile encode chosen up front (desktop = full master)
+  const [videoSrc] = useState(() =>
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches
+      ? EVENTS_VIDEO_SRC_MOBILE : EVENTS_VIDEO_SRC);
 
   const onProgress = useCallback((progress: number) => {
     if (preScrollRef.current) {
@@ -117,7 +122,7 @@ export function EventsCinematicScroll() {
           }}
           aria-hidden="true"
         >
-          <source src={EVENTS_VIDEO_SRC} type="video/mp4" />
+          <source src={videoSrc} type="video/mp4" />
         </video>
 
         {/* Vignette */}

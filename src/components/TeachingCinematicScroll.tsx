@@ -1,10 +1,11 @@
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useState } from 'react';
 import { useVideoScrub } from '@/hooks/useVideoScrub';
 import { cn } from '@/lib/utils';
 import type { ScrollTextItem } from '@/config/videoActsConfig';
 import {
   TEACHING_TEXT_OVERLAYS,
   TEACHING_VIDEO_SRC,
+  TEACHING_VIDEO_SRC_MOBILE,
   TEACHING_VIDEO_POSTER,
   TEACHING_SCROLL_HEIGHT,
 } from '@/config/teachingVideoActsConfig';
@@ -56,6 +57,10 @@ export function TeachingCinematicScroll() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const textRefs = useRef<(HTMLDivElement | null)[]>([]);
   const preScrollRef = useRef<HTMLDivElement>(null);
+  // Light mobile encode chosen up front (desktop = full master)
+  const [videoSrc] = useState(() =>
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches
+      ? TEACHING_VIDEO_SRC_MOBILE : TEACHING_VIDEO_SRC);
 
   const onProgress = useCallback((progress: number) => {
     if (preScrollRef.current) {
@@ -113,7 +118,7 @@ export function TeachingCinematicScroll() {
           }}
           aria-hidden="true"
         >
-          <source src={TEACHING_VIDEO_SRC} type="video/mp4" />
+          <source src={videoSrc} type="video/mp4" />
         </video>
 
         {/* Vignette */}

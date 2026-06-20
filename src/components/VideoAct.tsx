@@ -2,7 +2,7 @@ import { useRef, useCallback, useState } from 'react';
 import { useVideoScrub } from '@/hooks/useVideoScrub';
 import { cn } from '@/lib/utils';
 import type { ScrollTextItem } from '@/config/videoActsConfig';
-import { TEXT_OVERLAYS, VIDEO_SRC, VIDEO_POSTER, SCROLL_HEIGHT } from '@/config/videoActsConfig';
+import { TEXT_OVERLAYS, VIDEO_SRC, VIDEO_SRC_MOBILE, VIDEO_POSTER, SCROLL_HEIGHT } from '@/config/videoActsConfig';
 import { PetalCursorTrail } from './PetalCursorTrail';
 import { PreScrollIntro } from './PreScrollIntro';
 import { InlineCta } from './InlineCta';
@@ -61,6 +61,10 @@ export function CinematicScroll() {
   const preScrollRef = useRef<HTMLDivElement>(null);
   const [petalsActive, setPetalsActive] = useState(false);
   const petalsActiveRef = useRef(false);
+  // Pick the light mobile encode up front so the source never reloads (desktop = full master)
+  const [videoSrc] = useState(() =>
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 1023px)').matches
+      ? VIDEO_SRC_MOBILE : VIDEO_SRC);
 
   const onProgress = useCallback((progress: number) => {
     // ── Pre-scroll overlay — fades out as soon as scrolling begins ──
@@ -153,7 +157,7 @@ export function CinematicScroll() {
           }}
           aria-hidden="true"
         >
-          <source src={VIDEO_SRC} type="video/mp4" />
+          <source src={videoSrc} type="video/mp4" />
         </video>
 
         {/* Vignette */}

@@ -33,6 +33,8 @@ export interface ScrollTextItem {
 }
 
 export const VIDEO_SRC = '/videos/weddings-full.mp4';
+// Lighter all-I-frame encode for mobile/tablet (640px, 16fps) — desktop keeps the full master.
+export const VIDEO_SRC_MOBILE = '/videos/weddings-full-mobile.mp4';
 export const VIDEO_POSTER = '/videos/section-1-poster.png';
 export const SCROLL_HEIGHT = '2800vh';
 
