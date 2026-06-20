@@ -650,30 +650,29 @@ All colors MUST be HSL.
 }
 
 /* Fitzgerald Spacing System */
-@layer utilities {
-  /* Section Spacing */
+/* Section spacing lives in plain CSS (outside @layer utilities) on purpose:
+   the Tailwind content scanner extracts the token `!section` from JS like
+   `if (!section)`, and generating its `!important` utility variant emitted a
+   broken empty selector (`{ … }`) during CSS minify. Plain CSS sidesteps that. */
+.section {
+  padding: var(--space-8) 0; /* 56px */
+}
+.section--hero {
+  padding: var(--space-10) 0; /* 120px */
+}
+.section--tight {
+  padding: var(--space-7) 0; /* 40px */
+}
+@media (max-width: 768px) {
   .section {
-    padding: var(--space-8) 0; /* 56px */
+    padding: var(--space-7) 0; /* 40px on mobile */
   }
-  
   .section--hero {
-    padding: var(--space-10) 0; /* 120px */
+    padding: var(--space-9) 0; /* 80px on mobile */
   }
-  
-  .section--tight {
-    padding: var(--space-7) 0; /* 40px */
-  }
-  
-  @media (max-width: 768px) {
-    .section {
-      padding: var(--space-7) 0; /* 40px on mobile */
-    }
-    
-    .section--hero {
-      padding: var(--space-9) 0; /* 80px on mobile */
-    }
-  }
+}
 
+@layer utilities {
   /* Heading + Body Spacing Rules */
   .h1 + .p-lead,
   .h1 + .p-body {
