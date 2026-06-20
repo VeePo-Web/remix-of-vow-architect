@@ -175,11 +175,13 @@ export function MusicNoteAmbient({ active = true }: { active?: boolean }) {
     resize();
     window.addEventListener('resize', resize);
 
+    // Cursor reactivity is pointer-fine only — never bind mousemove on touch (D9)
+    const finePointer = window.matchMedia('(pointer: fine)').matches;
     const onMove = (e: MouseEvent) => {
       mouseRef.current.x = e.clientX;
       mouseRef.current.y = e.clientY;
     };
-    window.addEventListener('mousemove', onMove);
+    if (finePointer) window.addEventListener('mousemove', onMove);
 
     // Wait for entrance animations to finish before first ambient note
     const startTimer = setTimeout(() => { readyRef.current = true; }, 2400);

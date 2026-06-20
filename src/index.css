@@ -6676,6 +6676,31 @@ body:has(.now-playing-bar.is-visible) .md\\:hidden.fixed.bottom-0 {
   /* opacity driven by JS — no CSS transition needed */
 }
 
+/* ════════════════════════════════════════════════════════════════
+   MOBILE & TABLET CINEMATIC TUNING (≤1023px) — DESKTOP FROZEN
+   Every rule here is gated; nothing affects ≥1024px.
+   ════════════════════════════════════════════════════════════════ */
+@media (max-width: 1023px) {
+  /* D7 — dynamic viewport height: kill the iOS URL-bar jump / CLS on the sticky stage.
+     Base rule keeps 100vh as the fallback for browsers without dvh. */
+  .video-act__sticky { height: 100dvh; }
+
+  /* D10 — remap the cinematic scroll length for thumb travel. Act boundaries are
+     fractions of scroll progress, so shortening the zone keeps every overlay's
+     timing proportional. (inline height is 2800vh — override needs !important) */
+  #weddings-cinema,
+  #events-cinema,
+  #teaching-cinema { height: 2000vh !important; }
+}
+
+@media (max-width: 1023px) and (prefers-reduced-motion: reduce) {
+  /* D3 — reduced-motion users get the static poster, not 2800vh of empty void.
+     Collapse the scroll zone to a single viewport. */
+  #weddings-cinema,
+  #events-cinema,
+  #teaching-cinema { height: 100dvh !important; }
+}
+
 /* Glass panel for floating content cards (pricing, genre cards, etc.) */
 .glass-panel {
   backdrop-filter: blur(12px);

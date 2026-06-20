@@ -71,34 +71,58 @@ function getPageConfig(pathname: string) {
 
 export function MobileStickyBar() {
   const [isVisible, setIsVisible] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [isFooterCtaVisible, setIsFooterCtaVisible] = useState(false);
   const location = useLocation();
   const barRef = useRef<HTMLElement>(null);
+  const progressThreadRef = useRef<HTMLDivElement>(null);
 
   // Hide entirely on contact pages
   const isContact = location.pathname.includes('/contact');
+  // Hide on the cinematic scroll pages — their own CinematicNav owns the bottom CTA,
+  // so the sticky bar would stack a second competing bottom bar. (D4)
+  const isCinematic = location.pathname === '/weddings'
+    || location.pathname === '/events'
+    || location.pathname === '/teaching';
 
+  // Scroll progress is driven by direct DOM mutation (no React re-render per frame),
+  // and the whole handler is rAF-coalesced. Only the rare visibility flip uses state. (D6)
   useEffect(() => {
-    const handleScroll = () => {
-      setIsVisible(window.scrollY > 220);
-
+    let rafId = 0;
+    let scheduled = false;
+    let lastVisible = false;
+    const compute = () => {
+      scheduled = false;
+      const y = window.scrollY;
+      const visible = y > 220;
+      if (visible !== lastVisible) {
+        lastVisible = visible;
+        setIsVisible(visible);
+      }
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (docHeight > 0) {
-        setScrollProgress(Math.min(window.scrollY / docHeight, 1));
+      const p = docHeight > 0 ? Math.min(y / docHeight, 1) : 0;
+      const el = progressThreadRef.current;
+      if (el) {
+        el.style.width = `${p * 100}%`;
+        el.style.boxShadow = p > 0.8 ? "0 0 8px hsl(36 60% 60% / 0.3)" : "none";
       }
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    const schedule = () => {
+      if (scheduled) return;
+      scheduled = true;
+      rafId = requestAnimationFrame(compute);
+    };
+    window.addEventListener("scroll", schedule, { passive: true });
+    schedule();
+    return () => { window.removeEventListener("scroll", schedule); cancelAnimationFrame(rafId); };
   }, []);
 
   // Broadcast visibility to body dataset so other floating elements (audio pill, etc.)
   // can fade out when the sticky bar takes over the bottom of the frame.
   useEffect(() => {
-    const shown = isVisible && !isFooterCtaVisible && !isContact;
+    const shown = isVisible && !isFooterCtaVisible && !isContact && !isCinematic;
     document.body.dataset.stickyVisible = shown ? '1' : '0';
     return () => { document.body.dataset.stickyVisible = '0'; };
-  }, [isVisible, isFooterCtaVisible, isContact]);
+  }, [isVisible, isFooterCtaVisible, isContact, isCinematic]);
 
   // Broadcast a separate flag for the final footer CTA, so floating elements
   // can fully hide (not just collapse) when the booking bookend takes over.
@@ -108,7 +132,7 @@ export function MobileStickyBar() {
   }, [isFooterCtaVisible]);
 
   // Register as a bottom obstacle so floating UI lifts above us.
-  const obstacleVisible = isVisible && !isFooterCtaVisible && !isContact;
+  const obstacleVisible = isVisible && !isFooterCtaVisible && !isContact && !isCinematic;
   useBottomObstacle(barRef as React.RefObject<HTMLElement>, obstacleVisible);
   // Recompute whenever the visibility transition begins/ends.
   useEffect(() => { scheduleRecompute(); }, [obstacleVisible]);
@@ -125,7 +149,7 @@ export function MobileStickyBar() {
     return () => observer.disconnect();
   }, []);
 
-  if (isContact) return null;
+  if (isContact || isCinematic) return null;
 
   const config = getPageConfig(location.pathname);
 
@@ -146,15 +170,14 @@ export function MobileStickyBar() {
         transition: "transform 260ms cubic-bezier(0.22, 0.61, 0.36, 1), opacity 260ms cubic-bezier(0.22, 0.61, 0.36, 1)",
       }}
     >
-      {/* Golden scroll progress thread */}
+      {/* Golden scroll progress thread — width driven by direct DOM mutation (D6) */}
       <div
+        ref={progressThreadRef}
         className="absolute top-0 left-0 h-[2px] pointer-events-none"
         style={{
-          width: `${scrollProgress * 100}%`,
+          width: "0%",
           background: "linear-gradient(90deg, hsl(36 60% 60% / 0.35), hsl(36 60% 60% / 0.7))",
-          boxShadow: scrollProgress > 0.8
-            ? "0 0 8px hsl(36 60% 60% / 0.3)"
-            : "none",
+          boxShadow: "none",
           transition: "width 100ms linear, box-shadow 400ms ease",
         }}
         aria-hidden="true"
@@ -183,7 +206,7 @@ export function MobileStickyBar() {
           aria-label="Call +1-403-830-8930"
           className="mobile-sticky-phone flex-shrink-0 flex items-center justify-center"
           style={{
-            width: 40, height: 40, borderRadius: 100,
+            width: 48, height: 48, borderRadius: 100,
             border: "1px solid hsl(30 10% 12% / 0.22)",
             color: "hsl(var(--pricing-fg-primary, 30 10% 12%))",
             transition: "transform 120ms ease",
@@ -198,8 +221,8 @@ export function MobileStickyBar() {
             display: "inline-flex",
             alignItems: "center",
             justifyContent: "center",
-            height: "40px",
-            padding: "0 22px",
+            height: "48px",
+            padding: "0 24px",
             borderRadius: "100px",
             background: "hsl(var(--pricing-fg-primary, 30 10% 12%))",
             color: "hsl(0 0% 100% / 0.95)",

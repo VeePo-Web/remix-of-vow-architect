@@ -41,6 +41,19 @@ export function useVideoScrub({
   const onProgressRef = useRef(onProgress);
   onProgressRef.current = onProgress;
 
+  // ── Mobile/tablet seek threshold ──
+  // Desktop stays at 0.01 (frozen). On touch viewports iOS Safari throttles rapid
+  // currentTime seeks, so we loosen the threshold to ~0.05 to avoid seek-spam stutter.
+  const seekThresholdRef = useRef(0.01);
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mq = window.matchMedia('(max-width: 1023px)');
+    const update = () => { seekThresholdRef.current = mq.matches ? 0.05 : 0.01; };
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
   // ── Video readiness ──
   useEffect(() => {
     const video = videoRef.current;
@@ -83,7 +96,7 @@ export function useVideoScrub({
     const video = videoRef.current;
     if (video && video.duration && !isNaN(video.duration) && video.readyState >= 1) {
       const t = Math.min(p, videoEndFraction) * video.duration;
-      if (Math.abs(video.currentTime - t) > 0.01) {
+      if (Math.abs(video.currentTime - t) > seekThresholdRef.current) {
         video.currentTime = t;
       }
     }
@@ -117,16 +130,24 @@ export function useVideoScrub({
     if (!enabled) return;
     if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+    // rAF-coalesce: multiple scroll events within one frame collapse to a single
+    // tick(), so we never write video.currentTime more than once per frame.
+    let rafId = 0;
+    let scheduled = false;
+    const schedule = () => {
+      if (scheduled) return;
+      scheduled = true;
+      rafId = requestAnimationFrame(() => { scheduled = false; tick(); });
+    };
+
     if (lenis) {
-      const handler = () => tick();
-      lenis.on('scroll', handler);
-      requestAnimationFrame(tick);
-      return () => { lenis.off('scroll', handler); };
+      lenis.on('scroll', schedule);
+      schedule();
+      return () => { lenis.off('scroll', schedule); cancelAnimationFrame(rafId); };
     } else {
-      const handler = () => tick();
-      window.addEventListener('scroll', handler, { passive: true });
-      requestAnimationFrame(tick);
-      return () => { window.removeEventListener('scroll', handler); };
+      window.addEventListener('scroll', schedule, { passive: true });
+      schedule();
+      return () => { window.removeEventListener('scroll', schedule); cancelAnimationFrame(rafId); };
     }
   }, [lenis, tick, enabled]);
 

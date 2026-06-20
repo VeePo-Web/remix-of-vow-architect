@@ -74,7 +74,10 @@ export function PetalCursorTrail({ active }: { active: boolean }) {
   const cursorSpeedRef = useRef(0);
 
   useEffect(() => {
-    if (!active) {
+    // Cursor-driven petals are pointer-fine only — fully disabled on touch (D9)
+    const coarsePointer = typeof window !== 'undefined'
+      && window.matchMedia('(pointer: coarse)').matches;
+    if (!active || coarsePointer) {
       // Clean up when deactivated
       petalsRef.current = [];
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
