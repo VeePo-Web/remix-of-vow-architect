@@ -129,10 +129,12 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline hover:translate-y-0 hover:scale-100 active:translate-y-0",
       },
       size: {
-        default: "h-10 px-6 py-2",
-        sm: "h-9 px-4 text-sm",
-        lg: "h-11 px-8 py-3",
-        icon: "h-10 w-10",
+        /* Mobile gets >=44px touch targets (Apple HIG); md: restores the exact
+           desktop heights so desktop is unchanged. */
+        default: "h-11 px-6 py-2 md:h-10",
+        sm: "h-11 px-4 text-sm md:h-9",
+        lg: "h-12 px-8 py-3 md:h-11",
+        icon: "h-11 w-11 md:h-10 md:w-10",
       },
     },
     defaultVariants: {

@@ -55,7 +55,7 @@ export function FAQChips() {
                 <CollapsibleTrigger asChild>
                   <Badge
                     variant="outline"
-                    className={`cursor-pointer transition-all duration-[180ms] hover:bg-primary/10 px-4 py-2.5 text-sm font-display ${
+                    className={`cursor-pointer transition-all duration-[180ms] hover:bg-primary/10 px-4 py-2.5 max-md:py-3 max-md:min-h-[44px] text-sm font-display ${
                       openIndex === index ? "bg-primary/10 border-primary/50 shadow-fantasy-cta/40" : ""
                     }`}
                   >
