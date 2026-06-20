@@ -23,7 +23,7 @@ import type { ScrollTextItem } from './videoActsConfig';
 export const EVENTS_VIDEO_SRC = '/videos/events-full.mp4';
 // Lighter all-I-frame encode for mobile/tablet (640px, 16fps) — desktop keeps the full master.
 export const EVENTS_VIDEO_SRC_MOBILE = '/videos/events-full-mobile.mp4';
-export const EVENTS_VIDEO_POSTER = '/videos/events-poster.png';
+export const EVENTS_VIDEO_POSTER = '/videos/events-poster.webp';
 export const EVENTS_SCROLL_HEIGHT = '2800vh';
 
 export const EVENTS_NAV_SECTIONS = [

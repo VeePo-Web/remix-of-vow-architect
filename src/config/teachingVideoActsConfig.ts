@@ -20,7 +20,7 @@ import type { ScrollTextItem } from './videoActsConfig';
 export const TEACHING_VIDEO_SRC = '/videos/teaching-full.mp4';
 // Lighter all-I-frame encode for mobile/tablet (640px, 16fps) — desktop keeps the full master.
 export const TEACHING_VIDEO_SRC_MOBILE = '/videos/teaching-full-mobile.mp4';
-export const TEACHING_VIDEO_POSTER = '/videos/teaching-poster.png';
+export const TEACHING_VIDEO_POSTER = '/videos/teaching-poster.webp';
 export const TEACHING_SCROLL_HEIGHT = '2800vh';
 
 export const TEACHING_NAV_SECTIONS = [
