@@ -84,7 +84,7 @@ export default function Gateway() {
   }, []);
 
   return (
-    <main className="h-screen w-screen overflow-hidden flex flex-col items-center py-8 md:py-0 md:justify-center relative" style={{ background: "hsl(var(--rich-black))" }} aria-label="Choose your path" data-theme="death">
+    <main className="gateway-main h-screen w-screen overflow-hidden flex flex-col items-center py-8 md:py-0 md:justify-center relative" style={{ background: "hsl(var(--rich-black))" }} aria-label="Choose your path" data-theme="death">
 
       {/* Falling music notes — ambient + cursor-reactive */}
       <MusicNoteAmbient />
@@ -222,6 +222,19 @@ export default function Gateway() {
         .gateway-card:hover {
           border-color: hsl(var(--vow-yellow) / 0.18) !important;
           box-shadow: 0 8px 40px hsl(var(--vow-yellow) / 0.06), 0 0 60px hsl(var(--vow-yellow) / 0.03);
+        }
+        /* Mobile/tablet only — dynamic viewport height so the cards + footer never
+           clip behind the iOS URL bar. Desktop keeps h-screen (100vh). */
+        @media (max-width: 1023px) {
+          .gateway-main { height: 100dvh; }
+        }
+        /* Touch devices have no hover — give the card a press state so taps feel alive */
+        @media (hover: none) {
+          .gateway-card:active {
+            transform: translateY(-2px) scale(1.01);
+            border-color: hsl(var(--vow-yellow) / 0.18) !important;
+            box-shadow: 0 8px 40px hsl(var(--vow-yellow) / 0.06);
+          }
         }
         @media (prefers-reduced-motion: reduce) {
           .semicolon-breathe,
