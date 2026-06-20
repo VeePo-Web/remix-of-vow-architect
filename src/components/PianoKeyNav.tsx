@@ -101,42 +101,11 @@ export function PianoKeyNav({ sections }: PianoKeyNavProps) {
     ? ((activeIndex + 1) / sections.length) * 100
     : 0;
 
-  // Mobile: compact dots
+  // Mobile: the in-page section nav is hidden. The 6px dots were untappable
+  // (well below the 44px touch minimum) and cluttered the right edge; the
+  // MobileStickyBar already carries scroll progress + the primary CTA. (Item 1)
   if (isMobile) {
-    return (
-      <nav
-        role="navigation"
-        aria-label="Page sections"
-        className={cn(
-          'fixed right-2 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-2',
-          'transition-opacity duration-[260ms]',
-          isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        )}
-      >
-        {sections.map((section, i) => {
-          const isActive = i === activeIndex;
-          const isPressed = pressedIndex === i;
-
-          return (
-            <button
-              key={section.id}
-              onClick={() => handleKeyPress(section.id, i)}
-              aria-label={section.label}
-              aria-current={isActive ? 'true' : undefined}
-              className="w-[6px] h-[6px] rounded-full transition-all duration-[180ms] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-vow-yellow/40"
-              style={{
-                background: isActive
-                  ? 'hsl(var(--vow-yellow))'
-                  : 'hsl(var(--foreground) / 0.25)',
-                transform: isPressed ? 'scale(1.4)' : 'scale(1)',
-                animation: isActive && !isPressed ? 'piano-mobile-dot-pulse 3s ease-in-out infinite' : 'none',
-                transition: 'transform 200ms cubic-bezier(0.22,0.61,0.36,1), background 180ms ease',
-              }}
-            />
-          );
-        })}
-      </nav>
-    );
+    return null;
   }
 
   // Desktop: full piano keys
