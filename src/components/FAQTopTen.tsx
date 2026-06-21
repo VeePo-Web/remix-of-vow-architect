@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/accordion";
 import { DirectionalLink } from "@/components/DirectionalLink";
 
-const topTenFAQs = [
+export const topTenFAQs = [
   {
     question: "Will every word carry outdoors?",
     answer: "Yes. Wind and distance make it difficult for guests to hear unaided vows. I include a dedicated wireless system, balanced in real time so every word carries — even to the last row.",

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { getRouteSchemas } from "@/lib/routeSchema";
 
 const ORIGIN = "https://gawryletzmusic.com";
 
@@ -34,6 +35,19 @@ export function RouteSeo() {
 
     upsertMeta('meta[property="og:url"]', url);
     upsertMeta('meta[name="twitter:url"]', url);
+
+    // Per-route JSON-LD (BreadcrumbList, FAQPage…). Remove the previous route's
+    // injected blocks first so they don't accumulate across client navigation.
+    document.head
+      .querySelectorAll('script[data-route-schema]')
+      .forEach((el) => el.remove());
+    for (const schema of getRouteSchemas(pathname)) {
+      const s = document.createElement("script");
+      s.type = "application/ld+json";
+      s.setAttribute("data-route-schema", "");
+      s.textContent = JSON.stringify(schema);
+      document.head.appendChild(s);
+    }
   }, [pathname]);
 
   return null;
