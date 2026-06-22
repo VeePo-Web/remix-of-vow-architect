@@ -100,7 +100,7 @@ export const SERVICE_AREAS: ServiceArea[] = [
         a: "All gear is weather-protected, we agree a Plan B location in advance, and I can relocate within minutes while keeping your timed cue sheet intact.",
       },
     ],
-    nearby: ["banff", "cochrane"],
+    nearby: ["banff", "cochrane", "lake-louise", "kananaskis"],
   },
   {
     slug: "banff",
@@ -126,7 +126,7 @@ export const SERVICE_AREAS: ServiceArea[] = [
         a: "I provide the insurance and equipment documentation venues and park coordinators request, and plan the ceremony to stay within site requirements.",
       },
     ],
-    nearby: ["canmore", "cochrane"],
+    nearby: ["canmore", "cochrane", "lake-louise"],
   },
   {
     slug: "airdrie",
@@ -231,6 +231,68 @@ export const SERVICE_AREAS: ServiceArea[] = [
       },
     ],
     nearby: ["calgary", "cochrane"],
+  },
+  {
+    slug: "lake-louise",
+    city: "Lake Louise",
+    region: "Alberta",
+    metaDescription:
+      "Wedding ceremony pianist at Fairmont Chateau Lake Louise and Parks Canada sites. Acoustic-only, permits-aware, silent battery piano with vow mics. Written plan in 24 hrs.",
+    lede: "Fairmont Chateau Lake Louise ceremonies carry the weight of one of Canada's most storied settings — and the acoustic discipline those settings demand.",
+    context: [
+      "The Chateau Lake Louise and the surrounding Parks Canada sites operate under the same acoustic-only, no-amplification rules that govern Banff National Park. Most pianists haven't planned for a ceremony at altitude beside a glacial lake with a hundred guests and a no-amplifier permit — it is exactly the scenario that Assured Ceremony Audio was designed for. Silent battery power, SPL-aware technique, and a performance approach that works acoustically, within Parks Canada guidelines, at 1,600 metres above sea level.",
+      "Lake Louise's ceremony season is shorter than the Bow Valley average — snow can linger on the lakeshore into late May, and the alpine setting demands weather planning that most vendors don't carry out. I arrive early, walk the lakeside or indoor site with your venue coordinator, and document the full ceremony plan so every vendor — including the Chateau's events team — has the same information before guests arrive.",
+    ],
+    venues: [
+      "Fairmont Chateau Lake Louise",
+      "Lake Louise Ski Resort ceremony sites",
+      "Shoreline lawn and boathouse sites, Banff National Park",
+    ],
+    localNote:
+      "Lake Louise sits at 1,600 metres in Banff National Park — acoustic-only, no amplification, no generators. Working cleanly within Parks Canada restrictions at altitude is exactly the specialty that Assured Ceremony Audio was designed for.",
+    faqs: [
+      {
+        q: "Can you perform at Fairmont Chateau Lake Louise ceremonies?",
+        a: "Yes — Chateau Lake Louise is within my regular service area. I provide the insurance and equipment documentation Fairmont venues require and perform fully within Parks Canada acoustic-only rules.",
+      },
+      {
+        q: "Do you handle Parks Canada permits and compliance at Lake Louise?",
+        a: "I coordinate with your venue coordinator and the park's events office to ensure the ceremony plan and performance are documented and compliant before the date.",
+      },
+    ],
+    nearby: ["banff", "canmore"],
+  },
+  {
+    slug: "kananaskis",
+    city: "Kananaskis",
+    region: "Alberta",
+    metaDescription:
+      "Wedding ceremony pianist in Kananaskis, AB. Delta Hotels, Mt. Engadine Lodge, Boundary Ranch. Silent battery, vow mics, 45 min from Cochrane. Written plan in 24 hrs.",
+    lede: "Kananaskis resort venues — Delta Hotels, Mt. Engadine Lodge, Boundary Ranch — combine mountain drama with resort infrastructure, and they reward a pianist who comes prepared for both.",
+    context: [
+      "The Kananaskis Valley's ceremony sites are among the most dramatic in Alberta: mountain meadows, glacial viewpoints, and resort properties with full event teams who expect coordination from every vendor. I arrive with a submitted plan, complete the venue walk with your coordinator, and put the cue sheet in every vendor's hands before the first guest arrives. Silent battery power means the ceremony is self-contained — on resort properties where a generator would intrude on the setting, that is the professional standard.",
+      "Kananaskis sits 45–55 minutes from my Cochrane home base via Highway 40. The valley runs north-south, channelling mountain wind across open ceremony grounds in the afternoon. The wireless vow-and-officiant system, balanced in real time, means vows carry clearly across even a wide outdoor row count regardless of the afternoon breeze.",
+    ],
+    venues: [
+      "Delta Hotels by Marriott Kananaskis",
+      "Mt. Engadine Lodge",
+      "Boundary Ranch",
+      "William Watson Lodge",
+      "Kananaskis mountain meadow and valley sites",
+    ],
+    localNote:
+      "The Kananaskis Valley's north-south orientation funnels mountain wind across open ceremony grounds — afternoon gusts require active real-time audio management to keep vows clear across a full guest count.",
+    faqs: [
+      {
+        q: "Do you play at Kananaskis venues like Delta Hotels or Mt. Engadine Lodge?",
+        a: "Yes — Delta Hotels Kananaskis, Mt. Engadine Lodge, and Boundary Ranch are all within my service area. I know the valley's ceremony environment and arrive with the coordination and equipment these venues expect.",
+      },
+      {
+        q: "Is there a travel fee for Kananaskis ceremonies?",
+        a: "Kananaskis is 45–55 minutes from my Cochrane home base via Highway 40. Exact travel details are confirmed during ceremony planning — reach out and I will give you a clear answer for your specific venue.",
+      },
+    ],
+    nearby: ["canmore", "cochrane", "calgary"],
   },
 ];
 

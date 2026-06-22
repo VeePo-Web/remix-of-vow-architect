@@ -4,9 +4,10 @@ Parker Gawryletz is a Cochrane, Alberta-based wedding ceremony pianist, private-
 pianist, and piano mentor, operating as Gawryletz Music. The wedding offering — branded
 "Assured Ceremony Audio™" — pairs live ceremony piano with officiant/vow microphones,
 silent battery power, SPL-aware mixing, triple-redundant gear, and a written audio plan
-delivered within 24 hours. Parker serves Calgary, Cochrane, Canmore, Banff and the wider
-Bow Valley, including Parks Canada acoustic-only ceremonies. Three lines of work: weddings,
-private events, and one-to-one piano mentorship.
+delivered within 24 hours. Parker serves the full southern Alberta and Bow Valley region:
+Calgary, Cochrane, Canmore, Banff, Airdrie, Okotoks, Bragg Creek, Priddis, Lake Louise,
+and Kananaskis — including Parks Canada acoustic-only ceremonies at Banff and Lake Louise.
+Three lines of work: weddings, private events, and one-to-one piano mentorship.
 
 ## Key Pages
 - Home / Choose a path: https://gawryletzmusic.com/ — the three offerings (weddings, teaching, events)
@@ -19,6 +20,19 @@ private events, and one-to-one piano mentorship.
 - FAQ: https://gawryletzmusic.com/faq — common questions about ceremony sound, power, arrangements, refunds
 - Listen: https://gawryletzmusic.com/listen — audio samples
 - Contact: https://gawryletzmusic.com/contact — start a conversation; response within 24 hours
+- Service Areas (hub): https://gawryletzmusic.com/service-areas — overview of all areas served
+
+## Service Area Pages
+- Cochrane: https://gawryletzmusic.com/service-areas/cochrane — home base, RancheHouse and Bow RiversEdge, no travel fee
+- Calgary: https://gawryletzmusic.com/service-areas/calgary — estate and golf-club ceremonies, large guest counts
+- Canmore: https://gawryletzmusic.com/service-areas/canmore — Silvertip, Stewart Creek, Bow Valley mountain venues
+- Banff: https://gawryletzmusic.com/service-areas/banff — Parks Canada acoustic-only sites, Cascade Gardens, Tunnel Mountain
+- Airdrie: https://gawryletzmusic.com/service-areas/airdrie — Westbrook Farm and prairie estate venues, no travel fee
+- Okotoks: https://gawryletzmusic.com/service-areas/okotoks — D'Arcy Ranch, Sheep River valley sites
+- Bragg Creek: https://gawryletzmusic.com/service-areas/bragg-creek — off-grid forest and Elbow River clearings, battery setup
+- Priddis: https://gawryletzmusic.com/service-areas/priddis — Azuridge Estate Hotel, Priddis Greens Golf
+- Lake Louise: https://gawryletzmusic.com/service-areas/lake-louise — Fairmont Chateau Lake Louise, Parks Canada acoustic-only at 1,600m
+- Kananaskis: https://gawryletzmusic.com/service-areas/kananaskis — Delta Hotels Kananaskis, Mt. Engadine Lodge, Boundary Ranch
 
 ## Services & Pricing (CAD)
 - The Vow — Ceremony Only ($650): the ceremony itself, 30–45 minutes of devoted presence
