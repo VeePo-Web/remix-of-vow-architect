@@ -48,7 +48,7 @@ export const SERVICE_AREAS: ServiceArea[] = [
         a: "No. Cochrane ceremonies carry no travel surcharge — it's where I live and rehearse.",
       },
     ],
-    nearby: ["calgary", "canmore"],
+    nearby: ["calgary", "canmore", "airdrie", "bragg-creek"],
   },
   {
     slug: "calgary",
@@ -74,7 +74,7 @@ export const SERVICE_AREAS: ServiceArea[] = [
         a: "Yes. I balance a dedicated wireless system in real time and verify clarity at several distances, so even a thirty-row outdoor ceremony hears every word.",
       },
     ],
-    nearby: ["cochrane", "canmore"],
+    nearby: ["cochrane", "canmore", "airdrie", "okotoks", "priddis"],
   },
   {
     slug: "canmore",
@@ -127,6 +127,110 @@ export const SERVICE_AREAS: ServiceArea[] = [
       },
     ],
     nearby: ["canmore", "cochrane"],
+  },
+  {
+    slug: "airdrie",
+    city: "Airdrie",
+    region: "Alberta",
+    metaDescription:
+      "Wedding ceremony pianist in Airdrie, AB. Live piano with vow & officiant mics, silent battery power, no travel fee from Cochrane. Written ceremony plan in 24 hrs.",
+    lede: "Airdrie's equestrian estates and open prairie venues call for live piano that travels light and still carries every vow to the back row.",
+    context: [
+      "Twenty minutes from Cochrane, Airdrie sits at the edge of the open prairie — which means beautiful sky and strong northerly winds that can swallow quiet ceremony moments. Every Airdrie booking includes the wireless vow-and-officiant system, balanced in real time so the couple's words carry clearly across an open venue without extra hardware cluttering the setting.",
+      "Westbrook Farm and the growing number of rural estate properties along the east side of Rocky View County are a specialty — sites where a generator would disrupt the calm and a power cord has nowhere to run. Silent battery power means the ceremony is self-contained, quiet, and uninterrupted from processional to recessional.",
+    ],
+    venues: ["Westbrook Farm", "Nose Creek Park outdoor sites", "Kingsview Heritage Park"],
+    localNote:
+      "Airdrie's prairie exposure and northerly wind pattern make outdoor vow clarity unpredictable without a dedicated wireless system — exactly the scenario the battery rig and SPL-aware mixing solve.",
+    faqs: [
+      {
+        q: "Do you travel to Airdrie for wedding ceremonies?",
+        a: "Yes — Airdrie is 20 minutes from my Cochrane home base and carries no travel surcharge. I arrive early, walk the venue, and sound-check all ceremony cues before guests arrive.",
+      },
+      {
+        q: "Can you perform at Westbrook Farm or rural Rocky View County estates?",
+        a: "Yes. Silent battery power and a self-contained audio rig mean I perform at sites with limited or no electrical access — no generator required.",
+      },
+    ],
+    nearby: ["cochrane", "calgary"],
+  },
+  {
+    slug: "okotoks",
+    city: "Okotoks",
+    region: "Alberta",
+    metaDescription:
+      "Wedding ceremony pianist in Okotoks, AB. Live piano with vow & officiant mics, silent battery power, and SPL-aware mixing for Sheep River valley venues. Plan in 24 hrs.",
+    lede: "Okotoks' Sheep River valley and small-town charm produce some of the most intimate ceremonies in southern Alberta — and acoustics that require some thought.",
+    context: [
+      "The Sheep River setting brings natural beauty and natural exposure — valley terrain that funnels west wind across outdoor sites. I arrive before your vendors, walk the ceremony space, and build the vow-and-officiant balance around the specific position of the sun, the wind direction on the day, and the number of rows your guests will fill.",
+      "Okotoks has a tight-knit event community, and I coordinate directly with your planner and the venue coordinator so the cue sheet is in everyone's hands before the ceremony begins. A written plan replaces the guesswork and means every moment — processional, readings, vows, recessional — lands exactly as intended.",
+    ],
+    venues: ["D'Arcy Ranch Golf Club", "The Old Powerhouse", "Sheep River valley outdoor sites"],
+    localNote:
+      "Okotoks sits in Foothills County east of the Rockies, where afternoon westerlies can arrive quickly — a weather-protected rig and a pre-agreed Plan B indoor position are standard for any Okotoks outdoor ceremony.",
+    faqs: [
+      {
+        q: "Do you play weddings in Okotoks and the Foothills region?",
+        a: "Yes — D'Arcy Ranch Golf Club, The Old Powerhouse, and Sheep River outdoor sites are all within my regular service area, with no travel add-on from Cochrane.",
+      },
+      {
+        q: "Can you handle a ceremony at The Old Powerhouse in Okotoks?",
+        a: "Yes — the historic Sheep River building suits the quiet presence of live piano perfectly. I survey the venue in advance and work with your coordinator on the cue sheet.",
+      },
+    ],
+    nearby: ["calgary", "cochrane"],
+  },
+  {
+    slug: "bragg-creek",
+    city: "Bragg Creek",
+    region: "Alberta",
+    metaDescription:
+      "Wedding ceremony pianist in Bragg Creek, AB. Silent battery piano and vow mics built for forest clearings, Elbow River sites, and off-grid ceremony venues. Plan in 24 hrs.",
+    lede: "Bragg Creek's forest clearings and Elbow River settings are among the most intimate in the foothills — and the off-grid nature of these venues is exactly what silent battery setup was built for.",
+    context: [
+      "Bragg Creek ceremonies often happen far from a power outlet: a clearing beside the Elbow River, a property tucked in the pines, a meadow where extension cords don't belong. Silent battery piano and a self-contained wireless audio rig mean the ceremony is fully off-grid — no generator, no cables running across the grass, just music and vows in a natural setting.",
+      "Bragg Creek is a 30-minute drive from my Cochrane home base, and I plan route and arrival time carefully so setup is complete long before guests arrive. I walk the ceremony site in advance when possible, and every tech element has a printed backup — so a dropped cell signal at the venue is never a problem on the day.",
+    ],
+    venues: ["Bragg Creek Community Centre", "Elbow River valley clearings", "West Bragg Creek forest properties"],
+    localNote:
+      "Bragg Creek's heavily treed sites and limited infrastructure make generator-free, cable-free ceremony setup not just preferable but often the only practical option — the battery rig was purpose-built for exactly these off-grid forest venues.",
+    faqs: [
+      {
+        q: "Can you perform at Bragg Creek ceremonies that have no power access?",
+        a: "Yes — silent battery power is standard equipment for all my bookings. Off-grid forest and river sites in Bragg Creek are a specialty, with no generator required.",
+      },
+      {
+        q: "Do you travel to Bragg Creek from Cochrane?",
+        a: "Yes — Bragg Creek is about 30 minutes from my Cochrane base, with no travel surcharge for this area.",
+      },
+    ],
+    nearby: ["cochrane", "calgary"],
+  },
+  {
+    slug: "priddis",
+    city: "Priddis",
+    region: "Alberta",
+    metaDescription:
+      "Wedding ceremony pianist in Priddis, AB. Live piano at Azuridge Estate Hotel and Priddis Greens, silent battery power, vow mics, and a written ceremony plan in 24 hrs.",
+    lede: "Priddis is Alberta's most exclusive rural estate territory — Azuridge Estate Hotel and Priddis Greens are venues that call for equally precise, unhurried live music.",
+    context: [
+      "Azuridge Estate Hotel is one of the most photographed ceremony settings in Alberta, and the precision required to match that setting in music and audio is considerable. I have performed at estate properties throughout the Priddis and Foothills area and know both the acoustic environment and the level of coordination these venues expect: a submitted plan, a pre-ceremony walk, and a cue sheet in the hands of every vendor before the first guest arrives.",
+      "Priddis sits about 30 minutes from my Cochrane base and the same from central Calgary. Open estate grounds and rolling foothills terrain are acoustically exposing — the same northerly wind that cools the terrace can swallow unaided vows. The wireless vow system and SPL-tested balance make sure the couple's words reach every guest, no matter how wide the lawn or how unpredictable the afternoon breeze.",
+    ],
+    venues: ["Azuridge Estate Hotel", "Priddis Greens Golf & Country Club", "Foothills estate properties"],
+    localNote:
+      "Priddis estate ceremonies sit in open foothills terrain with few natural windbreaks — vow audio that isn't actively managed across a broad outdoor setting routinely disappoints on otherwise flawless days.",
+    faqs: [
+      {
+        q: "Do you perform at Azuridge Estate Hotel in Priddis?",
+        a: "Yes — Azuridge and other Priddis estate venues are within my regular service area. I provide the ceremony plan and vendor coordination that venues like Azuridge expect.",
+      },
+      {
+        q: "Is there a travel fee for Priddis ceremonies?",
+        a: "No — Priddis is approximately 30 minutes from both Cochrane and Calgary and carries no travel surcharge.",
+      },
+    ],
+    nearby: ["calgary", "cochrane"],
   },
 ];
 
