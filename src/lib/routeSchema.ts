@@ -97,6 +97,207 @@ function faqPage() {
   };
 }
 
+// ---------------------------------------------------------------------------
+// Wedding service page schema
+// ---------------------------------------------------------------------------
+
+function weddingsService() {
+  const areas = [
+    "Cochrane", "Calgary", "Canmore", "Banff", "Airdrie",
+    "Okotoks", "Bragg Creek", "Priddis", "Lake Louise", "Kananaskis",
+  ];
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Wedding Ceremony Piano — Parker Gawryletz",
+    serviceType: "Wedding ceremony piano performance and vow clarity audio",
+    description:
+      "Live piano for wedding ceremonies across Southern Alberta. Includes the Assured Ceremony Audio™ system — vow and officiant microphones, SPL-aware mixing, silent battery power, and triple redundancy.",
+    url: `${ORIGIN}/weddings`,
+    areaServed: areas.map((name) => ({ "@type": "City", name, containedInPlace: { "@type": "AdministrativeArea", name: "Alberta, Canada" } })),
+    provider: {
+      "@type": "LocalBusiness",
+      name: "Parker Gawryletz — Sound Director",
+      telephone: "+1-403-830-8930",
+      url: `${ORIGIN}/`,
+    },
+    offers: [
+      {
+        "@type": "Offer",
+        name: "The Vow",
+        description: "Ceremony only — 30–45 minutes of devoted presence.",
+        price: "650",
+        priceCurrency: "CAD",
+        availability: "https://schema.org/InStock",
+        url: `${ORIGIN}/pricing`,
+      },
+      {
+        "@type": "Offer",
+        name: "The Hour",
+        description: "Prelude through cocktail hour — guest arrival, ceremony, and cocktails. The most chosen package.",
+        price: "750",
+        priceCurrency: "CAD",
+        availability: "https://schema.org/InStock",
+        url: `${ORIGIN}/pricing`,
+      },
+      {
+        "@type": "Offer",
+        name: "The Story",
+        description: "Full-day musical presence — from first guest to last glass raised.",
+        price: "1200",
+        priceCurrency: "CAD",
+        availability: "https://schema.org/InStock",
+        url: `${ORIGIN}/pricing`,
+      },
+    ],
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Pricing page schema — packages as ItemList of Offers
+// ---------------------------------------------------------------------------
+
+function pricingPackages() {
+  const commonIncludes =
+    "Full 88-key piano, Vow clarity system, triple redundancy, 60-minute early arrival, $4M liability insurance, and a collaborative cue sheet co-authored with your planner and officiant.";
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Wedding Ceremony Piano Packages",
+    description: "Three wedding ceremony piano packages serving Southern Alberta and the Bow Valley.",
+    url: `${ORIGIN}/pricing`,
+    numberOfItems: 3,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        item: {
+          "@type": "Offer",
+          name: "The Vow",
+          description: `Ceremony only — 30–45 minutes of devoted presence. ${commonIncludes}`,
+          price: "650",
+          priceCurrency: "CAD",
+          availability: "https://schema.org/InStock",
+          seller: { "@type": "LocalBusiness", name: "Parker Gawryletz — Sound Director", url: `${ORIGIN}/` },
+        },
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        item: {
+          "@type": "Offer",
+          name: "The Hour",
+          description: `Prelude + ceremony + cocktails. ${commonIncludes} Most commonly chosen package.`,
+          price: "750",
+          priceCurrency: "CAD",
+          availability: "https://schema.org/InStock",
+          seller: { "@type": "LocalBusiness", name: "Parker Gawryletz — Sound Director", url: `${ORIGIN}/` },
+        },
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        item: {
+          "@type": "Offer",
+          name: "The Story",
+          description: `Full-day musical witness — first guest to last glass raised. ${commonIncludes}`,
+          price: "1200",
+          priceCurrency: "CAD",
+          availability: "https://schema.org/InStock",
+          seller: { "@type": "LocalBusiness", name: "Parker Gawryletz — Sound Director", url: `${ORIGIN}/` },
+        },
+      },
+    ],
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Proof page schema — AggregateRating + individual Reviews
+// ---------------------------------------------------------------------------
+
+function proofReviews() {
+  const reviews = [
+    {
+      author: "Elise",
+      location: "Canmore",
+      body: "We included the volume documentation in our permit application — approved instantly.",
+    },
+    {
+      author: "Miguel",
+      location: "Deane House, Calgary",
+      body: "Our planner called Parker the most prepared musician she has ever worked with.",
+    },
+    {
+      author: "Jasmine & Colin",
+      location: "Calgary",
+      body: "The venue waived their deposit — the policy covered everything.",
+    },
+  ];
+  const itemReviewed = {
+    "@type": "LocalBusiness",
+    name: "Parker Gawryletz — Sound Director",
+    url: `${ORIGIN}/`,
+  };
+  return {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "Parker Gawryletz — Sound Director",
+    url: `${ORIGIN}/`,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "5",
+      reviewCount: String(reviews.length),
+      bestRating: "5",
+      worstRating: "1",
+    },
+    review: reviews.map((r) => ({
+      "@type": "Review",
+      author: { "@type": "Person", "name": r.author },
+      locationCreated: r.location,
+      reviewBody: r.body,
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      itemReviewed,
+    })),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// About page schema — Person for Parker Gawryletz
+// ---------------------------------------------------------------------------
+
+function parkerPerson() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Parker Gawryletz",
+    jobTitle: "Ceremony Pianist & Sound Director",
+    description:
+      "Southern Alberta wedding ceremony pianist with 500+ events witnessed. Creator of the Assured Ceremony Audio™ system for SPL-compliant outdoor and Parks Canada acoustic-only ceremonies. Based in Cochrane, Alberta.",
+    url: `${ORIGIN}/about`,
+    telephone: "+1-403-830-8930",
+    email: "parker@parkergawryletz.com",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Cochrane",
+      addressRegion: "Alberta",
+      addressCountry: "CA",
+    },
+    sameAs: ["https://www.instagram.com/gawryletzmusic"],
+    knowsAbout: [
+      "Wedding ceremony piano performance",
+      "Vow clarity audio systems",
+      "SPL-compliant outdoor ceremony sound",
+      "Banff National Park acoustic-only ceremonies",
+      "Piano mentorship and one-to-one teaching",
+    ],
+    worksFor: {
+      "@type": "LocalBusiness",
+      name: "Gawryletz Music",
+      url: `${ORIGIN}/`,
+    },
+  };
+}
+
 /** All route-specific JSON-LD objects for the given path. */
 export function getRouteSchemas(pathname: string): object[] {
   const clean = pathname.replace(/\/+$/, "") || "/";
@@ -162,5 +363,18 @@ export function getRouteSchemas(pathname: string): object[] {
       });
     }
   }
+
+  // Weddings page — Service with all areas + Offer for each package
+  if (clean === "/weddings") out.push(weddingsService());
+
+  // Pricing page — ItemList of Offers for the three packages
+  if (clean === "/pricing") out.push(pricingPackages());
+
+  // Proof page — AggregateRating + individual Review objects
+  if (clean === "/proof") out.push(proofReviews());
+
+  // About page — Person schema for Parker Gawryletz
+  if (clean === "/about") out.push(parkerPerson());
+
   return out;
 }
