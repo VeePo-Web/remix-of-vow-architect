@@ -1,4 +1,4 @@
-import { useLocation, Link } from "react-router-dom";
+﻿import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { PricingNav } from "@/components/PricingNav";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
@@ -18,7 +18,7 @@ const NotFound = () => {
     <div className="min-h-screen flex flex-col pricing-page">
       <PricingNav />
 
-      <main className="flex-1 flex items-center justify-center px-6">
+      <main id="main-content" className="flex-1 flex items-center justify-center px-6">
         <div className="text-center max-w-lg">
           <p
             className="text-[12px] font-medium uppercase tracking-[0.12em] mb-6"

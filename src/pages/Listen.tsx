@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+﻿import { useState, useRef, useEffect, useCallback } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
 import { MinimalHeader } from "@/components/MinimalHeader";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
@@ -241,7 +241,7 @@ export default function Listen() {
       {/* Film grain */}
       <div className="fixed inset-0 grain opacity-[0.06] pointer-events-none z-[1]" aria-hidden="true" />
 
-      <main>
+      <main id="main-content">
 
         {/* ═══ HERO ═══ */}
         <section id="listen-hero" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden piano-section-target">

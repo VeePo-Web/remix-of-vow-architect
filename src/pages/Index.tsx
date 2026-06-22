@@ -1,4 +1,4 @@
-import { Footer } from "@/components/Footer";
+﻿import { Footer } from "@/components/Footer";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { CinematicNav } from "@/components/CinematicNav";
 import { CinematicScroll } from "@/components/VideoAct";
@@ -22,7 +22,7 @@ export default function Index() {
     <div className="min-h-screen">
       <CinematicNav />
 
-      <main>
+      <main id="main-content">
         <CinematicScroll />
       </main>
 

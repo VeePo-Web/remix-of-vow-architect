@@ -150,7 +150,8 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
           color: hsl(0 0% 100% / 0.14);
           transition: color 100ms ease;
         }
-        .fsmenu-vertical:not(.is-current):hover { color: hsl(0 0% 100% / 0.40); }
+        .fsmenu-vertical:not(.is-current):hover,
+        .fsmenu-vertical:not(.is-current):focus-visible { color: hsl(0 0% 100% / 0.40); outline: none; }
 
         .fsmenu-close {
           position: absolute;
@@ -219,6 +220,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
                       to={link.href}
                       onClick={e => handleNav(e, link.href)}
                       className={`fsmenu-link${isActive ? ' is-active' : ''}`}
+                      aria-current={isActive ? 'page' : undefined}
                     >
                       {link.label}
                     </Link>
@@ -258,7 +260,7 @@ export function FullScreenMenu({ isOpen, onClose }: FullScreenMenuProps) {
                       />
                     )}
                     {isCurrent ? (
-                      <span className="fsmenu-vertical is-current">{v.label}</span>
+                      <span className="fsmenu-vertical is-current" aria-current="true">{v.label}</span>
                     ) : (
                       <Link
                         to={v.href}

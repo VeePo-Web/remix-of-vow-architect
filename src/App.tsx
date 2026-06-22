@@ -91,6 +91,21 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+        <a
+          href="#main-content"
+          className="skip-to-main"
+          onClick={(e) => {
+            const main = document.querySelector('main');
+            if (main) {
+              e.preventDefault();
+              if (!main.hasAttribute('tabindex')) main.setAttribute('tabindex', '-1');
+              main.focus({ preventScroll: false });
+              setTimeout(() => main.removeAttribute('tabindex'), 1000);
+            }
+          }}
+        >
+          Skip to main content
+        </a>
         <RouteSeo />
         <SmoothScrollProvider>
         <PageTransition>

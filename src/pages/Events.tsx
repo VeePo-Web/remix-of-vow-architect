@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+﻿import { useEffect, useRef, useState, useCallback } from "react";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
 import { EventsCinematicNav } from "@/components/EventsCinematicNav";
@@ -70,7 +70,7 @@ export default function Events() {
     <div className="min-h-screen">
       <EventsCinematicNav />
 
-      <main>
+      <main id="main-content">
         <EventsCinematicScroll />
       </main>
 

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+﻿import { useEffect, useRef, useState, useCallback } from "react";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
 import { TeachingCinematicNav } from "@/components/TeachingCinematicNav";
@@ -70,7 +70,7 @@ export default function Teaching() {
     <div className="min-h-screen">
       <TeachingCinematicNav />
 
-      <main>
+      <main id="main-content">
         <TeachingCinematicScroll />
       </main>
 

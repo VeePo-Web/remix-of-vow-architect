@@ -1,4 +1,4 @@
-import { PricingNav } from "@/components/PricingNav";
+﻿import { PricingNav } from "@/components/PricingNav";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
 import { PianoKeyNav } from "@/components/PianoKeyNav";
@@ -135,7 +135,7 @@ export default function Pricing() {
       <PricingNav />
       <PianoKeyNav sections={sections} />
 
-      <main>
+      <main id="main-content">
 
         {/* ══ HERO ══════════════════════════════════════════════════ */}
         <section

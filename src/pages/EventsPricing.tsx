@@ -1,4 +1,4 @@
-import { PricingNav } from "@/components/PricingNav";
+﻿import { PricingNav } from "@/components/PricingNav";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
 import { PianoKeyNav } from "@/components/PianoKeyNav";
@@ -82,7 +82,7 @@ export default function EventsPricing() {
       <PricingNav />
       <PianoKeyNav sections={sections} />
 
-      <main>
+      <main id="main-content">
 
         {/* ═══ HERO ═══ */}
         <section id="ep-hero" className="sub-pad sub-section piano-section-target pt-20 md:pt-28">

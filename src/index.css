@@ -808,6 +808,35 @@ All colors MUST be HSL.
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   ACCESSIBILITY — Skip navigation link (WCAG 2.4.1)
+   ═══════════════════════════════════════════════════════════════ */
+
+.skip-to-main {
+  position: fixed;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 12px 24px;
+  background: hsl(var(--rich-black));
+  color: hsl(var(--ivory));
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border-radius: 0 0 8px 8px;
+  text-decoration: none;
+  outline: 2px solid hsl(var(--vow-yellow) / 0.6);
+  outline-offset: -2px;
+  transition: top 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+
+.skip-to-main:focus-visible {
+  top: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
    PIANO KEY NAV — Bespoke in-page section navigator
    ═══════════════════════════════════════════════════════════════ */
 
@@ -834,7 +863,8 @@ All colors MUST be HSL.
 }
 
 .piano-key:focus-visible {
-  ring-color: hsl(var(--vow-yellow) / 0.5);
+  outline: 2px solid hsl(var(--vow-yellow) / 0.5);
+  outline-offset: 2px;
 }
 
 .piano-key--black {
@@ -8455,6 +8485,11 @@ body:has(.now-playing-bar.is-visible) .md\\:hidden.fixed.bottom-0 {
   border-color: hsl(36 30% 70%);
 }
 
+.pricing-input:focus-visible {
+  border-color: hsl(36 38% 55%);
+  box-shadow: 0 2px 0 0 hsl(36 38% 55% / 0.4);
+}
+
 .pricing-input--error {
   border-color: hsl(0 60% 60%);
 }
@@ -8490,6 +8525,11 @@ body:has(.now-playing-bar.is-visible) .md\\:hidden.fixed.bottom-0 {
 
 .pricing-textarea:focus {
   border-color: hsl(36 30% 70%);
+}
+
+.pricing-textarea:focus-visible {
+  border-color: hsl(36 38% 55%);
+  box-shadow: 0 2px 0 0 hsl(36 38% 55% / 0.4);
 }
 
 /* Focus line animation */
@@ -8961,6 +9001,10 @@ body:has(.now-playing-bar.is-visible) .md\\:hidden.fixed.bottom-0 {
 }
 .cv-active__input:focus {
   border-bottom-color: hsl(36 38% 55%);
+}
+.cv-active__input:focus-visible {
+  border-bottom-color: hsl(36 38% 45%);
+  box-shadow: 0 2px 0 0 hsl(36 38% 45% / 0.35);
 }
 .cv-active__hint {
   margin-top: 10px;

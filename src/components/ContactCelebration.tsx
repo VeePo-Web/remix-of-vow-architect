@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { PricingNav } from "@/components/PricingNav";
 import { Footer } from "@/components/Footer";
@@ -55,7 +55,7 @@ export function ContactCelebration({ vertical = "weddings" }: ContactCelebration
     <div className="min-h-screen pricing-page flex flex-col">
       <PricingNav />
 
-      <main className="flex-1 flex items-center justify-center py-24 md:py-32 px-6">
+      <main id="main-content" className="flex-1 flex items-center justify-center py-24 md:py-32 px-6">
         <div className="text-center max-w-xl mx-auto">
 
           {/* Gold diamond — confirmation symbol */}

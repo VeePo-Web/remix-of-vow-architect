@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+﻿import { useEffect } from "react";
 import { Link, useParams, Navigate } from "react-router-dom";
 import { MinimalHeader } from "@/components/MinimalHeader";
 import { Footer } from "@/components/Footer";
@@ -18,7 +18,7 @@ function Shell({ children }: { children: React.ReactNode }) {
         style={{ background: "radial-gradient(ellipse at 50% 30%, hsl(var(--vow-yellow) / 0.015) 0%, transparent 50%)" }}
         aria-hidden="true"
       />
-      <main className="flex-1 relative z-[2]">
+      <main id="main-content" className="flex-1 relative z-[2]">
         <div className="container mx-auto px-4 py-8 md:py-12 pt-24">{children}</div>
       </main>
       <Footer />

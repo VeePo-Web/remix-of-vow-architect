@@ -61,11 +61,12 @@ export default function TeachingContact() {
         <PricingNav />
       </div>
 
+      <main id="main-content">
       <div className="md:hidden">
         <ContactConversation vertical="teaching" onSubmitted={() => setIsSubmitted(true)} />
       </div>
 
-      <main className="hidden md:block">
+      <div className="hidden md:block">
 
         {/* ═══ HERO ═══ */}
         <section className="sub-pad sub-section pt-20 md:pt-28">
@@ -234,6 +235,7 @@ export default function TeachingContact() {
           </div>
         </section>
 
+      </div>
       </main>
 
       <div className="hidden md:block">

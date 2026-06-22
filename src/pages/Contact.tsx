@@ -62,13 +62,14 @@ export default function Contact() {
         <PricingNav />
       </div>
 
+      <main id="main-content">
       {/* ═══ MOBILE — Fly4Me-tier conversation ═══ */}
       <div className="md:hidden">
         <ContactConversation vertical="weddings" onSubmitted={() => setIsSubmitted(true)} />
       </div>
 
       {/* ═══ DESKTOP — unchanged ═══ */}
-      <main className="hidden md:block">
+      <div className="hidden md:block">
 
         {/* ═══ HERO ═══ */}
         <section className="sub-pad sub-section pt-20 md:pt-28">
@@ -236,6 +237,7 @@ export default function Contact() {
           </div>
         </section>
 
+      </div>
       </main>
 
       <div className="hidden md:block">

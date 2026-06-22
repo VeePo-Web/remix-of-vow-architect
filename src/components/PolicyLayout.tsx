@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+﻿import { useEffect } from "react";
 import { MinimalHeader } from "@/components/MinimalHeader";
 import { MobileStickyBar } from "@/components/MobileStickyBar";
 import { Footer } from "@/components/Footer";
@@ -36,7 +36,7 @@ export function PolicyLayout({ children, title, lastUpdated, breadcrumbs, metaDe
         aria-hidden="true"
       />
       
-      <main className="flex-1 relative z-[2]">
+      <main id="main-content" className="flex-1 relative z-[2]">
         <div className="container mx-auto px-4 py-8 md:py-12 pt-24">
           <Breadcrumbs items={breadcrumbs} />
           

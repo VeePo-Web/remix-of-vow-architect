@@ -61,11 +61,12 @@ export default function EventsContact() {
         <PricingNav />
       </div>
 
+      <main id="main-content">
       <div className="md:hidden">
         <ContactConversation vertical="events" onSubmitted={() => setIsSubmitted(true)} />
       </div>
 
-      <main className="hidden md:block">
+      <div className="hidden md:block">
 
         {/* ═══ HERO ═══ */}
         <section className="sub-pad sub-section pt-20 md:pt-28">
@@ -234,6 +235,7 @@ export default function EventsContact() {
           </div>
         </section>
 
+      </div>
       </main>
 
       <div className="hidden md:block">

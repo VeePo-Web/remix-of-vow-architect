@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useCallback, useRef, useEffect } from "react";
 import { usePageTheme } from "@/hooks/usePageTheme";
@@ -84,7 +84,7 @@ export default function Gateway() {
   }, []);
 
   return (
-    <main className="gateway-main h-screen w-screen overflow-hidden flex flex-col items-center py-8 md:py-0 md:justify-center relative" style={{ background: "hsl(var(--rich-black))" }} aria-label="Choose your path" data-theme="death">
+    <main id="main-content" className="gateway-main h-screen w-screen overflow-hidden flex flex-col items-center py-8 md:py-0 md:justify-center relative" style={{ background: "hsl(var(--rich-black))" }} aria-label="Choose your path" data-theme="death">
 
       {/* Falling music notes — ambient + cursor-reactive */}
       <MusicNoteAmbient />
