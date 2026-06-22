@@ -43,9 +43,10 @@ function getFooterConfig(pathname: string) {
     { to: aboutHref, label: "About" },
   ];
 
-  // Proof is weddings-exclusive
+  // Proof + Service Areas are weddings-exclusive
   if (!isEvents && !isTeaching) {
     navLinks.push({ to: "/proof", label: "Reviews" });
+    navLinks.push({ to: "/service-areas", label: "Service Areas" });
   }
 
   // FAQ and Listen are available on all verticals

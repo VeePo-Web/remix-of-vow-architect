@@ -1,4 +1,5 @@
 import { topTenFAQs } from "@/components/FAQTopTen";
+import { getServiceArea } from "@/config/serviceAreas";
 
 /**
  * Per-route JSON-LD. index.html carries the homepage graph (LocalBusiness,
@@ -24,6 +25,7 @@ const LABELS: Record<string, string> = {
   "/pricing": "Pricing",
   "/proof": "Proof",
   "/about": "About",
+  "/service-areas": "Service Areas",
   "/listen": "Listen",
   "/faq": "FAQ",
   "/contact": "Contact",
@@ -42,7 +44,8 @@ function breadcrumb(pathname: string) {
   let acc = "";
   for (const seg of segments) {
     acc += "/" + seg;
-    items.push({ name: LABELS[acc] ?? seg, path: acc });
+    const fallback = seg.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+    items.push({ name: LABELS[acc] ?? fallback, path: acc });
   }
   return {
     "@context": "https://schema.org",
@@ -76,5 +79,36 @@ export function getRouteSchemas(pathname: string): object[] {
   if (crumb) out.push(crumb);
   // The wedding FAQ content lives on /faq; reuse it there.
   if (clean === "/faq") out.push(faqPage());
+
+  // Service-area city pages: localized Service + FAQPage.
+  const areaMatch = clean.match(/^\/service-areas\/([^/]+)$/);
+  if (areaMatch) {
+    const area = getServiceArea(areaMatch[1]);
+    if (area) {
+      out.push({
+        "@context": "https://schema.org",
+        "@type": "Service",
+        name: `Wedding Ceremony Pianist in ${area.city}`,
+        serviceType: "Wedding ceremony piano + vow/officiant microphones + SPL-aware mixing",
+        areaServed: { "@type": "City", name: `${area.city}, ${area.region}` },
+        provider: {
+          "@type": "LocalBusiness",
+          name: "Parker Gawryletz — Sound Director",
+          telephone: "+1-403-830-8930",
+          url: ORIGIN + "/",
+        },
+        url: `${ORIGIN}/service-areas/${area.slug}`,
+      });
+      out.push({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: area.faqs.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+      });
+    }
+  }
   return out;
 }

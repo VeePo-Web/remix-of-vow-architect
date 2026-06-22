@@ -31,6 +31,7 @@ import TeachingContact from "./pages/TeachingContact";
 import EventsFAQ from "./pages/EventsFAQ";
 import TeachingFAQ from "./pages/TeachingFAQ";
 import NotFound from "./pages/NotFound";
+import ServiceAreas from "./pages/ServiceAreas";
 import AmbientAudioPill from "./components/AmbientAudioPill";
 import { RouteSeo } from "./components/RouteSeo";
 
@@ -58,6 +59,8 @@ function AppRoutes() {
       <Route path="/proof" element={<Proof />} />
       <Route path="/gallery" element={<Navigate to="/proof" replace />} />
       <Route path="/about" element={<About />} />
+      <Route path="/service-areas" element={<ServiceAreas />} />
+      <Route path="/service-areas/:city" element={<ServiceAreas />} />
       <Route path="/listen" element={<Listen />} />
       <Route path="/faq" element={<FAQ />} />
       <Route path="/contact" element={<Contact />} />
