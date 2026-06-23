@@ -262,6 +262,224 @@ function proofReviews() {
 }
 
 // ---------------------------------------------------------------------------
+// Events primary page schema — Service with 3 tiers (bespoke pricing)
+// ---------------------------------------------------------------------------
+
+function eventsService() {
+  const areas = [
+    "Cochrane", "Calgary", "Canmore", "Banff", "Airdrie",
+    "Okotoks", "Bragg Creek", "Priddis", "Lake Louise", "Kananaskis",
+  ];
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Private Event Piano — Parker Gawryletz",
+    serviceType: "Live piano performance for private events, corporate galas, and social gatherings",
+    description:
+      "Bespoke live piano for private events across Southern Alberta. Parker arrives with a professional digital piano, weighted keys, and a dedicated sound system calibrated to your venue. Repertoire spans classical, jazz, contemporary, and film scores — curated to the atmosphere of your event.",
+    url: `${ORIGIN}/events`,
+    areaServed: areas.map((name) => ({
+      "@type": "City",
+      name,
+      containedInPlace: { "@type": "AdministrativeArea", name: "Alberta, Canada" },
+    })),
+    provider: {
+      "@type": "LocalBusiness",
+      name: "Parker Gawryletz — Sound Director",
+      telephone: "+1-403-830-8930",
+      url: `${ORIGIN}/`,
+    },
+    offers: [
+      {
+        "@type": "Offer",
+        name: "The Moment",
+        description: "1 hour — a ceremony, a cocktail hour, or a dinner course. Focused, intentional piano for the part of your event that matters most.",
+        priceCurrency: "CAD",
+        availability: "https://schema.org/InStock",
+        url: `${ORIGIN}/events/pricing`,
+      },
+      {
+        "@type": "Offer",
+        name: "The Evening",
+        description: "2–3 hours — full coverage from arrival through dinner. Repertoire shifts with the energy of the room from ambient to engaging and back again.",
+        priceCurrency: "CAD",
+        availability: "https://schema.org/InStock",
+        url: `${ORIGIN}/events/pricing`,
+      },
+      {
+        "@type": "Offer",
+        name: "The Full Occasion",
+        description: "4+ hours — complete musical direction for extended events. Multiple phases, curated transitions, and the flexibility to read the room all night.",
+        priceCurrency: "CAD",
+        availability: "https://schema.org/InStock",
+        url: `${ORIGIN}/events/pricing`,
+      },
+    ],
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Events pricing sub-route — ItemList of the 3 event tiers
+// ---------------------------------------------------------------------------
+
+function eventsPricingTiers() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Private Event Piano Packages",
+    description: "Three live piano packages for private events across Southern Alberta. Pricing by quote — contact Parker to discuss your event.",
+    url: `${ORIGIN}/events/pricing`,
+    numberOfItems: 3,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        item: {
+          "@type": "Offer",
+          name: "The Moment",
+          description: "1 hour of live piano. Focused presence for a ceremony, cocktail hour, or dinner course.",
+          priceCurrency: "CAD",
+          availability: "https://schema.org/InStock",
+          seller: { "@type": "LocalBusiness", name: "Parker Gawryletz — Sound Director", url: `${ORIGIN}/` },
+        },
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        item: {
+          "@type": "Offer",
+          name: "The Evening",
+          description: "2–3 hours of live piano. Full event coverage from guest arrival through dinner.",
+          priceCurrency: "CAD",
+          availability: "https://schema.org/InStock",
+          seller: { "@type": "LocalBusiness", name: "Parker Gawryletz — Sound Director", url: `${ORIGIN}/` },
+        },
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        item: {
+          "@type": "Offer",
+          name: "The Full Occasion",
+          description: "4+ hours of complete musical direction. Multiple phases, curated transitions, real-time room reading.",
+          priceCurrency: "CAD",
+          availability: "https://schema.org/InStock",
+          seller: { "@type": "LocalBusiness", name: "Parker Gawryletz — Sound Director", url: `${ORIGIN}/` },
+        },
+      },
+    ],
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Teaching primary page schema — Service at $60/hr, in-person + Zoom
+// ---------------------------------------------------------------------------
+
+function teachingService() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Piano Mentorship — Parker Gawryletz",
+    serviceType: "One-to-one piano lessons and mentorship",
+    description:
+      "One-to-one piano mentorship at $60 per hour. 60-minute sessions, pay as you go — no packages, no contracts. In-person in Cochrane, Alberta and online via Zoom. Real repertoire from the first week. No grades, no recitals, no deadlines.",
+    url: `${ORIGIN}/teaching`,
+    areaServed: [
+      { "@type": "City", name: "Cochrane", containedInPlace: { "@type": "AdministrativeArea", name: "Alberta, Canada" } },
+      { "@type": "City", name: "Calgary", containedInPlace: { "@type": "AdministrativeArea", name: "Alberta, Canada" } },
+    ],
+    provider: {
+      "@type": "LocalBusiness",
+      name: "Parker Gawryletz — Sound Director",
+      telephone: "+1-403-830-8930",
+      url: `${ORIGIN}/`,
+    },
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Piano Mentorship Sessions",
+      itemListElement: [
+        {
+          "@type": "Offer",
+          name: "60-Minute Piano Session",
+          description:
+            "One hour of focused, one-to-one piano mentorship. No packages or contracts — book as you go. In-person in Cochrane, AB or online via Zoom.",
+          price: "60",
+          priceCurrency: "CAD",
+          availability: "https://schema.org/InStock",
+          url: `${ORIGIN}/teaching/pricing`,
+        },
+      ],
+    },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Teaching pricing sub-route — ItemList with $60/hr offer
+// ---------------------------------------------------------------------------
+
+function teachingPricingOffer() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Piano Mentorship Pricing",
+    description:
+      "One-to-one piano mentorship at $60 per hour. 60-minute sessions, pay as you go — no packages, no contracts. In-person in Cochrane, Alberta or online via Zoom.",
+    url: `${ORIGIN}/teaching/pricing`,
+    numberOfItems: 1,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        item: {
+          "@type": "Offer",
+          name: "60-Minute Piano Session",
+          description:
+            "One hour of one-to-one piano mentorship. Real repertoire from the first week. Your music, your pace — no grades, no recitals.",
+          price: "60",
+          priceCurrency: "CAD",
+          unitCode: "HUR",
+          availability: "https://schema.org/InStock",
+          seller: { "@type": "LocalBusiness", name: "Parker Gawryletz — Sound Director", url: `${ORIGIN}/` },
+        },
+      },
+    ],
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Service areas hub — LocalBusiness with all areaServed
+// ---------------------------------------------------------------------------
+
+function serviceAreasHub() {
+  const areas = [
+    "Cochrane", "Calgary", "Canmore", "Banff", "Airdrie",
+    "Okotoks", "Bragg Creek", "Priddis", "Lake Louise", "Kananaskis",
+  ];
+  return {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "Parker Gawryletz — Ceremony Pianist & Sound Director",
+    description:
+      "Wedding ceremony pianist and sound director serving Southern Alberta and the Bow Valley. Live piano, Assured Ceremony Audio™ system, and SPL-compliant sound for indoor and outdoor ceremonies including Parks Canada acoustic-only sites at Banff and Lake Louise.",
+    url: `${ORIGIN}/`,
+    telephone: "+1-403-830-8930",
+    email: "parker@parkergawryletz.com",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Cochrane",
+      addressRegion: "Alberta",
+      addressCountry: "CA",
+    },
+    areaServed: areas.map((name) => ({
+      "@type": "City",
+      name,
+      containedInPlace: { "@type": "AdministrativeArea", name: "Alberta, Canada" },
+    })),
+    sameAs: ["https://www.instagram.com/gawryletzmusic"],
+  };
+}
+
+// ---------------------------------------------------------------------------
 // About page schema — Person for Parker Gawryletz
 // ---------------------------------------------------------------------------
 
@@ -375,6 +593,21 @@ export function getRouteSchemas(pathname: string): object[] {
 
   // About page — Person schema for Parker Gawryletz
   if (clean === "/about") out.push(parkerPerson());
+
+  // Events primary page — Service with 3 tiers (bespoke pricing)
+  if (clean === "/events") out.push(eventsService());
+
+  // Events pricing sub-route — ItemList of the 3 event tiers
+  if (clean === "/events/pricing") out.push(eventsPricingTiers());
+
+  // Teaching primary page — Service at $60/hr, in-person + Zoom
+  if (clean === "/teaching") out.push(teachingService());
+
+  // Teaching pricing sub-route — ItemList with $60/hr offer
+  if (clean === "/teaching/pricing") out.push(teachingPricingOffer());
+
+  // Service areas hub — LocalBusiness with all areaServed
+  if (clean === "/service-areas") out.push(serviceAreasHub());
 
   return out;
 }
