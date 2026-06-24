@@ -516,6 +516,266 @@ function parkerPerson() {
   };
 }
 
+// ---------------------------------------------------------------------------
+// Contact page schema — ContactPage + ContactPoint for wedding inquiries
+// ---------------------------------------------------------------------------
+
+function contactPage() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Start a Conversation — Wedding Piano | Parker Gawryletz",
+    description:
+      "Tell Parker Gawryletz about your ceremony. He will respond within 24 hours with a complete ceremony audio plan.",
+    url: `${ORIGIN}/contact`,
+    mainEntity: {
+      "@type": "Person",
+      name: "Parker Gawryletz",
+      jobTitle: "Ceremony Pianist & Sound Director",
+      telephone: "+1-403-830-8930",
+      email: "parker@parkergawryletz.com",
+      url: `${ORIGIN}/about`,
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "Booking Inquiry",
+        telephone: "+1-403-830-8930",
+        email: "parker@parkergawryletz.com",
+        areaServed: {
+          "@type": "AdministrativeArea",
+          name: "Southern Alberta, Canada",
+        },
+        availableLanguage: { "@type": "Language", name: "English" },
+        hoursAvailable: [
+          {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: [
+              "Monday", "Tuesday", "Wednesday", "Thursday",
+              "Friday", "Saturday", "Sunday",
+            ],
+            description: "Responds within 24 hours",
+          },
+        ],
+      },
+    },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Teaching contact page schema — ContactPage for piano mentorship inquiries
+// ---------------------------------------------------------------------------
+
+function teachingContactPage() {
+  const areas = [
+    { "@type": "City", name: "Cochrane", containedInPlace: { "@type": "AdministrativeArea", name: "Alberta, Canada" } },
+    { "@type": "City", name: "Calgary",  containedInPlace: { "@type": "AdministrativeArea", name: "Alberta, Canada" } },
+  ];
+  return {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Start a Conversation — Piano Mentorship | Parker Gawryletz",
+    description:
+      "Enquire about one-to-one piano mentorship with Parker Gawryletz. In-person in Cochrane, AB or online via Zoom. Responds within 24 hours.",
+    url: `${ORIGIN}/teaching/contact`,
+    mainEntity: {
+      "@type": "Person",
+      name: "Parker Gawryletz",
+      jobTitle: "Piano Mentor",
+      telephone: "+1-403-830-8930",
+      email: "parker@parkergawryletz.com",
+      url: `${ORIGIN}/teaching/about`,
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "Piano Lesson Inquiry",
+        telephone: "+1-403-830-8930",
+        email: "parker@parkergawryletz.com",
+        areaServed: areas,
+        availableLanguage: { "@type": "Language", name: "English" },
+      },
+    },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Events contact page schema — ContactPage for private event bookings
+// ---------------------------------------------------------------------------
+
+function eventsContactPage() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "Start a Conversation — Events Piano | Parker Gawryletz",
+    description:
+      "Enquire about live piano for your private event, corporate gala, or social gathering across Southern Alberta. Parker responds within 24 hours.",
+    url: `${ORIGIN}/events/contact`,
+    mainEntity: {
+      "@type": "Person",
+      name: "Parker Gawryletz",
+      jobTitle: "Private Event Pianist",
+      telephone: "+1-403-830-8930",
+      email: "parker@parkergawryletz.com",
+      url: `${ORIGIN}/events/about`,
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "Event Booking Inquiry",
+        telephone: "+1-403-830-8930",
+        email: "parker@parkergawryletz.com",
+        areaServed: {
+          "@type": "AdministrativeArea",
+          name: "Southern Alberta, Canada",
+        },
+        availableLanguage: { "@type": "Language", name: "English" },
+      },
+    },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Teaching about page schema — Person as piano mentor
+// ---------------------------------------------------------------------------
+
+function teachingAboutPerson() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Parker Gawryletz",
+    jobTitle: "Piano Mentor",
+    description:
+      "One-to-one piano mentor in Cochrane, Alberta. 60-minute sessions at $60/hr — real repertoire from the first week, no grades, no recitals, no deadlines. In-person in Cochrane and online via Zoom.",
+    url: `${ORIGIN}/teaching/about`,
+    telephone: "+1-403-830-8930",
+    email: "parker@parkergawryletz.com",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Cochrane",
+      addressRegion: "Alberta",
+      addressCountry: "CA",
+    },
+    sameAs: ["https://www.instagram.com/gawryletzmusic"],
+    knowsAbout: [
+      "Piano performance",
+      "Music theory",
+      "One-to-one piano teaching",
+      "Adult music education",
+      "Beginner piano",
+    ],
+    hasOccupation: {
+      "@type": "Occupation",
+      name: "Piano Teacher",
+      description:
+        "One-to-one piano mentorship — $60 per hour, 60-minute sessions, no packages or contracts.",
+    },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Events about page schema — Person as private event pianist
+// ---------------------------------------------------------------------------
+
+function eventsAboutPerson() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Parker Gawryletz",
+    jobTitle: "Private Event Pianist",
+    description:
+      "Live piano for private events, corporate galas, charity fundraisers, and dinner parties across Southern Alberta. Parker brings a professional digital piano, weighted keys, and a dedicated sound system calibrated to your venue.",
+    url: `${ORIGIN}/events/about`,
+    telephone: "+1-403-830-8930",
+    email: "parker@parkergawryletz.com",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Cochrane",
+      addressRegion: "Alberta",
+      addressCountry: "CA",
+    },
+    sameAs: ["https://www.instagram.com/gawryletzmusic"],
+    knowsAbout: [
+      "Live piano performance for private events",
+      "Corporate event entertainment",
+      "Classical piano repertoire",
+      "Jazz piano",
+      "Contemporary and film score piano",
+    ],
+    worksFor: {
+      "@type": "LocalBusiness",
+      name: "Gawryletz Music",
+      url: `${ORIGIN}/`,
+    },
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Listen page schema — ItemList of MusicRecording (ceremony audio samples)
+// ---------------------------------------------------------------------------
+
+function listenPage() {
+  const tracks = [
+    {
+      position: 1,
+      name: "Canon in D (reimagined)",
+      movement: "Movement I — The Prelude",
+      description:
+        "Before anyone arrives, the room fills with possibility. A reimagined Canon in D sets the emotional stage for the ceremony to come.",
+      src: "/audio/canon-in-d.mp3",
+    },
+    {
+      position: 2,
+      name: "A Thousand Years",
+      movement: "Movement II — The Processional",
+      description:
+        "The doors open. Footsteps begin. A Thousand Years on solo piano for the walk down the aisle.",
+      src: "/audio/a-thousand-years.mp3",
+    },
+    {
+      position: 3,
+      name: "Married Life",
+      movement: "Movement III — The Entrance",
+      description:
+        "Everyone stands. Time stops. Married Life played at the moment the couple sees each other for the first time.",
+      src: "/audio/married-life.mp3",
+    },
+    {
+      position: 4,
+      name: "At Last",
+      movement: "Movement IV — The Vow",
+      description:
+        "The silence after 'I do.' At Last — the most intimate moment of the ceremony held in solo piano.",
+      src: "/audio/at-last.mp3",
+    },
+  ];
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "The Listening Room — Wedding Ceremony Piano Samples",
+    description:
+      "Four movements of a wedding ceremony performed by Parker Gawryletz. Hear the prelude, processional, entrance, and vow in live solo piano.",
+    url: `${ORIGIN}/listen`,
+    numberOfItems: tracks.length,
+    itemListElement: tracks.map((t) => ({
+      "@type": "ListItem",
+      position: t.position,
+      item: {
+        "@type": "MusicRecording",
+        name: t.name,
+        description: `${t.movement} — ${t.description}`,
+        byArtist: {
+          "@type": "Person",
+          name: "Parker Gawryletz",
+          url: `${ORIGIN}/about`,
+        },
+        url: `${ORIGIN}/listen`,
+        audio: {
+          "@type": "AudioObject",
+          name: t.name,
+          description: t.description,
+          contentUrl: `${ORIGIN}${t.src}`,
+          encodingFormat: "audio/mpeg",
+        },
+      },
+    })),
+  };
+}
+
 /** All route-specific JSON-LD objects for the given path. */
 export function getRouteSchemas(pathname: string): object[] {
   const clean = pathname.replace(/\/+$/, "") || "/";
@@ -608,6 +868,28 @@ export function getRouteSchemas(pathname: string): object[] {
 
   // Service areas hub — LocalBusiness with all areaServed
   if (clean === "/service-areas") out.push(serviceAreasHub());
+
+  // Contact page — ContactPage + ContactPoint
+  if (clean === "/contact") out.push(contactPage());
+
+  // Listen page — ItemList of MusicRecording (audio samples)
+  if (clean === "/listen") out.push(listenPage());
+
+  // Teaching contact sub-route — ContactPage for piano mentorship
+  if (clean === "/teaching/contact") out.push(teachingContactPage());
+
+  // Events contact sub-route — ContactPage for private events
+  if (clean === "/events/contact") out.push(eventsContactPage());
+
+  // Teaching about sub-route — Person as piano mentor
+  if (clean === "/teaching/about") out.push(teachingAboutPerson());
+
+  // Events about sub-route — Person as private event pianist
+  if (clean === "/events/about") out.push(eventsAboutPerson());
+
+  // /services and /gallery are canonical aliases for /pricing and /proof
+  if (clean === "/services") out.push(pricingPackages());
+  if (clean === "/gallery") out.push(proofReviews());
 
   return out;
 }
