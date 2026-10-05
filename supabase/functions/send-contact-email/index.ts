@@ -23,6 +23,8 @@ interface Payload {
   email: string;
   message?: string;
   vertical?: 'weddings' | 'events' | 'teaching' | string;
+  date?: string;
+  venue?: string;
 }
 
 const verticalLabel: Record<string, { eyebrow: string; title: string }> = {
@@ -48,6 +50,8 @@ Deno.serve(async (req) => {
     const email = (body.email || '').toString().trim().slice(0, 320);
     const message = (body.message || '').toString().trim().slice(0, 5000);
     const vertical = (body.vertical || 'general').toString().slice(0, 40);
+    const date = (body.date || '').toString().trim().slice(0, 80);
+    const venue = (body.venue || '').toString().trim().slice(0, 200);
 
     if (!name || !/^\S+@\S+\.\S+$/.test(email)) {
       return new Response(JSON.stringify({ error: 'Invalid input' }), {
@@ -71,7 +75,9 @@ Deno.serve(async (req) => {
           ${detailRows([
             ['Name', escapeHtml(name)],
             ['Email', `<a href="mailto:${escapeHtml(email)}" style="color:${BRAND.colors.ink};text-decoration:none;border-bottom:1px solid ${BRAND.colors.gold};">${escapeHtml(email)}</a>`],
-            ['Vertical', escapeHtml(vertical)],
+            ['Inquiry', escapeHtml(vertical)],
+            ...(date ? [['Date', escapeHtml(date)] as [string, string]] : []),
+            ...(venue ? [['Venue', escapeHtml(venue)] as [string, string]] : []),
             ['Received', escapeHtml(timestamp) + ' <span style="color:#9c958a;">MT</span>'],
           ])}
         </table>
