@@ -15,25 +15,14 @@ export function PublicHeroGallery() {
     if (publicHeroGallery.length < 2 || prefersReducedMotion()) return;
 
     let timeoutId: number | undefined;
-    let cancelled = false;
 
     const scheduleNext = () => {
       window.clearTimeout(timeoutId);
-      if (document.hidden || cancelled) return;
+      if (document.hidden) return;
 
       timeoutId = window.setTimeout(() => {
-        setActiveIndex((currentIndex) => {
-          const nextIndex = (currentIndex + 1) % publicHeroGallery.length;
-          const nextImage = new Image();
-          nextImage.src = publicHeroGallery[nextIndex].src;
-          nextImage.decode().catch(() => undefined).then(() => {
-            if (cancelled) return;
-            setPreviousIndex(currentIndex);
-            setActiveIndex(nextIndex);
-            scheduleNext();
-          });
-          return currentIndex;
-        });
+        setPreviousIndex(activeIndex);
+        setActiveIndex((activeIndex + 1) % publicHeroGallery.length);
       }, PUBLIC_HERO_INTERVAL_MS);
     };
 
@@ -46,11 +35,10 @@ export function PublicHeroGallery() {
     scheduleNext();
 
     return () => {
-      cancelled = true;
       window.clearTimeout(timeoutId);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, []);
+  }, [activeIndex]);
 
   useEffect(() => {
     if (previousIndex === null) return;
@@ -63,6 +51,12 @@ export function PublicHeroGallery() {
 
   const previousImage = previousIndex === null ? null : publicHeroGallery[previousIndex];
   const nextImage = publicHeroGallery[(activeIndex + 1) % publicHeroGallery.length];
+
+  useEffect(() => {
+    if (!nextImage || prefersReducedMotion()) return;
+    const preload = new Image();
+    preload.src = nextImage.src;
+  }, [nextImage]);
 
   return (
     <div className="public-hero-gallery">
@@ -81,7 +75,6 @@ export function PublicHeroGallery() {
         alt={activeImage.alt}
         fetchPriority={activeIndex === 0 ? "high" : "auto"}
       />
-      {nextImage && <link rel="preload" as="image" href={nextImage.src} />}
       <div className="public-hero__photo-meta" aria-hidden="true">
         <p className="public-hero__caption">{activeImage.heroCaption}</p>
         <p className="public-hero__position">

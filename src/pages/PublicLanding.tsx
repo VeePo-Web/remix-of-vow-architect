@@ -3,8 +3,8 @@ import { ArrowDown, ArrowRight, Check, LoaderCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { PublicHeader } from "@/components/public/PublicHeader";
+import { PublicHeroGallery } from "@/components/public/PublicHeroGallery";
 import { supabase } from "@/integrations/supabase/client";
-import heroImage from "@/assets/archive-first-piano.jpg";
 
 export const PUBLIC_SERVICES = ["weddings", "events", "teaching"] as const;
 type Service = (typeof PUBLIC_SERVICES)[number];
@@ -65,8 +65,7 @@ export default function PublicLanding() {
       <PublicHeader />
       <main id="main-content">
         <section className="public-hero" aria-labelledby="public-title">
-          <img className="public-hero__image" src={heroImage} alt="Parker as a young child, seated at his first piano" />
-          <p className="public-hero__caption">Parker, age five — where it all began.</p>
+          <PublicHeroGallery />
           <div className="public-hero__veil" aria-hidden="true" />
           <div className="public-hero__content">
             <p className="public-kicker">Pianist · Cochrane, Alberta</p>
