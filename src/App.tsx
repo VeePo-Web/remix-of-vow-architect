@@ -9,6 +9,7 @@ import { SmoothScrollProvider } from "@/components/SmoothScrollProvider";
 import { PageTransition } from "@/components/PageTransition";
 import { usePageTransition } from "@/hooks/usePageTransition";
 import { RouteSeo } from "./components/RouteSeo";
+import { PUBLIC_ROUTES } from "@/lib/publicRoutes";
 
 import PublicLanding from "./pages/PublicLanding";
 const PublicGallery = lazy(() => import("./pages/PublicGallery"));
@@ -23,8 +24,8 @@ function AppRoutes() {
     // defers hydration until the lazy chunk arrives — no flash.
     <Suspense fallback={null}>
       <Routes location={displayLocation}>
-        <Route path="/" element={<PublicLanding />} />
-        <Route path="/gallery" element={<PublicGallery />} />
+        <Route path={PUBLIC_ROUTES[0]} element={<PublicLanding />} />
+        <Route path={PUBLIC_ROUTES[1]} element={<PublicGallery />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Suspense>
