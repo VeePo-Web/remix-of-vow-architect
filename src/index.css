@@ -8787,9 +8787,13 @@ body:has(.now-playing-bar.is-visible) .md\\:hidden.fixed.bottom-0 {
   background: hsl(var(--rich-black));
   color: hsl(var(--absolute-white));
 }
+.public-hero-gallery,
 .public-hero__image,
 .public-hero__veil { position: absolute; inset: 0; width: 100%; height: 100%; }
-.public-hero__image { object-fit: cover; object-position: center 35%; animation: public-image-in 1400ms var(--ease-out-expo) both; }
+.public-hero-gallery { background: hsl(var(--rich-black)); }
+.public-hero__image { object-fit: cover; object-position: center 35%; }
+.public-hero__image--active { z-index: 1; animation: public-hero-crossfade 1200ms ease both; }
+.public-hero__image--previous { z-index: 0; }
 .public-hero__veil { background: linear-gradient(180deg, hsl(var(--rich-black) / 0.52) 0%, hsl(var(--rich-black) / 0.16) 30%, hsl(var(--rich-black) / 0.84) 100%); }
 .public-hero__content {
   position: relative;
@@ -8831,7 +8835,9 @@ body:has(.now-playing-bar.is-visible) .md\\:hidden.fixed.bottom-0 {
 .public-scroll-link svg, .public-hero__gallery svg, .public-gallery-intro a svg, .public-gallery-close a svg, .public-success a svg { width: 15px; height: 15px; transition: transform 250ms ease; }
 .public-scroll-link:hover svg { transform: translateY(4px); }
 .public-hero__gallery { position: absolute; z-index: 3; right: clamp(22px, 4vw, 64px); bottom: clamp(70px, 9vh, 110px); }
-.public-hero__caption { position: absolute; z-index: 3; left: clamp(22px, 4vw, 64px); bottom: clamp(20px, 3.5vh, 40px); margin: 0; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: hsl(var(--warm-white) / 0.72); }
+.public-hero__photo-meta { position: absolute; z-index: 3; left: clamp(22px, 4vw, 64px); right: clamp(22px, 4vw, 64px); bottom: clamp(20px, 3.5vh, 40px); display: flex; align-items: center; justify-content: space-between; gap: 24px; color: hsl(var(--warm-white) / 0.72); }
+.public-hero__caption, .public-hero__position { margin: 0; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+.public-hero__position { font-variant-numeric: tabular-nums; }
 .public-hero__gallery:hover svg, .public-gallery-intro a:hover svg, .public-success a:hover svg { transform: translateX(4px); }
 
 .public-inquiry {
@@ -9004,7 +9010,7 @@ body:has(.now-playing-bar.is-visible) .md\\:hidden.fixed.bottom-0 {
 .public-gallery-close a { flex-direction: row-reverse; }
 .public-gallery-close a:hover svg { transform: translateX(-4px); }
 
-@keyframes public-image-in { from { opacity: 0; transform: scale(1.035); } to { opacity: 1; transform: scale(1); } }
+@keyframes public-hero-crossfade { from { opacity: 0; transform: scale(1.018); } to { opacity: 1; transform: scale(1); } }
 @keyframes public-spin { to { transform: rotate(360deg); } }
 
 @media (max-width: 767px) {
@@ -9014,11 +9020,21 @@ body:has(.now-playing-bar.is-visible) .md\\:hidden.fixed.bottom-0 {
   .public-nav a { font-size: 11px; }
   .public-hero { min-height: 92svh; }
   .public-hero__image { object-position: 48% center; }
+  .public-hero__image--archive { object-position: 56% center; }
+  .public-hero__image--flower-arch { object-position: 58% center; }
+  .public-hero__image--ballroom { object-position: 58% center; }
+  .public-hero__image--lesson { object-position: 58% center; }
+  .public-hero__image--mountain { object-position: 55% center; }
+  .public-hero__image--stage-motion { object-position: 52% center; }
+  .public-hero__image--stage-nord { object-position: 50% center; }
+  .public-hero__image--stage-red { object-position: 54% center; }
   .public-hero__content { padding: 130px 20px 62px; }
   .public-hero h1 { font-size: clamp(48px, 15vw, 68px); line-height: 0.91; }
   .public-hero__lede { max-width: 32ch; margin-top: 24px; font-size: 14px; }
   .public-scroll-link { margin-top: 28px; }
   .public-hero__gallery { top: 82px; right: 20px; bottom: auto; }
+  .public-hero__photo-meta { left: 20px; right: 20px; bottom: 18px; gap: 16px; }
+  .public-hero__caption { max-width: 70%; }
   .public-inquiry { padding: 82px 20px 90px; }
   .public-inquiry__intro { grid-template-columns: 1fr; gap: 18px; padding-bottom: 38px; }
   .public-inquiry__intro .public-kicker { padding-top: 0; }
@@ -9054,7 +9070,7 @@ body:has(.now-playing-bar.is-visible) .md\\:hidden.fixed.bottom-0 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .public-hero__image { animation: none; }
+  .public-hero__image { animation: none; transform: none; }
   .public-form-wrap, .public-gallery-item img, .public-nav a::after { transition: none; }
   .public-scroll-link { scroll-behavior: auto; }
 }

@@ -28,6 +28,9 @@ export interface GalleryImage {
   category: GalleryCategory;
   displayAspect?: number;
   objectPosition?: string;
+  heroOrder?: number;
+  heroCaption?: string;
+  heroClassName?: string;
 }
 
 export const publicGallery: GalleryImage[] = [
@@ -42,12 +45,22 @@ export const publicGallery: GalleryImage[] = [
   { src: martinGroup, alt: "Wedding party gathered during Martin and Anita's celebration", width: 1170, height: 2532, category: "Weddings", displayAspect: 1170 / 878, objectPosition: "center 50%" },
   { src: eventsMotion, alt: "A live performance captured in motion", width: 1170, height: 2532, category: "Events", displayAspect: 1170 / 1701, objectPosition: "center 49%" },
   { src: eventsPurple, alt: "Live performance on a purple-lit stage", width: 1920, height: 2880, category: "Events" },
-  { src: weddingYamaha, alt: "Parker playing a Yamaha grand piano in a bright wedding ballroom", width: 1284, height: 1589, category: "Weddings" },
-  { src: flowerArch, alt: "Parker standing beneath a floral arch at a wedding venue", width: 887, height: 1184, category: "Weddings" },
-  { src: livingRoomLesson, alt: "A one-to-one piano lesson in a sunlit living room", width: 887, height: 1184, category: "Teaching" },
-  { src: mountainVenue, alt: "Parker at a mountain venue with peaks behind the glass", width: 887, height: 1184, category: "Events" },
-  { src: stageMotionBlur, alt: "Long-exposure blur of a live Nord keyboard performance", width: 851, height: 1324, category: "Events" },
-  { src: stageNordOverhead, alt: "Overhead view of Parker playing a Nord keyboard on a dark stage", width: 887, height: 1005, category: "Events" },
-  { src: stageRedLight, alt: "Parker performing under deep red stage light", width: 887, height: 1332, category: "Events" },
-  { src: archiveFirstPiano, alt: "Parker as a young child at his first piano", width: 1170, height: 855, category: "Teaching" },
+  { src: weddingYamaha, alt: "Parker playing a Yamaha grand piano in a bright wedding ballroom", width: 1284, height: 1589, category: "Weddings", heroOrder: 3, heroCaption: "At the grand piano · Weddings", heroClassName: "public-hero__image--ballroom" },
+  { src: flowerArch, alt: "Parker standing beneath a floral arch at a wedding venue", width: 887, height: 1184, category: "Weddings", heroOrder: 2, heroCaption: "Wedding day · Southern Alberta", heroClassName: "public-hero__image--flower-arch" },
+  { src: livingRoomLesson, alt: "A one-to-one piano lesson in a sunlit living room", width: 887, height: 1184, category: "Teaching", heroOrder: 4, heroCaption: "One-to-one piano teaching · Cochrane", heroClassName: "public-hero__image--lesson" },
+  { src: mountainVenue, alt: "Parker at a mountain venue with peaks behind the glass", width: 887, height: 1184, category: "Events", heroOrder: 5, heroCaption: "Mountain venue · The Bow Valley", heroClassName: "public-hero__image--mountain" },
+  { src: stageMotionBlur, alt: "Long-exposure blur of a live Nord keyboard performance", width: 851, height: 1324, category: "Events", heroOrder: 6, heroCaption: "Live performance · Events", heroClassName: "public-hero__image--stage-motion" },
+  { src: stageNordOverhead, alt: "Overhead view of Parker playing a Nord keyboard on a dark stage", width: 887, height: 1005, category: "Events", heroOrder: 7, heroCaption: "At the Nord · Live performance", heroClassName: "public-hero__image--stage-nord" },
+  { src: stageRedLight, alt: "Parker performing under deep red stage light", width: 887, height: 1332, category: "Events", heroOrder: 8, heroCaption: "Under the lights · Live performance", heroClassName: "public-hero__image--stage-red" },
+  { src: archiveFirstPiano, alt: "Parker as a young child at his first piano", width: 1170, height: 855, category: "Teaching", heroOrder: 1, heroCaption: "Parker, age five — where it all began.", heroClassName: "public-hero__image--archive" },
 ];
+
+export type HeroGalleryImage = GalleryImage & Required<Pick<GalleryImage, "heroOrder" | "heroCaption" | "heroClassName">>;
+
+export const publicHeroGallery: HeroGalleryImage[] = publicGallery
+  .filter((image): image is HeroGalleryImage => (
+    typeof image.heroOrder === "number"
+    && typeof image.heroCaption === "string"
+    && typeof image.heroClassName === "string"
+  ))
+  .sort((first, second) => first.heroOrder - second.heroOrder);
