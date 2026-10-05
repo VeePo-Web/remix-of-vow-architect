@@ -46,10 +46,6 @@ export function PublicHeroGallery() {
     return () => window.clearTimeout(timeoutId);
   }, [previousIndex]);
 
-  const activeImage = publicHeroGallery[activeIndex];
-  if (!activeImage) return null;
-
-  const previousImage = previousIndex === null ? null : publicHeroGallery[previousIndex];
   const nextImage = publicHeroGallery[(activeIndex + 1) % publicHeroGallery.length];
 
   useEffect(() => {
@@ -57,6 +53,11 @@ export function PublicHeroGallery() {
     const preload = new Image();
     preload.src = nextImage.src;
   }, [nextImage]);
+
+  const activeImage = publicHeroGallery[activeIndex];
+  if (!activeImage) return null;
+
+  const previousImage = previousIndex === null ? null : publicHeroGallery[previousIndex];
 
   return (
     <div className="public-hero-gallery">
