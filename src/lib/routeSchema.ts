@@ -887,9 +887,17 @@ export function getRouteSchemas(pathname: string): object[] {
   // Events about sub-route — Person as private event pianist
   if (clean === "/events/about") out.push(eventsAboutPerson());
 
-  // /services and /gallery are canonical aliases for /pricing and /proof
+  // /services remains an archived canonical alias for /pricing.
   if (clean === "/services") out.push(pricingPackages());
-  if (clean === "/gallery") out.push(proofReviews());
+  if (clean === "/gallery") {
+    out.push({
+      "@context": "https://schema.org",
+      "@type": "ImageGallery",
+      name: "Parker Gawryletz — Gallery",
+      description: "Weddings, live events, piano teaching and performance photography.",
+      url: `${ORIGIN}/gallery`,
+    });
+  }
 
   return out;
 }
