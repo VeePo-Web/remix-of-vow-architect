@@ -50,14 +50,14 @@ export interface GalleryImage {
 }
 
 export const publicGallery: GalleryImage[] = [
-  { src: weddingCeremony, alt: "Parker playing piano during an outdoor wedding ceremony", width: 1170, height: 2532, category: "Weddings", displayAspect: 1170 / 1579, objectPosition: "center 98%" },
+  { src: weddingCeremony, alt: "Parker playing piano during an outdoor wedding ceremony", width: 1170, height: 2532, category: "Weddings", displayAspect: 1170 / 671, objectPosition: "center 50%" },
   { src: eventsBallroom, alt: "Grand piano prepared in an elegant ballroom", width: 1920, height: 1080, category: "Events" },
   { src: martinPerformance, alt: "Live piano performance during Martin and Anita's celebration", width: 1170, height: 2532, category: "Weddings", displayAspect: 1170 / 878, objectPosition: "center 50%" },
   { src: teachingStudio, alt: "Warm piano studio prepared for a lesson", width: 1920, height: 1080, category: "Teaching" },
   { src: martinCouple, alt: "Newly married couple during their celebration", width: 1170, height: 2532, category: "Weddings", displayAspect: 1170 / 878, objectPosition: "center 50%" },
   { src: eventsWarmlight, alt: "Parker performing beneath warm stage light", width: 1170, height: 2532, category: "Events", displayAspect: 1170 / 1755, objectPosition: "center 50%" },
   { src: gallerySetup, alt: "Piano and sound system arranged before guests arrive", width: 1920, height: 1088, category: "Details" },
-  { src: teachingEnsemble, alt: "Parker leading a piano ensemble session", width: 1170, height: 2532, category: "Teaching", displayAspect: 1170 / 1627, objectPosition: "center 98%" },
+  { src: teachingEnsemble, alt: "Parker leading a piano ensemble session", width: 1170, height: 2532, category: "Teaching", displayAspect: 1170 / 819, objectPosition: "center 51%" },
   { src: martinRoom, alt: "Reception room prepared for a wedding celebration", width: 1170, height: 2532, category: "Weddings", displayAspect: 1170 / 878, objectPosition: "center 50%" },
   { src: eventsNord, alt: "Overhead view of a Nord keyboard performance", width: 1170, height: 2532, category: "Events", displayAspect: 1170 / 1755, objectPosition: "center 50%" },
   { src: vowAltar, alt: "Wedding ceremony altar and piano setting", width: 1920, height: 1080, category: "Weddings" },
