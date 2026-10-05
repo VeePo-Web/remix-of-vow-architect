@@ -4,9 +4,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { PublicHeader } from "@/components/public/PublicHeader";
 import { supabase } from "@/integrations/supabase/client";
-import heroImageAsset from "@/assets/archive-first-piano.jpg.asset.json";
-
-const heroImage = heroImageAsset.url;
+import heroImage from "@/assets/archive-first-piano.jpg";
 
 export const PUBLIC_SERVICES = ["weddings", "events", "teaching"] as const;
 type Service = (typeof PUBLIC_SERVICES)[number];
