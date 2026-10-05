@@ -8791,10 +8791,15 @@ body:has(.now-playing-bar.is-visible) .md\\:hidden.fixed.bottom-0 {
 .public-hero__image,
 .public-hero__veil { position: absolute; inset: 0; width: 100%; height: 100%; }
 .public-hero-gallery { background: hsl(var(--rich-black)); }
-.public-hero__image { object-fit: cover; object-position: center 35%; }
+.public-hero__image {
+  object-fit: cover;
+  object-position: center 35%;
+  filter: blur(4px) brightness(0.76);
+  transform: scale(1.018);
+}
 .public-hero__image--active { z-index: 1; animation: public-hero-crossfade 1200ms ease both; }
 .public-hero__image--previous { z-index: 0; }
-.public-hero__veil { background: linear-gradient(180deg, hsl(var(--rich-black) / 0.52) 0%, hsl(var(--rich-black) / 0.16) 30%, hsl(var(--rich-black) / 0.84) 100%); }
+.public-hero__veil { background: linear-gradient(180deg, hsl(var(--rich-black) / 0.66) 0%, hsl(var(--rich-black) / 0.32) 34%, hsl(var(--rich-black) / 0.88) 100%); }
 .public-hero__content {
   position: relative;
   z-index: 2;
