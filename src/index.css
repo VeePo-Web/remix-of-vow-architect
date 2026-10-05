@@ -8831,6 +8831,7 @@ body:has(.now-playing-bar.is-visible) .md\\:hidden.fixed.bottom-0 {
 .public-scroll-link svg, .public-hero__gallery svg, .public-gallery-intro a svg, .public-gallery-close a svg, .public-success a svg { width: 15px; height: 15px; transition: transform 250ms ease; }
 .public-scroll-link:hover svg { transform: translateY(4px); }
 .public-hero__gallery { position: absolute; z-index: 3; right: clamp(22px, 4vw, 64px); bottom: clamp(70px, 9vh, 110px); }
+.public-hero__caption { position: absolute; z-index: 3; left: clamp(22px, 4vw, 64px); bottom: clamp(20px, 3.5vh, 40px); margin: 0; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: hsl(var(--warm-white) / 0.72); }
 .public-hero__gallery:hover svg, .public-gallery-intro a:hover svg, .public-success a:hover svg { transform: translateX(4px); }
 
 .public-inquiry {
