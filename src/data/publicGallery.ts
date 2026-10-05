@@ -33,5 +33,5 @@ export const publicGallery: GalleryImage[] = [
   { src: eventsPerformer, alt: "Black and white portrait of a live performance", width: 1170, height: 2532, category: "Events", displayAspect: 1166 / 1746, objectPosition: "center 50%" },
   { src: martinGroup, alt: "Wedding party gathered during Martin and Anita's celebration", width: 1170, height: 2532, category: "Weddings", displayAspect: 1170 / 878, objectPosition: "center 50%" },
   { src: eventsMotion, alt: "A live performance captured in motion", width: 1170, height: 2532, category: "Events", displayAspect: 1170 / 1701, objectPosition: "center 49%" },
-  { src: eventsPurple, alt: "Live performance on a purple-lit stage", width: 1170, height: 2532, category: "Events" },
+  { src: eventsPurple, alt: "Live performance on a purple-lit stage", width: 1920, height: 2880, category: "Events" },
 ];
