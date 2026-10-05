@@ -2,7 +2,7 @@
 // Warm-white paper, gold accent, Cormorant-style serif. Inlined styles for email clients.
 
 export const BRAND = {
-  name: 'Parker Gawryletz',
+  name: 'Gawryletz Music Services',
   shortName: 'Gawryletz Music',
   tagline: 'Pianist · Ceremony · Event · Mentorship',
   website: 'https://gawryletzmusic.com',
@@ -128,7 +128,7 @@ export function emailFooter(reason: string): string {
     <td style="padding:48px 56px 48px;text-align:center;background:#ffffff;border-top:1px solid ${c.rule};">
       <div style="width:24px;height:1px;background:${c.gold};margin:0 auto 24px;"></div>
       <p style="margin:0 0 6px;font-family:Georgia,serif;font-size:14px;color:${c.ink};font-style:italic;">
-        Parker Gawryletz
+        Gawryletz Music Services
       </p>
       <p style="margin:0 0 22px;font-family:Georgia,serif;font-size:11px;letter-spacing:3px;color:${c.muted};text-transform:uppercase;">
         Pianist

@@ -6,8 +6,8 @@ import { publicGallery } from "@/data/publicGallery";
 
 export default function PublicGallery() {
   useEffect(() => {
-    document.title = "Gallery | Parker Gawryletz";
-    document.querySelector('meta[name="description"]')?.setAttribute("content", "A photography-led collection of weddings, live events, piano teaching and performance details from Parker Gawryletz.");
+    document.title = "Gallery | Gawryletz Music Services";
+    document.querySelector('meta[name="description"]')?.setAttribute("content", "A photography-led collection of weddings, live events, piano teaching and performance details from Gawryletz Music Services.");
   }, []);
 
   return (
@@ -23,7 +23,7 @@ export default function PublicGallery() {
           </div>
         </header>
 
-        <ol className="public-gallery-wall" aria-label="Parker Gawryletz photography gallery">
+        <ol className="public-gallery-wall" aria-label="Gawryletz Music Services photography gallery">
           {publicGallery.map((image, index) => (
             <li key={image.src} className="public-gallery-item">
               <figure

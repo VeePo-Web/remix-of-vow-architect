@@ -22,8 +22,8 @@ export default function PublicLanding() {
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    document.title = "Parker Gawryletz | Pianist in Cochrane & Calgary";
-    document.querySelector('meta[name="description"]')?.setAttribute("content", "Live piano for weddings and events, plus personal piano teaching in Cochrane, Calgary, Canmore and Banff. Start a conversation with Parker Gawryletz.");
+    document.title = "Gawryletz Music Services | Pianist in Cochrane & Calgary";
+    document.querySelector('meta[name="description"]')?.setAttribute("content", "Live piano for weddings and events, plus personal piano teaching in Cochrane, Calgary, Canmore and Banff. Start a conversation with Gawryletz Music Services.");
   }, []);
 
   const chooseService = (next: Service) => {
@@ -65,7 +65,7 @@ export default function PublicLanding() {
       <PublicHeader />
       <main id="main-content">
         <section className="public-hero" aria-labelledby="public-title">
-          <img className="public-hero__image" src={heroImage} alt="Parker Gawryletz performing live at the piano" />
+          <img className="public-hero__image" src={heroImage} alt="Live piano performance by Gawryletz Music Services" />
           <div className="public-hero__veil" aria-hidden="true" />
           <div className="public-hero__content">
             <p className="public-kicker">Pianist · Cochrane, Alberta</p>
@@ -139,7 +139,7 @@ export default function PublicLanding() {
         </section>
 
         <footer className="public-footer">
-          <p>Parker Gawryletz</p>
+          <p>Gawryletz Music Services</p>
           <a href="mailto:parker@veepo.ca">parker@veepo.ca</a>
           <p>Cochrane · Calgary · The Bow Valley</p>
         </footer>

@@ -79,7 +79,7 @@ export const publicGallery: GalleryImage[] = [
   { src: witnessesVenue, alt: "Wedding venue ready to receive guests", width: 1920, height: 1088, category: "Weddings" },
   { src: heroPiano, alt: "Grand piano in soft natural light", width: 1920, height: 1080, category: "Details" },
   { src: processRefining, alt: "An arrangement being refined at the keyboard", width: 1280, height: 864, category: "Details" },
-  { src: aboutHero, alt: "Parker Gawryletz seated at the piano", width: 1920, height: 1080, category: "Details" },
+  { src: aboutHero, alt: "Pianist with Gawryletz Music Services seated at the piano", width: 1920, height: 1080, category: "Details" },
   { src: listenHero, alt: "Piano performance in a darkened room", width: 1920, height: 1080, category: "Events" },
   { src: processCompleting, alt: "Finishing details of a musical arrangement", width: 1280, height: 864, category: "Details" },
   { src: faqHero, alt: "Piano ready for an upcoming performance", width: 1920, height: 1080, category: "Details" },
