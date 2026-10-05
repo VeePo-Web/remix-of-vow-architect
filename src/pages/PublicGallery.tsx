@@ -26,7 +26,10 @@ export default function PublicGallery() {
         <ol className="public-gallery-wall" aria-label="Parker Gawryletz photography gallery">
           {publicGallery.map((image, index) => (
             <li key={image.src} className="public-gallery-item">
-              <figure>
+              <figure
+                className={image.displayAspect ? "has-crop" : undefined}
+                style={image.displayAspect ? { aspectRatio: image.displayAspect } : undefined}
+              >
                 <img
                   src={image.src}
                   alt={image.alt}
@@ -34,6 +37,7 @@ export default function PublicGallery() {
                   height={image.height}
                   loading={index < 4 ? "eager" : "lazy"}
                   fetchPriority={index < 2 ? "high" : "auto"}
+                  style={image.objectPosition ? { objectPosition: image.objectPosition } : undefined}
                 />
                 <figcaption><span>{image.category}</span><span>{String(index + 1).padStart(2, "0")}</span></figcaption>
               </figure>

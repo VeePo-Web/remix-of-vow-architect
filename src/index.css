@@ -8979,6 +8979,7 @@ body:has(.now-playing-bar.is-visible) .md\\:hidden.fixed.bottom-0 {
 .public-gallery-item { break-inside: avoid; margin: 0 0 8px; }
 .public-gallery-item figure { position: relative; margin: 0; overflow: hidden; background: hsl(var(--public-paper-deep)); }
 .public-gallery-item img { display: block; width: 100%; height: auto; transition: transform 900ms var(--ease-out-expo), filter 500ms ease; }
+.public-gallery-item figure.has-crop img { position: absolute; inset: 0; height: 100%; object-fit: cover; }
 .public-gallery-item figcaption {
   position: absolute;
   inset: auto 0 0;
