@@ -9021,14 +9021,13 @@ body:has(.now-playing-bar.is-visible) .md\\:hidden.fixed.bottom-0 {
   .public-hero { min-height: 92svh; }
   .public-hero__image { object-position: 48% center; }
   .public-hero__image--archive { object-position: 56% center; }
-  .public-hero__image--ceremony { object-position: 52% center; }
   .public-hero__image--flower-arch { object-position: 58% center; }
-  .public-hero__image--warm-stage { object-position: 48% center; }
   .public-hero__image--ballroom { object-position: 58% center; }
-  .public-hero__image--ensemble { object-position: 48% center; }
-  .public-hero__image--performer { object-position: 53% center; }
   .public-hero__image--lesson { object-position: 58% center; }
   .public-hero__image--mountain { object-position: 55% center; }
+  .public-hero__image--stage-motion { object-position: 52% center; }
+  .public-hero__image--stage-nord { object-position: 50% center; }
+  .public-hero__image--stage-red { object-position: 54% center; }
   .public-hero__content { padding: 130px 20px 62px; }
   .public-hero h1 { font-size: clamp(48px, 15vw, 68px); line-height: 0.91; }
   .public-hero__lede { max-width: 32ch; margin-top: 24px; font-size: 14px; }
