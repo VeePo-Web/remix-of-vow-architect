@@ -1,3 +1,11 @@
+import archiveFirstPiano from "@/assets/archive-first-piano.jpg";
+import flowerArch from "@/assets/flower-arch-portrait.jpg";
+import livingRoomLesson from "@/assets/living-room-piano-lesson.jpg";
+import mountainVenue from "@/assets/mountain-venue-portrait.jpg";
+import stageMotionBlur from "@/assets/stage-motion-blur.jpg";
+import stageNordOverhead from "@/assets/stage-nord-keys-overhead.jpg";
+import stageRedLight from "@/assets/stage-red-light-back.jpg";
+import weddingYamaha from "@/assets/wedding-yamaha-ballroom.jpg";
 import eventsNord from "@/assets/events-nord-overhead.webp";
 import eventsPerformer from "@/assets/events-performer-bw.webp";
 import eventsMotion from "@/assets/events-stage-motion.webp";
@@ -34,4 +42,12 @@ export const publicGallery: GalleryImage[] = [
   { src: martinGroup, alt: "Wedding party gathered during Martin and Anita's celebration", width: 1170, height: 2532, category: "Weddings", displayAspect: 1170 / 878, objectPosition: "center 50%" },
   { src: eventsMotion, alt: "A live performance captured in motion", width: 1170, height: 2532, category: "Events", displayAspect: 1170 / 1701, objectPosition: "center 49%" },
   { src: eventsPurple, alt: "Live performance on a purple-lit stage", width: 1920, height: 2880, category: "Events" },
+  { src: weddingYamaha, alt: "Parker playing a Yamaha grand piano in a bright wedding ballroom", width: 1284, height: 1589, category: "Weddings" },
+  { src: flowerArch, alt: "Parker standing beneath a floral arch at a wedding venue", width: 887, height: 1184, category: "Weddings" },
+  { src: livingRoomLesson, alt: "A one-to-one piano lesson in a sunlit living room", width: 887, height: 1184, category: "Teaching" },
+  { src: mountainVenue, alt: "Parker at a mountain venue with peaks behind the glass", width: 887, height: 1184, category: "Events" },
+  { src: stageMotionBlur, alt: "Long-exposure blur of a live Nord keyboard performance", width: 851, height: 1324, category: "Events" },
+  { src: stageNordOverhead, alt: "Overhead view of Parker playing a Nord keyboard on a dark stage", width: 887, height: 1005, category: "Events" },
+  { src: stageRedLight, alt: "Parker performing under deep red stage light", width: 887, height: 1332, category: "Events" },
+  { src: archiveFirstPiano, alt: "Parker as a young child at his first piano", width: 1170, height: 855, category: "Teaching" },
 ];
